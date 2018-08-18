@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "api-5334540786785398082-807466",
+  "private_key_id": "ad35434eec58791f86ac88de54f86947270c9709",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDiwmi+EM94SjUS\n05FNi8C7PfaBFBAsTvGnvDQSMERjHfiMIxJ9vmz/oVkRUtKxgdD1ztUsuC5wRIY6\nV4hvqd+OH0bHvJKO1PAj9jjsw+jwc4kC1skewbA+JE3fY6dJeuK/GAr1kaB5RPUD\nfQ9tD0XRMFqM0PMLAb+5Uf/1n1//02AU9tmV+E3VxNVw9aH9oXZwURhSFYYJwKkT\nih48FX3nFExUhjfDfFnCJqL7oOZqO/y5lPIhlZMugjEV9YNfpw4QliCqOofQjKq7\ny7k6Pnwg6F+p0K7QsW6BUcQNyJEIaOv44jQJJwQCQrjSnefJgtVfJfEA2Fqjn3r8\nj3j01WyXAgMBAAECggEAANUGzl/AaygWjsWg/GBdajJ9g5a/wnHduChcJo7vyU9U\nWKtOR5DZ1IxSh9o+dLFNw4EpThs07GuL9I3ardI5REvAFj6OaSDF6tPd/Jxxb+R0\npcKFBWxfibLXaFD0zbO6PkpHzAPnS1qh7YvZcSSDtJNRWb/wjGNKwVLYNh4KG6W4\nqKARUESw9w0SY6FA0Wx1Iud5gTZuyWIJr8RZ+qZ4O9tiyRJmVK1EHBcPlkupe3/6\n2hpb55YsBygJiGePvPgozQxWZxPrjJE/bzwhxdkm6ZfCZ04OtPMW5utoJhOFMsHs\nFaotMNP4NuMbKYkRmiB9+p42AZnqsmJiw5H0YjDQhQKBgQD+68DR6SN9DcbYtLJX\nKsWV4tvLBOFdAjN/qNfrdTYZ4zwYcvaOavpN1WzfJiLc1ndQzepTvY0bJFRuM32T\n6PrhaevGZBdZQs6wmkXOsPeq6Obn7GPN5Zga9oYtpj70uq8SF7Pf10OiANkET0YF\n1IGdRPCKYyVlUcbaNUzK5txjuwKBgQDjuCN3neyEakgHsogBMDytmy2Mb91oj3Sa\n/QRuYlYzPCIHwF28bKEkj2edImZS2g/fdUm+6hJ1j7KdsN8I+j23VzdxyDBaNZvp\npoIurpzClo8LGQJr0k0cLmRDZTqMksl0IdWZ6VXEFlxY0d3bXLA1UvRWUSQBPYii\n9ERTa/c21QKBgQDAGBUX2M/2RzBlUlzlVITJusaXiNjuBl+aPjhe5Ndc0KATaGYk\n0bZGeqJs0UcKFM6aZGDEs5ymLE03MbPahoCu5etWd0wk5jPsXoRmCXLIJnMBp19Z\n4z4oa0aXFaRxNFACmTvhXExJwsvF9Jq2f/kf8rg0ABxI6kOnYOy6JRdESwKBgB2o\nAn52g7HvAXh3KL024gAeAH2Up/oRDLeOkgAqMF21zBzEUbDTWN0hC/Zr33WUzpJk\nfPkvFL5Yu4NL4JATvuvcoOzhjGKDLs3sEHIx7VpuLyzb0fPmzIIKDKa2TTy3dSL5\nsQ69U50Y6Gfs1P7XgF9BcW64XH8I232VYDyZB/YNAoGAEVKoNBeMTpARt2aK+jIU\n1kUj+7MBpI935vrKnso0wdvlgVCBhWlkmGDVV6dEIcMBh2tUWzZcCcTLpU+zKuJ/\njWR2YYGqe4p6j6hB2tTeskaAXFgHWBjFMHlBsTmG/y/OY+nPH8OeeVLcqxe9DyeB\ngoVr5dckzmUN9BmFmqvui74=\n-----END PRIVATE KEY-----\n",
+  "client_email": "serviseaccountforepocketcash@api-5334540786785398082-807466.iam.gserviceaccount.com",
+  "client_id": "105644091901120447400",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/serviseaccountforepocketcash%40api-5334540786785398082-807466.iam.gserviceaccount.com"
+}

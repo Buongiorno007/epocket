@@ -1,0 +1,77 @@
+import React from "react";
+import { View, StatusBar, BackHandler } from "react-native";
+//containers
+import Navbar from "./../../containers/cashout-navbar/cashout-navbar";
+import Message from "./../../containers/cashout-message/cashout-message";
+import Code from "./../../containers/cashout-code/cashout-code";
+import Process from "./../../containers/process/process";
+//constants
+import styles from "./styles";
+//redux
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { getSocket } from "../../../reducers/socket";
+
+//services
+import NavigationService from "./../../../services/route";
+
+class QrCode extends React.Component {
+  state = {
+    modal: false
+  };
+
+  componentDidMount = () => {
+    this.backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
+      this.goBackPress();
+      return true;
+    });
+    this.props.getSocket(this.props.token, this.props.navigation.state.params.orderId);
+
+  }
+  goBackPress = () => {
+    NavigationService.navigate("Main");
+  };
+
+  componentWillUnmount() {
+    this.backHandler.remove();
+  }
+
+  componentWillReceiveProps = nextProps => {
+    let thisStatus = this.props.socket.status;
+    let nextStatus = nextProps.socket.status;
+    ((nextStatus === 1 || nextStatus === -1) && thisStatus === 2) && NavigationService.navigate("Trade");
+      
+  }
+
+  render = () => {
+    return (
+      <View style={[styles.container, this.state.modal ? styles.modal : null]}>
+        <StatusBar
+          barStyle="dark-content"
+          translucent={true}
+          backgroundColor={"transparent"}
+        />
+        {!this.state.modal && <Navbar />}
+        {!this.state.modal && (
+          <Message
+            total_price={this.props.navigation.state.params.total_price}
+          />
+        )}
+        {!this.state.modal && <Code link={this.props.navigation.state.params.link} />}
+        {this.props.socket.status === 2 ? <Process /> : null}
+      </View>
+    );
+  };
+}
+
+const mapStateToProps = state => ({
+  selectedMall: state.selectedMall,
+  token: state.token,
+  socket: state.socket,
+});
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ getSocket }, dispatch);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(QrCode);

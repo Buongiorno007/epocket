@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "909824819057",
+    "firebase_url": "https://epocketcash-fe651.firebaseio.com",
+    "project_id": "epocketcash-fe651",
+    "storage_bucket": "epocketcash-fe651.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:909824819057:android:5a0f6c0e44d27aa9",
+        "android_client_info": {
+          "package_name": "club.dvlp.epocket"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "909824819057-no7klkocdcteda13pj57t41k480t6f40.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA85xzcZzpHwqTgRq_FKeduLygMoCMRy84"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

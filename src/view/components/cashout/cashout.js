@@ -1,0 +1,121 @@
+import React from "react";
+import styles from "./styles";
+import { View, AsyncStorage } from "react-native";
+import LinearGradient from "react-native-linear-gradient";
+//containers
+import List from "./../../containers/cashout-list/cashout-list";
+import Balance from "./../../containers/cashout-balance/cashout-balance";
+import FooterNavigation from "../../containers/footer-navigator/footer-navigator";
+import CustomAlert from "../../containers/custom-alert/custom-alert";
+import TimerModal from "../../containers/timer-modal/timer-modal";
+//constants
+import { urls } from "../../../constants/urls";
+import { RU } from "./../../../locales/ru";
+import { colors } from "./../../../constants/colors";
+//redux
+import { setBalance } from "../../../reducers/user-balance";
+import { loaderState } from "../../../reducers/loader";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+//services
+import { httpPostJson } from "../../../services/http";
+
+class Cashout extends React.Component {
+  state = {
+    errorVisible: false,
+    errorText: "",
+    products: []
+  };
+  setModalVisible = visible => {
+    this.setState({ errorVisible: visible });
+  };
+  loadData = () => {
+    this.setModalVisible(false);
+    this.props.loaderState(true);
+    let body = {
+      outletId: this.props.selectedMall.id
+    };
+    let promise = httpPostJson(
+      urls.get_outlet_products,
+      JSON.stringify(body),
+      this.props.token
+    );
+    promise.then(
+      result => {
+        this.setModalVisible(false);
+        console.log("Fulfilled: get_outlet_products", result);
+        this.props.loaderState(false);
+        AsyncStorage.setItem("balance", String(result.body.balance), () => {
+          this.props.setBalance(result.body.balance);
+        });
+        this.setState({ products: result.body.products });
+      },
+      error => {
+        // this.props.loaderState(false);
+        if (error.code === 503) {
+          this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
+        } else if (error.code === 400) {
+          this.setState({ errorText: RU.HTTP_ERRORS.NOT_FOUND });
+        } else if (error.code === 403) {
+          this.setState({ errorText: RU.HTTP_ERRORS.SMTH_WENT_WRONG });
+        } else if (error.code === 408) {
+          this.setState({ errorText: RU.HTTP_ERRORS.RUNTIME });
+        } else {
+          this.setState({ errorText: 'code : 500. Internal Server Error' });
+        }
+        this.setModalVisible(true);
+        console.log("Rejected: ", error);
+      }
+    );
+  };
+  componentDidMount = () => {
+    this.loadData();
+    // this.props.loaderState(true);
+  };
+
+  render = () => {
+    return (
+      <View style={styles.container}>
+        <CustomAlert
+          title={this.state.errorText}
+          first_btn_title={RU.REPEAT}
+          visible={this.state.errorVisible}
+          first_btn_handler={() => {
+            this.loadData();
+          }}
+          decline_btn_handler={() => {
+            this.setModalVisible(!this.state.errorVisible);
+            this.props.loaderState(false);
+          }}
+        />
+        <LinearGradient
+          colors={[colors.orange, colors.pink]}
+          start={{ x: 0.0, y: 5.0 }}
+          end={{ x: 1.0, y: 5.0 }}
+          style={styles.grad}
+        />
+        <Balance />
+        <List data={this.state.products} />
+        <TimerModal/>
+        <FooterNavigation />
+      </View>
+    );
+  };
+}
+const mapStateToProps = state => ({
+  selectedMall: state.selectedMall,
+  token: state.token,
+  loader: state.loader
+});
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      setBalance,
+      loaderState
+    },
+    dispatch
+  );
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Cashout);
