@@ -19,6 +19,7 @@ export const urls = {
     get_outlet_products :       devserver+ '/order/get-outlet-products/',
     create_order :              devserver+ '/order/create-order/',
     add_device :                devserver+ '/push-notification/add-device/',
-    send_push :                 devserver+ '/push-notification/send-push/',
+    send_push_all:              devserver+ '/push-notification/send-push/all',
+    send_push_single:           devserver+ '/push-notification/send-push/single',
     socket :                               'ws://epocket.dev.splinestudio.com/order/',
 }

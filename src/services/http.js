@@ -40,7 +40,7 @@ export const httpPost = (url, body, token) => {
   const OPTIONS = {
     method: "POST",
     headers:
-      token !== null
+      token
         ? {
             ...defaultHeaders,
             Authorization: `JWT ${token}`

@@ -38,7 +38,13 @@ import { setToken } from "../../../reducers/token";
 //services
 import geo_config from "./geolocation-config";
 import NavigationService from "../../../services/route";
+//constants
+import { urls } from "../../../constants/urls";
+import { sendToTelegramm } from "../../../services/telegramm-notification";
 
+import { httpPost } from "../../../services/http";
+import BackgroundTimer from "react-native-background-timer";
+import BackgroundFetch from "react-native-background-fetch";
 
 class Start extends React.Component {
   state = {

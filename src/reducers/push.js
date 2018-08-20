@@ -29,7 +29,7 @@ sendFiredaseToken = (app_token, firebase_token) => {
 export const getPush = (app_token) => async dispatch => {
 	firebase.messaging().getToken().then((firebase_token) => {
 		this.sendFiredaseToken(app_token, firebase_token);
-		AsyncStorage.setItem({'fire_token': firebase_token});
+		AsyncStorage.setItem('fire_token', firebase_token);
 	});
 	firebase.messaging().hasPermission()
 		.then(enabled => {

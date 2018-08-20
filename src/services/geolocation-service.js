@@ -19,9 +19,10 @@ import { urls } from "../constants/urls";
 class GeolocationService extends React.Component {
   state = {
     sheduleRequestStart: false,
-    interval: 900000,
-    // interval: 10000,
-    sheduleRequest: null
+    // interval: 900000,
+    interval: 10000,
+    sheduleRequest: null,
+    user : null
   };
   startMissionRequest = () => {
     let body = {
@@ -47,16 +48,13 @@ class GeolocationService extends React.Component {
   };
 
   sendTimerRequest = () => {
-    BackgroundTimer.runBackgroundTimer(() => {
+    BackgroundFetch.configure({
+      minimumFetchInterval: 15, // <-- minutes (15 is minimum allowed)
+    }, () => {
       this.startMissionRequest();
-      // sendToTelegramm("sendTimerRequest BackgroundTimer");
-      BackgroundFetch.configure({
-        minimumFetchInterval: 15, // <-- minutes (15 is minimum allowed)
-      }, () => {
-        this.startMissionRequest();
-      }, (error) => {
-      });
-    }, this.state.interval);
+      sendToTelegramm("BackgroundTimer    "+Platform.OS+"   "+this.state.user);
+    }, (error) => {
+    });
 
   };
 
@@ -85,22 +83,14 @@ class GeolocationService extends React.Component {
   }
 
   sendDistancePush = (message) => {
-    let body = {
-      "body":message,
-      "title":"Внимание",
-      "time_to_live": 3660
-    }
-    fetch(urls.start_mission, {
-      method: "POST",
-      headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `JWT ${this.props.token}`,
-      },
-      body : JSON.stringify(body),
-  });
+    
   }
-
+  componentDidMount() {
+    AsyncStorage.getItem("user_info").then(value => {
+      let object = JSON.parse(value);
+      this.setState({ user: object.name });
+    });
+  }
   closeMission = () => {
     this.props.showFailedNotification(true);
   };
@@ -129,11 +119,9 @@ class GeolocationService extends React.Component {
       if (distance <= 0 && nextProps.isLocation && this.props.isLocation) {
         this.props.showDashboard(true);
         this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_4);
-        sendToTelegramm("in");
       } else {
         this.props.showDashboard(false);
         this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_5);
-        sendToTelegramm("out");
       }
 
       if (distance === 10) {
