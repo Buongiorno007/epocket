@@ -90,23 +90,15 @@ class GeolocationService extends React.Component {
       "title":"Внимание",
       "time_to_live": 3660
     }
-    let promise = httpPost(
-      urls.start_mission,
-      JSON.stringify(body),
-      this.props.token
-    );
-    promise.then(
-      result => {
-        if (result.interval <= 0) {
-          this.finishMainTask();
-        }
-        if (result.failed) {
-          this.rejectMainTask();
-        }
-        this.setState({ mainTaskId: result.id });
+    fetch(urls.start_mission, {
+      method: "POST",
+      headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `JWT ${this.props.token}`,
       },
-      error => { }
-    );
+      body : JSON.stringify(body),
+  });
   }
 
   closeMission = () => {
@@ -137,14 +129,15 @@ class GeolocationService extends React.Component {
       if (distance <= 0 && nextProps.isLocation && this.props.isLocation) {
         this.props.showDashboard(true);
         this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_4);
-
+        sendToTelegramm("in");
       } else {
         this.props.showDashboard(false);
         this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_5);
-
+        sendToTelegramm("out");
       }
 
-      if (distance === 120) {
+      if (distance === 10) {
+        this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_3);
       }
     }
     if (nextProps.timer_status && !this.state.sheduleRequestStart) {
