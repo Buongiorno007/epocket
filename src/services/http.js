@@ -34,30 +34,6 @@ export const httpGet = (url, token) => {
  */
 export const httpPost = (url, body, token) => {
   const defaultHeaders = {
-    "Content-Type": "application/x-www-form-urlencoded"
-  };
-  const OPTIONS = {
-    method: "POST",
-    headers:
-      token !== null
-        ? {
-            ...defaultHeaders,
-            Authorization: `JWT ${token}`
-          }
-        : { ...defaultHeaders },
-    body: body
-  };
-
-  return sendRequest(url, OPTIONS);
-};
-/**
- *
- * @param { string } url API link
- * @param { Object } body parameters
- * @param { boolean } needToken if token does't need set false
- */
-export const httpPostJson = (url, body, token) => {
-  const defaultHeaders = {
     Accept: "application/json",
     "Content-Type": "application/json"
   };

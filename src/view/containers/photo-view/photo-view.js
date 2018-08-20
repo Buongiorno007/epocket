@@ -52,7 +52,6 @@ class PhotoView extends React.Component {
     promise.then(
       result => {
         this.setErrorPhotoVisible(false);
-        console.log("Fulfilled body: ", result);
         this.finishMission();
         // NavigationService.navigate("MissionSuccess", { price: this.props.selectedMission.price });
       },
@@ -87,7 +86,6 @@ class PhotoView extends React.Component {
     promise.then(
       result => {
         this.setErrorMissionVisible(false);
-        console.log("Fulfilled finishMission: ", result);
         this.props.setBalance(result.body.balance);
         AsyncStorage.setItem("balance", result.body.balance, () => {
           NavigationService.navigate("MissionSuccess", {

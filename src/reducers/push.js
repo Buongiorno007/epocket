@@ -1,10 +1,10 @@
-import { Platform } from "react-native";
+import { Platform, AsyncStorage} from "react-native";
 
 import firebase from 'react-native-firebase';
 import { sendToTelegramm } from '../services/telegramm-notification'
 import { urls } from "../constants/urls";
 import Permissions from 'react-native-permissions'
-import { httpPostJson } from '../services/http'
+import { httpPost } from '../services/http'
 export default (state = false, action) => {
 	switch (action.type) {
 		default:
@@ -17,25 +17,19 @@ sendFiredaseToken = (app_token, firebase_token) => {
 		"token": firebase_token,
 		"platform": Platform.OS === 'ios' ? 2 : 1
 	};
-	let promise = httpPostJson(
+	let promise = httpPost(
 		urls.add_device,
 		JSON.stringify(body),
 		app_token
 	);
-	promise.then(
-		result => {
-			console.log("sendFiredaseToken: ", result);
-		},
-		error => {
-			console.log("sendFiredaseToken: ", error);
-		}
-	);
+	promise.then( result => { }, error => { } );
 }
 
 
 export const getPush = (app_token) => async dispatch => {
 	firebase.messaging().getToken().then((firebase_token) => {
-		this.sendFiredaseToken(app_token, firebase_token)
+		this.sendFiredaseToken(app_token, firebase_token);
+		AsyncStorage.setItem({'fire_token': firebase_token});
 	});
 	firebase.messaging().hasPermission()
 		.then(enabled => {

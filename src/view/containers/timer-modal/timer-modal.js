@@ -43,11 +43,7 @@ class TimerModal extends React.Component {
                 style={styles.confirm_button}
                 onPress={() => {
                   this.props.showDoneNotification(false);
-                  try {
-                    this.props.activeTab === 2 && this.props.callTimer()
-                  } catch (e) {
-                    console.log(e)
-                  }
+                  try { this.props.activeTab === 2 && this.props.callTimer() } catch (e) { }
                 }}
               >
                 <LinearGradient
@@ -81,11 +77,7 @@ class TimerModal extends React.Component {
                 style={styles.confirm_button}
                 onPress={() => {
                   this.props.showFailedNotification(false);
-                  try {
-                    this.props.activeTab === 2 && this.props.callTimer()
-                  } catch (e) {
-                    console.log(e)
-                  }
+                  try { this.props.activeTab === 2 && this.props.callTimer() } catch (e) { }
                 }}
               >
                 <LinearGradient

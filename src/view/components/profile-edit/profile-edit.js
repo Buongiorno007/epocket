@@ -88,7 +88,6 @@ class ProfileEdit extends React.Component {
       promise.then(
         result => {
           this.setRejectVisible(false);
-          console.log("Fulfilled: ", result);
           let user = {
             user_name: this.state.user.username,
             user_photo_url: this.state.user.photo,

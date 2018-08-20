@@ -40,7 +40,6 @@ class ReturnToMall extends React.Component {
     promise.then(
       result => {
         this.setModalVisible(false);
-        console.log("Fulfilled closeTimerTask: ", result);
       },
       error => {
         console.log("Rejected: ", error);

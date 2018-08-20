@@ -16,7 +16,6 @@ export const getBonuses = (token, limitReceived, limitSpent) => {
     );
     received_promise.then(
       result => {
-        console.log("Fulfilled: received_promise", result);
         let i = 1;
         const jsx_received_data = result.body.history.map(data => {
           i++;
@@ -30,7 +29,6 @@ export const getBonuses = (token, limitReceived, limitSpent) => {
         });
       },
       error => {
-        console.log("Rejected: ", error);
         let i = 1;
         error.body = [
           {
@@ -56,7 +54,6 @@ export const getBonuses = (token, limitReceived, limitSpent) => {
     spent_promise.then(
       result => {
         let i = 1;
-        console.log("Fulfilled: spent_promise", result);
         const jsx_spent_data = result.body.history.map(data => {
           i++;
           return <HistoryCard key={i} info={data} />;
@@ -69,7 +66,6 @@ export const getBonuses = (token, limitReceived, limitSpent) => {
         });
       },
       error => {
-        console.log("Rejected: ", error);
         let i = 1;
         error.body = [
           {

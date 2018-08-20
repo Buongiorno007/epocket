@@ -25,10 +25,8 @@ class LocationDisabled extends React.Component {
 
     RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({ interval: 10000, fastInterval: 5000 })
       .then(data => {
-        console.log(data)
         navigator.geolocation.getCurrentPosition(
           position => {
-            console.log('position', position)
             this.props.locationState(true);
             this.props.setLocation({
               lng: position.coords.longitude,

@@ -24,9 +24,7 @@ import { setActiveCard } from "../../../reducers/set-active-card";
 import GeolocationService from "../../../services/geolocation-service";
 
 class Main extends React.Component {
-  componentDidCatch(error, errorInfo) {
-    console.log(error, errorInfo);
-  }
+
   componentDidMount() {
     this.backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
       this.props.setActiveCard(false);

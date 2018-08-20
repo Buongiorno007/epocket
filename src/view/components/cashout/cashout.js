@@ -18,7 +18,7 @@ import { loaderState } from "../../../reducers/loader";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 //services
-import { httpPostJson } from "../../../services/http";
+import { httpPost } from "../../../services/http";
 
 class Cashout extends React.Component {
   state = {
@@ -35,7 +35,7 @@ class Cashout extends React.Component {
     let body = {
       outletId: this.props.selectedMall.id
     };
-    let promise = httpPostJson(
+    let promise = httpPost(
       urls.get_outlet_products,
       JSON.stringify(body),
       this.props.token
@@ -43,7 +43,6 @@ class Cashout extends React.Component {
     promise.then(
       result => {
         this.setModalVisible(false);
-        console.log("Fulfilled: get_outlet_products", result);
         this.props.loaderState(false);
         AsyncStorage.setItem("balance", String(result.body.balance), () => {
           this.props.setBalance(result.body.balance);
@@ -64,7 +63,6 @@ class Cashout extends React.Component {
           this.setState({ errorText: 'code : 500. Internal Server Error' });
         }
         this.setModalVisible(true);
-        console.log("Rejected: ", error);
       }
     );
   };

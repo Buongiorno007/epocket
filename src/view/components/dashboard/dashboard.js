@@ -25,7 +25,7 @@ import { reloadTimer } from "../../../reducers/timer-interval";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 //services
-import { httpPostJson } from "../../../services/http";
+import { httpPost } from "../../../services/http";
 import "./correcting-interval";
 
 import moment from "moment";
@@ -61,7 +61,7 @@ class Dashboard extends React.Component {
   };
   callTimer() {
     this.setStartMissionErrorVisible(false);
-    let promise = httpPostJson(
+    let promise = httpPost(
       urls.start_mission,
       JSON.stringify(this.state.body),
       this.props.token
@@ -69,7 +69,6 @@ class Dashboard extends React.Component {
     promise.then(
       result => {
         this.setStartMissionErrorVisible(false);
-        console.log("callTimerFirst Fulfilled: ", result);
         this.setState({ load_timer: false });
         this.setState(
           {
@@ -95,7 +94,6 @@ class Dashboard extends React.Component {
         );
       },
       error => {
-        console.log("Rejected callTimer: ", error);
         /*
           416 - лимит на кол-во человек.
           418 - лимит на кол-во выполнений за день (пока 1)
@@ -139,7 +137,7 @@ class Dashboard extends React.Component {
   getMissions = () => {
     this.setMissionsErrorVisible(false);
     this.setState({ load_missions: true });
-    let promise = httpPostJson(
+    let promise = httpPost(
       urls.missions,
       JSON.stringify(this.state.body),
       this.props.token
@@ -149,12 +147,10 @@ class Dashboard extends React.Component {
         this.setMissionsErrorVisible(false);
         this.setState({ load_missions: false });
         if (result.status == 200) {
-          console.log("getMissions Fulfilled: ", result);
           this.props.setMissions(this.getActiveMissions(result.body.missions));
         }
       },
       error => {
-        console.log("getMissions Rejected: ", error);
         if (error.code === 503) {
           this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
         } else if (error.code === 400) {
@@ -172,7 +168,6 @@ class Dashboard extends React.Component {
 
   timer(interval) {
     let countDownDate = new Date().getTime() + interval;
-    // console.log('countDownDate', countDownDate);
     clearCorrectingInterval(this.props.timer_interval);
     // Update the count down every 1 second
     let x = setCorrectingInterval(() => {
@@ -181,7 +176,6 @@ class Dashboard extends React.Component {
 
       // Find the distance between now an the count down date
       let distance = countDownDate - now;
-      //   console.log('distance', distance);
 
       // Time calculations for days, hours, minutes and seconds
       let hours = Math.floor(
@@ -213,8 +207,7 @@ class Dashboard extends React.Component {
       outletId: this.props.selectedMall.id,
       missionId: this.state.mainMissionId
     };
-    console.log("finishMainMission", body);
-    let promise = httpPostJson(
+    let promise = httpPost(
       urls.finish_mission,
       JSON.stringify(body),
       this.props.token
@@ -222,7 +215,6 @@ class Dashboard extends React.Component {
     promise.then(
       result => {
         this.setFinishMissionErrorVisible(false);
-        console.log("Fulfilled finishMainMission: ", result);
         AsyncStorage.setItem("balance", result.body.balance);
         this.props.timerStatus(false);
         this.props.showDoneNotification(true);

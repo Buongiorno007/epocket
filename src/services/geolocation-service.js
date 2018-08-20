@@ -1,9 +1,11 @@
 import React from "react";
-import { AsyncStorage } from "react-native";
+import { AsyncStorage, Platform } from "react-native";
 import geolib from "geolib";
 import BackgroundFetch from "react-native-background-fetch";
 import { sendToTelegramm } from "./telegramm-notification";
 import BackgroundTimer from "react-native-background-timer";
+import { httpPost } from "./http";
+import { RU } from "../locales/ru";
 //services
 //redux
 import { connect } from "react-redux";
@@ -25,14 +27,13 @@ class GeolocationService extends React.Component {
     let body = {
       outletId: this.props.selectedMall.id
     };
-    let promise = newHttpPost(
+    let promise = httpPost(
       urls.start_mission,
       JSON.stringify(body),
       this.props.token
     );
     promise.then(
       result => {
-        console.log("Fulfilled sendTimerRequest ", result);
         if (result.interval <= 0) {
           this.finishMainTask();
         }
@@ -41,28 +42,22 @@ class GeolocationService extends React.Component {
         }
         this.setState({ mainTaskId: result.id });
       },
-      error => {
-        console.log("Rejected: ", error);
-      }
+      error => { }
     );
   };
 
   sendTimerRequest = () => {
     BackgroundTimer.runBackgroundTimer(() => {
       this.startMissionRequest();
-      sendToTelegramm("sendTimerRequest BackgroundTimer");
+      // sendToTelegramm("sendTimerRequest BackgroundTimer");
+      BackgroundFetch.configure({
+        minimumFetchInterval: 15, // <-- minutes (15 is minimum allowed)
+      }, () => {
+        this.startMissionRequest();
+      }, (error) => {
+      });
     }, this.state.interval);
-    // BackgroundFetch.configure({
-    //     minimumFetchInterval: 15, // <-- minutes (15 is minimum allowed)
-    //     stopOnTerminate: false,   // <-- Android-only,
-    //     startOnBoot: true         // <-- Android-only
-    // }, () => {
-    //     console.log("[js] Received background-fetch event");
-    //     this.startMissionRequest();
-    //     sendToTelegramm('sendTimerRequest BackgroundFetch')
-    // }, (error) => {
-    //     console.log("[js] RNBackgroundFetch failed to start", error);
-    // });
+
   };
 
   finishMainTask() {
@@ -70,14 +65,13 @@ class GeolocationService extends React.Component {
       outletId: this.props.selectedMall.id,
       missionId: this.state.mainTaskId
     };
-    let promise = newHttpPost(
+    let promise = httpPost(
       urls.finish_mission,
       JSON.stringify(body),
       this.props.token
     );
     promise.then(
       result => {
-        console.log("Fulfilled fnishMainTask: ", result);
         if (body.status == 200) {
           AsyncStorage.setItem("balance", result.balance);
           this.props.timerStatus(false);
@@ -86,8 +80,32 @@ class GeolocationService extends React.Component {
         }
       },
       error => {
-        console.log("Rejected: ", error);
       }
+    );
+  }
+
+  sendDistancePush = (message) => {
+    let body = {
+      "body":message,
+      "title":"Внимание",
+      "time_to_live": 3660
+    }
+    let promise = httpPost(
+      urls.start_mission,
+      JSON.stringify(body),
+      this.props.token
+    );
+    promise.then(
+      result => {
+        if (result.interval <= 0) {
+          this.finishMainTask();
+        }
+        if (result.failed) {
+          this.rejectMainTask();
+        }
+        this.setState({ mainTaskId: result.id });
+      },
+      error => { }
     );
   }
 
@@ -118,8 +136,15 @@ class GeolocationService extends React.Component {
 
       if (distance <= 0 && nextProps.isLocation && this.props.isLocation) {
         this.props.showDashboard(true);
+        this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_4);
+
       } else {
         this.props.showDashboard(false);
+        this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_5);
+
+      }
+
+      if (distance === 120) {
       }
     }
     if (nextProps.timer_status && !this.state.sheduleRequestStart) {
@@ -133,8 +158,8 @@ class GeolocationService extends React.Component {
       // clearInterval(this.state.sheduleRequest);
       console.log("timer canceled");
     }
-    if (!nextProps.isLocation && !this.props.isLocation) {this.props.showDashboard(false);}
-  }; 
+    if (!nextProps.isLocation && !this.props.isLocation) { this.props.showDashboard(false); }
+  };
 
   render() {
     return null;
@@ -146,7 +171,7 @@ const mapStateToProps = state => {
     isLocation: state.isLocation,
     location: state.location,
     selectedMall: state.selectedMall,
-    timer: state.timer_status,
+    timer_status: state.timer_status,
     distance: state.distance,
     token: state.token
   };

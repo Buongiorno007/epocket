@@ -100,7 +100,6 @@ class Map extends React.Component {
     promise.then(
       result => {
         this.setModalVisible(false);
-        console.log("Fulfilled loadTRC: ", result);
         this.props.loaderState(false);
         this.setState({
           outlets: this.checkRange(result.body.outlets)
@@ -119,7 +118,6 @@ class Map extends React.Component {
         }
       },
       error => {
-        // console.log("Rejected loadTRC: ", error);
         if (error.code === 503) {
           this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
         } else if (error.code === 400) {
@@ -170,7 +168,6 @@ class Map extends React.Component {
       },
       error => {
         this.props.loaderState(false);
-        console.log("error", error);
       },
       Platform.OS === "ios" && {
         enableHighAccuracy: true,
@@ -186,7 +183,6 @@ class Map extends React.Component {
 
 
   selectTRC = (trc,ANIMATE_MAP) => {
-    // console.log("selectTRC", trc);
     // if (trc.id !== this.props.selectedMall.id) {
     let bounds = geolib.getBounds([
       { latitude: trc.lat, longitude: trc.lng },

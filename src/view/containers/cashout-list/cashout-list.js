@@ -16,7 +16,7 @@ import { getSocket } from "../../../reducers/socket";
 import { loaderState } from "../../../reducers/loader";
 //services
 import NavigationService from "./../../../services/route";
-import { httpPostJson } from "../../../services/http";
+import { httpPost } from "../../../services/http";
 
 class CashoutList extends React.Component {
   state = {
@@ -56,7 +56,7 @@ class CashoutList extends React.Component {
         outletId: this.props.selectedMall.id,
         products: this.order
       };
-      let promise = httpPostJson(
+      let promise = httpPost(
         urls.create_order,
         JSON.stringify(body),
         this.props.token
@@ -64,9 +64,7 @@ class CashoutList extends React.Component {
       promise.then(
         result => {
           this.setModalVisible(false);
-          console.log("Fulfilled: ", result);
           this.props.loaderState(false);
-          console.log("get_outlet_products (cashout_list)", result);
           this.props.getSocket(body.orderId);
           NavigationService.navigate("QrCode", {
             total_price: total_price,

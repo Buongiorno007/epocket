@@ -15,7 +15,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 //services
 import NavigationService from "../../../services/route";
-import { httpPostJson } from "../../../services/http";
+import { httpPost } from "../../../services/http";
 
 class ScannerCamera extends React.Component {
   state = {
@@ -42,14 +42,13 @@ class ScannerCamera extends React.Component {
         missionId: this.props.selectedMission.id,
         qrCode: qrcode.data
       };
-      let promise = httpPostJson(
+      let promise = httpPost(
         urls.send_qr_code,
         JSON.stringify(body),
         this.props.token
       );
       promise.then(
         result => {
-          console.log("Fulfilled: ", result);
           NavigationService.navigate("Photograph");
           this.props.loaderState(false);
           this.setModalVisible(false);

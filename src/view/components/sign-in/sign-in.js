@@ -102,7 +102,6 @@ class SignIn extends React.Component {
     promise.then(
       result => {
         this.setFailedSignVisible(false);
-        console.log("login", result);
         this.props.loaderState(false);
         this.setState({ step: 2, acceptButton: false });
       },
@@ -138,7 +137,6 @@ class SignIn extends React.Component {
       result => {
         this.setFailedConfirmVisible(false);
         this.props.loaderState(false);
-        console.log("confirmLogin", result);
         const user_info = JSON.stringify({
           token: result.token,
           name: result.user,
@@ -146,7 +144,6 @@ class SignIn extends React.Component {
           photo: result.photo
         });
         this.props.getPush(result.token)
-        // console.log("user", user_info);
         AsyncStorage.setItem("user_info", user_info);
         AsyncStorage.setItem("balance", String(result.balance));
         this.props.setToken(result.token);
