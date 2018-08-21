@@ -27,7 +27,9 @@ class DashTop extends React.Component {
               />
               <View>
                 <Text style={styles.up_text}>{RU.YOU_ARE_HERE}</Text>
-                <Text style={styles.down_text}>
+                <Text 
+                  numberOfLines={1}
+                  style={styles.down_text}>
                   {this.props.selectedMall.name}
                 </Text>
               </View>
@@ -185,7 +187,9 @@ class DashTop extends React.Component {
                   start={{ x: 0.0, y: 1.0 }}
                   end={{ x: 0.5, y: 0.2 }} 
                   style={styles.down_text}
+                  numberOfLines={1}
                 >
+                
                   {this.props.selectedMall.name}
                 </LinearTextGradient>
               </View>

@@ -52,7 +52,8 @@ export default StyleSheet.create({
   down_text: {
     color: colors.white,
     fontFamily: "Rubik-Bold",
-    fontSize: 14
+    fontSize: 14,
+    width: width * 0.3,
   },
   epc_counter_container: {
     top: 18,

@@ -83,8 +83,21 @@ class GeolocationService extends React.Component {
   }
 
   sendDistancePush = (message) => {
-    
+    let body = {
+      body: message,
+      title:"Внимание",
+      time_to_live: 3660
+    }
+    let promise = httpPost( urls.send_push_single, JSON.stringify(body), this.props.token);
+    promise.then(
+      result => {
+        console.log(result)
+      },
+      error => { console.log(error)}
+    );
   }
+
+
   componentDidMount() {
     AsyncStorage.getItem("user_info").then(value => {
       let object = JSON.parse(value);
@@ -124,7 +137,7 @@ class GeolocationService extends React.Component {
         this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_5);
       }
 
-      if (distance === 10) {
+      if (distance === 120) {
         this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_3);
       }
     }
