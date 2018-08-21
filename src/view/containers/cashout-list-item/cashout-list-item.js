@@ -11,6 +11,7 @@ import NavigationService from "./../../../services/route";
 import { loaderState } from "../../../reducers/loader";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { RU } from "./../../../locales/ru";
 
 class CashoutList extends React.Component {
   state = { count: 0 };
@@ -46,7 +47,7 @@ class CashoutList extends React.Component {
             />
           </Button>
           <View style={styles.title}>
-            <Text style={styles.text}>{this.props.item.price} $</Text>
+            <Text style={styles.text}>{this.props.item.price} {RU.EPC}</Text>
             <Text numberOfLines={2} style={styles.text}>{this.props.item.name}</Text>
           </View>
         </View>

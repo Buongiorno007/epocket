@@ -42,18 +42,20 @@ class PhotoView extends React.Component {
     this.props.loaderState(true);
     let body = {
       missionId: this.props.selectedMission.id,
-      photo: this.props.navigation.state.params.image
+      photo: (this.props.navigation.state.params.image).substr(0,50)
     };
+    console.log(body)
     let promise = httpPost(
       urls.send_photo,
       serializeJSON(body),
-      this.props.token
+      this.props.token,
+      false
     );
     promise.then(
       result => {
         this.setErrorPhotoVisible(false);
-        this.finishMission();
-        // NavigationService.navigate("MissionSuccess", { price: this.props.selectedMission.price });
+        // this.finishMission();
+        NavigationService.navigate("MissionSuccess", { price: this.props.selectedMission.price });
       },
       error => {
         console.log("Rejected: ", error);
@@ -85,6 +87,7 @@ class PhotoView extends React.Component {
     );
     promise.then(
       result => {
+        console.log("Rejected: ", error);
         this.setErrorMissionVisible(false);
         this.props.setBalance(result.body.balance);
         AsyncStorage.setItem("balance", result.body.balance, () => {
@@ -94,7 +97,7 @@ class PhotoView extends React.Component {
         });
       },
       error => {
-        console.log("Rejected: ", error);
+        console.log("finishMission: ", error);
         if (error.code === 503) {
           this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
         } else if (error.code === 400) {

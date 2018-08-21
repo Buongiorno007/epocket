@@ -72,6 +72,9 @@ class Start extends React.Component {
   };
 
   _initialConfig = () => {
+    AsyncStorage.getItem("fire_token").then(value => {
+      console.log(value)
+    })
     AsyncStorage.getItem("user_info").then(value => {
       this.props.loaderState(false);
       let object = JSON.parse(value);

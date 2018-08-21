@@ -32,10 +32,9 @@ export const httpGet = (url, token) => {
  * @param { Object } body parameters
  * @param { boolean } needToken if token does't need set false
  */
-export const httpPost = (url, body, token) => {
+export const httpPost = (url, body, token, json) => {
   const defaultHeaders = {
-    Accept: "application/json",
-    "Content-Type": "application/json"
+    "Content-Type": json ? "application/json" : "application/x-www-form-urlencoded"
   };
   const OPTIONS = {
     method: "POST",

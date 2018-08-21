@@ -29,6 +29,7 @@ class PhotoCamera extends React.Component {
       this.props.loaderState(true);
       const options = { quality: 0.5, base64: true };
       const data = await this.camera.takePictureAsync(options);
+      
       NavigationService.navigate("Photo", {
         image: `data:image/jpg;base64,${data.base64}`,
         url: data.uri

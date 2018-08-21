@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <application
         android:name=".MainApplication"
@@ -34,6 +35,28 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAiJmMCHqazb3K-OyUFRADOJOLP7_kNRjM" />
+
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_notif" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+
+        <meta-data android:name="com.transistorsoft.locationmanager.license" android:value="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqDSz85rvXFzzQjLHakBfro14W37b/1jIU19g7ljzuHMg0Ms+0I6k/CKC+I6Md49TypVpMGurRQAZh+IAp/vuUOyjlYB878PG+Lkip+3MPbSwbwQnHE87goSlhKNzapdYZtzcP5HO8Wi8L6+Dixz6591i3+9z6ivH5KVPJBjsrXYmN7I7EzZtgfAayFNCuzbc2uWzKLX5E6ozo4y04NP87NCYutyTHD3K9kVDMTLwGZanSG34N71BLlGlCaxr+EarmuaOCDqIZH/8nPqQ1NEiSUTLYdBoUgXhBi3iMaBx8kXq4gGEnkNiQ30Pa8IX0PoMGxgDd3lLKUZD2XU4+qV3SQIDAQAB" />
+
+        <service android:name="io.invertase.firebase.messaging.RNFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name="io.invertase.firebase.messaging.RNFirebaseInstanceIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

@@ -10,10 +10,10 @@ class TrcInformation extends React.Component {
     return (
       <View style={styles.trc_info}>
         <View style={[styles.left]}>
-          <Text style={styles.trc_info_text_tittle} numberOfLines={1}>
+          <Text style={[styles.trc_info_text_tittle, {width : width *0.45}]} numberOfLines={1}>
             {this.props.info.name || "Караван"}
           </Text>
-          <Text numberOfLines={1} style={styles.trc_info_text_info}>
+          <Text numberOfLines={1} style={[styles.trc_info_text_info, {width : width *0.45}]}>
             {this.props.info.adress || "березинка 19"}
           </Text>
         </View>

@@ -19,8 +19,6 @@ import { urls } from "../constants/urls";
 class GeolocationService extends React.Component {
   state = {
     sheduleRequestStart: false,
-    // interval: 900000,
-    interval: 10000,
     sheduleRequest: null,
     user : null
   };
@@ -31,7 +29,7 @@ class GeolocationService extends React.Component {
     let promise = httpPost(
       urls.start_mission,
       JSON.stringify(body),
-      this.props.token
+      this.props.token,
     );
     promise.then(
       result => {
@@ -52,10 +50,9 @@ class GeolocationService extends React.Component {
       minimumFetchInterval: 15, // <-- minutes (15 is minimum allowed)
     }, () => {
       this.startMissionRequest();
-      sendToTelegramm("BackgroundTimer    "+Platform.OS+"   "+this.state.user);
+      Platform.OS === 'ios' && sendToTelegramm('ios BackgroundFetch' + this.state.user)
     }, (error) => {
     });
-
   };
 
   finishMainTask() {
@@ -85,7 +82,7 @@ class GeolocationService extends React.Component {
   sendDistancePush = (message) => {
     let body = {
       body: message,
-      title:"Внимание",
+      title:"EpocketCash",
       time_to_live: 3660
     }
     let promise = httpPost( urls.send_push_single, JSON.stringify(body), this.props.token);
@@ -149,7 +146,6 @@ class GeolocationService extends React.Component {
     if (!nextProps.timer_status && this.state.sheduleRequestStart) {
       this.setState({ sheduleRequestStart: false });
       BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
-      // clearInterval(this.state.sheduleRequest);
       console.log("timer canceled");
     }
     if (!nextProps.isLocation && !this.props.isLocation) { this.props.showDashboard(false); }
