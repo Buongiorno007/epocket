@@ -13,6 +13,7 @@ import distance from "./distance";
 import token from "./token";
 import socket from "./socket";
 import missions from "./missions";
+import outlets from "./outlet-list";
 import balance from "./user-balance";
 import activeCard from "./set-active-card";
 import dashboardState from "./dashboard-state";
@@ -46,5 +47,6 @@ export default combineReducers({
   loader,
   missions,
   timer_interval,
-  socket
+  socket,
+  outlets
 });

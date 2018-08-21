@@ -25,13 +25,13 @@ import { setDistance } from "../../../reducers/distance";
 import { updateMall } from "../../../reducers/selected-mall";
 import { showDashboard } from "../../../reducers/show-dashboard";
 import { loaderState } from "../../../reducers/loader";
+import { setOutlets } from "../../../reducers/outlet-list";
 //services
 import { httpPost } from "../../../services/http";
 import {sendToTelegramm }from '../../../services/telegramm-notification'
 
 class Map extends React.Component {
   state = {
-    outlets: [],
     location_loader: false,
     errorVisible: false,
     region: {
@@ -77,7 +77,7 @@ class Map extends React.Component {
             latitude: this.props.location.lat,
             longitude: this.props.location.lng
           },
-          this.state.outlets, false
+          this.props.outlets, false
         );
       }
 
@@ -101,9 +101,8 @@ class Map extends React.Component {
       result => {
         this.setModalVisible(false);
         this.props.loaderState(false);
-        this.setState({
-          outlets: this.checkRange(result.body.outlets)
-        });
+        this.props.setOutlets(result.body.outlets)
+
         if (this.props.selectedMall.id) {
           this.selectTRC(this.props.selectedMall);
         } else {
@@ -168,17 +167,12 @@ class Map extends React.Component {
       },
       error => {
         this.props.loaderState(false);
-      },
-      Platform.OS === "ios" && {
-        enableHighAccuracy: true,
-        timeout: 20000,
-        maximumAge: 10000
       }
     );
   };
   selectNearestMall = (my_location, mall_array,ANIMATE_MAP) => {
     let nearestMall = geolib.findNearest(my_location, mall_array, 0);
-    this.selectTRC(mall_array[Number(nearestMall.key)],ANIMATE_MAP);
+    try {this.selectTRC(mall_array[Number(nearestMall.key)],ANIMATE_MAP);} catch(e) {}
   };
 
 
@@ -287,7 +281,7 @@ class Map extends React.Component {
           >
             <UserMarker />
           </Marker>
-          {this.state.outlets.map(marker => (
+          {this.props.outlets.map(marker => (
             <TRCMarker
               marker={marker}
               key={marker.id}
@@ -325,6 +319,8 @@ const mapStateToProps = state => {
     distance: state.distance,
     loader: state.loader,
     token: state.token,
+    outlets: state.outlets,
+    timer_status: state.timer_status,
   };
 };
 
@@ -335,7 +331,8 @@ const mapDispatchToProps = dispatch =>
       showDashboard,
       setLocation,
       setDistance,
-      loaderState
+      loaderState,
+      setOutlets,
     },
     dispatch
   );

@@ -55,4 +55,25 @@ export default StyleSheet.create({
         height : height * 0.25,
         width  : width * 0.85,
     },
+    image_content: {
+        width: width,
+        flexDirection: "row",
+        justifyContent: "flex-end",
+        alignItems: "flex-start",
+        position : 'absolute',
+        top : 0,
+        right : 0,
+        zIndex : 10
+      },
+      close_container: {
+        width: 55,
+        height: 55,
+        justifyContent: "center",
+        alignItems: "center",
+      },  
+      close: {
+        width: 15,
+        height: 15,
+        resizeMode: "contain"
+      },
 });

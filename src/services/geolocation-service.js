@@ -85,10 +85,10 @@ class GeolocationService extends React.Component {
       title:"EpocketCash",
       time_to_live: 3660
     }
-    let promise = httpPost( urls.send_push_single, JSON.stringify(body), this.props.token);
+    let promise = httpPost( urls.send_push_single, JSON.stringify(body), this.props.token, true);
     promise.then(
       result => {
-        console.log(result)
+        console.log('res',result)
       },
       error => { console.log(error)}
     );

@@ -1,13 +1,15 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text,Image } from "react-native";
 //containers
 import CustomButton from "../../containers/custom-button/custom-button";
 import CustomAlert from "../../containers/custom-alert/custom-alert";
+import { Button } from "native-base";
 //constants
 import styles from "./styles";
 import { RU } from "../../../locales/ru";
 import { colors } from "../../../constants/colors";
 import { urls } from "../../../constants/urls";
+import { ICONS } from "../../../constants/icons";
 //redux
 import { timerStatus } from "../../../reducers/timer-status";
 import { connect } from "react-redux";
@@ -108,6 +110,22 @@ class ReturnToMall extends React.Component {
         />
         {!this.state.time_out ? (
           <View style={[styles.close_view]}>
+            <View style={styles.image_content}>
+            <Button
+              transparent
+              block
+              rounded
+              style={styles.close_container}
+              onPress={() => {
+                this.closeModal();
+              }}
+            >
+              <Image
+                style={styles.close}
+                source={{ uri: ICONS.COMMON.CLOSE }}
+              />
+            </Button>
+          </View>
             <Text style={[styles.top_title, styles.text_common]}>
               {RU.RETURN_TO_MALL.TITLE_TOP}
             </Text>
