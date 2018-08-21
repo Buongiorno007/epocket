@@ -54,8 +54,8 @@ class PhotoView extends React.Component {
     promise.then(
       result => {
         this.setErrorPhotoVisible(false);
-        // this.finishMission();
-        NavigationService.navigate("MissionSuccess", { price: this.props.selectedMission.price });
+        this.finishMission();
+        // NavigationService.navigate("MissionSuccess", { price: this.props.selectedMission.price });
       },
       error => {
         console.log("Rejected: ", error);
