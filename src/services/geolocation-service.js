@@ -15,13 +15,59 @@ import { setDistance } from "../reducers/distance";
 import { showDoneNotification } from "../reducers/main-task-done-notification";
 //constants
 import { urls } from "../constants/urls";
-
+import firebase from 'react-native-firebase';
 class GeolocationService extends React.Component {
   state = {
     sheduleRequestStart: false,
     sheduleRequest: null,
     user : null
   };
+
+  // componentDidMount = () => {
+  //   firebase.messaging().hasPermission()
+  // .then(enabled => {
+  //   if (enabled) {
+  //     this.messageListener = firebase.messaging().onMessage((message) => {
+  //       console.log('notification',message)
+  //       const notification = new firebase.notifications.Notification()
+  //       .setNotificationId('notificationId')
+  //       .setTitle('My notification title')
+  //       .setBody('My notification body')
+  //       .setData({
+  //         key1: 'value1',
+  //         key2: 'value2',
+  //       });
+    
+  //       notification
+  //       .android.setChannelId('channelId')
+  //       .android.setSmallIcon('ic_launcher');
+    
+  //       firebase.notifications().displayNotification(notification)
+
+  //       fetch(urls.send_push_single, {
+  //         method: "POST",
+  //         headers: {
+  //             "Content-Type": "application/json",
+  //             'Authorization' : `JWT ${this.props.token}`
+  //         },
+  //         body : {
+  //             "body": message,
+  //             "title":"EpocketCash",
+  //             "time_to_live": 3660
+  //         }
+  //     });s
+  //   });
+  //   } else {
+  //     // user doesn't have permission
+  //   } 
+  // });
+
+  // }
+
+  // componentWillUnmount() {
+  //   this.messageListener();
+  // }
+ 
   startMissionRequest = () => {
     let body = {
       outletId: this.props.selectedMall.id
@@ -141,8 +187,6 @@ class GeolocationService extends React.Component {
         ) - this.props.selectedMall.rad;
 
       this.props.setDistance(distance);
-      // sendToTelegramm('distance ' + distance, this.props.token)
-      this.sendDistancePush(distance);
       if (distance <= 0 && nextProps.isLocation && this.props.isLocation) {
         this.props.showDashboard(true);
         this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_4);
@@ -150,7 +194,6 @@ class GeolocationService extends React.Component {
         this.props.showDashboard(false);
         this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_5);
       }
-
       if (distance === 120) {
         this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_3);
       }

@@ -11,7 +11,6 @@ import com.heanoria.library.reactnative.locationenabler.RNAndroidLocationEnabler
 
 import org.reactnative.camera.RNCameraPackage;
 
-import com.brentvatne.react.ReactVideoPackage;
 import com.ocetnik.timer.BackgroundTimerPackage;
 import com.imagepicker.ImagePickerPackage;
 
@@ -51,7 +50,6 @@ public class MainApplication extends Application implements ReactApplication {
                     new RNFirebaseMessagingPackage(),
                     new RNAndroidLocationEnablerPackage(),
                     new RNCameraPackage(),
-                    new ReactVideoPackage(),
                     new BackgroundTimerPackage(),
                     new ImagePickerPackage(),
                     new RNTextGradientPackage(),

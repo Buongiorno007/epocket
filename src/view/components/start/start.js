@@ -43,7 +43,6 @@ import { urls } from "../../../constants/urls";
 import { sendToTelegramm } from "../../../services/telegramm-notification";
 import { httpPost } from "../../../services/http";
 
-
 class Start extends React.Component {
   state = {
     enable_login: false
@@ -67,10 +66,6 @@ class Start extends React.Component {
       }
     });
     this._initialConfig();
-
-
-
-
   };
 
   _initialConfig = () => {
@@ -84,20 +79,20 @@ class Start extends React.Component {
         console.log(object.token)
         this.props.setToken(object.token);
 
-          /**********/
-          let body = {
-            body: "message",
-            title:"EpocketCash",
-            time_to_live: 3660
-          }
-          let promise = httpPost( urls.send_push_single, JSON.stringify(body), this.props.token);
-          promise.then(
-            result => {
-              console.log('res',result)
-            },
-            error => { console.log(error)}
-          );
-          /**************/
+          // /**********/
+          // let body = {
+          //   body: "message",
+          //   title:"EpocketCash",
+          //   time_to_live: 3660
+          // }
+          // let promise = httpPost( urls.send_push_single, JSON.stringify(body), this.props.token);
+          // promise.then(
+          //   result => {
+          //     console.log('res',result)
+          //   },
+          //   error => { console.log(error)}
+          // );
+          // /**************/
 
         NavigationService.navigate("Main");
       } else {

@@ -25,7 +25,6 @@ export default StyleSheet.create({
   },
 
   logo_view: {
-    flex: 2,
     alignItems: "center",
     justifyContent: "flex-end",
     marginBottom: 50,
@@ -35,11 +34,7 @@ export default StyleSheet.create({
     height: 80,
     resizeMode: "contain"
   },
-  awesome_button: {
-    flex: 3,
-    alignItems: "center",
-    justifyContent: "flex-start"
-  },
+
   video_player_view: {
     position: "absolute",
     zIndex: 10,
@@ -48,7 +43,24 @@ export default StyleSheet.create({
   },
   gradient: {
     width: width,
-    height: height,
-    position: "absolute"
+    paddingBottom : 280,
+    paddingTop : 260,
+    paddingLeft : 25,
+    paddingRight : 25,
+  },
+  scroll : {
+    position : 'absolute',
+    top : 0,
+    bottom : 0,
+    height: height+400,
+    width: width,
+    marginTop : -200,
+
+  },
+  info_title : {
+    color : '#fff',
+    fontSize : 14,
+    fontFamily : 'Rubik-Regular',
+    lineHeight : 20,
   }
 });

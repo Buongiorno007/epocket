@@ -156,7 +156,6 @@ dependencies {
     implementation (project(':react-native-camera')) {
         implementation 'com.android.support:exifinterface:27.+'
     }
-    implementation project(':react-native-video')
     implementation project(':react-native-background-timer')
     implementation project(':react-native-image-picker')
     implementation project(':react-native-text-gradient')
