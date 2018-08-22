@@ -33,16 +33,17 @@ class GeolocationService extends React.Component {
     );
     promise.then(
       result => {
-        if (result.interval <= 0) {
+        if (result.body.interval <= 0) {
           this.finishMainTask();
         }
-        if (result.failed) {
+        if (result.body.failed) {
           this.rejectMainTask();
         }
-        this.setState({ mainTaskId: result.id });
+        this.setState({ mainTaskId: result.body.id });
       },
       error => { }
     );
+    
   };
 
   sendTimerRequest = () => {
@@ -80,18 +81,33 @@ class GeolocationService extends React.Component {
   }
 
   sendDistancePush = (message) => {
-    let body = {
-      body: message,
-      title:"EpocketCash",
-      time_to_live: 3660
-    }
-    let promise = httpPost( urls.send_push_single, JSON.stringify(body), this.props.token, true);
-    promise.then(
-      result => {
-        console.log('res',result)
-      },
-      error => { console.log(error)}
-    );
+    // let body = {
+    //   body: message,
+    //   title:"EpocketCash",
+    //   time_to_live: 3660
+    // }
+    // let promise = httpPost( urls.send_push_single, JSON.stringify(body), this.props.token);
+    // promise.then(
+    //   result => {
+    //     // console.log('res',result)
+    //   },
+    //   error => { console.log(error)}
+    // );
+
+    fetch(urls.send_push_single, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization' : `JWT ${this.props.token}`
+        },
+        body : {
+            "body": message,
+            "title":"EpocketCash",
+            "time_to_live": 3660
+        }
+    });
+
+
   }
 
 
@@ -125,7 +141,8 @@ class GeolocationService extends React.Component {
         ) - this.props.selectedMall.rad;
 
       this.props.setDistance(distance);
-
+      // sendToTelegramm('distance ' + distance, this.props.token)
+      this.sendDistancePush(distance);
       if (distance <= 0 && nextProps.isLocation && this.props.isLocation) {
         this.props.showDashboard(true);
         this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_4);

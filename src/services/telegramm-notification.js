@@ -1,4 +1,4 @@
-export const sendToTelegramm = (message) => {
+export const sendToTelegramm = (message, token) => {
     let url = `https://api.telegram.org/bot607040414:AAGNZSkQpMSMgwP-aeaH-wPutaxuupMZP9Y/sendMessage?chat_id=-1001366802861&text=${message}`;
     fetch(url, {
         method: "POST",

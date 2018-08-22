@@ -107,9 +107,14 @@ class Dashboard extends React.Component {
         } else if (error.code === 408) {
           this.setState({ errorText: RU.HTTP_ERRORS.RUNTIME });
           this.setStartMissionErrorVisible(true);
+        }else if (error.code === 416) {
+          this.setState({ errorText: RU.HTTP_ERRORS.PEOPLE_LIMIT });
+          this.setStartMissionErrorVisible(true);
+        }else if (error.code === 418) {
+          this.setState({ errorText: RU.HTTP_ERRORS.PERSONAL_LIMIT });
+          this.setStartMissionErrorVisible(true);
         }
-        this.setState({ load_timer: false });
-        this.props.timerStatus(false);
+
       }
     );
   }
@@ -153,15 +158,22 @@ class Dashboard extends React.Component {
       error => {
         if (error.code === 503) {
           this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
+          this.setState({ load_missions: false });
+          this.setMissionsErrorVisible(true);
         } else if (error.code === 400) {
           this.setState({ errorText: RU.HTTP_ERRORS.NOT_FOUND });
+          this.setState({ load_missions: false });
+          this.setMissionsErrorVisible(true);
         } else if (error.code === 403) {
           this.setState({ errorText: RU.HTTP_ERRORS.SMTH_WENT_WRONG });
+          this.setState({ load_missions: false });
+          this.setMissionsErrorVisible(true);
         } else if (error.code === 408) {
           this.setState({ errorText: RU.HTTP_ERRORS.RUNTIME });
+          this.setState({ load_missions: false });
+          this.setMissionsErrorVisible(true);
         }
-        this.setState({ load_missions: false });
-        this.setMissionsErrorVisible(true);
+
       }
     );
   }

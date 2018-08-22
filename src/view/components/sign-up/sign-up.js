@@ -31,7 +31,7 @@ import { loaderState } from "../../../reducers/loader";
 import { setBalance } from "../../../reducers/user-balance";
 import { getPush } from "../../../reducers/push";
 //services
-import { newHttpPost } from "../../../services/http";
+import { httpPost } from "../../../services/http";
 
 const keyboardVerticalOffset = Platform.OS === "ios" ? -50 : -100;
 
@@ -115,7 +115,7 @@ class SignUp extends React.Component {
     let body = {
       phone: "+380" + this.state.phone
     };
-    let promise = newHttpPost(urls.sign_up, JSON.stringify(body));
+    let promise = httpPost(urls.sign_up, JSON.stringify(body));
     promise.then(
       result => {
         this.setFailedSignVisible(false);
@@ -156,7 +156,7 @@ class SignUp extends React.Component {
       code: this.state.code,
       name: this.state.name
     };
-    let promise = newHttpPost(urls.sign_up_confirm, JSON.stringify(body));
+    let promise = httpPost(urls.sign_up_confirm, JSON.stringify(body));
     promise.then(
       result => {
         this.setFailedConfirmVisible(false);
@@ -164,16 +164,16 @@ class SignUp extends React.Component {
         this.props.loaderState(false);
         let new_user = JSON.stringify({
           name: this.state.name,
-          token: result.token,
+          token: result.body.token,
           phone: this.state.phone,
           balance: 0
         });
         AsyncStorage.setItem("user_info", new_user);
         AsyncStorage.setItem("balance", 0);
-        this.props.setToken(result.token);
+        this.props.setToken(result.body.token);
         this.props.setBalance(0);
         this.setState({ step: 3, acceptButton: false });
-        this.props.getPush(result.token)
+        this.props.getPush(result.body.token)
       },
       error => {
         console.log("Rejected: ", error);

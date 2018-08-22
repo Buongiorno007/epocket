@@ -30,7 +30,7 @@ import { bindActionCreators } from "redux";
 import { getPush } from "../../../reducers/push";
 //services
 import NavigationService from "../../../services/route";
-import { newHttpPost } from "../../../services/http";
+import { httpPost } from "../../../services/http";
 
 class SignIn extends React.Component {
   static navigationOptions = () => ({
@@ -98,7 +98,7 @@ class SignIn extends React.Component {
     let body = {
       phone: "+380" + this.state.phone
     };
-    let promise = newHttpPost(urls.sing_in, JSON.stringify(body));
+    let promise = httpPost(urls.sing_in, JSON.stringify(body));
     promise.then(
       result => {
         this.setFailedSignVisible(false);
@@ -132,22 +132,22 @@ class SignIn extends React.Component {
       phone: "+380" + this.state.phone,
       code: this.state.code
     };
-    let promise = newHttpPost(urls.sing_in_confirm, JSON.stringify(body));
+    let promise = httpPost(urls.sing_in_confirm, JSON.stringify(body));
     promise.then(
       result => {
         this.setFailedConfirmVisible(false);
         this.props.loaderState(false);
         const user_info = JSON.stringify({
-          token: result.token,
-          name: result.user,
+          token: result.body.token,
+          name: result.body.user,
           phone: this.state.phone,
-          photo: result.photo
+          photo: result.body.photo
         });
-        this.props.getPush(result.token)
+        this.props.getPush(result.body.token)
         AsyncStorage.setItem("user_info", user_info);
-        AsyncStorage.setItem("balance", String(result.balance));
-        this.props.setToken(result.token);
-        this.props.setBalance(result.balance);
+        AsyncStorage.setItem("balance", String(result.body.balance));
+        this.props.setToken(result.body.token);
+        this.props.setBalance(result.body.balance);
         NavigationService.navigate("Main");
       },
       error => {

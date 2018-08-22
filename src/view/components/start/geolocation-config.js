@@ -1,7 +1,6 @@
 import { Platform } from 'react-native'
 import BackgroundGeolocation from "react-native-background-geolocation";
 
-
 export default function geo_config () {
     let config = undefined;
 

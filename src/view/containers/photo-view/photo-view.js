@@ -49,7 +49,7 @@ class PhotoView extends React.Component {
       urls.send_photo,
       serializeJSON(body),
       this.props.token,
-      false
+      true
     );
     promise.then(
       result => {
