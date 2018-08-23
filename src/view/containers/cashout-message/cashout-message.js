@@ -10,7 +10,7 @@ class CashoutMessage extends React.Component {
       <View style={styles.container}>
         <Text style={[styles.text, styles.title]}>
           {RU.QRCODE.TITLE}
-          {this.props.total_price}$
+          {this.props.total_price} {RU.EPC}
         </Text>
         <Text style={[styles.text, styles.seller]}>{RU.QRCODE.SELLER}</Text>
       </View>

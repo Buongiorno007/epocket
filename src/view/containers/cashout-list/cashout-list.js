@@ -76,14 +76,17 @@ class CashoutList extends React.Component {
           console.log("sendOrder rejected: ", error);
           if (error.code === 503) {
             this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
+            this.setModalVisible(true);
           } else if (error.code === 400) {
             this.setState({ errorText: RU.HTTP_ERRORS.NOT_ENOUGHT_MONEY });
+            this.setModalVisible(true);
           } else if (error.code === 403) {
             this.setState({ errorText: RU.HTTP_ERRORS.SMTH_WENT_WRONG });
+            this.setModalVisible(true);
           } else if (error.code === 408) {
             this.setState({ errorText: RU.HTTP_ERRORS.RUNTIME });
+            this.setModalVisible(true);
           }
-          this.setModalVisible(true);
           this.props.loaderState(false);
         }
       );

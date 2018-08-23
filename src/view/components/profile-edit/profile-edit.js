@@ -83,7 +83,8 @@ class ProfileEdit extends React.Component {
       let promise = httpPost(
         urls.edit_profile_data,
         serializeJSON(body),
-        this.props.token
+        this.props.token,
+        true
       );
       promise.then(
         result => {

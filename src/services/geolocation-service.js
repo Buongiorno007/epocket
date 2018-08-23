@@ -23,7 +23,6 @@ class GeolocationService extends React.Component {
     user : null
   };
 
-
   startMissionRequest = () => {
     let body = {
       outletId: this.props.selectedMall.id
@@ -49,12 +48,20 @@ class GeolocationService extends React.Component {
   };
 
   sendTimerRequest = () => {
+    let interval = 900000
     BackgroundFetch.configure({
       minimumFetchInterval: 15, // <-- minutes (15 is minimum allowed)
     }, () => {
       this.startMissionRequest();
     }, (error) => {
     });
+    BackgroundTimer.runBackgroundTimer(() => { 
+      this.startMissionRequest();
+      }, 
+      interval);
+      //rest of code will be performing for iOS on background too
+      
+    
   };
 
   finishMainTask() {
@@ -104,6 +111,7 @@ class GeolocationService extends React.Component {
   }
   closeMission = () => {
     this.props.showFailedNotification(true);
+    BackgroundTimer.stopBackgroundTimer();
   };
 
   componentWillReceiveProps = nextProps => {
@@ -144,6 +152,7 @@ class GeolocationService extends React.Component {
     if (!nextProps.timer_status && this.state.sheduleRequestStart) {
       this.setState({ sheduleRequestStart: false });
       BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
+      BackgroundTimer.stopBackgroundTimer();
       console.log("timer canceled");
     }
     if (!nextProps.isLocation && !this.props.isLocation) { this.props.showDashboard(false); }
