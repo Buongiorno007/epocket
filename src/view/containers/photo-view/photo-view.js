@@ -61,15 +61,22 @@ class PhotoView extends React.Component {
         console.log("Rejected: ", error);
         if (error.code === 503) {
           this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
+          this.setErrorPhotoVisible(true);
+          this.props.loaderState(false);
         } else if (error.code === 400) {
           this.setState({ errorText: RU.HTTP_ERRORS.NOT_FOUND });
+          this.setErrorPhotoVisible(true);
+          this.props.loaderState(false);
         } else if (error.code === 403) {
           this.setState({ errorText: RU.HTTP_ERRORS.SMTH_WENT_WRONG });
+          this.setErrorPhotoVisible(true);
+          this.props.loaderState(false);
         } else if (error.code === 408) {
           this.setState({ errorText: RU.HTTP_ERRORS.RUNTIME });
+          this.setErrorPhotoVisible(true);
+          this.props.loaderState(false);
         }
-        this.setErrorPhotoVisible(true);
-        this.props.loaderState(false);
+
       }
     );
   };
@@ -85,9 +92,9 @@ class PhotoView extends React.Component {
       JSON.stringify(body),
       this.props.token
     );
+    console.log('body',body)
     promise.then(
       result => {
-        console.log("Rejected: ", error);
         this.setErrorMissionVisible(false);
         this.props.setBalance(result.body.balance);
         AsyncStorage.setItem("balance", result.body.balance, () => {
@@ -100,15 +107,22 @@ class PhotoView extends React.Component {
         console.log("finishMission: ", error);
         if (error.code === 503) {
           this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
+          this.setErrorMissionVisible(true);
+          this.props.loaderState(false);
         } else if (error.code === 400) {
           this.setState({ errorText: RU.HTTP_ERRORS.NOT_FOUND });
+          this.setErrorMissionVisible(true);
+          this.props.loaderState(false);
         } else if (error.code === 403) {
           this.setState({ errorText: RU.HTTP_ERRORS.SMTH_WENT_WRONG });
+          this.setErrorMissionVisible(true);
+          this.props.loaderState(false);
         } else if (error.code === 408) {
           this.setState({ errorText: RU.HTTP_ERRORS.RUNTIME });
+          this.setErrorMissionVisible(true);
+          this.props.loaderState(false);
         }
-        this.setErrorMissionVisible(true);
-        this.props.loaderState(false);
+
       }
     );
   }

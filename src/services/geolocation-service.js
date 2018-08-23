@@ -3,7 +3,6 @@ import { AsyncStorage, Platform } from "react-native";
 import geolib from "geolib";
 import BackgroundFetch from "react-native-background-fetch";
 import { sendToTelegramm } from "./telegramm-notification";
-import BackgroundTimer from "react-native-background-timer";
 import { httpPost } from "./http";
 import { RU } from "../locales/ru";
 //services
@@ -16,6 +15,7 @@ import { showDoneNotification } from "../reducers/main-task-done-notification";
 //constants
 import { urls } from "../constants/urls";
 import firebase from 'react-native-firebase';
+import { colors } from "../constants/colors";
 class GeolocationService extends React.Component {
   state = {
     sheduleRequestStart: false,
@@ -23,51 +23,7 @@ class GeolocationService extends React.Component {
     user : null
   };
 
-  // componentDidMount = () => {
-  //   firebase.messaging().hasPermission()
-  // .then(enabled => {
-  //   if (enabled) {
-  //     this.messageListener = firebase.messaging().onMessage((message) => {
-  //       console.log('notification',message)
-  //       const notification = new firebase.notifications.Notification()
-  //       .setNotificationId('notificationId')
-  //       .setTitle('My notification title')
-  //       .setBody('My notification body')
-  //       .setData({
-  //         key1: 'value1',
-  //         key2: 'value2',
-  //       });
-    
-  //       notification
-  //       .android.setChannelId('channelId')
-  //       .android.setSmallIcon('ic_launcher');
-    
-  //       firebase.notifications().displayNotification(notification)
 
-  //       fetch(urls.send_push_single, {
-  //         method: "POST",
-  //         headers: {
-  //             "Content-Type": "application/json",
-  //             'Authorization' : `JWT ${this.props.token}`
-  //         },
-  //         body : {
-  //             "body": message,
-  //             "title":"EpocketCash",
-  //             "time_to_live": 3660
-  //         }
-  //     });s
-  //   });
-  //   } else {
-  //     // user doesn't have permission
-  //   } 
-  // });
-
-  // }
-
-  // componentWillUnmount() {
-  //   this.messageListener();
-  // }
- 
   startMissionRequest = () => {
     let body = {
       outletId: this.props.selectedMall.id
@@ -97,7 +53,6 @@ class GeolocationService extends React.Component {
       minimumFetchInterval: 15, // <-- minutes (15 is minimum allowed)
     }, () => {
       this.startMissionRequest();
-      Platform.OS === 'ios' && sendToTelegramm('ios BackgroundFetch' + this.state.user)
     }, (error) => {
     });
   };
@@ -127,33 +82,17 @@ class GeolocationService extends React.Component {
   }
 
   sendDistancePush = (message) => {
-    // let body = {
-    //   body: message,
-    //   title:"EpocketCash",
-    //   time_to_live: 3660
-    // }
-    // let promise = httpPost( urls.send_push_single, JSON.stringify(body), this.props.token);
-    // promise.then(
-    //   result => {
-    //     // console.log('res',result)
-    //   },
-    //   error => { console.log(error)}
-    // );
+    const notification = new firebase.notifications.Notification()
+    .setNotificationId('notificationId')
+    .setTitle('EpocketCash')
+    .setBody(message);
 
-    fetch(urls.send_push_single, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            'Authorization' : `JWT ${this.props.token}`
-        },
-        body : {
-            "body": message,
-            "title":"EpocketCash",
-            "time_to_live": 3660
-        }
-    });
+    notification
+    .android.setChannelId('chanelId')
+    .android.setColor(colors.pink)
+    .android.setSmallIcon('@drawable/ic_notif');
 
-
+    firebase.notifications().displayNotification(notification)
   }
 
 
@@ -186,13 +125,12 @@ class GeolocationService extends React.Component {
           }
         ) - this.props.selectedMall.rad;
 
-      this.props.setDistance(distance);
       if (distance <= 0 && nextProps.isLocation && this.props.isLocation) {
         this.props.showDashboard(true);
-        this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_4);
+        !this.props.dashboard && this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_4);
       } else {
         this.props.showDashboard(false);
-        this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_5);
+        this.props.dashboard && this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_5);
       }
       if (distance === 120) {
         this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_3);
@@ -223,7 +161,8 @@ const mapStateToProps = state => {
     selectedMall: state.selectedMall,
     timer_status: state.timer_status,
     distance: state.distance,
-    token: state.token
+    token: state.token,
+    dashboard: state.dashboard,
   };
 };
 

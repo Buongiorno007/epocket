@@ -29,9 +29,12 @@ export default StyleSheet.create({
 
   },
   nav_buttons: {
+    width : width* 0.85,
+    height : 45,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    zIndex : 1
   },
   history_nav: {
     top: 10,

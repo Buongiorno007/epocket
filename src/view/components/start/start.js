@@ -78,22 +78,6 @@ class Start extends React.Component {
       if (object) {
         console.log(object.token)
         this.props.setToken(object.token);
-
-          // /**********/
-          // let body = {
-          //   body: "message",
-          //   title:"EpocketCash",
-          //   time_to_live: 3660
-          // }
-          // let promise = httpPost( urls.send_push_single, JSON.stringify(body), this.props.token);
-          // promise.then(
-          //   result => {
-          //     console.log('res',result)
-          //   },
-          //   error => { console.log(error)}
-          // );
-          // /**************/
-
         NavigationService.navigate("Main");
       } else {
         this.setState({ enable_login: true });

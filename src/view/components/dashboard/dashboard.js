@@ -43,7 +43,8 @@ class Dashboard extends React.Component {
     body: {
       outletId: this.props.selectedMall.id
     },
-    errorText: ""
+    errorText: "",
+    errorCode: "",
   };
 
   componentDidMount = () => {
@@ -96,7 +97,7 @@ class Dashboard extends React.Component {
       error => {
         /*
           416 - лимит на кол-во человек.
-          418 - лимит на кол-во выполнений за день (пока 1)
+          418 - лимит на кол-во выполнений за день
         */
         if (error.code === 503) {
           this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
@@ -105,10 +106,10 @@ class Dashboard extends React.Component {
           this.setState({ errorText: RU.HTTP_ERRORS.SMTH_WENT_WRONG });
           this.setStartMissionErrorVisible(true);
         } else if (error.code === 408) {
-          this.setState({ errorText: RU.HTTP_ERRORS.RUNTIME });
+          this.setState({ errorText: RU.HTTP_ERRORS.RUNTIME, errorCode : error.code  });
           this.setStartMissionErrorVisible(true);
         }else if (error.code === 416) {
-          this.setState({ errorText: RU.HTTP_ERRORS.PEOPLE_LIMIT });
+          this.setState({ errorText: RU.HTTP_ERRORS.PEOPLE_LIMIT, errorCode : error.code });
           this.setStartMissionErrorVisible(true);
         }else if (error.code === 418) {
           this.setState({ errorText: RU.HTTP_ERRORS.PERSONAL_LIMIT });
@@ -237,15 +238,22 @@ class Dashboard extends React.Component {
         console.log("Rejected: ", error);
         if (error.code === 503) {
           this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
+          this.setState({ load_missions: false });
+          this.setFinishMissionErrorVisible(true);
         } else if (error.code === 400) {
           this.setState({ errorText: RU.HTTP_ERRORS.NOT_FOUND });
+          this.setState({ load_missions: false });
+          this.setFinishMissionErrorVisible(true);
         } else if (error.code === 403) {
           this.setState({ errorText: RU.HTTP_ERRORS.SMTH_WENT_WRONG });
+          this.setState({ load_missions: false });
+          this.setFinishMissionErrorVisible(true);
         } else if (error.code === 408) {
           this.setState({ errorText: RU.HTTP_ERRORS.RUNTIME });
+          this.setState({ load_missions: false });
+          this.setFinishMissionErrorVisible(true);
         }
-        this.setState({ load_missions: false });
-        this.setFinishMissionErrorVisible(true);
+
       }
     );
   }
@@ -275,7 +283,9 @@ class Dashboard extends React.Component {
           first_btn_title={RU.REPEAT}
           visible={this.state.startMissionErrorVisible}
           first_btn_handler={() => {
-            this.callTimer();
+            (this.state.errorCode != 416 && this.state.errorCode != 418) ? this.callTimer(): this.setStartMissionErrorVisible(
+              !this.state.startMissionErrorVisible
+            );
           }}
           decline_btn_handler={() => {
             this.setStartMissionErrorVisible(

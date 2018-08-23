@@ -25,6 +25,7 @@ export default StyleSheet.create({
     marginRight: width * 0.04,
     borderRadius: 12,
     padding: 5,
+    zIndex : 1
     // elevation: 2,
     // shadowColor: colors.card_shadow,
     // shadowOffset: {

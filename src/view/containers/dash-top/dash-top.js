@@ -93,9 +93,9 @@ class DashTop extends React.Component {
                   : styles.main_task_expired_container
               }
             >
-              <Text style={styles.main_task_expired}>
+              {/* <Text style={styles.main_task_expired}>
                 {RU.MAIN_TASK_EXPIRED}
-              </Text>
+              </Text> */}
             </View>
           </View>
           <Button
@@ -316,14 +316,14 @@ class DashTop extends React.Component {
               </View>
             </View>
             <View style={this.props.timer_status ? styles.disabled : styles.main_task_expired_container} >
-              <LinearTextGradient
+              {/* <LinearTextGradient
                 locations={[0, 1]}
                 colors={[colors.orange, colors.pink]}
                 start={{ x: 0.0, y: 1.0 }}
                 end={{ x: 0.5, y: 0.2 }}
                 style={styles.main_task_expired}>
                 {RU.MAIN_TASK_EXPIRED}
-              </LinearTextGradient>
+              </LinearTextGradient> */}
             </View>
           </View>
           <Button

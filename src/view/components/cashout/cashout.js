@@ -3,15 +3,15 @@ import styles from "./styles";
 import { View, AsyncStorage } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 //containers
-import List from "./../../containers/cashout-list/cashout-list";
-import Balance from "./../../containers/cashout-balance/cashout-balance";
+import List from "../../containers/cashout-list/cashout-list";
+import Balance from "../../containers/cashout-balance/cashout-balance";
 import FooterNavigation from "../../containers/footer-navigator/footer-navigator";
 import CustomAlert from "../../containers/custom-alert/custom-alert";
 import TimerModal from "../../containers/timer-modal/timer-modal";
 //constants
 import { urls } from "../../../constants/urls";
-import { RU } from "./../../../locales/ru";
-import { colors } from "./../../../constants/colors";
+import { RU } from "../../../locales/ru";
+import { colors } from "../../../constants/colors";
 //redux
 import { setBalance } from "../../../reducers/user-balance";
 import { loaderState } from "../../../reducers/loader";
