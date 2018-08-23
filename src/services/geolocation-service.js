@@ -2,6 +2,7 @@ import React from "react";
 import { AsyncStorage, Platform } from "react-native";
 import geolib from "geolib";
 import BackgroundFetch from "react-native-background-fetch";
+import BackgroundTimer from 'react-native-background-timer';
 import { sendToTelegramm } from "./telegramm-notification";
 import { httpPost } from "./http";
 import { RU } from "../locales/ru";
