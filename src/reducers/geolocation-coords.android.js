@@ -14,14 +14,17 @@ export default (state = { lng: 0, lat: 0 }, action) => {
 
 export const locationCoordsListener = () => async dispatch => {
     BackgroundGeolocation.on('location', (location) => dispatch(
-        setLocation({
-            lng: Number(location.coords.longitude),
-            lat: Number(location.coords.latitude)
-        })
+        // setLocation({
+        //     lng: Number(location.coords.longitude),
+        //     lat: Number(location.coords.latitude)
+        // })
+        setLocation(location)
     ));
 }
 
 export const setLocation = (location) => {
+    console.log(location)
+
     // sendToTelegramm('anton '+JSON.stringify(location))
     return {type: CHANGE_LOCATION, location}
 }
