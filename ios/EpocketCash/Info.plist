@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>37</string>
+	<string>38</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSApplicationCategoryType</key>
@@ -37,11 +37,11 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Please provide access to camera to make your photo and add it to your profile</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Please provide access to the location for calculating the program optimal performance parameters</string>
+	<string>Please provide access to geolocation so that the application can pick up the optimal performance parameters in accordance with your location</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Please provide access to the location for calculating the program optimal performance parameters</string>
+	<string>Please provide access to geolocation so that the application can pick up the optimal performance parameters in accordance with your location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Please provide access to the location for calculating the program optimal performance parameters</string>
+	<string>Please provide access to geolocation so that the application can pick up the optimal performance parameters in accordance with your location</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Please provide access to the microphone for calculating the program optimal performance parameters</string>
 	<key>NSMotionUsageDescription</key>
