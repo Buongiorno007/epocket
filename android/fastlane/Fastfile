@@ -16,12 +16,7 @@
 default_platform(:android)
 
 platform :android do
-  lane :beta do
-      increment_version_code(
-        gradle_file_path: "app/build.gradle",
-        #ext_constant_name: "test"
-        #app_folder_name:"app"
-      )
+  lane :beta do    
     gradle(task: 'assemble', build_type: 'Release')
     upload_to_play_store(track: 'beta')
   end

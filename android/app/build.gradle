@@ -100,7 +100,7 @@ android {
         applicationId "club.dvlp.epocket"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 10
+        versionCode 13
         versionName "1.0"
         multiDexEnabled true
         ndk {
@@ -149,7 +149,7 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-mauron85-background-geolocation')
+    implementation project(':react-native-mauron85-background-geolocation')
     implementation project(':react-native-firebase')
     implementation (project(':react-native-android-location-enabler')){
         exclude group: 'com.android.support', module: 'support-v4'
