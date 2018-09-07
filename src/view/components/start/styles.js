@@ -37,7 +37,7 @@ export default StyleSheet.create({
   },
   start_title: {
     position: "relative",
-    top: 50,
+    top: width * 0.1+50,
     color: colors.white,
     fontFamily: "Rubik-Light",
     fontSize: 18,

@@ -18,7 +18,7 @@ export default StyleSheet.create({
     },
     form: {
         width: width * 0.85,
-        marginBottom: 100
+        marginBottom: 45
     },
     signInBtn: {
         marginTop: 40

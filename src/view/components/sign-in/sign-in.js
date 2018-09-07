@@ -6,7 +6,10 @@ import {
   Text,
   Keyboard,
   AsyncStorage,
-  Alert
+  Alert,
+  Animated,
+  Platform,
+  KeyboardAvoidingView
 } from "react-native";
 import { TextField } from "react-native-material-textfield";
 import LinearGradient from "react-native-linear-gradient";
@@ -15,12 +18,6 @@ import BackButton from "../../containers/back/back";
 import CustomButton from "../../containers/custom-button/custom-button";
 import CustomAlert from "../../containers/custom-alert/custom-alert";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
-//constants
-import styles from "./styles";
-import { colors } from "../../../constants/colors";
-import { urls } from "../../../constants/urls";
-import { ICONS } from "../../../constants/icons";
-import { RU } from "../../../locales/ru";
 //redux
 import { setToken } from "../../../reducers/token";
 import { loaderState } from "../../../reducers/loader";
@@ -31,6 +28,13 @@ import { getPush } from "../../../reducers/push";
 //services
 import NavigationService from "../../../services/route";
 import { httpPost } from "../../../services/http";
+//constants
+import styles from "./styles";
+import { colors } from "../../../constants/colors";
+import { urls } from "../../../constants/urls";
+import { ICONS } from "../../../constants/icons";
+import { RU } from "../../../locales/ru";
+const keyboardVerticalOffset = Platform.OS === "ios" ? -50 : -100;
 
 class SignIn extends React.Component {
   static navigationOptions = () => ({
@@ -39,6 +43,7 @@ class SignIn extends React.Component {
 
   prefix = "+380";
   state = {
+    signInMargin: new Animated.Value(40),
     phone: "",
     code: "",
     invalidCode: false,
@@ -47,7 +52,7 @@ class SignIn extends React.Component {
     step: 1,
     failedSignVisible: false,
     failedConfirmVisible: false,
-    errorText: ""
+    errorText: "",
   };
 
   constructor(props) {
@@ -55,7 +60,28 @@ class SignIn extends React.Component {
     Keyboard.dismiss();
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+    this.props.loaderState(false);
+  }
+  componentWillUnmount() {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
+  }
+  _keyboardDidShow = () =>{
+    Animated.timing(this.state.signInMargin, {
+      duration: 100,
+      toValue: 0,
+    }).start();
+  }
+
+  _keyboardDidHide = () =>{
+    Animated.timing(this.state.signInMargin, {
+      duration: 100,
+      toValue: 40,
+    }).start();
+  }
   setFailedSignVisible = visible => {
     this.setState({ failedSignVisible: visible });
   };
@@ -169,11 +195,15 @@ class SignIn extends React.Component {
       }
     );
   };
-  componentDidMount() {
-    this.props.loaderState(false);
-  }
+
   render() {
     return (
+      <KeyboardAvoidingView
+        style={styles.main_view}
+        behavior="padding"
+        keyboardVerticalOffset={keyboardVerticalOffset}
+        enabled
+      >
       <View style={styles.main_view}>
         <CustomAlert
           title={this.state.errorText}
@@ -240,7 +270,7 @@ class SignIn extends React.Component {
             >
               {RU.NUMBER_NOT_EXISTS}
             </Text>
-            <View style={styles.signInBtn}>
+            <Animated.View style={[{marginTop:this.state.signInMargin}]}>
               <CustomButton
                 handler={() => {
                   this.login();
@@ -248,7 +278,7 @@ class SignIn extends React.Component {
                 active={this.state.acceptButton}
                 title={RU.SIGN_IN}
               />
-            </View>
+            </Animated.View>
           </View>
         ) : this.state.step == 2 ? (
           <View style={styles.form}>
@@ -271,7 +301,7 @@ class SignIn extends React.Component {
             {this.state.invalidCode ? (
               <Text style={styles.check_code}>{RU.CHECK_CODE}</Text>
             ) : null}
-            <View style={styles.signInBtn}>
+            <Animated.View style={[{marginTop:this.state.signInMargin}]}>
               <CustomButton
                 handler={() => {
                   this.confirmLogin();
@@ -279,11 +309,12 @@ class SignIn extends React.Component {
                 active={this.state.acceptButton}
                 title={RU.ACCEPT}
               />
-            </View>
+            </Animated.View>
           </View>
         ) : null}
         {this.props.loader && <ActivityIndicator />}
       </View>
+      </KeyboardAvoidingView>
     );
   }
 }

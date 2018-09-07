@@ -8,7 +8,8 @@ import {
   KeyboardAvoidingView,
   Platform,
   Alert,
-  Keyboard
+  Keyboard,
+  Animated
 } from "react-native";
 import { TextField } from "react-native-material-textfield";
 import LinearGradient from "react-native-linear-gradient";
@@ -41,6 +42,7 @@ class SignUp extends React.Component {
   });
 
   state = {
+    signUpMargin: new Animated.Value(40),
     phone: "",
     name: "",
     code: "",
@@ -199,7 +201,26 @@ class SignUp extends React.Component {
     this.props.navigation.navigate("Main");
   }
   componentDidMount() {
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
     this.props.loaderState(false);
+  }
+  componentWillUnmount() {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
+  }
+  _keyboardDidShow = () =>{
+    Animated.timing(this.state.signUpMargin, {
+      duration: 100,
+      toValue: 0,
+    }).start();
+  }
+
+  _keyboardDidHide = () =>{
+    Animated.timing(this.state.signUpMargin, {
+      duration: 100,
+      toValue: 40,
+    }).start();
   }
   render() {
     return (
@@ -286,13 +307,13 @@ class SignUp extends React.Component {
                 maxLength={64}
                 onChangeText={text => this.onChangedName(text)}
               />
-              <View style={styles.signUpBtn}>
+               <Animated.View style={[{marginTop:this.state.signUpMargin}]}>
                 <CustomButton
                   active={this.state.phoneCorrect && this.state.nameCorrect}
                   title={RU.SIGN_UP}
                   handler={() => this.sendForm()}
                 />
-              </View>
+              </Animated.View>
             </View>
           ) : this.state.step == 2 ? (
             <View style={styles.form}>
@@ -321,25 +342,25 @@ class SignUp extends React.Component {
               >
                 {RU.CHECK_CODE}
               </Text>
-              <View style={styles.signUpBtn}>
+              <Animated.View style={[{marginTop:this.state.signUpMargin}]}>
                 <CustomButton
                   active={this.state.codeCorrect}
                   title={RU.ACCEPT}
                   handler={() => this.sendCode()}
                 />
-              </View>
+              </Animated.View>
             </View>
           ) : this.state.step == 3 ? (
             <View style={styles.form}>
               <Text style={styles.code_sent}>{RU.SING_UP_SUCCESS}</Text>
               <Text style={styles.enter_code}>{RU.USE_YOUR_PHONE}</Text>
-              <View style={styles.signUpBtn}>
+              <Animated.View style={[{marginTop:this.state.signUpMargin}]}>
                 <CustomButton
                   active
                   title={RU.OK}
                   handler={() => this.goToMap()}
                 />
-              </View>
+              </Animated.View>
             </View>
           ) : null}
         </View>
