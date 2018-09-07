@@ -16,8 +16,8 @@ export const locationStateListener = () => async dispatch => {
     BackgroundGeolocation.on('providerchange', (location) => dispatch(locationState(location.enabled)));
 }
 
-export const locationState = (isLocation) => ({
-    type: CHANGE_LOCATION_STATUS,
-    isLocation
-})
+export const locationState = (isLocation) => {
+    console.log("isLocation",isLocation)
+    return {type: CHANGE_LOCATION_STATUS,isLocation}
+}
 
