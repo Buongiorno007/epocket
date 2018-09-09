@@ -4,12 +4,15 @@ const { width, height } = Dimensions.get("window");
 import { colors } from "../../../constants/colors";
 
 export default StyleSheet.create({
+  container : {
+    height: height * 0.65,
+  },
   list: {
-    height: 500,
+    height: height * 0.75,
     flexDirection: "column",
   },
   empty: {
-    height: 500,
+    height: height * 0.75,
     flexDirection: "column",
     width: width,
     alignItems: "center",

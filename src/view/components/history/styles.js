@@ -18,9 +18,11 @@ export default StyleSheet.create({
   list_container: {
     backgroundColor: colors.drag_panel_color,
     top: 15,
-    flex: 3,
+
+
     borderTopRightRadius: 12,
     borderTopLeftRadius: 12,
+    height: height * 0.75,
     width: width,
     alignItems: "center",
     justifyContent: "center",
@@ -33,7 +35,7 @@ export default StyleSheet.create({
     height : 45,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
     zIndex : 1
   },
   history_nav: {

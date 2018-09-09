@@ -60,6 +60,8 @@ class Start extends React.Component {
     this.props.locationStateListener();
     this.props.locationCoordsListener();
 
+
+    BackgroundGeolocation.configure(geo_config())
     BackgroundGeolocation.checkStatus(status => {
       if (!status.isRunning) {
         BackgroundGeolocation.start();
@@ -72,13 +74,11 @@ class Start extends React.Component {
 
   _initialConfig = () => {
     AsyncStorage.getItem("fire_token").then(value => {
-      console.log(value)
     })
     AsyncStorage.getItem("user_info").then(value => {
       this.props.loaderState(false);
       let object = JSON.parse(value);
       if (object) {
-        console.log(object.token)
         this.props.setToken(object.token);
         NavigationService.navigate("Main");
       } else {

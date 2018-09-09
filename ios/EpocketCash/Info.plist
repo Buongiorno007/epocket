@@ -2,11 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -26,31 +21,36 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>38</string>
+	<string>40</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>NSAppleMusicUsageDescription</key>
 	<string>Please provide access to multimedia for uploading photos to your profile</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>Please provide access to the bluetooth for calculating the program optimal performance parameters</string>
+	<string>Please provide access to the bluetooth</string>
 	<key>NSCalendarsUsageDescription</key>
-	<string>Please provide access to the calendar for calculating the program optimal performance parameters</string>
+	<string>Please provide access to the calendar</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Please provide access to camera to make your photo and add it to your profile</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Please provide access to geolocation so that the application can pick up the optimal performance parameters in accordance with your location</string>
+	<string>The main purpose of the application is to check users on geo-positions.  According to geopositions the app provides to users info about possibilities how its possible to get services from the app.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Please provide access to geolocation so that the application can pick up the optimal performance parameters in accordance with your location</string>
+	<string>The main purpose of the application is to check users on geo-positions.  According to geopositions the app provides to users info about possibilities how its possible to get services from the app.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Please provide access to geolocation so that the application can pick up the optimal performance parameters in accordance with your location</string>
+	<string>The main purpose of the application is to check users on geo-positions.  According to geopositions the app provides to users info about possibilities how its possible to get services from the app.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Please provide access to the microphone for calculating the program optimal performance parameters</string>
 	<key>NSMotionUsageDescription</key>
-	<string>Please provide access to the  motion for calculating the program optimal performance parameters</string>
+	<string>Please provide access to the  motion. Motion information is required by the application to determine the movement and provision of services using the application</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Please provide access to photo for uploading photos to your profile</string>
 	<key>NSPhotoLibraryUsageDescription</key>

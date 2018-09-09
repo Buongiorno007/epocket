@@ -170,6 +170,7 @@ class Map extends React.Component {
       }
     );
   };
+  
   selectNearestMall = (my_location, mall_array,ANIMATE_MAP) => {
     let nearestMall = geolib.findNearest(my_location, mall_array, 0);
     try {this.selectTRC(mall_array[Number(nearestMall.key)],ANIMATE_MAP);} catch(e) {}

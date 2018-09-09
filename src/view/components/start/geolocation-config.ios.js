@@ -1,7 +1,7 @@
 import { Platform } from 'react-native'
 import BackgroundGeolocation from "react-native-background-geolocation";
 
-export default function geo_config () {
+export default function geo_config() {
     let config = undefined;
 
     switch (Platform.OS) {
@@ -9,7 +9,7 @@ export default function geo_config () {
             config = {
                 desiredAccuracy: 0,
                 distanceFilter: 1,
-                desiredOdometerAccuracy : 1,
+                desiredOdometerAccuracy: 1,
                 // Activity Recognition
                 stopTimeout: 5,
                 // Application config
@@ -17,6 +17,13 @@ export default function geo_config () {
                 logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
                 stopOnTerminate: true,   // <-- Allow the background-service to continue tracking when user closes the app.
                 startOnBoot: true,        // <-- Auto start tracking when device is powered-up.
+
+                stationaryRadius: 5,
+                locationProvider: BackgroundGeolocation.ACTIVITY_PROVIDER,
+                interval: 2000,
+                fastestInterval: 1200,
+                activitiesInterval: 10000,
+                stopOnStillActivity: false,
             }
             break;
         }
@@ -24,7 +31,7 @@ export default function geo_config () {
             config = {
                 desiredAccuracy: 0,
                 distanceFilter: 1,
-                desiredOdometerAccuracy : 10,
+                desiredOdometerAccuracy: 10,
                 // Activity Recognition
                 stopTimeout: 5,
                 // Application config
@@ -32,7 +39,7 @@ export default function geo_config () {
                 logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
                 stopOnTerminate: false,   // <-- Allow the background-service to continue tracking when user closes the app.
                 startOnBoot: false,        // <-- Auto start tracking when device is powered-up.
-                stationaryRadius : 1,
+                stationaryRadius: 1,
             }
             break;
         }
@@ -40,7 +47,7 @@ export default function geo_config () {
             config = {
                 desiredAccuracy: 0,
                 distanceFilter: 1,
-                desiredOdometerAccuracy : 10,
+                desiredOdometerAccuracy: 10,
                 // Activity Recognition
                 stopTimeout: 5,
                 // Application config

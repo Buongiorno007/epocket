@@ -15,6 +15,7 @@ class Photograph extends React.Component {
   render = () => {
     return (
       <View style={styles.container}>
+        {this.props.loader && <ActivityIndicator />}
         <StatusBar
           barStyle="dark-content"
           translucent={true}
@@ -25,7 +26,6 @@ class Photograph extends React.Component {
           <Camera />
           <Footer />
         </View>
-        {this.props.loader && <ActivityIndicator />}
       </View>
     );
   };

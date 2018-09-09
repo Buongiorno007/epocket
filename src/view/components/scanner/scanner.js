@@ -27,12 +27,12 @@ class Scanner extends React.Component {
   render = () => {
     return (
       <View style={styles.container}>
+        {this.props.loader && <ActivityIndicator />}
         <StatusBar
           barStyle="dark-content"
           translucent={true}
           backgroundColor={"transparent"}
         />
-        {this.props.loader && <ActivityIndicator />}
         <View style={styles.content}>
           <Mission />
           <Info />
