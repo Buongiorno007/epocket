@@ -5,27 +5,25 @@ import { colors } from "../../../constants/colors";
 
 export default StyleSheet.create({
   semi_transparent_button_disabled: {
-    backgroundColor: "rgba(255, 255, 255, 0.36)",
-    width: (width * 0.85)/2-10,
+    backgroundColor: colors.white_o36,
+    width: (width * 0.85)/2-20,
     height: 45,
     alignItems: "center",
     justifyContent: "center",
-    marginLeft: width * 0.04,
-    marginRight: width * 0.04,
     padding: 5,
-    borderRadius: 12
+    borderRadius: 12,
+    zIndex : 10
+
   },
   semi_transparent_button_active: {
     backgroundColor: colors.white,
-    width: width * 0.425 - width * 0.04,
+    width: (width * 0.85)/2-20,
     height: 45,
     alignItems: "center",
     justifyContent: "center",
-    marginLeft: width * 0.04,
-    marginRight: width * 0.04,
     borderRadius: 12,
     padding: 5,
-    zIndex : 1
+    zIndex : 10
     // elevation: 2,
     // shadowColor: colors.card_shadow,
     // shadowOffset: {

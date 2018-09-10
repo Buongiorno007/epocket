@@ -67,7 +67,7 @@ class Cashout extends React.Component {
     );
   };
   componentDidMount = () => {
-    this.loadData();
+    this.props.selectedMall.id && this.loadData();
     // this.props.loaderState(true);
   };
 

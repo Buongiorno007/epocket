@@ -13,13 +13,13 @@ class TrcInformation extends React.Component {
           <Text style={[styles.trc_info_text_tittle, {width : width *0.45}]} numberOfLines={1}>
             {this.props.info.name || "Караван"}
           </Text>
-          <Text numberOfLines={1} style={[styles.trc_info_text_info, {width : width *0.45}]}>
+          <Text numberOfLines={1} style={[styles.trc_info_text_info, {width : width * 0.4}]}>
             {this.props.info.adress || "березинка 19"}
           </Text>
         </View>
         <View style={styles.trc_info_border} />
         <View style={[styles.right]}>
-          <Text style={styles.trc_info_text_tittle}>{this.props.distance}</Text>
+          <Text style={[styles.trc_info_text_tittle, {textAlign : 'center',}]}  numberOfLines={1}>{this.props.distance}</Text>
           <Text style={styles.trc_info_text_info}>{RU.M}</Text>
         </View>
       </View>

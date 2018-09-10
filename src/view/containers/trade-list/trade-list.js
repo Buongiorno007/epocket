@@ -15,7 +15,7 @@ class TradeList extends React.Component {
             <View style={[styles.item, !item.amount && styles.hide]} key={i}>
                 <View style={styles.one_product}>
                   <View style={styles.data}>
-                    <Text style={styles.text}>{item.product__name}</Text>
+                    <Text numberOfLines={2} style={styles.text}>{item.product__name}</Text>
                     {item.amount >= 1 &&
                       item.approve && (
                         <Text

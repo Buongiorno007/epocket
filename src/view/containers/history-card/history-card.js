@@ -94,6 +94,7 @@ class HistoryCard extends React.Component {
               <View style={styles.spent_card}>
                 <View style={styles.name_and_price}>
                   <LinearTextGradient
+                      numberOfLines={2}
                     locations={[0, 1]}
                     colors={[colors.light_orange, colors.pink]}
                     start={{ x: 0.0, y: 1.0 }}

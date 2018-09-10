@@ -4,8 +4,8 @@ import { colors } from '../../../constants/colors'
 
 const { width, height } = Dimensions.get('window');
 const main_width = width * 0.85 - (65);
-const left_width = main_width * 0.75;
-const right_width = main_width * 0.23;
+const left_width = main_width * 0.7;
+const right_width = main_width * 0.3;
 
 export default StyleSheet.create({
     trc_info: {
@@ -32,7 +32,7 @@ export default StyleSheet.create({
         color: colors.black,
         fontSize: 14,
         fontFamily: 'Rubik-Bold',
-
+        width: right_width - 10,
     },
     trc_info_text_info: {
         marginTop: 5,
@@ -40,7 +40,6 @@ export default StyleSheet.create({
         fontSize: 12,
         fontFamily: 'Rubik-Regular',
         opacity: 0.6,
-
     },
     trc_info_border: {
         width: 1,

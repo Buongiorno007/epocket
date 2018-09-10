@@ -34,15 +34,9 @@ class History extends React.Component {
     let pick = this.state.pickedBonuses;
     this.setState({ pickedBonuses: !pick });
   };
-  componentDidMount() {
-    AsyncStorage.getItem("balance").then(value => {
-      this.setState({
-        user: {
-          balance: value
-        }
-      });
-    });
-  }
+  componentDidMount() {}
+
+  
   render() {
     return (
       <View style={styles.main_view}>
@@ -83,8 +77,8 @@ class History extends React.Component {
             <HistoryList picked_bonuses={this.state.pickedBonuses} />
           </View>
         </LinearGradient>
-        {(this.props.receivedBonusesJSX.loader ||
-          this.props.spentBonusesJSX.loader) && <ActivityIndicator />}
+        {/* {(this.props.receivedBonusesJSX.loader ||
+          this.props.spentBonusesJSX.loader) && <ActivityIndicator />} */}
           <TimerModal/>
         <FooterNavigation />
       </View>
