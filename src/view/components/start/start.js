@@ -5,11 +5,11 @@ import {
   Text,
   AsyncStorage,
   Image,
-  Keyboard
+  Keyboard,
+  Platform
 } from "react-native";
 import { Button } from "native-base";
 import LinearGradient from "react-native-linear-gradient";
-import BackgroundGeolocation from "react-native-mauron85-background-geolocation";
 //containers
 import CustomButton from "../../containers/custom-button/custom-button";
 import NoInternet from "../../containers/no-internet/no-internet";
@@ -38,6 +38,7 @@ import { setToken } from "../../../reducers/token";
 //services
 import geo_config from "./geolocation-config";
 import NavigationService from "../../../services/route";
+import BackgroundGeolocationModule from "../../../services/background-geolocation-picker"
 //constants
 import { urls } from "../../../constants/urls";
 import { sendToTelegramm } from "../../../services/telegramm-notification";
@@ -59,16 +60,20 @@ class Start extends React.Component {
     this._getLocation();
     this.props.locationStateListener();
     this.props.locationCoordsListener();
-
-
-    BackgroundGeolocation.configure(geo_config())
-    BackgroundGeolocation.checkStatus(status => {
-      if (!status.isRunning) {
-        BackgroundGeolocation.start();
-      }
-    });
-
-    
+    if(Platform.OS==="ios"){
+      BackgroundGeolocationModule.ready(geo_config(), state => {
+        if (!state.enabled) {
+          BackgroundGeolocationModule.start(function () { });
+        }
+      });
+    }else{
+      BackgroundGeolocationModule.configure(geo_config())
+      BackgroundGeolocationModule.checkStatus(status => {
+        if (!status.isRunning) {
+          BackgroundGeolocationModule.start();
+        }
+      });
+    }
     this._initialConfig();
   };
 
@@ -105,7 +110,7 @@ class Start extends React.Component {
       error => {
         this.props.locationState(false);
       },
-    );
+    );  
   };
   goToSignIn = () => {
     this.props.loaderState(true);

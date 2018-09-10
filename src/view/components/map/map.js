@@ -28,6 +28,7 @@ import { loaderState } from "../../../reducers/loader";
 import { setOutlets } from "../../../reducers/outlet-list";
 //services
 import { httpPost } from "../../../services/http";
+import getCurrentGeolocation from "../../../services/get-location"
 import {sendToTelegramm }from '../../../services/telegramm-notification'
 
 class Map extends React.Component {

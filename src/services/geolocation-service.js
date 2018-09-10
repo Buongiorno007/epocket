@@ -3,10 +3,10 @@ import { AsyncStorage, Platform, AppState } from "react-native";
 import geolib from "geolib";
 import BackgroundFetch from "react-native-background-fetch";
 import BackgroundTimer from 'react-native-background-timer';
-import { sendToTelegramm } from "./telegramm-notification";
 import { httpPost } from "./http";
 import { RU } from "../locales/ru";
 //services
+import getCurrentGeolocation from "./get-location"
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -105,25 +105,25 @@ class GeolocationService extends React.Component {
     firebase.notifications().displayNotification(notification)
   }
 
-  getCurrentGeolocation = () => {
-    return new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition(
-        position => {
-          resolve({
-            lng: position.coords.longitude,
-            lat: position.coords.latitude
-          })
-        },
-        error => {
-          reject(null);
-        }
-      );
-    });
-  };
+  // getCurrentGeolocation = () => {
+  //   return new Promise((resolve, reject) => {
+  //     navigator.geolocation.getCurrentPosition(
+  //       position => {
+  //         resolve({
+  //           lng: position.coords.longitude,
+  //           lat: position.coords.latitude
+  //         })
+  //       },
+  //       error => {
+  //         reject(null);
+  //       }
+  //     );
+  //   });
+  // };
 
   _handleAppStateChange = (nextAppState) => {
     if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
-      this.getCurrentGeolocation().then((location)=>{
+      getCurrentGeolocation().then((location)=>{
         this.calculateDistance({
           latitude: this.props.selectedMall.lat,
           longitude: this.props.selectedMall.lng
@@ -145,7 +145,7 @@ class GeolocationService extends React.Component {
     BackgroundTimer.stopBackgroundTimer();
   };
 
-  calculateDistance = (currentLocation, nextLocation) => {
+  calculateDistance = (currentLocation, nextLocation, nextProps) => {
     let distance = geolib.getDistance(
       {
         latitude: currentLocation.latitude,
@@ -182,7 +182,8 @@ class GeolocationService extends React.Component {
       },{
         latitude: nextProps.location.lat,
         longitude: nextProps.location.lng
-      });
+      },
+    nextProps);
     }
     if (nextProps.timer_status && !this.state.sheduleRequestStart) {
       this.setState({ sheduleRequestStart: true });
