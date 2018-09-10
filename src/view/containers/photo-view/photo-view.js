@@ -130,6 +130,7 @@ class PhotoView extends React.Component {
   render = () => {
     return (
       <View style={styles.container}>
+        {this.props.loader && <ActivityIndicator />}
         <CustomAlert
           title={this.state.errorText}
           first_btn_title={RU.REPEAT}
@@ -192,7 +193,6 @@ class PhotoView extends React.Component {
             </Button>
           </View>
         </View>
-        {this.props.loader && <ActivityIndicator />}
       </View>
     );
   };

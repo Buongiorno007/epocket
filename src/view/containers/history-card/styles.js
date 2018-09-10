@@ -40,7 +40,7 @@ export default StyleSheet.create({
     color : colors.black_o60
   },
   name: {
-    flex: 3,
+    flex: 4,
     paddingLeft: 10
   },
   name_text: {

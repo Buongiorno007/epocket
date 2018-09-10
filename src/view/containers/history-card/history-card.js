@@ -83,7 +83,7 @@ class HistoryCard extends React.Component {
                     {this.props.info.date
                       .split("T")[1]
                       .split("+")[0]
-                      .slice(0, -3)}
+                      .slice(0, -7)}
                   </Text>
                   <Text style={styles.date_text}>
                     {this.format(this.props.info.date.split("T")[0])}

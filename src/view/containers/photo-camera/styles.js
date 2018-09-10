@@ -8,7 +8,8 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    zIndex:20
   },
   size: {
     width: width * 0.7

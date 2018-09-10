@@ -73,7 +73,7 @@ export default StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width : 60,
-    height : 30,
+    height : 31,
     borderRadius : 50,
     backgroundColor : colors.card_shadow,
     position : 'absolute',

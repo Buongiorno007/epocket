@@ -41,7 +41,6 @@ export default StyleSheet.create({
     width: 45,
     height: 45,
     borderRadius: 7,
-    resizeMode : 'contain',
   },
   title: {
     height: width * 0.12,

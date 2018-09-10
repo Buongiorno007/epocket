@@ -143,11 +143,7 @@ class ProfileEdit extends React.Component {
       takePhotoButtonTitle: "Сделать фото",
       chooseFromLibraryButtonTitle: "Выбрать из галереи",
       cancelButtonTitle: "Отмена",
-      quality: 0.75,
-      storageOptions: {
-        skipBackup: true,
-        path: "images"
-      }
+      quality: 0.75
     };
     ImagePicker.showImagePicker(options, response => {
       if (response.didCancel) {

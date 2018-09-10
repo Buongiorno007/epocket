@@ -36,26 +36,29 @@ export default StyleSheet.create({
     button_container: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        zIndex : 1
+        zIndex : 1,
     },
     button: {
         height: width * 0.1,
-        width: width * 0.3,
         alignItems: 'center',
         justifyContent: 'center',
+        flex: 0.5
     },
     button_text: {
         fontSize: width * 0.04,
+        flexWrap: "wrap",
     },
     remove: {
         borderColor: '#000',
         borderWidth: 1,
+        marginRight:10
     },
     remove_text: {
         color: '#000'
     },
     send: {
-        backgroundColor: '#000'
+        backgroundColor: '#000',
+        marginLeft:10
     },
     send_text: {
         color: '#fff'
