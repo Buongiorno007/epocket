@@ -44,6 +44,11 @@
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
 
         <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="410644aee78853204a4467f0d39e2e96f9869d93"
+            />
+
+        <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAiJmMCHqazb3K-OyUFRADOJOLP7_kNRjM" />
 
@@ -67,5 +72,5 @@
         </service>
 
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
