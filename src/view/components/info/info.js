@@ -22,7 +22,7 @@ class Info extends React.Component {
     return (
       <View style={styles.main_view}>
         <View style={styles.back_view}>
-          <ImageBackground style={styles.back_img} source={require('../../../assets/img/INFO_BACK.png')} />
+          <ImageBackground style={styles.back_img} source={require('../../../assets/img/INFO_BACK.jpg')} />
         </View>
 
         <ScrollView style={styles.scroll}>

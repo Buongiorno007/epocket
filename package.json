@@ -5,7 +5,8 @@
     "scripts": {
         "start": "node node_modules/react-native/local-cli/cli.js start",
         "test": "jest",
-        "android:build": "cd android && ./gradlew assembleRelease"
+        "android:build": "cd android && ./gradlew assembleRelease",
+        "android:install":"cd android && ./gradlew assembleRelease && ./gradlew installRelease"
     },
     "rnpm": {
         "assets": [
