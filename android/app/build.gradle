@@ -101,7 +101,7 @@ android {
         applicationId "club.dvlp.epocket"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 15
+        versionCode 18
         versionName "1.0"
         multiDexEnabled true
         ndk {
@@ -147,6 +147,10 @@ android {
             }
         }
     }
+    packagingOptions{
+        doNotStrip '*/mips/*.so'
+        doNotStrip '*/mips64/*.so'
+    }
 }
 
 dependencies {
@@ -177,7 +181,7 @@ dependencies {
     implementation "com.google.firebase:firebase-core:15.0.2"
     implementation 'com.google.firebase:firebase-messaging:15.0.2'
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {
-        transitive = true;
+        transitive = true
     }
 
 
