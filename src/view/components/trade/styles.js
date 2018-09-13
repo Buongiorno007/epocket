@@ -11,7 +11,7 @@ export default StyleSheet.create({
         backgroundColor: '#F8F6F4'
     },
     scroll: {
-        height: width * 0.9,
+        height: height * 0.6,
     },
     button: {
         width: width,

@@ -35,13 +35,13 @@ class Trade extends React.Component {
           backgroundColor={"transparent"}
         />
         <Status status={this.props.socket.status} total_approve={this.totalApprove(this.props.socket.products)}/>
-        <ScrollView>
           <View style={styles.scroll}>
             <Title date={this.props.socket.time} />
-            <List list={this.props.socket.products} />
+            <ScrollView>
+              <List list={this.props.socket.products} />
+            </ScrollView>
             {this.props.socket.status !== -1 && <Price price={this.props.socket.total} />}
           </View>
-        </ScrollView>
         <View style={styles.button}>
           <CustomButton
             active

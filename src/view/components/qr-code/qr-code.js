@@ -22,7 +22,6 @@ class QrCode extends React.Component {
 
   componentDidMount = () => {
     this.backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
-      this.goBackPress();
       return true;
     });
     this.props.getSocket(this.props.token, this.props.navigation.state.params.orderId);
