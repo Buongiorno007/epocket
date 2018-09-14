@@ -20,10 +20,22 @@ class CardList extends React.Component {
     <Card item={item.item} onPressItem={this._showSelectedCard} />
   );
 
+  compareType = (a, b) => {
+    if (a.type < b.type)
+      return 1;
+    return 0;
+  }
+
+  _submissionOrder = (mission) => {
+    console.log("mission", mission.subMissions.sort(this.compareType))
+
+    mission.subMissions.length && (mission.subMissions = mission.subMissions.sort(this.compareType))
+    return mission
+  }
   _showSelectedCard = selectedCard => {
     this.props.setDashboardState(2);
     this.props.setActiveCard(true);
-    this.props.selectMission(selectedCard);
+    this.props.selectMission(this._submissionOrder(selectedCard));
   };
 
   render() {
@@ -52,15 +64,15 @@ class CardList extends React.Component {
                 />
               </View>
             ) : (
-              <View style={styles.no_tasks}>
-                <Text style={styles.no_tasks_text}>{RU.NO_TASKS}</Text>
-              </View>
-            )}
+                <View style={styles.no_tasks}>
+                  <Text style={styles.no_tasks_text}>{RU.NO_TASKS}</Text>
+                </View>
+              )}
             <FooterNavigation />
           </View>
         ) : (
-          <OpenedCard style={!this.props.activeCard ? styles.disabled : null} />
-        )}
+            <OpenedCard style={!this.props.activeCard ? styles.disabled : null} />
+          )}
       </View>
     );
   }

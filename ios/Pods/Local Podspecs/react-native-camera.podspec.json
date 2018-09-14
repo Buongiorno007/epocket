@@ -63,6 +63,21 @@
         ]
       },
       "source_files": "ios/FaceDetector/**/*.{h,m}"
+    },
+    {
+      "name": "TextDetector",
+      "dependencies": {
+        "react-native-camera/RN": [
+
+        ],
+        "react-native-camera/RCT": [
+
+        ],
+        "GoogleMobileVision/TextDetector": [
+
+        ]
+      },
+      "source_files": "ios/TextDetector/**/*.{h,m}"
     }
   ]
 }

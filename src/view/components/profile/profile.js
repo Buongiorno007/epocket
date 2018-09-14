@@ -24,6 +24,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 //service
 import NavigationService from "../../../services/route";
+import InstagramLogin from 'react-native-instagram-login'
 
 class Profile extends React.Component {
   constructor(props) {
@@ -69,9 +70,19 @@ class Profile extends React.Component {
     AsyncStorage.setItem("balance", "");
     NavigationService.navigate("Start");
   };
+  connectInsta = () => {
+    this.refs.instagramLogin.show()
+  }
   render() {
     return (
       <View style={styles.main_view}>
+        <InstagramLogin
+          ref='instagramLogin'
+          clientId='7df789fc907d4ffbbad30b7e25ba3933'
+          scopes={['basic', 'public_content','likes','follower_list','comments','relationships']}
+          onLoginSuccess={(token) => console.log(token)}
+          onLoginFailure={(data) => console.log(data)}
+        />
         {this.state.modalVisible ? <Blur /> : null}
         <View style={styles.header}>
           <View style={styles.header_container}>
@@ -118,10 +129,19 @@ class Profile extends React.Component {
                 color={colors.white}
                 handler={() => this.ToEdit()}
               />
+              {/* <CustomButton
+                active
+                short
+                gradient
+                title={RU.PROFILE_PAGE.INSTA.toUpperCase()}
+                color={colors.white}
+                handler={() => this.connectInsta()}
+              /> */}
             </View>
           </View>
         </View>
         <TimerModal />
+
         <FooterNavigation />
       </View>
     );

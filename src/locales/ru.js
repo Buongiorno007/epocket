@@ -108,6 +108,7 @@ export const RU = {
     DECLINE: "Отмена",
     EXIT: "Выйти",
     EDIT: "Редактировать",
+    INSTA: "Instagram",
     CHOOSE_AVATAR: "Выберите аватар",
     EDIT_PHOTO: "Изменить фото",
     LOAD_PHOTO: "Загрузить фото",
