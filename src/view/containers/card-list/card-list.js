@@ -21,6 +21,7 @@ class CardList extends React.Component {
   );
 
   compareType = (a, b) => {
+    console.log(a,b)
     if (a.type < b.type)
       return 1;
     return 0;
@@ -28,6 +29,7 @@ class CardList extends React.Component {
 
   _submissionOrder = (mission) => {
     mission.subMissions.length && (mission.subMissions = mission.subMissions.sort(this.compareType))
+    console.log(mission.subMissions)
     return mission
   }
   _showSelectedCard = selectedCard => {

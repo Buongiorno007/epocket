@@ -27,7 +27,7 @@ import { bindActionCreators } from "redux";
 //services
 import { httpPost } from "../../../services/http";
 import "./correcting-interval";
-
+import { orderBy } from 'lodash';
 import moment from "moment";
 
 class Dashboard extends React.Component {
@@ -69,7 +69,7 @@ class Dashboard extends React.Component {
     );
     promise.then(
       result => {
-        console.log('callTimer',result)
+        console.log('callTimer', result)
         this.setStartMissionErrorVisible(false);
         this.setState({ load_timer: false });
         this.setState(
@@ -100,7 +100,7 @@ class Dashboard extends React.Component {
           416 - лимит на кол-во человек.
           418 - лимит на кол-во выполнений за день
         */
-       this.setState({ load_timer: false });
+        this.setState({ load_timer: false });
         if (error.code === 503) {
           this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
           this.setStartMissionErrorVisible(true);
@@ -108,12 +108,12 @@ class Dashboard extends React.Component {
           this.setState({ errorText: RU.HTTP_ERRORS.SMTH_WENT_WRONG });
           this.setStartMissionErrorVisible(true);
         } else if (error.code === 408) {
-          this.setState({ errorText: RU.HTTP_ERRORS.RUNTIME, errorCode : error.code  });
+          this.setState({ errorText: RU.HTTP_ERRORS.RUNTIME, errorCode: error.code });
           this.setStartMissionErrorVisible(true);
-        }else if (error.code === 416) {
-          this.setState({ errorText: RU.HTTP_ERRORS.PEOPLE_LIMIT, errorCode : error.code });
+        } else if (error.code === 416) {
+          this.setState({ errorText: RU.HTTP_ERRORS.PEOPLE_LIMIT, errorCode: error.code });
           this.setStartMissionErrorVisible(true);
-        }else if (error.code === 418) {
+        } else if (error.code === 418) {
           this.setState({ errorText: RU.HTTP_ERRORS.PERSONAL_LIMIT });
           this.setStartMissionErrorVisible(true);
         }
@@ -140,7 +140,8 @@ class Dashboard extends React.Component {
       let endTime = moment(item.date_end).subtract(3, "hours").format("HH:mm:ss")
       item.active = currentTime > startTime && currentTime < endTime;
     });
-    return missions.sort(this.comparePrice).sort(this.compareStatus)
+    return orderBy(orderBy(missions, ['price'],['desc']),['active'],['desc']);
+    // return missions.sort(this.comparePrice).sort(this.compareStatus)
   }
 
   getMissions = () => {
@@ -153,7 +154,7 @@ class Dashboard extends React.Component {
     );
     promise.then(
       result => {
-        console.log('getMissions',result)
+        console.log('getMissions', result)
         this.setMissionsErrorVisible(false);
         this.setState({ load_missions: false });
         if (result.status == 200) {
@@ -161,7 +162,7 @@ class Dashboard extends React.Component {
         }
       },
       error => {
-        console.log('getMissions',error)
+        console.log('getMissions', error)
         if (error.code === 503) {
           this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
           this.setMissionsErrorVisible(true);
@@ -285,7 +286,7 @@ class Dashboard extends React.Component {
           first_btn_title={RU.REPEAT}
           visible={this.state.startMissionErrorVisible}
           first_btn_handler={() => {
-            (this.state.errorCode != 416 && this.state.errorCode != 418) ? this.callTimer(): this.setStartMissionErrorVisible(
+            (this.state.errorCode != 416 && this.state.errorCode != 418) ? this.callTimer() : this.setStartMissionErrorVisible(
               !this.state.startMissionErrorVisible
             );
           }}
