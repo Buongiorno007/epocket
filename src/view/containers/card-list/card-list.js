@@ -27,8 +27,6 @@ class CardList extends React.Component {
   }
 
   _submissionOrder = (mission) => {
-    console.log("mission", mission.subMissions.sort(this.compareType))
-
     mission.subMissions.length && (mission.subMissions = mission.subMissions.sort(this.compareType))
     return mission
   }
