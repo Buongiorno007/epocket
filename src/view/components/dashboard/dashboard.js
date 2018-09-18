@@ -122,17 +122,6 @@ class Dashboard extends React.Component {
     );
   }
 
-  compareStatus = (a, b) => {
-    if (a.active < b.active)
-      return 1;
-    return 0;
-  }
-  comparePrice = (a, b) => {
-    if (a.price < b.price)
-      return 1;
-    return 0;
-  }
-
   getActiveMissions = (missions) => {
     missions.forEach((item) => {
       let currentTime = moment().format("HH:mm:ss");
@@ -141,7 +130,6 @@ class Dashboard extends React.Component {
       item.active = currentTime > startTime && currentTime < endTime;
     });
     return orderBy(orderBy(missions, ['price'],['desc']),['active'],['desc']);
-    // return missions.sort(this.comparePrice).sort(this.compareStatus)
   }
 
   getMissions = () => {

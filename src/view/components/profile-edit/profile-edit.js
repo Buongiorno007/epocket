@@ -12,7 +12,6 @@ import {
 import { Button, Item, Input, Label, Form } from "native-base";
 import ImagePicker from "react-native-image-picker";
 //containers
-import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 import CustomButton from "../../containers/custom-button/custom-button";
 import CustomPhoto from "../../containers/custom-photo/custom-photo";
 import CustomAlert from "../../containers/custom-alert/custom-alert";
