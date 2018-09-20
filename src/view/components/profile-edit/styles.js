@@ -63,7 +63,7 @@ export default StyleSheet.create({
   btn_container: {
     height: 100,
     bottom: 40,
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
     elevation: 2
   },

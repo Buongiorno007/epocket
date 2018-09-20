@@ -172,41 +172,10 @@ class ProfileEdit extends React.Component {
   render() {
     return (
       <View style={styles.main}>
-        {this.state.modalVisible ||
+        {(this.state.modalVisible ||
         this.state.exitVisible ||
-        this.state.rejectedRequestModal ? (
-          <Blur />
-        ) : null}
+        this.state.rejectedRequestModal) &&  <Blur /> }
         <View style={styles.user_edit_header_container}>
-          {this.state.changed ? (
-            <Button
-              iconLeft
-              transparent
-              rounded
-              style={styles.exit_button}
-              onPress={() => this.Exit()}
-            >
-              <Image
-                style={styles.cross}
-                source={{ uri: ICONS.COMMON.CLOSE }}
-              />
-            </Button>
-          ) : (
-            <Button
-              transparent
-              iconLeft
-              rounded
-              style={styles.exit_button}
-              onPress={() => NavigationService.navigate("Main")}
-              title={" "}
-            >
-              <Image
-                style={styles.cross}
-                source={{ uri: ICONS.COMMON.CLOSE }}
-              />
-            </Button>
-          )}
-
           <CustomAlert
             title={RU.PROFILE_PAGE.ALERT_NOT_SAVED_DATA}
             first_btn_title={RU.PROFILE_PAGE.YES}
@@ -293,6 +262,15 @@ class ProfileEdit extends React.Component {
             title={RU.PROFILE_PAGE.ACCEPT.toUpperCase()}
             color={colors.white}
             handler={() => this.SubmitEdit()}
+          />
+          <CustomButton
+            style={styles.btn}
+            active
+            short
+            bordered
+            title={RU.PROFILE_PAGE.DECLINE_2.toUpperCase()}
+            color={colors.pink}
+            handler={() => this.state.changed ? this.Exit() : NavigationService.navigate("Main") }
           />
         </View>
         <CustomAlert

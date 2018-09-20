@@ -26,7 +26,7 @@ class CustomPhoto extends Component {
         <LinearGradient
           colors={[colors.light_orange, colors.pink]}
           start={{ x: 0.0, y: 1.0 }}
-          end={{ x: 1.0, y: 1.0 }}
+          end={{ x: 0.5, y: 0.2 }}
           style={styles.photo_container}
         >
           {this.props.src ? (
@@ -35,11 +35,11 @@ class CustomPhoto extends Component {
               source={{ uri: "data:image/jpeg;base64," + this.props.src }}
             />
           ) : (
-            <Image
-              style={styles.photo}
-              source={require('../../../assets/img/UNSET_PROILE.png')}
-            />
-          )}
+              <Image
+                style={styles.icon}
+                source={require('../../../assets/img/UNSET_PROILE.png')}
+              />
+            )}
         </LinearGradient>
       </View>
     );
