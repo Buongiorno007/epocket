@@ -5,9 +5,9 @@ import { colors } from "../../../constants/colors";
 
 export default StyleSheet.create({
   photo_container: {
-    width: width * 0.5,
-    height: width * 0.5,
-    borderRadius: (width * 0.5) / 2,
+    width: width * 0.3,
+    height: width * 0.3,
+    borderRadius: (width * 0.3) / 2,
     backgroundColor: "red",
     justifyContent: "center",
     alignItems: "center",
@@ -18,12 +18,18 @@ export default StyleSheet.create({
       height: 2
     },
     shadowRadius: 5,
-    shadowOpacity: 5
+    shadowOpacity: 5,
+    overflow : 'hidden'
   },
   photo: {
-    width: width * 0.5,
-    height: width * 0.5,
-    borderRadius: (width * 0.5) / 2
-    //resizeMode : 'contain'
+    width: width * 0.3,
+    height: width * 0.3,
+    borderRadius: (width * 0.3) / 2,
+    resizeMode : 'contain'
+  },
+  icon: {
+    width: width * 0.15,
+    height: width * 0.15,
+    resizeMode : 'contain'
   }
 });

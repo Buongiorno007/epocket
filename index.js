@@ -13,7 +13,7 @@ import QrCode from "./src/view/components/qr-code/qr-code";
 import Picture from "./src/view/components/picture/picture";
 import Trade from "./src/view/components/trade/trade";
 import MissionSuccess from "./src/view/components/mission-success/mission-success";
-import Profile from "./src/view/components/profile/profile"
+import ProfileSettings from "./src/view/components/profile-settings/profile-settings"
 import ProfileEdit from "./src/view/components/profile-edit/profile-edit"
 
 import { Provider } from "react-redux";
@@ -38,7 +38,8 @@ const EpocketCash = createStackNavigator(
     Picture: { screen: Picture },
     Trade: { screen: Trade },
     MissionSuccess: { screen: MissionSuccess },
-    ProfileEdit: { screen: ProfileEdit }
+    ProfileEdit: { screen: ProfileEdit },
+    ProfileSettings: { screen: ProfileSettings },
   },
   {
     initialRouteName: "Start",

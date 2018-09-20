@@ -161,6 +161,7 @@ class SignIn extends React.Component {
     let promise = httpPost(urls.sing_in_confirm, JSON.stringify(body));
     promise.then(
       result => {
+        // console.log('result', result)
         this.setFailedConfirmVisible(false);
         this.props.loaderState(false);
         const user_info = JSON.stringify({

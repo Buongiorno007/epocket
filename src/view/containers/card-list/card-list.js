@@ -13,6 +13,7 @@ import { bindActionCreators } from "redux";
 import { setActiveCard } from "../../../reducers/set-active-card";
 import { selectMission } from "../../../reducers/selected-mission";
 import { setDashboardState } from "../../../reducers/dashboard-state";
+import { orderBy } from 'lodash';
 
 class CardList extends React.Component {
 
@@ -20,14 +21,9 @@ class CardList extends React.Component {
     <Card item={item.item} onPressItem={this._showSelectedCard} />
   );
 
-  compareType = (a, b) => {
-    if (a.type < b.type)
-      return 1;
-    return 0;
-  }
-
   _submissionOrder = (mission) => {
-    mission.subMissions.length && (mission.subMissions = mission.subMissions.sort(this.compareType))
+    console.log(mission.subMissions)
+    mission.subMissions.length && (mission.subMissions = orderBy(mission.subMissions,['type'], ['desc']))
     return mission
   }
   _showSelectedCard = selectedCard => {

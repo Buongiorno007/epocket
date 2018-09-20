@@ -35,5 +35,16 @@ export default StyleSheet.create({
   },
   gradient: {
     position: "absolute",
+  },
+  border_btn : {
+    position: "absolute",
+    borderRadius : 50,
+    backgroundColor : colors.pink
+  },
+  background_btn : {
+    position: "absolute",
+    height: 38,
+    borderRadius : 50,
+    backgroundColor: colors.drag_panel_color
   }
 });

@@ -12,84 +12,71 @@ export default StyleSheet.create({
     height: height,
     width: width,
     alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: colors.drag_panel_color
+    justifyContent: "flex-start",
+    backgroundColor: colors.drag_panel_color,
   },
   header: {
-    flex: 1,
-    marginTop: 45,
-    alignItems: "flex-end"
+    width: width,
+    flexDirection: 'row',
+    height: height * 0.1,
+    alignItems: "flex-end",
+    justifyContent: 'flex-end',
+
+  },
+  settings_btn: {
+    height: 30,
+    width: 30,
+    alignSelf: 'flex-end'
+  },
+  settings_img: {
+    height: 20,
+    width: 20,
+    resizeMode: 'contain'
   },
   info: {
-    flex: 7
-  },
-  info_container: {
+    width: width,
+    flexDirection : 'column',
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    paddingLeft: width * 0.1,
+    paddingRight: width * 0.1,
+
   },
+
   name: {
     color: colors.black,
-    fontSize: 20,
-    textAlign: "center",
+    fontSize: 22,
+    textAlign: "left",
     fontFamily: "Rubik-Bold",
     letterSpacing: 2,
-    marginBottom: height * 0.02
+    marginBottom: height * 0.05
   },
   phone: {
-    color: colors.black_o60,
+    color: colors.black_o36,
     fontSize: 12,
-    textAlign: "center",
-    fontFamily: "Rubik-Regular"
-  },
-  photo: {
-    width: width * 0.5,
-    height: width * 0.5,
-    borderRadius: (width * 0.5) / 2,
-    backgroundColor: "red",
-    justifyContent: "center",
-    alignItems: "center"
+    textAlign: "left",
+    fontFamily: "Rubik-Regular",
+
   },
   photo_container: {
-    flex: 2
+    width: width * 0.4,
+    height: width * 0.4,
+    justifyContent: "flex-start",
+    alignItems: "center",
+    alignSelf: 'center',
   },
   text_container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
   },
   btn_container: {
-    flex: 1,
-    marginBottom: height * 0.2,
+    width: width,
+    height: height * 0.4,
+    alignSelf : 'center',
     justifyContent: "center",
     alignItems: "center"
   },
-  header_container: {
-    width : width,
-    justifyContent: "center",
-    alignItems: "flex-end"
-  },
-  exit_container: {
-    justifyContent: "center",
-    alignItems: "center",
-    width : 60,
-    height : 31,
-    borderRadius : 50,
-    backgroundColor : colors.card_shadow,
-    position : 'absolute',
-    right : 20 
-  },
-  exit_btn: {
-    justifyContent: "center",
-    alignItems: "center",
-    width : 58,
-    height : 28,
-    backgroundColor : colors.white,
-    left : 1
-  },
-  exit_btn_text: {
-    color: colors.card_shadow,
-    fontSize: 12,
-    fontFamily: "Rubik-Regular",
-  }
+
+
 });

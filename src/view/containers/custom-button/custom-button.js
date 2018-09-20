@@ -30,7 +30,7 @@ class CustomButton extends React.Component {
         style={[
           styles.button_container,
           this.props.active ? styles.enabled_button : styles.disabled_button,
-          this.props.short ? { width: width * 0.5 } : null
+          this.props.short && { width: width * 0.5 }
         ]}
         onPress={() => {
           this.props.active && this.props.handler();
@@ -40,13 +40,30 @@ class CustomButton extends React.Component {
           <LinearGradient
             colors={[colors.light_orange, colors.pink]}
             start={{ x: 0.0, y: 1.0 }}
-            end={{ x: 1.0, y: 1.0 }}
+            end={{ x: 0.5, y: 0.2 }}
             style={[
               styles.button_container,
               this.props.short ? { width: width * 0.5 } : null,
               styles.gradient
             ]}
           />
+        )}
+        {this.props.bordered && (
+          <View
+            style={[
+              styles.button_container,
+              this.props.short && { width: width * 0.5 },
+              styles.border_btn
+            ]}
+          >
+            <View
+              style={[
+                styles.button_container,
+                this.props.short ? { width: width * 0.5-2 } : { width: width * 0.85-2 },
+                styles.background_btn
+              ]}
+            />
+          </View>
         )}
         <Text
           style={[
