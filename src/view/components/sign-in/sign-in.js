@@ -69,14 +69,14 @@ class SignIn extends React.Component {
     this.keyboardDidShowListener.remove();
     this.keyboardDidHideListener.remove();
   }
-  _keyboardDidShow = () =>{
+  _keyboardDidShow = () => {
     Animated.timing(this.state.signInMargin, {
       duration: 100,
       toValue: 0,
     }).start();
   }
 
-  _keyboardDidHide = () =>{
+  _keyboardDidHide = () => {
     Animated.timing(this.state.signInMargin, {
       duration: 100,
       toValue: 40,
@@ -161,14 +161,16 @@ class SignIn extends React.Component {
     let promise = httpPost(urls.sing_in_confirm, JSON.stringify(body));
     promise.then(
       result => {
-        // console.log('result', result)
+        //console.log('result', result)
         this.setFailedConfirmVisible(false);
         this.props.loaderState(false);
         const user_info = JSON.stringify({
           token: result.body.token,
           name: result.body.user,
           phone: this.state.phone,
-          photo: result.body.photo
+          photo: result.body.photo,
+          sex: result.body.sex,
+          birthDay: result.body.birthDay
         });
         this.props.getPush(result.body.token)
         AsyncStorage.setItem("user_info", user_info);
@@ -205,116 +207,116 @@ class SignIn extends React.Component {
         keyboardVerticalOffset={keyboardVerticalOffset}
         enabled
       >
-      <View style={styles.main_view}>
-        <CustomAlert
-          title={this.state.errorText}
-          first_btn_title={RU.REPEAT}
-          visible={this.state.failedSignVisible}
-          first_btn_handler={() => {
-            this.login();
-          }}
-          decline_btn_handler={() => {
-            this.setFailedSignVisible(!this.state.failedSignVisible);
-          }}
-        />
-        <CustomAlert
-          title={this.state.errorText}
-          first_btn_title={RU.REPEAT}
-          visible={this.state.failedConfirmVisible}
-          first_btn_handler={() => {
-            this.confirmLogin();
-          }}
-          decline_btn_handler={() => {
-            this.setFailedConfirmVisible(!this.state.failedConfirmVisible);
-          }}
-        />
-        <StatusBar
-          barStyle="dark-content"
-          translucent={true}
-          backgroundColor={"transparent"}
-        />
-        <Image
-          style={styles.bottom_image}
-          source={{ uri: ICONS.COMMON.SIGN_IN_BACKGROUND }}
-        />
-        <LinearGradient
-          colors={["#FEBF54", "#FB7375", "rgba(246,34,183,0.48)"]}
-          start={{ x: 1.0, y: 0.0 }}
-          end={{ x: 0.0, y: 1.0 }}
-          style={styles.grad}
-        />
-        {this.state.step == 1 ? (
-          <View style={styles.form}>
-            <TextField
-              label={RU.MOBILE_NUMBER}
-              textColor={colors.input}
-              tintColor={colors.input}
-              baseColor={colors.input}
-              placeholder={RU.PHONE_MASK}
-              placeholderTextColor={colors.input_placeholder}
-              labelPadding={16}
-              inputContainerPadding={16}
-              onChangeText={text => {
-                this.onChangedPhone(text);
-              }}
-              value={this.state.phone}
-              maxLength={9}
-              keyboardType="numeric"
-              prefix={this.prefix}
-            />
-            <Text
-              style={
-                this.state.numberNotExists
-                  ? styles.number_exists
-                  : styles.disabled
-              }
-            >
-              {RU.NUMBER_NOT_EXISTS}
-            </Text>
-            <Animated.View style={[{marginTop:this.state.signInMargin}]}>
-              <CustomButton
-                handler={() => {
-                  this.login();
+        <View style={styles.main_view}>
+          <CustomAlert
+            title={this.state.errorText}
+            first_btn_title={RU.REPEAT}
+            visible={this.state.failedSignVisible}
+            first_btn_handler={() => {
+              this.login();
+            }}
+            decline_btn_handler={() => {
+              this.setFailedSignVisible(!this.state.failedSignVisible);
+            }}
+          />
+          <CustomAlert
+            title={this.state.errorText}
+            first_btn_title={RU.REPEAT}
+            visible={this.state.failedConfirmVisible}
+            first_btn_handler={() => {
+              this.confirmLogin();
+            }}
+            decline_btn_handler={() => {
+              this.setFailedConfirmVisible(!this.state.failedConfirmVisible);
+            }}
+          />
+          <StatusBar
+            barStyle="dark-content"
+            translucent={true}
+            backgroundColor={"transparent"}
+          />
+          <Image
+            style={styles.bottom_image}
+            source={{ uri: ICONS.COMMON.SIGN_IN_BACKGROUND }}
+          />
+          <LinearGradient
+            colors={["#FEBF54", "#FB7375", "rgba(246,34,183,0.48)"]}
+            start={{ x: 1.0, y: 0.0 }}
+            end={{ x: 0.0, y: 1.0 }}
+            style={styles.grad}
+          />
+          {this.state.step == 1 ? (
+            <View style={styles.form}>
+              <TextField
+                label={RU.MOBILE_NUMBER}
+                textColor={colors.input}
+                tintColor={colors.input}
+                baseColor={colors.input}
+                placeholder={RU.PHONE_MASK}
+                placeholderTextColor={colors.input_placeholder}
+                labelPadding={16}
+                inputContainerPadding={16}
+                onChangeText={text => {
+                  this.onChangedPhone(text);
                 }}
-                active={this.state.acceptButton}
-                title={RU.SIGN_IN}
+                value={this.state.phone}
+                maxLength={9}
+                keyboardType="numeric"
+                prefix={this.prefix}
               />
-            </Animated.View>
-          </View>
-        ) : this.state.step == 2 ? (
-          <View style={styles.form}>
-            <Text style={styles.code_sent}>{RU.CODE_SENT}</Text>
-            <Text style={styles.enter_code}>{RU.ENTER_CODE_SIDN_IN}</Text>
-            <TextField
-              label={""}
-              style={styles.code_input}
-              textColor={colors.input}
-              tintColor={colors.input}
-              baseColor={colors.input}
-              placeholder={RU.CODE_MASK}
-              placeholderTextColor={colors.input_placeholder}
-              labelPadding={16}
-              inputContainerPadding={16}
-              maxLength={6}
-              keyboardType="numeric"
-              onChangeText={text => this.onChangedCode(text)}
-            />
-            {this.state.invalidCode ? (
-              <Text style={styles.check_code}>{RU.CHECK_CODE}</Text>
-            ) : null}
-            <Animated.View style={[{marginTop:this.state.signInMargin}]}>
-              <CustomButton
-                handler={() => {
-                  this.confirmLogin();
-                }}
-                active={this.state.acceptButton}
-                title={RU.ACCEPT}
+              <Text
+                style={
+                  this.state.numberNotExists
+                    ? styles.number_exists
+                    : styles.disabled
+                }
+              >
+                {RU.NUMBER_NOT_EXISTS}
+              </Text>
+              <Animated.View style={[{ marginTop: this.state.signInMargin }]}>
+                <CustomButton
+                  handler={() => {
+                    this.login();
+                  }}
+                  active={this.state.acceptButton}
+                  title={RU.SIGN_IN}
+                />
+              </Animated.View>
+            </View>
+          ) : this.state.step == 2 ? (
+            <View style={styles.form}>
+              <Text style={styles.code_sent}>{RU.CODE_SENT}</Text>
+              <Text style={styles.enter_code}>{RU.ENTER_CODE_SIDN_IN}</Text>
+              <TextField
+                label={""}
+                style={styles.code_input}
+                textColor={colors.input}
+                tintColor={colors.input}
+                baseColor={colors.input}
+                placeholder={RU.CODE_MASK}
+                placeholderTextColor={colors.input_placeholder}
+                labelPadding={16}
+                inputContainerPadding={16}
+                maxLength={6}
+                keyboardType="numeric"
+                onChangeText={text => this.onChangedCode(text)}
               />
-            </Animated.View>
-          </View>
-        ) : null}
-        {this.props.loader && <ActivityIndicator />}
-      </View>
+              {this.state.invalidCode ? (
+                <Text style={styles.check_code}>{RU.CHECK_CODE}</Text>
+              ) : null}
+              <Animated.View style={[{ marginTop: this.state.signInMargin }]}>
+                <CustomButton
+                  handler={() => {
+                    this.confirmLogin();
+                  }}
+                  active={this.state.acceptButton}
+                  title={RU.ACCEPT}
+                />
+              </Animated.View>
+            </View>
+          ) : null}
+          {this.props.loader && <ActivityIndicator />}
+        </View>
       </KeyboardAvoidingView>
     );
   }

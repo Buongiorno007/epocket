@@ -29,7 +29,6 @@ class ProfileSettings extends React.Component {
     super(props);
   }
   state = {
-    user: {},
     modalVisible: false,
     instConnected:false
   };
@@ -50,25 +49,15 @@ class ProfileSettings extends React.Component {
   ToProfileEdit = () =>{
     AsyncStorage.getItem("user_info").then(value => {
       let object = JSON.parse(value);
-      console.log(object)
-      this.setState({
-        user: {
-          username: object.name,
-          phone: object.phone,
-          photo: object.photo,
-          sex: object.sex,
-          birthDay: object.birthDay
-        }
-      });
+      let async_storage_user = {
+        user_name: object.name,
+        user_phone: object.phone,
+        user_photo_url: object.photo,
+        user_sex: object.sex,
+        user_birthDay: object.birthDay
+      };
+      NavigationService.navigate("ProfileEdit",{ async_storage_user });
     });
-    let async_storage_user = {
-      user_name: this.state.user.username,
-      user_phone: this.state.user.phone,
-      user_photo_url: this.state.user.photo,
-      user_sex: this.state.user.sex,
-      user_birthDay: this.state.user.birthDay
-    };
-    NavigationService.navigate("ProfileEdit",{ async_storage_user });
   }
   render() {
     return (

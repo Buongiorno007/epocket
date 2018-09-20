@@ -168,7 +168,9 @@ class SignUp extends React.Component {
           name: this.state.name,
           token: result.body.token,
           phone: this.state.phone,
-          balance: 0
+          balance: 0,
+          sex: result.body.sex,
+          birthDay: result.body.birthDay
         });
         AsyncStorage.setItem("user_info", new_user);
         AsyncStorage.setItem("balance", 0);
