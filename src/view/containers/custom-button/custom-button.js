@@ -30,7 +30,8 @@ class CustomButton extends React.Component {
         style={[
           styles.button_container,
           this.props.active ? styles.enabled_button : styles.disabled_button,
-          this.props.short && { width: width * 0.5 }
+          this.props.short && { width: width * 0.5 },
+          this.props.extra_short && { width: width * 0.3 },
         ]}
         onPress={() => {
           this.props.active && this.props.handler();
@@ -43,7 +44,7 @@ class CustomButton extends React.Component {
             end={{ x: 0.7, y: 1.0 }}
             style={[
               styles.button_container,
-              this.props.short ? { width: width * 0.5 } : null,
+              this.props.short ? this.props.extra_short ? { width: width * 0.3 } : { width: width * 0.5 } : null,
               styles.gradient
             ]}
           />
@@ -53,13 +54,14 @@ class CustomButton extends React.Component {
             style={[
               styles.button_container,
               this.props.short && { width: width * 0.5 },
+              this.props.extra_short && { width: width * 0.3 },
               styles.border_btn
             ]}
           >
             <View
               style={[
                 styles.button_container,
-                this.props.short ? { width: width * 0.5-2 } : { width: width * 0.85-2 },
+                this.props.short ? this.props.extra_short?{ width: width * 0.3 - 2 }: { width: width * 0.5 - 2 } : { width: width * 0.85 - 2 },
                 styles.background_btn
               ]}
             />

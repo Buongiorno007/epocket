@@ -28,6 +28,7 @@ export const colors = {
   purple: "#8A6DF7",
   no_internet_background: "#F1F6FB",
   sum_grey: "#7F7989",
+  settings_gray:"#707070",
   light_red: "#FF4747",
   dark_pink: "#F63272",
   trc_marker_light_green: "rgba(68, 191, 239, 0.27)",

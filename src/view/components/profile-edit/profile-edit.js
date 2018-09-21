@@ -181,6 +181,7 @@ class ProfileEdit extends React.Component {
     });
   };
   componentDidMount() {
+    console.log(this.props.navigation.state.params.async_storage_user)
     this.backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
       if (this.state.changed) {
         this.Exit();

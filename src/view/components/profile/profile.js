@@ -62,6 +62,9 @@ class Profile extends React.Component {
     };
     NavigationService.navigate("ProfileEdit", { async_storage_user });
   };
+  ToSettings = () => {
+    NavigationService.navigate("ProfileSettings");
+  };
   setModalVisible = visible => {
     this.setState({ modalVisible: visible });
   };
@@ -89,10 +92,10 @@ class Profile extends React.Component {
           <Button
             transparent
             rounded
-            style={styles.settings_btn}>
+            style={styles.settings_btn}
+            onPress={()=>{this.ToSettings()}}>
             <Image style={styles.settings_img}
               source={require('../../../assets/img/settings.png')} >
-
             </Image>
           </Button>
         </View>
