@@ -39,8 +39,8 @@ class CustomButton extends React.Component {
         {this.props.gradient && (
           <LinearGradient
             colors={[colors.light_orange, colors.pink]}
-            start={{ x: 0.0, y: 1.0 }}
-            end={{ x: 0.5, y: 0.2 }}
+            start={{ x: 0.0, y: 0.0 }}
+            end={{ x: 0.7, y: 1.0 }}
             style={[
               styles.button_container,
               this.props.short ? { width: width * 0.5 } : null,

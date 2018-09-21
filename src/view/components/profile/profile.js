@@ -103,8 +103,22 @@ class Profile extends React.Component {
           <View style={styles.text_container}>
             <Text>{RU.NAMES}</Text>
             <Text style={styles.name}>{this.state.user.username}</Text>
-            <Text>Телефон</Text>
+            <Text>{RU.PROFILE_PAGE.PHONE}</Text>
             <Text style={styles.phone}>+380 {this.state.user.phone}</Text>
+            {
+              this.state.user.sex &&
+              <View style={styles.text_container}>
+                <Text>{RU.NAMES}</Text>
+                <Text style={styles.name}>{this.state.user.username}</Text>
+              </View>
+            }
+            {
+              this.state.user.birthDay &&
+              <View style={styles.text_container}>
+                <Text>{RU.NAMES}</Text>
+                <Text style={styles.name}>{this.state.user.username}</Text>
+              </View>
+            }
           </View>
           {
             (!this.state.user.sex || !this.state.user.birthDay) &&
@@ -122,7 +136,6 @@ class Profile extends React.Component {
 
         </View>
         <TimerModal />
-
         <FooterNavigation />
       </View>
     );

@@ -57,7 +57,6 @@ export default StyleSheet.create({
     fontSize: 12,
     textAlign: "left",
     fontFamily: "Rubik-Regular",
-
   },
   photo_container: {
     width: width * 0.4,
