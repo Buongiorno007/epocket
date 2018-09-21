@@ -15,6 +15,7 @@ export const colors = {
   check_code: "rgba(255,255,255, 0.8)",
   black41: "#414141",
   black41_09 : "rgba(65,65,65, 0.9)", //#414141 opacity 0.9
+  black41_054 : "rgba(65,65,65, 0.54)", //#414141 opacity 0.9
   gray: "#9E9E9E",
   white_o36: "rgba(255,255,255, 0.36)",
   white_o74: "rgba(255,255,255, 0.74)",

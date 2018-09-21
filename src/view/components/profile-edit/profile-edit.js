@@ -4,12 +4,11 @@ import {
   Text,
   View,
   AsyncStorage,
-  Image,
   KeyboardAvoidingView,
   StatusBar,
   BackHandler
 } from "react-native";
-import { Button, Item, Input, Label, Form } from "native-base";
+import { Button } from "native-base";
 import ImagePicker from "react-native-image-picker";
 //containers
 import CustomButton from "../../containers/custom-button/custom-button";
@@ -18,7 +17,6 @@ import CustomAlert from "../../containers/custom-alert/custom-alert";
 import Blur from "../../containers/blur/blur";
 //constants
 import styles from "./styles";
-import { ICONS } from "../../../constants/icons";
 import { RU } from "../../../locales/ru";
 import { colors } from "../../../constants/colors";
 //redux
@@ -45,8 +43,8 @@ class ProfileEdit extends React.Component {
       username: this.props.navigation.state.params.async_storage_user.user_name,
       photo: this.props.navigation.state.params.async_storage_user.user_photo_url,
       phone: this.props.navigation.state.params.async_storage_user.user_phone,
-      birthDay: this.props.navigation.state.params.async_storage_user.birthDay,
-      sex: this.props.navigation.state.params.async_storage_user.sex
+      birthDay: this.props.navigation.state.params.async_storage_user.user_birthDay,
+      sex: this.props.navigation.state.params.async_storage_user.user_sex
     },
     modalVisible: false,
     exitVisible: false,
@@ -98,7 +96,7 @@ class ProfileEdit extends React.Component {
           let user = {
             name: this.state.user.username,
             photo: this.state.user.photo,
-            sex: this.state.user.photo,
+            sex: this.state.user.sex,
             birthDay: this.state.user.birthDay,
             phone: this.state.user.phone,
             token: this.props.token
