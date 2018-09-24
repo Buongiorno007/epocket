@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.ReactApplication;
+import com.wheelpicker.WheelPickerPackage;
 import com.smixx.fabric.FabricPackage;
 import com.marianhello.bgloc.react.BackgroundGeolocationPackage;
 
@@ -50,6 +51,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new WheelPickerPackage(),
                     new FabricPackage(),
                     new BackgroundGeolocationPackage(),
                     new RNFirebasePackage(),
