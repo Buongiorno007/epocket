@@ -104,18 +104,20 @@ class Profile extends React.Component {
               <Text style={styles.phone}>+380 {this.state.user.phone}</Text>
             </View>
             {
-              this.state.user.birthDay &&
+              this.state.user.birthDay ?
               <View style={styles.text_item}>
                 <Text style={styles.title}>{RU.PROFILE_PAGE.BIRTHDAY}</Text>
                 <Text style={styles.phone}>{this.state.user.birthDay}</Text>
               </View>
+              : null
             }
             {
-              this.state.user.sex &&
+              this.state.user.sex ?
               <View style={styles.text_item}>
                 <Text style={styles.title}>{RU.PROFILE_PAGE.SEX}</Text>
                 <Text style={styles.phone}>{this.state.user.sex === 0 && RU.PROFILE_PAGE.FEMALE}{this.state.user.sex === 1 && RU.PROFILE_PAGE.MALE}</Text>
               </View>
+              : null
             }
 
           </View>
