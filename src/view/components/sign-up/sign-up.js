@@ -115,7 +115,7 @@ class SignUp extends React.Component {
     this.props.loaderState(true);
     Keyboard.dismiss();
     let body = {
-      phone: "+380" + this.state.phone
+      phone: "+" + this.state.phone
     };
     let promise = httpPost(urls.sign_up, JSON.stringify(body));
     promise.then(
@@ -154,7 +154,7 @@ class SignUp extends React.Component {
     this.setFailedConfirmVisible(false);
     this.props.loaderState(true);
     let body = {
-      phone: "+380" + this.state.phone,
+      phone: "+" + this.state.phone,
       code: this.state.code,
       name: this.state.name
     };
@@ -283,9 +283,9 @@ class SignUp extends React.Component {
                 inputContainerPadding={16}
                 onChangeText={text => this.onChangedPhone(text)}
                 value={this.state.phone}
-                maxLength={9}
+                maxLength={12}
                 keyboardType="numeric"
-                prefix="+380"
+                prefix="+"
               />
               <Text
                 style={
