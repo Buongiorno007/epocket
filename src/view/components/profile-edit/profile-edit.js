@@ -32,6 +32,7 @@ import NavigationService from "../../../services/route";
 import { TextField } from "react-native-material-textfield";
 import { LinearTextGradient } from "react-native-text-gradient";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
+
 const keyboardVerticalOffset = Platform.OS === "ios" ? -20 : -10;
 
 class ProfileEdit extends React.Component {
@@ -261,7 +262,8 @@ class ProfileEdit extends React.Component {
                 value={this.state.user.birthDay}
                 inputContainerStyle={{ borderBottomColor: 'transparent' }}
                 onFocus={() => { this.ClearBirthDay() }}
-                keyboardType="numeric"
+                // keyboardType="numeric"
+                keyboardType="number-pad"
               />
               <Text style={styles.title} >{RU.PROFILE_PAGE.SEX}</Text>
               <View style={styles.sex_picker}>
@@ -274,7 +276,7 @@ class ProfileEdit extends React.Component {
                 >
                   <LinearTextGradient
                     locations={[0, 1]}
-                    colors={this.state.user.sex === 1 ? [colors.light_orange, colors.pink] : [colors.black41_09, colors.black41_09]}
+                    colors={this.state.user.sex == 1 ? [colors.light_orange, colors.pink] : [colors.black41_09, colors.black41_09]}
                     start={{ x: 0.0, y: 0.0 }}
                     end={{ x: 0.7, y: 1.0 }}
                     style={styles.title}
@@ -300,7 +302,7 @@ class ProfileEdit extends React.Component {
                 >
                   <LinearTextGradient
                     locations={[0, 1]}
-                    colors={this.state.user.sex === 0 ? [colors.light_orange, colors.pink] : [colors.black41_09, colors.black41_09]}
+                    colors={this.state.user.sex == 0 ? [colors.light_orange, colors.pink] : [colors.black41_09, colors.black41_09]}
                     start={{ x: 0.0, y: 0.0 }}
                     end={{ x: 0.7, y: 1.0 }}
                     style={styles.title}

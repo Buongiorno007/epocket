@@ -51,6 +51,7 @@ export default StyleSheet.create({
     zIndex : 2,
     alignItems : 'center',
     justifyContent : 'center',
+
   },
   edit_photo_container: {
     width: 20,
@@ -59,17 +60,24 @@ export default StyleSheet.create({
     backgroundColor: colors.pink,
     alignItems : 'center',
     justifyContent : 'center',
+
   },
   edit_photo_background : {
     width: 18,
     height: 18, 
     borderRadius : 10,
+    flexDirection : 'row',
     alignItems : 'center',
     justifyContent : 'center',
     backgroundColor: colors.drag_panel_color,
+
   },
   edit_photo_img: {
     fontSize : 15,
-    color : colors.pink
+    lineHeight : 18,
+    textAlign : 'center',
+    color : colors.pink,
+    alignItems : 'center',
+    justifyContent : 'center',
   }
 });
