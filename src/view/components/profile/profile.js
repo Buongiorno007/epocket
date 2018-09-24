@@ -15,7 +15,6 @@ import { colors } from "../../../constants/colors";
 import FooterNavigation from "../../containers/footer-navigator/footer-navigator";
 import CustomButton from "../../containers/custom-button/custom-button";
 import CustomPhoto from "../../containers/custom-photo/custom-photo";
-import CustomAlert from "../../containers/custom-alert/custom-alert";
 import Blur from "../../containers/blur/blur";
 import TimerModal from "../../containers/timer-modal/timer-modal";
 //redux
@@ -23,7 +22,6 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 //service
 import NavigationService from "../../../services/route";
-import InstagramLogin from 'react-native-instagram-login'
 
 class Profile extends React.Component {
   constructor(props) {
@@ -80,20 +78,13 @@ class Profile extends React.Component {
   render() {
     return (
       <View style={styles.main_view}>
-        <InstagramLogin
-          ref='instagramLogin'
-          clientId='7df789fc907d4ffbbad30b7e25ba3933'
-          scopes={['basic', 'public_content', 'likes', 'follower_list', 'comments', 'relationships']}
-          onLoginSuccess={(token) => console.log(token)}
-          onLoginFailure={(data) => console.log(data)}
-        />
         {this.state.modalVisible ? <Blur /> : null}
         <View style={styles.header}>
           <Button
             transparent
             rounded
             style={styles.settings_btn}
-            onPress={()=>{this.ToSettings()}}>
+            onPress={() => { this.ToSettings() }}>
             <Image style={styles.settings_img}
               source={require('../../../assets/img/settings.png')} >
             </Image>
@@ -104,10 +95,29 @@ class Profile extends React.Component {
             <CustomPhoto src={this.state.user.photo} />
           </View>
           <View style={styles.text_container}>
-            <Text>{RU.NAMES}</Text>
-            <Text style={styles.name}>{this.state.user.username}</Text>
-            <Text>Телефон</Text>
-            <Text style={styles.phone}>+380 {this.state.user.phone}</Text>
+            <View style={styles.text_item}>
+              <Text style={styles.title}>{RU.NAMES}</Text>
+              <Text style={styles.name}>{this.state.user.username}</Text>
+            </View>
+            <View style={styles.text_item}>
+              <Text style={styles.title}>{RU.PROFILE_PAGE.PHONE}</Text>
+              <Text style={styles.phone}>+380 {this.state.user.phone}</Text>
+            </View>
+            {
+              this.state.user.birthDay &&
+              <View style={styles.text_item}>
+                <Text style={styles.title}>{RU.PROFILE_PAGE.BIRTHDAY}</Text>
+                <Text style={styles.phone}>{this.state.user.birthDay}</Text>
+              </View>
+            }
+            {
+              this.state.user.sex &&
+              <View style={styles.text_item}>
+                <Text style={styles.title}>{RU.PROFILE_PAGE.SEX}</Text>
+                <Text style={styles.phone}>{this.state.user.sex === 0 && RU.PROFILE_PAGE.FEMALE}{this.state.user.sex === 1 && RU.PROFILE_PAGE.MALE}</Text>
+              </View>
+            }
+
           </View>
           {
             (!this.state.user.sex || !this.state.user.birthDay) &&
@@ -125,7 +135,6 @@ class Profile extends React.Component {
 
         </View>
         <TimerModal />
-
         <FooterNavigation />
       </View>
     );

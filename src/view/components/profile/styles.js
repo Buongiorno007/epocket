@@ -50,14 +50,12 @@ export default StyleSheet.create({
     textAlign: "left",
     fontFamily: "Rubik-Bold",
     letterSpacing: 2,
-    marginBottom: height * 0.05
   },
   phone: {
-    color: colors.black_o36,
-    fontSize: 12,
+    color: colors.black41_054,
+    fontSize: 14,
     textAlign: "left",
     fontFamily: "Rubik-Regular",
-
   },
   photo_container: {
     width: width * 0.4,
@@ -69,6 +67,13 @@ export default StyleSheet.create({
   text_container: {
     justifyContent: "flex-start",
     alignItems: "flex-start",
+  },
+  text_item : {
+    marginBottom : 20
+  },
+  title : {
+    color : colors.black41_09,
+    fontSize: 15
   },
   btn_container: {
     width: width,

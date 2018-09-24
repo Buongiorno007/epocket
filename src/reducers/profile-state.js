@@ -1,8 +1,11 @@
 export const PROFILE_STATE = 'profile-state/PROFILE_STATE';
 let defaultProfile = {
-  user_name: "Initial Name",
-  user_phone: "099-999-99-99",
-  user_photo_url: ""
+  name: "",
+  phone: "",
+  photo: "",
+  sex : null,
+  birthDay : "",
+  token : null,
 };
 export default (state = defaultProfile, action) => {
   switch (action.type) {

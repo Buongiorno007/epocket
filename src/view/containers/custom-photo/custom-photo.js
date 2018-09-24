@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, Image } from "react-native";
-import Icon from "react-native-vector-icons/dist/FontAwesome";
-import { Button, Text } from "native-base";
+import Icon from "react-native-vector-icons/dist/Entypo";
+import { Button } from "native-base";
 import { Dimensions } from "react-native";
 const { width } = Dimensions.get("window");
 import LinearGradient from "react-native-linear-gradient";
@@ -22,11 +22,31 @@ src - photo's source
 class CustomPhoto extends Component {
   render() {
     return (
-      <View>
+      <View style={styles.custom_photo}>
+        {
+          this.props.edit &&
+          <Button
+            transparent
+            block
+            rounded
+            style={styles.edit_photo_btn}
+            onPress={() => this.props.PhotoEdit()}>
+            <LinearGradient
+              colors={[colors.light_orange, colors.pink]}
+              start={{ x: 0.5, y: -0.5 }}
+              end={{ x: 0.6, y: 1.0 }}
+              style={styles.edit_photo_container}>
+              <View style={styles.edit_photo_background}>
+                <Icon name='plus' style={styles.edit_photo_img} />
+              </View>
+            </LinearGradient>
+          </Button>
+        }
+
         <LinearGradient
           colors={[colors.light_orange, colors.pink]}
-          start={{ x: 0.0, y: 1.0 }}
-          end={{ x: 0.5, y: 0.2 }}
+          start={{ x: 0.0, y: 0.0 }}
+          end={{ x: 0.6, y: 1.0 }}
           style={styles.photo_container}
         >
           {this.props.src ? (
@@ -41,6 +61,7 @@ class CustomPhoto extends Component {
               />
             )}
         </LinearGradient>
+
       </View>
     );
   }

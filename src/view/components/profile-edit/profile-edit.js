@@ -4,12 +4,11 @@ import {
   Text,
   View,
   AsyncStorage,
-  Image,
   KeyboardAvoidingView,
   StatusBar,
   BackHandler
 } from "react-native";
-import { Button, Item, Input, Label, Form } from "native-base";
+import { Button } from "native-base";
 import ImagePicker from "react-native-image-picker";
 //containers
 import CustomButton from "../../containers/custom-button/custom-button";
@@ -18,7 +17,6 @@ import CustomAlert from "../../containers/custom-alert/custom-alert";
 import Blur from "../../containers/blur/blur";
 //constants
 import styles from "./styles";
-import { ICONS } from "../../../constants/icons";
 import { RU } from "../../../locales/ru";
 import { colors } from "../../../constants/colors";
 //redux
@@ -31,7 +29,9 @@ import { httpPost } from "../../../services/http";
 import { serializeJSON } from "../../../services/serialize-json";
 import { urls } from "../../../constants/urls";
 import NavigationService from "../../../services/route";
-
+import { TextField } from "react-native-material-textfield";
+import { LinearTextGradient } from "react-native-text-gradient";
+import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 const keyboardVerticalOffset = Platform.OS === "ios" ? -20 : -10;
 
 class ProfileEdit extends React.Component {
@@ -41,9 +41,10 @@ class ProfileEdit extends React.Component {
   state = {
     user: {
       username: this.props.navigation.state.params.async_storage_user.user_name,
-      photo: this.props.navigation.state.params.async_storage_user
-        .user_photo_url,
-      phone: this.props.navigation.state.params.async_storage_user.user_phone
+      photo: this.props.navigation.state.params.async_storage_user.user_photo_url,
+      phone: this.props.navigation.state.params.async_storage_user.user_phone,
+      birthDay: this.props.navigation.state.params.async_storage_user.user_birthDay,
+      sex: this.props.navigation.state.params.async_storage_user.user_sex
     },
     modalVisible: false,
     exitVisible: false,
@@ -70,13 +71,17 @@ class ProfileEdit extends React.Component {
     this.setExitVisible(true);
   };
   SubmitEdit = () => {
-    if (this.state.user.username === "") {
+    if (!this.state.user.username ||
+      !this.state.user.birthDay ||
+      !this.state.user.sex) {
       this.setModalVisible(true);
     } else {
       this.props.loaderState(true);
       this.setRejectVisible(false);
       let body = {
         name: this.state.user.username,
+        sex: this.state.user.sex,
+        birthDay: this.state.user.birthDay,
         photo: "data:image/jpeg;base64," + this.state.user.photo
       };
       let promise = httpPost(
@@ -89,17 +94,14 @@ class ProfileEdit extends React.Component {
         result => {
           this.setRejectVisible(false);
           let user = {
-            user_name: this.state.user.username,
-            user_photo_url: this.state.user.photo,
-            user_phone: this.state.user.phone
-          };
-          let JSON_user = JSON.stringify({
             name: this.state.user.username,
             photo: this.state.user.photo,
+            sex: this.state.user.sex,
+            birthDay: this.state.user.birthDay,
             phone: this.state.user.phone,
             token: this.props.token
-          });
-          AsyncStorage.setItem("user_info", JSON_user);
+          };
+          AsyncStorage.setItem("user_info", JSON.stringify(user));
           this.props.saveUser(user);
           this.props.loaderState(false);
           NavigationService.navigate("Main");
@@ -108,30 +110,50 @@ class ProfileEdit extends React.Component {
           console.log("Rejected: ", error);
           if (error.code === 503) {
             this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
+            this.props.loaderState(false);
+            this.setRejectVisible(true);
           } else if (error.code === 400) {
             this.setState({ errorText: RU.HTTP_ERRORS.NOT_FOUND });
+            this.props.loaderState(false);
+            this.setRejectVisible(true);
           } else if (error.code === 403) {
             this.setState({ errorText: RU.HTTP_ERRORS.SMTH_WENT_WRONG });
+            this.props.loaderState(false);
+            this.setRejectVisible(true);
           } else if (error.code === 408) {
             this.setState({ errorText: RU.HTTP_ERRORS.RUNTIME });
+            this.props.loaderState(false);
+            this.setRejectVisible(true);
           }
-          this.props.loaderState(false);
-          this.setRejectVisible(true);
+
         }
       );
     }
   };
-  ClearField = () => {
+  ClearName = () => {
     let user = { ...this.state.user };
     user.username = "";
     this.setState({ user, changed: true });
   };
-  ChangeUsername = text => {
+  ClearBirthDay = () => {
     let user = { ...this.state.user };
-    user.username = text.text;
-    if (user.username.length + 1 <= 20) {
-      this.setState({ user, changed: true });
-    }
+    user.birthDay = "";
+    this.setState({ user, changed: true });
+  };
+  ChangeUserName = text => {
+    let user = { ...this.state.user };
+    user.username = text;
+    this.setState({ user, changed: true });
+  };
+  ChangeUserBirthDay = text => {
+    let user = { ...this.state.user };
+    user.birthDay = text;
+    this.setState({ user, changed: true });
+  };
+  ChangeUserSex = sex => {
+    let user = { ...this.state.user };
+    user.sex = sex;
+    this.setState({ user, changed: true });
   };
   PhotoEdit = () => {
     const options = {
@@ -173,9 +195,10 @@ class ProfileEdit extends React.Component {
   render() {
     return (
       <View style={styles.main}>
+        {this.props.loader && <ActivityIndicator />}
         {(this.state.modalVisible ||
-        this.state.exitVisible ||
-        this.state.rejectedRequestModal) &&  <Blur /> }
+          this.state.exitVisible ||
+          this.state.rejectedRequestModal) && <Blur />}
         <View style={styles.user_edit_header_container}>
           <CustomAlert
             title={RU.PROFILE_PAGE.ALERT_NOT_SAVED_DATA}
@@ -204,53 +227,88 @@ class ProfileEdit extends React.Component {
           />
           <View style={styles.user_edit_container}>
             <View style={styles.photo_container}>
-              <View>
-                <CustomPhoto
-                  status={this.state.user.status}
-                  src={this.state.user.photo}
-                />
-              </View>
-              <View style={styles.edit_photo_btn_container}>
-                <Button
-                  style={styles.edit_photo_btn}
-                  onPress={() => this.PhotoEdit()}
-                  rounded
-                >
-                  {this.state.user.photo ? (
-                    <Text style={styles.edit_photo_btn_text}>
-                      {RU.PROFILE_PAGE.EDIT_PHOTO.toUpperCase()}
-                    </Text>
-                  ) : (
-                    <Text style={styles.edit_photo_btn_text}>
-                      {RU.PROFILE_PAGE.LOAD_PHOTO.toUpperCase()}
-                    </Text>
-                  )}
-                </Button>
-              </View>
+              <CustomPhoto
+                edit
+                status={this.state.user.status}
+                src={this.state.user.photo}
+                PhotoEdit={() => this.PhotoEdit()}
+              />
             </View>
             <View style={styles.text_container}>
-              <Form>
-                <Item
-                  floatingLabel
-                  style={styles.text_container_item}
-                  ref={item => {
-                    this.usernameItem = item;
-                  }}
+              <TextField
+                label={RU.NAMES}
+                placeholder={RU.ENTER_NAME}
+                tintColor={colors.black41_09}
+                baseColor={colors.black41_09}
+                textColor={colors.black}
+                fontSize={20}
+                labelFontSize={12}
+                onChangeText={text => { this.ChangeUserName(text) }}
+                value={this.state.user.username}
+                inputContainerStyle={{ borderBottomColor: 'transparent' }}
+                onFocus={() => { this.ClearName() }}
+              />
+
+              <TextField
+                label={RU.PROFILE_PAGE.BIRTHDAY}
+                placeholder={RU.PROFILE_PAGE.ENTER_BIRTHDAY}
+                tintColor={colors.black41_09}
+                baseColor={colors.black41_09}
+                textColor={colors.black41_09}
+                fontSize={12}
+                labelFontSize={12}
+                onChangeText={text => { this.ChangeUserBirthDay(text) }}
+                value={this.state.user.birthDay}
+                inputContainerStyle={{ borderBottomColor: 'transparent' }}
+                onFocus={() => { this.ClearBirthDay() }}
+                keyboardType="numeric"
+              />
+              <Text style={styles.title} >{RU.PROFILE_PAGE.SEX}</Text>
+              <View style={styles.sex_picker}>
+                <Button
+                  transparent
+                  block
+                  rounded
+                  style={styles.sex_btn}
+                  onPress={() => { this.ChangeUserSex(1) }}
                 >
-                  <Label style={styles.text_container_label}>
-                    { RU.ENTER_NAME }
-                  </Label>
-                  <Input
-                    style={styles.text_container_input}
-                    getRef={input => {
-                      this.usernameItem = input;
-                    }}
-                    onFocus={() => this.ClearField()}
-                    onChangeText={text => this.ChangeUsername({ text })}
-                    value={this.state.user.username}
-                  />
-                </Item>
-              </Form>
+                  <LinearTextGradient
+                    locations={[0, 1]}
+                    colors={this.state.user.sex === 1 ? [colors.light_orange, colors.pink] : [colors.black41_09, colors.black41_09]}
+                    start={{ x: 0.0, y: 0.0 }}
+                    end={{ x: 0.7, y: 1.0 }}
+                    style={styles.title}
+                  >
+                    мужской
+                </LinearTextGradient>
+                </Button>
+                <LinearTextGradient
+                  locations={[0, 1]}
+                  colors={[colors.light_orange, colors.pink]}
+                  start={{ x: 0.0, y: 0.0 }}
+                  end={{ x: 0.7, y: 1.0 }}
+                  style={styles.title}
+                >
+                  {" "}/{" "}
+                </LinearTextGradient>
+                <Button
+                  transparent
+                  block
+                  rounded
+                  style={styles.sex_btn}
+                  onPress={() => { this.ChangeUserSex(0) }}
+                >
+                  <LinearTextGradient
+                    locations={[0, 1]}
+                    colors={this.state.user.sex === 0 ? [colors.light_orange, colors.pink] : [colors.black41_09, colors.black41_09]}
+                    start={{ x: 0.0, y: 0.0 }}
+                    end={{ x: 0.7, y: 1.0 }}
+                    style={styles.title}
+                  >
+                    женский
+                </LinearTextGradient>
+                </Button>
+              </View>
             </View>
           </View>
         </KeyboardAvoidingView>
@@ -271,7 +329,7 @@ class ProfileEdit extends React.Component {
             bordered
             title={RU.PROFILE_PAGE.DECLINE_2.toUpperCase()}
             color={colors.pink}
-            handler={() => this.state.changed ? this.Exit() : NavigationService.navigate("Main") }
+            handler={() => this.state.changed ? this.Exit() : NavigationService.navigate("Main")}
           />
         </View>
         <CustomAlert
