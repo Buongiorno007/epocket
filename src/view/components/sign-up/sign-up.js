@@ -128,7 +128,7 @@ class SignUp extends React.Component {
       error => {
         console.log("Rejected: ", error);
         this.props.loaderState(false);
-        if (error.code === 503) {
+        if (error.code >= 500) {
           this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
           this.setFailedSignVisible(true);
         } else if (error.code === 400) {
@@ -169,7 +169,7 @@ class SignUp extends React.Component {
           token: result.body.token,
           phone: this.state.phone,
           balance: 0,
-          sex: result.body.sex,
+          sex: result.body.sex ? 1 : 0,
           birthDay: result.body.birthDay
         });
         AsyncStorage.setItem("user_info", new_user);
@@ -182,7 +182,7 @@ class SignUp extends React.Component {
       error => {
         console.log("Rejected: ", error);
         this.props.loaderState(false);
-        if (error.code === 503) {
+        if (error.code >=500) {
           this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
           this.setFailedConfirmVisible(true);
         } else if (error.code === 400) {

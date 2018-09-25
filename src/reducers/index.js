@@ -23,6 +23,7 @@ import receivedBonusesJSX from "./history-received-success";
 import spentBonusesJSX from "./history-sent-success";
 import loader from "./loader";
 import timer_interval from "./timer-interval";
+import birthday from "./birthday"
 
 export default combineReducers({
   isConnected,
@@ -48,5 +49,6 @@ export default combineReducers({
   missions,
   timer_interval,
   socket,
-  outlets
+  outlets,
+  birthday
 });

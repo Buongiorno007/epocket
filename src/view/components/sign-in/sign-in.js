@@ -133,7 +133,7 @@ class SignIn extends React.Component {
       },
       error => {
         console.log("Rejected: ", error);
-        if (error.code === 503) {
+        if (error.code >= 500) {
           this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
           this.setFailedSignVisible(true);
         } else if (error.code === 400) {
@@ -161,7 +161,7 @@ class SignIn extends React.Component {
     let promise = httpPost(urls.sing_in_confirm, JSON.stringify(body));
     promise.then(
       result => {
-        //console.log('result', result)
+        console.log('result', result)
         this.setFailedConfirmVisible(false);
         this.props.loaderState(false);
         const user_info = JSON.stringify({
@@ -169,7 +169,7 @@ class SignIn extends React.Component {
           name: result.body.user,
           phone: this.state.phone,
           photo: result.body.photo,
-          sex: result.body.sex,
+          sex: result.body.sex ? 1 : 0,
           birthDay: result.body.birthDay
         });
         this.props.getPush(result.body.token)
@@ -182,7 +182,7 @@ class SignIn extends React.Component {
       error => {
         console.log("Rejected: ", error);
         this.props.loaderState(false);
-        if (error.code === 503) {
+        if (error.code >= 500) {
           this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
           this.setFailedConfirmVisible(true);
         } else if (error.code === 400) {

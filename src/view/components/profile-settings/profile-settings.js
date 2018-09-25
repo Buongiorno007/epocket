@@ -9,6 +9,7 @@ import { Button } from "native-base";
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { setBirthDay } from "../../../reducers/birthday";
 //constants
 import styles from "./styles";
 import { ICONS } from "../../../constants/icons";
@@ -77,6 +78,10 @@ class ProfileSettings extends React.Component {
         user_sex: object.sex,
         user_birthDay: object.birthDay
       };
+      console.log(async_storage_user)
+      if (object.birthDay && object.birthDay != "") {
+        this.props.setBirthDay(object.birthDay);
+      }
       NavigationService.navigate("ProfileEdit", { async_storage_user });
     });
   }
@@ -187,7 +192,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  loaderState
+  setBirthDay
 }, dispatch);
 
 export default connect(
