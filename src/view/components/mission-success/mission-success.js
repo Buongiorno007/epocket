@@ -17,11 +17,12 @@ import { bindActionCreators } from "redux";
 class MissionSuccess extends React.Component {
 
   earnMore = () => {
-    NavigationService.navigate("EarnMore");
+    NavigationService.navigate("EarnMore",{
+      insta_data : this.props.navigation.state.params.insta_data
+    });
   };
 
   componentDidMount = () => {
-    console.log('props',this.props.navigation.state.params)
     this.props.loaderState(false)
   }
 
@@ -52,8 +53,7 @@ class MissionSuccess extends React.Component {
         <View style={styles.success}>
           <Text style={styles.congratulation}>{RU.MISSION.SUCCESS}</Text>
           <Text style={styles.cash}>
-            {RU.MISSION.CASH} 
-            {/* {this.props.navigation.state.params.price} epc */}
+            {RU.MISSION.CASH} {this.props.navigation.state.params.price} epc
           </Text>
           <Button
             rounded

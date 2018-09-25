@@ -6,13 +6,18 @@ import { Button } from "native-base";
 import styles from "./styles";
 import { colors } from "./../../../constants/colors";
 import { RU } from "./../../../locales/ru";
+import { urls } from "../../../constants/urls";
 //services
 import NavigationService from "./../../../services/route";
+import InstagramLogin from '../../../services/Instagram'
 //redux
-import { loaderState } from "../../../reducers/loader";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
+import { loaderState } from "../../../reducers/loader";
+import { setInstaToken } from "../../../reducers/insta_token";
+
+import { httpPost } from "../../../services/http";
 import CustomButton from "../../containers/custom-button/custom-button";
 
 class EarnMore extends React.Component {
@@ -20,8 +25,43 @@ class EarnMore extends React.Component {
     NavigationService.navigate("Main");
   };
 
+  connectInsta = (instagram_token) => {
+    this.props.loaderState(true);
+    this.props.setInstaToken(String(instagram_token))
+    let body = JSON.stringify({
+      instagram_token
+    });
+    let promise = httpPost(
+      urls.insta_login,
+      body,
+      this.props.token
+    );
+    promise.then(
+      result => {
+        this.props.loaderState(false);
+        console.log('insta result', result)
+      },
+      error => {
+        this.props.loaderState(false);
+        console.log("Rejected: ", error);
+      }
+    );
+  }
+
+  shareToInsta = () => {
+    
+  }
+
+  earnMore = () => {
+    if (!this.props.insta_token) {
+      this.refs.instagramLogin.show()
+    } else {
+      this.shareToInsta();
+    }
+
+  };
+
   componentDidMount = () => {
-    console.log('props',this.props.navigation.state.params)
     this.props.loaderState(false)
   }
 
@@ -32,6 +72,13 @@ class EarnMore extends React.Component {
           barStyle="light-content"
           backgroundColor={"transparent"}
           translucent={true}
+        />
+        <InstagramLogin
+          ref='instagramLogin'
+          clientId='7df789fc907d4ffbbad30b7e25ba3933'
+          scopes={['basic', 'public_content', 'likes', 'follower_list', 'comments', 'relationships']}
+          onLoginSuccess={(token) => this.connectInsta(token)}
+          onLoginFailure={(data) => console.log(data)}
         />
         <LinearGradient
           colors={[
@@ -47,7 +94,7 @@ class EarnMore extends React.Component {
         />
         <Image
           style={styles.image_background}
-          source={ require('../../../assets/img/EARN_MORE_BACK.png')}
+          source={require('../../../assets/img/EARN_MORE_BACK.png')}
         />
         <Image
           style={styles.image_template}
@@ -63,7 +110,7 @@ class EarnMore extends React.Component {
             short
             title={RU.MISSION.EARN_MORE.toUpperCase()}
             color={colors.pink}
-            handler={() => {}}
+            handler={() => { this.earnMore() }}
           />
           <Button
             rounded
@@ -83,13 +130,15 @@ class EarnMore extends React.Component {
 }
 
 const mapStateToProps = state => ({
-
+  token: state.token,
+  insta_token: state.insta_token,
 });
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      loaderState
+      loaderState,
+      setInstaToken
     },
     dispatch
   );

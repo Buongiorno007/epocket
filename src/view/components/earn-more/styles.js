@@ -28,7 +28,8 @@ export default StyleSheet.create({
         height: 165,
         width: width,
         resizeMode: 'contain',
-        backgroundColor :  colors.white,
+        // backgroundColor :  colors.white,
+        marginBottom : 30,
     },
     success: {
         zIndex: 1,

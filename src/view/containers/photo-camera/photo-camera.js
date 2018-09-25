@@ -38,7 +38,6 @@ class PhotoCamera extends React.Component {
     let body = JSON.stringify({
       outlet_id: this.props.selectedMall.id,
     });
-    console.log(body, this.props.token)
     let promise = httpPost(
       urls.insta_outlet_template,
       body,
@@ -46,7 +45,6 @@ class PhotoCamera extends React.Component {
     );
     promise.then(
       result => {
-        console.log('PhotoCamera componentDidMount', result)
         this.setState({
           template_info: {
             media: result.body.media,

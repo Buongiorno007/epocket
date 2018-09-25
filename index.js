@@ -44,7 +44,7 @@ const EpocketCash = createStackNavigator(
     ProfileSettings: { screen: ProfileSettings },
   },
   {
-    initialRouteName: "MissionSuccess",
+    initialRouteName: "EarnMore",
     navigationOptions: {
       gesturesEnabled: false,
       header: null

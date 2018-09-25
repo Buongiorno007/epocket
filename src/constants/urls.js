@@ -22,7 +22,9 @@ export const urls = {
     send_push_all:              devserver+ '/push-notification/send-push/all',
     send_push_single:           devserver+ '/push-notification/send-push/single',
     insta_login:                devserver+ '/instagram/api/authorization',
+    insta_logout:                devserver+ '/instagram/api/deleteuser',
     insta_outlet_template:      devserver+ '/instagram/api/outlet_template',
     insta_upload_photo:         devserver+ '/instagram/api/upload_photo',
+    insta_is_logged:            devserver+ '/instagram/api/islogged',
     socket :                               'ws://epocket.dev.splinestudio.com/order/',
 }
