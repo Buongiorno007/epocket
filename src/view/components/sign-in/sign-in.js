@@ -41,7 +41,7 @@ class SignIn extends React.Component {
     header: <BackButton title={RU.SIGN_IN_TITLE} route="Start" />
   });
 
-  prefix = "+380";
+  prefix = "+";
   state = {
     signInMargin: new Animated.Value(40),
     phone: "",
@@ -94,7 +94,7 @@ class SignIn extends React.Component {
     let phonePattern = /^\d+$/;
     if (phonePattern.test(text)) {
       newText = text;
-      this.setState({ acceptButton: newText.length == 9 });
+      this.setState({ acceptButton: newText.length == 12 });
     } else {
       this.setState({ acceptButton: false });
       newText = text.substring(0, text.length - 1);
@@ -122,7 +122,7 @@ class SignIn extends React.Component {
     this.setFailedSignVisible(false);
     this.props.loaderState(true);
     let body = {
-      phone: "+380" + this.state.phone
+      phone: "+" + this.state.phone
     };
     let promise = httpPost(urls.sing_in, JSON.stringify(body));
     promise.then(
@@ -155,7 +155,7 @@ class SignIn extends React.Component {
     this.setFailedConfirmVisible(false);
     this.props.loaderState(true);
     let body = {
-      phone: "+380" + this.state.phone,
+      phone: "+" + this.state.phone,
       code: this.state.code
     };
     let promise = httpPost(urls.sing_in_confirm, JSON.stringify(body));
@@ -260,7 +260,7 @@ class SignIn extends React.Component {
                   this.onChangedPhone(text);
                 }}
                 value={this.state.phone}
-                maxLength={9}
+                maxLength={12}
                 keyboardType="numeric"
                 prefix={this.prefix}
               />

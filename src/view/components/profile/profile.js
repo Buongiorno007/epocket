@@ -101,7 +101,7 @@ class Profile extends React.Component {
             </View>
             <View style={styles.text_item}>
               <Text style={styles.title}>{RU.PROFILE_PAGE.PHONE}</Text>
-              <Text style={styles.phone}>+380 {this.state.user.phone}</Text>
+              <Text style={styles.phone}>+ {this.state.user.phone}</Text>
             </View>
             {
               this.state.user.birthDay ?

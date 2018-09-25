@@ -34,7 +34,6 @@ import { LinearTextGradient } from "react-native-text-gradient";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 
 const keyboardVerticalOffset = Platform.OS === "ios" ? -20 : -10;
-
 class ProfileEdit extends React.Component {
   constructor(props) {
     super(props);
@@ -49,6 +48,7 @@ class ProfileEdit extends React.Component {
     },
     modalVisible: false,
     exitVisible: false,
+    datePickerVisible:true,
     rejectedRequestModal: false,
     changed: false,
     errorText: "error"
@@ -61,6 +61,11 @@ class ProfileEdit extends React.Component {
   setModalVisible = visible => {
     this.setState({
       modalVisible: visible
+    });
+  };
+  setDatePickerVisible = visible => {
+    this.setState({
+      datePickerVisible: visible
     });
   };
   setExitVisible = visible => {
@@ -190,17 +195,33 @@ class ProfileEdit extends React.Component {
       return true;
     });
   }
+  onDateSelected(date) {
+    // do something
+  }
   componentWillUnmount() {
     this.backHandler.remove();
   }
   render() {
     return (
       <View style={styles.main}>
+        <View style={styles.container}>
+        </View>
         {this.props.loader && <ActivityIndicator />}
         {(this.state.modalVisible ||
           this.state.exitVisible ||
           this.state.rejectedRequestModal) && <Blur />}
         <View style={styles.user_edit_header_container}>
+          <CustomAlert
+            datepicker
+            first_btn_title={RU.PROFILE_PAGE.ACCEPT}
+            visible={this.state.datePickerVisible}
+            first_btn_handler={() =>
+              this.setDatePickerVisible(!this.state.datePickerVisible)
+            }
+            decline_btn_handler={() =>
+              this.setDatePickerVisible(!this.state.datePickerVisible)
+            }
+          />
           <CustomAlert
             title={RU.PROFILE_PAGE.ALERT_NOT_SAVED_DATA}
             first_btn_title={RU.PROFILE_PAGE.YES}
@@ -249,7 +270,6 @@ class ProfileEdit extends React.Component {
                 inputContainerStyle={{ borderBottomColor: 'transparent' }}
                 onFocus={() => { this.ClearName() }}
               />
-
               <TextField
                 label={RU.PROFILE_PAGE.BIRTHDAY}
                 placeholder={RU.PROFILE_PAGE.ENTER_BIRTHDAY}

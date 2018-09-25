@@ -15,6 +15,9 @@ import styles from "./styles";
 import { ICONS } from "../../../constants/icons";
 import { colors } from "../../../constants/colors";
 import Blur from "../blur/blur";
+//containers
+import { WheelPicker } from 'react-native-wheel-picker-android'
+
 {
   /* 
 call example
@@ -46,10 +49,37 @@ class CustomAlert extends Component {
     super(props);
   }
   state = {
-    viewRef: null
+    viewRef: null,
+    wheelPickerDataDays:[],
+    wheelPickerDataYears:[],
+    wheelPickerDataMonths:['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+    pickedDay:'',
+    pickedMonth:'',
+    pickedYear:''
   };
+  componentDidMount(){
+    let wheelPickerDataDays=[];
+    let wheelPickerDataYears=[];
+    for(let i=0; i<=31; i++){
+      wheelPickerDataDays.push(''+i)
+    }
+    for(let i=1905; i<=(new Date()).getFullYear(); i++){
+      wheelPickerDataYears.push(''+i)
+    }
+    this.setState({wheelPickerDataDays, wheelPickerDataYears})
+  }
   modalLoaded() {
     this.setState({ viewRef: findNodeHandle(this.backgroundModal) });
+  }
+  onDaySelected(pickedDay) {
+    this.setState({pickedDay})
+  }
+  onMonthSelected(pickedMonth) {
+    this.setState({pickedMonth})
+  }
+  onYearSelected(pickedYear) {
+    this.setState({pickedYear})
+    console.log(this.state.pickedDay, this.state.pickedMonth, this.state.pickedYear)
   }
   render() {
     return (
@@ -59,9 +89,9 @@ class CustomAlert extends Component {
         visible={this.props.visible}
         onRequestClose={() => { }}
       >
-      <Blur />
+        <Blur />
         <View style={styles.content}>
-          <View style={styles.content_inner}>
+          <View style={this.props.datepicker ? styles.big_content_inner : styles.content_inner}>
             <View style={styles.cross_view}>
               <Button
                 transparent
@@ -74,9 +104,52 @@ class CustomAlert extends Component {
                 />
               </Button>
             </View>
-            <View style={styles.modal_title}>
-              <Text style={styles.modal_title_text}>{this.props.title}</Text>
-            </View>
+            {this.props.datepicker ?
+              <View style={styles.date_modal}>
+                <WheelPicker
+                  isCurved
+                  isCyclic
+                  selectedItemTextColor="#F63272"
+                  indicatorColor="#F63272"
+                  renderIndicator
+                  selectedItemPosition={2}
+                  itemSpace={30}
+                  itemTextSize={31}
+                  visibleItemCount={3}
+                  data={this.state.wheelPickerDataDays}
+                  style={[styles.wheelPicker, styles.wheelPickerDay]}
+                  onItemSelected={(day) => this.onDaySelected(day)} />
+                <WheelPicker
+                  isCurved
+                  isCyclic
+                  selectedItemTextColor="#F63272"
+                  indicatorColor="#F63272"
+                  renderIndicator
+                  selectedItemPosition={2}
+                  itemSpace={30}
+                  itemTextSize={31}
+                  visibleItemCount={3}
+                  data={this.state.wheelPickerDataMonths}
+                  style={[styles.wheelPicker, styles.wheelPickerMonths]}
+                  onItemSelected={(month) => this.onMonthSelected(month)} />
+                <WheelPicker
+                  isCurved
+                  selectedItemTextColor="#F63272"
+                  indicatorColor="#F63272"
+                  renderIndicator
+                  selectedItemPosition={2}
+                  itemSpace={30}
+                  itemTextSize={31}
+                  visibleItemCount={3}
+                  data={this.state.wheelPickerDataYears}
+                  style={[styles.wheelPicker, styles.wheelPickerYear]}
+                  onItemSelected={(year) => this.onYearSelected(year)} />
+              </View>
+              :
+              <View style={styles.modal_title}>
+                <Text style={styles.modal_title_text}>{this.props.title}</Text>
+              </View>
+            }
             {this.props.second_btn_title ? (
               <View style={styles.modal_buttons}>
                 <Button
@@ -91,7 +164,7 @@ class CustomAlert extends Component {
                     end={{ x: 1.0, y: 1.0 }}
                     style={styles.alert_text}
                   >
-                      {this.props.first_btn_title}
+                    {this.props.first_btn_title}
                   </LinearTextGradient>
                 </Button>
                 <Button
@@ -111,9 +184,20 @@ class CustomAlert extends Component {
                     style={styles.big_centered_button}
                     onPress={() => this.props.first_btn_handler()}
                   >
-                    <Text style={styles.alert_text}>
-                      {this.props.first_btn_title}
-                    </Text>
+                    {this.props.datepicker ?
+                      <LinearTextGradient
+                        locations={[0, 1]}
+                        colors={[colors.light_orange, colors.pink]}
+                        start={{ x: 0.0, y: 1.0 }}
+                        end={{ x: 1.0, y: 1.0 }}
+                        style={styles.alert_text}
+                      >
+                        {this.props.first_btn_title}
+                      </LinearTextGradient> :
+                      <Text style={styles.alert_text}>
+                        {this.props.first_btn_title}
+                      </Text>
+                    }
                   </Button>
                 </View>
               )}

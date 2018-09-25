@@ -42,6 +42,13 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     backgroundColor: colors.white
   },
+  big_content_inner:{
+    paddingTop : 15,
+    height: 300,
+    width: width * 0.76,
+    borderRadius: 7,
+    backgroundColor: colors.white
+  },
   modal_title_text: {
     color: colors.black,
     fontSize: 12,
@@ -65,6 +72,16 @@ const styles = StyleSheet.create({
     marginTop: 20,
     paddingLeft: 5,
     paddingRight: 5
+  },
+  date_modal:{
+    flex: 3,
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    flexDirection: "row",
+    marginTop: 10,
+    paddingLeft: 0,
+    paddingRight: 0
   },
   modal_buttons: {
     height: 50,
@@ -113,6 +130,20 @@ const styles = StyleSheet.create({
     borderRightWidth: 0,
     borderBottomWidth: 0,
     overflow: "hidden"
+  },
+  wheelPicker: {
+    height: 160,
+    marginLeft:10,
+    marginRight:10
+  },
+  wheelPickerDay: {
+    width: (width * 0.76)/3-20,
+  },
+  wheelPickerMonths: {
+    width: (width * 0.76)/3-20,
+  },
+  wheelPickerYear: {
+    width: (width * 0.76)/3-20,
   }
 });
 export default styles;
