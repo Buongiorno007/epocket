@@ -62,18 +62,18 @@ class CustomAlert extends Component {
     wheelPickerDataDays: [],
     wheelPickerDataYears: [],
     wheelPickerDataMonths: months,
-    pickedDay: { data: today.getUTCDate()+"" },
+    pickedDay: Platform.OS === "ios" ? { data: today.getUTCDate() + "" } : { data: today.getUTCDate() },
     pickedMonth: { position: today.getMonth() },
-    pickedYear: { data: today.getFullYear()+"" }
+    pickedYear: Platform.OS === "ios" ? { data: today.getFullYear() + "" } : { data: today.getFullYear() }
   };
   componentDidMount() {
     let wheelPickerDataDays = [];
     let wheelPickerDataYears = [];
     for (let i = 1; i <= 31; i++) {
-      wheelPickerDataDays.push(''+i)
+      Platform.OS === "ios" ? wheelPickerDataDays.push('' + i) : wheelPickerDataDays.push(i)
     }
     for (let i = 1905; i <= today.getFullYear(); i++) {
-      wheelPickerDataYears.push(''+i)
+      Platform.OS === "ios" ? wheelPickerDataYears.push('' + i) : wheelPickerDataYears.push(i)
     }
     this.setState({ wheelPickerDataDays, wheelPickerDataYears })
   }
@@ -120,7 +120,7 @@ class CustomAlert extends Component {
                     style={[styles.wheelPickerIOS]}
                     selectedValue={this.state.pickedDay.data}
                     onValueChange={itemValue => this.setState({ pickedDay: { data: itemValue } })}
-                    >
+                  >
                     {this.state.wheelPickerDataDays.map((i, index) => (
                       <Picker.Item style={[styles.wheelPickerIOS_item]} key={index} label={i} value={i} />
                     ))}
@@ -186,6 +186,17 @@ class CustomAlert extends Component {
               :
               <View style={styles.modal_title}>
                 <Text style={styles.modal_title_text}>{this.props.title}</Text>
+                {this.props.subtitle &&
+                  <LinearTextGradient
+                    locations={[0, 1]}
+                    colors={[colors.light_orange, colors.pink]}
+                    start={{ x: 0.0, y: 1.0 }}
+                    end={{ x: 1.0, y: 1.0 }}
+                    style={styles.modal_title_text}
+                  >
+                    {this.props.subtitle}
+                  </LinearTextGradient>
+                }
               </View>
             }
             {this.props.second_btn_title ? (
@@ -222,7 +233,7 @@ class CustomAlert extends Component {
                     style={styles.big_centered_button}
                     onPress={() => { this.props.datepicker ? (this.props.setBirthDay({ day: this.state.pickedDay.data, month: this.state.pickedMonth.position + 1, year: this.state.pickedYear.data }), this.props.first_btn_handler()) : this.props.first_btn_handler() }}
                   >
-                    {this.props.datepicker ?
+                    {this.props.datepicker || this.props.subtitle ?
                       <LinearTextGradient
                         locations={[0, 1]}
                         colors={[colors.light_orange, colors.pink]}
