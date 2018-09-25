@@ -167,6 +167,8 @@ PODS:
   - RNBackgroundGeolocation (2.13.3):
     - CocoaLumberjack (~> 3.0)
     - React
+  - RNShare (1.1.2):
+    - React
   - RNVectorIcons (4.6.0):
     - React
   - yoga (0.55.4.React)
@@ -201,6 +203,7 @@ DEPENDENCIES:
   - ReactNativePermissions (from `../node_modules/react-native-permissions`)
   - RNBackgroundFetch (from `../node_modules/react-native-background-fetch`)
   - RNBackgroundGeolocation (from `../node_modules/react-native-background-geolocation`)
+  - RNShare (from `../node_modules/react-native-share`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/yoga.podspec`)
 
@@ -249,6 +252,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-background-fetch"
   RNBackgroundGeolocation:
     :path: "../node_modules/react-native-background-geolocation"
+  RNShare:
+    :path: "../node_modules/react-native-share"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
   yoga:
@@ -275,7 +280,7 @@ SPEC CHECKSUMS:
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   React: aa2040dbb6f317b95314968021bd2888816e03d5
-  react-native-camera: 0970792f3ab9a852290946bd39b50041c9504e2b
+  react-native-camera: ec435a5b2498faa288b4574e005d5c1021f18608
   react-native-google-maps: 2cfe3b01f8422c7dae51d8764139fd70f888cfce
   react-native-image-picker: b303e31c3c4ada1d7cb1342423d328d2efb07fb3
   react-native-maps: 066c2afcc89e18726377bcc685315f989ca22449
@@ -283,9 +288,10 @@ SPEC CHECKSUMS:
   ReactNativePermissions: 9f2d9c45c98800795e6c2ed330e25d11a66a8169
   RNBackgroundFetch: 8c4f77f83c398c659bce82af2f0a885079417b9e
   RNBackgroundGeolocation: c9bbf69b9aa277f0b46754cc5f853bd26051a18f
+  RNShare: d875e8e37f3e5e8eb7a103ae01e06490af1796f6
   RNVectorIcons: c0dbfbf6068fefa240c37b0f71bd03b45dddac44
   yoga: a23273df0088bf7f2bb7e5d7b00044ea57a2a54a
 
-PODFILE CHECKSUM: 0e66d69641000cabe240d5b0e635354e9e8a2b2a
+PODFILE CHECKSUM: 1c7a66eb0b02c4bc77889aaec4f674dae96a186f
 
 COCOAPODS: 1.5.3

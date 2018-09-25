@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.ReactApplication;
+import cl.json.RNSharePackage;
 import com.wheelpicker.WheelPickerPackage;
 import com.smixx.fabric.FabricPackage;
 import com.marianhello.bgloc.react.BackgroundGeolocationPackage;
@@ -35,11 +36,12 @@ import com.oblador.vectoricons.VectorIconsPackage;
 import com.crashlytics.android.Crashlytics;
 import io.fabric.sdk.android.Fabric;
 
+import cl.json.ShareApplication;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class MainApplication extends Application implements ReactApplication {
+public class MainApplication extends Application implements ShareApplication, ReactApplication {
 
     private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
         @Override
@@ -51,6 +53,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new RNSharePackage(),
             new WheelPickerPackage(),
                     new FabricPackage(),
                     new BackgroundGeolocationPackage(),
@@ -76,7 +79,15 @@ public class MainApplication extends Application implements ReactApplication {
         protected String getJSMainModuleName() {
             return "index";
         }
+
+
     };
+
+
+    @Override
+    public String getFileProviderAuthority() {
+        return "club.dvlp.epocket.provider";
+    }
 
     @Override
     public ReactNativeHost getReactNativeHost() {
@@ -90,4 +101,6 @@ public class MainApplication extends Application implements ReactApplication {
         SoLoader.init(this, /* native exopackage */ false);
         Fresco.initialize(this);
     }
+
+
 }

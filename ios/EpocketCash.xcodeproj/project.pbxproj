@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -19,6 +20,9 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		1587E304215A6AF500350ADF /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1587E303215A6AF500350ADF /* Social.framework */; };
+		1587E306215A6B0100350ADF /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1587E305215A6B0100350ADF /* MessageUI.framework */; };
+		1587E309215A72BF00350ADF /* libRNShare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1587E2FE215A6A9700350ADF /* libRNShare.a */; };
 		2B1B95D5877145BEBBC5BE4E /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AF8297859AC940B29F59C410 /* FontAwesome.ttf */; };
 		3257B2A2212470C600D80C7E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3257B2A1212470C600D80C7E /* GoogleService-Info.plist */; };
 		326FB575210220B50027636E /* RNBackgroundFetch+AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 326FB54D210220B50027636E /* RNBackgroundFetch+AppDelegate.m */; };
@@ -110,6 +114,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
+		};
+		1587E2FD215A6A9700350ADF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1587E2D1215A6A9700350ADF /* RNShare.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNShare;
 		};
 		158B6730214BA94600FE9766 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -377,6 +388,10 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = EpocketCash/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = EpocketCash/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		1587E2D1215A6A9700350ADF /* RNShare.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNShare.xcodeproj; path = "../node_modules/react-native-share/ios/RNShare.xcodeproj"; sourceTree = "<group>"; };
+		1587E303215A6AF500350ADF /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		1587E305215A6B0100350ADF /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		1587E307215A6C6900350ADF /* libRNShare.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNShare.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		1588F5B983604D61AA4836C5 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/native-base/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		1D6C6FE612DB45F8B98D4BD1 /* Rubik-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Black.ttf"; path = "../src/assets/fonts/Rubik/Rubik-Black.ttf"; sourceTree = "<group>"; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -425,6 +440,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1587E309215A72BF00350ADF /* libRNShare.a in Frameworks */,
+				1587E306215A6B0100350ADF /* MessageUI.framework in Frameworks */,
+				1587E304215A6AF500350ADF /* Social.framework in Frameworks */,
 				32B5914E2105C25600A39C26 /* libRNBackgroundTimer.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
@@ -568,9 +586,20 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		1587E2D2215A6A9700350ADF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1587E2FE215A6A9700350ADF /* libRNShare.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1587E307215A6C6900350ADF /* libRNShare.a */,
+				1587E305215A6B0100350ADF /* MessageUI.framework */,
+				1587E303215A6AF500350ADF /* Social.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
 				6000166D502203CE5942E9FB /* libPods-EpocketCash.a */,
 			);
@@ -681,6 +710,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				1587E2D1215A6A9700350ADF /* RNShare.xcodeproj */,
 				32B5911E2105C21F00A39C26 /* RNBackgroundTimer.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -859,6 +889,10 @@
 					ProjectRef = 910D9C4B81854FF59D837898 /* RNFirebase.xcodeproj */;
 				},
 				{
+					ProductGroup = 1587E2D2215A6A9700350ADF /* Products */;
+					ProjectRef = 1587E2D1215A6A9700350ADF /* RNShare.xcodeproj */;
+				},
+				{
 					ProductGroup = 32DE99C621005FFA00EF1FE9 /* Products */;
 					ProjectRef = 6B29C7C30ECF4E7393F0998E /* RNTextGradient.xcodeproj */;
 				},
@@ -929,6 +963,13 @@
 			fileType = archive.ar;
 			path = libReact.a;
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1587E2FE215A6A9700350ADF /* libRNShare.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNShare.a;
+			remoteRef = 1587E2FD215A6A9700350ADF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		158B6731214BA94600FE9766 /* libSRSRadialGradien-tvOS.a */ = {
