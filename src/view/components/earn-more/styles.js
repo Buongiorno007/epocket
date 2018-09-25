@@ -13,7 +13,7 @@ export default StyleSheet.create({
         height: height,
         width: width,
     },
-    image: {
+    image_background: {
         zIndex: 1,
         position: "absolute",
         top: width * 0.1,
@@ -21,33 +21,53 @@ export default StyleSheet.create({
         width: width,
         resizeMode: 'contain'
     },
+    image_template: {
+        zIndex: 1,
+        alignSelf : 'center',
+        top: width * 0.2,
+        height: 165,
+        width: width,
+        resizeMode: 'contain',
+        backgroundColor :  colors.white,
+    },
     success: {
         zIndex: 1,
         flex: 1,
-        width: width * 0.6,
+        width: width * 0.85,
         alignItems: 'center',
         justifyContent: 'center'
     },
-    congratulation: {
-        fontSize: width * 0.05,
-        lineHeight: width * 0.08,
+    text_common : {
+        width: width * 0.85,
+        textAlign : 'center',
+        marginBottom : 25,
+    },
+    more_money: {
+        fontSize: 30,
         color: colors.white,
     },
-    cash: {
-        fontSize: width * 0.045,
-        lineHeight: width * 0.08,
-        color: colors.white_o74,
+    more_text: {
+        fontSize: 18,
+        color: colors.white,
     },
-    button: {
-        backgroundColor: colors.white,
-        marginTop: width * 0.05,
+    more_deck: {
+        fontSize: 12,
+        color: colors.white,
+    },
+
+    skip_button: {
+        width: width * 0.85,
+        height : 60,
         alignSelf: 'center',
         alignItems: 'center',
         justifyContent: 'center',
-        width: width * 0.55,
+        
     },
     text: {
-        fontSize: width * 0.03,
-        color: '#F55890'
-    }
+        fontSize: 14,
+        color: colors.white,
+    },
+    earn_more_btn : {
+
+    },
 });

@@ -75,7 +75,6 @@ class ScannerCamera extends React.Component {
   reopenQRScanner = () => {
     this.setState({ showQR: true });
     this.setModalVisible(!this.state.errorVisible);
-
   }
   render = () => {
     return (

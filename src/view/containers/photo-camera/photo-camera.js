@@ -63,7 +63,7 @@ class PhotoCamera extends React.Component {
   takePicture = async () => {
     if (this.camera) {
       this.props.loaderState(true);
-      const options = { quality: 0.5, base64: true, fixOrientation: true };
+      const options = { quality: 0.5, base64: true, fixOrientation: true, forceUpOrientation : true };
       const data = await this.camera.takePictureAsync(options);
 
       NavigationService.navigate("Photo", {

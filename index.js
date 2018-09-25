@@ -13,6 +13,7 @@ import QrCode from "./src/view/components/qr-code/qr-code";
 import Picture from "./src/view/components/picture/picture";
 import Trade from "./src/view/components/trade/trade";
 import MissionSuccess from "./src/view/components/mission-success/mission-success";
+import EarnMore from "./src/view/components/earn-more/earn-more";
 import ProfileSettings from "./src/view/components/profile-settings/profile-settings"
 import ProfileEdit from "./src/view/components/profile-edit/profile-edit"
 
@@ -38,11 +39,12 @@ const EpocketCash = createStackNavigator(
     Picture: { screen: Picture },
     Trade: { screen: Trade },
     MissionSuccess: { screen: MissionSuccess },
+    EarnMore: { screen: EarnMore },
     ProfileEdit: { screen: ProfileEdit },
     ProfileSettings: { screen: ProfileSettings },
   },
   {
-    initialRouteName: "Start",
+    initialRouteName: "MissionSuccess",
     navigationOptions: {
       gesturesEnabled: false,
       header: null
