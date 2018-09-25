@@ -6,7 +6,8 @@ import {
   Image,
   View,
   Modal,
-  findNodeHandle
+  findNodeHandle,
+  Picker
 } from "react-native";
 import { LinearTextGradient } from "react-native-text-gradient";
 import { Button } from "native-base";
@@ -22,7 +23,7 @@ import { ICONS } from "../../../constants/icons";
 import { colors } from "../../../constants/colors";
 import Blur from "../blur/blur";
 const today = new Date();
-const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
+const months = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь']
 {
   /* 
 call example
@@ -61,18 +62,18 @@ class CustomAlert extends Component {
     wheelPickerDataDays: [],
     wheelPickerDataYears: [],
     wheelPickerDataMonths: months,
-    pickedDay: { data: today.getUTCDate() },
+    pickedDay: { data: today.getUTCDate()+"" },
     pickedMonth: { position: today.getMonth() },
-    pickedYear: { data: today.getFullYear() }
+    pickedYear: { data: today.getFullYear()+"" }
   };
   componentDidMount() {
     let wheelPickerDataDays = [];
     let wheelPickerDataYears = [];
     for (let i = 1; i <= 31; i++) {
-      wheelPickerDataDays.push(i)
+      wheelPickerDataDays.push(''+i)
     }
     for (let i = 1905; i <= today.getFullYear(); i++) {
-      wheelPickerDataYears.push(i)
+      wheelPickerDataYears.push(''+i)
     }
     this.setState({ wheelPickerDataDays, wheelPickerDataYears })
   }
@@ -115,7 +116,31 @@ class CustomAlert extends Component {
             {this.props.datepicker ?
               Platform.OS === "ios" ?
                 <View style={styles.date_modal}>
-                  <Text>WheelPicker in progress for IOS</Text>
+                  <Picker
+                    style={[styles.wheelPickerIOS]}
+                    selectedValue={this.state.pickedDay.data}
+                    onValueChange={itemValue => this.setState({ pickedDay: { data: itemValue } })}
+                    >
+                    {this.state.wheelPickerDataDays.map((i, index) => (
+                      <Picker.Item style={[styles.wheelPickerIOS_item]} key={index} label={i} value={i} />
+                    ))}
+                  </Picker>
+                  <Picker
+                    style={[styles.wheelPickerIOS, styles.wheelPickerIOS_month]}
+                    selectedValue={this.state.pickedMonth.position}
+                    onValueChange={itemValue => this.setState({ pickedMonth: { position: itemValue } })}>
+                    {this.state.wheelPickerDataMonths.map((i, index) => (
+                      <Picker.Item style={[styles.wheelPickerIOS_item]} key={index} label={i} value={index} />
+                    ))}
+                  </Picker>
+                  <Picker
+                    style={[styles.wheelPickerIOS]}
+                    selectedValue={this.state.pickedYear.data}
+                    onValueChange={itemValue => this.setState({ pickedYear: { data: itemValue } })}>
+                    {this.state.wheelPickerDataYears.map((i, index) => (
+                      <Picker.Item style={[styles.wheelPickerIOS_item]} key={index} label={i} value={i} />
+                    ))}
+                  </Picker>
                 </View>
                 :
                 <View style={styles.date_modal}>

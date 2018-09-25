@@ -78,7 +78,6 @@ class ProfileSettings extends React.Component {
         user_sex: object.sex,
         user_birthDay: object.birthDay
       };
-      console.log(async_storage_user)
       if (object.birthDay && object.birthDay != "") {
         this.props.setBirthDay(object.birthDay);
       }
