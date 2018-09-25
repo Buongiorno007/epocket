@@ -5,6 +5,8 @@ import NavigationService from "./../../../services/route";
 //containers
 import CustomAlert from "../../containers/custom-alert/custom-alert";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
+import TemplateInstagramPhoto from "../template-insta-photo/template-insta-photo";
+import InstaHashTags from "../insta-hashtags/insta-hashtags";
 //constants
 import styles from "./styles";
 import { colors } from "./../../../constants/colors";
@@ -41,12 +43,11 @@ class PhotoView extends React.Component {
     this.setErrorPhotoVisible(false);
     this.props.loaderState(true);
     let body = {
-      missionId: this.props.selectedMission.id,
-      photo: (this.props.navigation.state.params.image).substr(0,50)
+      outlet_id: this.props.selectedMall.id,
+      photo: this.props.navigation.state.params.image
     };
-    console.log(body)
     let promise = httpPost(
-      urls.send_photo,
+      urls.insta_upload_photo,
       serializeJSON(body),
       this.props.token,
       true
@@ -54,8 +55,11 @@ class PhotoView extends React.Component {
     promise.then(
       result => {
         this.setErrorPhotoVisible(false);
-        this.finishMission();
-        // NavigationService.navigate("MissionSuccess", { price: this.props.selectedMission.price });
+        // this.finishMission(result.body);
+        NavigationService.navigate("MissionSuccess", {
+          price: this.props.selectedMission.price,
+          insta_data: result.body
+        });
       },
       error => {
         console.log("Rejected: ", error);
@@ -81,7 +85,7 @@ class PhotoView extends React.Component {
     );
   };
 
-  finishMission() {
+  finishMission(insta_data) {
     this.setErrorMissionVisible(false);
     let body = {
       outletId: this.props.selectedMall.id,
@@ -92,7 +96,6 @@ class PhotoView extends React.Component {
       JSON.stringify(body),
       this.props.token
     );
-    console.log('body',body)
     promise.then(
       result => {
         this.setErrorMissionVisible(false);
@@ -158,6 +161,12 @@ class PhotoView extends React.Component {
             source={{ uri: this.props.navigation.state.params.url }}
             style={styles.image}
           />
+        </View>
+        <View style={styles.template_photo}>
+          <TemplateInstagramPhoto template_url={this.props.navigation.state.params.template_info.media} />
+        </View>
+        <View style={styles.template_hashtags}>
+          <InstaHashTags hashtags={this.props.navigation.state.params.template_info.hashtags} />
         </View>
         <View style={[styles.navigation, styles.size]}>
           <View style={[styles.button_container, styles.size]}>

@@ -6,6 +6,7 @@ export const colors = {
   pink_02: "rgba(245,88,144,0.2)",
   pink_082: "rgba(245, 88, 144, 0.82)",
   blue: "#44BFEF",
+  blue_hashtag: "#294B76",
   blue_label: "#2EC6FF",
   light_blue: "#6FCBEF",
   light_orange: "#FF9950",

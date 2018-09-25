@@ -21,6 +21,8 @@ export const urls = {
     add_device :                devserver+ '/push-notification/add-device/',
     send_push_all:              devserver+ '/push-notification/send-push/all',
     send_push_single:           devserver+ '/push-notification/send-push/single',
-    insta:                      devserver+ '/instagram/api/authorization',
+    insta_login:                devserver+ '/instagram/api/authorization',
+    insta_outlet_template:      devserver+ '/instagram/api/outlet_template',
+    insta_upload_photo:         devserver+ '/instagram/api/upload_photo',
     socket :                               'ws://epocket.dev.splinestudio.com/order/',
 }

@@ -22,8 +22,14 @@ class CardList extends React.Component {
   );
 
   _submissionOrder = (mission) => {
-    console.log(mission.subMissions)
-    mission.subMissions.length && (mission.subMissions = orderBy(mission.subMissions,['type'], ['desc']))
+    let insta_sub_mission = {
+      desc: RU.MISSION.SUBMISSION_3,
+      id: 1,
+      name: "insta submission",
+      type: 2
+    }
+    mission.subMissions.length && (mission.subMissions = orderBy(mission.subMissions, ['type'], ['desc']))
+    mission.subMissions.push(insta_sub_mission)
     return mission
   }
   _showSelectedCard = selectedCard => {

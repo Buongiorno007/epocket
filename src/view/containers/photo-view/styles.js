@@ -65,5 +65,10 @@ export default StyleSheet.create({
     },
     image: {
         flex: 2,
-    }
+    },
+    template_photo : {
+        position : 'absolute',
+        top : 10,
+        left : 10
+    },
 });

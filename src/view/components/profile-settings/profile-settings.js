@@ -50,7 +50,7 @@ class ProfileSettings extends React.Component {
       instagram_token
     });
     let promise = httpPost(
-      urls.insta,
+      urls.insta_login,
       body,
       this.props.token
     );

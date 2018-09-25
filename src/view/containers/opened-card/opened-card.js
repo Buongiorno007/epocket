@@ -97,7 +97,7 @@ class OpenedCard extends React.Component {
                   (element, index) => {
                     return (
                       <View key={element.id} style={styles.task_line}>
-                        <Text style={styles.task_text}>{index + 1}. </Text>
+                        {index + 1 !== 3 && <Text style={styles.task_text}>{index + 1.} </Text>}
                         <Text style={styles.task_text}>{element.desc}</Text>
                       </View>
                     );

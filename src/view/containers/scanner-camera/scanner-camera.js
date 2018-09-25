@@ -24,15 +24,17 @@ class ScannerCamera extends React.Component {
     errorText: "",
     showQR: true
   };
-  com
+
   setModalVisible = visible => {
     this.setState({ errorVisible: visible });
   };
+
   componentDidMount = () => {
     setTimeout(() => {
       this.props.loaderState(false);
     }, 2000);
   };
+
   sendQRCode = qrcode => {
     if (qrcode.data) {
       this.setModalVisible(false);
@@ -90,9 +92,7 @@ class ScannerCamera extends React.Component {
             <QRCodeScanner
               containerStyle={styles.container}
               cameraStyle={styles.camera}
-              onRead={e => {
-                this.sendQRCode(e), this.setState({ qr_code: e });
-              }}
+              onRead={e => { this.sendQRCode(e) }}
               fadeIn={true}
               reactivate={true}
               checkAndroid6Permissions={true}
