@@ -15,12 +15,14 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 class MissionSuccess extends React.Component {
-  goToDashboard = () => {
-    NavigationService.navigate("Main");
+
+  earnMore = () => {
+    NavigationService.navigate("EarnMore",{
+      insta_data : this.props.navigation.state.params.insta_data
+    });
   };
 
   componentDidMount = () => {
-    console.log('props',this.props.navigation.state.params)
     this.props.loaderState(false)
   }
 
@@ -46,7 +48,7 @@ class MissionSuccess extends React.Component {
         />
         <Image
           style={styles.image}
-          source={{ uri: ICONS.COMMON.START_TOP_BACKGROUND }}
+          source={ require('../../../assets/img/START_TOP_BACKGROUND.png')}
         />
         <View style={styles.success}>
           <Text style={styles.congratulation}>{RU.MISSION.SUCCESS}</Text>
@@ -60,7 +62,7 @@ class MissionSuccess extends React.Component {
             style={styles.button}
             androidRippleColor={colors.card_shadow}
             onPress={() => {
-              this.goToDashboard();
+              this.earnMore();
             }}
           >
             <Text style={styles.text}>{RU.OK}</Text>

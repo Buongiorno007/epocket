@@ -49,6 +49,8 @@ target 'EpocketCash' do
   pod 'Firebase/Messaging'
   pod 'ReactNativeFabric', :path => '../node_modules/react-native-fabric'
 
+  pod 'RNShare', :path => '../node_modules/react-native-share'
+
 end
   post_install do |installer|
     installer.pods_project.targets.each do |target|

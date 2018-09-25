@@ -57,6 +57,10 @@
 	<string>Please provide access to photo for uploading photos to your profile</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Please provide access to the speech for calculating the program optimal performance parameters</string>
+	<key>LSApplicationQueriesSchemes</key>
+		<array>
+			<string>instagram</string>
+		</array>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Rubik-Black.ttf</string>

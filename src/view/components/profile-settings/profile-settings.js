@@ -26,6 +26,7 @@ import { httpPost } from "../../../services/http";
 import { urls } from "../../../constants/urls";
 
 import { loaderState } from "../../../reducers/loader";
+import { setInstaToken } from "../../../reducers/insta_token";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 
 class ProfileSettings extends React.Component {
@@ -42,13 +43,38 @@ class ProfileSettings extends React.Component {
   LogOut = () => {
     AsyncStorage.setItem("user_info", "");
     AsyncStorage.setItem("balance", "");
+    AsyncStorage.setItem("insta_token", "");
     NavigationService.navigate("Start");
   };
   ToProfile = () => {
     NavigationService.navigate("Main");
   }
+  disConnectInsta = () => {
+    this.props.loaderState(true);
+    this.props.setInstaToken("")
+    let body = JSON.stringify({
+      instagram_token : this.props.insta_token
+    });
+    let promise = httpPost(
+      urls.insta_logout,
+      body,
+      this.props.token
+    );
+    promise.then(
+      result => {
+        this.props.loaderState(false);
+        console.log('insta result', result)
+      },
+      error => {
+        this.props.loaderState(false);
+        console.log("Rejected: ", error);
+      }
+    );
+  }
+
   connectInsta = (instagram_token) => {
     this.props.loaderState(true);
+    this.props.setInstaToken(String(instagram_token))
     let body = JSON.stringify({
       instagram_token
     });
@@ -73,7 +99,6 @@ class ProfileSettings extends React.Component {
       error => {
         this.props.loaderState(false);
         console.log("Rejected: ", error);
-        this.setState({ instConnected: false })
       }
     );
   }
@@ -153,9 +178,9 @@ class ProfileSettings extends React.Component {
                 short
                 extra_short
                 gradient
-                title={this.state.instConnected ? RU.PROFILE_SETTINGS.REMOVE : RU.PROFILE_SETTINGS.ADD}
+                title={this.props.insta_token ? RU.PROFILE_SETTINGS.REMOVE : RU.PROFILE_SETTINGS.ADD}
                 color={colors.white}
-                handler={() => { this.refs.instagramLogin.show() }}
+                handler={() => { !this.props.insta_token ? this.refs.instagramLogin.show() : this.disConnectInsta() }}
               />
             </View>
           </View>
@@ -212,6 +237,7 @@ const mapStateToProps = state => {
   return {
     user: state.profileState,
     token: state.token,
+    insta_token: state.insta_token,
     loader: state.loader
   };
 };

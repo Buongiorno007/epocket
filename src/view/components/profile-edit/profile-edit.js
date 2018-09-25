@@ -48,7 +48,7 @@ class ProfileEdit extends React.Component {
     },
     modalVisible: false,
     exitVisible: false,
-    datePickerVisible: false,
+    datePickerVisible:false,
     rejectedRequestModal: false,
     changed: false,
     errorText: "error"

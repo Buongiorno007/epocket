@@ -35,6 +35,7 @@ import {
   setLocation
 } from "../../../reducers/geolocation-coords";
 import { setToken } from "../../../reducers/token";
+import { setInstaToken } from "../../../reducers/insta_token";
 //services
 import geo_config from "./geolocation-config";
 import NavigationService from "../../../services/route";
@@ -60,13 +61,13 @@ class Start extends React.Component {
     this._getLocation();
     this.props.locationStateListener();
     this.props.locationCoordsListener();
-    if(Platform.OS==="ios"){
+    if (Platform.OS === "ios") {
       BackgroundGeolocationModule.ready(geo_config(), state => {
         if (!state.enabled) {
           BackgroundGeolocationModule.start(function () { });
         }
       });
-    }else{
+    } else {
       BackgroundGeolocationModule.configure(geo_config())
       BackgroundGeolocationModule.checkStatus(status => {
         if (!status.isRunning) {
@@ -78,7 +79,8 @@ class Start extends React.Component {
   };
 
   _initialConfig = () => {
-    AsyncStorage.getItem("fire_token").then(value => {
+    AsyncStorage.getItem("insta_token").then(value => {
+      value && this.props.setInstaToken(value);
     })
     AsyncStorage.getItem("user_info").then(value => {
       this.props.loaderState(false);
@@ -110,7 +112,7 @@ class Start extends React.Component {
       error => {
         this.props.locationState(false);
       },
-    );  
+    );
   };
   goToSignIn = () => {
     this.props.loaderState(true);
@@ -189,6 +191,7 @@ const mapDispatchToProps = dispatch =>
       locationStateListener,
       locationCoordsListener,
       setToken,
+      setInstaToken,
       setBalance,
       loaderState,
       getPush

@@ -16,7 +16,7 @@
   },
   "requires_arc": true,
   "platforms": {
-    "ios": "8.0"
+    "ios": "9.0"
   },
   "static_framework": true,
   "default_subspecs": [
