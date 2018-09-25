@@ -87,13 +87,16 @@ export default StyleSheet.create({
     width: width * 0.85
   },
   task_line: {
+    width: width * 0.85,
     paddingBottom: 10,
     flexDirection: "row"
   },
   task_text: {
     color: colors.white,
     fontFamily: "Rubik-Light",
-    fontSize: 16
+    fontSize: 16,
+    flexWrap : 'wrap'
+
   },
   my_button: {
     paddingTop: 10,

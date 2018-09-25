@@ -25,6 +25,7 @@ export default StyleSheet.create({
     position: "absolute"
   },
   user_edit_container: {
+    flex: 1,
     width: width,
     justifyContent: "flex-start",
     alignItems: "flex-start",
@@ -42,7 +43,7 @@ export default StyleSheet.create({
   },
   btn_container: {
     height: 100,
-    bottom: 40,
+    bottom: 20,
     justifyContent: "space-between",
     alignItems: "center",
     elevation: 2
@@ -65,7 +66,8 @@ export default StyleSheet.create({
   },
   keyboard_avoid_view: {
     flex: 1,
-    width: width
+    width: width,
+
   },
 
   text_container: {
@@ -87,6 +89,7 @@ export default StyleSheet.create({
     fontFamily: "Rubik-Regular",
   }, 
   title: {
+    height : 20,
     color: colors.black_o36,
     fontSize: 15,
     textAlign: "left",
@@ -95,7 +98,8 @@ export default StyleSheet.create({
   sex_picker : {
     width : width - (width * 0.2),
     height : 20,
-    flexDirection : 'row'
+    flexDirection : 'row',
+    alignItems : 'center',
   },
   sex_btn : {
     height : 20,

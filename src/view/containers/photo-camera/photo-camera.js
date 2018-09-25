@@ -5,34 +5,71 @@ import Refresh from "react-native-vector-icons/SimpleLineIcons";
 import Circle from "react-native-vector-icons/Entypo";
 import { Button } from "native-base";
 //containers
-import ActivityIndicator from "../activity-indicator/activity-indicator";
+import TemplateInstagramPhoto from "../template-insta-photo/template-insta-photo";
+import InstaHashTags from "../insta-hashtags/insta-hashtags";
 //constants
 import styles from "./styles";
 import { RU } from "./../../../locales/ru";
+import { urls } from "../../../constants/urls";
 import { colors } from "./../../../constants/colors";
 import { ICONS } from "./../../../constants/icons";
 //services
 import NavigationService from "./../../../services/route";
+import { httpPost } from "../../../services/http";
+import { serializeJSON } from "../../../services/serialize-json";
 //redux
 import { loaderState } from "../../../reducers/loader";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
+
 class PhotoCamera extends React.Component {
   state = {
     type: false,
-    flash: false
+    flash: false,
+    template_info: {
+      media: '',
+      hashtags: ''
+    }
+
   };
+
+  componentDidMount = () => {
+    let body = JSON.stringify({
+      outlet_id: this.props.selectedMall.id,
+    });
+    console.log(body, this.props.token)
+    let promise = httpPost(
+      urls.insta_outlet_template,
+      body,
+      this.props.token
+    );
+    promise.then(
+      result => {
+        console.log('PhotoCamera componentDidMount', result)
+        this.setState({
+          template_info: {
+            media: result.body.media,
+            hashtags: result.body.hash_tag
+          }
+        });
+      },
+      error => {
+        console.log("Rejected: ", error);
+      }
+    );
+  }
 
   takePicture = async () => {
     if (this.camera) {
       this.props.loaderState(true);
-      const options = { quality: 0.5, base64: true, fixOrientation: true  };
+      const options = { quality: 0.5, base64: true, fixOrientation: true };
       const data = await this.camera.takePictureAsync(options);
-      
+
       NavigationService.navigate("Photo", {
         image: `data:image/jpg;base64,${data.base64}`,
-        url: data.uri
+        url: data.uri,
+        template_info : this.state.template_info
       });
     }
   };
@@ -57,6 +94,12 @@ class PhotoCamera extends React.Component {
             permissionDialogTitle={RU.TITLE}
             permissionDialogMessage={RU.CAMERA_PERMISSION}
           />
+        </View>
+        <View style={styles.template_photo}>
+          <TemplateInstagramPhoto template_url={this.state.template_info.media} />
+        </View>
+        <View style={styles.template_hashtags}>
+          <InstaHashTags hashtags={this.state.template_info.hashtags}/>
         </View>
         <View style={[styles.settings, styles.size]}>
           <View style={styles.photo_button}>
@@ -107,7 +150,9 @@ class PhotoCamera extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  loader: state.loader
+  loader: state.loader,
+  selectedMall: state.selectedMall,
+  token: state.token,
 });
 const mapDispatchToProps = dispatch =>
   bindActionCreators(

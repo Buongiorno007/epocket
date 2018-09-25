@@ -20,6 +20,7 @@ class MissionSuccess extends React.Component {
   };
 
   componentDidMount = () => {
+    console.log('props',this.props.navigation.state.params)
     this.props.loaderState(false)
   }
 

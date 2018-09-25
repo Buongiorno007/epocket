@@ -34,6 +34,13 @@ export default StyleSheet.create({
     shadowRadius: 5,
     shadowOpacity: 5
   },
+
+  template_photo : {
+      position : 'absolute',
+      top : 10,
+      left : 10
+  },
+
   settings: {
     flex: 1,
     justifyContent: "center",

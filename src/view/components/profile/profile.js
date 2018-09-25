@@ -115,7 +115,7 @@ class Profile extends React.Component {
               this.state.user.sex ?
               <View style={styles.text_item}>
                 <Text style={styles.title}>{RU.PROFILE_PAGE.SEX}</Text>
-                <Text style={styles.phone}>{this.state.user.sex === 0 && RU.PROFILE_PAGE.FEMALE}{this.state.user.sex === 1 && RU.PROFILE_PAGE.MALE}</Text>
+                <Text style={styles.phone}>{this.state.user.sex == 0 && RU.PROFILE_PAGE.FEMALE}{this.state.user.sex == 1 && RU.PROFILE_PAGE.MALE}</Text>
               </View>
               : null
             }

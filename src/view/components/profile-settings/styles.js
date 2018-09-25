@@ -19,11 +19,10 @@ export default StyleSheet.create({
     width: width,
     flexDirection: 'row',
     height: height * 0.1,
-    alignItems: "center",
     justifyContent: 'space-between',
     paddingLeft: width * 0.1 + 5,
-    paddingRight: 5,
-    backgroundColor: "transparent"
+    backgroundColor: "transparent",
+    alignItems: "flex-end",
   },
   image_block: {
     flexDirection: 'row',
@@ -78,7 +77,8 @@ export default StyleSheet.create({
   settings_btn: {
     height: 30,
     width: 30,
-    alignSelf: 'center'
+    alignSelf: 'flex-end',
+    alignItems : 'center'
   },
   close_img: {
     height: 15,
