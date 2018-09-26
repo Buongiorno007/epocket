@@ -13,6 +13,7 @@ import { bindActionCreators } from "redux";
 import { showDashboard } from "../reducers/show-dashboard";
 import { setDistance } from "../reducers/distance";
 import { setAppState } from "../reducers/app-state"
+import { setMainTaskId } from "../reducers/main-task-id"
 import { setSheduleRequestStart } from "../reducers/set-shedule-request-start"
 import { showDoneNotification } from "../reducers/main-task-done-notification";
 //constants
@@ -43,7 +44,7 @@ class GeolocationService extends React.Component {
         if (result.body.failed) {
           this.rejectMainTask();
         }
-        this.setState({ mainTaskId: result.body.id });
+        this.props.setMainTaskId(result.body.id)
       },
       error => { }
     );
@@ -70,7 +71,7 @@ class GeolocationService extends React.Component {
   finishMainTask() {
     let body = {
       outletId: this.props.selectedMall.id,
-      missionId: this.state.mainTaskId
+      missionId: this.props.mainTaskId
     };
     let promise = httpPost(
       urls.finish_mission,
@@ -214,7 +215,8 @@ const mapStateToProps = state => {
     token: state.token,
     dashboard: state.dashboard,
     sheduleRequestStart: state.sheduleRequestStart,
-    appState: state.appState
+    appState: state.appState,
+    mainTaskId: state.mainTaskId
   };
 };
 
@@ -225,7 +227,8 @@ const mapDispatchToProps = dispatch =>
       setDistance,
       showDoneNotification,
       setSheduleRequestStart,
-      setAppState
+      setAppState,
+      setMainTaskId
     },
     dispatch
   );
