@@ -9,13 +9,18 @@ export default StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
+        bottom: 100,
         zIndex: 99
     },
     circle_container: {
         width: width * 0.6,
         height: width * 0.6,
+        bottom: -100,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    btnContainer: {
+        bottom: -100,
     },
     outer_circle: {
         width: width * 0.5,
@@ -27,7 +32,7 @@ export default StyleSheet.create({
         borderRadius: width * 0.5,
         position: 'absolute',
     },
-    
+
     inner_circle: {
         width: width * 0.3,
         height: width * 0.3,
@@ -39,10 +44,10 @@ export default StyleSheet.create({
         borderRadius: width * 0.3,
         position: 'absolute',
     },
-    location_icon : {
+    location_icon: {
         width: 40,
-        height: 40, 
-    },    
+        height: 40,
+    },
     enable_location: {
         width: width * 0.6,
         borderRadius: 40,
@@ -50,17 +55,17 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         alignSelf: 'center',
-        overflow : 'hidden'
+        overflow: 'hidden'
     },
     location_disable_text: {
-        textAlign : 'center',
+        textAlign: 'center',
         alignSelf: 'center',
-        color : colors.white,
+        color: colors.white,
     },
     location_enable_text: {
-        textAlign : 'center',
+        textAlign: 'center',
         alignSelf: 'center',
-        color : colors.white,
-        position : 'absolute'
+        color: colors.white,
+        position: 'absolute'
     }
 });

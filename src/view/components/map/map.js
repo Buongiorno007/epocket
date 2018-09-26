@@ -30,7 +30,7 @@ import { setOutlets } from "../../../reducers/outlet-list";
 import { httpPost } from "../../../services/http";
 import { handleError } from "../../../services/http-error-handler";
 import getCurrentGeolocation from "../../../services/get-location"
-import {sendToTelegramm }from '../../../services/telegramm-notification'
+import { sendToTelegramm } from '../../../services/telegramm-notification'
 
 class Map extends React.Component {
   state = {
@@ -164,14 +164,14 @@ class Map extends React.Component {
       }
     );
   };
-  
-  selectNearestMall = (my_location, mall_array,ANIMATE_MAP) => {
+
+  selectNearestMall = (my_location, mall_array, ANIMATE_MAP) => {
     let nearestMall = geolib.findNearest(my_location, mall_array, 0);
-    try {this.selectTRC(mall_array[Number(nearestMall.key)],ANIMATE_MAP);} catch(e) {}
+    try { this.selectTRC(mall_array[Number(nearestMall.key)], ANIMATE_MAP); } catch (e) { }
   };
 
 
-  selectTRC = (trc,ANIMATE_MAP) => {
+  selectTRC = (trc, ANIMATE_MAP) => {
     // if (trc.id !== this.props.selectedMall.id) {
     let bounds = geolib.getBounds([
       { latitude: trc.lat, longitude: trc.lng },
@@ -206,13 +206,13 @@ class Map extends React.Component {
       this.props.showDashboard(true);
     } else {
       this.props.showDashboard(false);
-      ANIMATE_MAP && 
-      this.moveMapTo(
-        Number(center.latitude),
-        Number(center.longitude),
-        Math.abs(bounds.maxLat - bounds.minLat) * 1.3,
-        Math.abs(bounds.maxLng - bounds.minLng) * 1.3
-      );
+      ANIMATE_MAP &&
+        this.moveMapTo(
+          Number(center.latitude),
+          Number(center.longitude),
+          Math.abs(bounds.maxLat - bounds.minLat) * 1.3,
+          Math.abs(bounds.maxLng - bounds.minLng) * 1.3
+        );
     }
 
     // } else {
@@ -240,7 +240,10 @@ class Map extends React.Component {
           translucent={true}
           backgroundColor={"transparent"}
         />
-        {this.state.location_loader && <ActivityIndicator />}
+        {Platform.OS == "ios" ?
+          this.state.location_loader && this.props.isLocation && <ActivityIndicator /> :
+          this.state.location_loader && <ActivityIndicator />
+        }
 
         {this.props.isLocation ? (
           <View style={styles.trc_info}>
