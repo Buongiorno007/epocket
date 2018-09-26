@@ -133,7 +133,7 @@ class SignIn extends React.Component {
       },
       error => {
         console.log("Rejected: ", error);
-        if (error.code >= 500) {
+        if (error.code  === 503) {
           this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
           this.setFailedSignVisible(true);
         } else if (error.code === 400) {
@@ -182,7 +182,7 @@ class SignIn extends React.Component {
       error => {
         console.log("Rejected: ", error);
         this.props.loaderState(false);
-        if (error.code >= 500) {
+        if (error.code  === 503) {
           this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
           this.setFailedConfirmVisible(true);
         } else if (error.code === 400) {

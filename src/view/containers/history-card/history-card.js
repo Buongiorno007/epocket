@@ -22,7 +22,7 @@ class HistoryCard extends React.Component {
     errorText: ""
   };
   componentDidMount() {
-    if (this.props.info.error >=500) {
+    if (this.props.info.error  === 503) {
       this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
     } else if (this.props.info.error === 400) {
       this.setState({ errorText: RU.HTTP_ERRORS.NOT_FOUND });

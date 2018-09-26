@@ -11,6 +11,7 @@ import { ICONS } from "./../../../constants/icons";
 import { urls } from "../../../constants/urls";
 //redux
 import { loaderState } from "../../../reducers/loader";
+import { setShowQR } from "../../../reducers/set-show-qr";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 //services
@@ -21,8 +22,7 @@ class ScannerCamera extends React.Component {
   state = {
     errorVisible: false,
     qr_code: null,
-    errorText: "",
-    showQR: true
+    errorText: ""
   };
 
   setModalVisible = visible => {
@@ -39,7 +39,7 @@ class ScannerCamera extends React.Component {
     if (qrcode.data) {
       this.setModalVisible(false);
       this.props.loaderState(true);
-      this.setState({ showQR: false });
+      this.props.setShowQR(false)
       let body = {
         missionId: this.props.selectedMission.id,
         qrCode: qrcode.data
@@ -53,11 +53,13 @@ class ScannerCamera extends React.Component {
         result => {
           NavigationService.navigate("Photograph");
           this.setModalVisible(false);
+          this.props.setShowQR(true)
         },
         error => {
           console.log("Rejected: ", error);
           this.props.loaderState(false);
-          if (error.code >=500) {
+          this.props.setShowQR(true)
+          if (error.code  === 503) {
             this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
             this.setModalVisible(true);
           } else if (error.code === 400) {
@@ -70,13 +72,13 @@ class ScannerCamera extends React.Component {
             this.setState({ errorText: RU.HTTP_ERRORS.RUNTIME });
             this.setModalVisible(true);
           }
-          
+
         }
       );
     }
   };
   reopenQRScanner = () => {
-    this.setState({ showQR: true });
+    this.props.setShowQR(true)
     this.setModalVisible(!this.state.errorVisible);
   }
   render = () => {
@@ -86,24 +88,21 @@ class ScannerCamera extends React.Component {
           title={this.state.errorText}
           first_btn_title={RU.REPEAT}
           visible={this.state.errorVisible}
-          first_btn_handler={() =>  this.reopenQRScanner()}
+          first_btn_handler={() => this.reopenQRScanner()}
           decline_btn_handler={() => this.reopenQRScanner()}
         />
         <View style={styles.frame}>
-          {this.state.showQR ? (
-            <QRCodeScanner
-              containerStyle={styles.container}
-              cameraStyle={styles.camera}
-              onRead={e => { this.sendQRCode(e) }}
-              fadeIn={true}
-              reactivate={true}
-              checkAndroid6Permissions={true}
-              reactivateTimeout={3000}
-              permissionDialogTitle={RU.TITLE}
-              permissionDialogMessage={RU.CAMERA_PERMISSION}
-            />
-          ) : null}
-
+          <QRCodeScanner
+            containerStyle={styles.container}
+            cameraStyle={styles.camera}
+            onRead={e => { if (this.props.showQR) this.sendQRCode(e) }}
+            fadeIn={true}
+            reactivate={true}
+            checkAndroid6Permissions={true}
+            reactivateTimeout={3000}
+            permissionDialogTitle={RU.TITLE}
+            permissionDialogMessage={RU.CAMERA_PERMISSION}
+          />
           <Image source={{ uri: ICONS.SCANNER.FRAME }} style={styles.image} />
         </View>
         <View style={styles.scanner}>
@@ -117,11 +116,12 @@ class ScannerCamera extends React.Component {
 const mapStateToProps = state => ({
   selectedMission: state.selectedMission,
   token: state.token,
-  loader: state.loader
+  loader: state.loader,
+  showQR: state.showQR
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ loaderState }, dispatch);
+  bindActionCreators({ loaderState, setShowQR }, dispatch);
 
 export default connect(
   mapStateToProps,

@@ -51,7 +51,7 @@ class Cashout extends React.Component {
       },
       error => {
         // this.props.loaderState(false);
-        if (error.code >=500) {
+        if (error.code === 503) {
           this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
         } else if (error.code === 400) {
           this.setState({ errorText: RU.HTTP_ERRORS.NOT_FOUND });

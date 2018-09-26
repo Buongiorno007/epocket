@@ -37,7 +37,7 @@ class CardList extends React.Component {
     this.props.setActiveCard(true);
     this.props.selectMission(this._submissionOrder(selectedCard));
   };
-
+  keyExtractor = item => item.id;
   render() {
     return (
       <View style={styles.list_view}>
@@ -53,6 +53,7 @@ class CardList extends React.Component {
                   style={styles.list_view}
                   horizontal={false}
                   numColumns={2}
+                  keyExtractor={this.keyExtractor}  
                   data={this.props.missions}
                   renderItem={this._renderItem}
                   /*
