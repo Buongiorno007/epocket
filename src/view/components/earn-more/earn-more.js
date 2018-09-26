@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, StatusBar, Clipboard } from "react-native";
+import { View, Text, Image, StatusBar, Clipboard, AppState, Platform } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { Button, Toast } from "native-base";
 //constants
@@ -11,22 +11,34 @@ import { urls } from "../../../constants/urls";
 import NavigationService from "./../../../services/route";
 import InstagramLogin from '../../../services/Instagram'
 import { formatItem } from '../../../services/format-hastags'
+import { httpPost } from "../../../services/http";
 
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 import { loaderState } from "../../../reducers/loader";
-import { setInstaToken } from "../../../reducers/insta_token";
+import { setInstaToken } from "../../../reducers/insta-token";
+import { setAppState } from "../../../reducers/app-state"
 
-import { httpPost } from "../../../services/http";
+
 import CustomButton from "../../containers/custom-button/custom-button";
 
 import Share from 'react-native-share';
 
 
 class EarnMore extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      appState: AppState.currentState
+    };
+  }
+
+
   skip = () => {
+    this.props.loaderState(false);
     NavigationService.navigate("Main");
   };
 
@@ -43,7 +55,6 @@ class EarnMore extends React.Component {
     );
     promise.then(
       result => {
-        console.log('result', result)
         this.shareToInsta();
         this.props.loaderState(false);
       },
@@ -65,8 +76,38 @@ class EarnMore extends React.Component {
       url: 'data:image/jpg;base64,' + this.props.navigation.state.params.insta_data.base64,
     };
     setTimeout(() => {
-      Share.open(shareImageBase64);
+      // Share.open(shareImageBase64);
+      Share.open(shareImageBase64).then(
+        result => {
+          this.confirmPost()
+        },
+        error => {
+        }
+      );
     }, 2000);
+
+  }
+
+  confirmPost = () => {
+    this.props.loaderState(true);
+    let body = JSON.stringify({
+      id: this.props.navigation.state.params.insta_data.id
+    });
+    let promise = httpPost(
+      urls.insta_getmedia,
+      body,
+      this.props.token
+    );
+    promise.then(
+      result => {
+        console.log('result', result)
+        // this.skip();
+      },
+      error => {
+        console.log('error', error)
+        // this.skip();
+      }
+    );
   }
 
   earnMore = () => {
@@ -77,8 +118,18 @@ class EarnMore extends React.Component {
     }
   };
 
+  _handleAppStateChange = (nextAppState) => {
+    console.log(this.state.appState, nextAppState)
+    if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
+      this.confirmPost()
+      console.log('App has come to the foreground!')
+    }
+    this.setState({ appState: nextAppState })
+  }
+
   componentDidMount = () => {
     this.props.loaderState(false);
+    AppState.addEventListener('change', this._handleAppStateChange);
     console.log(this.props.navigation.state.params)
   }
 
@@ -150,13 +201,16 @@ class EarnMore extends React.Component {
 const mapStateToProps = state => ({
   token: state.token,
   insta_token: state.insta_token,
+  insta_post: state.insta_post,
+  appState: state.appState
 });
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       loaderState,
-      setInstaToken
+      setInstaToken,
+      setAppState,
     },
     dispatch
   );

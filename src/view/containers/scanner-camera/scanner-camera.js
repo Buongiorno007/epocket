@@ -52,7 +52,6 @@ class ScannerCamera extends React.Component {
       promise.then(
         result => {
           NavigationService.navigate("Photograph");
-          this.setModalVisible(false);
           this.props.setShowQR(true)
         },
         error => {
