@@ -27,6 +27,7 @@ export default StyleSheet.create({
         },
         shadowRadius: 5,
         shadowOpacity: 5,
+        zIndex : 0,
     },
     navigation: {
         flex: 1,
@@ -69,6 +70,8 @@ export default StyleSheet.create({
     template_photo : {
         position : 'absolute',
         top : 10,
-        left : 10
+        left : 10,
+        zIndex : 1,
+        elevation: 16,
     },
 });

@@ -54,7 +54,7 @@ class PhotoView extends React.Component {
     );
     promise.then(
       result => {
-        console.log('result',result)
+        console.log('result', result)
         this.setErrorPhotoVisible(false);
         // this.finishMission(result.body);
         NavigationService.navigate("MissionSuccess", {
@@ -157,15 +157,16 @@ class PhotoView extends React.Component {
             this.setErrorMissionVisible(!this.state.errorMissionVisible);
           }}
         />
+        <View style={styles.template_photo}>
+          <TemplateInstagramPhoto template_url={this.props.navigation.state.params.template_info.media} />
+        </View>
         <View style={[styles.block, styles.size]}>
           <Image
             source={{ uri: this.props.navigation.state.params.url }}
             style={styles.image}
           />
         </View>
-        <View style={styles.template_photo}>
-          <TemplateInstagramPhoto template_url={this.props.navigation.state.params.template_info.media} />
-        </View>
+
         <View style={styles.template_hashtags}>
           <InstaHashTags hashtags={this.props.navigation.state.params.template_info.hashtags} />
         </View>
