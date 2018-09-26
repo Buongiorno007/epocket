@@ -119,7 +119,7 @@ class Map extends React.Component {
         }
       },
       error => {
-        let error_respons = handleError(error.code);
+        let error_respons = handleError(error, this.constructor.name, "loadTRC");
         this.setState({ errorText: error_respons.error_text });
         this.setModalVisible(error_respons.error_modal);
         this.setState({ load_missions: false });

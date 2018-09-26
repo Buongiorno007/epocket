@@ -58,7 +58,7 @@ class ScannerCamera extends React.Component {
         error => {
           this.props.loaderState(false);
           this.props.setShowQR(true)
-          let error_respons = handleError(error.code);
+          let error_respons = handleError(error, this.constructor.name, "sendQRCode");
           this.setState({ errorText: error_respons.error_text });
           this.setModalVisible(error_respons.error_modal);
         }

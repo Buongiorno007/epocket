@@ -52,7 +52,7 @@ class Cashout extends React.Component {
       },
       error => {
         // this.props.loaderState(false);
-        let error_respons = handleError(error.code);
+        let error_respons = handleError(error, this.constructor.name, "loadData");
         this.setState({ errorText: error_respons.error_text });
         this.setModalVisible(error_respons.error_modal);
       }

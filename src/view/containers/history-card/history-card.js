@@ -23,7 +23,7 @@ class HistoryCard extends React.Component {
     errorText: ""
   };
   componentDidMount() {
-    let error_respons = handleError(this.props.info.error);
+    let error_respons = handleError({code: this.props.info.error}, this.constructor.name, "componentDidMount");
     this.setState({ errorText: error_respons.error_text });
   }
   setModalVisible = visible => {
