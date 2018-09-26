@@ -54,6 +54,7 @@ class PhotoView extends React.Component {
     );
     promise.then(
       result => {
+        console.log('result',result)
         this.setErrorPhotoVisible(false);
         // this.finishMission(result.body);
         NavigationService.navigate("MissionSuccess", {
