@@ -52,7 +52,6 @@ class ScannerCamera extends React.Component {
       promise.then(
         result => {
           NavigationService.navigate("Photograph");
-          this.props.loaderState(false);
           this.setModalVisible(false);
         },
         error => {
@@ -60,14 +59,18 @@ class ScannerCamera extends React.Component {
           this.props.loaderState(false);
           if (error.code >=500) {
             this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
+            this.setModalVisible(true);
           } else if (error.code === 400) {
             this.setState({ errorText: RU.HTTP_ERRORS.NOT_FOUND });
+            this.setModalVisible(true);
           } else if (error.code === 403) {
             this.setState({ errorText: RU.HTTP_ERRORS.SMTH_WENT_WRONG });
+            this.setModalVisible(true);
           } else if (error.code === 408) {
             this.setState({ errorText: RU.HTTP_ERRORS.RUNTIME });
+            this.setModalVisible(true);
           }
-          this.setModalVisible(true);
+          
         }
       );
     }

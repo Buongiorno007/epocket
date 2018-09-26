@@ -12,6 +12,8 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 class Photograph extends React.Component {
+  
+
   render = () => {
     return (
       <View style={styles.container}>

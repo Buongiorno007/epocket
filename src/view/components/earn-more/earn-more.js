@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Image, StatusBar, Clipboard } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
-import { Button } from "native-base";
+import { Button, Toast } from "native-base";
 //constants
 import styles from "./styles";
 import { colors } from "./../../../constants/colors";
@@ -10,7 +10,7 @@ import { urls } from "../../../constants/urls";
 //services
 import NavigationService from "./../../../services/route";
 import InstagramLogin from '../../../services/Instagram'
-import {formatItem} from '../../../services/format-hastags'
+import { formatItem } from '../../../services/format-hastags'
 
 //redux
 import { connect } from "react-redux";
@@ -43,7 +43,7 @@ class EarnMore extends React.Component {
     );
     promise.then(
       result => {
-        console.log('result',result)
+        console.log('result', result)
         this.shareToInsta();
         this.props.loaderState(false);
       },
@@ -55,10 +55,18 @@ class EarnMore extends React.Component {
 
   shareToInsta = () => {
     Clipboard.setString(formatItem(this.props.navigation.state.params.insta_data.hash_tag));
+    Toast.show({
+      text: RU.MISSION.HASHTAGS_MESSAGE,
+      buttonText: "",
+      duration: 3000
+    })
     let shareImageBase64 = {
+      title: formatItem(this.props.navigation.state.params.insta_data.hash_tag),
       url: 'data:image/jpg;base64,' + this.props.navigation.state.params.insta_data.base64,
     };
-    Share.open(shareImageBase64);
+    setTimeout(() => {
+      Share.open(shareImageBase64);
+    }, 2000);
   }
 
   earnMore = () => {

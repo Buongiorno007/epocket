@@ -35,6 +35,7 @@ class PhotoCamera extends React.Component {
   };
 
   componentDidMount = () => {
+    this.props.loaderState(false);
     let body = JSON.stringify({
       outlet_id: this.props.selectedMall.id,
     });
@@ -61,13 +62,13 @@ class PhotoCamera extends React.Component {
   takePicture = async () => {
     if (this.camera) {
       this.props.loaderState(true);
-      const options = { quality: 0.5, base64: true, fixOrientation: true, forceUpOrientation : true };
+      const options = { quality: 0.5, base64: true, fixOrientation: true, forceUpOrientation: true };
       const data = await this.camera.takePictureAsync(options);
 
       NavigationService.navigate("Photo", {
         image: `data:image/jpg;base64,${data.base64}`,
         url: data.uri,
-        template_info : this.state.template_info
+        template_info: this.state.template_info
       });
     }
   };
@@ -75,6 +76,9 @@ class PhotoCamera extends React.Component {
   render = () => {
     return (
       <View style={styles.container}>
+        <View style={styles.template_photo}>
+          <TemplateInstagramPhoto template_url={this.state.template_info.media} />
+        </View>
         <View style={[styles.camera, styles.size]}>
           <RNCamera
             ref={ref => (this.camera = ref)}
@@ -93,11 +97,8 @@ class PhotoCamera extends React.Component {
             permissionDialogMessage={RU.CAMERA_PERMISSION}
           />
         </View>
-        <View style={styles.template_photo}>
-          <TemplateInstagramPhoto template_url={this.state.template_info.media} />
-        </View>
         <View style={styles.template_hashtags}>
-          <InstaHashTags hashtags={this.state.template_info.hashtags}/>
+          <InstaHashTags hashtags={this.state.template_info.hashtags} />
         </View>
         <View style={[styles.settings, styles.size]}>
           <View style={styles.photo_button}>

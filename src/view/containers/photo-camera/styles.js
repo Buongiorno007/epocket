@@ -17,7 +17,8 @@ export default StyleSheet.create({
   preview: {
     flex: 2,
     justifyContent: "flex-end",
-    alignItems: "center"
+    alignItems: "center",
+    zIndex : 0
   },
   camera: {
     backgroundColor: "#fff",
@@ -32,13 +33,15 @@ export default StyleSheet.create({
       height: 2
     },
     shadowRadius: 5,
-    shadowOpacity: 5
+    shadowOpacity: 5,
   },
 
   template_photo : {
       position : 'absolute',
       top : 10,
-      left : 10
+      left : 10,
+      zIndex : 1,
+      elevation: 16,
   },
 
   settings: {

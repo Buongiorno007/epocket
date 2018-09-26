@@ -1,5 +1,6 @@
 import React from "react";
 import { AppRegistry } from "react-native";
+import { Root } from "native-base";
 import { createStackNavigator } from "react-navigation";
 import Start from "./src/view/components/start/start";
 import SignIn from "./src/view/components/sign-in/sign-in";
@@ -53,11 +54,14 @@ const EpocketCash = createStackNavigator(
 );
 
 const App = () => (
-  <Provider store={store}>
-    <EpocketCash
-      ref={navigatorRef => NavigationService.setRoot(navigatorRef)}
-    />
-  </Provider>
+  <Root>
+    <Provider store={store}>
+      <EpocketCash
+        ref={navigatorRef => NavigationService.setRoot(navigatorRef)}
+      />
+    </Provider>
+  </Root>
+
 );
 
 AppRegistry.registerComponent("EpocketCash", () => App);
