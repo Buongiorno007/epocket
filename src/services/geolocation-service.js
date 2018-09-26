@@ -12,6 +12,8 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { showDashboard } from "../reducers/show-dashboard";
 import { setDistance } from "../reducers/distance";
+import { setAppState } from "../reducers/app-state"
+import { setSheduleRequestStart } from "../reducers/set-shedule-request-start"
 import { showDoneNotification } from "../reducers/main-task-done-notification";
 //constants
 import { urls } from "../constants/urls";
@@ -21,9 +23,7 @@ import { colors } from "../constants/colors";
 class GeolocationService extends React.Component {
 
   state = {
-    sheduleRequestStart: false,
-    sheduleRequest: null,
-    appState: AppState.currentState
+    sheduleRequest: null
   };
 
   startMissionRequest = () => {
@@ -122,19 +122,19 @@ class GeolocationService extends React.Component {
   // };
 
   _handleAppStateChange = (nextAppState) => {
-    if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
-      getCurrentGeolocation().then((location)=>{
+    if (this.props.appState.match(/inactive|background/) && nextAppState === 'active') {
+      getCurrentGeolocation().then((location) => {
         this.calculateDistance({
           latitude: this.props.selectedMall.lat,
           longitude: this.props.selectedMall.lng
-        },{
-          latitude: location.lat,
-          longitude: location.lng
-        });
+        }, {
+            latitude: location.lat,
+            longitude: location.lng
+          });
       },
-      (error)=>{ })
+        (error) => { })
     }
-    this.setState({ appState: nextAppState });
+    this.props.setAppState(nextAppState)
   }
 
   componentDidMount() {
@@ -179,19 +179,19 @@ class GeolocationService extends React.Component {
       this.calculateDistance({
         latitude: this.props.selectedMall.lat,
         longitude: this.props.selectedMall.lng
-      },{
-        latitude: nextProps.location.lat,
-        longitude: nextProps.location.lng
-      },
-    nextProps);
+      }, {
+          latitude: nextProps.location.lat,
+          longitude: nextProps.location.lng
+        },
+        nextProps);
     }
-    if (nextProps.timer_status && !this.state.sheduleRequestStart) {
-      this.setState({ sheduleRequestStart: true });
+    if (nextProps.timer_status && !nextProps.sheduleRequestStart) {
+      this.props.setSheduleRequestStart(true);
       this.sendTimerRequest();
       console.log("timer started");
     }
-    if (!nextProps.timer_status && this.state.sheduleRequestStart) {
-      this.setState({ sheduleRequestStart: false });
+    if (!nextProps.timer_status && nextProps.sheduleRequestStart) {
+      this.props.setSheduleRequestStart(false);
       BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
       BackgroundTimer.stopBackgroundTimer();
       console.log("timer canceled");
@@ -213,6 +213,8 @@ const mapStateToProps = state => {
     distance: state.distance,
     token: state.token,
     dashboard: state.dashboard,
+    sheduleRequestStart: state.sheduleRequestStart,
+    appState: state.appState
   };
 };
 
@@ -221,7 +223,9 @@ const mapDispatchToProps = dispatch =>
     {
       showDashboard,
       setDistance,
-      showDoneNotification
+      showDoneNotification,
+      setSheduleRequestStart,
+      setAppState
     },
     dispatch
   );

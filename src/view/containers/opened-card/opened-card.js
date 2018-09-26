@@ -96,7 +96,7 @@ class OpenedCard extends React.Component {
                 {this.props.selectedMission.subMissions.map(
                   (element, index) => {
                     return (
-                      <View key={element.id} style={styles.task_line}>
+                      <View key={index} style={styles.task_line}>
                         {index + 1 !== 3 && <Text style={styles.task_text}>{index + 1.} </Text>}
                         <Text style={styles.task_text}>{element.desc}</Text>
                       </View>
