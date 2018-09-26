@@ -25,6 +25,7 @@ import spentBonusesJSX from "./history-sent-success";
 import loader from "./loader";
 import timer_interval from "./timer-interval";
 import birthday from "./birthday"
+import showQR from "./set-show-qr"
 
 export default combineReducers({
   isConnected,
@@ -52,5 +53,6 @@ export default combineReducers({
   timer_interval,
   socket,
   outlets,
-  birthday
+  birthday,
+  showQR
 });
