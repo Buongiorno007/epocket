@@ -191,7 +191,6 @@ class Dashboard extends React.Component {
     promise.then(
       result => {
         this.setFinishMissionErrorVisible(false);
-        AsyncStorage.setItem("balance", result.body.balance);
         this.props.timerStatus(false);
         this.props.showDoneNotification(true);
         this.props.setBalance(result.body.balance);

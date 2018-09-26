@@ -170,7 +170,6 @@ class SignIn extends React.Component {
         });
         this.props.getPush(result.body.token)
         AsyncStorage.setItem("user_info", user_info);
-        AsyncStorage.setItem("balance", String(result.body.balance));
         this.props.setToken(result.body.token);
         this.props.setBalance(result.body.balance);
         NavigationService.navigate("Main");

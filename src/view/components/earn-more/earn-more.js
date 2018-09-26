@@ -100,20 +100,12 @@ class EarnMore extends React.Component {
     );
     promise.then(
       result => {
-        (result.code === 200) && Toast.show({
-          text: RU.MISSION.POST_SUCCESS_MESSAGE,
-          buttonText: "",
-          duration: 3000
-        })
-        setTimeout(() => { this.skip(); }, 2000);
+        console.log('result',result)
+        this.props.setBalance(result.body.media.status.balance)
+        this.skip();
       },
       error => {
-        (error.code === 400) && Toast.show({
-          text: RU.MISSION.POST_ERROR_MESSAGE,
-          buttonText: "",
-          duration: 3000
-        })
-        setTimeout(() => { this.skip(); }, 2000);
+        this.skip();
       }
     );
   }

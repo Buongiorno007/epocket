@@ -45,9 +45,7 @@ class Cashout extends React.Component {
       result => {
         this.setModalVisible(false);
         this.props.loaderState(false);
-        AsyncStorage.setItem("balance", String(result.body.balance), () => {
-          this.props.setBalance(result.body.balance);
-        });
+        this.props.setBalance(result.body.balance);
         this.setState({ products: result.body.products });
       },
       error => {
