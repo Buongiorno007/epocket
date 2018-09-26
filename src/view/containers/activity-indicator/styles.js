@@ -12,7 +12,7 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "center",
-    zIndex: 99,
+    zIndex: 98,
     elevation: 16,
   },
   loader_image: {
@@ -21,6 +21,6 @@ export default StyleSheet.create({
     width: width * 0.25,
     height: width * 0.25,
     resizeMode: "contain",
-    zIndex: 99
+    zIndex: 98
   }
 });

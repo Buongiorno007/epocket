@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 const { width, height } = Dimensions.get('window');
 import { colors } from '../../../constants/colors'
 
@@ -9,18 +9,18 @@ export default StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        bottom: 100,
+        bottom: Platform.OS==="ios"?100:0,
         zIndex: 99
     },
     circle_container: {
         width: width * 0.6,
         height: width * 0.6,
-        bottom: -100,
+        bottom: Platform.OS==="ios"?-100:0,
         alignItems: 'center',
         justifyContent: 'center',
     },
     btnContainer: {
-        bottom: -100,
+        bottom: Platform.OS==="ios"?-100:0,
     },
     outer_circle: {
         width: width * 0.5,
