@@ -101,7 +101,7 @@ class Dashboard extends React.Component {
           418 - лимит на кол-во выполнений за день
         */
         this.setState({ load_timer: false });
-        if (error.code === 503) {
+        if (error.code >=500) {
           this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
           this.setStartMissionErrorVisible(true);
         } else if (error.code === 403) {
@@ -151,7 +151,7 @@ class Dashboard extends React.Component {
       },
       error => {
         console.log('getMissions', error)
-        if (error.code === 503) {
+        if (error.code >=500) {
           this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
           this.setMissionsErrorVisible(true);
         } else if (error.code === 400) {
@@ -227,7 +227,7 @@ class Dashboard extends React.Component {
       },
       error => {
         console.log("Rejected: ", error);
-        if (error.code === 503) {
+        if (error.code >=500) {
           this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
           this.setState({ load_missions: false });
           this.setFinishMissionErrorVisible(true);

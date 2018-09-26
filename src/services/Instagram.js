@@ -130,7 +130,7 @@ const propTypes = {
 }
 
 const defaultProps = {
-  redirectUrl: 'https://google.com',
+  redirectUrl: 'https://epocket.dev.splinestudio.com',
   styles: {},
   scopes: ['public_content'],
   onLoginSuccess: (token) => {

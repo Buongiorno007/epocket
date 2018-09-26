@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   cross_view: {
-    position : 'absolute',
+    position: 'absolute',
     justifyContent: "center",
     alignItems: "center",
     top: 0,
@@ -36,14 +36,14 @@ const styles = StyleSheet.create({
     height: 45,
   },
   content_inner: {
-    paddingTop : 15,
+    paddingTop: 15,
     height: 150,
     width: width * 0.76,
     borderRadius: 7,
     backgroundColor: colors.white
   },
-  big_content_inner:{
-    paddingTop : 15,
+  big_content_inner: {
+    paddingTop: 15,
     height: 300,
     width: width * 0.76,
     borderRadius: 7,
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     paddingRight: 5
   },
-  date_modal:{
+  date_modal: {
     flex: 3,
     alignItems: "center",
     justifyContent: "center",
@@ -133,17 +133,32 @@ const styles = StyleSheet.create({
   },
   wheelPicker: {
     height: 160,
-    marginLeft:10,
-    marginRight:10
+    marginLeft: 10,
+    marginRight: 10
   },
   wheelPickerDay: {
-    width: (width * 0.76)/3-20,
+    width: (width * 0.76) / 3 - 20,
   },
   wheelPickerMonths: {
-    width: (width * 0.76)/3-20,
+    width: (width * 0.76) / 3 - 20,
   },
   wheelPickerYear: {
-    width: (width * 0.76)/3-20,
+    width: (width * 0.76) / 3 - 20,
+  },
+  wheelPickerIOS_month:{
+    width: (width * 0.76)/3+20,
+  },
+  wheelPickerIOS: {
+    marginLeft: 2.5,
+    marginRight: 2.5,
+    width: (width * 0.76)/4,
+    transform: [
+      { scaleX: 0.85 },
+      { scaleY: 0.85 },
+    ]
+  },
+  wheelPickerIOS_item: {
+
   }
 });
 export default styles;

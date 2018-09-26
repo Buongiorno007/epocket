@@ -74,7 +74,7 @@ class CashoutList extends React.Component {
         },
         error => {
           console.log("sendOrder rejected: ", error);
-          if (error.code === 503) {
+          if (error.code >=500) {
             this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
             this.setModalVisible(true);
           } else if (error.code === 400) {

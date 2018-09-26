@@ -9,6 +9,7 @@ import { Button } from "native-base";
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { setBirthDay } from "../../../reducers/birthday";
 //constants
 import styles from "./styles";
 import { ICONS } from "../../../constants/icons";
@@ -16,6 +17,7 @@ import { RU } from "../../../locales/ru";
 import { colors } from "../../../constants/colors";
 //containers
 import CustomButton from "../../containers/custom-button/custom-button";
+import CustomAlert from "../../containers/custom-alert/custom-alert";
 //service
 import NavigationService from "../../../services/route";
 import InstagramLogin from '../../../services/Instagram'
@@ -33,6 +35,8 @@ class ProfileSettings extends React.Component {
   }
   state = {
     modalVisible: false,
+    instConnected: false,
+    userCount:0
   };
   componentDidMount() { }
 
@@ -83,6 +87,14 @@ class ProfileSettings extends React.Component {
       result => {
         this.props.loaderState(false);
         console.log('insta result', result)
+        if(result.status==200){
+          this.setState({ instConnected: true })
+        }
+        else{
+          this.setState({ instConnected: false })
+          this.setModalVisible(true), 
+          this.setState({userCount:result.body.subsc_needed})
+        }
       },
       error => {
         this.props.loaderState(false);
@@ -90,6 +102,11 @@ class ProfileSettings extends React.Component {
       }
     );
   }
+  setModalVisible = visible => {
+    this.setState({
+      modalVisible: visible
+    });
+  };
   ToProfileEdit = () => {
     AsyncStorage.getItem("user_info").then(value => {
       let object = JSON.parse(value);
@@ -100,6 +117,9 @@ class ProfileSettings extends React.Component {
         user_sex: object.sex,
         user_birthDay: object.birthDay
       };
+      if (object.birthDay && object.birthDay != "") {
+        this.props.setBirthDay(object.birthDay);
+      }
       NavigationService.navigate("ProfileEdit", { async_storage_user });
     });
   }
@@ -110,10 +130,9 @@ class ProfileSettings extends React.Component {
         <InstagramLogin
           ref='instagramLogin'
           clientId='c390ce3e630b4429bbe1fa33315cb888'
-          redirectUrl='https://epocket.dev.splinestudio.com'
           scopes={['basic', 'public_content', 'likes', 'follower_list', 'comments', 'relationships']}
           onLoginSuccess={(token) => this.connectInsta(token)}
-          onLoginFailure={(data) => console.log(data)}
+          onLoginFailure={(data) => {console.log(data)}}
         />
         <View style={styles.header}>
           <Text style={[styles.header_text, styles.image_block_text_big]}>{RU.PROFILE_SETTINGS.SETTINGS}</Text>
@@ -198,6 +217,18 @@ class ProfileSettings extends React.Component {
             </Button>
           </View>
         </View>
+        <CustomAlert
+          title={RU.PROFILE_PAGE.NOT_ENOUGHT_SUB}
+          subtitle={this.state.userCount+RU.PROFILE_PAGE.SUBS}
+          first_btn_title={RU.OK}
+          visible={this.state.modalVisible}
+          first_btn_handler={() =>
+            this.setModalVisible(!this.state.modalVisible)
+          }
+          decline_btn_handler={() =>
+            this.setModalVisible(!this.state.modalVisible)
+          }
+        />
       </View>
     );
   }
@@ -212,8 +243,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  loaderState,
-  setInstaToken
+  setBirthDay,
+  loaderState
 }, dispatch);
 
 export default connect(

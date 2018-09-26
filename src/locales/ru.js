@@ -135,6 +135,8 @@ export const RU = {
     SEX: "Пол",
     MALE: "мужской",
     FEMALE: "женский",
+    NOT_ENOUGHT_SUB:"Вам до активации в системе не хватает",
+    SUBS:" подписчиков"
   },
   HISTORY_PAGE: {
     GETTED: "Полученные\nбонусы",

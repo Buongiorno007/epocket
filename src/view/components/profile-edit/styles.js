@@ -103,5 +103,18 @@ export default StyleSheet.create({
   },
   sex_btn : {
     height : 20,
+  },
+  datepicker_button:{
+    flexDirection:"column",
+    alignItems : 'flex-start',
+    justifyContent: "flex-start"
+  },
+  datepicker_button_title:{
+    color:colors.black41_09,
+    fontSize: 12
+  },
+  datepicker_button_label:{
+    color:colors.black41_09,
+    fontSize: 12
   }
 });

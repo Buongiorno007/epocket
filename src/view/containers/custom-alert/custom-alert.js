@@ -6,18 +6,24 @@ import {
   Image,
   View,
   Modal,
-  findNodeHandle
+  findNodeHandle,
+  Picker
 } from "react-native";
 import { LinearTextGradient } from "react-native-text-gradient";
 import { Button } from "native-base";
+//redux
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { setBirthDay } from "../../../reducers/birthday";
+//containers
+import { WheelPicker } from 'react-native-wheel-picker-android'
 //constants
 import styles from "./styles";
 import { ICONS } from "../../../constants/icons";
 import { colors } from "../../../constants/colors";
 import Blur from "../blur/blur";
-//containers
-import { WheelPicker } from 'react-native-wheel-picker-android'
-
+const today = new Date();
+const months = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь']
 {
   /* 
 call example
@@ -50,35 +56,38 @@ class CustomAlert extends Component {
   }
   state = {
     viewRef: null,
-    wheelPickerDataDays:[],
-    wheelPickerDataYears:[],
-    wheelPickerDataMonths:['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-    pickedDay:'',
-    pickedMonth:'',
-    pickedYear:''
+    initialDay: today.getUTCDate(),
+    initialYear: today.getFullYear(),
+    initialMonths: today.getMonth(),
+    wheelPickerDataDays: [],
+    wheelPickerDataYears: [],
+    wheelPickerDataMonths: months,
+    pickedDay: Platform.OS === "ios" ? { data: today.getUTCDate() + "" } : { data: today.getUTCDate() },
+    pickedMonth: { position: today.getMonth() },
+    pickedYear: Platform.OS === "ios" ? { data: today.getFullYear() + "" } : { data: today.getFullYear() }
   };
-  componentDidMount(){
-    let wheelPickerDataDays=[];
-    let wheelPickerDataYears=[];
-    for(let i=0; i<=31; i++){
-      wheelPickerDataDays.push(''+i)
+  componentDidMount() {
+    let wheelPickerDataDays = [];
+    let wheelPickerDataYears = [];
+    for (let i = 1; i <= 31; i++) {
+      Platform.OS === "ios" ? wheelPickerDataDays.push('' + i) : wheelPickerDataDays.push(i)
     }
-    for(let i=1905; i<=(new Date()).getFullYear(); i++){
-      wheelPickerDataYears.push(''+i)
+    for (let i = 1905; i <= today.getFullYear(); i++) {
+      Platform.OS === "ios" ? wheelPickerDataYears.push('' + i) : wheelPickerDataYears.push(i)
     }
-    this.setState({wheelPickerDataDays, wheelPickerDataYears})
+    this.setState({ wheelPickerDataDays, wheelPickerDataYears })
   }
   modalLoaded() {
     this.setState({ viewRef: findNodeHandle(this.backgroundModal) });
   }
   onDaySelected(pickedDay) {
-    this.setState({pickedDay})
+    this.setState({ pickedDay })
   }
   onMonthSelected(pickedMonth) {
-    this.setState({pickedMonth})
+    this.setState({ pickedMonth })
   }
   onYearSelected(pickedYear) {
-    this.setState({pickedYear})
+    this.setState({ pickedYear })
     console.log(this.state.pickedDay, this.state.pickedMonth, this.state.pickedYear)
   }
   render() {
@@ -105,49 +114,89 @@ class CustomAlert extends Component {
               </Button>
             </View>
             {this.props.datepicker ?
-              <View style={styles.date_modal}>
-                <WheelPicker
-                  isCurved
-                  isCyclic
-                  selectedItemTextColor="#F63272"
-                  indicatorColor="#F63272"
-                  renderIndicator
-                  selectedItemPosition={2}
-                  itemSpace={30}
-                  itemTextSize={31}
-                  visibleItemCount={3}
-                  data={this.state.wheelPickerDataDays}
-                  style={[styles.wheelPicker, styles.wheelPickerDay]}
-                  onItemSelected={(day) => this.onDaySelected(day)} />
-                <WheelPicker
-                  isCurved
-                  isCyclic
-                  selectedItemTextColor="#F63272"
-                  indicatorColor="#F63272"
-                  renderIndicator
-                  selectedItemPosition={2}
-                  itemSpace={30}
-                  itemTextSize={31}
-                  visibleItemCount={3}
-                  data={this.state.wheelPickerDataMonths}
-                  style={[styles.wheelPicker, styles.wheelPickerMonths]}
-                  onItemSelected={(month) => this.onMonthSelected(month)} />
-                <WheelPicker
-                  isCurved
-                  selectedItemTextColor="#F63272"
-                  indicatorColor="#F63272"
-                  renderIndicator
-                  selectedItemPosition={2}
-                  itemSpace={30}
-                  itemTextSize={31}
-                  visibleItemCount={3}
-                  data={this.state.wheelPickerDataYears}
-                  style={[styles.wheelPicker, styles.wheelPickerYear]}
-                  onItemSelected={(year) => this.onYearSelected(year)} />
-              </View>
+              Platform.OS === "ios" ?
+                <View style={styles.date_modal}>
+                  <Picker
+                    style={[styles.wheelPickerIOS]}
+                    selectedValue={this.state.pickedDay.data}
+                    onValueChange={itemValue => this.setState({ pickedDay: { data: itemValue } })}
+                  >
+                    {this.state.wheelPickerDataDays.map((i, index) => (
+                      <Picker.Item style={[styles.wheelPickerIOS_item]} key={index} label={i} value={i} />
+                    ))}
+                  </Picker>
+                  <Picker
+                    style={[styles.wheelPickerIOS, styles.wheelPickerIOS_month]}
+                    selectedValue={this.state.pickedMonth.position}
+                    onValueChange={itemValue => this.setState({ pickedMonth: { position: itemValue } })}>
+                    {this.state.wheelPickerDataMonths.map((i, index) => (
+                      <Picker.Item style={[styles.wheelPickerIOS_item]} key={index} label={i} value={index} />
+                    ))}
+                  </Picker>
+                  <Picker
+                    style={[styles.wheelPickerIOS]}
+                    selectedValue={this.state.pickedYear.data}
+                    onValueChange={itemValue => this.setState({ pickedYear: { data: itemValue } })}>
+                    {this.state.wheelPickerDataYears.map((i, index) => (
+                      <Picker.Item style={[styles.wheelPickerIOS_item]} key={index} label={i} value={i} />
+                    ))}
+                  </Picker>
+                </View>
+                :
+                <View style={styles.date_modal}>
+                  <WheelPicker
+                    isCurved
+                    isCyclic
+                    selectedItemTextColor="#F63272"
+                    indicatorColor="#F63272"
+                    renderIndicator
+                    selectedItemPosition={this.state.wheelPickerDataDays.indexOf(this.state.initialDay)}
+                    itemSpace={30}
+                    itemTextSize={31}
+                    visibleItemCount={3}
+                    data={this.state.wheelPickerDataDays}
+                    style={[styles.wheelPicker, styles.wheelPickerDay]}
+                    onItemSelected={(day) => this.onDaySelected(day)} />
+                  <WheelPicker
+                    isCurved
+                    isCyclic
+                    selectedItemTextColor="#F63272"
+                    indicatorColor="#F63272"
+                    renderIndicator
+                    selectedItemPosition={this.state.initialMonths}
+                    itemSpace={30}
+                    itemTextSize={31}
+                    visibleItemCount={3}
+                    data={this.state.wheelPickerDataMonths}
+                    style={[styles.wheelPicker, styles.wheelPickerMonths]}
+                    onItemSelected={(month) => this.onMonthSelected(month)} />
+                  <WheelPicker
+                    isCurved
+                    selectedItemTextColor="#F63272"
+                    indicatorColor="#F63272"
+                    renderIndicator
+                    selectedItemPosition={this.state.wheelPickerDataYears.indexOf(this.state.initialYear)}
+                    itemSpace={30}
+                    itemTextSize={31}
+                    visibleItemCount={3}
+                    data={this.state.wheelPickerDataYears}
+                    style={[styles.wheelPicker, styles.wheelPickerYear]}
+                    onItemSelected={(year) => this.onYearSelected(year)} />
+                </View>
               :
               <View style={styles.modal_title}>
                 <Text style={styles.modal_title_text}>{this.props.title}</Text>
+                {this.props.subtitle &&
+                  <LinearTextGradient
+                    locations={[0, 1]}
+                    colors={[colors.light_orange, colors.pink]}
+                    start={{ x: 0.0, y: 1.0 }}
+                    end={{ x: 1.0, y: 1.0 }}
+                    style={styles.modal_title_text}
+                  >
+                    {this.props.subtitle}
+                  </LinearTextGradient>
+                }
               </View>
             }
             {this.props.second_btn_title ? (
@@ -182,9 +231,9 @@ class CustomAlert extends Component {
                   <Button
                     transparent
                     style={styles.big_centered_button}
-                    onPress={() => this.props.first_btn_handler()}
+                    onPress={() => { this.props.datepicker ? (this.props.setBirthDay({ day: this.state.pickedDay.data, month: this.state.pickedMonth.position + 1, year: this.state.pickedYear.data }), this.props.first_btn_handler()) : this.props.first_btn_handler() }}
                   >
-                    {this.props.datepicker ?
+                    {this.props.datepicker || this.props.subtitle ?
                       <LinearTextGradient
                         locations={[0, 1]}
                         colors={[colors.light_orange, colors.pink]}
@@ -207,4 +256,19 @@ class CustomAlert extends Component {
     );
   }
 }
-export default CustomAlert;
+const mapStateToProps = state => ({
+
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      setBirthDay
+    },
+    dispatch
+  );
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CustomAlert);

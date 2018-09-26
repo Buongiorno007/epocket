@@ -78,7 +78,7 @@ class ProfileEdit extends React.Component {
   };
   SubmitEdit = () => {
     if (!this.state.user.username ||
-      !this.state.user.birthDay ||
+      this.props.birthday==="" ||
       !this.state.user.sex) {
       this.setModalVisible(true);
     } else {
@@ -87,9 +87,11 @@ class ProfileEdit extends React.Component {
       let body = {
         name: this.state.user.username,
         sex: this.state.user.sex,
-        birthDay: this.state.user.birthDay,
+        birthDay: this.props.birthday,
         photo: "data:image/jpeg;base64," + this.state.user.photo
       };
+      console.log(this.props.token)
+      console.log(body)
       let promise = httpPost(
         urls.edit_profile_data,
         serializeJSON(body),
@@ -103,7 +105,7 @@ class ProfileEdit extends React.Component {
             name: this.state.user.username,
             photo: this.state.user.photo,
             sex: this.state.user.sex,
-            birthDay: this.state.user.birthDay,
+            birthDay: this.props.birthday,
             phone: this.state.user.phone,
             token: this.props.token
           };
@@ -114,7 +116,7 @@ class ProfileEdit extends React.Component {
         },
         error => {
           console.log("Rejected: ", error);
-          if (error.code === 503) {
+          if (error.code >= 500) {
             this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
             this.props.loaderState(false);
             this.setRejectVisible(true);
@@ -185,7 +187,6 @@ class ProfileEdit extends React.Component {
     });
   };
   componentDidMount() {
-    console.log(this.props.navigation.state.params.async_storage_user)
     this.backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
       if (this.state.changed) {
         this.Exit();
@@ -270,7 +271,19 @@ class ProfileEdit extends React.Component {
                 inputContainerStyle={{ borderBottomColor: 'transparent' }}
                 onFocus={() => { this.ClearName() }}
               />
-              <TextField
+              <Button
+                transparent
+                style={styles.datepicker_button}
+                onPress={() => { this.setDatePickerVisible(!this.state.datePickerVisible) }}
+              >
+                <Text  style={styles.datepicker_button_title}>
+                  {RU.PROFILE_PAGE.BIRTHDAY}
+                </Text>
+                <Text  style={styles.datepicker_button_label}>
+                  {this.props.birthday!=""?this.props.birthday:RU.PROFILE_PAGE.ENTER_BIRTHDAY}
+                </Text>
+              </Button>
+              {/* <TextField
                 label={RU.PROFILE_PAGE.BIRTHDAY}
                 placeholder={RU.PROFILE_PAGE.ENTER_BIRTHDAY}
                 tintColor={colors.black41_09}
@@ -278,13 +291,11 @@ class ProfileEdit extends React.Component {
                 textColor={colors.black41_09}
                 fontSize={12}
                 labelFontSize={12}
-                onChangeText={text => { this.ChangeUserBirthDay(text) }}
-                value={this.state.user.birthDay}
+                value={this.props.birthday}
                 inputContainerStyle={{ borderBottomColor: 'transparent' }}
-                onFocus={() => { this.ClearBirthDay() }}
-                // keyboardType="numeric"
+                onFocus={() => { }}
                 keyboardType="number-pad"
-              />
+              /> */}
               <Text style={styles.title} >{RU.PROFILE_PAGE.SEX}</Text>
               <View style={styles.sex_picker}>
                 <Button
@@ -385,7 +396,8 @@ class ProfileEdit extends React.Component {
 const mapStateToProps = state => ({
   user: state.profileState,
   token: state.token,
-  loader: state.loader
+  loader: state.loader,
+  birthday: state.birthday
 });
 
 const mapDispatchToProps = dispatch =>
