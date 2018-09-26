@@ -79,7 +79,7 @@ class EarnMore extends React.Component {
 
   componentDidMount = () => {
     this.props.loaderState(false);
-    console.log(this.props.navigation.state.params.insta_data.hash_tag)
+    console.log(this.props.navigation.state.params)
   }
 
   render = () => {
