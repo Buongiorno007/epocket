@@ -12,7 +12,6 @@ import timer from "./timer";
 import distance from "./distance";
 import token from "./token";
 import insta_token from "./insta-token";
-import insta_post from "./insta-post";
 import socket from "./socket";
 import missions from "./missions";
 import outlets from "./outlet-list";

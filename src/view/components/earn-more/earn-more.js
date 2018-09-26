@@ -20,9 +20,10 @@ import { bindActionCreators } from "redux";
 import { loaderState } from "../../../reducers/loader";
 import { setInstaToken } from "../../../reducers/insta-token";
 import { setAppState } from "../../../reducers/app-state"
-
+import { setBalance } from "../../../reducers/user-balance";
 
 import CustomButton from "../../containers/custom-button/custom-button";
+import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 
 import Share from 'react-native-share';
 
@@ -76,14 +77,13 @@ class EarnMore extends React.Component {
       url: 'data:image/jpg;base64,' + this.props.navigation.state.params.insta_data.base64,
     };
     setTimeout(() => {
-      // Share.open(shareImageBase64);
-      Share.open(shareImageBase64).then(
+      Platform.OS === 'ios' ? Share.open(shareImageBase64).then(
         result => {
           this.confirmPost()
         },
         error => {
         }
-      );
+      ) : Share.open(shareImageBase64);
     }, 2000);
 
   }
@@ -100,12 +100,20 @@ class EarnMore extends React.Component {
     );
     promise.then(
       result => {
-        console.log('result', result)
-        // this.skip();
+        (result.code === 200) && Toast.show({
+          text: RU.MISSION.POST_SUCCESS_MESSAGE,
+          buttonText: "",
+          duration: 3000
+        })
+        setTimeout(() => { this.skip(); }, 2000);
       },
       error => {
-        console.log('error', error)
-        // this.skip();
+        (error.code === 400) && Toast.show({
+          text: RU.MISSION.POST_ERROR_MESSAGE,
+          buttonText: "",
+          duration: 3000
+        })
+        setTimeout(() => { this.skip(); }, 2000);
       }
     );
   }
@@ -119,10 +127,8 @@ class EarnMore extends React.Component {
   };
 
   _handleAppStateChange = (nextAppState) => {
-    console.log(this.state.appState, nextAppState)
     if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
-      this.confirmPost()
-      console.log('App has come to the foreground!')
+      Platform.OS === 'android' && this.confirmPost()
     }
     this.setState({ appState: nextAppState })
   }
@@ -130,12 +136,12 @@ class EarnMore extends React.Component {
   componentDidMount = () => {
     this.props.loaderState(false);
     AppState.addEventListener('change', this._handleAppStateChange);
-    console.log(this.props.navigation.state.params)
   }
 
   render = () => {
     return (
       <View style={styles.container}>
+        {this.props.loader && <ActivityIndicator />}
         <StatusBar
           barStyle="light-content"
           backgroundColor={"transparent"}
@@ -199,6 +205,7 @@ class EarnMore extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  loader: state.loader,
   token: state.token,
   insta_token: state.insta_token,
   insta_post: state.insta_post,
@@ -211,6 +218,7 @@ const mapDispatchToProps = dispatch =>
       loaderState,
       setInstaToken,
       setAppState,
+      setBalance
     },
     dispatch
   );
