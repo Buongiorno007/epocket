@@ -26,6 +26,7 @@ import { saveUser } from "../../../reducers/profile-state";
 import { loaderState } from "../../../reducers/loader";
 //service
 import { httpPost } from "../../../services/http";
+import { handleError } from "../../../services/http-error-handler";
 import { serializeJSON } from "../../../services/serialize-json";
 import { urls } from "../../../constants/urls";
 import NavigationService from "../../../services/route";
@@ -48,7 +49,7 @@ class ProfileEdit extends React.Component {
     },
     modalVisible: false,
     exitVisible: false,
-    datePickerVisible:false,
+    datePickerVisible: false,
     rejectedRequestModal: false,
     changed: false,
     errorText: "error"
@@ -78,7 +79,7 @@ class ProfileEdit extends React.Component {
   };
   SubmitEdit = () => {
     if (!this.state.user.username ||
-      this.props.birthday==="" ||
+      this.props.birthday === "" ||
       !this.state.user.sex) {
       this.setModalVisible(true);
     } else {
@@ -115,25 +116,10 @@ class ProfileEdit extends React.Component {
           NavigationService.navigate("Main");
         },
         error => {
-          console.log("Rejected: ", error);
-          if (error.code  === 503) {
-            this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
-            this.props.loaderState(false);
-            this.setRejectVisible(true);
-          } else if (error.code === 400) {
-            this.setState({ errorText: RU.HTTP_ERRORS.NOT_FOUND });
-            this.props.loaderState(false);
-            this.setRejectVisible(true);
-          } else if (error.code === 403) {
-            this.setState({ errorText: RU.HTTP_ERRORS.SMTH_WENT_WRONG });
-            this.props.loaderState(false);
-            this.setRejectVisible(true);
-          } else if (error.code === 408) {
-            this.setState({ errorText: RU.HTTP_ERRORS.RUNTIME });
-            this.props.loaderState(false);
-            this.setRejectVisible(true);
-          }
-
+          let error_respons = handleError(error.code);
+          this.setState({ errorText: error_respons.error_text });
+          this.setRejectVisible(error_respons.error_modal);
+          this.props.loaderState(false);
         }
       );
     }
@@ -276,11 +262,11 @@ class ProfileEdit extends React.Component {
                 style={styles.datepicker_button}
                 onPress={() => { this.setDatePickerVisible(!this.state.datePickerVisible) }}
               >
-                <Text  style={styles.datepicker_button_title}>
+                <Text style={styles.datepicker_button_title}>
                   {RU.PROFILE_PAGE.BIRTHDAY}
                 </Text>
-                <Text  style={styles.datepicker_button_label}>
-                  {this.props.birthday!=""?this.props.birthday:RU.PROFILE_PAGE.ENTER_BIRTHDAY}
+                <Text style={styles.datepicker_button_label}>
+                  {this.props.birthday != "" ? this.props.birthday : RU.PROFILE_PAGE.ENTER_BIRTHDAY}
                 </Text>
               </Button>
               {/* <TextField

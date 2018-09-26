@@ -28,6 +28,7 @@ import { getPush } from "../../../reducers/push";
 //services
 import NavigationService from "../../../services/route";
 import { httpPost } from "../../../services/http";
+import { handleError } from "../../../services/http-error-handler";
 //constants
 import styles from "./styles";
 import { colors } from "../../../constants/colors";
@@ -132,18 +133,13 @@ class SignIn extends React.Component {
         this.setState({ step: 2, acceptButton: false });
       },
       error => {
-        console.log("Rejected: ", error);
-        if (error.code  === 503) {
-          this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
-          this.setFailedSignVisible(true);
-        } else if (error.code === 400) {
+        let error_respons = handleError(error.code);
+        this.setState({ errorText: error_respons.error_text });
+        if(error_respons.error_code == 400){
           this.setState({ numberNotExists: true });
-        } else if (error.code === 403) {
-          this.setState({ errorText: RU.HTTP_ERRORS.SMTH_WENT_WRONG });
-          this.setFailedSignVisible(true);
-        } else if (error.code === 408) {
-          this.setState({ errorText: RU.HTTP_ERRORS.RUNTIME });
-          this.setFailedSignVisible(true);
+        }
+        else{
+          this.setFailedSignVisible(error_respons.error_modal);
         }
         this.props.loaderState(false);
       }
@@ -180,21 +176,11 @@ class SignIn extends React.Component {
         NavigationService.navigate("Main");
       },
       error => {
-        console.log("Rejected: ", error);
         this.props.loaderState(false);
-        if (error.code  === 503) {
-          this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
-          this.setFailedConfirmVisible(true);
-        } else if (error.code === 400) {
-          this.setState({ invalidCode: true });
-          this.setState({ errorText: RU.HTTP_ERRORS.NOT_FOUND });
-        } else if (error.code === 403) {
-          this.setState({ errorText: RU.HTTP_ERRORS.SMTH_WENT_WRONG });
-          this.setFailedConfirmVisible(true);
-        } else if (error.code === 408) {
-          this.setState({ errorText: RU.HTTP_ERRORS.RUNTIME });
-          this.setFailedConfirmVisible(true);
-        }
+        let error_respons = handleError(error.code);
+        this.setState({ errorText: error_respons.error_text });
+        this.setFailedConfirmVisible(error_respons.error_modal);
+        if (error_respons.error_code === 400) this.setState({ invalidCode: true });
       }
     );
   };

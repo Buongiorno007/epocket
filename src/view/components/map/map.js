@@ -28,6 +28,7 @@ import { loaderState } from "../../../reducers/loader";
 import { setOutlets } from "../../../reducers/outlet-list";
 //services
 import { httpPost } from "../../../services/http";
+import { handleError } from "../../../services/http-error-handler";
 import getCurrentGeolocation from "../../../services/get-location"
 import {sendToTelegramm }from '../../../services/telegramm-notification'
 
@@ -118,19 +119,11 @@ class Map extends React.Component {
         }
       },
       error => {
-        if (error.code  === 503) {
-          this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
-        } else if (error.code === 400) {
-          this.setState({ errorText: RU.HTTP_ERRORS.NOT_FOUND });
-        } else if (error.code === 403) {
-          this.setState({ errorText: RU.HTTP_ERRORS.SMTH_WENT_WRONG });
-        } else if (error.code === 408) {
-          this.setState({ errorText: RU.HTTP_ERRORS.RUNTIME });
-        } else {
-          this.setState({ errorText: 'code : 500. Internal Server Error' });
-        }
+        let error_respons = handleError(error.code);
+        this.setState({ errorText: error_respons.error_text });
+        this.setModalVisible(error_respons.error_modal);
+        this.setState({ load_missions: false });
         this.props.loaderState(false);
-        this.setModalVisible(true);
       }
     );
   };
