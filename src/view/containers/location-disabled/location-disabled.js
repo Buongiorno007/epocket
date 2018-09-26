@@ -73,7 +73,7 @@ class LocationDisabled extends React.Component {
               {RU.LOCATION_DISABLED}
             </Text>
           </View>:null}
-        <View style={styles.enable_location}>
+        <View style={[styles.enable_location, styles.btnContainer]}>
           <Button
             transparent
             style={styles.enable_location}

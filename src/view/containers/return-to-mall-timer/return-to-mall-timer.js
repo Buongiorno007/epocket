@@ -16,6 +16,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 //services
 import { httpPost } from "../../../services/http";
+import { handleError } from "../../../services/http-error-handler";
 
 class ReturnToMall extends React.Component {
   state = {
@@ -44,17 +45,9 @@ class ReturnToMall extends React.Component {
         this.setModalVisible(false);
       },
       error => {
-        console.log("Rejected: ", error);
-        if (error.code  === 503) {
-          this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
-        } else if (error.code === 400) {
-          this.setState({ errorText: RU.HTTP_ERRORS.NOT_FOUND });
-        } else if (error.code === 403) {
-          this.setState({ errorText: RU.HTTP_ERRORS.SMTH_WENT_WRONG });
-        } else if (error.code === 408) {
-          this.setState({ errorText: RU.HTTP_ERRORS.RUNTIME });
-        }
-        this.setModalVisible(true);
+        let error_respons = handleError(error, this.constructor.name, "closeTimerTask");
+        this.setState({ errorText: error_respons.error_text });
+        this.setModalVisible(error_respons.error_modal);
       }
     );
   };

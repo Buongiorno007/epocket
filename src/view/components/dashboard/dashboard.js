@@ -29,6 +29,7 @@ import { httpPost } from "../../../services/http";
 import "./correcting-interval";
 import { orderBy } from 'lodash';
 import moment from "moment";
+import { handleError } from "../../../services/http-error-handler";
 
 class Dashboard extends React.Component {
   state = {
@@ -96,28 +97,10 @@ class Dashboard extends React.Component {
         );
       },
       error => {
-        /*
-          416 - лимит на кол-во человек.
-          418 - лимит на кол-во выполнений за день
-        */
         this.setState({ load_timer: false });
-        if (error.code === 503) {
-          this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
-          this.setStartMissionErrorVisible(true);
-        } else if (error.code === 403) {
-          this.setState({ errorText: RU.HTTP_ERRORS.SMTH_WENT_WRONG });
-          this.setStartMissionErrorVisible(true);
-        } else if (error.code === 408) {
-          this.setState({ errorText: RU.HTTP_ERRORS.RUNTIME, errorCode: error.code });
-          this.setStartMissionErrorVisible(true);
-        } else if (error.code === 416) {
-          this.setState({ errorText: RU.HTTP_ERRORS.PEOPLE_LIMIT, errorCode: error.code });
-          this.setStartMissionErrorVisible(true);
-        } else if (error.code === 418) {
-          this.setState({ errorText: RU.HTTP_ERRORS.PERSONAL_LIMIT });
-          this.setStartMissionErrorVisible(true);
-        }
-
+        let error_respons = handleError(error, this.constructor.name, "callTimer");
+        this.setState({ errorText: error_respons.error_text, errorCode: error_respons.error_code });
+        this.setStartMissionErrorVisible(error_respons.error_modal);
       }
     );
   }
@@ -129,7 +112,7 @@ class Dashboard extends React.Component {
       let endTime = moment(item.date_end).subtract(3, "hours").format("HH:mm:ss")
       item.active = currentTime > startTime && currentTime < endTime;
     });
-    return orderBy(orderBy(missions, ['price'],['desc']),['active'],['desc']);
+    return orderBy(orderBy(missions, ['price'], ['desc']), ['active'], ['desc']);
   }
 
   getMissions = () => {
@@ -150,20 +133,9 @@ class Dashboard extends React.Component {
         }
       },
       error => {
-        console.log('getMissions', error)
-        if (error.code  === 503) {
-          this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
-          this.setMissionsErrorVisible(true);
-        } else if (error.code === 400) {
-          this.setState({ errorText: RU.HTTP_ERRORS.NOT_FOUND });
-          this.setMissionsErrorVisible(true);
-        } else if (error.code === 403) {
-          this.setState({ errorText: RU.HTTP_ERRORS.SMTH_WENT_WRONG });
-          this.setMissionsErrorVisible(true);
-        } else if (error.code === 408) {
-          this.setState({ errorText: RU.HTTP_ERRORS.RUNTIME });
-          this.setMissionsErrorVisible(true);
-        }
+        let error_respons = handleError(error, this.constructor.name, "getMissions");
+        this.setState({ errorText: error_respons.error_text, errorCode: error_respons.error_code });
+        this.setMissionsErrorVisible(error_respons.error_modal);
         this.setState({ load_missions: false });
 
       }
@@ -226,25 +198,10 @@ class Dashboard extends React.Component {
         this.setState({ load_missions: false });
       },
       error => {
-        console.log("Rejected: ", error);
-        if (error.code  === 503) {
-          this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
-          this.setState({ load_missions: false });
-          this.setFinishMissionErrorVisible(true);
-        } else if (error.code === 400) {
-          this.setState({ errorText: RU.HTTP_ERRORS.NOT_FOUND });
-          this.setState({ load_missions: false });
-          this.setFinishMissionErrorVisible(true);
-        } else if (error.code === 403) {
-          this.setState({ errorText: RU.HTTP_ERRORS.SMTH_WENT_WRONG });
-          this.setState({ load_missions: false });
-          this.setFinishMissionErrorVisible(true);
-        } else if (error.code === 408) {
-          this.setState({ errorText: RU.HTTP_ERRORS.RUNTIME });
-          this.setState({ load_missions: false });
-          this.setFinishMissionErrorVisible(true);
-        }
-
+        let error_respons = handleError(error, this.constructor.name, "finishMainMission");
+        this.setState({ errorText: error_respons.error_text, errorCode: error_respons.error_code });
+        this.setFinishMissionErrorVisible(error_respons.error_modal);
+        this.setState({ load_missions: false });
       }
     );
   }

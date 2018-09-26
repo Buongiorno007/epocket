@@ -29,6 +29,7 @@ import birthday from "./birthday"
 import showQR from "./set-show-qr"
 import sheduleRequestStart from "./set-shedule-request-start"
 import appState from "./app-state"
+import mainTaskId from "./main-task-id"
 
 export default combineReducers({
   isConnected,
@@ -59,5 +60,6 @@ export default combineReducers({
   birthday,
   showQR,
   sheduleRequestStart,
-  appState
+  appState,
+  mainTaskId
 });

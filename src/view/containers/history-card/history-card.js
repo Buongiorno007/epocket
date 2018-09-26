@@ -12,6 +12,7 @@ import { colors } from "./../../../constants/colors";
 import { getBonuses } from "../../../reducers/history-bonuses";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { handleError } from "../../../services/http-error-handler";
 
 class HistoryCard extends React.Component {
   constructor(props) {
@@ -22,15 +23,8 @@ class HistoryCard extends React.Component {
     errorText: ""
   };
   componentDidMount() {
-    if (this.props.info.error  === 503) {
-      this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
-    } else if (this.props.info.error === 400) {
-      this.setState({ errorText: RU.HTTP_ERRORS.NOT_FOUND });
-    } else if (this.props.info.error === 403) {
-      this.setState({ errorText: RU.HTTP_ERRORS.SMTH_WENT_WRONG });
-    } else if (this.props.info.error === 408) {
-      this.setState({ errorText: RU.HTTP_ERRORS.RUNTIME });
-    }
+    let error_respons = handleError({code: this.props.info.error}, this.constructor.name, "componentDidMount");
+    this.setState({ errorText: error_respons.error_text });
   }
   setModalVisible = visible => {
     this.setState({ errorVisible: visible });

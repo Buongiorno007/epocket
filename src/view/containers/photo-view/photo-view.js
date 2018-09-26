@@ -20,6 +20,7 @@ import { setBalance } from "../../../reducers/user-balance";
 //services
 import { httpPost } from "../../../services/http";
 import { serializeJSON } from "../../../services/serialize-json";
+import { handleError } from "../../../services/http-error-handler";
 
 class PhotoView extends React.Component {
   constructor(props) {
@@ -63,25 +64,10 @@ class PhotoView extends React.Component {
         });
       },
       error => {
-        console.log("Rejected: ", error);
-        if (error.code  === 503) {
-          this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
-          this.setErrorPhotoVisible(true);
-          this.props.loaderState(false);
-        } else if (error.code === 400) {
-          this.setState({ errorText: RU.HTTP_ERRORS.NOT_FOUND });
-          this.setErrorPhotoVisible(true);
-          this.props.loaderState(false);
-        } else if (error.code === 403) {
-          this.setState({ errorText: RU.HTTP_ERRORS.SMTH_WENT_WRONG });
-          this.setErrorPhotoVisible(true);
-          this.props.loaderState(false);
-        } else if (error.code === 408) {
-          this.setState({ errorText: RU.HTTP_ERRORS.RUNTIME });
-          this.setErrorPhotoVisible(true);
-          this.props.loaderState(false);
-        }
-
+        let error_respons = handleError(error, this.constructor.name, "sendPhoto");
+        this.setState({ errorText: error_respons.error_text });
+        this.setErrorPhotoVisible(error_respons.error_modal);
+        this.props.loaderState(false);
       }
     );
   };
@@ -108,25 +94,10 @@ class PhotoView extends React.Component {
         });
       },
       error => {
-        console.log("finishMission: ", error);
-        if (error.code  === 503) {
-          this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
-          this.setErrorMissionVisible(true);
-          this.props.loaderState(false);
-        } else if (error.code === 400) {
-          this.setState({ errorText: RU.HTTP_ERRORS.NOT_FOUND });
-          this.setErrorMissionVisible(true);
-          this.props.loaderState(false);
-        } else if (error.code === 403) {
-          this.setState({ errorText: RU.HTTP_ERRORS.SMTH_WENT_WRONG });
-          this.setErrorMissionVisible(true);
-          this.props.loaderState(false);
-        } else if (error.code === 408) {
-          this.setState({ errorText: RU.HTTP_ERRORS.RUNTIME });
-          this.setErrorMissionVisible(true);
-          this.props.loaderState(false);
-        }
-
+        let error_respons = handleError(error, this.constructor.name, "finishMission");
+        this.setState({ errorText: error_respons.error_text });
+        this.setErrorMissionVisible(error_respons.error_modal);
+        this.props.loaderState(false);
       }
     );
   }

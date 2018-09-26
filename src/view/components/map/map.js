@@ -28,8 +28,9 @@ import { loaderState } from "../../../reducers/loader";
 import { setOutlets } from "../../../reducers/outlet-list";
 //services
 import { httpPost } from "../../../services/http";
+import { handleError } from "../../../services/http-error-handler";
 import getCurrentGeolocation from "../../../services/get-location"
-import {sendToTelegramm }from '../../../services/telegramm-notification'
+import { sendToTelegramm } from '../../../services/telegramm-notification'
 
 class Map extends React.Component {
   state = {
@@ -118,19 +119,11 @@ class Map extends React.Component {
         }
       },
       error => {
-        if (error.code  === 503) {
-          this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
-        } else if (error.code === 400) {
-          this.setState({ errorText: RU.HTTP_ERRORS.NOT_FOUND });
-        } else if (error.code === 403) {
-          this.setState({ errorText: RU.HTTP_ERRORS.SMTH_WENT_WRONG });
-        } else if (error.code === 408) {
-          this.setState({ errorText: RU.HTTP_ERRORS.RUNTIME });
-        } else {
-          this.setState({ errorText: 'code : 500. Internal Server Error' });
-        }
+        let error_respons = handleError(error, this.constructor.name, "loadTRC");
+        this.setState({ errorText: error_respons.error_text });
+        this.setModalVisible(error_respons.error_modal);
+        this.setState({ load_missions: false });
         this.props.loaderState(false);
-        this.setModalVisible(true);
       }
     );
   };
@@ -171,14 +164,14 @@ class Map extends React.Component {
       }
     );
   };
-  
-  selectNearestMall = (my_location, mall_array,ANIMATE_MAP) => {
+
+  selectNearestMall = (my_location, mall_array, ANIMATE_MAP) => {
     let nearestMall = geolib.findNearest(my_location, mall_array, 0);
-    try {this.selectTRC(mall_array[Number(nearestMall.key)],ANIMATE_MAP);} catch(e) {}
+    try { this.selectTRC(mall_array[Number(nearestMall.key)], ANIMATE_MAP); } catch (e) { }
   };
 
 
-  selectTRC = (trc,ANIMATE_MAP) => {
+  selectTRC = (trc, ANIMATE_MAP) => {
     // if (trc.id !== this.props.selectedMall.id) {
     let bounds = geolib.getBounds([
       { latitude: trc.lat, longitude: trc.lng },
@@ -213,13 +206,13 @@ class Map extends React.Component {
       this.props.showDashboard(true);
     } else {
       this.props.showDashboard(false);
-      ANIMATE_MAP && 
-      this.moveMapTo(
-        Number(center.latitude),
-        Number(center.longitude),
-        Math.abs(bounds.maxLat - bounds.minLat) * 1.3,
-        Math.abs(bounds.maxLng - bounds.minLng) * 1.3
-      );
+      ANIMATE_MAP &&
+        this.moveMapTo(
+          Number(center.latitude),
+          Number(center.longitude),
+          Math.abs(bounds.maxLat - bounds.minLat) * 1.3,
+          Math.abs(bounds.maxLng - bounds.minLng) * 1.3
+        );
     }
 
     // } else {
@@ -247,7 +240,10 @@ class Map extends React.Component {
           translucent={true}
           backgroundColor={"transparent"}
         />
-        {this.state.location_loader && <ActivityIndicator />}
+        {Platform.OS == "ios" ?
+          this.state.location_loader && this.props.isLocation && <ActivityIndicator /> :
+          this.state.location_loader && <ActivityIndicator />
+        }
 
         {this.props.isLocation ? (
           <View style={styles.trc_info}>

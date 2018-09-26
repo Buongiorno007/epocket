@@ -33,6 +33,7 @@ import { setBalance } from "../../../reducers/user-balance";
 import { getPush } from "../../../reducers/push";
 //services
 import { httpPost } from "../../../services/http";
+import { handleError } from "../../../services/http-error-handler";
 
 const keyboardVerticalOffset = Platform.OS === "ios" ? -50 : -100;
 
@@ -126,23 +127,12 @@ class SignUp extends React.Component {
         this.setState({ step: 2, acceptButton: false });
       },
       error => {
-        console.log("Rejected: ", error);
         this.props.loaderState(false);
-        if (error.code  === 503) {
-          this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
-          this.setFailedSignVisible(true);
-        } else if (error.code === 400) {
-          this.setState({ invalidCode: true });
-          this.setState({ errorText: RU.HTTP_ERRORS.NOT_FOUND });
-        } else if (error.code === 403) {
-          this.setState({ errorText: RU.HTTP_ERRORS.SMTH_WENT_WRONG });
-          this.setFailedSignVisible(true);
-        } else if (error.code === 408) {
-          this.setState({ errorText: RU.HTTP_ERRORS.RUNTIME });
-          this.setFailedSignVisible(true);
-        } else if (error.code === 409) {
-          this.setState({ numberExists: true });
-        }
+        let error_respons = handleError(error, this.constructor.name, "sendForm");
+        this.setState({ errorText: error_respons.error_text });
+        if (error_respons.error_code === 400) this.setState({ invalidCode: true });
+        else if (error_respons.error_code === 409) this.setState({ numberExists: true });
+        else this.setFailedSignVisible(error_respons.error_modal);
       }
     );
   }
@@ -180,20 +170,13 @@ class SignUp extends React.Component {
         this.props.getPush(result.body.token)
       },
       error => {
-        console.log("Rejected: ", error);
         this.props.loaderState(false);
-        if (error.code  === 503) {
-          this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
-          this.setFailedConfirmVisible(true);
-        } else if (error.code === 400) {
+        let error_respons = handleError(error, this.constructor.name, "sendCode");
+        this.setState({ errorText: error_respons.error_text });
+        if (error_respons.error_code === 400) {
           this.setState({ invalidCode: true });
-          this.setState({ errorText: RU.HTTP_ERRORS.NOT_FOUND });
-        } else if (error.code === 403) {
-          this.setState({ errorText: RU.HTTP_ERRORS.SMTH_WENT_WRONG });
-          this.setFailedConfirmVisible(true);
-        } else if (error.code === 408) {
-          this.setState({ errorText: RU.HTTP_ERRORS.RUNTIME });
-          this.setFailedConfirmVisible(true);
+        } else {
+          this.setFailedConfirmVisible(error_respons.error_modal);
         }
       }
     );
@@ -211,14 +194,14 @@ class SignUp extends React.Component {
     this.keyboardDidShowListener.remove();
     this.keyboardDidHideListener.remove();
   }
-  _keyboardDidShow = () =>{
+  _keyboardDidShow = () => {
     Animated.timing(this.state.signUpMargin, {
       duration: 100,
       toValue: 0,
     }).start();
   }
 
-  _keyboardDidHide = () =>{
+  _keyboardDidHide = () => {
     Animated.timing(this.state.signUpMargin, {
       duration: 100,
       toValue: 40,
@@ -309,7 +292,7 @@ class SignUp extends React.Component {
                 maxLength={64}
                 onChangeText={text => this.onChangedName(text)}
               />
-               <Animated.View style={[{marginTop:this.state.signUpMargin}]}>
+              <Animated.View style={[{ marginTop: this.state.signUpMargin }]}>
                 <CustomButton
                   active={this.state.phoneCorrect && this.state.nameCorrect}
                   title={RU.SIGN_UP}
@@ -344,7 +327,7 @@ class SignUp extends React.Component {
               >
                 {RU.CHECK_CODE}
               </Text>
-              <Animated.View style={[{marginTop:this.state.signUpMargin}]}>
+              <Animated.View style={[{ marginTop: this.state.signUpMargin }]}>
                 <CustomButton
                   active={this.state.codeCorrect}
                   title={RU.ACCEPT}
@@ -356,7 +339,7 @@ class SignUp extends React.Component {
             <View style={styles.form}>
               <Text style={styles.code_sent}>{RU.SING_UP_SUCCESS}</Text>
               <Text style={styles.enter_code}>{RU.USE_YOUR_PHONE}</Text>
-              <Animated.View style={[{marginTop:this.state.signUpMargin}]}>
+              <Animated.View style={[{ marginTop: this.state.signUpMargin }]}>
                 <CustomButton
                   active
                   title={RU.OK}

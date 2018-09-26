@@ -17,6 +17,7 @@ import { bindActionCreators } from "redux";
 //services
 import NavigationService from "../../../services/route";
 import { httpPost } from "../../../services/http";
+import { handleError } from "../../../services/http-error-handler";
 
 class ScannerCamera extends React.Component {
   state = {
@@ -55,23 +56,11 @@ class ScannerCamera extends React.Component {
           this.props.setShowQR(true)
         },
         error => {
-          console.log("Rejected: ", error);
           this.props.loaderState(false);
           this.props.setShowQR(true)
-          if (error.code  === 503) {
-            this.setState({ errorText: RU.HTTP_ERRORS.SERVER_ERROR });
-            this.setModalVisible(true);
-          } else if (error.code === 400) {
-            this.setState({ errorText: RU.HTTP_ERRORS.NOT_FOUND });
-            this.setModalVisible(true);
-          } else if (error.code === 403) {
-            this.setState({ errorText: RU.HTTP_ERRORS.SMTH_WENT_WRONG });
-            this.setModalVisible(true);
-          } else if (error.code === 408) {
-            this.setState({ errorText: RU.HTTP_ERRORS.RUNTIME });
-            this.setModalVisible(true);
-          }
-
+          let error_respons = handleError(error, this.constructor.name, "sendQRCode");
+          this.setState({ errorText: error_respons.error_text });
+          this.setModalVisible(error_respons.error_modal);
         }
       );
     }
