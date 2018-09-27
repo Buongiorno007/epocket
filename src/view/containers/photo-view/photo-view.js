@@ -57,11 +57,11 @@ class PhotoView extends React.Component {
       result => {
         console.log('result', result)
         this.setErrorPhotoVisible(false);
-        // this.finishMission(result.body);
-        NavigationService.navigate("MissionSuccess", {
-          price: this.props.selectedMission.price,
-          insta_data: result.body
-        });
+        this.finishMission(result.body);
+        // NavigationService.navigate("MissionSuccess", {
+        //   price: this.props.selectedMission.price,
+        //   insta_data: result.body
+        // });
       },
       error => {
         let error_respons = handleError(error, this.constructor.name, "sendPhoto");
@@ -87,8 +87,12 @@ class PhotoView extends React.Component {
       result => {
         this.setErrorMissionVisible(false);
         this.props.setBalance(result.body.balance);
+        // NavigationService.navigate("MissionSuccess", {
+        //   price: this.props.selectedMission.price
+        // });
         NavigationService.navigate("MissionSuccess", {
-          price: this.props.selectedMission.price
+          price: this.props.selectedMission.price,
+          insta_data: insta_data
         });
       },
       error => {
