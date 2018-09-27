@@ -133,7 +133,6 @@ class Start extends React.Component {
 
         <View style={styles.main_view}>
           <FastImage
-            resizeMode={FastImage.resizeMode.contain}
             style={styles.bottom_image}
             source={{ uri: ICONS.COMMON.START_BACKGROUND }}
           />
