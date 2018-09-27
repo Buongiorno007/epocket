@@ -34,12 +34,10 @@ export default StyleSheet.create({
     width: photo_size,
     height: photo_size,
     borderRadius: photo_size / 2,
-    resizeMode: 'cover'
   },
   icon: {
     width: def_icon_size,
     height: def_icon_size,
-    resizeMode: 'contain'
   },
   edit_photo_btn: {
     position : 'absolute',

@@ -29,13 +29,11 @@ export default StyleSheet.create({
     img_geo: {
         width : 50,
         height : 50,
-        resizeMode : 'contain',
         marginRight: 15,
     },
     map_marker_trc: {
         width : 18,
         height : 10,
-        resizeMode : 'contain',
         zIndex : 45
     }
 

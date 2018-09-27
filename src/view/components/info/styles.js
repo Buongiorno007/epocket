@@ -32,7 +32,6 @@ export default StyleSheet.create({
   logo: {
     width: 150,
     height: 80,
-    resizeMode: "contain"
   },
 
   video_player_view: {

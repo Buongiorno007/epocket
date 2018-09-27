@@ -19,7 +19,6 @@ export default StyleSheet.create({
     top: 0,
     height: width * 0.6,
     width: width,
-    resizeMode: "cover",
   },
   grad: {
     position: "absolute",
@@ -69,7 +68,6 @@ export default StyleSheet.create({
   close: {
     width: 15,
     height: 15,
-    resizeMode: "contain"
   },
   task_container: {
     justifyContent: "space-between",

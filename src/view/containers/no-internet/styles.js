@@ -32,6 +32,5 @@ export default StyleSheet.create({
         bottom : 0,
         width  : width,
         height : height * 0.5,
-        resizeMode : 'stretch'
     },
 });

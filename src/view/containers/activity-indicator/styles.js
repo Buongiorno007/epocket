@@ -20,7 +20,6 @@ export default StyleSheet.create({
     bottom : height * 0.25,
     width: width * 0.25,
     height: width * 0.25,
-    resizeMode: "contain",
     zIndex: 99
   }
 });

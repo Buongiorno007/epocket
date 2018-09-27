@@ -42,7 +42,6 @@ export default StyleSheet.create({
         width: 20,
         height: 30,
         marginRight: width * 0.02,
-        resizeMode: 'contain',
     },
     cash: {
         textAlign: 'right',

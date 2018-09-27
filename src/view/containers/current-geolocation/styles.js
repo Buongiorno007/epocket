@@ -8,7 +8,6 @@ export default StyleSheet.create({
     get_geolocation : {
         width : 50,
         height : 50,
-        resizeMode : 'contain',
         position : 'absolute',
         zIndex  : 1
       

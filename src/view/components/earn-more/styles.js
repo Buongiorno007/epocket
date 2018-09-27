@@ -19,7 +19,6 @@ export default StyleSheet.create({
         top: width * 0.1,
         height: 165,
         width: width,
-        resizeMode: 'contain'
     },
     image_template: {
         zIndex: 1,
@@ -27,7 +26,6 @@ export default StyleSheet.create({
         top: width * 0.2,
         height: 165,
         width: width,
-        resizeMode: 'contain',
         // backgroundColor :  colors.white,
         marginBottom : 30,
     },

@@ -31,7 +31,6 @@ export default StyleSheet.create({
   settings_img: {
     height: 20,
     width: 20,
-    resizeMode: 'contain'
   },
   info: {
     width: width,

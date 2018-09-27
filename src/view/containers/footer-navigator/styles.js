@@ -33,12 +33,10 @@ export default StyleSheet.create({
     footer_tab_icon: {
         width: 22,
         height: 22,
-        resizeMode: 'contain'
     },
     footer_tab_icon_active: {
         width: 22,
         height: 14,
-        resizeMode: 'contain',
     },
     footer_tab_offset: {
         width: width * 0.25
@@ -99,6 +97,5 @@ export default StyleSheet.create({
         top : 10,
         height: 15,
         width: 15,
-        resizeMode: 'contain',
     },
 });

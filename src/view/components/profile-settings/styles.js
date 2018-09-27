@@ -83,12 +83,10 @@ export default StyleSheet.create({
   close_img: {
     height: 15,
     width: 15,
-    resizeMode: 'contain'
   },
   settings_img: {
     height: 20,
     width: 20,
-    resizeMode: 'contain'
   },
   info: {
     width: width,

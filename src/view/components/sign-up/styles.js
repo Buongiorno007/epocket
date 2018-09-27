@@ -13,7 +13,6 @@ export default StyleSheet.create({
         position: "absolute",
         height: height,
         width: width,
-        resizeMode: 'stretch'
     },
     form: {
         width: width * 0.85,
@@ -27,7 +26,6 @@ export default StyleSheet.create({
         bottom: 0,
         height: height * 0.45,
         width: width,
-        resizeMode: 'stretch'
     },
     grad : {
         position: "absolute",

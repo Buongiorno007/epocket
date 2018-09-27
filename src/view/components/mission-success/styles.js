@@ -19,7 +19,6 @@ export default StyleSheet.create({
         top: width * 0.1,
         height: 165,
         width: width,
-        resizeMode: 'contain'
     },
     success: {
         zIndex: 1,

@@ -53,10 +53,12 @@ class CustomPhoto extends Component {
           {this.props.src ? (
             <FastImage
               style={styles.photo}
+              resizeMode={FastImage.resizeMode.сover}
               source={{ uri: "data:image/jpeg;base64," + this.props.src }}
             />
           ) : (
               <FastImage
+                resizeMode={FastImage.resizeMode.contain}
                 style={styles.icon}
                 source={require('../../../assets/img/UNSET_PROILE.png')}
               />

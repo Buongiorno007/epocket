@@ -24,7 +24,6 @@ export default StyleSheet.create({
   template_image : {
     height : image_size,
     width : image_size,
-    resizeMode : 'cover'
   },
   back_view: {
     position : 'absolute',

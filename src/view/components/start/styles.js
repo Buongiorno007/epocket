@@ -13,7 +13,6 @@ export default StyleSheet.create({
     top: width * 0.1,
     height: 165,
     width: width,
-    resizeMode: "contain"
   },
 
   bottom_image: {
@@ -21,14 +20,12 @@ export default StyleSheet.create({
     bottom: 0,
     height: height * 0.45,
     width: width,
-    resizeMode: "stretch"
   },
   background: {
     position: "absolute",
     // flex : 1,
     height: height,
     width: width,
-    resizeMode: "stretch"
   },
   grad: {
     position: "absolute",

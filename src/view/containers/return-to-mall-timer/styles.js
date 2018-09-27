@@ -74,6 +74,5 @@ export default StyleSheet.create({
       close: {
         width: 15,
         height: 15,
-        resizeMode: "contain"
       },
 });

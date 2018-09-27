@@ -40,7 +40,6 @@ export default StyleSheet.create({
   icon: {
     width: 15,
     height: 15,
-    resizeMode: "contain",
     marginLeft: 12,
     marginRight: 12,
   },

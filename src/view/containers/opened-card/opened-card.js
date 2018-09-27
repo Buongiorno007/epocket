@@ -48,6 +48,7 @@ class OpenedCard extends React.Component {
             style={styles.grad}
           />
           <FastImage
+            resizeMode={FastImage.resizeMode.cover}
             style={[
               styles.bottom_image,
 
