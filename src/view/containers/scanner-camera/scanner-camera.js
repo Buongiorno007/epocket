@@ -38,7 +38,6 @@ class ScannerCamera extends React.Component {
 
   sendQRCode = qrcode => {
     if (qrcode.data) {
-      this.setModalVisible(false);
       this.props.loaderState(true);
       this.props.setShowQR(false)
       let body = {
@@ -52,8 +51,8 @@ class ScannerCamera extends React.Component {
       );
       promise.then(
         result => {
-          NavigationService.navigate("Photograph");
           this.props.setShowQR(true)
+          NavigationService.navigate("Photograph");
         },
         error => {
           this.props.loaderState(false);
@@ -69,6 +68,7 @@ class ScannerCamera extends React.Component {
     this.props.setShowQR(true)
     this.setModalVisible(!this.state.errorVisible);
   }
+  
   render = () => {
     return (
       <View style={styles.container}>

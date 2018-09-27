@@ -79,23 +79,32 @@ class Start extends React.Component {
   };
 
   _initialConfig = () => {
-    AsyncStorage.getItem("insta_token").then(value => {
-      value && this.props.setInstaToken(value);
-    })
-    AsyncStorage.getItem("token").then(token => {
-      this.props.loaderState(false);
-      if (token) {
-        this.props.setToken(token);
-        NavigationService.navigate("Main");
-      } else {
-        this.setState({ enable_login: true });
-      }
-    });
-    AsyncStorage.getItem("balance").then(value => {
-      this.props.loaderState(false);
-      if (value) {
-        this.props.setBalance(value);
-      }
+    AsyncStorage.multiGet(["insta_token", "token", "balance"], (err, stores) => {
+      stores.map((result, i, store) => {
+        this.props.loaderState(false);
+        // get at each store's key/value so you can work with it
+        let key = store[i][0];
+        let value = store[i][1];
+        switch (key) {
+          case 'insta_token': {
+            value && this.props.setInstaToken(value);
+            break;
+          }
+          case 'token': {
+            if (value) {
+              this.props.setToken(value);
+              NavigationService.navigate("Main");
+            } else {
+              this.setState({ enable_login: true });
+            }
+            break;
+          }
+          case 'balance': {
+            value && this.props.setBalance(value);
+            break;
+          }
+        }
+      });
     });
   };
 

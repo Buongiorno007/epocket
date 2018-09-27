@@ -40,7 +40,7 @@ class ProfileSettings extends React.Component {
   componentDidMount() { }
 
   LogOut = () => {
-    AsyncStorage.multiSet([ ["user_info", ""], ["balance", ""], ["insta_token", ""] ], () => {
+    AsyncStorage.multiSet([ ["token", ""], ["balance", ""], ["insta_token", ""] ], () => {
       NavigationService.navigate("Start");
     });
   };

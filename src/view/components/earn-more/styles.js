@@ -71,4 +71,8 @@ export default StyleSheet.create({
     earn_more_btn : {
 
     },
+    toast : {
+        alignItems : 'center',
+        justifyContent : 'center',
+    }
 });
