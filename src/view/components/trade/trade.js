@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StatusBar, ScrollView, AsyncStorage } from "react-native";
+import { View, Text, StatusBar, ScrollView } from "react-native";
 //containers
 import Status from "./../../containers/trade-status/trade-status";
 import Title from "./../../containers/trade-title/trade-title";

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, AsyncStorage } from "react-native";
+import { View, Image } from "react-native";
 import { Button, Text } from "native-base";
 import NavigationService from "./../../../services/route";
 //containers

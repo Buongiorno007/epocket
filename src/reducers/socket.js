@@ -1,5 +1,4 @@
 import { urls } from "../constants/urls";
-import { AsyncStorage } from 'react-native'
 export const RETURN_DATA = 'socket/RETURN_DATA';
 
 const initialState = {

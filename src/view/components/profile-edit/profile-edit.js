@@ -3,7 +3,6 @@ import {
   Platform,
   Text,
   View,
-  AsyncStorage,
   KeyboardAvoidingView,
   StatusBar,
   BackHandler
@@ -108,9 +107,7 @@ class ProfileEdit extends React.Component {
             sex: this.state.user.sex,
             birthDay: this.props.birthday,
             phone: this.state.user.phone,
-            token: this.props.token
           };
-          AsyncStorage.setItem("user_info", JSON.stringify(user));
           this.props.saveUser(user);
           this.props.loaderState(false);
           NavigationService.navigate("Main");

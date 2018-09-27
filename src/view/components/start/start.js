@@ -82,11 +82,10 @@ class Start extends React.Component {
     AsyncStorage.getItem("insta_token").then(value => {
       value && this.props.setInstaToken(value);
     })
-    AsyncStorage.getItem("user_info").then(value => {
+    AsyncStorage.getItem("token").then(token => {
       this.props.loaderState(false);
-      let object = JSON.parse(value);
-      if (object) {
-        this.props.setToken(object.token);
+      if (token) {
+        this.props.setToken(token);
         NavigationService.navigate("Main");
       } else {
         this.setState({ enable_login: true });

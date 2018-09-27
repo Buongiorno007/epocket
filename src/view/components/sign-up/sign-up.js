@@ -3,7 +3,6 @@ import {
   View,
   StatusBar,
   Text,
-  AsyncStorage,
   Image,
   KeyboardAvoidingView,
   Platform,
@@ -31,6 +30,7 @@ import { setToken } from "../../../reducers/token";
 import { loaderState } from "../../../reducers/loader";
 import { setBalance } from "../../../reducers/user-balance";
 import { getPush } from "../../../reducers/push";
+import { saveUser } from "../../../reducers/profile-state";
 //services
 import { httpPost } from "../../../services/http";
 import { handleError } from "../../../services/http-error-handler";
@@ -153,15 +153,14 @@ class SignUp extends React.Component {
         this.setFailedConfirmVisible(false);
         console.log("Fulfilled sendCode: ", result);
         this.props.loaderState(false);
-        let new_user = JSON.stringify({
+        let new_user = {
           name: this.state.name,
-          token: result.body.token,
           phone: this.state.phone,
           balance: 0,
           sex: result.body.sex ? 1 : 0,
           birthDay: result.body.birthDay
-        });
-        AsyncStorage.setItem("user_info", new_user);
+        };
+        this.props.saveUser(new_user);
         this.props.setToken(result.body.token);
         this.props.setBalance(0);
         this.setState({ step: 3, acceptButton: false });
@@ -363,7 +362,8 @@ const mapDispatchToProps = dispatch =>
       setToken,
       setBalance,
       loaderState,
-      getPush
+      getPush,
+      saveUser
     },
     dispatch
   );
