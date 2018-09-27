@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Image } from "react-native";
+import { View } from "react-native";
+import FastImage from 'react-native-fast-image'
 import { Button, Text } from "native-base";
 import NavigationService from "./../../../services/route";
 //containers
@@ -134,7 +135,7 @@ class PhotoView extends React.Component {
           <TemplateInstagramPhoto template_url={this.props.navigation.state.params.template_info.media} />
         </View>
         <View style={[styles.block, styles.size]}>
-          <Image
+          <FastImage
             source={{ uri: this.props.navigation.state.params.url }}
             style={styles.image}
           />

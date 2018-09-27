@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text } from "react-native";
+import FastImage from 'react-native-fast-image'
 //constants
 import styles from "./styles";
 import { ICONS } from "../../../constants/icons";
@@ -21,13 +22,14 @@ class DashTop extends React.Component {
         <View style={styles.content}>
           <View style={styles.location}>
             <View style={styles.location_left}>
-              <Image
+              <FastImage
+                resizeMode={FastImage.resizeMode.contain}
                 style={styles.icon}
                 source={{ uri: ICONS.COMMON.GEOLOCATION_WHITE }}
               />
               <View>
                 <Text style={styles.up_text}>{RU.YOU_ARE_HERE}</Text>
-                <Text 
+                <Text
                   numberOfLines={1}
                   style={styles.down_text}>
                   {this.props.selectedMall.name}
@@ -36,7 +38,8 @@ class DashTop extends React.Component {
             </View>
             <View style={styles.middle_border} />
             <View style={styles.location_right}>
-              <Image
+              <FastImage
+                resizeMode={FastImage.resizeMode.contain}
                 style={styles.icon}
                 source={{ uri: ICONS.COMMON.CASH_EPC_WHITE }}
               />
@@ -167,7 +170,8 @@ class DashTop extends React.Component {
             style={styles.location}
           >
             <View style={styles.location_left}>
-              <Image
+              <FastImage
+                resizeMode={FastImage.resizeMode.contain}
                 style={styles.icon}
                 source={{ uri: ICONS.COMMON.LOCATION_PINK }}
               />
@@ -176,7 +180,7 @@ class DashTop extends React.Component {
                   locations={[0, 1]}
                   colors={[colors.orange, colors.pink]}
                   start={{ x: 0.0, y: 1.0 }}
-                  end={{ x: 0.5, y: 0.2 }} 
+                  end={{ x: 0.5, y: 0.2 }}
                   style={styles.up_text}
                 >
                   {RU.YOU_ARE_HERE}
@@ -185,18 +189,19 @@ class DashTop extends React.Component {
                   locations={[0, 1]}
                   colors={[colors.orange, colors.pink]}
                   start={{ x: 0.0, y: 1.0 }}
-                  end={{ x: 0.5, y: 0.2 }} 
+                  end={{ x: 0.5, y: 0.2 }}
                   style={styles.down_text}
                   numberOfLines={1}
                 >
-                
+
                   {this.props.selectedMall.name}
                 </LinearTextGradient>
               </View>
             </View>
             <View style={[styles.middle_border, { borderColor: colors.pink_02 }]} />
             <View style={styles.location_right}>
-              <Image
+              <FastImage
+                resizeMode={FastImage.resizeMode.contain}
                 style={styles.icon}
                 source={{ uri: ICONS.COMMON.CASH_EPC_PINK }}
               />
@@ -205,7 +210,7 @@ class DashTop extends React.Component {
                   locations={[0, 1]}
                   colors={[colors.orange, colors.pink]}
                   start={{ x: 0.0, y: 1.0 }}
-                  end={{ x: 0.5, y: 0.2 }} 
+                  end={{ x: 0.5, y: 0.2 }}
                   style={styles.up_text}
                 >
                   {RU.YOUR_BONUS}
@@ -214,7 +219,7 @@ class DashTop extends React.Component {
                   locations={[0, 1]}
                   colors={[colors.orange, colors.pink]}
                   start={{ x: 0.0, y: 1.0 }}
-                  end={{ x: 0.5, y: 0.2 }} 
+                  end={{ x: 0.5, y: 0.2 }}
                   style={styles.down_text}
                 >
                   {this.props.balance} {RU.EPC}
@@ -230,7 +235,7 @@ class DashTop extends React.Component {
                   locations={[0, 1]}
                   colors={[colors.orange, colors.pink]}
                   start={{ x: 0.0, y: 1.0 }}
-                  end={{ x: 0.5, y: 0.2 }} 
+                  end={{ x: 0.5, y: 0.2 }}
                   style={styles.epc_counter}>
                   {this.props.mainMissionPrice}
                 </LinearTextGradient>
@@ -399,7 +404,7 @@ class DashTop extends React.Component {
                     locations={[0, 1]}
                     colors={[colors.orange, colors.pink]}
                     start={{ x: 0.0, y: 1.0 }}
-                    end={{ x: 0.5, y: 0.2 }} 
+                    end={{ x: 0.5, y: 0.2 }}
                     style={styles.time_counter_text}>
                     {this.props.timer.seconds < 10 && "0"}
                     {this.props.timer.seconds}

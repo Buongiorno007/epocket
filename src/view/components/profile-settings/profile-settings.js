@@ -2,9 +2,9 @@ import React from "react";
 import {
   View,
   Text,
-  AsyncStorage,
-  Image
+  AsyncStorage
 } from "react-native";
+import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
 //redux
 import { connect } from "react-redux";
@@ -138,9 +138,10 @@ class ProfileSettings extends React.Component {
             rounded
             style={styles.settings_btn}
             onPress={() => { this.ToProfile() }}>
-            <Image style={styles.close_img}
+            <FastImage style={styles.close_img}
+              resizeMode={FastImage.resizeMode.contain}
               source={{ uri: ICONS.COMMON.CLOSE }} >
-            </Image>
+            </FastImage>
           </Button>
         </View>
 
@@ -151,9 +152,10 @@ class ProfileSettings extends React.Component {
               transparent
               style={styles.button}
               onPress={() => { this.ToProfileEdit() }}>
-              <Image style={styles.settings_img}
+              <FastImage style={styles.settings_img}
+                resizeMode={FastImage.resizeMode.contain}
                 source={require('../../../assets/img/writing.png')} >
-              </Image>
+              </FastImage>
               <View style={styles.image_block_text_button}>
                 <Text style={styles.image_block_text_big}>{RU.PROFILE_SETTINGS.EDIT_PROFILE}</Text>
               </View>
@@ -162,9 +164,10 @@ class ProfileSettings extends React.Component {
 
 
           <View style={[styles.image_block]}>
-            <Image style={styles.settings_img}
+            <FastImage style={styles.settings_img}
+              resizeMode={FastImage.resizeMode.contain}
               source={require('../../../assets/img/instagram-logo.png')} >
-            </Image>
+            </FastImage>
             <View style={styles.image_block_text}>
               <Text style={styles.image_block_text_big}>{RU.PROFILE_SETTINGS.INSTAGRAM}</Text>
               <Text style={styles.image_block_text_small}>{RU.PROFILE_SETTINGS.INSTAGRAM_ADDITIONAL}</Text>
@@ -205,9 +208,10 @@ class ProfileSettings extends React.Component {
               transparent
               style={styles.button}
               onPress={() => { this.LogOut() }}>
-              <Image style={styles.settings_img}
+              <FastImage style={styles.settings_img}
+                resizeMode={FastImage.resizeMode.contain}
                 source={require('../../../assets/img/logout.png')} >
-              </Image>
+              </FastImage>
               <View style={styles.image_block_text_button}>
                 <Text style={styles.image_block_text_big}>{RU.PROFILE_SETTINGS.EXIT}</Text>
               </View>

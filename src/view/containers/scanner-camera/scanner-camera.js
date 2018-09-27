@@ -1,6 +1,7 @@
 import React from "react";
 import { Alert } from "react-native";
-import { View, Image } from "react-native";
+import FastImage from 'react-native-fast-image'
+import { View } from "react-native";
 import QRCodeScanner from "react-native-qrcode-scanner";
 //containers
 import CustomAlert from "../../containers/custom-alert/custom-alert";
@@ -91,10 +92,10 @@ class ScannerCamera extends React.Component {
             permissionDialogTitle={RU.TITLE}
             permissionDialogMessage={RU.CAMERA_PERMISSION}
           />
-          <Image source={{ uri: ICONS.SCANNER.FRAME }} style={styles.image} />
+          <FastImage resizeMode={FastImage.resizeMode.contain} source={{ uri: ICONS.SCANNER.FRAME }} style={styles.image} />
         </View>
         <View style={styles.scanner}>
-          <Image source={{ uri: ICONS.SCANNER.CODE }} style={styles.icon} />
+          <FastImage resizeMode={FastImage.resizeMode.contain} source={{ uri: ICONS.SCANNER.CODE }} style={styles.icon} />
         </View>
       </View>
     );

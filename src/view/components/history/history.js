@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { Button } from "native-base";
 //redux

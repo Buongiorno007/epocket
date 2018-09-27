@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
+import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
 import Icon from "react-native-vector-icons/Feather";
 //constants
@@ -37,12 +38,13 @@ class CashoutList extends React.Component {
             rounded
             onPress={() =>
               NavigationService.navigate("Picture", {
-                image: 'data:image/jpeg;base64,'+this.props.item.photo
+                image: 'data:image/jpeg;base64,' + this.props.item.photo
               })
             }
           >
-            <Image
-              source={{ uri: 'data:image/jpeg;base64,'+this.props.item.photo }}
+            <FastImage
+              resizeMode={FastImage.resizeMode.contain}
+              source={{ uri: 'data:image/jpeg;base64,' + this.props.item.photo }}
               style={styles.photo}
             />
           </Button>

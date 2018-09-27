@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { View, Image } from "react-native";
+import { View } from "react-native";
+import FastImage from 'react-native-fast-image'
 import Icon from "react-native-vector-icons/dist/Entypo";
 import { Button } from "native-base";
 import { Dimensions } from "react-native";
@@ -50,12 +51,12 @@ class CustomPhoto extends Component {
           style={styles.photo_container}
         >
           {this.props.src ? (
-            <Image
+            <FastImage
               style={styles.photo}
               source={{ uri: "data:image/jpeg;base64," + this.props.src }}
             />
           ) : (
-              <Image
+              <FastImage
                 style={styles.icon}
                 source={require('../../../assets/img/UNSET_PROILE.png')}
               />

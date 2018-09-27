@@ -39,6 +39,7 @@ PODS:
     - FirebaseInstanceID (~> 3.0)
     - GoogleUtilities/Reachability (~> 5.2)
     - Protobuf (~> 3.1)
+  - FLAnimatedImage (1.0.12)
   - Folly (2016.09.26.00):
     - boost-for-react-native
     - DoubleConversion
@@ -95,14 +96,19 @@ PODS:
   - Protobuf (3.6.1)
   - React (0.55.4):
     - React/Core (= 0.55.4)
-  - react-native-camera (1.2.0):
+  - react-native-camera (1.3.0):
     - React
-    - react-native-camera/RCT (= 1.2.0)
-    - react-native-camera/RN (= 1.2.0)
-  - react-native-camera/RCT (1.2.0):
+    - react-native-camera/RCT (= 1.3.0)
+    - react-native-camera/RN (= 1.3.0)
+  - react-native-camera/RCT (1.3.0):
     - React
-  - react-native-camera/RN (1.2.0):
+  - react-native-camera/RN (1.3.0):
     - React
+  - react-native-fast-image (5.0.10):
+    - FLAnimatedImage
+    - React
+    - SDWebImage/Core
+    - SDWebImage/GIF
   - react-native-google-maps (0.21.0):
     - Google-Maps-iOS-Utils (= 2.1.0)
     - GoogleMaps (= 2.5.0)
@@ -171,6 +177,10 @@ PODS:
     - React
   - RNVectorIcons (4.6.0):
     - React
+  - SDWebImage/Core (4.4.2)
+  - SDWebImage/GIF (4.4.2):
+    - FLAnimatedImage (~> 1.0)
+    - SDWebImage/Core
   - yoga (0.55.4.React)
 
 DEPENDENCIES:
@@ -183,6 +193,7 @@ DEPENDENCIES:
   - Google-Maps-iOS-Utils
   - GoogleMaps
   - react-native-camera (from `../node_modules/react-native-camera`)
+  - react-native-fast-image (from `../node_modules/react-native-fast-image`)
   - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-maps (from `../node_modules/react-native-maps`)
@@ -218,12 +229,14 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseInstanceID
     - FirebaseMessaging
+    - FLAnimatedImage
     - Google-Maps-iOS-Utils
     - GoogleAppMeasurement
     - GoogleMaps
     - GoogleUtilities
     - nanopb
     - Protobuf
+    - SDWebImage
 
 EXTERNAL SOURCES:
   BVLinearGradient:
@@ -238,6 +251,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native"
   react-native-camera:
     :path: "../node_modules/react-native-camera"
+  react-native-fast-image:
+    :path: "../node_modules/react-native-fast-image"
   react-native-google-maps:
     :path: "../node_modules/react-native-maps"
   react-native-image-picker:
@@ -271,6 +286,7 @@ SPEC CHECKSUMS:
   FirebaseCore: 27bd80e5bfaaf9552a1f5cacb4c7e8bb925bab22
   FirebaseInstanceID: ea5af6920d0a4a29b40459d055bebe4a6c1333c4
   FirebaseMessaging: d6feeb06218d2675b4149b0ada925a6b707a74cf
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   Folly: 211775e49d8da0ca658aebc8eab89d642935755c
   glog: 1de0bb937dccdc981596d3b5825ebfb765017ded
   Google-Maps-iOS-Utils: c32891ff472eaaa1fca032beedafa1a013af7875
@@ -281,6 +297,7 @@ SPEC CHECKSUMS:
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   React: aa2040dbb6f317b95314968021bd2888816e03d5
   react-native-camera: ec435a5b2498faa288b4574e005d5c1021f18608
+  react-native-fast-image: cba3d9bf9c2cf8ddb643d887a686c53a5dd90a2c
   react-native-google-maps: 2cfe3b01f8422c7dae51d8764139fd70f888cfce
   react-native-image-picker: b303e31c3c4ada1d7cb1342423d328d2efb07fb3
   react-native-maps: 066c2afcc89e18726377bcc685315f989ca22449
@@ -290,8 +307,9 @@ SPEC CHECKSUMS:
   RNBackgroundGeolocation: c9bbf69b9aa277f0b46754cc5f853bd26051a18f
   RNShare: d875e8e37f3e5e8eb7a103ae01e06490af1796f6
   RNVectorIcons: c0dbfbf6068fefa240c37b0f71bd03b45dddac44
+  SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   yoga: a23273df0088bf7f2bb7e5d7b00044ea57a2a54a
 
-PODFILE CHECKSUM: 1c7a66eb0b02c4bc77889aaec4f674dae96a186f
+PODFILE CHECKSUM: 64812f20484e247a0702cc2f328a1033b64f0713
 
 COCOAPODS: 1.5.3

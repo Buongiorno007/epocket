@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
+import FastImage from 'react-native-fast-image'
 //constants
 import styles from "./styles";
 import { ICONS } from "./../../../constants/icons";
@@ -13,7 +14,8 @@ class CashoutBalance extends React.Component {
       <View style={styles.container}>
         <View style={styles.block}>
           <View style={[styles.item, styles.balance_title]}>
-            <Image
+            <FastImage
+              resizeMode={FastImage.resizeMode.contain}
               style={styles.icon}
               source={{ uri: ICONS.COMMON.CASH_EPC_WHITE }}
             />

@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Image } from "react-native";
+import { View } from "react-native";
+import FastImage from 'react-native-fast-image'
 //constants
 import styles from "./styles";
 import { connect } from "react-redux";
@@ -16,19 +17,21 @@ class TemplateInstagramPhoto extends React.Component {
         <View style={styles.template}>
           {
             this.props.template_url ?
-              <Image
+              <FastImage
+                resizeMode={FastImage.resizeMode.contain}
                 style={styles.template_image}
                 source={{ uri: this.props.template_url }}
               />
               :
-              <Image
+              <FastImage
+                resizeMode={FastImage.resizeMode.contain}
                 style={styles.template_image}
                 source={require('../../../assets/img/preloader_nobg.gif')}
               />
           }
 
         </View>
-        <View style={styles.back_view}/>
+        <View style={styles.back_view} />
       </View>
     );
   };

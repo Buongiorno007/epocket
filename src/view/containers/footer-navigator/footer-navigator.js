@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Image } from "react-native";
+import { View } from "react-native";
+import FastImage from 'react-native-fast-image'
 import { Label, Button } from "native-base";
 //constants
 import { ICONS } from "../../../constants/icons";
@@ -21,7 +22,8 @@ class FooterNavigation extends React.Component {
             style={[styles.footer_tab]}
             onPress={() => this.props.setTabState(0)}
           >
-            <Image
+            <FastImage
+              resizeMode={FastImage.resizeMode.contain}
               style={
                 this.props.activeTab == 0
                   ? styles.footer_tab_icon_active
@@ -44,7 +46,8 @@ class FooterNavigation extends React.Component {
             style={[styles.footer_tab, styles.footer_tab_offset]}
             onPress={() => this.props.setTabState(1)}
           >
-            <Image
+            <FastImage
+              resizeMode={FastImage.resizeMode.contain}
               style={[
                 this.props.activeTab === 1
                   ? styles.footer_tab_icon_active
@@ -79,12 +82,14 @@ class FooterNavigation extends React.Component {
             onPress={() => this.props.setTabState(2)}
           >
             {this.props.activeTab !== 2 && (
-              <Image
+              <FastImage
+                resizeMode={FastImage.resizeMode.contain}
                 style={styles.footer_small_logo}
                 source={{ uri: ICONS.COMMON.CASH_EPC_GRAY }}
               />
             )}
-            <Image
+            <FastImage
+              resizeMode={FastImage.resizeMode.contain}
               style={
                 this.props.activeTab === 2
                   ? styles.footer_tab_icon_active
@@ -115,7 +120,8 @@ class FooterNavigation extends React.Component {
             style={[styles.footer_tab, styles.footer_tab_offset]}
             onPress={() => this.props.setTabState(3)}
           >
-            <Image
+            <FastImage
+              resizeMode={FastImage.resizeMode.contain}
               style={[
                 this.props.activeTab === 3
                   ? styles.footer_tab_icon_active
@@ -148,7 +154,8 @@ class FooterNavigation extends React.Component {
             // onPress={() =>  (this.props.dashboard) ? this.props.showDashboard(false) : this.props.showDashboard(true) }
             onPress={() => this.props.setTabState(4)}
           >
-            <Image
+            <FastImage
+              resizeMode={FastImage.resizeMode.contain}
               style={
                 this.props.activeTab === 4
                   ? styles.footer_tab_icon_active

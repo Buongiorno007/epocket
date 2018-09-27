@@ -8,6 +8,7 @@ import {
   Keyboard,
   Platform
 } from "react-native";
+import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
 import LinearGradient from "react-native-linear-gradient";
 //containers
@@ -131,7 +132,8 @@ class Start extends React.Component {
         />
 
         <View style={styles.main_view}>
-          <Image
+          <FastImage
+            resizeMode={FastImage.resizeMode.contain}
             style={styles.bottom_image}
             source={{ uri: ICONS.COMMON.START_BACKGROUND }}
           />
@@ -141,7 +143,8 @@ class Start extends React.Component {
             end={{ x: 0.0, y: 1.0 }}
             style={styles.grad}
           />
-          <Image
+          <FastImage
+            resizeMode={FastImage.resizeMode.contain}
             style={styles.top_image}
             // source={{ uri: ICONS.COMMON.START_TOP_BACKGROUND }}
             source={require('../../../assets/img/START_TOP_BACKGROUND.png')}

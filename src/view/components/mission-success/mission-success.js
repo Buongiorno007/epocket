@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, Image, StatusBar } from "react-native";
+import { View, Text, StatusBar } from "react-native";
+import FastImage from 'react-native-fast-image'
 import LinearGradient from "react-native-linear-gradient";
 import { Button } from "native-base";
 //constants
@@ -17,8 +18,8 @@ import { bindActionCreators } from "redux";
 class MissionSuccess extends React.Component {
 
   earnMore = () => {
-    NavigationService.navigate("EarnMore",{
-      insta_data : this.props.navigation.state.params.insta_data
+    NavigationService.navigate("EarnMore", {
+      insta_data: this.props.navigation.state.params.insta_data
     });
   };
 
@@ -46,9 +47,10 @@ class MissionSuccess extends React.Component {
           end={{ x: 1.0, y: 0.0 }}
           style={styles.grad}
         />
-        <Image
+        <FastImage
+          resizeMode={FastImage.resizeMode.contain}
           style={styles.image}
-          source={ require('../../../assets/img/START_TOP_BACKGROUND.png')}
+          source={require('../../../assets/img/START_TOP_BACKGROUND.png')}
         />
         <View style={styles.success}>
           <Text style={styles.congratulation}>{RU.MISSION.SUCCESS}</Text>

@@ -54,9 +54,9 @@ public class MainApplication extends Application implements ShareApplication, Re
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new FastImageViewPackage(),
-            new RNSharePackage(),
-            new WheelPickerPackage(),
+                    new FastImageViewPackage(),
+                    new RNSharePackage(),
+                    new WheelPickerPackage(),
                     new FabricPackage(),
                     new BackgroundGeolocationPackage(),
                     new RNFirebasePackage(),

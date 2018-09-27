@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, Image, StatusBar, Clipboard, AppState, Platform } from "react-native";
+import { View, Text, StatusBar, Clipboard, AppState, Platform } from "react-native";
+import FastImage from 'react-native-fast-image'
 import LinearGradient from "react-native-linear-gradient";
 import { Button, Toast } from "native-base";
 //constants
@@ -100,7 +101,7 @@ class EarnMore extends React.Component {
     );
     promise.then(
       result => {
-        console.log('result',result)
+        console.log('result', result)
         this.props.setBalance(result.body.media.status.balance)
         this.skip();
       },
@@ -159,11 +160,13 @@ class EarnMore extends React.Component {
           end={{ x: 1.0, y: 0.0 }}
           style={styles.grad}
         />
-        <Image
+        <FastImage
+          resizeMode={FastImage.resizeMode.contain}
           style={styles.image_background}
           source={require('../../../assets/img/EARN_MORE_BACK.png')}
         />
-        <Image
+        <FastImage
+          resizeMode={FastImage.resizeMode.contain}
           style={styles.image_template}
           source={{ uri: this.props.navigation.state.params.insta_data.img_watermark }}
         />

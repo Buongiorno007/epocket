@@ -2,7 +2,6 @@ import React from "react";
 import {
   View,
   StatusBar,
-  Image,
   Text,
   Keyboard,
   Alert,
@@ -10,6 +9,7 @@ import {
   Platform,
   KeyboardAvoidingView
 } from "react-native";
+import FastImage from 'react-native-fast-image'
 import { TextField } from "react-native-material-textfield";
 import LinearGradient from "react-native-linear-gradient";
 //containers
@@ -135,10 +135,10 @@ class SignIn extends React.Component {
       error => {
         let error_respons = handleError(error, this.constructor.name, "login");
         this.setState({ errorText: error_respons.error_text });
-        if(error_respons.error_code == 400){
+        if (error_respons.error_code == 400) {
           this.setState({ numberNotExists: true });
         }
-        else{
+        else {
           this.setFailedSignVisible(error_respons.error_modal);
         }
         this.props.loaderState(false);
@@ -219,7 +219,7 @@ class SignIn extends React.Component {
             translucent={true}
             backgroundColor={"transparent"}
           />
-          <Image
+          <FastImage
             style={styles.bottom_image}
             source={{ uri: ICONS.COMMON.SIGN_IN_BACKGROUND }}
           />

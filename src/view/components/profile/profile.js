@@ -2,9 +2,9 @@ import React from "react";
 import {
   View,
   Text,
-  AsyncStorage,
-  Image
+  AsyncStorage
 } from "react-native";
+import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
 //constants
 import styles from "./styles";
@@ -85,9 +85,10 @@ class Profile extends React.Component {
             rounded
             style={styles.settings_btn}
             onPress={() => { this.ToSettings() }}>
-            <Image style={styles.settings_img}
+            <FastImage style={styles.settings_img}
+              resizeMode={FastImage.resizeMode.contain}
               source={require('../../../assets/img/settings.png')} >
-            </Image>
+            </FastImage>
           </Button>
         </View>
         <View style={styles.info}>
@@ -105,19 +106,19 @@ class Profile extends React.Component {
             </View>
             {
               this.state.user.birthDay ?
-              <View style={styles.text_item}>
-                <Text style={styles.title}>{RU.PROFILE_PAGE.BIRTHDAY}</Text>
-                <Text style={styles.phone}>{this.state.user.birthDay}</Text>
-              </View>
-              : null
+                <View style={styles.text_item}>
+                  <Text style={styles.title}>{RU.PROFILE_PAGE.BIRTHDAY}</Text>
+                  <Text style={styles.phone}>{this.state.user.birthDay}</Text>
+                </View>
+                : null
             }
             {
               this.state.user.sex ?
-              <View style={styles.text_item}>
-                <Text style={styles.title}>{RU.PROFILE_PAGE.SEX}</Text>
-                <Text style={styles.phone}>{this.state.user.sex == 0 && RU.PROFILE_PAGE.FEMALE}{this.state.user.sex == 1 && RU.PROFILE_PAGE.MALE}</Text>
-              </View>
-              : null
+                <View style={styles.text_item}>
+                  <Text style={styles.title}>{RU.PROFILE_PAGE.SEX}</Text>
+                  <Text style={styles.phone}>{this.state.user.sex == 0 && RU.PROFILE_PAGE.FEMALE}{this.state.user.sex == 1 && RU.PROFILE_PAGE.MALE}</Text>
+                </View>
+                : null
             }
 
           </View>
