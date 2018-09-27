@@ -23,6 +23,7 @@ import { setInstaToken } from "../../../reducers/insta-token";
 import { setAppState } from "../../../reducers/app-state"
 import { setBalance } from "../../../reducers/user-balance";
 
+import CustomAlert from "../../containers/custom-alert/custom-alert";
 import CustomButton from "../../containers/custom-button/custom-button";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 
@@ -34,11 +35,16 @@ class EarnMore extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      appState: AppState.currentState
+      appState: AppState.currentState,
+      modalVisible: false,
+      userCount: 0
     };
   }
-
-
+  setModalVisible = visible => {
+    this.setState({
+      modalVisible: visible
+    });
+  };
   skip = () => {
     this.props.loaderState(false);
     NavigationService.navigate("Main");
@@ -57,8 +63,14 @@ class EarnMore extends React.Component {
     );
     promise.then(
       result => {
-        this.shareToInsta();
         this.props.loaderState(false);
+        if (result.status === 200) {
+          this.props.setInstaToken(String(instagram_token))
+          this.shareToInsta();
+        } else {
+          this.setModalVisible(true);
+          this.setState({ userCount: result.body.subsc_needed })
+        }
       },
       error => {
         this.props.loaderState(false);
@@ -71,21 +83,29 @@ class EarnMore extends React.Component {
     Toast.show({
       text: RU.MISSION.HASHTAGS_MESSAGE,
       buttonText: "",
-      duration: 3000
+      duration: 3000,
+      style: styles.toast,
+      onClose: () => {
+        let shareImageBase64 = {
+          title: formatItem(this.props.navigation.state.params.insta_data.hash_tag),
+          url: 'data:image/jpg;base64,' + this.props.navigation.state.params.insta_data.base64,
+        };
+        Platform.OS === 'ios' ? Share.open(shareImageBase64).then(
+          result => {
+            this.confirmPost()
+          },
+          error => {
+            Toast.show({
+              text: RU.MISSION.POST_NO_PUBLISH_MESSAGE,
+              buttonText: "",
+              duration: 3000
+            })
+          }
+        )
+        : Share.open(shareImageBase64);
+      }
     })
-    let shareImageBase64 = {
-      title: formatItem(this.props.navigation.state.params.insta_data.hash_tag),
-      url: 'data:image/jpg;base64,' + this.props.navigation.state.params.insta_data.base64,
-    };
-    setTimeout(() => {
-      Platform.OS === 'ios' ? Share.open(shareImageBase64).then(
-        result => {
-          this.confirmPost()
-        },
-        error => {
-        }
-      ) : Share.open(shareImageBase64);
-    }, 2000);
+
 
   }
 
@@ -101,12 +121,32 @@ class EarnMore extends React.Component {
     );
     promise.then(
       result => {
+<<<<<<< HEAD
+=======
         console.log('result', result)
+>>>>>>> denis
         this.props.setBalance(result.body.media.status.balance)
-        this.skip();
+        Toast.show({
+          text: RU.MISSION.POST_SUCCESS_MESSAGE,
+          buttonText: "",
+          duration: 3000,
+          style: styles.toast,
+          onClose: () => {
+            this.skip();
+          }
+        })
       },
       error => {
-        this.skip();
+        console.log('error', error)
+        Toast.show({
+          text: RU.MISSION.POST_ERROR_MESSAGE,
+          buttonText: "",
+          duration: 3000,
+          style: styles.toast,
+          onClose: () => {
+            this.skip();
+          }
+        })
       }
     );
   }
@@ -194,6 +234,18 @@ class EarnMore extends React.Component {
           </Button>
 
         </View>
+        <CustomAlert
+          title={RU.PROFILE_PAGE.NOT_ENOUGHT_SUB}
+          subtitle={this.state.userCount + RU.PROFILE_PAGE.SUBS}
+          first_btn_title={RU.OK}
+          visible={this.state.modalVisible}
+          first_btn_handler={() =>
+            this.setModalVisible(!this.state.modalVisible)
+          }
+          decline_btn_handler={() =>
+            this.setModalVisible(!this.state.modalVisible)
+          }
+        />
       </View>
     );
   };

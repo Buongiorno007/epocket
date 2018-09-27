@@ -58,11 +58,14 @@ class PhotoView extends React.Component {
       result => {
         console.log('result', result)
         this.setErrorPhotoVisible(false);
-        this.finishMission(result.body);
-        // NavigationService.navigate("MissionSuccess", {
-        //   price: this.props.selectedMission.price,
-        //   insta_data: result.body
-        // });
+        if (__DEV__) {
+          NavigationService.navigate("MissionSuccess", {
+            price: this.props.selectedMission.price,
+            insta_data: result.body
+          });
+        } else {
+          this.finishMission(result.body);
+        }
       },
       error => {
         let error_respons = handleError(error, this.constructor.name, "sendPhoto");

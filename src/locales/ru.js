@@ -88,7 +88,8 @@ export const RU = {
     SKIP : 'Пропустить',
     HASHTAGS_MESSAGE : 'Хэштеги скопированы в буфер обмена вставьте их в Вашу публикацию',
     POST_ERROR_MESSAGE : 'Ошибка! Нет возможности проверить публикацию',
-    POST_SUCCESS_MESSAGE : 'Ваш пост опубликован',
+    POST_SUCCESS_MESSAGE : 'Ваш пост успешно опубликован',
+    POST_NO_PUBLISH_MESSAGE : 'Ваш пост не был опубликован',
 
   },
   CASH: {

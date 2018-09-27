@@ -1,4 +1,4 @@
-import { Platform, AsyncStorage} from "react-native";
+import { Platform, AsyncStorage } from "react-native";
 
 import firebase from 'react-native-firebase';
 import { sendToTelegramm } from '../services/telegramm-notification'
@@ -22,7 +22,7 @@ sendFiredaseToken = (app_token, firebase_token) => {
 		JSON.stringify(body),
 		app_token
 	);
-	promise.then( result => { }, error => { } );
+	promise.then(result => { }, error => { });
 }
 
 
