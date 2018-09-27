@@ -87,10 +87,8 @@ class PhotoView extends React.Component {
       result => {
         this.setErrorMissionVisible(false);
         this.props.setBalance(result.body.balance);
-        AsyncStorage.setItem("balance", result.body.balance, () => {
-          NavigationService.navigate("MissionSuccess", {
-            price: this.props.selectedMission.price
-          });
+        NavigationService.navigate("MissionSuccess", {
+          price: this.props.selectedMission.price
         });
       },
       error => {

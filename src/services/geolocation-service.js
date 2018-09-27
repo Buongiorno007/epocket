@@ -81,7 +81,6 @@ class GeolocationService extends React.Component {
     promise.then(
       result => {
         if (body.status == 200) {
-          AsyncStorage.setItem("balance", result.balance);
           this.props.timerStatus(false);
           this.props.showDoneNotification(true);
           this.props.setBalance(result.balance);

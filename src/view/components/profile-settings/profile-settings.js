@@ -26,7 +26,7 @@ import { httpPost } from "../../../services/http";
 import { urls } from "../../../constants/urls";
 
 import { loaderState } from "../../../reducers/loader";
-import { setInstaToken } from "../../../reducers/insta_token";
+import { setInstaToken } from "../../../reducers/insta-token";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 
 class ProfileSettings extends React.Component {
@@ -244,7 +244,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   setBirthDay,
-  loaderState
+  loaderState,
+  setInstaToken
 }, dispatch);
 
 export default connect(

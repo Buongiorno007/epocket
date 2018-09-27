@@ -163,7 +163,6 @@ class SignUp extends React.Component {
           birthDay: result.body.birthDay
         });
         AsyncStorage.setItem("user_info", new_user);
-        AsyncStorage.setItem("balance", 0);
         this.props.setToken(result.body.token);
         this.props.setBalance(0);
         this.setState({ step: 3, acceptButton: false });

@@ -35,7 +35,7 @@ import {
   setLocation
 } from "../../../reducers/geolocation-coords";
 import { setToken } from "../../../reducers/token";
-import { setInstaToken } from "../../../reducers/insta_token";
+import { setInstaToken } from "../../../reducers/insta-token";
 //services
 import geo_config from "./geolocation-config";
 import NavigationService from "../../../services/route";

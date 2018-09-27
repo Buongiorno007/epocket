@@ -26,5 +26,6 @@ export const urls = {
     insta_outlet_template:      devserver+ '/instagram/api/outlet_template',
     insta_upload_photo:         devserver+ '/instagram/api/upload_photo',
     insta_is_logged:            devserver+ '/instagram/api/islogged',
+    insta_getmedia:            devserver+ '/instagram/api/getmedia',
     socket :                               'ws://epocket.dev.splinestudio.com/order/',
 }
