@@ -43,6 +43,7 @@ class ProfileSettings extends React.Component {
   LogOut = () => {
     AsyncStorage.setItem("user_info", "");
     AsyncStorage.setItem("balance", "");
+    AsyncStorage.setItem("token", "");
     AsyncStorage.setItem("insta_token", "");
     NavigationService.navigate("Start");
   };

@@ -51,6 +51,8 @@ target 'EpocketCash' do
 
   pod 'RNShare', :path => '../node_modules/react-native-share'
 
+  pod 'react-native-fast-image', :path => '../node_modules/react-native-fast-image'
+
 end
   post_install do |installer|
     installer.pods_project.targets.each do |target|
