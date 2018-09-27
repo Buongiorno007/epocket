@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text } from "react-native";
+import FastImage from 'react-native-fast-image'
 //constants
 import { RU } from "../../../locales/ru";
 import styles from "./styles";
@@ -9,7 +10,7 @@ class NoInternet extends React.Component {
     return (
       <View style={styles.no_internet}>
         <Text style={styles.purple_text}>{RU.NO_INTERNET}</Text>
-        <Image style={styles.no_internet_image} source={require(gif_url)} />
+        <FastImage resizeMode={FastImage.resizeMode.contain} style={styles.no_internet_image} source={require(gif_url)} />
       </View>
     );
   }

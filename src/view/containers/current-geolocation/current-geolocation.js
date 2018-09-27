@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Image } from "react-native";
+import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
 //constants
 import { ICONS } from "../../../constants/icons";
@@ -17,7 +18,8 @@ class CurrentGeolocation extends React.Component {
               this.props.onPress();
             }}
           >
-            <Image
+            <FastImage
+              resizeMode={FastImage.resizeMode.contain}
               style={styles.get_geolocation}
               source={{ uri: ICONS.COMMON.GET_CURR_GEOLOCATION }}
             />

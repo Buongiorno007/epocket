@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Image } from "react-native";
+import { View } from "react-native";
+import FastImage from 'react-native-fast-image'
 import { RNCamera } from "react-native-camera";
 import Refresh from "react-native-vector-icons/SimpleLineIcons";
 import Circle from "react-native-vector-icons/Entypo";
@@ -135,7 +136,8 @@ class PhotoCamera extends React.Component {
                 androidRippleColor={colors.card_shadow}
                 onPress={() => this.setState({ flash: !this.state.flash })}
               >
-                <Image
+                <FastImage
+                  resizeMode={FastImage.resizeMode.contain}
                   source={{ uri: ICONS.SCANNER.FLASH }}
                   style={styles.icon_flash}
                 />

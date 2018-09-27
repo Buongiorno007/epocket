@@ -1,7 +1,7 @@
 import React from "react";
-import { View, Text, Image,ImageBackground, ScrollView } from "react-native";
+import { View, Text, ImageBackground, ScrollView } from "react-native";
+import FastImage from 'react-native-fast-image'
 //containers
-
 import FooterNavigation from "../../containers/footer-navigator/footer-navigator";
 import TimerModal from "../../containers/timer-modal/timer-modal";
 //constants
@@ -30,11 +30,11 @@ class Info extends React.Component {
           <LinearGradient
             colors={["rgba(171,107,255,0.91)", "rgba(254,81,162,0.95)", "rgba(253,77,133,0.90)", "rgba(252,72,102,0.90)"]}
             start={{ x: 0.0, y: 1.0 }}
-            end={{ x: 0.5, y: 0.2 }} 
+            end={{ x: 0.5, y: 0.2 }}
             style={styles.gradient}
           >
             <View style={styles.logo_view}>
-              <Image style={styles.logo} source={{ uri: ICONS.WHITE_LOGO }} />
+              <FastImage resizeMode={FastImage.resizeMode.contain} style={styles.logo} source={{ uri: ICONS.WHITE_LOGO }} />
             </View>
             <Text style={styles.info_title}>
               {RU.INFO_PAGE.INFO_TITLE}
@@ -42,7 +42,7 @@ class Info extends React.Component {
           </LinearGradient>
 
         </ScrollView>
-        <TimerModal/>
+        <TimerModal />
         <FooterNavigation />
       </View>
     );

@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text,Image } from "react-native";
+import { View, Text } from "react-native";
+import FastImage from 'react-native-fast-image'
 //containers
 import CustomButton from "../../containers/custom-button/custom-button";
 import CustomAlert from "../../containers/custom-alert/custom-alert";
@@ -104,21 +105,22 @@ class ReturnToMall extends React.Component {
         {!this.state.time_out ? (
           <View style={[styles.close_view]}>
             <View style={styles.image_content}>
-            <Button
-              transparent
-              block
-              rounded
-              style={styles.close_container}
-              onPress={() => {
-                this.closeModal();
-              }}
-            >
-              <Image
-                style={styles.close}
-                source={{ uri: ICONS.COMMON.CLOSE }}
-              />
-            </Button>
-          </View>
+              <Button
+                transparent
+                block
+                rounded
+                style={styles.close_container}
+                onPress={() => {
+                  this.closeModal();
+                }}
+              >
+                <FastImage
+                  resizeMode={FastImage.resizeMode.contain}
+                  style={styles.close}
+                  source={{ uri: ICONS.COMMON.CLOSE }}
+                />
+              </Button>
+            </View>
             <Text style={[styles.top_title, styles.text_common]}>
               {RU.RETURN_TO_MALL.TITLE_TOP}
             </Text>
@@ -133,20 +135,20 @@ class ReturnToMall extends React.Component {
             </Text>
           </View>
         ) : (
-          <View style={[styles.close_view]}>
-            <Text>{RU.RETURN_TO_MALL.TIME_IS_UP}</Text>
+            <View style={[styles.close_view]}>
+              <Text>{RU.RETURN_TO_MALL.TIME_IS_UP}</Text>
 
-            <CustomButton
-              active
-              gradient
-              short
-              color={colors.white}
-              handler={() => {
-                this.closeModal();
-              }}
-            />
-          </View>
-        )}
+              <CustomButton
+                active
+                gradient
+                short
+                color={colors.white}
+                handler={() => {
+                  this.closeModal();
+                }}
+              />
+            </View>
+          )}
       </View>
     );
   }

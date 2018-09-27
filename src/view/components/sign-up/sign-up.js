@@ -10,6 +10,7 @@ import {
   Keyboard,
   Animated
 } from "react-native";
+import FastImage from 'react-native-fast-image'
 import { TextField } from "react-native-material-textfield";
 import LinearGradient from "react-native-linear-gradient";
 //containers
@@ -167,7 +168,7 @@ class SignUp extends React.Component {
         this.props.getPush(result.body.token)
       },
       error => {
-        console.log('error',error)
+        console.log('error', error)
         this.props.loaderState(false);
         let error_respons = handleError(error, this.constructor.name, "sendCode");
         this.setState({ errorText: error_respons.error_text });
@@ -240,7 +241,7 @@ class SignUp extends React.Component {
           translucent={true}
           backgroundColor={"transparent"}
         />
-        <Image
+        <FastImage
           style={styles.bottom_image}
           source={{ uri: ICONS.COMMON.SIGN_UP_BACKGROUND }}
         />

@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, Image, ScrollView } from "react-native";
+import { View, Text, ScrollView } from "react-native";
+import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
 import LinearGradient from "react-native-linear-gradient";
 //containers
@@ -35,7 +36,7 @@ class OpenedCard extends React.Component {
     };
     return (
       <GestureRecognizer
-        onSwipeDown={() => {this.props.setActiveCard(false)}}
+        onSwipeDown={() => { this.props.setActiveCard(false) }}
         config={config}
         style={[styles.container]}
       >
@@ -46,12 +47,12 @@ class OpenedCard extends React.Component {
             end={{ x: 0.0, y: 1.0 }}
             style={styles.grad}
           />
-          <Image
+          <FastImage
             style={[
               styles.bottom_image,
 
             ]}
-            source={{ uri: "data:image/jpeg;base64," +this.props.selectedMission.photo }}
+            source={{ uri: "data:image/jpeg;base64," + this.props.selectedMission.photo }}
           />
           <View style={styles.image_content}>
             {/* <View style={styles.amount}>
@@ -77,7 +78,8 @@ class OpenedCard extends React.Component {
                 this.props.setActiveCard(false);
               }}
             >
-              <Image
+              <FastImage
+                resizeMode={FastImage.resizeMode.contain}
                 style={styles.close}
                 source={{ uri: ICONS.COMMON.CLOSE_WHITE }}
               />

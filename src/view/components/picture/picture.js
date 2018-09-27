@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Image, StatusBar, BackHandler } from "react-native";
+import { View, StatusBar, BackHandler } from "react-native";
+import FastImage from 'react-native-fast-image'
 //containers
 import Navbar from "./../../containers/cashout-navbar/cashout-navbar";
 //constants
@@ -32,7 +33,8 @@ class Picture extends React.Component {
         />
         <Navbar />
         <View style={styles.block}>
-          <Image
+          <FastImage
+            resizeMode={FastImage.resizeMode.contain}
             source={{ uri: this.props.navigation.state.params.image }}
             style={styles.image}
           />

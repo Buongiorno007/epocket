@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Image, Platform, StatusBar } from "react-native";
+import { View, Platform, StatusBar } from "react-native";
+import FastImage from 'react-native-fast-image'
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import geolib from "geolib";
 //containers
@@ -247,7 +248,8 @@ class Map extends React.Component {
 
         {this.props.isLocation ? (
           <View style={styles.trc_info}>
-            <Image
+            <FastImage
+              resizeMode={FastImage.resizeMode.contain}
               style={styles.img_geo}
               source={{ uri: ICONS.COMMON.GEOLOCATION_ENABLED }}
             />

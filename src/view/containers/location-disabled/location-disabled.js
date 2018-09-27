@@ -2,11 +2,11 @@ import React from "react";
 import {
   View,
   Text,
-  Image,
   DeviceEventEmitter,
   BackHandler,
   Platform
 } from "react-native";
+import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
 import Permissions from "react-native-permissions";
 import LinearGradient from "react-native-linear-gradient";
@@ -65,14 +65,15 @@ class LocationDisabled extends React.Component {
           <View style={styles.circle_container}>
             <View style={styles.outer_circle} />
             <View style={styles.inner_circle} />
-            <Image
+            <FastImage
+              resizeMode={FastImage.resizeMode.contain}
               style={styles.location_icon}
               source={{ uri: ICONS.COMMON.GEOLOCATION_DISABLED }}
             />
             <Text style={styles.location_disable_text}>
               {RU.LOCATION_DISABLED}
             </Text>
-          </View>:null}
+          </View> : null}
         <View style={[styles.enable_location, styles.btnContainer]}>
           <Button
             transparent
@@ -98,7 +99,7 @@ class LocationDisabled extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  timer_status : state.timer_status
+  timer_status: state.timer_status
 });
 
 const mapDispatchToProps = dispatch =>

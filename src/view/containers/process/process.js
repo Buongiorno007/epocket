@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text } from "react-native";
+import FastImage from 'react-native-fast-image'
 import * as Animatable from "react-native-animatable";
 //constants
 import styles from "./styles";
@@ -15,7 +16,7 @@ class Process extends React.Component {
       >
         <View style={styles.container}>
           <Text style={styles.text}>{RU.QRCODE.PROCESS}</Text>
-          <Image source={require(git_url)} style={styles.image} />
+          <FastImage resizeMode={FastImage.resizeMode.contain} source={require(git_url)} style={styles.image} />
         </View>
       </Animatable.View>
     );

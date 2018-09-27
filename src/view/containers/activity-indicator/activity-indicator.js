@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text } from "react-native";
+import FastImage from 'react-native-fast-image'
 //constants
 import styles from "./styles";
 import { ICONS } from "../../../constants/icons";
@@ -12,7 +13,7 @@ class ActivityIndicator extends React.Component {
     return (
       <View style={styles.container}>
         <Blur />
-        <Image source={require(gif_url)} style={styles.loader_image} />
+        <FastImage resizeMode={FastImage.resizeMode.contain} source={require(gif_url)} style={styles.loader_image} />
       </View>
     );
   }

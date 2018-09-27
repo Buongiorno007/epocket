@@ -3,12 +3,12 @@ import {
   Platform,
   StyleSheet,
   Text,
-  Image,
   View,
   Modal,
   findNodeHandle,
   Picker
 } from "react-native";
+import FastImage from 'react-native-fast-image'
 import { LinearTextGradient } from "react-native-text-gradient";
 import { Button } from "native-base";
 //redux
@@ -107,7 +107,8 @@ class CustomAlert extends Component {
                 style={styles.cross_button}
                 onPress={() => this.props.decline_btn_handler()}
               >
-                <Image
+                <FastImage
+                  resizeMode={FastImage.resizeMode.contain}
                   style={styles.cross}
                   source={{ uri: ICONS.COMMON.CLOSE }}
                 />

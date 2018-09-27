@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, Platform, Text,ImageBackground } from "react-native";
+import { View, Platform, Text,ImageBackground } from "react-native";
 import MapView, { Marker, Circle } from "react-native-maps";
 //constants
 import styles from "./styles";

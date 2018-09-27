@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.ReactApplication;
+import com.dylanvann.fastimage.FastImageViewPackage;
 import cl.json.RNSharePackage;
 import com.wheelpicker.WheelPickerPackage;
 import com.smixx.fabric.FabricPackage;
@@ -53,8 +54,9 @@ public class MainApplication extends Application implements ShareApplication, Re
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new RNSharePackage(),
-            new WheelPickerPackage(),
+                    new FastImageViewPackage(),
+                    new RNSharePackage(),
+                    new WheelPickerPackage(),
                     new FabricPackage(),
                     new BackgroundGeolocationPackage(),
                     new RNFirebasePackage(),
