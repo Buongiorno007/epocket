@@ -5,7 +5,6 @@ import {
   Image,
   Text,
   Keyboard,
-  AsyncStorage,
   Alert,
   Animated,
   Platform,
@@ -25,6 +24,7 @@ import { setBalance } from "../../../reducers/user-balance";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { getPush } from "../../../reducers/push";
+import { saveUser } from "../../../reducers/profile-state";
 //services
 import NavigationService from "../../../services/route";
 import { httpPost } from "../../../services/http";
@@ -160,16 +160,15 @@ class SignIn extends React.Component {
         console.log('result', result)
         this.setFailedConfirmVisible(false);
         this.props.loaderState(false);
-        const user_info = JSON.stringify({
-          token: result.body.token,
+        const user_info = {
           name: result.body.user,
           phone: this.state.phone,
           photo: result.body.photo,
           sex: result.body.sex ? 1 : 0,
           birthDay: result.body.birthDay
-        });
+        };
         this.props.getPush(result.body.token)
-        AsyncStorage.setItem("user_info", user_info);
+        this.props.saveUser(user_info);
         this.props.setToken(result.body.token);
         this.props.setBalance(result.body.balance);
         NavigationService.navigate("Main");
@@ -317,7 +316,8 @@ const mapDispatchToProps = dispatch =>
       setToken,
       setBalance,
       loaderState,
-      getPush
+      getPush,
+      saveUser
     },
     dispatch
   );

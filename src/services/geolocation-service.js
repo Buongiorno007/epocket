@@ -1,5 +1,5 @@
 import React from "react";
-import { AsyncStorage, Platform, AppState } from "react-native";
+import { Platform, AppState } from "react-native";
 import geolib from "geolib";
 import BackgroundFetch from "react-native-background-fetch";
 import BackgroundTimer from 'react-native-background-timer';

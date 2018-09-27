@@ -1,11 +1,11 @@
+import { AsyncStorage } from "react-native";
 export const PROFILE_STATE = 'profile-state/PROFILE_STATE';
 let defaultProfile = {
   name: "",
   phone: "",
   photo: "",
-  sex : null,
-  birthDay : "",
-  token : null,
+  sex: null,
+  birthDay: ""
 };
 export default (state = defaultProfile, action) => {
   switch (action.type) {
@@ -16,6 +16,7 @@ export default (state = defaultProfile, action) => {
   }
 };
 export const saveUser = user => {
+  AsyncStorage.setItem("user_info", JSON.stringify(user));
   return {
     type: PROFILE_STATE,
     user
