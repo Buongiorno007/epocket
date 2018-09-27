@@ -35,26 +35,27 @@ class ProfileSettings extends React.Component {
   }
   state = {
     modalVisible: false,
-    instConnected: false,
-    userCount:0
+    userCount: 0
   };
   componentDidMount() { }
 
   LogOut = () => {
-    AsyncStorage.setItem("user_info", "");
-    AsyncStorage.setItem("balance", "");
-    AsyncStorage.setItem("token", "");
-    AsyncStorage.setItem("insta_token", "");
-    NavigationService.navigate("Start");
+    AsyncStorage.multiSet([["user_info", ""], ["balance", ""], ["token", ""], ["insta_token", ""]], () => {
+      NavigationService.navigate("Start");
+    });
   };
+
+
   ToProfile = () => {
     NavigationService.navigate("Main");
   }
+
+
   disConnectInsta = () => {
     this.props.loaderState(true);
     this.props.setInstaToken("")
     let body = JSON.stringify({
-      instagram_token : this.props.insta_token
+      instagram_token: this.props.insta_token
     });
     let promise = httpPost(
       urls.insta_logout,
@@ -64,7 +65,6 @@ class ProfileSettings extends React.Component {
     promise.then(
       result => {
         this.props.loaderState(false);
-        console.log('insta result', result)
       },
       error => {
         this.props.loaderState(false);
@@ -75,7 +75,6 @@ class ProfileSettings extends React.Component {
 
   connectInsta = (instagram_token) => {
     this.props.loaderState(true);
-    this.props.setInstaToken(String(instagram_token))
     let body = JSON.stringify({
       instagram_token
     });
@@ -87,14 +86,11 @@ class ProfileSettings extends React.Component {
     promise.then(
       result => {
         this.props.loaderState(false);
-        console.log('insta result', result)
-        if(result.status==200){
-          this.setState({ instConnected: true })
-        }
-        else{
-          this.setState({ instConnected: false })
-          this.setModalVisible(true), 
-          this.setState({userCount:result.body.subsc_needed})
+        if (result.status === 200) {
+          this.props.setInstaToken(String(instagram_token))
+        } else {
+          this.setModalVisible(true);
+          this.setState({ userCount: result.body.subsc_needed })
         }
       },
       error => {
@@ -133,7 +129,7 @@ class ProfileSettings extends React.Component {
           clientId='c390ce3e630b4429bbe1fa33315cb888'
           scopes={['basic', 'public_content', 'likes', 'follower_list', 'comments', 'relationships']}
           onLoginSuccess={(token) => this.connectInsta(token)}
-          onLoginFailure={(data) => {console.log(data)}}
+          onLoginFailure={(data) => { console.log(data) }}
         />
         <View style={styles.header}>
           <Text style={[styles.header_text, styles.image_block_text_big]}>{RU.PROFILE_SETTINGS.SETTINGS}</Text>
@@ -220,7 +216,7 @@ class ProfileSettings extends React.Component {
         </View>
         <CustomAlert
           title={RU.PROFILE_PAGE.NOT_ENOUGHT_SUB}
-          subtitle={this.state.userCount+RU.PROFILE_PAGE.SUBS}
+          subtitle={this.state.userCount + RU.PROFILE_PAGE.SUBS}
           first_btn_title={RU.OK}
           visible={this.state.modalVisible}
           first_btn_handler={() =>

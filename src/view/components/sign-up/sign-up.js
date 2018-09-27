@@ -138,7 +138,6 @@ class SignUp extends React.Component {
   }
 
 
-
   sendCode() {
     Keyboard.dismiss();
     this.setFailedConfirmVisible(false);
@@ -168,6 +167,7 @@ class SignUp extends React.Component {
         this.props.getPush(result.body.token)
       },
       error => {
+        console.log('error',error)
         this.props.loaderState(false);
         let error_respons = handleError(error, this.constructor.name, "sendCode");
         this.setState({ errorText: error_respons.error_text });
