@@ -58,8 +58,8 @@ class CustomPhoto extends Component {
             />
           ) : (
               <FastImage
-                resizeMode={FastImage.resizeMode.contain}
                 style={styles.icon}
+                resizeMode={FastImage.resizeMode.contain}
                 source={require('../../../assets/img/UNSET_PROILE.png')}
               />
             )}
