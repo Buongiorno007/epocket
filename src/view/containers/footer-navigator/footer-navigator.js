@@ -163,8 +163,8 @@ class FooterNavigation extends React.Component {
               }
               source={
                 this.props.activeTab === 4
-                  ? { uri: ICONS.FOOTER_TABS.INFO_ACTIVE }
-                  : { uri: ICONS.FOOTER_TABS.INFO }
+                  ? { uri: ICONS.FOOTER_TABS.GAME_ACTIVE }
+                  : { uri: ICONS.FOOTER_TABS.GAME }
               }
             />
             {this.props.activeTab === 4 ? (

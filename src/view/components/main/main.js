@@ -31,6 +31,19 @@ class Main extends React.Component {
       return true;
     });
   }
+  renderSecondTab = () => {
+    let container;
+    if (this.props.dashboard) {
+      container = <Dashboard />
+    }
+    else if (this.props.info) {
+      container = <Info />
+    }
+    else {
+      container = <Map />
+    }
+    return container
+  }
   render() {
     return (
       <View style={styles.main_view}>
@@ -42,7 +55,7 @@ class Main extends React.Component {
         <View style={styles.content}>
           {this.props.activeTab == 0 ? <Profile /> : null}
           {this.props.activeTab == 1 ? <Cashout /> : null}
-          {this.props.activeTab == 2 ? (this.props.dashboard ? (<Dashboard />) : this.props.info ? (<Info />) : (<Map />)) : null}
+          {this.props.activeTab == 2 ? this.renderSecondTab() : null}
           {this.props.activeTab == 3 ? <History /> : null}
           {this.props.activeTab == 4 ? <Info /> : null}
         </View>
