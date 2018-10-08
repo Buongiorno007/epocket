@@ -6,6 +6,7 @@ import Profile from "./../profile/profile";
 import Cashout from "./../cashout/cashout";
 import History from "./../history/history";
 import Info from "./../info/info";
+import Game from "./../game/game";
 import Dashboard from "../dashboard/dashboard";
 //containers
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
@@ -57,7 +58,7 @@ class Main extends React.Component {
           {this.props.activeTab == 1 ? <Cashout /> : null}
           {this.props.activeTab == 2 ? this.renderSecondTab() : null}
           {this.props.activeTab == 3 ? <History /> : null}
-          {this.props.activeTab == 4 ? <Info /> : null}
+          {this.props.activeTab == 4 ? <Game /> : null}
         </View>
         {!this.props.isConnected && <NoInternet />}
         {!this.props.dashboard && this.props.timer_status && <ReturnToMall />}

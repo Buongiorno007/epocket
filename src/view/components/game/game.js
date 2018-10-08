@@ -13,11 +13,6 @@ import { ICONS } from '../../../constants/icons';
 //containers
 import CustomButton from '../../containers/custom-button/custom-button';
 import FooterNavigation from '../../containers/footer-navigator/footer-navigator';
-import Balance from './../../containers/cashout-balance/cashout-balance';
-import HistoryNavButton from './../../containers/history-nav-button/history-nav-button';
-import HistoryList from './../../containers/history-list/history-list';
-import ActivityIndicator from '../../containers/activity-indicator/activity-indicator';
-import TimerModal from '../../containers/timer-modal/timer-modal';
 
 class Game extends React.Component {
 	constructor(props) {
@@ -46,10 +41,10 @@ class Game extends React.Component {
 	}
 
 	changePrassed(i) {
-        let cat_copy = this.state.categories;
-        cat_copy[i].pressed = !cat_copy[i].pressed;
+		let cat_copy = this.state.categories;
+		cat_copy[i].pressed = !cat_copy[i].pressed;
 		this.setState({
-			categories : cat_copy
+			categories: cat_copy
 		});
 	}
 
@@ -64,7 +59,7 @@ class Game extends React.Component {
 								style={[
 									category.pressed == true ? styles.pressed_button : styles.item
 								]}
-								onPress={() => {this.changePrassed(index)}}
+								onPress={() => { this.changePrassed(index) }}
 							>
 							</TouchableOpacity>
 						);
@@ -75,7 +70,7 @@ class Game extends React.Component {
 						active
 						short
 						gradient
-						title={RU.CONFIRM.toUpperCase()}
+						title={RU.GAME.CONFIRM.toUpperCase()}
 						color={colors.white}
 						handler={() => this.ToEdit()}
 					/>
@@ -88,8 +83,6 @@ class Game extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		receivedBonusesJSX: state.receivedBonusesJSX,
-		spentBonusesJSX: state.spentBonusesJSX
 	};
 };
 

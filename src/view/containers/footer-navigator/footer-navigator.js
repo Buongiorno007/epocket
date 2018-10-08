@@ -168,7 +168,7 @@ class FooterNavigation extends React.Component {
               }
             />
             {this.props.activeTab === 4 ? (
-              <Label style={styles.footer_tab_text}> {RU.INFO} </Label>
+              <Label style={styles.footer_tab_text}> {RU.GAME.GAME_TITLE} </Label>
             ) : null}
           </Button>
         </View>
