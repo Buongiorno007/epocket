@@ -49,22 +49,20 @@ export default StyleSheet.create({
 	container: {
 		flexDirection: 'row',
 		flexWrap: 'wrap',
-		width: width - 70,
+		width: width*0.85,
 		marginTop: 35
 	},
 	item: {
-		width: (width - 70-8) / 4,
-		height: (width - 70-8) / 4,
+		width: (width * 0.85) / 3,
+		height: (width *0.85) / 3,
 		borderWidth: 1,
-    opacity: 1,
     borderColor: '#000'
 	},
 	pressed_button: {
-		width: (width - 70-8) / 4,
-		height: (width - 70-8) / 4,
+		width: (width * 0.85) / 3,
+		height: (width *0.85) / 3,
 		borderWidth: 2,
 		borderColor: '#F63272',
 		backgroundColor: '#F65F87',
-		opacity: 0.1
   },
 });

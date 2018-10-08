@@ -27,14 +27,7 @@ class Game extends React.Component {
 				{ name: 6, pressed: false },
 				{ name: 7, pressed: false },
 				{ name: 8, pressed: false },
-				{ name: 9, pressed: false },
-				{ name: 10, pressed: false },
-				{ name: 11, pressed: false },
-				{ name: 12, pressed: false },
-				{ name: 13, pressed: false },
-				{ name: 14, pressed: false },
-				{ name: 15, pressed: false },
-				{ name: 16, pressed: false }
+				{ name: 9, pressed: false }
 			],
 			pr: false
 		};
@@ -56,12 +49,11 @@ class Game extends React.Component {
 						return (
 							<TouchableOpacity
 								key={index}
-								style={[
-									category.pressed == true ? styles.pressed_button : styles.item
-								]}
-								onPress={() => { this.changePrassed(index) }}
-							>
-							</TouchableOpacity>
+								style={[ category.pressed == true ? styles.pressed_button : styles.item ]}
+								onPress={() => {
+									this.changePrassed(index);
+								}}
+							/>
 						);
 					})}
 				</View>
