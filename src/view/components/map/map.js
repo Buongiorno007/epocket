@@ -1,8 +1,10 @@
 import React from "react";
 import { View, Platform, StatusBar } from "react-native";
 import FastImage from 'react-native-fast-image'
+import { Button } from "native-base";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import geolib from "geolib";
+import LinearGradient from "react-native-linear-gradient";
 //containers
 import TrcInformation from "../../containers/trc-information/trc-information";
 import UserMarker from "../../containers/user-marker/user-marker";
@@ -18,6 +20,7 @@ import styles from "./styles";
 import { ICONS } from "../../../constants/icons";
 import { urls } from "../../../constants/urls";
 import { RU } from "./../../../locales/ru";
+import { colors } from "./../../../constants/colors";
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -27,6 +30,7 @@ import { updateMall } from "../../../reducers/selected-mall";
 import { showDashboard } from "../../../reducers/show-dashboard";
 import { loaderState } from "../../../reducers/loader";
 import { setOutlets } from "../../../reducers/outlet-list";
+import { setInfo } from "../../../reducers/info"
 //services
 import { httpPost } from "../../../services/http";
 import { handleError } from "../../../services/http-error-handler";
@@ -248,11 +252,19 @@ class Map extends React.Component {
 
         {this.props.isLocation ? (
           <View style={styles.trc_info}>
-            <FastImage
-              resizeMode={FastImage.resizeMode.contain}
-              style={styles.img_geo}
-              source={{ uri: ICONS.COMMON.GEOLOCATION_ENABLED }}
-            />
+            <Button style={styles.img_geo_btn} onPress={() => this.props.setInfo(true)}>
+              <LinearGradient
+                colors={[colors.light_orange, colors.pink]}
+                start={{ x: 0.1, y: 0.1 }}
+                end={{ x: 1.0, y: 1.0 }}
+                style={styles.img_geo_gradient}>
+                <FastImage
+                  resizeMode={FastImage.resizeMode.contain}
+                  style={styles.img_geo}
+                  source={{ uri: ICONS.FOOTER_TABS.INFO }}
+                />
+              </LinearGradient>
+            </Button>
             {this.props.selectedMall.active ? (
               <TrcInformation
                 info={this.props.selectedMall}
@@ -260,7 +272,8 @@ class Map extends React.Component {
               />
             ) : null}
           </View>
-        ) : null}
+        ) : null
+        }
 
         <MapView
           style={styles.map_view}
@@ -292,19 +305,21 @@ class Map extends React.Component {
             />
           ))}
         </MapView>
-        {!this.props.isLocation ? (
-          <LocationDisabled />
-        ) : (
-            this.props.isConnected && (
-              <CurrentGeolocation
-                onPress={() => {
-                  this.getCurrentGeolocation();
-                }}
-              />
+        {
+          !this.props.isLocation ? (
+            <LocationDisabled />
+          ) : (
+              this.props.isConnected && (
+                <CurrentGeolocation
+                  onPress={() => {
+                    this.getCurrentGeolocation();
+                  }}
+                />
+              )
             )
-          )}
+        }
         <FooterNavigation />
-      </View>
+      </View >
     );
   }
 }
@@ -333,6 +348,7 @@ const mapDispatchToProps = dispatch =>
       setDistance,
       loaderState,
       setOutlets,
+      setInfo
     },
     dispatch
   );

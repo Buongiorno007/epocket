@@ -12,22 +12,31 @@ export default StyleSheet.create({
     width: width,
     backgroundColor: colors.pink
   },
-  back_view : {
+  back_view: {
     height: height,
     width: width,
-    position : 'absolute',
+    position: 'absolute',
     backgroundColor: colors.pink
   },
-  back_img : {
-    position : 'absolute',
+  back_img: {
+    position: 'absolute',
     height: height,
     width: width,
   },
-
   logo_view: {
     alignItems: "center",
     justifyContent: "flex-end",
     marginBottom: 50,
+  },
+  cross_view: {
+    alignItems: "center",
+    width: width * 0.85,
+    height: 40,
+    justifyContent: "flex-end",
+  },
+  cross: {
+    width: 20,
+    height: 20,
   },
   logo: {
     width: 150,
@@ -42,24 +51,24 @@ export default StyleSheet.create({
   },
   gradient: {
     width: width,
-    paddingBottom : 280,
-    paddingTop : 260,
-    paddingLeft : 25,
-    paddingRight : 25,
+    paddingBottom: 280,
+    paddingTop: 260,
+    paddingLeft: 25,
+    paddingRight: 25,
   },
-  scroll : {
-    position : 'absolute',
-    top : 0,
-    bottom : 0,
-    height: height+400,
+  scroll: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    height: height + 400,
     width: width,
-    marginTop : -200,
+    marginTop: -200,
 
   },
-  info_title : {
-    color : '#fff',
-    fontSize : 14,
-    fontFamily : 'Rubik-Regular',
-    lineHeight : 20,
+  info_title: {
+    color: '#fff',
+    fontSize: 14,
+    fontFamily: 'Rubik-Regular',
+    lineHeight: 20,
   }
 });

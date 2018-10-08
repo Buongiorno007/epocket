@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, ImageBackground, ScrollView } from "react-native";
 import FastImage from 'react-native-fast-image'
+import { Button } from "native-base";
 //containers
 import FooterNavigation from "../../containers/footer-navigator/footer-navigator";
 import TimerModal from "../../containers/timer-modal/timer-modal";
@@ -9,6 +10,10 @@ import styles from "./styles";
 import { ICONS } from "../../../constants/icons";
 import { RU } from "../../../locales/ru";
 import { colors } from "../../../constants/colors";
+//redux
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { setInfo } from "../../../reducers/info"
 
 
 import LinearGradient from "react-native-linear-gradient";
@@ -33,6 +38,9 @@ class Info extends React.Component {
             end={{ x: 0.5, y: 0.2 }}
             style={styles.gradient}
           >
+            <Button transparent rounded style={styles.cross_view} onPress={() => this.props.setInfo(false)}>
+              <FastImage resizeMode={FastImage.resizeMode.contain} style={styles.cross} source={{ uri: ICONS.COMMON.CLOSE_WHITE }} />
+            </Button>
             <View style={styles.logo_view}>
               <FastImage resizeMode={FastImage.resizeMode.contain} style={styles.logo} source={{ uri: ICONS.WHITE_LOGO }} />
             </View>
@@ -49,4 +57,20 @@ class Info extends React.Component {
   }
 }
 
-export default Info;
+const mapStateToProps = state => {
+  return {};
+};
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      setInfo
+    },
+    dispatch
+  );
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Info);
+
