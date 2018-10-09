@@ -29,7 +29,8 @@ class Game extends React.Component {
 				{ name: 8, pressed: false },
 				{ name: 9, pressed: false }
 			],
-			pr: false
+			pr: false,
+			time: "00:00"
 		};
 	}
 
@@ -44,18 +45,28 @@ class Game extends React.Component {
 	render() {
 		return (
 			<View style={styles.main_view}>
+				<View style={styles.game_title}>
+					<Text style={styles.game_cost_text}>{this.props.game_info.cost} {RU.EPC}</Text>
+					<Text style={styles.game_title_text}>{this.props.game_info.title}</Text>
+				</View>
+				<View style={styles.game_time}>
+					<Text style={styles.game_time}>{this.state.time}</Text>
+				</View>
 				<View style={styles.container}>
 					{this.state.categories.map((category, index) => {
 						return (
 							<TouchableOpacity
 								key={index}
-								style={[ category.pressed == true ? styles.pressed_button : styles.item ]}
+								style={[category.pressed == true ? styles.pressed_button : styles.item]}
 								onPress={() => {
 									this.changePrassed(index);
 								}}
 							/>
 						);
 					})}
+				</View>
+				<View style={styles.game_description}>
+					<Text style={styles.game_description_text}>{this.props.game_info.description}</Text>
 				</View>
 				<View style={styles.btn_container}>
 					<CustomButton
@@ -64,7 +75,7 @@ class Game extends React.Component {
 						gradient
 						title={RU.GAME.CONFIRM.toUpperCase()}
 						color={colors.white}
-						handler={() => this.ToEdit()}
+						handler={() => {}}
 					/>
 				</View>
 				<FooterNavigation />
@@ -75,6 +86,7 @@ class Game extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
+		game_info: state.game_info
 	};
 };
 

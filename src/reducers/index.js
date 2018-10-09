@@ -30,6 +30,7 @@ import sheduleRequestStart from "./set-shedule-request-start"
 import appState from "./app-state"
 import mainTaskId from "./main-task-id"
 import info from "./info"
+import game_info from "./game-info"
 
 export default combineReducers({
   isConnected,
@@ -62,5 +63,6 @@ export default combineReducers({
   sheduleRequestStart,
   appState,
   mainTaskId,
-  info
+  info,
+  game_info
 });

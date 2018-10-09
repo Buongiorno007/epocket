@@ -49,20 +49,62 @@ export default StyleSheet.create({
 	container: {
 		flexDirection: 'row',
 		flexWrap: 'wrap',
-		width: width*0.85,
+		width: width * 0.85,
 		marginTop: 35
 	},
 	item: {
 		width: (width * 0.85) / 3,
-		height: (width *0.85) / 3,
+		height: (width * 0.85) / 3,
 		borderWidth: 1,
-    borderColor: '#000'
+		borderColor: '#000'
+	},
+	game_description: {
+		width: width * 0.9,
+		alignItems: "center",
+		justifyContent: "center",
+		marginTop: 20
+	},
+	game_title: {
+		flexDirection: "row",
+		marginTop: 30    ,
+		width: width * 0.85
+	},
+	game_time: {
+		width: width * 0.85,
+		marginTop: 25,
+	},
+	game_time: {
+		textAlign: "right",
+		width: width * 0.85,
+		color: colors.black,
+		fontSize: 12,
+		fontFamily: 'Rubik-Regular'
+	},
+	game_cost_text: {
+		textAlign: "left",
+		width: (width * 0.85) / 3,
+		color: colors.black,
+		fontSize: 15,
+		fontFamily: 'Rubik-Regular'
+	},
+	game_title_text: {
+		textAlign: "center",
+		width: (width * 0.85) / 3,
+		color: colors.black,
+		fontSize: 15,
+		fontFamily: 'Rubik-Bold'
+	},
+	game_description_text: {
+		textAlign: "center",
+		color: colors.black41,
+		fontSize: 13,
+		fontFamily: 'Rubik-Regular'
 	},
 	pressed_button: {
 		width: (width * 0.85) / 3,
-		height: (width *0.85) / 3,
+		height: (width * 0.85) / 3,
 		borderWidth: 2,
 		borderColor: '#F63272',
 		backgroundColor: '#F65F87',
-  },
+	},
 });
