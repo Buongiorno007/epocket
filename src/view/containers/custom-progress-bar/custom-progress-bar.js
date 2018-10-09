@@ -52,7 +52,6 @@ class CustomProgressBar extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        tempTime: state.tempTime,
         fixedTime: state.fixedTime
     };
 };
