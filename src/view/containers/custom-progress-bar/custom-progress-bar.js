@@ -28,7 +28,7 @@ class CustomProgressBar extends Component {
     componentDidMount() {
         Animated.timing(this.state.width, {
             toValue: 0,
-            duration: this.props.tempTime * 1000,
+            duration: this.props.fixedTime * 1000,
         }).start();
     }
     render() {
@@ -52,7 +52,8 @@ class CustomProgressBar extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        tempTime: state.tempTime
+        tempTime: state.tempTime,
+        fixedTime: state.fixedTime
     };
 };
 

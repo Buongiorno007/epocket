@@ -32,6 +32,7 @@ import mainTaskId from "./main-task-id"
 import info from "./info"
 import game_info from "./game-info"
 import tempTime from "./tempTime"
+import fixedTime from "./fixedTime"
 
 export default combineReducers({
   isConnected,
@@ -66,5 +67,6 @@ export default combineReducers({
   mainTaskId,
   info,
   game_info,
-  tempTime
+  tempTime,
+  fixedTime
 });

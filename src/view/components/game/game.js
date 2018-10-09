@@ -53,12 +53,12 @@ class Game extends React.Component {
 			.join(':');
 	};
 	startTimer() {
-		while (this.props.tempTime > 1) {
-			setInterval(() => {
+		setInterval(() => {
+			if (this.props.tempTime > 0) {
+				console.log(this.props.tempTime)
 				this.props.setTempTime(this.props.tempTime - 1)
-			}, 1000);
-		}
-
+			}
+		}, 1000);
 	}
 	componentDidMount() {
 		this.startTimer()
