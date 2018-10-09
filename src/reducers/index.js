@@ -31,6 +31,7 @@ import appState from "./app-state"
 import mainTaskId from "./main-task-id"
 import info from "./info"
 import game_info from "./game-info"
+import tempTime from "./tempTime"
 
 export default combineReducers({
   isConnected,
@@ -64,5 +65,6 @@ export default combineReducers({
   appState,
   mainTaskId,
   info,
-  game_info
+  game_info,
+  tempTime
 });

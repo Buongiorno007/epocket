@@ -5,6 +5,7 @@ import { Button } from 'native-base';
 //redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { setTempTime } from "../../../reducers/tempTime"
 //constants
 import styles from './styles';
 import { colors } from './../../../constants/colors';
@@ -13,6 +14,7 @@ import { ICONS } from '../../../constants/icons';
 const { width, height } = Dimensions.get('window');
 //containers
 import CustomButton from '../../containers/custom-button/custom-button';
+import CustomProgressBar from '../../containers/custom-progress-bar/custom-progress-bar';
 import FooterNavigation from '../../containers/footer-navigator/footer-navigator';
 
 class Game extends React.Component {
@@ -30,15 +32,9 @@ class Game extends React.Component {
 				{ name: 8, pressed: false },
 				{ name: 9, pressed: false }
 			],
-			Progress_Value: 0.0,
-			time: 15,
-			tempTime: 15,
-			wid: width * 0.85,
-			tempWid: width * 0.85
-
+			Progress_Value: 0.0
 		};
 	}
-
 	changePrassed(i) {
 		let cat_copy = this.state.categories;
 		cat_copy[i].pressed = !cat_copy[i].pressed;
@@ -46,35 +42,6 @@ class Game extends React.Component {
 			categories: cat_copy
 		});
 	}
-
-	Start_Progress = () => {
-		this.value = setInterval(() => {
-			if (this.state.Progress_Value <= 1) {
-				this.setState({ Progress_Value: this.state.Progress_Value + 1 / this.state.time / 10 });
-			}
-		}, 100);
-	};
-	Stop_Progress = () => {
-		clearInterval(this.value);
-	};
-
-	Clear_Progress = () => {
-		this.setState({ Progress_Value: 0.0 });
-	};
-
-	timing() {
-		setInterval(() => {
-			if (this.state.wid > 0) {
-				this.setState({ wid: this.state.wid - this.state.tempWid / 15 });
-			}
-		}, 1000);
-		setInterval(() => {
-			if (this.state.wid > 0) {
-				this.setState({ tempTime: this.state.tempTime - 1 });
-			}
-		}, 1000);
-	}
-
 	toHHMMSS = (secs) => {
 		var sec_num = parseInt(secs, 10);
 		var hours = Math.floor(sec_num / 3600) % 24;
@@ -85,9 +52,16 @@ class Game extends React.Component {
 			.filter((v, i) => v !== '00' || i > 0)
 			.join(':');
 	};
+	startTimer() {
+		while (this.props.tempTime > 1) {
+			setInterval(() => {
+				this.props.setTempTime(this.props.tempTime - 1)
+			}, 1000);
+		}
 
+	}
 	componentDidMount() {
-		this.timing();
+		this.startTimer()
 	}
 
 	render() {
@@ -98,23 +72,9 @@ class Game extends React.Component {
 					<Text style={styles.game_title_text}>{this.props.game_info.title}</Text>
 				</View>
 				<View style={styles.game_time}>
-					<Text style={styles.game_time}>{this.state.time}</Text>
+					<Text style={styles.game_time_text}>{this.toHHMMSS(this.props.tempTime)}</Text>
 				</View>
-				<Text style={{ fontSize: 20, color: '#000', marginTop: 60 }}>
-					{' '}
-					Progress Value: {this.toHHMMSS(this.state.tempTime)} sec
-				</Text>
-				<View style={styles.gradient}>
-					{
-						<LinearGradient
-							colors={['rgba(138, 109, 247, 0.75)', 'rgba(245, 88, 144, 0.75)']}
-							start={{ x: 0.0, y: 1.0 }}
-							end={{ x: 1.0, y: 0.0 }}
-							style={[styles.gradientt, { width: this.state.wid }]}
-						/>
-					}
-				</View>
-
+				<CustomProgressBar />
 				<View style={styles.container}>
 					{this.state.categories.map((category, index) => {
 						return (
@@ -149,10 +109,13 @@ class Game extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		game_info: state.game_info
+		game_info: state.game_info,
+		tempTime: state.tempTime
 	};
 };
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+	setTempTime
+}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

@@ -73,7 +73,7 @@ export default StyleSheet.create({
 		width: width * 0.85,
 		marginTop: 25,
 	},
-	game_time: {
+	game_time_text: {
 		textAlign: "right",
 		width: width * 0.85,
 		color: colors.black,
@@ -110,19 +110,5 @@ export default StyleSheet.create({
 	TextStyle: {
 		color: '#fff',
 		textAlign: 'center'
-	},
-	gradient: {
-		marginTop: 50,
-		width: width * 0.85,
-		height: 10,
-		borderRadius: 5,
-		backgroundColor: '#ddd'
-	},
-	gradientt: {
-		width: width * 0.85,
-		height: 10,
-		position: "absolute",
-		right: 0,
-		borderRadius: 5
 	}
 });
