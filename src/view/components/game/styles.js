@@ -105,7 +105,7 @@ export default StyleSheet.create({
 		height: (width * 0.85) / 3,
 		borderWidth: 2,
 		borderColor: '#F63272',
-		backgroundColor: '#F65F87',
+		backgroundColor: 'rgba(246,95,135,0.1)'
 	},
 	TextStyle: {
 		color: '#fff',

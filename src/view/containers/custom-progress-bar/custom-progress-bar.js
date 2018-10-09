@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { View, Animated } from "react-native";
+import React, { Component, PureComponent } from "react";
+import { View, Animated, Easing } from "react-native";
 import FastImage from 'react-native-fast-image'
 import Icon from "react-native-vector-icons/dist/Entypo";
 import { Button } from "native-base";
@@ -21,13 +21,14 @@ const { width } = Dimensions.get("window");
   
   */
 }
-class CustomProgressBar extends Component {
+class CustomProgressBar extends React.Component {
     state = {
         width: new Animated.Value(width * 0.85),
     }
     componentDidMount() {
         Animated.timing(this.state.width, {
             toValue: 0,
+            easing: Easing.ease,
             duration: this.props.fixedTime * 1000,
         }).start();
     }
@@ -39,7 +40,7 @@ class CustomProgressBar extends Component {
                         width: this.state.width
                     }]}>
                         <LinearGradient
-                            colors={['rgba(138, 109, 247, 0.75)', 'rgba(245, 88, 144, 0.75)']}
+                            colors={[colors.pink, colors.light_orange]}
                             start={{ x: 0.0, y: 1.0 }}
                             end={{ x: 1.0, y: 0.0 }}
                             style={[styles.gradient_inner]}

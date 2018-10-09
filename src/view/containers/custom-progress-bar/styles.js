@@ -8,17 +8,17 @@ export default StyleSheet.create({
         marginTop: 15,
         width: width * 0.85,
         height: 10,
-        borderRadius: 5,
-        backgroundColor: '#ddd'
+        borderRadius: 12,
+        backgroundColor: '#ddd',
+        transform: [
+            { rotateZ: '-180deg' }
+        ]
     },
     gradient_inner: {
-        width: width * 0.85,
         height: 10,
-        borderRadius: 5
+        borderRadius: 12
     },
     gradient_container: {
-        borderRadius: 5,
-        position: "absolute",
-        right: 0,
+        borderRadius: 12,
     }
 });

@@ -32,7 +32,6 @@ class Game extends React.Component {
 				{ name: 8, pressed: false },
 				{ name: 9, pressed: false }
 			],
-			Progress_Value: 0.0
 		};
 	}
 	changePrassed(i) {
@@ -55,7 +54,6 @@ class Game extends React.Component {
 	startTimer() {
 		setInterval(() => {
 			if (this.props.tempTime > 0) {
-				console.log(this.props.tempTime)
 				this.props.setTempTime(this.props.tempTime - 1)
 			}
 		}, 1000);
