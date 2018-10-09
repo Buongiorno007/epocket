@@ -66,7 +66,7 @@ export default StyleSheet.create({
 	},
 	game_title: {
 		flexDirection: "row",
-		marginTop: 30    ,
+		marginTop: 30,
 		width: width * 0.85
 	},
 	game_time: {
@@ -107,4 +107,22 @@ export default StyleSheet.create({
 		borderColor: '#F63272',
 		backgroundColor: '#F65F87',
 	},
+	TextStyle: {
+		color: '#fff',
+		textAlign: 'center'
+	},
+	gradient: {
+		marginTop: 50,
+		width: width * 0.85,
+		height: 10,
+		borderRadius: 5,
+		backgroundColor: '#ddd'
+	},
+	gradientt: {
+		width: width * 0.85,
+		height: 10,
+		position: "absolute",
+		right: 0,
+		borderRadius: 5
+	}
 });
