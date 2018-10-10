@@ -104,7 +104,7 @@ class Game extends React.Component {
 		);
 	}
 }
-
+//
 const mapStateToProps = (state) => {
 	return {
 		game_info: state.game_info,
