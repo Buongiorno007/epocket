@@ -1,4 +1,4 @@
-export const SET_FIXED_TIME = 'fixedTime/SET_TEMP_TIME';
+export const SET_FIXED_TIME = 'fixedTime/SET_FIXED_TIME';
 const initialState = 30
 export default (state = initialState, action) => {
     switch (action.type) {
@@ -9,7 +9,9 @@ export default (state = initialState, action) => {
     }
 }
 
-export const setFixedTime = (time) => ({
-    type: SET_FIXED_TIME,
-    time
-})
+export const setFixedTime = (time) => {
+    return {
+        type: SET_FIXED_TIME,
+        time
+    }
+}

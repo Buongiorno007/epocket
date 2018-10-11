@@ -28,7 +28,6 @@ class CustomProgressBar extends React.Component {
     componentDidMount() {
         Animated.timing(this.state.width, {
             toValue: 0,
-            easing: Easing.ease,
             duration: this.props.fixedTime * 1000,
         }).start();
     }

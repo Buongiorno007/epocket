@@ -26,7 +26,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 //services
 import { httpPost } from "../../../services/http";
-import "./correcting-interval";
+import "../../../services/correcting-interval";
 import { orderBy } from 'lodash';
 import moment from "moment";
 import { handleError } from "../../../services/http-error-handler";

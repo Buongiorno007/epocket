@@ -9,8 +9,10 @@ export default (state = initialState, action) => {
     }
 }
 
-export const setTempTime = (time) => ({
-    type: SET_TEMP_TIME,
-    time
-})
+export const setTempTime = (time) => {
+    return {
+        type: SET_TEMP_TIME,
+        time
+    }
+}
 

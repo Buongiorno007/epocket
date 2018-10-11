@@ -6,6 +6,7 @@ import { Button } from 'native-base';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setTempTime } from "../../../reducers/tempTime"
+import { setFixedTime } from "../../../reducers/fixedTime"
 //constants
 import styles from './styles';
 import { colors } from './../../../constants/colors';
@@ -16,6 +17,8 @@ const { width, height } = Dimensions.get('window');
 import CustomButton from '../../containers/custom-button/custom-button';
 import CustomProgressBar from '../../containers/custom-progress-bar/custom-progress-bar';
 import FooterNavigation from '../../containers/footer-navigator/footer-navigator';
+//services
+import "../../../services/correcting-interval";
 
 class Game extends React.Component {
 	constructor(props) {
@@ -51,17 +54,19 @@ class Game extends React.Component {
 			.filter((v, i) => v !== '00' || i > 0)
 			.join(':');
 	};
-	startTimer() {
-		setInterval(() => {
-			if (this.props.tempTime > 0) {
-				this.props.setTempTime(this.props.tempTime - 1)
+	startTimer = () => {
+		let interval = setCorrectingInterval(() => {
+			if (this.props.tempTime < 2) {
+				clearCorrectingInterval(interval);
 			}
-		}, 1000);
+			this.props.setTempTime(this.props.tempTime - 1)
+		}, 1090);
 	}
-	componentDidMount() {
-		this.startTimer()
+	componentDidMount = () => {
+		if (this.props.tempTime > 2) {
+			this.startTimer()
+		}
 	}
-
 	render() {
 		return (
 			<View style={styles.main_view}>
@@ -108,12 +113,14 @@ class Game extends React.Component {
 const mapStateToProps = (state) => {
 	return {
 		game_info: state.game_info,
-		tempTime: state.tempTime
+		tempTime: state.tempTime,
+		fixedTime: state.fixedTime,
 	};
 };
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-	setTempTime
+	setTempTime,
+	setFixedTime
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
