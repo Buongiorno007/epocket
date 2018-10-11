@@ -15,6 +15,7 @@ import CustomProgressBar from '../../containers/custom-progress-bar/custom-progr
 import FooterNavigation from '../../containers/footer-navigator/footer-navigator';
 //services
 import "../../../services/correcting-interval";
+import NavigationService from "./../../../services/route";
 
 class Game extends React.Component {
 	constructor(props) {
@@ -97,7 +98,12 @@ class Game extends React.Component {
 						gradient
 						title={RU.GAME.CONFIRM.toUpperCase()}
 						color={colors.white}
-						handler={() => { }}
+						handler={() => {
+							NavigationService.navigate("MissionSuccess", {
+								price: this.props.game_info.cost,
+								insta_data: {}
+							});
+						}}
 					/>
 				</View>
 				<FooterNavigation />
