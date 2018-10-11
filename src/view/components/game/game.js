@@ -9,8 +9,6 @@ import { setFixedTime } from "../../../reducers/fixedTime"
 import styles from './styles';
 import { colors } from './../../../constants/colors';
 import { RU } from '../../../locales/ru';
-import { ICONS } from '../../../constants/icons';
-const { width, height } = Dimensions.get('window');
 //containers
 import CustomButton from '../../containers/custom-button/custom-button';
 import CustomProgressBar from '../../containers/custom-progress-bar/custom-progress-bar';
@@ -81,7 +79,7 @@ class Game extends React.Component {
 						return (
 							<TouchableOpacity
 								key={index}
-								style={[category.pressed == true ? styles.pressed_button : index >= 6 ? styles.item_last_line : styles.item]}
+								style={[category.pressed == true ? index >= 6 ? styles.pressed_button_last_line : styles.pressed_button : index >= 6 ? styles.item_last_line : styles.item]}
 								onPress={() => {
 									this.changePrassed(index);
 								}}

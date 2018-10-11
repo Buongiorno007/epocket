@@ -1,20 +1,55 @@
 export const GAME_INFO = 'game-info/GAME_INFO';
+import { httpPost } from "../services/http";
+import { setFixedTime } from "./fixedTime";
+import { setTempTime } from "./tempTime";
+
 const initialState = {
-    description: "Test description from initialState. Loooooooooooooooooooooong one.",
-    cost:"2",
-    title:"LACOSTE"
+    description: "",
+    cost: "",
+    title: "",
+    time: 0
 }
 export default (state = initialState, action) => {
     switch (action.type) {
         case GAME_INFO:
-            return action.payload;
+            return action.info;
         default:
             return state;
     }
 }
-export const getGameInfo = () => ({
-    type: GAME_INFO, payload
-})
+export const getGameInfo = () => async dispatch => {
+    // let body = {
+    //     missionId: this.props.selectedMission.id,
+    //     qrCode: qrcode.data
+    //   };
+    //   let promise = httpPost(
+    //     urls.send_qr_code,
+    //     JSON.stringify(body),
+    //     this.props.token
+    //   );
+    //   promise.then(
+    //     result => {
+    //     },
+    //     error => {
+    //       this.props.loaderState(false);
+    //       this.props.setShowQR(true)
+    //       let error_respons = handleError(error, this.constructor.name, "sendQRCode");
+    //       this.setState({ errorText: error_respons.error_text });
+    //       this.setModalVisible(error_respons.error_modal);
+    //     }
+    //   );
+    let info = {
+        description: "Test description from initialState. Loooooooooooooooooooooong one.",
+        cost: "2",
+        title: "LACOSTE",
+        time: 60
+    }
+    dispatch(setFixedTime(info.time))
+    dispatch(setTempTime(info.time))
+    return {
+        type: GAME_INFO, info
+    }
+}
 export const setGameInfo = () => ({
     type: GAME_INFO, payload
 })

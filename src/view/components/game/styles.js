@@ -58,6 +58,7 @@ export default StyleSheet.create({
 		marginTop: -1,
 		marginRight: -1,
 		borderWidth: 1,
+		zIndex: 9,
 		borderColor: '#000'
 	},
 	item_last_line: {
@@ -67,6 +68,7 @@ export default StyleSheet.create({
 		marginTop: Platform.OS === "ios" ? -2 : -1,
 		marginRight: -1,
 		borderWidth: 1,
+		zIndex: 9,
 		borderColor: '#000'
 	},
 	game_description: {
@@ -114,6 +116,21 @@ export default StyleSheet.create({
 		width: (width * 0.85) / 3,
 		height: (width * 0.85) / 3,
 		borderWidth: 2,
+		padding: 0,
+		marginTop: -1,
+		marginRight: -1,
+		zIndex: 10,
+		borderColor: '#F63272',
+		backgroundColor: 'rgba(246,95,135,0.1)'
+	},
+	pressed_button_last_line: {
+		width: (width * 0.85) / 3,
+		height: (width * 0.85) / 3,
+		borderWidth: 2,
+		padding: 0,
+		zIndex: 10,
+		marginTop: Platform.OS === "ios" ? -2 : -1,
+		marginRight: -1,
 		borderColor: '#F63272',
 		backgroundColor: 'rgba(246,95,135,0.1)'
 	},

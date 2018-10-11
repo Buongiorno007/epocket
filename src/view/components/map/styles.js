@@ -27,8 +27,8 @@ export default StyleSheet.create({
         zIndex: 2
     },
     img_geo: {
-        width: 25,
-        height: 25,
+        width: 50,
+        height: 50,
     },
     img_geo_btn: {
         alignItems: "center",

@@ -11,6 +11,7 @@ import { setTabState } from "../../../reducers/tabs";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { showDashboard } from "../../../reducers/show-dashboard";
+import { getGameInfo } from "../../../reducers/game-info";
 
 class FooterNavigation extends React.Component {
   render() {
@@ -152,7 +153,7 @@ class FooterNavigation extends React.Component {
             transparent
             style={[styles.footer_tab]}
             // onPress={() =>  (this.props.dashboard) ? this.props.showDashboard(false) : this.props.showDashboard(true) }
-            onPress={() => this.props.setTabState(4)}
+            onPress={() => { this.props.getGameInfo(), this.props.setTabState(4) }}
           >
             <FastImage
               resizeMode={FastImage.resizeMode.contain}
@@ -172,7 +173,7 @@ class FooterNavigation extends React.Component {
             ) : null}
           </Button>
         </View>
-      </View>
+      </View >
     );
   }
 }
@@ -189,7 +190,8 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       setTabState,
-      showDashboard
+      showDashboard,
+      getGameInfo
     },
     dispatch
   );

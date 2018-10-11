@@ -252,18 +252,12 @@ class Map extends React.Component {
 
         {this.props.isLocation ? (
           <View style={styles.trc_info}>
-            <Button style={styles.img_geo_btn} onPress={() => this.props.setInfo(true)}>
-              <LinearGradient
-                colors={[colors.light_orange, colors.pink]}
-                start={{ x: 0.1, y: 0.1 }}
-                end={{ x: 1.0, y: 1.0 }}
-                style={styles.img_geo_gradient}>
-                <FastImage
-                  resizeMode={FastImage.resizeMode.contain}
-                  style={styles.img_geo}
-                  source={{ uri: ICONS.FOOTER_TABS.INFO }}
-                />
-              </LinearGradient>
+            <Button style={styles.img_geo_btn} transparent onPress={() => this.props.setInfo(true)}>
+              <FastImage
+                resizeMode={FastImage.resizeMode.contain}
+                style={styles.img_geo}
+                source={{ uri: ICONS.MAP_INFO }}
+              />
             </Button>
             {this.props.selectedMall.active ? (
               <TrcInformation
