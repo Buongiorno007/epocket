@@ -12,7 +12,7 @@ const initialState = {
 export default (state = initialState, action) => {
     switch (action.type) {
         case GAME_INFO:
-            return action.info;
+            return action.payload;
         default:
             return state;
     }
@@ -46,11 +46,9 @@ export const getGameInfo = () => async dispatch => {
     }
     dispatch(setFixedTime(info.time))
     dispatch(setTempTime(info.time))
-    return {
-        type: GAME_INFO, info
-    }
+    dispatch(setGameInfo(info))
 }
-export const setGameInfo = () => ({
+export const setGameInfo = (payload) => ({
     type: GAME_INFO, payload
 })
 
