@@ -42,19 +42,30 @@ export default StyleSheet.create({
 	},
 	btn_container: {
 		flex: 1,
-		marginBottom: height * 0.2,
-		justifyContent: 'center',
-		alignItems: 'center'
 	},
 	container: {
 		flexDirection: 'row',
 		flexWrap: 'wrap',
 		width: width * 0.85,
-		marginTop: 35
+		alignItems: "center",
+		justifyContent: "center",
+		marginTop: height * 0.05
 	},
 	item: {
 		width: (width * 0.85) / 3,
 		height: (width * 0.85) / 3,
+		padding: 0,
+		marginTop: -1,
+		marginRight: -1,
+		borderWidth: 1,
+		borderColor: '#000'
+	},
+	item_last_line: {
+		width: (width * 0.85) / 3,
+		height: (width * 0.85) / 3,
+		padding: 0,
+		marginTop: Platform.OS === "ios" ? -2 : -1,
+		marginRight: -1,
 		borderWidth: 1,
 		borderColor: '#000'
 	},
@@ -62,7 +73,7 @@ export default StyleSheet.create({
 		width: width * 0.9,
 		alignItems: "center",
 		justifyContent: "center",
-		marginTop: 20
+		flex: 0.5
 	},
 	game_title: {
 		flexDirection: "row",
@@ -70,8 +81,7 @@ export default StyleSheet.create({
 		width: width * 0.85
 	},
 	game_time: {
-		width: width * 0.85,
-		marginTop: 25,
+		width: width * 0.85
 	},
 	game_time_text: {
 		textAlign: "right",

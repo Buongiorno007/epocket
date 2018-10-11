@@ -1,7 +1,5 @@
 import React from 'react';
-import { View, Text, AsyncStorage, Image, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
-import { Button } from 'native-base';
+import { View, Text, Platform, TouchableOpacity, Dimensions } from 'react-native';
 //redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -60,7 +58,7 @@ class Game extends React.Component {
 				clearCorrectingInterval(interval);
 			}
 			this.props.setTempTime(this.props.tempTime - 1)
-		}, 1090);
+		}, Platform.OS === "ios" ? 910 : 1090);
 	}
 	componentDidMount = () => {
 		if (this.props.tempTime > 2) {
@@ -83,7 +81,7 @@ class Game extends React.Component {
 						return (
 							<TouchableOpacity
 								key={index}
-								style={[category.pressed == true ? styles.pressed_button : styles.item]}
+								style={[category.pressed == true ? styles.pressed_button : index >= 6 ? styles.item_last_line : styles.item]}
 								onPress={() => {
 									this.changePrassed(index);
 								}}
