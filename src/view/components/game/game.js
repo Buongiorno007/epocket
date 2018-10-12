@@ -100,8 +100,7 @@ class Game extends React.Component {
 						color={colors.white}
 						handler={() => {
 							NavigationService.navigate("MissionSuccess", {
-								price: this.props.game_info.cost,
-								insta_data: {}
+								price: this.props.game_info.cost
 							});
 						}}
 					/>

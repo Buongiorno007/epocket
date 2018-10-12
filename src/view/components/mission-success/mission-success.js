@@ -12,6 +12,7 @@ import { RU } from "./../../../locales/ru";
 import NavigationService from "./../../../services/route";
 //redux
 import { loaderState } from "../../../reducers/loader";
+import { setTabState } from "../../../reducers/tabs";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
@@ -21,6 +22,10 @@ class MissionSuccess extends React.Component {
     NavigationService.navigate("EarnMore", {
       insta_data: this.props.navigation.state.params.insta_data
     });
+  };
+  goBack = () => {
+    NavigationService.navigate("Main");
+    this.props.setTabState(2)
   };
 
   componentDidMount = () => {
@@ -64,13 +69,13 @@ class MissionSuccess extends React.Component {
             style={styles.button}
             androidRippleColor={colors.card_shadow}
             onPress={() => {
-              this.earnMore();
-            }}
-          >
+              this.props.navigation.state.params.insta_data ? this.earnMore() : this.goBack()
+          }}
+        >
             <Text style={styles.text}>{RU.OK}</Text>
           </Button>
-        </View>
       </View>
+      </View >
     );
   };
 }
@@ -82,7 +87,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      loaderState
+      loaderState,
+      setTabState
     },
     dispatch
   );
