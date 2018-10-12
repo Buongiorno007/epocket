@@ -7,6 +7,7 @@ const initialState = {
     description: "",
     cost: "",
     title: "",
+    no_more_games: false,
     time: 0
 }
 export default (state = initialState, action) => {
@@ -42,6 +43,7 @@ export const getGameInfo = () => async dispatch => {
         description: "Test description from initialState. Loooooooooooooooooooooong one.",
         cost: "2",
         title: "LACOSTE",
+        no_more_games: false,
         time: 60
     }
     dispatch(setFixedTime(info.time))

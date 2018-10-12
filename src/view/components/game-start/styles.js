@@ -9,7 +9,9 @@ export default StyleSheet.create({
 		flexDirection: 'column',
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: '#F5F9FE'
+		backgroundColor: '#F5F9FE',
+		width: width,
+		height: height
 	},
 	btn_container: {
 		flex: 1,
@@ -24,6 +26,10 @@ export default StyleSheet.create({
 	},
 	text_container: {
 		flexDirection: 'row',
+		alignItems: "center",
+		flexWrap: 'wrap',
+		justifyContent: "center",
+		width: width * 0.9,
 	},
 	game_title: {
 		alignItems: "center",
@@ -32,7 +38,7 @@ export default StyleSheet.create({
 		width: width * 0.85
 	},
 	game_description: {
-		width: width * 0.9,
+		width: width * 0.8,
 		alignItems: "center",
 		justifyContent: "center",
 		flex: 0.5

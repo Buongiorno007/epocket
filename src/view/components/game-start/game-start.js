@@ -25,18 +25,23 @@ class GameStart extends React.Component {
     render() {
         return (
             <View style={styles.main_view}>
-                <View style={styles.game_title}>
-                    <Text style={styles.game_title_text}>10/10 {RU.GAME.GAMES_FOR_TODAY}</Text>
-                </View>
+                {
+                    this.props.game_info.no_more_games ?
+                        null :
+                        <View style={styles.game_title}>
+                            <Text style={styles.game_title_text}>10/10 {RU.GAME.GAMES_FOR_TODAY}</Text>
+                        </View>
+                }
+
                 <View style={styles.container}>
-                    <Text style={styles.zifi_text}>{RU.GAME.ZIFI.PLAYFUL}</Text>
+                    <Text style={styles.zifi_text}>{this.props.game_info.no_more_games ? RU.GAME.ZIFI.BORING : RU.GAME.ZIFI.PLAYFUL}</Text>
                     <FastImage
                         resizeMode={FastImage.resizeMode.contain}
                         style={styles.zifi}
-                        source={{ uri: ICONS.ZIFI.PLAYFUL }}
+                        source={{ uri: this.props.game_info.no_more_games ? ICONS.ZIFI.BORED : ICONS.ZIFI.PLAYFUL }}
                     />
                     <View style={styles.text_container}>
-                        <Text style={styles.game_cost_text}>{RU.GAME.COST_TEXT.toLocaleUpperCase()} </Text>
+                        <Text style={styles.game_cost_text}>{this.props.game_info.no_more_games ? RU.GAME.SORRY_TODAY.toLocaleUpperCase() : RU.GAME.COST_TEXT.toLocaleUpperCase()} </Text>
                         <LinearTextGradient
                             style={styles.game_cost_text}
                             locations={[0, 1]}
@@ -44,25 +49,28 @@ class GameStart extends React.Component {
                             start={{ x: 0, y: 0 }}
                             end={{ x: 1, y: 0 }}
                         >
-                            {this.props.game_info.cost.toLocaleUpperCase()} {RU.EPC.toLocaleUpperCase()}
+                            {this.props.game_info.no_more_games ? RU.GAME.NO_GAMES.toLocaleUpperCase() : this.props.game_info.cost.toLocaleUpperCase() + " " + RU.EPC.toLocaleUpperCase()}
                         </LinearTextGradient>
                     </View>
                 </View>
                 <View style={styles.game_description}>
-                    <Text style={styles.game_description_text}>{this.props.game_info.description}</Text>
+                    <Text style={styles.game_description_text}>{this.props.game_info.no_more_games ? RU.GAME.GET_EPC : this.props.game_info.description}</Text>
                 </View>
-                <View style={styles.btn_container}>
-                    <CustomButton
-                        active
-                        short
-                        gradient
-                        title={RU.GAME.START.toUpperCase()}
-                        color={colors.white}
-                        handler={() => {
-                            this.props.setGameStatus("game")
-                        }}
-                    />
-                </View>
+                {this.props.game_info.no_more_games ?
+                    null :
+                    <View style={styles.btn_container}>
+                        < CustomButton
+                            active
+                            short
+                            gradient
+                            title={RU.GAME.START.toUpperCase()}
+                            color={colors.white}
+                            handler={() => {
+                                this.props.setGameStatus("game")
+                            }}
+                        />
+                    </View>
+                }
                 <FooterNavigation />
             </View>
         );

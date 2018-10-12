@@ -184,11 +184,15 @@ export const RU = {
   GAME: {
     ZIFI: {
       PLAYFUL: "Zifi хочет играть!",
+      BORING: "Zifi скучно",
     },
     GAME_TITLE: "Игра",
     CONFIRM: "Подтвердить",
+    SORRY_TODAY: "к сожалению на сегодня",
+    NO_GAMES: "игр больше нет",
     GAMES_FOR_TODAY: "игр доступно на сегодня",
     START: "Старт",
-    COST_TEXT: "ЗАДАНИЕ НА"
+    COST_TEXT: "задание на",
+    GET_EPC: "Можете получить EPC посетив ближайший ТРЦ"
   }
 };
