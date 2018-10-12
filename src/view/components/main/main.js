@@ -8,7 +8,7 @@ import History from "./../history/history";
 import Info from "./../info/info";
 import GameStart from "./../game-start/game-start";
 import Game from "./../game/game";
-import GameResult from "./../game-result/game-result";
+import GameExpired from "./../game-expired/game-expired";
 import Dashboard from "../dashboard/dashboard";
 //containers
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
@@ -51,6 +51,9 @@ class Main extends React.Component {
     let container;
     if (this.props.game_status == "start") {
       container = <GameStart />
+    }
+    else if (this.props.game_status == "expired") {
+      container = <GameExpired />
     }
     else {
       container = <Game />

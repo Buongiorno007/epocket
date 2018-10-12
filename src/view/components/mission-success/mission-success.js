@@ -12,7 +12,6 @@ import { RU } from "./../../../locales/ru";
 import NavigationService from "./../../../services/route";
 //redux
 import { loaderState } from "../../../reducers/loader";
-import { setTabState } from "../../../reducers/tabs";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
@@ -22,10 +21,6 @@ class MissionSuccess extends React.Component {
     NavigationService.navigate("EarnMore", {
       insta_data: this.props.navigation.state.params.insta_data
     });
-  };
-  goBack = () => {
-    NavigationService.navigate("Main");
-    this.props.setTabState(2)
   };
 
   componentDidMount = () => {
@@ -60,7 +55,7 @@ class MissionSuccess extends React.Component {
         <View style={styles.success}>
           <Text style={styles.congratulation}>{RU.MISSION.SUCCESS}</Text>
           <Text style={styles.cash}>
-            {RU.MISSION.CASH} {this.props.navigation.state.params.price} epc
+            {RU.MISSION.CASH} {this.props.navigation.state.params.price} {RU.EPC}
           </Text>
           <Button
             rounded
@@ -69,12 +64,12 @@ class MissionSuccess extends React.Component {
             style={styles.button}
             androidRippleColor={colors.card_shadow}
             onPress={() => {
-              this.props.navigation.state.params.insta_data ? this.earnMore() : this.goBack()
-          }}
-        >
+              this.earnMore()
+            }}
+          >
             <Text style={styles.text}>{RU.OK}</Text>
           </Button>
-      </View>
+        </View>
       </View >
     );
   };
@@ -88,7 +83,6 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       loaderState,
-      setTabState
     },
     dispatch
   );

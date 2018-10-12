@@ -62,9 +62,9 @@ class Game extends React.Component {
 		})
 	}
 	goToResult = (status) => {
+		NavigationService.navigate("GameResult");
 		clearCorrectingInterval(this.state.interval);
 		this.props.setGameStatus(status);
-		NavigationService.navigate("GameResult");
 	}
 	componentDidMount = () => {
 		if (this.props.tempTime > 2) {
@@ -106,7 +106,7 @@ class Game extends React.Component {
 						title={RU.GAME.CONFIRM.toUpperCase()}
 						color={colors.white}
 						handler={() => {
-							this.goToResult("success")
+							this.goToResult("success") //success | failed 
 						}}
 					/>
 				</View>

@@ -44,7 +44,7 @@ export const getGameInfo = () => async dispatch => {
         cost: "2",
         title: "LACOSTE",
         no_more_games: false,
-        time: 60
+        time: 20
     }
     dispatch(setFixedTime(info.time))
     dispatch(setTempTime(info.time))
