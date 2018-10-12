@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setTempTime } from "../../../reducers/tempTime"
 import { setFixedTime } from "../../../reducers/fixedTime"
+import { setGameStatus } from "../../../reducers/game-status"
 //constants
 import styles from './styles';
 import { colors } from './../../../constants/colors';
@@ -18,22 +19,20 @@ import "../../../services/correcting-interval";
 import NavigationService from "./../../../services/route";
 
 class Game extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			categories: [
-				{ name: 1, pressed: false },
-				{ name: 2, pressed: false },
-				{ name: 3, pressed: false },
-				{ name: 4, pressed: false },
-				{ name: 5, pressed: false },
-				{ name: 6, pressed: false },
-				{ name: 7, pressed: false },
-				{ name: 8, pressed: false },
-				{ name: 9, pressed: false }
-			],
-		};
-	}
+	state = {
+		categories: [
+			{ name: 1, pressed: false },
+			{ name: 2, pressed: false },
+			{ name: 3, pressed: false },
+			{ name: 4, pressed: false },
+			{ name: 5, pressed: false },
+			{ name: 6, pressed: false },
+			{ name: 7, pressed: false },
+			{ name: 8, pressed: false },
+			{ name: 9, pressed: false }
+		],
+		interval: null
+	};
 	changePrassed(i) {
 		let cat_copy = this.state.categories;
 		cat_copy[i].pressed = !cat_copy[i].pressed;
@@ -52,12 +51,20 @@ class Game extends React.Component {
 			.join(':');
 	};
 	startTimer = () => {
-		let interval = setCorrectingInterval(() => {
-			if (this.props.tempTime < 2) {
-				clearCorrectingInterval(interval);
-			}
-			this.props.setTempTime(this.props.tempTime - 1)
-		}, Platform.OS === "ios" ? 910 : 1090);
+		this.setState({
+			interval:
+				setCorrectingInterval(() => {
+					if (this.props.tempTime < 2) {
+						this.goToResult("expired")
+					}
+					this.props.setTempTime(this.props.tempTime - 1)
+				}, Platform.OS === "ios" ? 910 : 1090)
+		})
+	}
+	goToResult = (status) => {
+		clearCorrectingInterval(this.state.interval);
+		this.props.setGameStatus(status);
+		NavigationService.navigate("GameResult");
 	}
 	componentDidMount = () => {
 		if (this.props.tempTime > 2) {
@@ -99,9 +106,7 @@ class Game extends React.Component {
 						title={RU.GAME.CONFIRM.toUpperCase()}
 						color={colors.white}
 						handler={() => {
-							NavigationService.navigate("MissionSuccess", {
-								price: this.props.game_info.cost
-							});
+							this.goToResult("success")
 						}}
 					/>
 				</View>
@@ -121,7 +126,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
 	setTempTime,
-	setFixedTime
+	setFixedTime,
+	setGameStatus
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

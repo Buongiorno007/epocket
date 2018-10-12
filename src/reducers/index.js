@@ -33,6 +33,7 @@ import info from "./info"
 import game_info from "./game-info"
 import tempTime from "./tempTime"
 import fixedTime from "./fixedTime"
+import game_status from "./game-status"
 
 export default combineReducers({
   isConnected,
@@ -68,5 +69,6 @@ export default combineReducers({
   info,
   game_info,
   tempTime,
-  fixedTime
+  fixedTime,
+  game_status
 });

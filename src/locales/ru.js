@@ -182,7 +182,13 @@ export const RU = {
     EXIT: "Выход"
   },
   GAME: {
+    ZIFI: {
+      PLAYFUL: "Zifi хочет играть!",
+    },
     GAME_TITLE: "Игра",
-    CONFIRM: "Подтвердить"
+    CONFIRM: "Подтвердить",
+    GAMES_FOR_TODAY: "игр доступно на сегодня",
+    START: "Старт",
+    COST_TEXT: "ЗАДАНИЕ НА"
   }
 };

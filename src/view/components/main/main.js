@@ -6,7 +6,9 @@ import Profile from "./../profile/profile";
 import Cashout from "./../cashout/cashout";
 import History from "./../history/history";
 import Info from "./../info/info";
+import GameStart from "./../game-start/game-start";
 import Game from "./../game/game";
+import GameResult from "./../game-result/game-result";
 import Dashboard from "../dashboard/dashboard";
 //containers
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
@@ -45,6 +47,16 @@ class Main extends React.Component {
     }
     return container
   }
+  renderLastTab = () => {
+    let container;
+    if (this.props.game_status == "start") {
+      container = <GameStart />
+    }
+    else {
+      container = <Game />
+    }
+    return container
+  }
   render() {
     return (
       <View style={styles.main_view}>
@@ -58,7 +70,7 @@ class Main extends React.Component {
           {this.props.activeTab == 1 ? <Cashout /> : null}
           {this.props.activeTab == 2 ? this.renderSecondTab() : null}
           {this.props.activeTab == 3 ? <History /> : null}
-          {this.props.activeTab == 4 ? <Game /> : null}
+          {this.props.activeTab == 4 ? this.renderLastTab() : null}
         </View>
         {!this.props.isConnected && <NoInternet />}
         {!this.props.dashboard && this.props.timer_status && <ReturnToMall />}
@@ -76,7 +88,8 @@ const mapStateToProps = state => ({
   info: state.info,
   timer_status: state.timer_status,
   doneNotification: state.doneNotification,
-  failedNotification: state.failedNotification
+  failedNotification: state.failedNotification,
+  game_status: state.game_status
 });
 
 const mapDispatchToProps = dispatch =>

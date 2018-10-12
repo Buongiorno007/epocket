@@ -17,6 +17,8 @@ import MissionSuccess from "./src/view/components/mission-success/mission-succes
 import EarnMore from "./src/view/components/earn-more/earn-more";
 import ProfileSettings from "./src/view/components/profile-settings/profile-settings"
 import ProfileEdit from "./src/view/components/profile-edit/profile-edit"
+import Game from "./src/view/components/game/game"
+import GameResult from "./src/view/components/game-result/game-result"
 
 import { Provider } from "react-redux";
 import store from "./src/store";
@@ -43,6 +45,8 @@ const EpocketCash = createStackNavigator(
     EarnMore: { screen: EarnMore },
     ProfileEdit: { screen: ProfileEdit },
     ProfileSettings: { screen: ProfileSettings },
+    Game: { screen: Game },
+    GameResult: { screen: GameResult },
   },
   {
     initialRouteName: "Start",
