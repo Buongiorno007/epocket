@@ -17,6 +17,7 @@ import { ICONS } from "../../../constants/icons";
 import CustomButton from '../../containers/custom-button/custom-button';
 import CustomProgressBar from '../../containers/custom-progress-bar/custom-progress-bar';
 import FooterNavigation from '../../containers/footer-navigator/footer-navigator';
+import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 //services
 import "../../../services/correcting-interval";
 import { toHHMMSS } from "./../../../services/convert-time"

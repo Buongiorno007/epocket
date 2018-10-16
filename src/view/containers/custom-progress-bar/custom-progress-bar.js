@@ -23,20 +23,38 @@ const { width } = Dimensions.get("window");
 }
 class CustomProgressBar extends React.Component {
     state = {
-        width: new Animated.Value(width * 0.85),
+        scaleX: new Animated.Value(1),
+        translateX: new Animated.Value(0),
     }
     componentDidMount() {
-        Animated.timing(this.state.width, {
-            toValue: 0,
+        Animated.timing(this.state.scaleX, {
+            toValue: 0.01,
             duration: this.props.fixedTime * 1000,
+            easing: Easing.linear,
+            useNativeDriver: true
+        }).start();
+        Animated.timing(this.state.translateX, {
+            toValue: - (width * 0.85),
+            duration: this.props.fixedTime * 2000,
+            easing: Easing.linear,
+            useNativeDriver: true
         }).start();
     }
     render() {
         return (
             <View style={styles.gradient}>
-                {
+                <Animated.View style={{
+                    borderRadius: 12,
+                    width: width * 0.85,
+                    transform: [
+                        { translateX: this.state.translateX }
+                    ]
+                }}>
                     <Animated.View style={[styles.gradient_container, {
-                        width: this.state.width
+                        width: width * 0.85,
+                        transform: [
+                            { scaleX: this.state.scaleX },
+                        ]
                     }]}>
                         <LinearGradient
                             colors={[colors.pink, colors.light_orange]}
@@ -45,7 +63,7 @@ class CustomProgressBar extends React.Component {
                             style={[styles.gradient_inner]}
                         />
                     </Animated.View>
-                }
+                </Animated.View>
             </View>
         );
     }
