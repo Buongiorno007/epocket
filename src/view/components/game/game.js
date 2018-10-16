@@ -1,5 +1,7 @@
 import React from 'react';
-import { View, Text, Platform, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, Platform } from 'react-native';
+import { Button } from "native-base";
+import FastImage from 'react-native-fast-image'
 //redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -10,6 +12,7 @@ import { setGameStatus } from "../../../reducers/game-status"
 import styles from './styles';
 import { colors } from './../../../constants/colors';
 import { RU } from '../../../locales/ru';
+import { ICONS } from "../../../constants/icons";
 //containers
 import CustomButton from '../../containers/custom-button/custom-button';
 import CustomProgressBar from '../../containers/custom-progress-bar/custom-progress-bar';
@@ -94,13 +97,21 @@ class Game extends React.Component {
 				<View style={styles.container}>
 					{this.state.categories.map((category, index) => {
 						return (
-							<TouchableOpacity
+							<Button
+								transparent
+								block
 								key={index}
 								style={[category.pressed == true ? index >= 6 ? styles.pressed_button_last_line : styles.pressed_button : index >= 6 ? styles.item_last_line : styles.item]}
 								onPress={() => {
 									this.changePressed(index);
 								}}
-							/>
+							>
+								<FastImage
+									style={styles.image_in_square}
+									resizeMode={FastImage.resizeMode.contain}
+									source={{ uri: ICONS.ZIFI.SURPRISED }}
+								/>
+							</Button>
 						);
 					})}
 				</View>

@@ -7,7 +7,7 @@ export default StyleSheet.create({
     gradient: {
         marginTop: 15,
         width: width * 0.85,
-        height: 10,
+        height: 7,
         borderRadius: 12,
         backgroundColor: '#ddd',
         transform: [
@@ -15,7 +15,7 @@ export default StyleSheet.create({
         ]
     },
     gradient_inner: {
-        height: 10,
+        height: 7,
         borderRadius: 12
     },
     gradient_container: {

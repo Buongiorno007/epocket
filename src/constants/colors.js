@@ -1,6 +1,7 @@
 export const colors = {
   black: "#000000",
   white: "#ffffff",
+  black_o33: "rgba(0, 0, 0, 0.33)",
   whiteF9: "#FAFAFA",
   pink: "#F55890",
   pink_02: "rgba(245,88,144,0.2)",

@@ -8,7 +8,7 @@ export default StyleSheet.create({
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: '#F5F9FE'
+		backgroundColor: colors.drag_panel_color
 	},
 	grad: {
 		height: height,
@@ -59,17 +59,23 @@ export default StyleSheet.create({
 		marginRight: -1,
 		borderWidth: 1,
 		zIndex: 9,
-		borderColor: '#000'
+		justifyContent: "center",
+		alignItems: "center",
+		borderRadius: 0,
+		borderColor: colors.black_o33
 	},
 	item_last_line: {
 		width: (width * 0.85) / 3,
 		height: (width * 0.85) / 3,
 		padding: 0,
+		borderRadius: 0,
 		marginTop: Platform.OS === "ios" ? -2 : -1,
 		marginRight: -1,
 		borderWidth: 1,
 		zIndex: 9,
-		borderColor: '#000'
+		justifyContent: "center",
+		alignItems: "center",
+		borderColor: colors.black_o33
 	},
 	game_description: {
 		width: width * 0.9,
@@ -119,23 +125,35 @@ export default StyleSheet.create({
 		padding: 0,
 		marginTop: -1,
 		marginRight: -1,
-		zIndex: 10,
-		borderColor: '#F63272',
-		backgroundColor: 'rgba(246,95,135,0.1)'
+		zIndex: 11,
+		borderRadius: 0,
+		justifyContent: "center",
+		alignItems: "center",
+		borderColor: colors.dark_pink,
+		backgroundColor: colors.dark_pink_o10
+	},
+	image_in_square: {
+		alignSelf: "center",
+		width: (width * 0.85) / 3 - 3,
+		height: (width * 0.85) / 3 - 3,
+		zIndex: 10
 	},
 	pressed_button_last_line: {
 		width: (width * 0.85) / 3,
 		height: (width * 0.85) / 3,
 		borderWidth: 2,
 		padding: 0,
-		zIndex: 10,
+		zIndex: 11,
+		borderRadius: 0,
 		marginTop: Platform.OS === "ios" ? -2 : -1,
 		marginRight: -1,
-		borderColor: '#F63272',
-		backgroundColor: 'rgba(246,95,135,0.1)'
+		borderColor: colors.dark_pink,
+		justifyContent: "center",
+		alignItems: "center",
+		backgroundColor: colors.dark_pink_o10
 	},
 	TextStyle: {
-		color: '#fff',
+		color: colors.white,
 		textAlign: 'center'
 	}
 });
