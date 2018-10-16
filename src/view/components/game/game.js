@@ -16,6 +16,7 @@ import CustomProgressBar from '../../containers/custom-progress-bar/custom-progr
 import FooterNavigation from '../../containers/footer-navigator/footer-navigator';
 //services
 import "../../../services/correcting-interval";
+import { toHHMMSS } from "./../../../services/convert-time"
 import NavigationService from "./../../../services/route";
 
 class Game extends React.Component {
@@ -40,16 +41,6 @@ class Game extends React.Component {
 			categories: cat_copy
 		});
 	}
-	toHHMMSS = (secs) => {
-		var sec_num = parseInt(secs, 10);
-		var hours = Math.floor(sec_num / 3600) % 24;
-		var minutes = Math.floor(sec_num / 60) % 60;
-		var seconds = sec_num % 60;
-		return [hours, minutes, seconds]
-			.map((v) => (v < 10 ? '0' + v : v))
-			.filter((v, i) => v !== '00' || i > 0)
-			.join(':');
-	};
 	startTimer = () => {
 		this.setState({
 			interval:
@@ -79,7 +70,7 @@ class Game extends React.Component {
 					<Text style={styles.game_title_text}>{this.props.game_info.title}</Text>
 				</View>
 				<View style={styles.game_time}>
-					<Text style={styles.game_time_text}>{this.toHHMMSS(this.props.tempTime)}</Text>
+					<Text style={styles.game_time_text}>{toHHMMSS(this.props.tempTime)}</Text>
 				</View>
 				<CustomProgressBar />
 				<View style={styles.container}>

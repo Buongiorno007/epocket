@@ -33,7 +33,9 @@ export const colors = {
   settings_gray: "#707070",
   light_red: "#FF4747",
   dark_pink: "#F63272",
+  dark_pink_o10: "rgba(246, 50, 114, 0.1)",
   trc_marker_light_green: "rgba(68, 191, 239, 0.27)",
   trc_marker_blue: "rgba(68, 191, 239, 0)",
-  zifi_text: "#BDC3C9"
+  zifi_text: "#BDC3C9",
+  transparent: "rgba(255,255,255, 0)"
 };

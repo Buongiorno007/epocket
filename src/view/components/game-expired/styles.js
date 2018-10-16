@@ -16,6 +16,21 @@ export default StyleSheet.create({
 	btn_container: {
 		flex: 1,
 	},
+	image_to_post_container: {
+		flex: 1,
+		width: width * 0.6,
+		height: width * 0.6,
+		marginVertical: height * 0.05,
+	},
+	image_to_post: {
+		width: width * 0.6,
+		height: width * 0.6
+	},
+	gradient: {
+		width: width * 0.6,
+		height: width * 0.6,
+		marginTop: -width * 0.6
+	},
 	container: {
 		flexDirection: 'column',
 		flexWrap: 'wrap',

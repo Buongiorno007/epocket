@@ -1,6 +1,6 @@
 export const GAME_STATUS = 'game-status/GAME_STATUS';
 
-export default (state = "start", action) => {
+export default (state = "expired", action) => {
     switch (action.type) {
         case GAME_STATUS:
             return action.status;
