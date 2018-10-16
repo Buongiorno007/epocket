@@ -34,12 +34,17 @@ class Game extends React.Component {
 		],
 		interval: null
 	};
-	changePrassed(i) {
+	changePressed(i) {
 		let cat_copy = this.state.categories;
 		cat_copy[i].pressed = !cat_copy[i].pressed;
 		this.setState({
 			categories: cat_copy
 		});
+	}
+	goToResult = (status) => {
+		NavigationService.navigate("GameResult");
+		clearCorrectingInterval(this.state.interval);
+		this.props.setGameStatus(status);
 	}
 	startTimer = () => {
 		this.setState({
@@ -49,13 +54,26 @@ class Game extends React.Component {
 						this.goToResult("expired")
 					}
 					this.props.setTempTime(this.props.tempTime - 1)
-				}, Platform.OS === "ios" ? 910 : 1090)
+				}, Platform.OS === "ios" ? 910 : 1000)
 		})
 	}
-	goToResult = (status) => {
-		NavigationService.navigate("GameResult");
-		clearCorrectingInterval(this.state.interval);
-		this.props.setGameStatus(status);
+	submitGame = () => {
+		let pressedArray = [];
+		let pressedIndexArray = [];
+		this.state.categories.forEach((item) => {
+			if (item.pressed) {
+				pressedArray.push(item)
+			}
+		});
+		pressedArray.forEach((pressedItem) => {
+			pressedIndexArray.push(pressedItem.name)
+		});
+		if (pressedArray.length >= 1 && JSON.stringify(pressedIndexArray) === JSON.stringify(this.props.game_info.true_answer)) { //compare JSONs to compare arrays
+			this.goToResult("success")
+		}
+		else {
+			this.goToResult("failed")
+		}
 	}
 	componentDidMount = () => {
 		if (this.props.tempTime > 2) {
@@ -80,7 +98,7 @@ class Game extends React.Component {
 								key={index}
 								style={[category.pressed == true ? index >= 6 ? styles.pressed_button_last_line : styles.pressed_button : index >= 6 ? styles.item_last_line : styles.item]}
 								onPress={() => {
-									this.changePrassed(index);
+									this.changePressed(index);
 								}}
 							/>
 						);
@@ -97,7 +115,7 @@ class Game extends React.Component {
 						title={RU.GAME.CONFIRM.toUpperCase()}
 						color={colors.white}
 						handler={() => {
-							this.goToResult("success") //success | failed 
+							this.submitGame()
 						}}
 					/>
 				</View>

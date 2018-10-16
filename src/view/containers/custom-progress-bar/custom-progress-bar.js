@@ -26,7 +26,6 @@ class CustomProgressBar extends React.Component {
         width: new Animated.Value(width * 0.85),
     }
     componentDidMount() {
-        console.log("fixed time", this.props.fixedTime)
         Animated.timing(this.state.width, {
             toValue: 0,
             duration: this.props.fixedTime * 1000,

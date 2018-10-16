@@ -20,10 +20,18 @@ export default StyleSheet.create({
         height: 165,
         width: width,
     },
+    image_failed: {
+        zIndex: 1,
+        position: "absolute",
+        backgroundColor: "black",
+        height: width,
+        width: width,
+        opacity: 0.2
+    },
     zifi: {
         width: width * 0.35,
         height: width * 0.35,
-        marginVertical: height * 0.05
+        marginBottom: height * 0.05
     },
     zifi_text: {
         textAlign: "center",
@@ -39,6 +47,14 @@ export default StyleSheet.create({
         width: width * 0.85,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    failed: {
+        zIndex: 1,
+        flex: 1,
+        width: width * 0.85,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: width - width * 0.5
     },
     congratulation: {
         fontSize: 18,
@@ -59,13 +75,21 @@ export default StyleSheet.create({
         fontFamily: "Rubik-Medium",
         color: colors.white,
     },
-    button: {
+    button_short: {
         backgroundColor: colors.white,
         marginTop: width * 0.05,
         alignSelf: 'center',
         alignItems: 'center',
         justifyContent: 'center',
         width: width * 0.55,
+    },
+    button: {
+        backgroundColor: colors.white,
+        marginTop: width * 0.05,
+        alignSelf: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: width * 0.75,
     },
     wait_button: {
         alignSelf: 'center',

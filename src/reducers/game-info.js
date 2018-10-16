@@ -2,13 +2,16 @@ export const GAME_INFO = 'game-info/GAME_INFO';
 import { httpPost } from "../services/http";
 import { setFixedTime } from "./fixedTime";
 import { setTempTime } from "./tempTime";
+import { ICONS } from "../constants/icons";
 
 const initialState = {
     description: "",
     cost: "",
     title: "",
+    success_image: ICONS.ZIFI.SURPRISED,
     no_more_games: false,
-    time: 0
+    time: 0,
+    true_answer: []
 }
 export default (state = initialState, action) => {
     switch (action.type) {
@@ -43,8 +46,10 @@ export const getGameInfo = () => async dispatch => {
         description: "Test description from initialState. Loooooooooooooooooooooong one.",
         cost: "2",
         title: "LACOSTE",
+        success_image: ICONS.ZIFI.SURPRISED,
         no_more_games: false,
-        time: 20
+        time: 20,
+        true_answer: [1, 2, 3]
     }
     dispatch(setFixedTime(info.time))
     dispatch(setTempTime(info.time))

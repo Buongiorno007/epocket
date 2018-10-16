@@ -52,7 +52,7 @@ class GameStart extends React.Component {
                     <FastImage
                         resizeMode={FastImage.resizeMode.contain}
                         style={styles.zifi}
-                        source={{ uri: ICONS.ZIFI.SURPRISED }}
+                        source={{ uri: this.props.game_info.success_image }}
                     />
                 </View>
                 <GameTimer minutes={toHHMMSS(this.props.game_expired_timer).split(":")[0]} seconds={toHHMMSS(this.props.game_expired_timer).split(":")[1]} />

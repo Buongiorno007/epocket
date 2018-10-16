@@ -32,6 +32,7 @@ class GameResult extends React.Component {
         }, 0)
     }
     componentDidMount = () => { }
+
     chooseZifiText = (status) => {
         let text;
         if (status === "success") {
@@ -94,6 +95,18 @@ class GameResult extends React.Component {
         }
         return text
     }
+    chooseBackground = (status) => {
+        let img, style;
+        if (status === "success") {
+            img = require('../../../assets/img/EARN_MORE_BACK.png')
+            style = styles.image
+        }
+        else {
+            img = { uri: this.props.game_info.success_image }
+            style = styles.image_failed
+        }
+        return { img, style }
+    }
     render() {
         return (
             <View style={styles.container} >
@@ -116,10 +129,10 @@ class GameResult extends React.Component {
                 />
                 <FastImage
                     resizeMode={FastImage.resizeMode.contain}
-                    style={styles.image}
-                    source={require('../../../assets/img/EARN_MORE_BACK.png')}
+                    style={this.chooseBackground(this.props.game_status).style}
+                    source={this.chooseBackground(this.props.game_status).img}
                 />
-                <View style={styles.success}>
+                <View style={this.props.game_status === "success" ? styles.success : styles.failed}>
                     <Text style={styles.zifi_text}>{this.chooseZifiText(this.props.game_status)}</Text>
                     <FastImage
                         resizeMode={FastImage.resizeMode.contain}
@@ -131,7 +144,7 @@ class GameResult extends React.Component {
                         rounded
                         transparent
                         block
-                        style={styles.button}
+                        style={this.props.game_status === "success" ? styles.button_short : styles.button}
                         androidRippleColor={colors.card_shadow}
                         onPress={() => {
                             this.goBack()

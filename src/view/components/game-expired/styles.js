@@ -72,7 +72,7 @@ export default StyleSheet.create({
 	zifi: {
 		width: width * 0.35,
 		height: width * 0.35,
-		marginVertical: height * 0.05
+		marginBottom: height * 0.05
 	},
 	zifi_text: {
 		textAlign: "center",
