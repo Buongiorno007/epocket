@@ -110,7 +110,8 @@ class Game extends React.Component {
 								<FastImage
 									style={styles.image_in_square}
 									resizeMode={FastImage.resizeMode.contain}
-									source={{ uri: ICONS.ZIFI.SURPRISED }}
+									//source={{ uri: ICONS.ZIFI.SURPRISED }}
+									source={require('../../../assets/img/zifi/surprised.gif')}
 								/>
 							</Button>
 						);

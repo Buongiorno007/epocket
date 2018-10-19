@@ -52,16 +52,20 @@ class GameResult extends React.Component {
     chooseZifi = (status) => {
         let zifi;
         if (status === "success") {
-            zifi = ICONS.ZIFI.SHOCKED
+            // zifi = ICONS.ZIFI.SHOCKED
+            zifi = require('../../../assets/img/zifi/shocked.gif')
         }
         else if (status === "failed") {
-            zifi = ICONS.ZIFI.GRIMACES
+            //zifi = ICONS.ZIFI.GRIMACES
+            zifi = require('../../../assets/img/zifi/grimaces.gif')
         }
         else if (status === "expired") {
-            zifi = ICONS.ZIFI.BORED
+            //zifi = ICONS.ZIFI.BORED
+            zifi = require('../../../assets/img/zifi/bored.gif')
         }
         else {
-            zifi = ICONS.ZIFI.SHOCKED
+            //zifi = ICONS.ZIFI.SHOCKED
+            zifi = require('../../../assets/img/zifi/shocked.gif')
         }
         return zifi
     }
@@ -137,7 +141,7 @@ class GameResult extends React.Component {
                     <FastImage
                         resizeMode={FastImage.resizeMode.contain}
                         style={styles.zifi}
-                        source={{ uri: this.chooseZifi(this.props.game_status) }}
+                        source={this.chooseZifi(this.props.game_status)}
                     />
                     <Text style={this.chooseResultText(this.props.game_status).style}>{this.chooseResultText(this.props.game_status).text}</Text>
                     <Button

@@ -52,7 +52,7 @@ class GameStart extends React.Component {
                     <FastImage
                         resizeMode={FastImage.resizeMode.contain}
                         style={styles.zifi}
-                        source={{ uri: this.props.game_info.success_image }}
+                        source={require('../../../assets/img/zifi/surprised.gif')}
                     />
                 </View>
                 <GameTimer minutes={toHHMMSS(this.props.game_expired_timer).split(":")[0]} seconds={toHHMMSS(this.props.game_expired_timer).split(":")[1]} />
@@ -60,7 +60,9 @@ class GameStart extends React.Component {
                     <FastImage
                         style={styles.image_to_post}
                         resizeMode={FastImage.resizeMode.contain}
-                        source={{ uri: ICONS.ZIFI.SURPRISED }}
+                        //source={{ uri: ICONS.ZIFI.SURPRISED }}
+                        source={{ uri: this.props.game_info.success_image }}
+
                     />
                     <LinearGradient
                         colors={[colors.transparent, colors.drag_panel_color]}
