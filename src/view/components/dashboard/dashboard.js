@@ -90,6 +90,7 @@ class Dashboard extends React.Component {
                 //blocks second call on mount
                 this.props.timerStatus(true);
                 clearCorrectingInterval(this.props.timer_interval);
+                console.log("TIMER", result.body.interval)
                 this.timer(result.body.interval * 1000);
               }
             }

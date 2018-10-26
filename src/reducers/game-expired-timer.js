@@ -1,6 +1,6 @@
 export const GAME_TIMER = 'game-expired-timer/GAME_TIMER';
 
-export default (state = 1799, action) => {
+export default (state = 1800, action) => {
     switch (action.type) {
         case GAME_TIMER:
             return action.time;

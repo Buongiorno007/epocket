@@ -21,7 +21,6 @@ import NavigationService from "./../../../services/route";
 
 class GameStart extends React.Component {
     state = {};
-    componentDidMount = () => { }
     render() {
         return (
             <View style={styles.main_view}>
@@ -29,7 +28,7 @@ class GameStart extends React.Component {
                     this.props.game_info.no_more_games ?
                         null :
                         <View style={styles.game_title}>
-                            <Text style={styles.game_title_text}>10/10 {RU.GAME.GAMES_FOR_TODAY}</Text>
+                            <Text style={styles.game_title_text}>{this.props.game_info.available_game_len}/{this.props.game_info.total_game_len} {RU.GAME.GAMES_FOR_TODAY}</Text>
                         </View>
                 }
 
@@ -39,7 +38,7 @@ class GameStart extends React.Component {
                         resizeMode={FastImage.resizeMode.contain}
                         style={styles.zifi}
                         source={this.props.game_info.no_more_games ? require('../../../assets/img/zifi/bored.gif') : require('../../../assets/img/zifi/playful.gif')}
-                       // source={{ uri: this.props.game_info.no_more_games ? ICONS.ZIFI.BORED : ICONS.ZIFI.PLAYFUL }}
+                    // source={{ uri: this.props.game_info.no_more_games ? ICONS.ZIFI.BORED : ICONS.ZIFI.PLAYFUL }}
                     />
                     <View style={styles.text_container}>
                         <Text style={styles.game_cost_text}>{this.props.game_info.no_more_games ? RU.GAME.SORRY_TODAY.toLocaleUpperCase() : RU.GAME.COST_TEXT.toLocaleUpperCase()} </Text>

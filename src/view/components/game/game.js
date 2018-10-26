@@ -54,7 +54,7 @@ class Game extends React.Component {
 		this.setState({
 			interval:
 				setCorrectingInterval(() => {
-					if (this.props.tempTime < 2) {
+					if (this.props.tempTime < 1) {
 						this.goToResult("expired")
 					}
 					this.props.setTempTime(this.props.tempTime - 1)
@@ -80,7 +80,7 @@ class Game extends React.Component {
 		}
 	}
 	componentDidMount = () => {
-		if (this.props.tempTime > 2) {
+		if (this.props.tempTime >= 1) {
 			this.startTimer()
 		}
 	}
@@ -110,8 +110,8 @@ class Game extends React.Component {
 								<FastImage
 									style={styles.image_in_square}
 									resizeMode={FastImage.resizeMode.contain}
-									//source={{ uri: ICONS.ZIFI.SURPRISED }}
-									source={require('../../../assets/img/zifi/surprised.gif')}
+									source={{ uri: this.props.game_info.game_array[index].img }}
+								//source={require('../../../assets/img/zifi/surprised.gif')}
 								/>
 							</Button>
 						);
