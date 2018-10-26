@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Platform } from 'react-native';
+import { View, Text, Platform, Dimensions } from 'react-native';
 import { Button } from "native-base";
 import FastImage from 'react-native-fast-image'
 //redux
@@ -22,6 +22,7 @@ import ActivityIndicator from "../../containers/activity-indicator/activity-indi
 import "../../../services/correcting-interval";
 import { toHHMMSS } from "./../../../services/convert-time"
 import NavigationService from "./../../../services/route";
+const { width } = Dimensions.get("window");
 
 class Game extends React.Component {
 	state = {
@@ -36,7 +37,13 @@ class Game extends React.Component {
 			{ name: 8, pressed: false },
 			{ name: 9, pressed: false }
 		],
-		interval: null
+		interval: null,
+		progress: 1,
+		progressGradient: {
+			colors: [colors.pink, colors.light_orange],
+			start: { x: 0.0, y: 1.0 },
+			end: { x: 1.0, y: 0.0 }
+		}
 	};
 	changePressed(i) {
 		let cat_copy = this.state.categories;
@@ -51,6 +58,7 @@ class Game extends React.Component {
 		this.props.setGameStatus(status);
 	}
 	startTimer = () => {
+		this.setState({ progress: 0 })
 		this.setState({
 			interval:
 				setCorrectingInterval(() => {
@@ -58,7 +66,7 @@ class Game extends React.Component {
 						this.goToResult("expired")
 					}
 					this.props.setTempTime(this.props.tempTime - 1)
-				}, Platform.OS === "ios" ? 910 : 1000)
+				}, Platform.OS === "ios" ? 1000 : 1000)
 		})
 	}
 	submitGame = () => {
@@ -94,7 +102,19 @@ class Game extends React.Component {
 				<View style={styles.game_time}>
 					<Text style={styles.game_time_text}>{toHHMMSS(this.props.tempTime)}</Text>
 				</View>
-				<CustomProgressBar />
+				<CustomProgressBar
+					style={styles.custom_progress}
+					gradient={this.state.progressGradient}
+					animationType={"timing"}
+					borderWidth={0}
+					borderRadius={12}
+					height={5}
+					animationConfig={{ duration: this.props.fixedTime * 1000 }}
+					progress={this.state.progress}
+					width={width * 0.85}
+					useNativeDriver={true}
+					unfilledColor={colors.black_o90} />
+				/>
 				<View style={styles.container}>
 					{this.state.categories.map((category, index) => {
 						return (

@@ -89,7 +89,11 @@ export default StyleSheet.create({
 		width: width * 0.85
 	},
 	game_time: {
-		width: width * 0.85
+		width: width * 0.85,
+		marginBottom: 5
+	},
+	custom_progress: {
+		transform: [{ rotate: '180deg' }]
 	},
 	game_time_text: {
 		textAlign: "right",
