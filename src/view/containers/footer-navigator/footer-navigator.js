@@ -153,7 +153,7 @@ class FooterNavigation extends React.Component {
             transparent
             style={[styles.footer_tab]}
             // onPress={() =>  (this.props.dashboard) ? this.props.showDashboard(false) : this.props.showDashboard(true) }
-            onPress={() => { this.props.getGameInfo(), this.props.setTabState(4) }}
+            onPress={() => { this.props.getGameInfo(this.props.token), this.props.setTabState(4) }}
           >
             <FastImage
               resizeMode={FastImage.resizeMode.contain}
@@ -182,7 +182,8 @@ const mapStateToProps = state => {
   return {
     activeTab: state.activeTab,
     activeTab: state.activeTab,
-    dashboard: state.dashboard
+    dashboard: state.dashboard,
+    token: state.token
   };
 };
 

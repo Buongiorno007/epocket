@@ -18,14 +18,15 @@ buildscript {
 allprojects {
     repositories {
         mavenLocal()
-        jcenter()
         maven { url "$rootDir/../node_modules/react-native/android" }
-        maven { url 'https://maven.google.com' }
+        maven { url 'https://maven.google.com'
+                name 'Google'}
         maven { url "$rootDir/../node_modules/react-native-background-geolocation/android/libs" }
         maven { url "$rootDir/../node_modules/react-native-background-fetch/android/libs" }
         maven { url "https://jitpack.io" }
         google()
         maven { url 'https://maven.fabric.io/public' }
+        jcenter()
     }
 }
 

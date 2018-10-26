@@ -1,8 +1,9 @@
 export const GAME_INFO = 'game-info/GAME_INFO';
-import { httpPost } from "../services/http";
+import { httpGet } from "../services/http";
 import { setFixedTime } from "./fixedTime";
 import { setTempTime } from "./tempTime";
 import { ICONS } from "../constants/icons";
+import { urls } from "../constants/urls";
 
 const initialState = {
     description: "",
@@ -21,42 +22,50 @@ export default (state = initialState, action) => {
             return state;
     }
 }
-export const getGameInfo = () => async dispatch => {
-    // let body = {
-    //     missionId: this.props.selectedMission.id,
-    //     qrCode: qrcode.data
-    //   };
-    //   let promise = httpPost(
-    //     urls.send_qr_code,
-    //     JSON.stringify(body),
-    //     this.props.token
-    //   );
-    //   promise.then(
-    //     result => {
-    //     },
-    //     error => {
-    //       this.props.loaderState(false);
-    //       this.props.setShowQR(true)
-    //       let error_respons = handleError(error, this.constructor.name, "sendQRCode");
-    //       this.setState({ errorText: error_respons.error_text });
-    //       this.setModalVisible(error_respons.error_modal);
-    //     }
-    //   );
-    let info = {
-        description: "Test description from initialState. Loooooooooooooooooooooong one.",
-        cost: "2",
-        title: "LACOSTE",
-        success_image: ICONS.ZIFI.SURPRISED,
-        no_more_games: false,
-        time: 20,
-        true_answer: [1, 2, 3]
-    }
-    dispatch(setFixedTime(info.time))
-    dispatch(setTempTime(info.time))
-    dispatch(setGameInfo(info))
+export const getGameInfo = (token) => async dispatch => {
+    let received_promise = httpGet(
+        urls.game_get,
+        token
+    );
+    received_promise.then(
+        result => {
+            let game = result.body;
+            console.log("game", result)
+            let win_array;
+            // game.game_set.forEach(el => {
+            //     if (el.option) {
+            //         win_array.push(el.id);
+            //     }
+            // });
+            let info = {
+                description: game.description,
+                cost: game.award,
+                title: "LACOSTE", // no api ?????
+                success_image: ICONS.ZIFI.SURPRISED,
+                no_more_games: game.available_game_len >= 1 ? false : true,
+                time: game.time,
+                true_answer: win_array,
+                available_game_len: game.available_game_len
+            }
+            dispatch(setGameInfo(info))
+        },
+        error => {
+            console.log("error", error)
+            dispatch(setError(error))
+        }
+    );
+
 }
-export const setGameInfo = (payload) => ({
-    type: GAME_INFO, payload
+export const setGameInfo = (payload) => async dispatch => {
+    console.log("game", payload)
+    dispatch(setFixedTime(payload.time))
+    dispatch(setTempTime(payload.time))
+    return {
+        type: GAME_INFO, payload
+    }
+}
+export const setError = (error) => ({
+    type: GAME_ERROR, error
 })
 
 

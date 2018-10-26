@@ -33,12 +33,6 @@ class CustomProgressBar extends React.Component {
             easing: Easing.linear,
             useNativeDriver: true
         }).start();
-        Animated.timing(this.state.translateX, {
-            toValue: - (width * 0.85),
-            duration: this.props.fixedTime * 2000,
-            easing: Easing.linear,
-            useNativeDriver: true
-        }).start();
     }
     render() {
         return (
@@ -46,9 +40,6 @@ class CustomProgressBar extends React.Component {
                 <Animated.View style={{
                     borderRadius: 12,
                     width: width * 0.85,
-                    transform: [
-                        { translateX: this.state.translateX }
-                    ]
                 }}>
                     <Animated.View style={[styles.gradient_container, {
                         width: width * 0.85,
