@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Platform, Dimensions } from 'react-native';
+import { View, Text, Platform, Dimensions, AppState } from 'react-native';
 import { Button } from "native-base";
 import FastImage from 'react-native-fast-image'
 //redux
@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux';
 import { setTempTime } from "../../../reducers/tempTime"
 import { setFixedTime } from "../../../reducers/fixedTime"
 import { setGameStatus } from "../../../reducers/game-status"
+import { setAppState } from "../../../reducers/app-state"
 import { editGame, clearGame } from "../../../reducers/game-controller"
 //constants
 import styles from './styles';
@@ -39,7 +40,12 @@ class Game extends React.Component {
 		this.props.editGame(i + 1);
 	}
 	goToResult = (status) => {
-		NavigationService.navigate("GameResult");
+		let insta_data = {
+			id: 0,
+			hash_tag: "",
+			base64: ""
+		}
+		NavigationService.navigate("GameResult", insta_data);
 		clearCorrectingInterval(this.state.interval);
 		this.props.setGameStatus(status);
 	}
@@ -73,11 +79,21 @@ class Game extends React.Component {
 			this.goToResult("failed")
 		}
 	}
-	componentDidMount = () => {
+	_handleAppStateChange = (nextAppState) => {
+		if (this.props.appState.match(/active/) && (nextAppState === 'background')) {
+			console.log("User's progress should be deleted because he closed the app")
+		}
+		this.props.setAppState(nextAppState)
+	}
+	componentDidMount() {
+		AppState.addEventListener('change', this._handleAppStateChange);
 		this.props.clearGame();
 		if (this.props.tempTime >= 1) {
 			this.startTimer()
 		}
+	}
+	componentWillUnmount(){
+		AppState.removeEventListener('change', this._handleAppStateChange);
 	}
 	render() {
 		return (
@@ -138,7 +154,7 @@ class Game extends React.Component {
 						}}
 					/>
 				</View>
-				<FooterNavigation />
+				{/* <FooterNavigation /> */}
 			</View>
 		);
 	}
@@ -149,6 +165,7 @@ const mapStateToProps = (state) => {
 		game_info: state.game_info,
 		tempTime: state.tempTime,
 		fixedTime: state.fixedTime,
+		appState: state.appState,
 		game_images: state.game_controller.game_images
 	};
 };
@@ -157,6 +174,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
 	setTempTime,
 	setFixedTime,
 	setGameStatus,
+	setAppState,
 	editGame,
 	clearGame
 }, dispatch);

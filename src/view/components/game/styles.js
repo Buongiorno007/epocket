@@ -49,7 +49,7 @@ export default StyleSheet.create({
 		width: width * 0.85,
 		alignItems: "center",
 		justifyContent: "center",
-		marginTop: height * 0.05
+		marginTop: height * 0.1
 	},
 	item: {
 		width: (width * 0.85) / 3,

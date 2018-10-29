@@ -13,6 +13,7 @@ import { bindActionCreators } from "redux";
 import { showDashboard } from "../reducers/show-dashboard";
 import { setDistance } from "../reducers/distance";
 import { setAppState } from "../reducers/app-state"
+import { setGameStatus } from "../reducers/game-status"
 import { setMainTaskId } from "../reducers/main-task-id"
 import { setSheduleRequestStart } from "../reducers/set-shedule-request-start"
 import { showDoneNotification } from "../reducers/main-task-done-notification";
@@ -120,7 +121,6 @@ class GeolocationService extends React.Component {
   //     );
   //   });
   // };
-
   _handleAppStateChange = (nextAppState) => {
     if (this.props.appState.match(/inactive|background/) && nextAppState === 'active') {
       getCurrentGeolocation().then((location) => {
@@ -134,7 +134,6 @@ class GeolocationService extends React.Component {
       },
         (error) => { })
     }
-    this.props.setAppState(nextAppState)
   }
 
   componentDidMount() {
@@ -215,7 +214,8 @@ const mapStateToProps = state => {
     dashboard: state.dashboard,
     sheduleRequestStart: state.sheduleRequestStart,
     appState: state.appState,
-    mainTaskId: state.mainTaskId
+    mainTaskId: state.mainTaskId,
+    game_status: state.game_status,
   };
 };
 
@@ -227,7 +227,8 @@ const mapDispatchToProps = dispatch =>
       showDoneNotification,
       setSheduleRequestStart,
       setAppState,
-      setMainTaskId
+      setMainTaskId,
+      setGameStatus
     },
     dispatch
   );
