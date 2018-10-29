@@ -1,4 +1,5 @@
 export const EDIT_GAME_GRID = './game-controller/EDIT_GAME_GRID';
+export const CLEAR_GAME_GRID = './game-controller/CLEAR_GAME_GRID'
 initialState = {
     game_images: [
         { id: 1, pressed: false },
@@ -22,6 +23,8 @@ export default (state = initialState, action) => {
                     game_element
                 )
             };
+        case CLEAR_GAME_GRID:
+            return initialState;
         default:
             return state;
     }
@@ -31,5 +34,10 @@ export const editGame = (id) => (
     {
         type: EDIT_GAME_GRID,
         id
+    }
+)
+export const clearGame = () => (
+    {
+        type: CLEAR_GAME_GRID
     }
 )

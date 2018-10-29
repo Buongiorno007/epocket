@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux';
 import { setTempTime } from "../../../reducers/tempTime"
 import { setFixedTime } from "../../../reducers/fixedTime"
 import { setGameStatus } from "../../../reducers/game-status"
-import { editGame } from "../../../reducers/game-controller"
+import { editGame, clearGame } from "../../../reducers/game-controller"
 //constants
 import styles from './styles';
 import { colors } from './../../../constants/colors';
@@ -36,11 +36,6 @@ class Game extends React.Component {
 		}
 	};
 	changePressed(i) {
-		// let cat_copy = this.state.game_images.slice(0);;
-		// cat_copy[i].pressed = !cat_copy[i].pressed;
-		// this.setState({
-		// 	game_images: cat_copy
-		// });
 		this.props.editGame(i + 1);
 	}
 	goToResult = (status) => {
@@ -79,6 +74,7 @@ class Game extends React.Component {
 		}
 	}
 	componentDidMount = () => {
+		this.props.clearGame();
 		if (this.props.tempTime >= 1) {
 			this.startTimer()
 		}
@@ -161,7 +157,8 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
 	setTempTime,
 	setFixedTime,
 	setGameStatus,
-	editGame
+	editGame,
+	clearGame
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
