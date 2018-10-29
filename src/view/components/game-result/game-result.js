@@ -21,6 +21,9 @@ class GameResult extends React.Component {
     goBack = () => {
         NavigationService.navigate("Main")
         this.props.setTabState(2)
+        // NavigationService.navigate("EarnMore", {
+        //     insta_data: this.props.navigation.state.params.insta_data
+        // });
         setTimeout(() => {
             this.props.setGameStatus("start")
         }, 1000)

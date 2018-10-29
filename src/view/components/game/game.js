@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux';
 import { setTempTime } from "../../../reducers/tempTime"
 import { setFixedTime } from "../../../reducers/fixedTime"
 import { setGameStatus } from "../../../reducers/game-status"
+import { editGame } from "../../../reducers/game-controller"
 //constants
 import styles from './styles';
 import { colors } from './../../../constants/colors';
@@ -26,17 +27,6 @@ const { width } = Dimensions.get("window");
 
 class Game extends React.Component {
 	state = {
-		categories: [
-			{ name: 1, pressed: false },
-			{ name: 2, pressed: false },
-			{ name: 3, pressed: false },
-			{ name: 4, pressed: false },
-			{ name: 5, pressed: false },
-			{ name: 6, pressed: false },
-			{ name: 7, pressed: false },
-			{ name: 8, pressed: false },
-			{ name: 9, pressed: false }
-		],
 		interval: null,
 		progress: 1,
 		progressGradient: {
@@ -46,11 +36,12 @@ class Game extends React.Component {
 		}
 	};
 	changePressed(i) {
-		let cat_copy = this.state.categories;
-		cat_copy[i].pressed = !cat_copy[i].pressed;
-		this.setState({
-			categories: cat_copy
-		});
+		// let cat_copy = this.state.game_images.slice(0);;
+		// cat_copy[i].pressed = !cat_copy[i].pressed;
+		// this.setState({
+		// 	game_images: cat_copy
+		// });
+		this.props.editGame(i + 1);
 	}
 	goToResult = (status) => {
 		NavigationService.navigate("GameResult");
@@ -72,13 +63,13 @@ class Game extends React.Component {
 	submitGame = () => {
 		let pressedArray = [];
 		let pressedIndexArray = [];
-		this.state.categories.forEach((item) => {
+		this.props.game_images.forEach((item) => {
 			if (item.pressed) {
 				pressedArray.push(item)
 			}
 		});
 		pressedArray.forEach((pressedItem) => {
-			pressedIndexArray.push(pressedItem.name)
+			pressedIndexArray.push(pressedItem.id)
 		});
 		if (pressedArray.length >= 1 && JSON.stringify(pressedIndexArray) === JSON.stringify(this.props.game_info.true_answer)) { //compare JSONs to compare arrays
 			this.goToResult("success")
@@ -114,15 +105,14 @@ class Game extends React.Component {
 					width={width * 0.85}
 					useNativeDriver={true}
 					unfilledColor={colors.black_o90} />
-				/>
 				<View style={styles.container}>
-					{this.state.categories.map((category, index) => {
+					{this.props.game_images.map((game_element, index) => {
 						return (
 							<Button
 								transparent
 								block
 								key={index}
-								style={[category.pressed == true ? index >= 6 ? styles.pressed_button_last_line : styles.pressed_button : index >= 6 ? styles.item_last_line : styles.item]}
+								style={[game_element.pressed ? index >= 6 ? styles.pressed_button_last_line : styles.pressed_button : index >= 6 ? styles.item_last_line : styles.item]}
 								onPress={() => {
 									this.changePressed(index);
 								}}
@@ -163,13 +153,15 @@ const mapStateToProps = (state) => {
 		game_info: state.game_info,
 		tempTime: state.tempTime,
 		fixedTime: state.fixedTime,
+		game_images: state.game_controller.game_images
 	};
 };
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
 	setTempTime,
 	setFixedTime,
-	setGameStatus
+	setGameStatus,
+	editGame
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

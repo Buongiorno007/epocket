@@ -35,6 +35,7 @@ import tempTime from "./tempTime"
 import fixedTime from "./fixedTime"
 import game_status from "./game-status"
 import game_expired_timer from "./game-expired-timer"
+import game_controller from "./game-controller"
 
 export default combineReducers({
   isConnected,
@@ -72,5 +73,6 @@ export default combineReducers({
   tempTime,
   fixedTime,
   game_status,
-  game_expired_timer
+  game_expired_timer,
+  game_controller
 });
