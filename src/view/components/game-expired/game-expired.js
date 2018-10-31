@@ -1,30 +1,41 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Clipboard, Platform } from 'react-native';
 import FastImage from 'react-native-fast-image'
 import LinearGradient from "react-native-linear-gradient";
+import Share from 'react-native-share';
+import { Button, Toast } from "native-base";
 //redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setGameStatus } from "../../../reducers/game-status"
-import { setGameExpiredTimer } from "../../../reducers/game-expired-timer"
+import { setInstaToken } from "../../../reducers/insta-token";
+import { loaderState } from "../../../reducers/loader";
+import { setGameExpiredTimer, resetGameExpiredTimer, shutDownExpiredTimer } from "../../../reducers/game-expired-timer"
 //constants
 import styles from './styles';
 import { colors } from './../../../constants/colors';
 import { RU } from '../../../locales/ru';
 import { ICONS } from "../../../constants/icons";
+import { urls } from "../../../constants/urls";
 //containers
 import GameTimer from "../../containers/game-timer/game-timer"
 import CustomButton from '../../containers/custom-button/custom-button';
-import CustomProgressBar from '../../containers/custom-progress-bar/custom-progress-bar';
 import FooterNavigation from '../../containers/footer-navigator/footer-navigator';
+import CustomAlert from "../../containers/custom-alert/custom-alert";
+import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 //services
 import "../../../services/correcting-interval";
 import { toHHMMSS } from "./../../../services/convert-time"
 import NavigationService from "./../../../services/route";
+import InstagramLogin from '../../../services/Instagram';
+import { formatItem } from '../../../services/format-hastags'
+import { httpPost } from "../../../services/http";
 
 class GameStart extends React.Component {
     state = {
-        interval: null
+        interval: null,
+        errorVisible: false,
+        errorText: ""
     };
     startTimer = () => {
         this.setState({
@@ -39,14 +50,105 @@ class GameStart extends React.Component {
         })
     }
     componentDidMount = () => {
+        this.props.resetGameExpiredTimer(this.props.token)
         this.startTimer()
+        console.log("expired rendered")
     }
     componentWillUnmount = () => {
         clearCorrectingInterval(this.state.interval);
     }
+    setModalVisible = visible => {
+        this.setState({ errorVisible: visible });
+    };
+    componentWillReceiveProps = nextProps => {
+        console.log(nextProps)
+        if (nextProps.game_error != null) {
+            clearCorrectingInterval(this.state.interval);
+            this.setState({ errorText: nextProps.game_error.error_text })
+            this.setModalVisible(true);
+        }
+    }
+    goInst = () => {
+        if (!this.props.insta_token) {
+            this.refs.instagramLogin.show()
+        } else {
+            this.shareToInsta();
+        }
+    };
+    connectInsta = (instagram_token) => {
+        this.props.loaderState(true);
+        this.props.setInstaToken(String(instagram_token))
+        let body = JSON.stringify({
+            instagram_token: instagram_token
+        });
+        let promise = httpPost(
+            urls.insta_login,
+            body,
+            this.props.token
+        );
+        promise.then(
+            result => {
+                this.shareToInsta();
+                this.props.loaderState(false);
+            },
+            error => {
+                this.props.loaderState(false);
+            }
+        );
+    }
+    confirmPost = () => {
+        this.props.shutDownExpiredTimer(this.props.token);
+        NavigationService.navigate("Main")
+        setTimeout(() => {
+            this.props.setGameStatus("start")
+        }, 1000)
+    }
+    shareToInsta = () => {
+        Clipboard.setString(formatItem(this.props.game_info.insta_data.hash_tag));
+        Toast.show({
+            text: RU.MISSION.HASHTAGS_MESSAGE,
+            buttonText: "",
+            duration: 3000
+        })
+        let shareImageBase64 = {
+            title: formatItem(this.props.game_info.insta_data.hash_tag),
+            url: this.props.game_info.insta_data.base64,
+        };
+        setTimeout(() => {
+            Platform.OS === 'ios' ? Share.open(shareImageBase64).then(
+                result => {
+                    this.confirmPost()
+                },
+                error => {
+                }
+            ) : Share.open(shareImageBase64), this.confirmPost();
+        }, 2000);
+    }
     render() {
         return (
             <View style={styles.main_view}>
+                {this.props.loader && <ActivityIndicator />}
+                <CustomAlert
+                    title={this.state.errorText}
+                    first_btn_title={RU.REPEAT}
+                    visible={this.state.errorVisible}
+                    first_btn_handler={() => {
+                        this.setModalVisible(!this.state.errorVisible);
+                        this.props.resetGameExpiredTimer(this.props.token)
+                        this.startTimer()
+                    }}
+                    decline_btn_handler={() => {
+                        this.setModalVisible(!this.state.errorVisible);
+                    }}
+                />
+                <InstagramLogin
+                    ref='instagramLogin'
+                    clientId='c390ce3e630b4429bbe1fa33315cb888'
+                    redirectUrl='https://epocket.dev.splinestudio.com'
+                    scopes={['basic', 'public_content', 'likes', 'follower_list', 'comments', 'relationships']}
+                    onLoginSuccess={(token) => this.connectInsta(token)}
+                    onLoginFailure={(data) => console.log(data)}
+                />
                 <View style={styles.container}>
                     <Text style={styles.zifi_text}>{RU.GAME.ZIFI.WAIT}</Text>
                     <FastImage
@@ -60,7 +162,6 @@ class GameStart extends React.Component {
                     <FastImage
                         style={styles.image_to_post}
                         resizeMode={FastImage.resizeMode.contain}
-                        //source={{ uri: ICONS.ZIFI.SURPRISED }}
                         source={{ uri: this.props.game_info.success_image }}
 
                     />
@@ -78,7 +179,7 @@ class GameStart extends React.Component {
                         title={RU.GAME.RESULT.PUBLISH_AND_CONTINUE.toUpperCase()}
                         color={colors.white}
                         handler={() => {
-                            this.props.setGameStatus("start")
+                            this.goInst();
                         }}
                     />
                 </View>
@@ -92,12 +193,20 @@ const mapStateToProps = (state) => {
     return {
         game_info: state.game_info,
         game_expired_timer: state.game_expired_timer,
+        token: state.token,
+        loader: state.loader,
+        insta_token: state.insta_token,
+        game_error: state.game_error
     };
 };
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
     setGameStatus,
-    setGameExpiredTimer
+    setGameExpiredTimer,
+    resetGameExpiredTimer,
+    shutDownExpiredTimer,
+    loaderState,
+    setInstaToken
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameStart);

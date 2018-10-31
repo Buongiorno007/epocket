@@ -1,29 +1,58 @@
 import React from 'react';
-import { View, Text, Platform, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text } from 'react-native';
 import { LinearTextGradient } from "react-native-text-gradient";
 import FastImage from 'react-native-fast-image'
 //redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setGameStatus } from "../../../reducers/game-status"
+import { getGameInfo } from "../../../reducers/game-info";
+import { resetGameExpiredTimer } from "../../../reducers/game-expired-timer"
 //constants
 import styles from './styles';
 import { colors } from './../../../constants/colors';
 import { RU } from '../../../locales/ru';
-import { ICONS } from "../../../constants/icons";
 //containers
 import CustomButton from '../../containers/custom-button/custom-button';
-import CustomProgressBar from '../../containers/custom-progress-bar/custom-progress-bar';
 import FooterNavigation from '../../containers/footer-navigator/footer-navigator';
+import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
+import CustomAlert from "../../containers/custom-alert/custom-alert";
 //services
 import "../../../services/correcting-interval";
-import NavigationService from "./../../../services/route";
 
 class GameStart extends React.Component {
-    state = {};
+    state = {
+        errorVisible: false,
+        errorText: ""
+    };
+    setModalVisible = visible => {
+        this.setState({ errorVisible: visible });
+    };
+    componentDidMount() {
+        this.props.getGameInfo(this.props.token)
+    }
+    componentWillReceiveProps = nextProps => {
+        if (nextProps.game_error != null) {
+            this.setState({ errorText: nextProps.game_error.error_text })
+            this.setModalVisible(true);
+        }
+    }
     render() {
         return (
             <View style={styles.main_view}>
+                {this.props.loader && <ActivityIndicator />}
+                <CustomAlert
+                    title={this.state.errorText}
+                    first_btn_title={RU.REPEAT}
+                    visible={this.state.errorVisible}
+                    first_btn_handler={() => {
+                        this.setModalVisible(!this.state.errorVisible);
+                        this.props.getGameInfo(this.props.token);
+                    }}
+                    decline_btn_handler={() => {
+                        this.setModalVisible(!this.state.errorVisible);
+                    }}
+                />
                 {
                     this.props.game_info.no_more_games ?
                         null :
@@ -80,11 +109,16 @@ class GameStart extends React.Component {
 const mapStateToProps = (state) => {
     return {
         game_info: state.game_info,
+        token: state.token,
+        loader: state.loader,
+        game_error: state.game_error
     };
 };
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-    setGameStatus
+    getGameInfo,
+    setGameStatus,
+    resetGameExpiredTimer,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameStart);

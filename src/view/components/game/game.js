@@ -40,14 +40,9 @@ class Game extends React.Component {
 		this.props.editGame(i + 1);
 	}
 	goToResult = (status) => {
-		let insta_data = {
-			id: 0,
-			hash_tag: "",
-			base64: ""
-		}
-		NavigationService.navigate("GameResult", insta_data);
-		clearCorrectingInterval(this.state.interval);
+		NavigationService.navigate("GameResult", { status });
 		this.props.setGameStatus(status);
+		clearCorrectingInterval(this.state.interval);
 	}
 	startTimer = () => {
 		this.setState({ progress: 0 })
@@ -55,7 +50,7 @@ class Game extends React.Component {
 			interval:
 				setCorrectingInterval(() => {
 					if (this.props.tempTime < 1) {
-						this.goToResult("expired")
+						this.goToResult("expired");
 					}
 					this.props.setTempTime(this.props.tempTime - 1)
 				}, Platform.OS === "ios" ? 1000 : 1000)
@@ -92,8 +87,9 @@ class Game extends React.Component {
 			this.startTimer()
 		}
 	}
-	componentWillUnmount(){
+	componentWillUnmount() {
 		AppState.removeEventListener('change', this._handleAppStateChange);
+		clearCorrectingInterval(this.state.interval);
 	}
 	render() {
 		return (

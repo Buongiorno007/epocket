@@ -1,31 +1,38 @@
 import React from 'react';
-import { View, Text, StatusBar } from "react-native";
+import { View, Text, StatusBar, Clipboard, Platform, AppState } from "react-native";
 import FastImage from 'react-native-fast-image'
 import LinearGradient from "react-native-linear-gradient";
-import { Button } from "native-base";
+import { Button, Toast } from "native-base";
 import Share from 'react-native-share';
 //redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setGameStatus } from "../../../reducers/game-status"
 import { setTabState } from "../../../reducers/tabs";
-import { resetGameExpiredTimer } from "../../../reducers/game-expired-timer"
-import { getGameInfo } from "../../../reducers/game-info"
+import { loaderState } from "../../../reducers/loader";
+import { setInstaToken } from "../../../reducers/insta-token";
+import { setAppState } from "../../../reducers/app-state"
+import { startExpiredTimer } from "../../../reducers/game-expired-timer"
 //constants
 import styles from './styles';
 import { colors } from '../../../constants/colors';
 import { RU } from '../../../locales/ru';
 import { ICONS } from "../../../constants/icons";
+import { urls } from "../../../constants/urls";
 //services
 import NavigationService from "./../../../services/route";
 import InstagramLogin from '../../../services/Instagram';
 import { formatItem } from '../../../services/format-hastags'
 import { httpPost } from "../../../services/http";
 //containers
+import CustomAlert from "../../containers/custom-alert/custom-alert";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 
 class GameResult extends React.Component {
-    state = {};
+    state = {
+        errorVisible: false,
+        errorText: ""
+    };
 
     goInst = () => {
         if (!this.props.insta_token) {
@@ -35,19 +42,17 @@ class GameResult extends React.Component {
         }
     };
     goWait = () => {
-        this.props.getGameInfo(this.props.token);
         NavigationService.navigate("Main")
-        this.props.resetGameExpiredTimer();
+        this.props.startExpiredTimer(this.props.token);
         setTimeout(() => {
             this.props.setGameStatus("expired")
         }, 0)
     }
     goHome = () => {
         NavigationService.navigate("Main")
-        this.props.setTabState(2)
         setTimeout(() => {
             this.props.setGameStatus("start")
-        }, 1000)
+        }, 500)
     }
     connectInsta = (instagram_token) => {
         this.props.loaderState(true);
@@ -72,27 +77,6 @@ class GameResult extends React.Component {
     }
     confirmPost = () => {
         this.props.loaderState(true);
-        let body = JSON.stringify({
-            id: this.props.navigation.state.params.insta_data.id
-        });
-        let promise = httpPost(
-            urls.insta_getmedia,
-            body,
-            this.props.token
-        );
-        promise.then(
-            result => {
-                console.log('result', result)
-                this.props.setBalance(result.body.media.status.balance)
-                this.skip();
-            },
-            error => {
-                this.skip();
-            }
-        );
-    }
-    confirmPost = () => {
-        this.props.getGameInfo(this.props.token);
         NavigationService.navigate("Main")
         this.props.setTabState(4)
         setTimeout(() => {
@@ -100,15 +84,15 @@ class GameResult extends React.Component {
         }, 1000)
     }
     shareToInsta = () => {
-        Clipboard.setString(formatItem(this.props.navigation.state.params.insta_data.hash_tag));
+        Clipboard.setString(formatItem(this.props.game_info.insta_data.hash_tag));
         Toast.show({
             text: RU.MISSION.HASHTAGS_MESSAGE,
             buttonText: "",
             duration: 3000
         })
         let shareImageBase64 = {
-            title: formatItem(this.props.navigation.state.params.insta_data.hash_tag),
-            url: 'data:image/jpg;base64,' + this.props.navigation.state.params.insta_data.base64,
+            title: formatItem(this.props.game_info.insta_data.hash_tag),
+            url: this.props.game_info.insta_data.base64,
         };
         setTimeout(() => {
             Platform.OS === 'ios' ? Share.open(shareImageBase64).then(
@@ -117,11 +101,24 @@ class GameResult extends React.Component {
                 },
                 error => {
                 }
-            ) : Share.open(shareImageBase64);
+            ) : this.confirmPost(), Share.open(shareImageBase64);
         }, 2000);
     }
-    componentDidMount = () => { }
-
+    _handleAppStateChange = (nextAppState) => {
+        if (this.props.navigation.state.params.status != "success" && this.props.appState.match(/active/) && (nextAppState === 'background')) {
+            console.log("show alert & start timer, cause user tried to abuse")
+            this.goWait();
+        }
+        this.props.setAppState(nextAppState)
+    }
+    componentDidMount = () => {
+        AppState.addEventListener('change', this._handleAppStateChange);
+        console.log("result rendered")
+        console.log(this.props)
+    }
+    componentWillUnmount() {
+        AppState.removeEventListener('change', this._handleAppStateChange);
+    }
     chooseZifiText = (status) => {
         let text;
         if (status === "success") {
@@ -200,10 +197,31 @@ class GameResult extends React.Component {
         }
         return { img, style }
     }
+    setModalVisible = visible => {
+        this.setState({ errorVisible: visible });
+    };
+    componentWillReceiveProps = nextProps => {
+        if (nextProps.game_error != null) {
+            this.setState({ errorText: nextProps.game_error.error_text })
+            this.setModalVisible(true);
+        }
+    }
     render() {
         return (
             <View style={styles.container} >
                 {this.props.loader && <ActivityIndicator />}
+                <CustomAlert
+                    title={this.state.errorText}
+                    first_btn_title={RU.REPEAT}
+                    visible={this.state.errorVisible}
+                    first_btn_handler={() => {
+                        this.setModalVisible(!this.state.errorVisible);
+                        this.props.startExpiredTimer(this.props.token);
+                    }}
+                    decline_btn_handler={() => {
+                        this.setModalVisible(!this.state.errorVisible);
+                    }}
+                />
                 <StatusBar
                     barStyle="light-content"
                     backgroundColor={"transparent"}
@@ -231,30 +249,30 @@ class GameResult extends React.Component {
                 />
                 <FastImage
                     resizeMode={FastImage.resizeMode.contain}
-                    style={this.chooseBackground(this.props.game_status).style}
-                    source={this.chooseBackground(this.props.game_status).img}
+                    style={this.chooseBackground(this.props.navigation.state.params.status).style}
+                    source={this.chooseBackground(this.props.navigation.state.params.status).img}
                 />
-                <View style={this.props.game_status === "success" ? styles.success : styles.failed}>
-                    <Text style={styles.zifi_text}>{this.chooseZifiText(this.props.game_status)}</Text>
+                <View style={this.props.navigation.state.params.status === "success" ? styles.success : styles.failed}>
+                    <Text style={styles.zifi_text}>{this.chooseZifiText(this.props.navigation.state.params.status)}</Text>
                     <FastImage
                         resizeMode={FastImage.resizeMode.contain}
                         style={styles.zifi}
-                        source={this.chooseZifi(this.props.game_status)}
+                        source={this.chooseZifi(this.props.navigation.state.params.status)}
                     />
-                    <Text style={this.chooseResultText(this.props.game_status).style}>{this.chooseResultText(this.props.game_status).text}</Text>
+                    <Text style={this.chooseResultText(this.props.navigation.state.params.status).style}>{this.chooseResultText(this.props.navigation.state.params.status).text}</Text>
                     <Button
                         rounded
                         transparent
                         block
-                        style={this.props.game_status === "success" ? styles.button_short : styles.button}
+                        style={this.props.navigation.state.params.status === "success" ? styles.button_short : styles.button}
                         androidRippleColor={colors.card_shadow}
                         onPress={() => {
-                            this.props.game_status === "success" ? this.goHome() : this.goInst()
+                            this.props.navigation.state.params.status === "success" ? this.goHome() : this.goInst()
                         }}
                     >
-                        <Text style={styles.text}>{this.chooseButtonText(this.props.game_status)}</Text>
+                        <Text style={styles.text}>{this.chooseButtonText(this.props.navigation.state.params.status)}</Text>
                     </Button>
-                    {this.props.game_status === "success" ? null :
+                    {this.props.navigation.state.params.status === "success" ? null :
                         <Button
                             transparent
                             style={styles.wait_button}
@@ -277,6 +295,7 @@ const mapStateToProps = (state) => {
         game_info: state.game_info,
         game_status: state.game_status,
         token: state.token,
+        appState: state.appState,
         insta_token: state.insta_token,
     };
 };
@@ -284,8 +303,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => bindActionCreators({
     setGameStatus,
     setTabState,
-    resetGameExpiredTimer,
-    getGameInfo
+    startExpiredTimer,
+    loaderState,
+    setAppState,
+    setInstaToken
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameResult);
