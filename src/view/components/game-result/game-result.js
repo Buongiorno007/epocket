@@ -13,6 +13,10 @@ import { loaderState } from "../../../reducers/loader";
 import { setInstaToken } from "../../../reducers/insta-token";
 import { setAppState } from "../../../reducers/app-state"
 import { startExpiredTimer } from "../../../reducers/game-expired-timer"
+import { errorState } from "../../../reducers/game-error"
+import { setFixedTime } from "../../../reducers/fixedTime";
+import { setTempTime } from "../../../reducers/tempTime";
+import { setGameInfo } from "../../../reducers/game-info"
 //constants
 import styles from './styles';
 import { colors } from '../../../constants/colors';
@@ -23,7 +27,8 @@ import { urls } from "../../../constants/urls";
 import NavigationService from "./../../../services/route";
 import InstagramLogin from '../../../services/Instagram';
 import { formatItem } from '../../../services/format-hastags'
-import { httpPost } from "../../../services/http";
+import { httpPost, httpGet } from "../../../services/http";
+import { handleError } from "../../../services/http-error-handler";
 //containers
 import CustomAlert from "../../containers/custom-alert/custom-alert";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
@@ -77,11 +82,49 @@ class GameResult extends React.Component {
     }
     confirmPost = () => {
         this.props.loaderState(true);
-        NavigationService.navigate("Main")
-        this.props.setTabState(4)
-        setTimeout(() => {
-            this.props.setGameStatus("game")
-        }, 1000)
+        let received_promise = httpGet(
+            urls.game_get,
+            this.props.token
+        );
+        received_promise.then(
+            result => {
+                let game = result.body;
+                let win_array = [];
+                game.game_set.forEach(el => {
+                    if (el.option) {
+                        win_array.push(el.id);
+                    }
+                });
+                let info = {
+                    description: game.description,
+                    cost: game.award + "",
+                    title: game.title,
+                    success_image: game.insta_image_url,
+                    no_more_games: game.available_game_len >= 1 ? false : true,
+                    time: game.time,
+                    true_answer: win_array,
+                    game_array: game.game_set,
+                    available_game_len: game.available_game_len,
+                    total_game_len: game.games_count,
+                    insta_data: {
+                        base64: game.insta_image,
+                        id: game.id,
+                        hash_tag: "",
+                    }
+                }
+                this.props.setGameInfo(info);
+                this.props.setFixedTime(game.time)
+                this.props.setTempTime(game.time)
+                this.props.loaderState(false);
+                NavigationService.navigate("Main")
+                this.props.setGameStatus("game")
+            },
+            error => {
+                let error_response = handleError(error, this.component.name, "confirmPost")
+                this.props.errorState(error_response)
+                this.props.loaderState(false);
+            }
+        );
     }
     shareToInsta = () => {
         Clipboard.setString(formatItem(this.props.game_info.insta_data.hash_tag));
@@ -113,8 +156,6 @@ class GameResult extends React.Component {
     }
     componentDidMount = () => {
         AppState.addEventListener('change', this._handleAppStateChange);
-        console.log("result rendered")
-        console.log(this.props)
     }
     componentWillUnmount() {
         AppState.removeEventListener('change', this._handleAppStateChange);
@@ -211,15 +252,21 @@ class GameResult extends React.Component {
             <View style={styles.container} >
                 {this.props.loader && <ActivityIndicator />}
                 <CustomAlert
-                    title={this.state.errorText}
+                    title={this.props.game_error.error_text}
                     first_btn_title={RU.REPEAT}
-                    visible={this.state.errorVisible}
+                    visible={this.props.game_error.error_modal}
                     first_btn_handler={() => {
-                        this.setModalVisible(!this.state.errorVisible);
                         this.props.startExpiredTimer(this.props.token);
+                        this.props.errorState({
+                            error_text: this.props.game_error.error_text,
+                            error_modal: !this.props.game_error.error_modal
+                        })
                     }}
                     decline_btn_handler={() => {
-                        this.setModalVisible(!this.state.errorVisible);
+                        this.props.errorState({
+                            error_text: this.props.game_error.error_text,
+                            error_modal: !this.props.game_error.error_modal
+                        })
                     }}
                 />
                 <StatusBar
@@ -289,12 +336,12 @@ class GameResult extends React.Component {
         );
     }
 }
-//
 const mapStateToProps = (state) => {
     return {
         game_info: state.game_info,
         game_status: state.game_status,
         token: state.token,
+        game_error: state.game_error,
         appState: state.appState,
         insta_token: state.insta_token,
     };
@@ -305,6 +352,10 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     setTabState,
     startExpiredTimer,
     loaderState,
+    setFixedTime,
+    setGameInfo,
+    setTempTime,
+    errorState,
     setAppState,
     setInstaToken
 }, dispatch);

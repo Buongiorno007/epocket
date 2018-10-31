@@ -11,6 +11,7 @@ import { setGameStatus } from "../../../reducers/game-status"
 import { setInstaToken } from "../../../reducers/insta-token";
 import { loaderState } from "../../../reducers/loader";
 import { setGameExpiredTimer, resetGameExpiredTimer, shutDownExpiredTimer } from "../../../reducers/game-expired-timer"
+import { errorState } from "../../../reducers/game-error"
 //constants
 import styles from './styles';
 import { colors } from './../../../constants/colors';
@@ -33,9 +34,7 @@ import { httpPost } from "../../../services/http";
 
 class GameStart extends React.Component {
     state = {
-        interval: null,
-        errorVisible: false,
-        errorText: ""
+        interval: null
     };
     startTimer = () => {
         this.setState({
@@ -52,21 +51,9 @@ class GameStart extends React.Component {
     componentDidMount = () => {
         this.props.resetGameExpiredTimer(this.props.token)
         this.startTimer()
-        console.log("expired rendered")
     }
     componentWillUnmount = () => {
         clearCorrectingInterval(this.state.interval);
-    }
-    setModalVisible = visible => {
-        this.setState({ errorVisible: visible });
-    };
-    componentWillReceiveProps = nextProps => {
-        console.log(nextProps)
-        if (nextProps.game_error != null) {
-            clearCorrectingInterval(this.state.interval);
-            this.setState({ errorText: nextProps.game_error.error_text })
-            this.setModalVisible(true);
-        }
     }
     goInst = () => {
         if (!this.props.insta_token) {
@@ -98,10 +85,6 @@ class GameStart extends React.Component {
     }
     confirmPost = () => {
         this.props.shutDownExpiredTimer(this.props.token);
-        NavigationService.navigate("Main")
-        setTimeout(() => {
-            this.props.setGameStatus("start")
-        }, 1000)
     }
     shareToInsta = () => {
         Clipboard.setString(formatItem(this.props.game_info.insta_data.hash_tag));
@@ -129,16 +112,22 @@ class GameStart extends React.Component {
             <View style={styles.main_view}>
                 {this.props.loader && <ActivityIndicator />}
                 <CustomAlert
-                    title={this.state.errorText}
+                    title={this.props.game_error.error_text}
                     first_btn_title={RU.REPEAT}
-                    visible={this.state.errorVisible}
+                    visible={this.props.game_error.error_modal}
                     first_btn_handler={() => {
-                        this.setModalVisible(!this.state.errorVisible);
                         this.props.resetGameExpiredTimer(this.props.token)
+                        this.props.errorState({
+                            error_text: this.props.game_error.error_text,
+                            error_modal: !this.props.game_error.error_modal
+                        })
                         this.startTimer()
                     }}
                     decline_btn_handler={() => {
-                        this.setModalVisible(!this.state.errorVisible);
+                        this.props.errorState({
+                            error_text: this.props.game_error.error_text,
+                            error_modal: !this.props.game_error.error_modal
+                        })
                     }}
                 />
                 <InstagramLogin
@@ -174,7 +163,7 @@ class GameStart extends React.Component {
                 </View>
                 <View style={styles.btn_container}>
                     <CustomButton
-                        active
+                        active={this.props.game_error.error_text === "" ? true : false}
                         gradient
                         title={RU.GAME.RESULT.PUBLISH_AND_CONTINUE.toUpperCase()}
                         color={colors.white}
@@ -206,6 +195,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     resetGameExpiredTimer,
     shutDownExpiredTimer,
     loaderState,
+    errorState,
     setInstaToken
 }, dispatch);
 

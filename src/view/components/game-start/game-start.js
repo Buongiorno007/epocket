@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux';
 import { setGameStatus } from "../../../reducers/game-status"
 import { getGameInfo } from "../../../reducers/game-info";
 import { resetGameExpiredTimer } from "../../../reducers/game-expired-timer"
+import { errorState } from "../../../reducers/game-error"
 //constants
 import styles from './styles';
 import { colors } from './../../../constants/colors';
@@ -22,35 +23,30 @@ import "../../../services/correcting-interval";
 
 class GameStart extends React.Component {
     state = {
-        errorVisible: false,
-        errorText: ""
-    };
-    setModalVisible = visible => {
-        this.setState({ errorVisible: visible });
     };
     componentDidMount() {
         this.props.getGameInfo(this.props.token)
-    }
-    componentWillReceiveProps = nextProps => {
-        if (nextProps.game_error != null) {
-            this.setState({ errorText: nextProps.game_error.error_text })
-            this.setModalVisible(true);
-        }
     }
     render() {
         return (
             <View style={styles.main_view}>
                 {this.props.loader && <ActivityIndicator />}
                 <CustomAlert
-                    title={this.state.errorText}
+                    title={this.props.game_error.error_text}
                     first_btn_title={RU.REPEAT}
-                    visible={this.state.errorVisible}
+                    visible={this.props.game_error.error_modal}
                     first_btn_handler={() => {
-                        this.setModalVisible(!this.state.errorVisible);
                         this.props.getGameInfo(this.props.token);
+                        this.props.errorState({
+                            error_text: this.props.game_error.error_text,
+                            error_modal: !this.props.game_error.error_modal
+                        })
                     }}
                     decline_btn_handler={() => {
-                        this.setModalVisible(!this.state.errorVisible);
+                        this.props.errorState({
+                            error_text: this.props.game_error.error_text,
+                            error_modal: !this.props.game_error.error_modal
+                        })
                     }}
                 />
                 {
@@ -89,7 +85,7 @@ class GameStart extends React.Component {
                     null :
                     <View style={styles.btn_container}>
                         < CustomButton
-                            active
+                            active={this.props.game_error.error_text === "" ? true : false}
                             short
                             gradient
                             title={RU.GAME.START.toUpperCase()}
@@ -118,6 +114,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => bindActionCreators({
     getGameInfo,
     setGameStatus,
+    errorState,
     resetGameExpiredTimer,
 }, dispatch);
 
