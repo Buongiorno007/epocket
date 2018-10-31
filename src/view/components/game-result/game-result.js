@@ -250,6 +250,11 @@ class GameResult extends React.Component {
     render() {
         return (
             <View style={styles.container} >
+                <StatusBar
+                    barStyle="light-content"
+                    backgroundColor={"transparent"}
+                    translucent={true}
+                />
                 {this.props.loader && <ActivityIndicator />}
                 <CustomAlert
                     title={this.props.game_error.error_text}
@@ -268,11 +273,6 @@ class GameResult extends React.Component {
                             error_modal: !this.props.game_error.error_modal
                         })
                     }}
-                />
-                <StatusBar
-                    barStyle="light-content"
-                    backgroundColor={"transparent"}
-                    translucent={true}
                 />
                 <InstagramLogin
                     ref='instagramLogin'
@@ -344,6 +344,7 @@ const mapStateToProps = (state) => {
         game_error: state.game_error,
         appState: state.appState,
         insta_token: state.insta_token,
+        loader: state.loader
     };
 };
 
