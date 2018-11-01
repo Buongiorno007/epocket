@@ -9,7 +9,6 @@ export default (state = "start", action) => {
     }
 }
 // status can be one of:
-//   no-games (0/10 games left)
 //   start (game can be played, start page will be rendered on 4-th tab)
 //   game (game in progress, game page will be rendered on 4-th tab)
 //   success (game finished - epc achieved)

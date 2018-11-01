@@ -9,6 +9,7 @@ import { setTempTime } from "../../../reducers/tempTime"
 import { setFixedTime } from "../../../reducers/fixedTime"
 import { setGameStatus } from "../../../reducers/game-status"
 import { setAppState } from "../../../reducers/app-state"
+import { passGameResult } from "../../../reducers/game-info";
 import { editGame, clearGame } from "../../../reducers/game-controller"
 //constants
 import styles from './styles';
@@ -40,8 +41,8 @@ class Game extends React.Component {
 		this.props.editGame(i + 1);
 	}
 	goToResult = (status) => {
-		NavigationService.navigate("GameResult", { status });
-		this.props.setGameStatus(status);
+		let status_for_api = (status === "success" ? true : false);
+		this.props.passGameResult(this.props.game_info.id, status_for_api, this.props.token, status);
 		clearCorrectingInterval(this.state.interval);
 	}
 	startTimer = () => {
@@ -160,6 +161,7 @@ const mapStateToProps = (state) => {
 	return {
 		game_info: state.game_info,
 		tempTime: state.tempTime,
+		token: state.token,
 		fixedTime: state.fixedTime,
 		appState: state.appState,
 		game_images: state.game_controller.game_images
@@ -171,6 +173,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
 	setFixedTime,
 	setGameStatus,
 	setAppState,
+	passGameResult,
 	editGame,
 	clearGame
 }, dispatch);

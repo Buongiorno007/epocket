@@ -28,6 +28,7 @@ export const shutDownExpiredTimer = (token) => async dispatch => {
             let time = result.body.time;
             dispatch(setGameExpiredTimer(time))
             dispatch(setGameStatus("start"))
+            dispatch(errorState(null));
         },
         error => {
             let error_response = handleError(error, "game-expired-time", "shutDownExpiredTimer")
@@ -56,6 +57,7 @@ export const resetGameExpiredTimer = (token) => async dispatch => {
             else {
                 dispatch(setGameStatus("expired"))
             }
+            dispatch(errorState(null));
             dispatch(loaderState(false));
         },
         error => {
@@ -79,6 +81,7 @@ export const startExpiredTimer = (token) => async dispatch => {
         result => {
             let time = result.body.time;
             dispatch(setGameExpiredTimer(time))
+            dispatch(errorState(null));
             dispatch(loaderState(false));
         },
         error => {

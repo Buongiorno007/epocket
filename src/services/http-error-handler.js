@@ -35,7 +35,7 @@ export const handleError = (errorAll, constructor_name, function_name) => {
         case 408: error = this.setErrorData(RU.HTTP_ERRORS.RUNTIME, true, errorAll.code); break;
         case 416: error = this.setErrorData(RU.HTTP_ERRORS.PEOPLE_LIMIT, true, errorAll.code); break;
         case 418: error = this.setErrorData(RU.HTTP_ERRORS.PERSONAL_LIMIT, true, errorAll.code); break;
-        default:
+        default: error = this.setErrorData(RU.HTTP_ERRORS.SERVER_ERROR, true, errorAll.code); break
     }
     console.log("Rejected request at " + constructor_name + " (function name: " + function_name + ")", errorAll, "/// Generated error: ", error)
     return error

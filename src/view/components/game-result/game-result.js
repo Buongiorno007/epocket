@@ -89,35 +89,55 @@ class GameResult extends React.Component {
         received_promise.then(
             result => {
                 let game = result.body;
-                let win_array = [];
-                game.game_set.forEach(el => {
-                    if (el.option) {
-                        win_array.push(el.id);
+                if (game.message != "game not have") {
+                    let info = {
+                        description: "...",
+                        cost: "0",
+                        title: "",
+                        success_image: ICONS.ZIFI.SURPRISED,
+                        no_more_games: true,
+                        time: 0,
+                        available_game_len: 0,
+                        total_game_len: 0,
+                        true_answer: [],
+                        insta_data: {}
                     }
-                });
-                let info = {
-                    description: game.description,
-                    cost: game.award + "",
-                    title: game.title,
-                    success_image: game.insta_image_url,
-                    no_more_games: game.available_game_len >= 1 ? false : true,
-                    time: game.time,
-                    true_answer: win_array,
-                    game_array: game.game_set,
-                    available_game_len: game.available_game_len,
-                    total_game_len: game.games_count,
-                    insta_data: {
-                        base64: game.insta_image,
-                        id: game.id,
-                        hash_tag: "",
-                    }
+                    this.props.setGameInfo(info);
+                    this.props.loaderState(false);
+                    NavigationService.navigate("Main")
+                    this.props.setGameStatus("game")
                 }
-                this.props.setGameInfo(info);
-                this.props.setFixedTime(game.time)
-                this.props.setTempTime(game.time)
-                this.props.loaderState(false);
-                NavigationService.navigate("Main")
-                this.props.setGameStatus("game")
+                else {
+                    let win_array = [];
+                    game.game_set.forEach(el => {
+                        if (el.option) {
+                            win_array.push(el.id);
+                        }
+                    });
+                    let info = {
+                        description: game.description,
+                        cost: game.award + "",
+                        title: game.title,
+                        success_image: game.insta_image_url,
+                        no_more_games: false,
+                        time: game.time,
+                        true_answer: win_array,
+                        game_array: game.game_set,
+                        available_game_len: game.available_game_len,
+                        total_game_len: game.games_count,
+                        insta_data: {
+                            base64: game.insta_image,
+                            id: game.id,
+                            hash_tag: "",
+                        }
+                    }
+                    this.props.setGameInfo(info);
+                    this.props.setFixedTime(game.time)
+                    this.props.setTempTime(game.time)
+                    this.props.loaderState(false);
+                    NavigationService.navigate("Main")
+                    this.props.setGameStatus("game")
+                }
             },
             error => {
                 let error_response = handleError(error, this.component.name, "confirmPost")
@@ -233,7 +253,7 @@ class GameResult extends React.Component {
             style = styles.image
         }
         else {
-            img = { uri: this.props.game_info.success_image, priority: FastImage.priority.high }
+            img = { uri: this.props.game_info.success_image, priority: FastImage.priority.high, }
             style = styles.image_failed
         }
         return { img, style }
