@@ -52,7 +52,8 @@
         "redux": "^4.0.0",
         "redux-logger": "^3.0.6",
         "redux-thunk": "^2.3.0",
-        "remote-redux-devtools": "^0.5.12"
+        "remote-redux-devtools": "^0.5.12",
+        "rn-fetch-blob": "^0.10.13"
     },
     "devDependencies": {
         "babel-jest": "23.0.1",

@@ -89,7 +89,7 @@ class GameResult extends React.Component {
         received_promise.then(
             result => {
                 let game = result.body;
-                if (game.message != "game not have") {
+                if (game.message === "game not have") {
                     let info = {
                         description: "...",
                         cost: "0",

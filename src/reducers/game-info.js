@@ -3,6 +3,7 @@ export const GAME_INFO = 'game-info/GAME_INFO';
 import { httpGet, httpPost } from "../services/http";
 import { handleError } from "../services/http-error-handler";
 import NavigationService from "../services/route";
+import { convertToBase64 } from "../services/convert-to-base64"
 //redux
 import { setFixedTime } from "./fixedTime";
 import { errorState } from "./game-error"
@@ -69,7 +70,8 @@ export const getGameInfo = (token) => async dispatch => {
     received_promise.then(
         result => {
             let game = result.body;
-            if (game.message != "game not have") {
+            console.log(game)
+            if (game.message === "game not have") {
                 let info = {
                     description: "...",
                     cost: "0",
@@ -92,6 +94,7 @@ export const getGameInfo = (token) => async dispatch => {
                         win_array.push(el.id);
                     }
                 });
+                //convertToBase64(game.insta_image_url);
                 let info = {
                     description: game.description,
                     cost: game.award + "",
