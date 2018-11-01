@@ -12,14 +12,14 @@ export const httpGet = (url, token) => {
   const OPTIONS = {
     method: "GET",
     headers:
-      token 
+      token
         ? {
-            ...defaultHeaders,
-            Authorization: `JWT ${token}`
-          }
+          ...defaultHeaders,
+          Authorization: `JWT ${token}`
+        }
         : { ...defaultHeaders }
   };
-
+  console.log(url, OPTIONS)
   return sendRequest(url, OPTIONS);
 };
 
@@ -38,9 +38,9 @@ export const httpPost = (url, body, token, formData) => {
     headers:
       token
         ? {
-            ...defaultHeaders,
-            Authorization: `JWT ${token}`
-          }
+          ...defaultHeaders,
+          Authorization: `JWT ${token}`
+        }
         : { ...defaultHeaders },
     body: body
   };
@@ -58,7 +58,6 @@ function sendRequest(url, OPTIONS) {
       reject({ code: 408, statusText: "Request Timeout" });
     }, 45000);
     fetch(url, OPTIONS).then(response => {
-      // console.log("---- req ", response);
       if (response.status >= 200 && response.status < 300) {
         response.json().then(body => {
           resolve({

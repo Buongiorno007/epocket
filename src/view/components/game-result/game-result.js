@@ -89,7 +89,38 @@ class GameResult extends React.Component {
         received_promise.then(
             result => {
                 let game = result.body;
-                if (game.message === "game not have") {
+                let win_array = [];
+                game.game_set.forEach(el => {
+                    if (el.option) {
+                        win_array.push(el.id);
+                    }
+                });
+                let info = {
+                    description: game.description,
+                    cost: game.award + "",
+                    title: game.title,
+                    success_image: game.insta_image_url,
+                    no_more_games: false,
+                    time: game.time,
+                    true_answer: win_array,
+                    game_array: game.game_set,
+                    available_game_len: game.available_game_len,
+                    total_game_len: game.games_count,
+                    insta_data: {
+                        base64: game.insta_image,
+                        id: game.id,
+                        hash_tag: "",
+                    }
+                }
+                this.props.setGameInfo(info);
+                this.props.setFixedTime(game.time)
+                this.props.setTempTime(game.time)
+                this.props.loaderState(false);
+                NavigationService.navigate("Main")
+                this.props.setGameStatus("game")
+            },
+            error => {
+                if (error.code === 400) {
                     let info = {
                         description: "...",
                         cost: "0",
@@ -108,41 +139,10 @@ class GameResult extends React.Component {
                     this.props.setGameStatus("game")
                 }
                 else {
-                    let win_array = [];
-                    game.game_set.forEach(el => {
-                        if (el.option) {
-                            win_array.push(el.id);
-                        }
-                    });
-                    let info = {
-                        description: game.description,
-                        cost: game.award + "",
-                        title: game.title,
-                        success_image: game.insta_image_url,
-                        no_more_games: false,
-                        time: game.time,
-                        true_answer: win_array,
-                        game_array: game.game_set,
-                        available_game_len: game.available_game_len,
-                        total_game_len: game.games_count,
-                        insta_data: {
-                            base64: game.insta_image,
-                            id: game.id,
-                            hash_tag: "",
-                        }
-                    }
-                    this.props.setGameInfo(info);
-                    this.props.setFixedTime(game.time)
-                    this.props.setTempTime(game.time)
+                    let error_response = handleError(error, this.component.name, "confirmPost")
+                    this.props.errorState(error_response)
                     this.props.loaderState(false);
-                    NavigationService.navigate("Main")
-                    this.props.setGameStatus("game")
                 }
-            },
-            error => {
-                let error_response = handleError(error, this.component.name, "confirmPost")
-                this.props.errorState(error_response)
-                this.props.loaderState(false);
             }
         );
     }
