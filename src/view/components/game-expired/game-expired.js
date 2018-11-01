@@ -49,6 +49,7 @@ class GameStart extends React.Component {
         })
     }
     componentDidMount = () => {
+        clearCorrectingInterval(this.state.interval);
         this.props.resetGameExpiredTimer(this.props.token)
         this.startTimer()
     }
@@ -151,7 +152,10 @@ class GameStart extends React.Component {
                     <FastImage
                         style={styles.image_to_post}
                         resizeMode={FastImage.resizeMode.contain}
-                        source={{ uri: this.props.game_info.success_image }}
+                        source={{
+                            uri: this.props.game_info.success_image,
+                            priority: FastImage.priority.high
+                        }}
 
                     />
                     <LinearGradient

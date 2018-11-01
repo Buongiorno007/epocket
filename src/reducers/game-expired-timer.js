@@ -38,6 +38,7 @@ export const shutDownExpiredTimer = (token) => async dispatch => {
 }
 export const resetGameExpiredTimer = (token) => async dispatch => {
     dispatch(loaderState(true));
+    console.log("resetGameExpiredTimer")
     let body = {
     }
     let received_promise = httpPost(
@@ -47,7 +48,6 @@ export const resetGameExpiredTimer = (token) => async dispatch => {
     );
     received_promise.then(
         result => {
-            console.log("resetGameExpiredTimer");
             let time = result.body.time;
             dispatch(setGameExpiredTimer(time))
             if (time === 0) {

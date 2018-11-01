@@ -233,7 +233,7 @@ class GameResult extends React.Component {
             style = styles.image
         }
         else {
-            img = { uri: this.props.game_info.success_image }
+            img = { uri: this.props.game_info.success_image, priority: FastImage.priority.high }
             style = styles.image_failed
         }
         return { img, style }
