@@ -40,7 +40,6 @@ export const passGameResult = (mission_id, api_status, token, status) => async d
         mission_id,
         status: api_status
     });
-    console.log(body, token)
     let promise = httpPost(
         urls.game_get,
         body,
@@ -76,31 +75,34 @@ export const getGameInfo = (token) => async dispatch => {
                     win_array.push(el.id);
                 }
             });
-            //convertToBase64(game.insta_image_url);
-            let info = {
-                description: game.description,
-                cost: game.award + "",
-                title: game.title,
-                success_image: game.insta_image_url,
-                no_more_games: false,
-                time: game.time,
-                true_answer: win_array,
-                game_array: game.game_set,
-                available_game_len: game.available_game_len,
-                total_game_len: game.games_count,
-                id: game.id,
-                insta_data: {
-                    base64: game.insta_image,
-                    id: game.id,
-                    hash_tag: "",
+            convertToBase64(game.insta_image_url).then(
+                result => {
+                    let info = {
+                        description: game.description,
+                        cost: game.award + "",
+                        title: game.title,
+                        success_image: game.insta_image_url,
+                        no_more_games: false,
+                        time: game.time,
+                        true_answer: win_array,
+                        game_array: game.game_set,
+                        available_game_len: game.available_game_len,
+                        total_game_len: game.games_count,
+                        id: game.id,
+                        insta_data: {
+                            base64: result,
+                            id: game.id,
+                            hash_tag: "",
+                        }
+                    }
+                    dispatch(setGameInfo(info))
+                    dispatch(setFixedTime(game.time))
+                    dispatch(setTempTime(game.time))
+                    dispatch(errorState(null));
+                    dispatch(loaderState(false));
+                    dispatch(resetGameExpiredTimer(token))
                 }
-            }
-            dispatch(setGameInfo(info))
-            dispatch(setFixedTime(game.time))
-            dispatch(setTempTime(game.time))
-            dispatch(errorState(null));
-            dispatch(loaderState(false));
-            dispatch(resetGameExpiredTimer(token))
+            )
         },
         error => {
             if (error.code === 400) {

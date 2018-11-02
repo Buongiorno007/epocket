@@ -77,7 +77,7 @@ class Game extends React.Component {
 	}
 	_handleAppStateChange = (nextAppState) => {
 		if (this.props.appState.match(/active/) && (nextAppState === 'background')) {
-			console.log("User's progress should be deleted because he closed the app")
+			//console.log(nextAppState)
 		}
 		this.props.setAppState(nextAppState)
 	}
@@ -89,6 +89,7 @@ class Game extends React.Component {
 		}
 	}
 	componentWillUnmount() {
+		//console.log("cvjcvjvjx")
 		AppState.removeEventListener('change', this._handleAppStateChange);
 		clearCorrectingInterval(this.state.interval);
 	}

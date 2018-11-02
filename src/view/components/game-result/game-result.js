@@ -25,6 +25,7 @@ import { ICONS } from "../../../constants/icons";
 import { urls } from "../../../constants/urls";
 //services
 import NavigationService from "./../../../services/route";
+import { convertToBase64 } from "./../../../services/convert-to-base64"
 import InstagramLogin from '../../../services/Instagram';
 import { formatItem } from '../../../services/format-hastags'
 import { httpPost, httpGet } from "../../../services/http";
@@ -95,29 +96,34 @@ class GameResult extends React.Component {
                         win_array.push(el.id);
                     }
                 });
-                let info = {
-                    description: game.description,
-                    cost: game.award + "",
-                    title: game.title,
-                    success_image: game.insta_image_url,
-                    no_more_games: false,
-                    time: game.time,
-                    true_answer: win_array,
-                    game_array: game.game_set,
-                    available_game_len: game.available_game_len,
-                    total_game_len: game.games_count,
-                    insta_data: {
-                        base64: game.insta_image,
-                        id: game.id,
-                        hash_tag: "",
+                convertToBase64(game.insta_image_url).then(
+                    result => {
+                        let info = {
+                            description: game.description,
+                            cost: game.award + "",
+                            title: game.title,
+                            success_image: game.insta_image_url,
+                            no_more_games: false,
+                            time: game.time,
+                            true_answer: win_array,
+                            game_array: game.game_set,
+                            available_game_len: game.available_game_len,
+                            total_game_len: game.games_count,
+                            insta_data: {
+                                base64: result,
+                                id: game.id,
+                                hash_tag: "",
+                            }
+                        }
+                        this.props.setGameInfo(info);
+                        this.props.setFixedTime(game.time)
+                        this.props.setTempTime(game.time)
+                        this.props.loaderState(false);
+                        NavigationService.navigate("Main")
+                        this.props.setGameStatus("game")
                     }
-                }
-                this.props.setGameInfo(info);
-                this.props.setFixedTime(game.time)
-                this.props.setTempTime(game.time)
-                this.props.loaderState(false);
-                NavigationService.navigate("Main")
-                this.props.setGameStatus("game")
+                );
+
             },
             error => {
                 if (error.code === 400) {
@@ -168,7 +174,8 @@ class GameResult extends React.Component {
         }, 2000);
     }
     _handleAppStateChange = (nextAppState) => {
-        if (this.props.navigation.state.params.status != "success" && this.props.appState.match(/active/) && (nextAppState === 'background')) {
+        console.log(this.props.navigation.state.params.status)
+        if (this.props.navigation.state.params.status != "success" && this.props.appState.match(/active/) && (nextAppState === 'inactive')) {
             console.log("show alert & start timer, cause user tried to abuse")
             this.goWait();
         }

@@ -19,7 +19,6 @@ export const httpGet = (url, token) => {
         }
         : { ...defaultHeaders }
   };
-  console.log(url, OPTIONS)
   return sendRequest(url, OPTIONS);
 };
 
