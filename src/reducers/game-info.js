@@ -68,6 +68,7 @@ export const getGameInfo = (token) => async dispatch => {
     );
     received_promise.then(
         result => {
+            console.log(result)
             let game = result.body;
             let win_array = [];
             game.game_set.forEach(el => {
@@ -90,7 +91,7 @@ export const getGameInfo = (token) => async dispatch => {
                         total_game_len: game.games_count,
                         id: game.id,
                         insta_data: {
-                            base64: result,
+                            base64: 'data:image/jpg;base64,' + result,
                             id: game.id,
                             hash_tag: "",
                         }

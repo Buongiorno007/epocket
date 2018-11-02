@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StatusBar, Clipboard, Platform, AppState } from "react-native";
+import { View, Text, StatusBar, Clipboard, Platform, AppState,AsyncStorage } from "react-native";
 import FastImage from 'react-native-fast-image'
 import LinearGradient from "react-native-linear-gradient";
 import { Button, Toast } from "native-base";
@@ -39,7 +39,48 @@ class GameResult extends React.Component {
         errorVisible: false,
         errorText: ""
     };
-
+    sheckForGames = (next_navigation) => {
+        this.props.loaderState(true);
+        let received_promise = httpGet(
+            urls.game_get,
+            this.props.token
+        );
+        received_promise.then(
+            result => {
+                switch (next_navigation) {
+                    case "insta": this.goInst(); this.props.loaderState(false); break;
+                    case "home": this.goHome(); this.props.loaderState(false); break;
+                    case "wait": this.goWait(); this.props.loaderState(false); break;
+                    default: this.props.loaderState(false); break;
+                }
+            },
+            error => {
+                if (error.code === 400) {
+                    let info = {
+                        description: "...",
+                        cost: "0",
+                        title: "",
+                        success_image: ICONS.ZIFI.SURPRISED,
+                        no_more_games: true,
+                        time: 0,
+                        available_game_len: 0,
+                        total_game_len: 0,
+                        true_answer: [],
+                        insta_data: {}
+                    }
+                    this.props.setGameInfo(info);
+                    this.props.loaderState(false);
+                    NavigationService.navigate("Main")
+                    this.props.setGameStatus("start");
+                }
+                else {
+                    let error_response = handleError(error, this.component.name, "sheckForGames")
+                    this.props.errorState(error_response)
+                    this.props.loaderState(false);
+                }
+            }
+        );
+    }
     goInst = () => {
         if (!this.props.insta_token) {
             this.refs.instagramLogin.show()
@@ -48,6 +89,7 @@ class GameResult extends React.Component {
         }
     };
     goWait = () => {
+        AsyncStorage.multiSet([["game_image_for_wait", this.props.game_info.insta_image_url], ["game_image_for_wait_base64", this.props.game_info.insta_data.base64]]);
         NavigationService.navigate("Main")
         this.props.startExpiredTimer(this.props.token);
         setTimeout(() => {
@@ -110,7 +152,7 @@ class GameResult extends React.Component {
                             available_game_len: game.available_game_len,
                             total_game_len: game.games_count,
                             insta_data: {
-                                base64: result,
+                                base64: 'data:image/jpg;base64,' + result,
                                 id: game.id,
                                 hash_tag: "",
                             }
@@ -120,7 +162,7 @@ class GameResult extends React.Component {
                         this.props.setTempTime(game.time)
                         this.props.loaderState(false);
                         NavigationService.navigate("Main")
-                        this.props.setGameStatus("game")
+                        this.props.setGameStatus("start")
                     }
                 );
 
@@ -142,7 +184,7 @@ class GameResult extends React.Component {
                     this.props.setGameInfo(info);
                     this.props.loaderState(false);
                     NavigationService.navigate("Main")
-                    this.props.setGameStatus("game")
+                    this.props.setGameStatus("start")
                 }
                 else {
                     let error_response = handleError(error, this.component.name, "confirmPost")
@@ -177,7 +219,7 @@ class GameResult extends React.Component {
         console.log(this.props.navigation.state.params.status)
         if (this.props.navigation.state.params.status != "success" && this.props.appState.match(/active/) && (nextAppState === 'inactive')) {
             console.log("show alert & start timer, cause user tried to abuse")
-            this.goWait();
+            this.sheckForGames("wait");
         }
         this.props.setAppState(nextAppState)
     }
@@ -341,7 +383,7 @@ class GameResult extends React.Component {
                         style={this.props.navigation.state.params.status === "success" ? styles.button_short : styles.button}
                         androidRippleColor={colors.card_shadow}
                         onPress={() => {
-                            this.props.navigation.state.params.status === "success" ? this.goHome() : this.goInst()
+                            this.props.navigation.state.params.status === "success" ? this.sheckForGames("home") : this.sheckForGames("insta")
                         }}
                     >
                         <Text style={styles.text}>{this.chooseButtonText(this.props.navigation.state.params.status)}</Text>
@@ -351,7 +393,7 @@ class GameResult extends React.Component {
                             transparent
                             style={styles.wait_button}
                             onPress={() => {
-                                this.goWait()
+                                this.sheckForGames("wait")
                             }}
                         >
                             <Text style={styles.fail}>{RU.GAME.RESULT.WAIT_30}</Text>

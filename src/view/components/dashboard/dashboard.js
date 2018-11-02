@@ -70,7 +70,6 @@ class Dashboard extends React.Component {
     );
     promise.then(
       result => {
-        console.log('callTimer', result)
         this.setStartMissionErrorVisible(false);
         this.setState({ load_timer: false });
         this.setState(
@@ -90,7 +89,6 @@ class Dashboard extends React.Component {
                 //blocks second call on mount
                 this.props.timerStatus(true);
                 clearCorrectingInterval(this.props.timer_interval);
-                console.log("TIMER", result.body.interval)
                 this.timer(result.body.interval * 1000);
               }
             }
@@ -126,7 +124,6 @@ class Dashboard extends React.Component {
     );
     promise.then(
       result => {
-        console.log('getMissions', result)
         this.setMissionsErrorVisible(false);
         this.setState({ load_missions: false });
         if (result.status == 200) {

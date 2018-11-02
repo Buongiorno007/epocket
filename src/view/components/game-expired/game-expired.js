@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Clipboard, Platform } from 'react-native';
+import { View, Text, Clipboard, Platform, AsyncStorage } from 'react-native';
 import FastImage from 'react-native-fast-image'
 import LinearGradient from "react-native-linear-gradient";
 import Share from 'react-native-share';
@@ -34,7 +34,9 @@ import { httpPost } from "../../../services/http";
 
 class GameStart extends React.Component {
     state = {
-        interval: null
+        interval: null,
+        image: "",
+        base64: ""
     };
     startTimer = () => {
         this.setState({
@@ -52,6 +54,13 @@ class GameStart extends React.Component {
         clearCorrectingInterval(this.state.interval);
         this.props.resetGameExpiredTimer(this.props.token)
         this.startTimer()
+        AsyncStorage.multiGet(["game_image_for_wait", "game_image_for_wait_base64"]).then(response => {
+            console.log(response)
+            this.setState({
+                image: response[0][1],
+                base64: response[1][1]
+            })
+        })
     }
     componentWillUnmount = () => {
         clearCorrectingInterval(this.state.interval);
@@ -96,7 +105,7 @@ class GameStart extends React.Component {
         })
         let shareImageBase64 = {
             title: formatItem(this.props.game_info.insta_data.hash_tag),
-            url: this.props.game_info.insta_data.base64,
+            url: this.state.base64,
         };
         setTimeout(() => {
             Platform.OS === 'ios' ? Share.open(shareImageBase64).then(
@@ -153,7 +162,7 @@ class GameStart extends React.Component {
                         style={styles.image_to_post}
                         resizeMode={FastImage.resizeMode.contain}
                         source={{
-                            uri: this.props.game_info.success_image,
+                            uri: this.state.image,
                             priority: FastImage.priority.high
                         }}
 

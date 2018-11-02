@@ -89,7 +89,6 @@ class Game extends React.Component {
 		}
 	}
 	componentWillUnmount() {
-		//console.log("cvjcvjvjx")
 		AppState.removeEventListener('change', this._handleAppStateChange);
 		clearCorrectingInterval(this.state.interval);
 	}
