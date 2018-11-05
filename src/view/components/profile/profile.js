@@ -2,7 +2,8 @@ import React from "react";
 import {
   View,
   Text,
-  AsyncStorage
+  AsyncStorage,
+  Image
 } from "react-native";
 import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
@@ -85,10 +86,10 @@ class Profile extends React.Component {
             rounded
             style={styles.settings_btn}
             onPress={() => { this.ToSettings() }}>
-            <FastImage style={styles.settings_img}
+            <Image style={styles.settings_img}
               resizeMode={FastImage.resizeMode.contain}
               source={require('../../../assets/img/settings.png')} >
-            </FastImage>
+            </Image>
           </Button>
         </View>
         <View style={styles.info}>

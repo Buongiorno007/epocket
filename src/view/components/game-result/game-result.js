@@ -94,10 +94,8 @@ class GameResult extends React.Component {
         }
     };
     goWait = () => {
-        AsyncStorage.setItem("game_image_for_wait", this.props.navigation.state.params.insta_data.success_image)
-        AsyncStorage.setItem("game_image_for_wait_base64", this.props.navigation.state.params.insta_data.base64)
         NavigationService.navigate("Main")
-        this.props.startExpiredTimer(this.props.token);
+        this.props.startExpiredTimer(this.props.token, this.props.game_info.id);
         setTimeout(() => {
             this.props.setGameStatus("expired")
         }, 0)
@@ -347,7 +345,7 @@ class GameResult extends React.Component {
                     first_btn_title={RU.REPEAT}
                     visible={this.props.game_error.error_modal}
                     first_btn_handler={() => {
-                        this.props.startExpiredTimer(this.props.token);
+                        this.props.startExpiredTimer(this.props.token, this.props.game_info.id);
                         this.props.errorState({
                             error_text: this.props.game_error.error_text,
                             error_modal: !this.props.game_error.error_modal

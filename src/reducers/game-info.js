@@ -47,6 +47,9 @@ export const passGameResult = (mission_id, api_status, token, status, insta_data
     );
     promise.then(
         result => {
+            if (result.body.wallet_amount) {
+                dispatch(setBalance(result.body.wallet_amount))
+            }
             NavigationService.navigate("GameResult", { status, insta_data });
             dispatch(errorState(null));
             dispatch(loaderState(false));

@@ -36,10 +36,8 @@ import { httpPost } from "../../../services/http";
 class GameStart extends React.Component {
     state = {
         interval: null,
-        image: ICONS.FILLER,
         modalVisible: false,
         userCount: 0,
-        base64: ICONS.FILLER
     };
     setModalVisible = visible => {
         this.setState({
@@ -71,13 +69,6 @@ class GameStart extends React.Component {
         clearCorrectingInterval(this.state.interval);
         this.props.resetGameExpiredTimer(this.props.token)
         this.startTimer()
-        AsyncStorage.multiGet(["game_image_for_wait", "game_image_for_wait_base64"]).then(response => {
-            this.setState({
-                image: response[0][1] != null ? response[0][1] : this.props.game_info.success_image,
-                base64: response[1][1] != null ? response[1][1] : this.props.game_info.insta_data.base64
-            })
-        })
-        console.log(this.state)
     }
     componentWillUnmount = () => {
         clearCorrectingInterval(this.state.interval);
@@ -117,7 +108,7 @@ class GameStart extends React.Component {
         );
     }
     confirmPost = () => {
-        this.props.shutDownExpiredTimer(this.props.token);
+        this.props.shutDownExpiredTimer(this.props.token, this.props.game_expired_img.id);
     }
     shareToInsta = () => {
         Clipboard.setString(formatItem(this.props.game_info.insta_data.hash_tag));
@@ -128,7 +119,7 @@ class GameStart extends React.Component {
         })
         let shareImageBase64 = {
             title: formatItem(this.props.game_info.insta_data.hash_tag),
-            url: this.state.base64,
+            url: this.props.game_expired_img.base64,
         };
         setTimeout(() => {
             Platform.OS === 'ios' ? Share.open(shareImageBase64).then(
@@ -197,7 +188,7 @@ class GameStart extends React.Component {
                         style={styles.image_to_post}
                         resizeMode={FastImage.resizeMode.contain}
                         source={{
-                            uri: this.state.image,
+                            uri: this.props.game_expired_img.img,
                             priority: FastImage.priority.high
                         }}
 
@@ -234,7 +225,8 @@ const mapStateToProps = (state) => {
         appState: state.appState,
         loader: state.loader,
         insta_token: state.insta_token,
-        game_error: state.game_error
+        game_error: state.game_error,
+        game_expired_img: state.game_expired_img
     };
 };
 
