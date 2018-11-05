@@ -9,6 +9,7 @@ import { setFixedTime } from "./fixedTime";
 import { errorState } from "./game-error"
 import { setTempTime } from "./tempTime";
 import { setGameStatus } from "./game-status"
+import { setBalance } from "./user-balance"
 import { loaderState } from "./loader";
 import { resetGameExpiredTimer } from "./game-expired-timer";
 //constants
