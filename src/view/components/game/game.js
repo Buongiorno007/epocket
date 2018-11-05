@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Platform, Dimensions, AppState } from 'react-native';
+import { View, Text, Dimensions, AppState } from 'react-native';
 import { Button } from "native-base";
 import FastImage from 'react-native-fast-image'
 //redux
@@ -42,19 +42,26 @@ class Game extends React.Component {
 	}
 	goToResult = (status) => {
 		let status_for_api = (status === "success" ? true : false);
-		this.props.passGameResult(this.props.game_info.id, status_for_api, this.props.token, status);
+		let instadata = {
+			success_image: this.props.game_info.success_image,
+			base64: this.props.game_info.insta_data.base64,
+			hash_tag: this.props.game_info.insta_data.hash_tag,
+		}
+		this.props.passGameResult(this.props.game_info.id, status_for_api, this.props.token, status, instadata);
 		clearCorrectingInterval(this.state.interval);
+
 	}
 	startTimer = () => {
 		this.setState({ progress: 0 })
 		this.setState({
 			interval:
 				setCorrectingInterval(() => {
-					if (this.props.tempTime < 1) {
+					if (this.props.tempTime <= 1) {
+						clearCorrectingInterval(this.state.interval);
 						this.goToResult("expired");
 					}
 					this.props.setTempTime(this.props.tempTime - 1)
-				}, Platform.OS === "ios" ? 1000 : 1000)
+				}, 1000)
 		})
 	}
 	submitGame = () => {
@@ -76,8 +83,11 @@ class Game extends React.Component {
 		}
 	}
 	_handleAppStateChange = (nextAppState) => {
-		if (this.props.appState.match(/active/) && (nextAppState === 'background')) {
-			//console.log(nextAppState)
+		if (this.props.appState.match(/background|inactive/) && (nextAppState === 'active')) {
+			clearCorrectingInterval(this.state.interval);
+			this.props.setTempTime(this.props.tempTime)
+			console.log(this.props.tempTime)
+			this.startTimer()
 		}
 		this.props.setAppState(nextAppState)
 	}
@@ -130,7 +140,6 @@ class Game extends React.Component {
 									style={styles.image_in_square}
 									resizeMode={FastImage.resizeMode.contain}
 									source={{ uri: this.props.game_info.game_array[index].img, priority: FastImage.priority.high }}
-								//source={require('../../../assets/img/zifi/surprised.gif')}
 								/>
 							</Button>
 						);

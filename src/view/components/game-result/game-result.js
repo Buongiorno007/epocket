@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StatusBar, Clipboard, Platform, AppState,AsyncStorage } from "react-native";
+import { View, Text, StatusBar, Clipboard, Platform, AppState, AsyncStorage } from "react-native";
 import FastImage from 'react-native-fast-image'
 import LinearGradient from "react-native-linear-gradient";
 import { Button, Toast } from "native-base";
@@ -36,8 +36,13 @@ import ActivityIndicator from "../../containers/activity-indicator/activity-indi
 
 class GameResult extends React.Component {
     state = {
-        errorVisible: false,
-        errorText: ""
+        modalVisible: false,
+        userCount: 0,
+    };
+    setModalVisible = visible => {
+        this.setState({
+            modalVisible: visible
+        });
     };
     sheckForGames = (next_navigation) => {
         this.props.loaderState(true);
@@ -60,7 +65,7 @@ class GameResult extends React.Component {
                         description: "...",
                         cost: "0",
                         title: "",
-                        success_image: ICONS.ZIFI.SURPRISED,
+                        success_image: ICONS.FILLER,
                         no_more_games: true,
                         time: 0,
                         available_game_len: 0,
@@ -89,7 +94,8 @@ class GameResult extends React.Component {
         }
     };
     goWait = () => {
-        AsyncStorage.multiSet([["game_image_for_wait", this.props.game_info.insta_image_url], ["game_image_for_wait_base64", this.props.game_info.insta_data.base64]]);
+        AsyncStorage.setItem("game_image_for_wait", this.props.navigation.state.params.insta_data.success_image)
+        AsyncStorage.setItem("game_image_for_wait_base64", this.props.navigation.state.params.insta_data.base64)
         NavigationService.navigate("Main")
         this.props.startExpiredTimer(this.props.token);
         setTimeout(() => {
@@ -104,7 +110,6 @@ class GameResult extends React.Component {
     }
     connectInsta = (instagram_token) => {
         this.props.loaderState(true);
-        this.props.setInstaToken(String(instagram_token))
         let body = JSON.stringify({
             instagram_token: instagram_token
         });
@@ -115,8 +120,15 @@ class GameResult extends React.Component {
         );
         promise.then(
             result => {
-                this.shareToInsta();
-                this.props.loaderState(false);
+                if (result.status === 200) {
+                    this.props.setInstaToken(String(instagram_token))
+                    this.props.loaderState(false);
+                    this.shareToInsta();
+                } else {
+                    this.setModalVisible(true);
+                    this.props.loaderState(false);
+                    this.setState({ userCount: result.body.subsc_needed })
+                }
             },
             error => {
                 this.props.loaderState(false);
@@ -154,7 +166,7 @@ class GameResult extends React.Component {
                             insta_data: {
                                 base64: 'data:image/jpg;base64,' + result,
                                 id: game.id,
-                                hash_tag: "",
+                                hash_tag: game.hash_tag,
                             }
                         }
                         this.props.setGameInfo(info);
@@ -173,7 +185,7 @@ class GameResult extends React.Component {
                         description: "...",
                         cost: "0",
                         title: "",
-                        success_image: ICONS.ZIFI.SURPRISED,
+                        success_image: ICONS.FILLER,
                         no_more_games: true,
                         time: 0,
                         available_game_len: 0,
@@ -203,7 +215,7 @@ class GameResult extends React.Component {
         })
         let shareImageBase64 = {
             title: formatItem(this.props.game_info.insta_data.hash_tag),
-            url: this.props.game_info.insta_data.base64,
+            url: this.props.navigation.state.params.insta_data.base64,
         };
         setTimeout(() => {
             Platform.OS === 'ios' ? Share.open(shareImageBase64).then(
@@ -216,15 +228,17 @@ class GameResult extends React.Component {
         }, 2000);
     }
     _handleAppStateChange = (nextAppState) => {
-        console.log(this.props.navigation.state.params.status)
-        if (this.props.navigation.state.params.status != "success" && this.props.appState.match(/active/) && (nextAppState === 'inactive')) {
-            console.log("show alert & start timer, cause user tried to abuse")
-            this.sheckForGames("wait");
+        if (this.props.appState.match(/active/) && (nextAppState === 'inactive')) {
+            if (this.props.navigation.state.params.status != "success") {
+                console.log("user tried to abuse")
+                this.sheckForGames("wait");
+            }
         }
         this.props.setAppState(nextAppState)
     }
     componentDidMount = () => {
         AppState.addEventListener('change', this._handleAppStateChange);
+        this.props.setGameStatus(this.props.navigation.state.params.status);
     }
     componentWillUnmount() {
         AppState.removeEventListener('change', this._handleAppStateChange);
@@ -302,19 +316,10 @@ class GameResult extends React.Component {
             style = styles.image
         }
         else {
-            img = { uri: this.props.game_info.success_image, priority: FastImage.priority.high, }
+            img = { uri: this.props.navigation.state.params.insta_data.success_image, priority: FastImage.priority.high, }
             style = styles.image_failed
         }
         return { img, style }
-    }
-    setModalVisible = visible => {
-        this.setState({ errorVisible: visible });
-    };
-    componentWillReceiveProps = nextProps => {
-        if (nextProps.game_error != null) {
-            this.setState({ errorText: nextProps.game_error.error_text })
-            this.setModalVisible(true);
-        }
     }
     render() {
         return (
@@ -325,6 +330,18 @@ class GameResult extends React.Component {
                     translucent={true}
                 />
                 {this.props.loader && <ActivityIndicator />}
+                <CustomAlert
+                    title={RU.PROFILE_PAGE.NOT_ENOUGHT_SUB}
+                    subtitle={this.state.userCount + RU.PROFILE_PAGE.SUBS}
+                    first_btn_title={RU.OK}
+                    visible={this.state.modalVisible}
+                    first_btn_handler={() =>
+                        this.setModalVisible(!this.state.modalVisible)
+                    }
+                    decline_btn_handler={() =>
+                        this.setModalVisible(!this.state.modalVisible)
+                    }
+                />
                 <CustomAlert
                     title={this.props.game_error.error_text}
                     first_btn_title={RU.REPEAT}

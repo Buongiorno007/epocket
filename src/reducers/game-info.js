@@ -19,7 +19,7 @@ const initialState = {
     description: "...",
     cost: "0",
     title: "",
-    success_image: ICONS.ZIFI.SURPRISED,
+    success_image: ICONS.FILLER,
     no_more_games: false,
     time: 0,
     available_game_len: 0,
@@ -34,7 +34,7 @@ export default (state = initialState, action) => {
             return state;
     }
 }
-export const passGameResult = (mission_id, api_status, token, status) => async dispatch => {
+export const passGameResult = (mission_id, api_status, token, status, insta_data) => async dispatch => {
     dispatch(loaderState(true));
     let body = JSON.stringify({
         mission_id,
@@ -47,8 +47,7 @@ export const passGameResult = (mission_id, api_status, token, status) => async d
     );
     promise.then(
         result => {
-            dispatch(setGameStatus(status));
-            NavigationService.navigate("GameResult", { status });
+            NavigationService.navigate("GameResult", { status, insta_data });
             dispatch(errorState(null));
             dispatch(loaderState(false));
         },
@@ -93,7 +92,7 @@ export const getGameInfo = (token) => async dispatch => {
                         insta_data: {
                             base64: 'data:image/jpg;base64,' + result,
                             id: game.id,
-                            hash_tag: "",
+                            hash_tag: game.hash_tag,
                         }
                     }
                     dispatch(setGameInfo(info))

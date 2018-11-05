@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Clipboard, Platform, AsyncStorage } from 'react-native';
+import { View, Text, Clipboard, Platform, AsyncStorage, AppState } from 'react-native';
 import FastImage from 'react-native-fast-image'
 import LinearGradient from "react-native-linear-gradient";
 import Share from 'react-native-share';
@@ -10,6 +10,7 @@ import { bindActionCreators } from 'redux';
 import { setGameStatus } from "../../../reducers/game-status"
 import { setInstaToken } from "../../../reducers/insta-token";
 import { loaderState } from "../../../reducers/loader";
+import { setAppState } from "../../../reducers/app-state"
 import { setGameExpiredTimer, resetGameExpiredTimer, shutDownExpiredTimer } from "../../../reducers/game-expired-timer"
 import { errorState } from "../../../reducers/game-error"
 //constants
@@ -35,14 +36,21 @@ import { httpPost } from "../../../services/http";
 class GameStart extends React.Component {
     state = {
         interval: null,
-        image: "",
-        base64: ""
+        image: ICONS.FILLER,
+        modalVisible: false,
+        userCount: 0,
+        base64: ICONS.FILLER
+    };
+    setModalVisible = visible => {
+        this.setState({
+            modalVisible: visible
+        });
     };
     startTimer = () => {
         this.setState({
             interval:
                 setCorrectingInterval(() => {
-                    if (this.props.game_expired_timer < 1) {
+                    if (this.props.game_expired_timer <= 1) {
                         clearCorrectingInterval(this.state.interval);
                         this.props.setGameStatus("start");
                     }
@@ -50,17 +58,26 @@ class GameStart extends React.Component {
                 }, 1000)
         })
     }
+    _handleAppStateChange = (nextAppState) => {
+        if (this.props.appState.match(/background|inactive/) && (nextAppState === 'active')) {
+            clearCorrectingInterval(this.state.interval);
+            this.props.resetGameExpiredTimer(this.props.token)
+            this.startTimer()
+        }
+        this.props.setAppState(nextAppState)
+    }
     componentDidMount = () => {
+        AppState.addEventListener('change', this._handleAppStateChange);
         clearCorrectingInterval(this.state.interval);
         this.props.resetGameExpiredTimer(this.props.token)
         this.startTimer()
         AsyncStorage.multiGet(["game_image_for_wait", "game_image_for_wait_base64"]).then(response => {
-            console.log(response)
             this.setState({
-                image: response[0][1],
-                base64: response[1][1]
+                image: response[0][1] != null ? response[0][1] : this.props.game_info.success_image,
+                base64: response[1][1] != null ? response[1][1] : this.props.game_info.insta_data.base64
             })
         })
+        console.log(this.state)
     }
     componentWillUnmount = () => {
         clearCorrectingInterval(this.state.interval);
@@ -74,7 +91,6 @@ class GameStart extends React.Component {
     };
     connectInsta = (instagram_token) => {
         this.props.loaderState(true);
-        this.props.setInstaToken(String(instagram_token))
         let body = JSON.stringify({
             instagram_token: instagram_token
         });
@@ -85,8 +101,15 @@ class GameStart extends React.Component {
         );
         promise.then(
             result => {
-                this.shareToInsta();
-                this.props.loaderState(false);
+                if (result.status === 200) {
+                    this.props.setInstaToken(String(instagram_token))
+                    this.props.loaderState(false);
+                    this.shareToInsta();
+                } else {
+                    this.setModalVisible(true);
+                    this.props.loaderState(false);
+                    this.setState({ userCount: result.body.subsc_needed })
+                }
             },
             error => {
                 this.props.loaderState(false);
@@ -121,6 +144,18 @@ class GameStart extends React.Component {
         return (
             <View style={styles.main_view}>
                 {this.props.loader && <ActivityIndicator />}
+                <CustomAlert
+                    title={RU.PROFILE_PAGE.NOT_ENOUGHT_SUB}
+                    subtitle={this.state.userCount + RU.PROFILE_PAGE.SUBS}
+                    first_btn_title={RU.OK}
+                    visible={this.state.modalVisible}
+                    first_btn_handler={() =>
+                        this.setModalVisible(!this.state.modalVisible)
+                    }
+                    decline_btn_handler={() =>
+                        this.setModalVisible(!this.state.modalVisible)
+                    }
+                />
                 <CustomAlert
                     title={this.props.game_error.error_text}
                     first_btn_title={RU.REPEAT}
@@ -196,6 +231,7 @@ const mapStateToProps = (state) => {
         game_info: state.game_info,
         game_expired_timer: state.game_expired_timer,
         token: state.token,
+        appState: state.appState,
         loader: state.loader,
         insta_token: state.insta_token,
         game_error: state.game_error
@@ -206,6 +242,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     setGameStatus,
     setGameExpiredTimer,
     resetGameExpiredTimer,
+    setAppState,
     shutDownExpiredTimer,
     loaderState,
     errorState,
