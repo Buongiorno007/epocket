@@ -39,7 +39,7 @@
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		628F322241EA44349A47B14C /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ACEE521E1A6643DE97B15C10 /* rubicon-icon-font.ttf */; };
 		67D70D34036643328D880D4A /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3120522DDF2C45489C57F56E /* Roboto.ttf */; };
-		6CCE8181219092EA00632B55 /* libRNShare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CCE8180219092D200632B55 /* libRNShare.a */; };
+		6C0083352191BEED0033DC6A /* libRNShare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0083342191BEE00033DC6A /* libRNShare.a */; };
 		7747F44ED10349ABAF72FF9D /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 980D170C751B492D8F80F736 /* MaterialIcons.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8B21EE2BCF8E487CB6E0E75D /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E491EBD0C6894115A34FC58D /* EvilIcons.ttf */; };
@@ -339,9 +339,9 @@
 			remoteGlobalIDString = 2D2A28201D9B03D100D4039D;
 			remoteInfo = "RCTAnimation-tvOS";
 		};
-		6CCE817F219092D200632B55 /* PBXContainerItemProxy */ = {
+		6C0083332191BEE00033DC6A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 6CCE817B219092D200632B55 /* RNShare.xcodeproj */;
+			containerPortal = 6C00832F2191BEE00033DC6A /* RNShare.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNShare;
@@ -412,7 +412,7 @@
 		5EA51E44F8B74DBCB63351C2 /* Rubik-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Regular.ttf"; path = "../src/assets/fonts/Rubik/Rubik-Regular.ttf"; sourceTree = "<group>"; };
 		6000166D502203CE5942E9FB /* libPods-EpocketCash.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EpocketCash.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B29C7C30ECF4E7393F0998E /* RNTextGradient.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNTextGradient.xcodeproj; path = "../node_modules/react-native-text-gradient/ios/RNTextGradient.xcodeproj"; sourceTree = "<group>"; };
-		6CCE817B219092D200632B55 /* RNShare.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNShare.xcodeproj; path = "../node_modules/react-native-share/ios/RNShare.xcodeproj"; sourceTree = "<group>"; };
+		6C00832F2191BEE00033DC6A /* RNShare.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNShare.xcodeproj; path = "../node_modules/react-native-share/ios/RNShare.xcodeproj"; sourceTree = "<group>"; };
 		768D2276C20D6756B8936D88 /* Pods-EpocketCash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EpocketCash.release.xcconfig"; path = "Pods/Target Support Files/Pods-EpocketCash/Pods-EpocketCash.release.xcconfig"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -440,7 +440,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6CCE8181219092EA00632B55 /* libRNShare.a in Frameworks */,
+				6C0083352191BEED0033DC6A /* libRNShare.a in Frameworks */,
 				1587E306215A6B0100350ADF /* MessageUI.framework in Frameworks */,
 				1587E304215A6AF500350ADF /* Social.framework in Frameworks */,
 				32B5914E2105C25600A39C26 /* libRNBackgroundTimer.a in Frameworks */,
@@ -660,10 +660,10 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6CCE817C219092D200632B55 /* Products */ = {
+		6C0083302191BEE00033DC6A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6CCE8180219092D200632B55 /* libRNShare.a */,
+				6C0083342191BEE00033DC6A /* libRNShare.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -710,7 +710,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				6CCE817B219092D200632B55 /* RNShare.xcodeproj */,
+				6C00832F2191BEE00033DC6A /* RNShare.xcodeproj */,
 				32B5911E2105C21F00A39C26 /* RNBackgroundTimer.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -787,6 +787,7 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				45F270E3DE9F6E707F559056 /* [CP] Copy Pods Resources */,
+				6C0083472191D8720033DC6A /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -889,8 +890,8 @@
 					ProjectRef = 910D9C4B81854FF59D837898 /* RNFirebase.xcodeproj */;
 				},
 				{
-					ProductGroup = 6CCE817C219092D200632B55 /* Products */;
-					ProjectRef = 6CCE817B219092D200632B55 /* RNShare.xcodeproj */;
+					ProductGroup = 6C0083302191BEE00033DC6A /* Products */;
+					ProjectRef = 6C00832F2191BEE00033DC6A /* RNShare.xcodeproj */;
 				},
 				{
 					ProductGroup = 32DE99C621005FFA00EF1FE9 /* Products */;
@@ -1189,11 +1190,11 @@
 			remoteRef = 5E9157341DD0AC6500FF2AA8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		6CCE8180219092D200632B55 /* libRNShare.a */ = {
+		6C0083342191BEE00033DC6A /* libRNShare.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libRNShare.a;
-			remoteRef = 6CCE817F219092D200632B55 /* PBXContainerItemProxy */;
+			remoteRef = 6C0083332191BEE00033DC6A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		78C398B91ACF4ADC00677621 /* libRCTLinking.a */ = {
@@ -1309,6 +1310,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EpocketCash/Pods-EpocketCash-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		6C0083472191D8720033DC6A /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 410644aee78853204a4467f0d39e2e96f9869d93 2e572cf1b51ec4848d32399dbc34ea74bb01d7c74ab2595cc2e32031de147856\n";
 		};
 		CF3362226EAAA423FB54E4A6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

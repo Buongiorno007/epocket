@@ -47,6 +47,8 @@ target 'EpocketCash' do
   pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
+  pod 'Fabric'
+  pod 'Crashlytics'
   pod 'ReactNativeFabric', :path => '../node_modules/react-native-fabric'
 
   pod 'RNShare', :path => '../node_modules/react-native-share'

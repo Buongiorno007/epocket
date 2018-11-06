@@ -18,7 +18,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSURL *jsCodeLocation;
-
+  [Fabric with:@[[Crashlytics class]]];
   [GMSServices provideAPIKey:@"AIzaSyBzxCpV9ME-F2W8rz-ZkOsZrYfgmpPdhEw"];
   [FIRApp configure];
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
@@ -36,5 +36,4 @@
   [self.window makeKeyAndVisible];
   return YES;
 }
-
 @end
