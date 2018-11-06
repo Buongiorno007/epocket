@@ -59,7 +59,6 @@ function sendRequest(url, OPTIONS) {
     fetch(url, OPTIONS).then(response => {
       if (response.status >= 200 && response.status < 300) {
         response.json().then(body => {
-          console.log(body)
           resolve({
             body,
             status: response.status,
