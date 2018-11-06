@@ -102,7 +102,7 @@ export const getGameInfo = (token) => async dispatch => {
                     dispatch(setFixedTime(game.time))
                     dispatch(setTempTime(game.time))
                     dispatch(errorState(null));
-                    dispatch(loaderState(false));
+                    //dispatch(loaderState(false));
                     dispatch(resetGameExpiredTimer(token))
                 }
             )

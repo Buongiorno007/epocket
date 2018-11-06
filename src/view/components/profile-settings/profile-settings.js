@@ -8,6 +8,7 @@ import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
 //redux
 import { connect } from "react-redux";
+import { setGameStatus } from "../../../reducers/game-status"
 import { bindActionCreators } from "redux";
 import { setBirthDay } from "../../../reducers/birthday";
 //constants
@@ -42,6 +43,7 @@ class ProfileSettings extends React.Component {
   LogOut = () => {
     AsyncStorage.multiSet([["user_info", ""], ["balance", ""], ["token", ""], ["insta_token", ""]], () => {
       NavigationService.navigate("Start");
+      this.props.setGameStatus("start");
     });
   };
 
@@ -246,6 +248,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => bindActionCreators({
   setBirthDay,
   loaderState,
+  setGameStatus,
   setInstaToken
 }, dispatch);
 
