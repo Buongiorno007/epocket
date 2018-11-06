@@ -72,6 +72,7 @@ class GameStart extends React.Component {
     }
     componentWillUnmount = () => {
         clearCorrectingInterval(this.state.interval);
+        AppState.removeEventListener('change', this._handleAppStateChange);
     }
     goInst = () => {
         if (!this.props.insta_token) {

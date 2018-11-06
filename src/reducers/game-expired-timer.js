@@ -56,13 +56,11 @@ export const resetGameExpiredTimer = (token) => async dispatch => {
     );
     received_promise.then(
         result => {
-            console.log(result)
             let time = result.body.time;
             let oldresult = result;
             convertToBase64(oldresult.body.image).then(
                 result => {
                     let id = oldresult.body.image.split('_correct')[0].split('id')[1];
-                    console.log("id", id)
                     dispatch(setGameExpiredImage({ id: id, img: oldresult.body.image, base64: 'data:image/jpg;base64,' + result }))
                     dispatch(setGameExpiredTimer(time))
                     if (time === 0) {

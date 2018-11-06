@@ -71,7 +71,6 @@ export const getGameInfo = (token) => async dispatch => {
     );
     received_promise.then(
         result => {
-            console.log(result)
             let game = result.body;
             let win_array = [];
             game.game_set.forEach(el => {

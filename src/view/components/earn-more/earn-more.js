@@ -130,7 +130,9 @@ class EarnMore extends React.Component {
     this.props.loaderState(false);
     AppState.addEventListener('change', this._handleAppStateChange);
   }
-
+  componentWillUnmount = () => {
+    AppState.removeEventListener('change', this._handleAppStateChange);
+  }
   render = () => {
     return (
       <View style={styles.container}>
