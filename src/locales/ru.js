@@ -139,7 +139,8 @@ export const RU = {
     MALE: "мужской",
     FEMALE: "женский",
     NOT_ENOUGHT_SUB: "Вам до активации в системе не хватает",
-    SUBS: " подписчиков"
+    SUBS: " подписчиков",
+    ALREADY_ACCOUNT: "Этот Instagramm-аккаунт уже привязан к другому пользователю"
   },
   HISTORY_PAGE: {
     GETTED: "Полученные\nбонусы",
