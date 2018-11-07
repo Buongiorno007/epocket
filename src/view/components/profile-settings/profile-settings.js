@@ -2,19 +2,25 @@ import React from "react";
 import {
   View,
   Text,
-  AsyncStorage
+  AsyncStorage,
+  Platform
 } from "react-native";
 import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
+import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
+import CookieManager from 'react-native-cookies';
 //redux
 import { connect } from "react-redux";
 import { setGameStatus } from "../../../reducers/game-status"
 import { bindActionCreators } from "redux";
+import { setInstaToken } from "../../../reducers/insta-token";
+import { loaderState } from "../../../reducers/loader";
 import { setBirthDay } from "../../../reducers/birthday";
 //constants
 import styles from "./styles";
 import { ICONS } from "../../../constants/icons";
 import { RU } from "../../../locales/ru";
+import { urls } from "../../../constants/urls";
 import { colors } from "../../../constants/colors";
 //containers
 import CustomButton from "../../containers/custom-button/custom-button";
@@ -22,13 +28,7 @@ import CustomAlert from "../../containers/custom-alert/custom-alert";
 //service
 import NavigationService from "../../../services/route";
 import InstagramLogin from '../../../services/Instagram'
-
 import { httpPost } from "../../../services/http";
-import { urls } from "../../../constants/urls";
-
-import { loaderState } from "../../../reducers/loader";
-import { setInstaToken } from "../../../reducers/insta-token";
-import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 
 class ProfileSettings extends React.Component {
   constructor(props) {
@@ -44,6 +44,8 @@ class ProfileSettings extends React.Component {
     AsyncStorage.multiSet([["user_info", ""], ["balance", ""], ["token", ""], ["insta_token", ""]], () => {
       NavigationService.navigate("Start");
       this.props.setGameStatus("start");
+      console.log(this.props.insta_token)
+      this.props.setInstaToken("");
     });
   };
 
@@ -74,7 +76,6 @@ class ProfileSettings extends React.Component {
       }
     );
   }
-
   connectInsta = (instagram_token) => {
     this.props.loaderState(true);
     let body = JSON.stringify({
@@ -91,13 +92,19 @@ class ProfileSettings extends React.Component {
         if (result.status === 200) {
           this.props.setInstaToken(String(instagram_token))
         } else {
-          this.setModalVisible(true);
-          this.setState({ userCount: result.body.subsc_needed })
+          CookieManager.clearAll()
+            .then((res) => {
+              this.setModalVisible(true);
+              this.setState({ userCount: result.body.subsc_needed })
+            });
         }
       },
       error => {
-        this.props.loaderState(false);
-        console.log("Rejected: ", error);
+        CookieManager.clearAll()
+          .then((res) => {
+            this.props.loaderState(false);
+            console.log("Rejected: ", error);
+          });
       }
     );
   }

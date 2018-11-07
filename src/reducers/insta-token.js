@@ -1,11 +1,11 @@
 import { AsyncStorage } from "react-native";
- 
+
 export const INSTA_TOKEN_UPDATE = 'insta-token/INSTA_TOKEN_UPDATE';
 
 export default (state = '', action) => {
 	switch (action.type) {
 		case INSTA_TOKEN_UPDATE:
-            return action.insta_token;
+			return action.insta_token;
 		default:
 			return state;
 	}

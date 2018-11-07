@@ -154,6 +154,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-cookies')
     compile project(':rn-fetch-blob')
     implementation project(':react-native-fast-image')
     implementation project(':react-native-share')
