@@ -46,6 +46,7 @@ class ProfileSettings extends React.Component {
       this.props.setGameStatus("start");
       console.log(this.props.insta_token)
       this.props.setInstaToken("");
+      CookieManager.clearAll();
     });
   };
 
