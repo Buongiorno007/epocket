@@ -90,22 +90,24 @@ class ProfileSettings extends React.Component {
         );
         promise.then(
             result => {
-                console.log(result)
-                this.props.loaderState(false);
                 if (result.status === 200) {
                     this.props.setInstaToken(String(instagram_token))
+                    this.props.loaderState(false);
+
                 }
                 else if (result.status == 201) {
                     CookieManager.clearAll()
                         .then((res) => {
                             this.setModalVisible(true);
                             this.setState({ userCount: result.body.subsc_needed })
+                            this.props.loaderState(false);
                         });
                 }
                 else {
                     CookieManager.clearAll()
                         .then((res) => {
                             this.setErrorVisible(true)
+                            this.props.loaderState(false);
                         });
                 }
             },

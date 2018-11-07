@@ -3,6 +3,8 @@ import { View, Text, StatusBar, Clipboard, AppState, Platform } from "react-nati
 import FastImage from 'react-native-fast-image'
 import LinearGradient from "react-native-linear-gradient";
 import { Button, Toast } from "native-base";
+import CookieManager from 'react-native-cookies';
+import Share from 'react-native-share';
 //constants
 import styles from "./styles";
 import { colors } from "./../../../constants/colors";
@@ -25,8 +27,8 @@ import { setBalance } from "../../../reducers/user-balance";
 
 import CustomButton from "../../containers/custom-button/custom-button";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
+import CustomAlert from "../../containers/custom-alert/custom-alert";
 
-import Share from 'react-native-share';
 
 
 class EarnMore extends React.Component {
@@ -34,7 +36,10 @@ class EarnMore extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      appState: AppState.currentState
+      appState: AppState.currentState,
+      modalVisible: false,
+      errorVisible: false,
+      userCount: 0
     };
   }
 
@@ -43,10 +48,18 @@ class EarnMore extends React.Component {
     this.props.loaderState(false);
     NavigationService.navigate("Main");
   };
-
+  setErrorVisible = visible => {
+    this.setState({
+      errorVisible: visible
+    });
+  };
+  setModalVisible = visible => {
+    this.setState({
+      modalVisible: visible
+    });
+  };
   connectInsta = (instagram_token) => {
     this.props.loaderState(true);
-    this.props.setInstaToken(String(instagram_token))
     let body = JSON.stringify({
       instagram_token: instagram_token
     });
@@ -57,11 +70,31 @@ class EarnMore extends React.Component {
     );
     promise.then(
       result => {
-        this.shareToInsta();
+        if (result.status === 200) {
+          this.props.setInstaToken(String(instagram_token))
+          this.shareToInsta();
+        }
+        else if (result.status == 201) {
+          CookieManager.clearAll()
+            .then((res) => {
+              this.setModalVisible(true);
+              this.setState({ userCount: result.body.subsc_needed })
+            });
+        }
+        else {
+          CookieManager.clearAll()
+            .then((res) => {
+              this.setErrorVisible(true)
+            });
+        }
         this.props.loaderState(false);
       },
       error => {
-        this.props.loaderState(false);
+        CookieManager.clearAll()
+          .then((res) => {
+            this.props.loaderState(false);
+            console.log("Rejected: ", error);
+          });
       }
     );
   }
@@ -141,6 +174,29 @@ class EarnMore extends React.Component {
           barStyle="light-content"
           backgroundColor={"transparent"}
           translucent={true}
+        />
+        <CustomAlert
+          title={RU.PROFILE_PAGE.ALREADY_ACCOUNT}
+          first_btn_title={RU.OK}
+          visible={this.state.errorVisible}
+          first_btn_handler={() =>
+            this.setErrorVisible(!this.state.errorVisible)
+          }
+          decline_btn_handler={() =>
+            this.setErrorVisible(!this.state.errorVisible)
+          }
+        />
+        <CustomAlert
+          title={RU.PROFILE_PAGE.NOT_ENOUGHT_SUB}
+          subtitle={this.state.userCount + RU.PROFILE_PAGE.SUBS}
+          first_btn_title={RU.OK}
+          visible={this.state.modalVisible}
+          first_btn_handler={() =>
+            this.setModalVisible(!this.state.modalVisible)
+          }
+          decline_btn_handler={() =>
+            this.setModalVisible(!this.state.modalVisible)
+          }
         />
         <InstagramLogin
           ref='instagramLogin'

@@ -4,6 +4,7 @@ import FastImage from 'react-native-fast-image'
 import LinearGradient from "react-native-linear-gradient";
 import Share from 'react-native-share';
 import { Button, Toast } from "native-base";
+import CookieManager from 'react-native-cookies';
 //redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -37,11 +38,17 @@ class GameStart extends React.Component {
     state = {
         interval: null,
         modalVisible: false,
+        errorVisible: false,
         userCount: 0,
     };
     setModalVisible = visible => {
         this.setState({
             modalVisible: visible
+        });
+    };
+    setErrorVisible = visible => {
+        this.setState({
+            errorVisible: visible
         });
     };
     startTimer = () => {
@@ -97,14 +104,27 @@ class GameStart extends React.Component {
                     this.props.setInstaToken(String(instagram_token))
                     this.props.loaderState(false);
                     this.shareToInsta();
-                } else {
-                    this.setModalVisible(true);
-                    this.props.loaderState(false);
-                    this.setState({ userCount: result.body.subsc_needed })
+                }
+                else if (result.status == 201) {
+                    CookieManager.clearAll()
+                        .then((res) => {
+                            this.setModalVisible(true);
+                            this.props.loaderState(false);
+                            this.setState({ userCount: result.body.subsc_needed })
+                        });
+                }
+                else {
+                    CookieManager.clearAll()
+                        .then((res) => {
+                            this.setErrorVisible(true)
+                        });
                 }
             },
             error => {
-                this.props.loaderState(false);
+                CookieManager.clearAll()
+                    .then((res) => {
+                        this.props.loaderState(false);
+                    });
             }
         );
     }
@@ -136,6 +156,17 @@ class GameStart extends React.Component {
         return (
             <View style={styles.main_view}>
                 {this.props.loader && <ActivityIndicator />}
+                <CustomAlert
+                    title={RU.PROFILE_PAGE.ALREADY_ACCOUNT}
+                    first_btn_title={RU.OK}
+                    visible={this.state.errorVisible}
+                    first_btn_handler={() =>
+                        this.setErrorVisible(!this.state.errorVisible)
+                    }
+                    decline_btn_handler={() =>
+                        this.setErrorVisible(!this.state.errorVisible)
+                    }
+                />
                 <CustomAlert
                     title={RU.PROFILE_PAGE.NOT_ENOUGHT_SUB}
                     subtitle={this.state.userCount + RU.PROFILE_PAGE.SUBS}
