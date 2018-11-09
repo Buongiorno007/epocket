@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Clipboard, Platform, AsyncStorage, AppState } from 'react-native';
+import { View, Text, Clipboard, Platform, AsyncStorage, AppState, Image } from 'react-native';
 import FastImage from 'react-native-fast-image'
 import LinearGradient from "react-native-linear-gradient";
 import Share from 'react-native-share';
@@ -208,8 +208,8 @@ class GameStart extends React.Component {
                 />
                 <View style={styles.container}>
                     <Text style={styles.zifi_text}>{RU.GAME.ZIFI.WAIT}</Text>
-                    <FastImage
-                        resizeMode={FastImage.resizeMode.contain}
+                    <Image
+                        //resizeMode={FastImage.resizeMode.contain}
                         style={styles.zifi}
                         source={require('../../../assets/img/zifi/surprised.gif')}
                     />

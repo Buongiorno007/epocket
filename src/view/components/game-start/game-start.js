@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import { LinearTextGradient } from "react-native-text-gradient";
 import FastImage from 'react-native-fast-image'
 //redux
@@ -59,8 +59,8 @@ class GameStart extends React.Component {
 
                 <View style={styles.container}>
                     <Text style={styles.zifi_text}>{this.props.game_info.no_more_games ? RU.GAME.ZIFI.BORING : RU.GAME.ZIFI.PLAYFUL}</Text>
-                    <FastImage
-                        resizeMode={FastImage.resizeMode.contain}
+                    <Image
+                        //resizeMode={FastImage.resizeMode.contain}
                         style={styles.zifi}
                         source={this.props.game_info.no_more_games ? require('../../../assets/img/zifi/bored.gif') : require('../../../assets/img/zifi/playful.gif')}
                     // source={{ uri: this.props.game_info.no_more_games ? ICONS.ZIFI.BORED : ICONS.ZIFI.PLAYFUL }}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StatusBar, Clipboard, Platform, AppState, AsyncStorage } from "react-native";
+import { View, Text, StatusBar, Clipboard, Platform, AppState, AsyncStorage, Image } from "react-native";
 import FastImage from 'react-native-fast-image'
 import LinearGradient from "react-native-linear-gradient";
 import { Button, Toast } from "native-base";
@@ -418,8 +418,8 @@ class GameResult extends React.Component {
                 />
                 <View style={this.props.navigation.state.params.status === "success" ? styles.success : styles.failed}>
                     <Text style={styles.zifi_text}>{this.chooseZifiText(this.props.navigation.state.params.status)}</Text>
-                    <FastImage
-                        resizeMode={FastImage.resizeMode.contain}
+                    <Image
+                        //resizeMode={FastImage.resizeMode.contain}
                         style={styles.zifi}
                         source={this.chooseZifi(this.props.navigation.state.params.status)}
                     />
