@@ -57,6 +57,8 @@ target 'EpocketCash' do
 
   pod 'rn-fetch-blob', :path => '../node_modules/rn-fetch-blob'
 
+  pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
+
 end
   post_install do |installer|
     installer.pods_project.targets.each do |target|

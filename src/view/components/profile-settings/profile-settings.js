@@ -9,6 +9,7 @@ import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 import CookieManager from 'react-native-cookies';
+import { LoginButton } from 'react-native-fbsdk';
 //redux
 import { connect } from "react-redux";
 import { setGameStatus } from "../../../reducers/game-status"
@@ -210,6 +211,22 @@ class ProfileSettings extends React.Component {
                             />
                         </View>
                     </View>
+                    <View>
+                        <LoginButton
+                        publishPermissions={["email"]}
+                        onLoginFinished={
+                            (error, result) => {
+                            if (error) {
+                                alert("Login failed with error: " + error.message);
+                            } else if (result.isCancelled) {
+                                alert("Login was cancelled");
+                            } else {
+                                alert("Login was successful with permissions: " + result.grantedPermissions)
+                            }
+                            }
+                        }
+                        onLogoutFinished={() => alert("User logged out")}/>
+                     </View>
                     {/* <View style={[styles.image_block, styles.image_block_with_border]}>
               <Image style={styles.settings_img}
                 source={require('../../../assets/img/facebook.png')} >
