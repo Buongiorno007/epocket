@@ -9,7 +9,6 @@ import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 import CookieManager from 'react-native-cookies';
-import { LoginButton } from 'react-native-fbsdk';
 //redux
 import { connect } from "react-redux";
 import { setGameStatus } from "../../../reducers/game-status"
@@ -23,6 +22,10 @@ import { ICONS } from "../../../constants/icons";
 import { RU } from "../../../locales/ru";
 import { urls } from "../../../constants/urls";
 import { colors } from "../../../constants/colors";
+const FBSDK = require('react-native-fbsdk');
+const {
+    LoginManager,
+} = FBSDK;
 //containers
 import CustomButton from "../../containers/custom-button/custom-button";
 import CustomAlert from "../../containers/custom-alert/custom-alert";
@@ -51,7 +54,22 @@ class ProfileSettings extends React.Component {
             CookieManager.clearAll();
         });
     };
-
+    LoginFacebook = () => {
+        LoginManager.logInWithReadPermissions(['public_profile']).then(
+            function (result) {
+                console.log(result)
+                if (result.isCancelled) {
+                    alert('Login was cancelled');
+                } else {
+                    alert('Login was successful with permissions: '
+                        + result.grantedPermissions.toString());
+                }
+            },
+            function (error) {
+                alert('Login failed with error: ' + error);
+            }
+        );
+    }
 
     ToProfile = () => {
         NavigationService.navigate("Main");
@@ -211,41 +229,25 @@ class ProfileSettings extends React.Component {
                             />
                         </View>
                     </View>
-                    <View>
-                        <LoginButton
-                        publishPermissions={["email"]}
-                        onLoginFinished={
-                            (error, result) => {
-                            if (error) {
-                                alert("Login failed with error: " + error.message);
-                            } else if (result.isCancelled) {
-                                alert("Login was cancelled");
-                            } else {
-                                alert("Login was successful with permissions: " + result.grantedPermissions)
-                            }
-                            }
-                        }
-                        onLogoutFinished={() => alert("User logged out")}/>
-                     </View>
-                    {/* <View style={[styles.image_block, styles.image_block_with_border]}>
-              <Image style={styles.settings_img}
-                source={require('../../../assets/img/facebook.png')} >
-              </Image>
-              <View style={styles.image_block_text}>
-                <Text style={styles.image_block_text_big}>Facebook</Text>
-              </View>
-              <View style={styles.image_block_button}>
-                <CustomButton
-                  active
-                  short
-                  extra_short
-                  gradient
-                  title={{RU.PROFILE_SETTINGS.REMOVE}}
-                  color={colors.white}
-                  handler={() => {}}
-                />
-              </View>
-            </View> */}
+                    <View style={[styles.image_block, styles.image_block_with_border]}>
+                        <FastImage style={styles.settings_img}
+                            source={require('../../../assets/img/facebook.png')} >
+                        </FastImage>
+                        <View style={styles.image_block_text}>
+                            <Text style={styles.image_block_text_big}>Facebook</Text>
+                        </View>
+                        <View style={styles.image_block_button}>
+                            <CustomButton
+                                active
+                                short
+                                extra_short
+                                gradient
+                                title={RU.PROFILE_SETTINGS.REMOVE}
+                                color={colors.white}
+                                handler={() => { this.LoginFacebook() }}
+                            />
+                        </View>
+                    </View>
                     <View style={[styles.image_block_with_button, styles.image_block_with_top_border]}>
                         <Button
                             transparent
