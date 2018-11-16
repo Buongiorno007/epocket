@@ -220,7 +220,7 @@ class ProfileSettings extends React.Component {
                 {this.props.loader && <ActivityIndicator />}
                 <FacebookLogin
                     ref='facebookLogin'
-                    scopes={['basic', 'public_content', 'likes', 'follower_list', 'comments', 'relationships']}
+                    scopes={['basic']}
                     onLoginSuccess={(json) => this.connectFacebook(json.token)}
                     onLoginFailure={(data) => {
                         console.log("Fail", data)
@@ -233,7 +233,7 @@ class ProfileSettings extends React.Component {
                 <InstagramLogin
                     ref='instagramLogin'
                     clientId='c390ce3e630b4429bbe1fa33315cb888'
-                    scopes={['basic', 'public_content', 'likes', 'follower_list', 'comments', 'relationships']}
+                    scopes={['basic']}
                     onLoginSuccess={(token) => this.connectInsta(token)}
                     onLoginFailure={(data) => {
                         console.log(data)

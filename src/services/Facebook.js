@@ -14,7 +14,9 @@ import { Button } from 'native-base'
 import Icon from "react-native-vector-icons/EvilIcons";
 const { width, height } = Dimensions.get('window')
 
-const patchPostMessageJsCode = `(${String(function () { window.postMessage(document.getElementsByTagName("pre")[0].innerHTML) })})();`
+const patchPostMessageJsCode = `(${String(function () {
+  setTimeout(function () { window.postMessage(document.getElementsByTagName("pre")[0].innerHTML), '*' }, 1000);
+})})();`
 export default class Instagram extends Component {
   constructor(props) {
     super(props)
