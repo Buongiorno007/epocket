@@ -27,6 +27,7 @@ export const urls = {
     insta_upload_photo:         devserver+ '/instagram/api/upload_photo',
     insta_is_logged:            devserver+ '/instagram/api/islogged',
     insta_getmedia:             devserver+ '/instagram/api/getmedia',
+    facebook_login:             devserver+ '/facebook/api/authorization',
     socket :                               'ws://epocket.dev.splinestudio.com/order/',
     game_get :                  devserver+ '/brand/game',
     game_expired_timer :        devserver+ '/brand/time',

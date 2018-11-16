@@ -2,6 +2,10 @@ package club.dvlp.epocket;
 
 import android.app.Application;
 
+import com.facebook.FacebookSdk;
+import com.facebook.CallbackManager;
+import com.facebook.appevents.AppEventsLogger;
+
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.ReactApplication;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
@@ -47,6 +51,12 @@ import java.util.List;
 
 public class MainApplication extends Application implements ShareApplication, ReactApplication {
 
+    private static CallbackManager mCallbackManager = CallbackManager.Factory.create();
+
+    protected static CallbackManager getCallbackManager() {
+        return mCallbackManager;
+    }
+
     private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
         @Override
         public boolean getUseDeveloperSupport() {
@@ -57,9 +67,9 @@ public class MainApplication extends Application implements ShareApplication, Re
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new FBSDKPackage(),
-            new CookieManagerPackage(),
-            new RNFetchBlobPackage(),
+                    new FBSDKPackage(mCallbackManager),
+                    new CookieManagerPackage(),
+                    new RNFetchBlobPackage(),
                     new FastImageViewPackage(),
                     new RNSharePackage(),
                     new WheelPickerPackage(),

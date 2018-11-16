@@ -32,6 +32,7 @@ import CustomAlert from "../../containers/custom-alert/custom-alert";
 //service
 import NavigationService from "../../../services/route";
 import InstagramLogin from '../../../services/Instagram'
+import FacebookLogin from '../../../services/Facebook'
 import { httpPost } from "../../../services/http";
 
 class ProfileSettings extends React.Component {
@@ -55,18 +56,23 @@ class ProfileSettings extends React.Component {
         });
     };
     LoginFacebook = () => {
-        LoginManager.logInWithReadPermissions(['public_profile']).then(
-            function (result) {
+        this.props.loaderState(true);
+        let body = JSON.stringify({
+        });
+        let promise = httpPost(
+            urls.facebook_login,
+            body,
+            this.props.token
+        );
+        promise.then(
+            result => {
                 console.log(result)
-                if (result.isCancelled) {
-                    alert('Login was cancelled');
-                } else {
-                    alert('Login was successful with permissions: '
-                        + result.grantedPermissions.toString());
-                }
+                this.props.loaderState(false);
+                this.refs.facebookLogin.show(result.body.url)
             },
-            function (error) {
-                alert('Login failed with error: ' + error);
+            error => {
+                console.log(error)
+                this.props.loaderState(false);
             }
         );
     }
@@ -96,6 +102,9 @@ class ProfileSettings extends React.Component {
                 console.log("Rejected: ", error);
             }
         );
+    }
+    connectFacebook = (token) => {
+        console.log(token)
     }
     connectInsta = (instagram_token) => {
         this.props.loaderState(true);
@@ -169,6 +178,12 @@ class ProfileSettings extends React.Component {
         return (
             <View style={styles.main_view}>
                 {this.props.loader && <ActivityIndicator />}
+                <FacebookLogin
+                    ref='facebookLogin'
+                    scopes={['basic', 'public_content', 'likes', 'follower_list', 'comments', 'relationships']}
+                    onLoginSuccess={(token) => this.connectFacebook(token)}
+                    onLoginFailure={(data) => { console.log(data)}}
+                />
                 <InstagramLogin
                     ref='instagramLogin'
                     clientId='c390ce3e630b4429bbe1fa33315cb888'

@@ -74,7 +74,7 @@ class GameStart extends React.Component {
                             start={{ x: 0, y: 0 }}
                             end={{ x: 1, y: 0 }}
                         >
-                            {this.props.game_info.no_more_games ? RU.GAME.NO_GAMES.toLocaleUpperCase() : this.props.game_info.cost.toLocaleUpperCase() + " " + RU.EPC.toLocaleUpperCase()}
+                            <Text>{this.props.game_info.no_more_games == true ? RU.GAME.NO_GAMES.toLocaleUpperCase() : this.props.game_info.cost.toLocaleUpperCase() + " " + RU.EPC.toLocaleUpperCase()}</Text>
                         </LinearTextGradient>
                     </View>
                 </View>
