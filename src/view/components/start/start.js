@@ -27,6 +27,7 @@ import { getConnection } from "../../../reducers/net-info";
 import { setTabState } from "../../../reducers/tabs";
 import { loaderState } from "../../../reducers/loader";
 import { getPush } from "../../../reducers/push";
+import { setFacebookToken } from "../../../reducers/facebook-token"
 import {
   locationStateListener,
   locationState
@@ -80,7 +81,7 @@ class Start extends React.Component {
   };
 
   _initialConfig = () => {
-    AsyncStorage.multiGet(["insta_token", "token", "balance"], (err, stores) => {
+    AsyncStorage.multiGet(["insta_token", "token", "balance", "facebook_token"], (err, stores) => {
       stores.map((result, i, store) => {
         this.props.loaderState(false);
         // get at each store's key/value so you can work with it
@@ -89,6 +90,10 @@ class Start extends React.Component {
         switch (key) {
           case 'insta_token': {
             value && this.props.setInstaToken(value);
+            break;
+          }
+          case 'facebook_token': {
+            value && this.props.setFacebookToken(value);
             break;
           }
           case 'token': {
@@ -202,6 +207,7 @@ const mapDispatchToProps = dispatch =>
       locationCoordsListener,
       setToken,
       setInstaToken,
+      setFacebookToken,
       setBalance,
       loaderState,
       getPush

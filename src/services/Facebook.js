@@ -14,16 +14,7 @@ import { Button } from 'native-base'
 import Icon from "react-native-vector-icons/EvilIcons";
 const { width, height } = Dimensions.get('window')
 
-const patchPostMessageJsCode = `(${String(function () {
-  var originalPostMessage = window.postMessage
-  var patchedPostMessage = function (message, targetOrigin, transfer) {
-    originalPostMessage(message, targetOrigin, transfer)
-  }
-  patchedPostMessage.toString = function () {
-    return String(Object.hasOwnProperty).replace('hasOwnProperty', 'postMessage')
-  }
-  window.postMessage = patchedPostMessage
-})})();`
+const patchPostMessageJsCode = `(${String(function () { window.postMessage(document.getElementsByTagName("pre")[0].innerHTML) })})();`
 export default class Instagram extends Component {
   constructor(props) {
     super(props)
@@ -43,22 +34,16 @@ export default class Instagram extends Component {
     if (url && url.startsWith(this.props.redirectUrl)) {
       const match = url.match(/(#|\?)(.*)/)
       const results = qs.parse(match[2])
-      this.hide()
-      if (results.access_token) {
-        // Keeping this to keep it backwards compatible, but also returning raw results to account for future changes.
-        this.props.onLoginSuccess(results.access_token, results)
-      } else {
-        this.props.onLoginFailure(results)
-      }
     }
   }
 
   _onMessage(reactMessage) {
     try {
       const json = JSON.parse(reactMessage.nativeEvent.data)
-      if (json && json.error_type) {
+      console.log(json)
+      if (json) {
         this.hide()
-        this.props.onLoginFailure(json)
+        this.props.onLoginSuccess(json)
       }
     } catch (err) { }
   }

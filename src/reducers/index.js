@@ -12,6 +12,7 @@ import timer from "./timer";
 import distance from "./distance";
 import token from "./token";
 import insta_token from "./insta-token";
+import facebook_token from "./facebook-token"
 import socket from "./socket";
 import missions from "./missions";
 import outlets from "./outlet-list";
@@ -53,6 +54,7 @@ export default combineReducers({
   distance,
   token,
   insta_token,
+  facebook_token,
   balance,
   activeCard,
   dashboardState,

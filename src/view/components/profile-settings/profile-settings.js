@@ -14,6 +14,7 @@ import { connect } from "react-redux";
 import { setGameStatus } from "../../../reducers/game-status"
 import { bindActionCreators } from "redux";
 import { setInstaToken } from "../../../reducers/insta-token";
+import { setFacebookToken } from "../../../reducers/facebook-token"
 import { loaderState } from "../../../reducers/loader";
 import { setBirthDay } from "../../../reducers/birthday";
 //constants
@@ -47,11 +48,11 @@ class ProfileSettings extends React.Component {
     componentDidMount() { }
 
     LogOut = () => {
-        AsyncStorage.multiSet([["user_info", ""], ["balance", ""], ["token", ""], ["insta_token", ""]], () => {
+        AsyncStorage.multiSet([["user_info", ""], ["balance", ""], ["token", ""], ["insta_token", ""], ["facebook_token", ""]], () => {
             NavigationService.navigate("Start");
             this.props.setGameStatus("start");
-            console.log(this.props.insta_token)
             this.props.setInstaToken("");
+            this.props.setFacebookToken("");
             CookieManager.clearAll();
         });
     };
@@ -73,6 +74,10 @@ class ProfileSettings extends React.Component {
             error => {
                 console.log(error)
                 this.props.loaderState(false);
+                CookieManager.clearAll()
+                    .then((res) => {
+                        this.props.loaderState(false);
+                    });
             }
         );
     }
@@ -81,7 +86,34 @@ class ProfileSettings extends React.Component {
         NavigationService.navigate("Main");
     }
 
-
+    disConnectFacebook = () => {
+        this.props.loaderState(true);
+        this.props.setFacebookToken("")
+        let body = JSON.stringify({});
+        let promise = httpPost(
+            urls.facebook_logout,
+            body,
+            this.props.token
+        );
+        promise.then(
+            result => {
+                this.props.loaderState(false);
+                console.log(result)
+                CookieManager.clearAll()
+                    .then((res) => {
+                        this.props.loaderState(false);
+                    });
+            },
+            error => {
+                this.props.loaderState(false);
+                console.log("Rejected: ", error);
+                CookieManager.clearAll()
+                    .then((res) => {
+                        this.props.loaderState(false);
+                    });
+            }
+        );
+    }
     disConnectInsta = () => {
         this.props.loaderState(true);
         this.props.setInstaToken("")
@@ -96,15 +128,23 @@ class ProfileSettings extends React.Component {
         promise.then(
             result => {
                 this.props.loaderState(false);
+                CookieManager.clearAll()
+                    .then((res) => {
+                        this.props.loaderState(false);
+                    });
             },
             error => {
                 this.props.loaderState(false);
+                CookieManager.clearAll()
+                    .then((res) => {
+                        this.props.loaderState(false);
+                    });
                 console.log("Rejected: ", error);
             }
         );
     }
     connectFacebook = (token) => {
-        console.log(token)
+        this.props.setFacebookToken(String(token));
     }
     connectInsta = (instagram_token) => {
         this.props.loaderState(true);
@@ -181,15 +221,27 @@ class ProfileSettings extends React.Component {
                 <FacebookLogin
                     ref='facebookLogin'
                     scopes={['basic', 'public_content', 'likes', 'follower_list', 'comments', 'relationships']}
-                    onLoginSuccess={(token) => this.connectFacebook(token)}
-                    onLoginFailure={(data) => { console.log(data)}}
+                    onLoginSuccess={(json) => this.connectFacebook(json.token)}
+                    onLoginFailure={(data) => {
+                        console.log("Fail", data)
+                        // CookieManager.clearAll()
+                        //     .then((res) => {
+                        //         this.props.loaderState(false);
+                        //     });
+                    }}
                 />
                 <InstagramLogin
                     ref='instagramLogin'
                     clientId='c390ce3e630b4429bbe1fa33315cb888'
                     scopes={['basic', 'public_content', 'likes', 'follower_list', 'comments', 'relationships']}
                     onLoginSuccess={(token) => this.connectInsta(token)}
-                    onLoginFailure={(data) => { console.log(data) }}
+                    onLoginFailure={(data) => {
+                        console.log(data)
+                        CookieManager.clearAll()
+                            .then((res) => {
+                                this.props.loaderState(false);
+                            });
+                    }}
                 />
                 <View style={styles.header}>
                     <Text style={[styles.header_text, styles.image_block_text_big]}>{RU.PROFILE_SETTINGS.SETTINGS}</Text>
@@ -257,9 +309,9 @@ class ProfileSettings extends React.Component {
                                 short
                                 extra_short
                                 gradient
-                                title={RU.PROFILE_SETTINGS.REMOVE}
+                                title={this.props.facebook_token ? RU.PROFILE_SETTINGS.REMOVE : RU.PROFILE_SETTINGS.ADD}
                                 color={colors.white}
-                                handler={() => { this.LoginFacebook() }}
+                                handler={() => { !this.props.facebook_token ? this.LoginFacebook() : this.disConnectFacebook() }}
                             />
                         </View>
                     </View>
@@ -310,6 +362,7 @@ const mapStateToProps = state => {
         user: state.profileState,
         token: state.token,
         insta_token: state.insta_token,
+        facebook_token: state.facebook_token,
         loader: state.loader
     };
 };
@@ -318,7 +371,8 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     setBirthDay,
     loaderState,
     setGameStatus,
-    setInstaToken
+    setInstaToken,
+    setFacebookToken
 }, dispatch);
 
 export default connect(
