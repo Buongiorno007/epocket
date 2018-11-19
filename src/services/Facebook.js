@@ -43,9 +43,12 @@ export default class Instagram extends Component {
     try {
       const json = JSON.parse(reactMessage.nativeEvent.data)
       console.log(json)
-      if (json) {
+      if (json.token) {
         this.hide()
         this.props.onLoginSuccess(json)
+      }
+      else{
+        this.props.onLoginFailure(json)
       }
     } catch (err) { }
   }

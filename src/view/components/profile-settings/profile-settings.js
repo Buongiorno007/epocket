@@ -72,8 +72,6 @@ class ProfileSettings extends React.Component {
                 this.refs.facebookLogin.show(result.body.url)
             },
             error => {
-                console.log(error)
-                this.props.loaderState(false);
                 CookieManager.clearAll()
                     .then((res) => {
                         this.props.loaderState(false);
@@ -224,10 +222,7 @@ class ProfileSettings extends React.Component {
                     onLoginSuccess={(json) => this.connectFacebook(json.token)}
                     onLoginFailure={(data) => {
                         console.log("Fail", data)
-                        // CookieManager.clearAll()
-                        //     .then((res) => {
-                        //         this.props.loaderState(false);
-                        //     });
+                        this.setErrorVisible(true)
                     }}
                 />
                 <InstagramLogin

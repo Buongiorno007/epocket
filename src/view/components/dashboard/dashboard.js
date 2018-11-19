@@ -46,6 +46,7 @@ class Dashboard extends React.Component {
     },
     errorText: "",
     errorCode: "",
+    finishMissionCalled: false
   };
 
   componentDidMount = () => {
@@ -88,6 +89,7 @@ class Dashboard extends React.Component {
               } else if (result.body.interval > 0) {
                 //blocks second call on mount
                 this.props.timerStatus(true);
+                this.setState({ finishMissionCalled: false })
                 clearCorrectingInterval(this.props.timer_interval);
                 this.timer(result.body.interval * 1000);
               }
@@ -169,38 +171,43 @@ class Dashboard extends React.Component {
       if (distance <= 0) {
         clearCorrectingInterval(this.props.timer_interval);
         this.finishMainMission();
+        this.setState({ finishMissionCalled: true })
       }
     }, 1000);
     this.props.reloadTimer(x);
   }
 
   finishMainMission() {
-    this.setFinishMissionErrorVisible(false);
-    this.setState({ load_missions: true });
-    let body = {
-      outletId: this.props.selectedMall.id,
-      missionId: this.state.mainMissionId
-    };
-    let promise = httpPost(
-      urls.finish_mission,
-      JSON.stringify(body),
-      this.props.token
-    );
-    promise.then(
-      result => {
-        this.setFinishMissionErrorVisible(false);
-        this.props.timerStatus(false);
-        this.props.showDoneNotification(true);
-        this.props.setBalance(result.body.balance);
-        this.setState({ load_missions: false });
-      },
-      error => {
-        let error_respons = handleError(error, this.constructor.name, "finishMainMission");
-        this.setState({ errorText: error_respons.error_text, errorCode: error_respons.error_code });
-        this.setFinishMissionErrorVisible(error_respons.error_modal);
-        this.setState({ load_missions: false });
-      }
-    );
+    if (this.state.finishMissionCalled) {
+      console.log("finishMainMission called second time")
+    } else {
+      this.setFinishMissionErrorVisible(false);
+      this.setState({ load_missions: true });
+      let body = {
+        outletId: this.props.selectedMall.id,
+        missionId: this.state.mainMissionId
+      };
+      let promise = httpPost(
+        urls.finish_mission,
+        JSON.stringify(body),
+        this.props.token
+      );
+      promise.then(
+        result => {
+          this.setFinishMissionErrorVisible(false);
+          this.props.timerStatus(false);
+          this.props.showDoneNotification(true);
+          this.props.setBalance(result.body.balance);
+          this.setState({ load_missions: false });
+        },
+        error => {
+          let error_respons = handleError(error, this.constructor.name, "finishMainMission");
+          this.setState({ errorText: error_respons.error_text, errorCode: error_respons.error_code });
+          this.setFinishMissionErrorVisible(error_respons.error_modal);
+          this.setState({ load_missions: false });
+        }
+      );
+    }
   }
 
   dashboardStyles() {
