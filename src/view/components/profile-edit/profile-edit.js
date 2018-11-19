@@ -78,8 +78,7 @@ class ProfileEdit extends React.Component {
   };
   SubmitEdit = () => {
     if (!this.state.user.username ||
-      this.props.birthday === "" ||
-      !this.state.user.sex) {
+      this.props.birthday === "") {
       this.setModalVisible(true);
     } else {
       this.props.loaderState(true);

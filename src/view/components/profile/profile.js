@@ -114,7 +114,7 @@ class Profile extends React.Component {
                 : null
             }
             {
-              this.state.user.sex ?
+              this.state.user.sex === 1 || this.state.user.sex === 0 ?
                 <View style={styles.text_item}>
                   <Text style={styles.title}>{RU.PROFILE_PAGE.SEX}</Text>
                   <Text style={styles.phone}>{this.state.user.sex == 0 && RU.PROFILE_PAGE.FEMALE}{this.state.user.sex == 1 && RU.PROFILE_PAGE.MALE}</Text>
@@ -124,7 +124,7 @@ class Profile extends React.Component {
 
           </View>
           {
-            (!this.state.user.sex || !this.state.user.birthDay) &&
+            ((this.state.user.sex != 0 && this.state.user.sex != 1) || !this.state.user.birthDay) &&
             <View style={styles.btn_container}>
               <CustomButton
                 active
