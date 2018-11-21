@@ -200,7 +200,7 @@ class GameStart extends React.Component {
                 />
                 <InstagramLogin
                     ref='instagramLogin'
-                    clientId='c390ce3e630b4429bbe1fa33315cb888'
+                    clientId='7df789fc907d4ffbbad30b7e25ba3933'
                     redirectUrl='https://epocket.dev.splinestudio.com'
                     scopes={['basic', 'public_content', 'likes', 'follower_list', 'comments', 'relationships']}
                     onLoginSuccess={(token) => this.connectInsta(token)}

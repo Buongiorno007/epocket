@@ -222,12 +222,24 @@ class ProfileSettings extends React.Component {
                     onLoginSuccess={(json) => this.connectFacebook(json.token)}
                     onLoginFailure={(data) => {
                         console.log("Fail", data)
-                        this.setErrorVisible(true)
+                        CookieManager.clearAll()
+                            .then((res) => {
+                                this.props.loaderState(false);
+                            });
+                        if (data.msg = "Not enough friends") {
+                            if (data.subsc_needed) {
+                                this.setState({ userCount: data.subsc_needed })
+                            }
+                            this.setModalVisible(true)
+                        } else {
+                            this.setErrorVisible(true)
+                        }
+
                     }}
                 />
                 <InstagramLogin
                     ref='instagramLogin'
-                    clientId='c390ce3e630b4429bbe1fa33315cb888'
+                    clientId='7df789fc907d4ffbbad30b7e25ba3933'
                     scopes={['basic']}
                     onLoginSuccess={(token) => this.connectInsta(token)}
                     onLoginFailure={(data) => {

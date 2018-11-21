@@ -49,7 +49,7 @@ class Main extends React.Component {
   }
   renderLastTab = () => {
     let container;
-    if (this.props.game_status == "start") {
+    if (this.props.game_status == "start" || this.props.game_status == "lock") {
       container = <GameStart />
     }
     else if (this.props.game_status == "expired") {

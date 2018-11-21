@@ -59,11 +59,17 @@ class GameResult extends React.Component {
         );
         received_promise.then(
             result => {
-                switch (next_navigation) {
-                    case "insta": this.goInst(); this.props.loaderState(false); break;
-                    case "home": this.goHome(); this.props.loaderState(false); break;
-                    case "wait": this.goWait(); this.props.loaderState(false); break;
-                    default: this.props.loaderState(false); break;
+                if (game.ticker === false && !game.game_set) {
+                    this.goLock();
+                    this.props.loaderState(false);
+                }
+                else {
+                    switch (next_navigation) {
+                        case "insta": this.goInst(); this.props.loaderState(false); break;
+                        case "home": this.goHome(); this.props.loaderState(false); break;
+                        case "wait": this.goWait(); this.props.loaderState(false); break;
+                        default: this.props.loaderState(false); break;
+                    }
                 }
             },
             error => {
@@ -100,6 +106,12 @@ class GameResult extends React.Component {
             this.shareToInsta();
         }
     };
+    goLock = () => {
+        NavigationService.navigate("Main")
+        setTimeout(() => {
+            this.props.setGameStatus("lock")
+        }, 0)
+    }
     goWait = () => {
         NavigationService.navigate("Main")
         this.props.startExpiredTimer(this.props.token, this.props.game_info.id);
@@ -393,7 +405,7 @@ class GameResult extends React.Component {
                 />
                 <InstagramLogin
                     ref='instagramLogin'
-                    clientId='c390ce3e630b4429bbe1fa33315cb888'
+                    clientId='7df789fc907d4ffbbad30b7e25ba3933'
                     redirectUrl='https://epocket.dev.splinestudio.com'
                     scopes={['basic', 'public_content', 'likes', 'follower_list', 'comments', 'relationships']}
                     onLoginSuccess={(token) => this.connectInsta(token)}

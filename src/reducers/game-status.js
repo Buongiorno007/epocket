@@ -14,6 +14,7 @@ export default (state = "start", action) => {
 //   success (game finished - epc achieved)
 //   failed (game finished and failed)
 //   expired (game finished and expired, expired page will be rendered on 4-th tab)
+//   lock (user have passed 100 games, so now he have to check in)
 export const setGameStatus = (status) => ({
     type: GAME_STATUS, status
 })

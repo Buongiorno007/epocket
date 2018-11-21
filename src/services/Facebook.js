@@ -7,15 +7,19 @@ import {
   Alert,
   Modal,
   Dimensions,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Platform
 } from 'react-native'
 import qs from 'qs'
 import { Button } from 'native-base'
 import Icon from "react-native-vector-icons/EvilIcons";
 const { width, height } = Dimensions.get('window')
 
-const patchPostMessageJsCode = `(${String(function () {
-  setTimeout(function () { window.postMessage(document.getElementsByTagName("pre")[0].innerHTML), '*' }, 1000);
+const patchPostMessageJsCodeAndroid = `(${String(function () {
+  setTimeout(function () { window.postMessage(document.getElementsByTagName("pre")[0].innerHTML), '*' }, 500);
+})})();`
+const patchPostMessageJsCodeIOS = `(${String(function () {
+  { window.postMessage(document.getElementsByTagName("pre")[0].innerHTML) };
 })})();`
 export default class Instagram extends Component {
   constructor(props) {
@@ -40,17 +44,16 @@ export default class Instagram extends Component {
   }
 
   _onMessage(reactMessage) {
-    try {
-      const json = JSON.parse(reactMessage.nativeEvent.data)
-      console.log(json)
-      if (json.token) {
-        this.hide()
-        this.props.onLoginSuccess(json)
-      }
-      else{
-        this.props.onLoginFailure(json)
-      }
-    } catch (err) { }
+    const json = JSON.parse(reactMessage.nativeEvent.data)
+    console.log(json)
+    if (json.token) {
+      this.hide()
+      this.props.onLoginSuccess(json)
+    }
+    else {
+      this.hide()
+      this.props.onLoginFailure(json)
+    }
   }
 
   // _onLoadEnd () {
@@ -90,7 +93,7 @@ export default class Instagram extends Component {
             // onLoadEnd={this._onLoadEnd.bind(this)}
             onMessage={this._onMessage.bind(this)}
             ref={(webView) => { this.webView = webView }}
-            injectedJavaScript={patchPostMessageJsCode}
+            injectedJavaScript={Platform.OS === "ios" ? patchPostMessageJsCodeIOS : patchPostMessageJsCodeAndroid}
           />
           {!hideCloseButton ? (
             <Button

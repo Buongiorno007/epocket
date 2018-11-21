@@ -18,6 +18,7 @@ import CustomButton from '../../containers/custom-button/custom-button';
 import FooterNavigation from '../../containers/footer-navigator/footer-navigator';
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 import CustomAlert from "../../containers/custom-alert/custom-alert";
+import TrcInformation from "../../containers/trc-information/trc-information";
 //services
 import "../../../services/correcting-interval";
 
@@ -65,21 +66,30 @@ class GameStart extends React.Component {
                         source={this.props.game_info.no_more_games ? require('../../../assets/img/zifi/bored.gif') : require('../../../assets/img/zifi/playful.gif')}
                     // source={{ uri: this.props.game_info.no_more_games ? ICONS.ZIFI.BORED : ICONS.ZIFI.PLAYFUL }}
                     />
-                    <View style={styles.text_container}>
-                        <Text style={styles.game_cost_text}>{this.props.game_info.no_more_games ? RU.GAME.SORRY_TODAY.toLocaleUpperCase() : RU.GAME.COST_TEXT.toLocaleUpperCase()} </Text>
-                        <LinearTextGradient
-                            style={styles.game_cost_text}
-                            locations={[0, 1]}
-                            colors={[colors.light_red, colors.dark_pink]}
-                            start={{ x: 0, y: 0 }}
-                            end={{ x: 1, y: 0 }}
-                        >
-                            <Text>{this.props.game_info.no_more_games == true ? RU.GAME.NO_GAMES.toLocaleUpperCase() : this.props.game_info.cost.toLocaleUpperCase() + " " + RU.EPC.toLocaleUpperCase()}</Text>
-                        </LinearTextGradient>
-                    </View>
+                    {this.props.game_status === "lock" ?
+                        this.props.selectedMall.active ? (
+                            <TrcInformation
+                                info={this.props.selectedMall}
+                                distance={this.props.distance}
+                            />
+                        ) : null
+                        :
+                        <View style={styles.text_container}>
+                            <Text style={styles.game_cost_text}>{this.props.game_info.no_more_games ? RU.GAME.SORRY_TODAY.toLocaleUpperCase() : RU.GAME.COST_TEXT.toLocaleUpperCase()} </Text>
+                            <LinearTextGradient
+                                style={styles.game_cost_text}
+                                locations={[0, 1]}
+                                colors={[colors.light_red, colors.dark_pink]}
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 0 }}
+                            >
+                                {this.props.game_info.no_more_games == true ? RU.GAME.NO_GAMES.toLocaleUpperCase() : this.props.game_info.cost.toLocaleUpperCase() + " " + RU.EPC.toLocaleUpperCase()}
+                            </LinearTextGradient>
+                        </View>
+                    }
                 </View>
                 <View style={styles.game_description}>
-                    <Text style={styles.game_description_text}>{this.props.game_info.no_more_games ? RU.GAME.GET_EPC : this.props.game_info.description}</Text>
+                    <Text style={styles.game_description_text}>{this.props.game_status === "lock" ? RU.GAME.LOCK : this.props.game_info.no_more_games ? RU.GAME.GET_EPC : this.props.game_info.description}</Text>
                 </View>
                 {this.props.game_info.no_more_games ?
                     null :
@@ -107,7 +117,10 @@ const mapStateToProps = (state) => {
         game_info: state.game_info,
         token: state.token,
         loader: state.loader,
-        game_error: state.game_error
+        game_error: state.game_error,
+        game_status: state.game_status,
+        selectedMall: state.selectedMall,
+        distance: state.distance,
     };
 };
 
