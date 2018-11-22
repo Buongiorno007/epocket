@@ -39,6 +39,7 @@ import game_expired_timer from "./game-expired-timer"
 import game_controller from "./game-controller"
 import game_error from "./game-error"
 import game_expired_img from "./game-expired-image"
+import navigateToMall from "./navigate-to-mall"
 
 export default combineReducers({
   isConnected,
@@ -80,5 +81,6 @@ export default combineReducers({
   game_expired_timer,
   game_controller,
   game_error,
-  game_expired_img
+  game_expired_img,
+  navigateToMall
 });

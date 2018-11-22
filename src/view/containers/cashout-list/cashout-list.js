@@ -57,6 +57,7 @@ class CashoutList extends React.Component {
         outletId: this.props.selectedMall.id,
         products: this.order
       };
+      console.log(body)
       let promise = httpPost(
         urls.create_order,
         JSON.stringify(body),

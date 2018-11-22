@@ -24,6 +24,7 @@ import { colors } from "./../../../constants/colors";
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { setNavigateToMall } from "../../../reducers/navigate-to-mall"
 import { setLocation } from "../../../reducers/geolocation-coords";
 import { setDistance } from "../../../reducers/distance";
 import { updateMall } from "../../../reducers/selected-mall";
@@ -54,6 +55,7 @@ class Map extends React.Component {
     this.setState({ errorVisible: visible });
   };
   moveMapTo = (lat, lng, latD, lngD) => {
+    console.log(latD, lngD)
     this.map.animateToRegion(
       {
         latitude: lat,
@@ -87,7 +89,12 @@ class Map extends React.Component {
           this.props.outlets, false
         );
       }
-
+    }
+    if (nextProps.navigateToMall) {
+      this.moveMapTo(nextProps.selectedMall.lat, nextProps.selectedMall.lng, 0.5,
+        0.5);
+      this.setState({ location_loader: false });
+      this.props.setNavigateToMall(false)
     }
   };
 
@@ -330,6 +337,7 @@ const mapStateToProps = state => {
     token: state.token,
     outlets: state.outlets,
     timer_status: state.timer_status,
+    navigateToMall: state.navigateToMall
   };
 };
 
@@ -342,6 +350,7 @@ const mapDispatchToProps = dispatch =>
       setDistance,
       loaderState,
       setOutlets,
+      setNavigateToMall,
       setInfo
     },
     dispatch

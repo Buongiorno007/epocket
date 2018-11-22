@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View } from "react-native";
+import { View, Image, Platform } from "react-native";
 import FastImage from 'react-native-fast-image'
 import Icon from "react-native-vector-icons/dist/Entypo";
 import { Button } from "native-base";
@@ -51,11 +51,17 @@ class CustomPhoto extends Component {
           style={styles.photo_container}
         >
           {this.props.src ? (
-            <FastImage
-              style={styles.photo}
-              resizeMode={FastImage.resizeMode.сover}
-              source={{ uri: "data:image/jpeg;base64," + this.props.src }}
-            />
+            Platform.OS === "ios" ?
+              <FastImage
+                style={styles.photo}
+                resizeMode={FastImage.resizeMode.сover}
+                source={{ uri: "data:image/jpeg;base64," + this.props.src }}
+              />
+              :
+              <Image
+                style={styles.photoAndroid}
+                source={{ uri: "data:image/jpeg;base64," + this.props.src }}
+              />
           ) : (
               <FastImage
                 style={styles.icon}
