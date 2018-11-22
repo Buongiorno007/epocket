@@ -72,7 +72,7 @@ export const getGameInfo = (token) => async dispatch => {
     received_promise.then(
         result => {
             let game = result.body;
-            if (!game.ticker) {
+            if (game.ticker === false && !game.game_set) {
                 dispatch(setGameStatus("lock"));
                 dispatch(errorState(null));
                 dispatch(loaderState(false));
