@@ -55,16 +55,17 @@ class Map extends React.Component {
     this.setState({ errorVisible: visible });
   };
   moveMapTo = (lat, lng, latD, lngD) => {
-    console.log(latD, lngD)
-    this.map.animateToRegion(
-      {
-        latitude: lat,
-        longitude: lng,
-        latitudeDelta: latD || 0.089,
-        longitudeDelta: lngD || 0.089
-      },
-      350
-    );
+    setTimeout(() => {
+      this.map.animateToRegion(
+        {
+          latitude: lat,
+          longitude: lng,
+          latitudeDelta: latD || 0.089,
+          longitudeDelta: lngD || 0.089
+        },
+        450
+      );
+    }, 200);
   };
   componentWillReceiveProps = nextProps => {
     if (
@@ -91,8 +92,8 @@ class Map extends React.Component {
       }
     }
     if (nextProps.navigateToMall) {
-      this.moveMapTo(nextProps.selectedMall.lat, nextProps.selectedMall.lng, 0.5,
-        0.5);
+      this.moveMapTo(nextProps.selectedMall.lat, nextProps.selectedMall.lng, 0.0005,
+        0.0005);
       this.setState({ location_loader: false });
       this.props.setNavigateToMall(false)
     }
