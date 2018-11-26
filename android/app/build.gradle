@@ -154,9 +154,9 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-fbsdk')
-    compile project(':react-native-cookies')
-    compile project(':rn-fetch-blob')
+    implementation project(':react-native-fbsdk')
+    implementation project(':react-native-cookies')
+    implementation project(':rn-fetch-blob')
     implementation project(':react-native-fast-image')
     implementation project(':react-native-share')
     implementation project(':react-native-wheel-picker-android')

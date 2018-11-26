@@ -66,7 +66,7 @@ class CashoutList extends React.Component {
         result => {
           this.setModalVisible(false);
           this.props.loaderState(false);
-          this.props.getSocket(body.orderId);
+          // this.props.getSocket(body.orderId);
           NavigationService.navigate("QrCode", {
             total_price: total_price,
             link: result.body.link,
