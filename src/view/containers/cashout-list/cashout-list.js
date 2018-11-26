@@ -57,6 +57,7 @@ class CashoutList extends React.Component {
         outletId: this.props.selectedMall.id,
         products: this.order
       };
+      console.log(body)
       let promise = httpPost(
         urls.create_order,
         JSON.stringify(body),
@@ -66,7 +67,6 @@ class CashoutList extends React.Component {
         result => {
           this.setModalVisible(false);
           this.props.loaderState(false);
-          // this.props.getSocket(body.orderId);
           NavigationService.navigate("QrCode", {
             total_price: total_price,
             link: result.body.link,
@@ -122,10 +122,10 @@ class CashoutList extends React.Component {
             </View>
           </View>
         ) : (
-          <View style={styles.empty}>
-            <Text>{RU.CASH.NO_CASH}</Text>
-          </View>
-        )}
+            <View style={styles.empty}>
+              <Text>{RU.CASH.NO_CASH}</Text>
+            </View>
+          )}
       </View>
     );
   };

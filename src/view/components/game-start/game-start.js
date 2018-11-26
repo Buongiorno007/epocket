@@ -2,8 +2,11 @@ import React from 'react';
 import { View, Text, Image } from 'react-native';
 import { LinearTextGradient } from "react-native-text-gradient";
 import FastImage from 'react-native-fast-image'
+import { Button } from "native-base";
 //redux
 import { connect } from 'react-redux';
+import { setTabState } from "../../../reducers/tabs";
+import { setNavigateToMall } from "../../../reducers/navigate-to-mall"
 import { bindActionCreators } from 'redux';
 import { setGameStatus } from "../../../reducers/game-status"
 import { getGameInfo } from "../../../reducers/game-info";
@@ -20,6 +23,7 @@ import ActivityIndicator from "../../containers/activity-indicator/activity-indi
 import CustomAlert from "../../containers/custom-alert/custom-alert";
 import TrcInformation from "../../containers/trc-information/trc-information";
 //services
+import NavigationService from "./../../../services/route";
 import "../../../services/correcting-interval";
 
 class GameStart extends React.Component {
@@ -27,6 +31,11 @@ class GameStart extends React.Component {
     };
     componentDidMount() {
         this.props.getGameInfo(this.props.token)
+    }
+    goToMap = () => {
+        NavigationService.navigate("Main")
+        this.props.setNavigateToMall(true)
+        this.props.setTabState(2)
     }
     render() {
         return (
@@ -68,10 +77,17 @@ class GameStart extends React.Component {
                     />
                     {this.props.game_status === "lock" ?
                         this.props.selectedMall.active ? (
-                            <TrcInformation
-                                info={this.props.selectedMall}
-                                distance={this.props.distance}
-                            />
+                            <Button
+                                rounded
+                                block
+                                transparent
+                                style={styles.go_to_signin}
+                                onPress={() => this.goToMap()}>
+                                <TrcInformation
+                                    info={this.props.selectedMall}
+                                    distance={this.props.distance}
+                                />
+                            </Button>
                         ) : null
                         :
                         <View style={styles.text_container}>
@@ -128,7 +144,9 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     getGameInfo,
     setGameStatus,
     errorState,
+    setTabState,
     resetGameExpiredTimer,
+    setNavigateToMall
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameStart);

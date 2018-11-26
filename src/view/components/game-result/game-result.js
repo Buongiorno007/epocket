@@ -59,6 +59,7 @@ class GameResult extends React.Component {
         );
         received_promise.then(
             result => {
+                let game = result.body;
                 if (game.ticker === false && !game.game_set) {
                     this.goLock();
                     this.props.loaderState(false);
