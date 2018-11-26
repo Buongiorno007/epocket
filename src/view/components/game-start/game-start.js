@@ -30,7 +30,7 @@ class GameStart extends React.Component {
     state = {
     };
     componentDidMount() {
-        this.props.getGameInfo(this.props.token)
+        this.props.getGameInfo(this.props.token, this.props.location.lat, this.props.location.lng)
     }
     goToMap = () => {
         NavigationService.navigate("Main")
@@ -46,7 +46,7 @@ class GameStart extends React.Component {
                     first_btn_title={RU.REPEAT}
                     visible={this.props.game_error.error_modal}
                     first_btn_handler={() => {
-                        this.props.getGameInfo(this.props.token);
+                        this.props.getGameInfo(this.props.token, this.props.location.lat, this.props.location.lng);
                         this.props.errorState({
                             error_text: this.props.game_error.error_text,
                             error_modal: !this.props.game_error.error_modal
@@ -132,6 +132,7 @@ const mapStateToProps = (state) => {
     return {
         game_info: state.game_info,
         token: state.token,
+        location: state.location,
         loader: state.loader,
         game_error: state.game_error,
         game_status: state.game_status,
