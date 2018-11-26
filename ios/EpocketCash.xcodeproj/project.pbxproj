@@ -20,6 +20,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		158329A421AC3DF800AB3794 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 158329A621AC3DF800AB3794 /* InfoPlist.strings */; };
 		1587E304215A6AF500350ADF /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1587E303215A6AF500350ADF /* Social.framework */; };
 		1587E306215A6B0100350ADF /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1587E305215A6B0100350ADF /* MessageUI.framework */; };
 		2B1B95D5877145BEBBC5BE4E /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AF8297859AC940B29F59C410 /* FontAwesome.ttf */; };
@@ -396,6 +397,8 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = EpocketCash/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = EpocketCash/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		158329A521AC3DF800AB3794 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		158329A721AC3E0000AB3794 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1587E303215A6AF500350ADF /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		1587E305215A6B0100350ADF /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		1587E307215A6C6900350ADF /* libRNShare.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNShare.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -571,6 +574,7 @@
 				3257B2A1212470C600D80C7E /* GoogleService-Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				32C5254B2109F3E1002525F2 /* Launch Screen.storyboard */,
+				158329A621AC3DF800AB3794 /* InfoPlist.strings */,
 			);
 			name = EpocketCash;
 			sourceTree = "<group>";
@@ -851,6 +855,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
@@ -1275,6 +1280,7 @@
 				3257B2A2212470C600D80C7E /* GoogleService-Info.plist in Resources */,
 				32C5254C2109F3E1002525F2 /* Launch Screen.storyboard in Resources */,
 				2B1B95D5877145BEBBC5BE4E /* FontAwesome.ttf in Resources */,
+				158329A421AC3DF800AB3794 /* InfoPlist.strings in Resources */,
 				46A93BD644D247FBAAD3BEB7 /* Foundation.ttf in Resources */,
 				C5C3990C69A946568D2E53CC /* Ionicons.ttf in Resources */,
 				ADBFF13315CE4A06BFD3F0CF /* MaterialCommunityIcons.ttf in Resources */,
@@ -1399,6 +1405,18 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXVariantGroup section */
+		158329A621AC3DF800AB3794 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				158329A521AC3DF800AB3794 /* en */,
+				158329A721AC3E0000AB3794 /* ru */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1483,6 +1501,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1524,6 +1543,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;

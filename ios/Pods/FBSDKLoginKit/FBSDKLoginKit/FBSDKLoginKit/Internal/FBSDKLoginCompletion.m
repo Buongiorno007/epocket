@@ -108,6 +108,11 @@ static void FBSDKLoginRequestMeAndPermissions(FBSDKLoginCompletionParameters *pa
   ;  BOOL _performExplicitFallback;
 }
 
+- (instancetype)init NS_UNAVAILABLE
+{
+  assert(0);
+}
+
 - (instancetype)initWithURLParameters:(NSDictionary *)parameters appID:(NSString *)appID
 {
   if ((self = [super init]) != nil) {
@@ -148,7 +153,7 @@ static void FBSDKLoginRequestMeAndPermissions(FBSDKLoginCompletionParameters *pa
   if (_parameters.accessTokenString && !_parameters.userID) {
     void(^handlerCopy)(FBSDKLoginCompletionParameters *) = [handler copy];
     FBSDKLoginRequestMeAndPermissions(_parameters, ^{
-      handlerCopy(self->_parameters);
+      handlerCopy(_parameters);
     });
     return;
   }
@@ -189,12 +194,6 @@ static void FBSDKLoginRequestMeAndPermissions(FBSDKLoginCompletionParameters *pa
   }
   _parameters.expirationDate = expirationDate;
 
-  NSDate *dataAccessExpirationDate = [NSDate distantFuture];
-  if (parameters[@"data_access_expiration_time"] && [parameters[@"data_access_expiration_time"] integerValue] > 0) {
-    dataAccessExpirationDate = [NSDate dateWithTimeIntervalSince1970:[parameters[@"data_access_expiration_time"] integerValue]];
-  }
-  _parameters.dataAccessExpirationDate = dataAccessExpirationDate;
-
   NSError *error = nil;
   NSDictionary *state = [FBSDKInternalUtility objectForJSONString:parameters[@"state"] error:&error];
   _parameters.challenge = [FBSDKUtility URLDecode:state[@"challenge"]];
@@ -211,7 +210,7 @@ static void FBSDKLoginRequestMeAndPermissions(FBSDKLoginCompletionParameters *pa
 
   // if error is nil, then this should be processed as a cancellation unless
   // _performExplicitFallback is set to YES and the log in behavior is Native.
-  _parameters.error = [NSError fbErrorFromReturnURLParameters:parameters];
+  _parameters.error = [FBSDKLoginError errorFromReturnURLParameters:parameters];
 }
 
 - (void)attemptBrowserLogIn:(FBSDKLoginManager *)loginManager {
@@ -238,6 +237,11 @@ static void FBSDKLoginRequestMeAndPermissions(FBSDKLoginCompletionParameters *pa
   FBSDKLoginCompletionParameters *_parameters;
 }
 
+- (instancetype)init NS_UNAVAILABLE
+{
+  assert(0);
+}
+
 - (instancetype)initWithTokenString:(NSString *)tokenString appID:(NSString *)appID
 {
   if ((self = [super init]) != nil) {
@@ -261,26 +265,26 @@ static void FBSDKLoginRequestMeAndPermissions(FBSDKLoginCompletionParameters *pa
     // It's possible the graph error has a value set for NSRecoveryAttempterErrorKey but we don't
     // have any login-specific attempter to provide since system auth succeeded and the error is a
     // graph API error.
-    NSError *serverError = self->_parameters.error;
-    NSError *error = [NSError fbErrorFromServerError:serverError];
+    NSError *serverError = _parameters.error;
+    NSError *error = [FBSDKLoginError errorFromServerError:serverError];
     if (error != nil) {
       // In the event the user's password changed the Accounts framework will still return
       // an access token but API calls will fail. Clear the access token from the result
       // and use the special-case System Password changed error, which has different text
       // to display to the user.
-      if (error.code == FBSDKLoginErrorPasswordChanged) {
+      if (error.code == FBSDKLoginPasswordChangedErrorCode) {
         [FBSDKSystemAccountStoreAdapter sharedInstance].forceBlockingRenew = YES;
 
-        self->_parameters.accessTokenString = nil;
-        self->_parameters.appID = nil;
+        _parameters.accessTokenString = nil;
+        _parameters.appID = nil;
 
-        error = [NSError fbErrorForSystemPasswordChange:serverError];
+        error = [FBSDKLoginError errorForSystemPasswordChange:serverError];
       }
 
-      self->_parameters.error = error;
+      _parameters.error = error;
     }
 
-    handlerCopy(self->_parameters);
+    handlerCopy(_parameters);
   });
 }
 
@@ -291,12 +295,17 @@ static void FBSDKLoginRequestMeAndPermissions(FBSDKLoginCompletionParameters *pa
   FBSDKLoginCompletionParameters *_parameters;
 }
 
+- (instancetype)init NS_UNAVAILABLE
+{
+  assert(0);
+}
+
 - (instancetype)initWithError:(NSError *)accountStoreError permissions:(NSSet *)permissions
 {
   if ((self = [super init]) != nil) {
     _parameters = [[FBSDKLoginCompletionParameters alloc] init];
 
-    NSError *error = [NSError fbErrorForSystemAccountStoreError:accountStoreError];
+    NSError *error = [FBSDKLoginError errorForSystemAccountStoreError:accountStoreError];
     if (error != nil) {
       _parameters.error = error;
     } else {

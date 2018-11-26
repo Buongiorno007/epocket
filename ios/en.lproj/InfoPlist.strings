@@ -1,0 +1,12 @@
+"NSAppleMusicUsageDescription" = "EpocketApp would like access to apple music (for listening to music)";
+"NSBluetoothPeripheralUsageDescription" = "EpocketApp would like access to bluetooth to connect to your peripheral devices";
+"NSCalendarsUsageDescription" = "EpocketApp would like to use your calendar";
+"NSCameraUsageDescription" = "EpocketApp would like to use your camera. To add a photo to your profile and to your tasks";
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "The main purpose of the application is to check users on geo-positions.  According to geopositions the app provides to users info about possibilities how its possible to get services from the app.";
+"NSLocationAlwaysUsageDescription" = "The main purpose of the application is to check users on geo-positions.  According to geopositions the app provides to users info about possibilities how its possible to get services from the app.";
+"NSLocationWhenInUseUsageDescription" = "The main purpose of the application is to check users on geo-positions.  According to geopositions the app provides to users info about possibilities how its possible to get services from the app.";
+"NSMicrophoneUsageDescription" = "EpocketApp would like to your microphone";
+"NSMotionUsageDescription" = "Please provide access to the  motion. Motion information is required by the application to determine the movement and provision of services using the application";
+"NSPhotoLibraryAddUsageDescription" = "EpocketApp would like to save photos to your photo gallery. To add a photo to your profile and to your tasks";
+"NSPhotoLibraryUsageDescription" = "EpocketApp would like access to your photo gallery. To add a photo to your profile and to your tasks";
+"NSSpeechRecognitionUsageDescription" = "EpocketApp would like access to speech recognition to recognite your speech";

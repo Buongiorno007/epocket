@@ -72,14 +72,6 @@
 - (void)addToParameters:(NSMutableDictionary<NSString *, id> *)parameters
           bridgeOptions:(FBSDKShareBridgeOptions)bridgeOptions
 {
-  [parameters addEntriesFromDictionary:[self addParameters:parameters bridgeOptions:bridgeOptions]];
-}
-
-- (NSDictionary<NSString *, id> *)addParameters:(NSDictionary<NSString *, id> *)existingParameters
-                                  bridgeOptions:(FBSDKShareBridgeOptions)bridgeOptions
-{
-  NSMutableDictionary<NSString *, id> *updatedParameters = [NSMutableDictionary dictionaryWithDictionary:existingParameters];
-
   NSMutableDictionary<NSString *, id> *videoParameters = [[NSMutableDictionary alloc] init];
   if (_video.videoAsset) {
     if (bridgeOptions & FBSDKShareBridgeOptionsVideoAsset) {
@@ -99,7 +91,7 @@
                                                 resultHandler:^(AVAsset *avAsset, AVAudioMix *audioMix, NSDictionary<NSString *, id> *info) {
                                                   NSURL *filePathURL = [[(AVURLAsset *)avAsset URL] filePathURL];
                                                   NSString *pathExtension = [filePathURL pathExtension];
-                                                  NSString *localIdentifier = [self->_video.videoAsset localIdentifier];
+                                                  NSString *localIdentifier = [_video.videoAsset localIdentifier];
                                                   NSRange range = [localIdentifier rangeOfString:@"/"];
                                                   NSString *uuid = [localIdentifier substringToIndex:range.location];
                                                   NSString *assetPath = [NSString stringWithFormat:@"assets-library://asset/asset.%@?id=%@&ext=%@", pathExtension, uuid, pathExtension];
@@ -139,11 +131,9 @@
                          setObject:[FBSDKShareUtility convertPhoto:_previewPhoto]
                             forKey:@"previewPhoto"];
 
-  [FBSDKInternalUtility dictionary:updatedParameters
+  [FBSDKInternalUtility dictionary:parameters
                          setObject:videoParameters
                             forKey:@"video"];
-
-  return updatedParameters;
 }
 
 #pragma mark - FBSDKSharingValidation
@@ -192,10 +182,7 @@
           [FBSDKInternalUtility object:_hashtag isEqualToObject:content.hashtag] &&
           [FBSDKInternalUtility object:_peopleIDs isEqualToObject:content.peopleIDs] &&
           [FBSDKInternalUtility object:_placeID isEqualToObject:content.placeID] &&
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
           [FBSDKInternalUtility object:_previewPhoto isEqualToObject:content.previewPhoto] &&
-#pragma clang diagnostic pop
           [FBSDKInternalUtility object:_ref isEqualToObject:content.ref] &&
           [FBSDKInternalUtility object:_pageID isEqualToObject:content.pageID] &&
           [FBSDKInternalUtility object:_shareUUID isEqualToObject:content.shareUUID] &&

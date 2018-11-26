@@ -76,8 +76,7 @@ static FBSDKAccessToken *_CreateExpiredAccessToken(FBSDKAccessToken *accessToken
                                                  appID:accessToken.appID
                                                 userID:accessToken.userID
                                         expirationDate:expirationDate
-                                           refreshDate:expirationDate
-                                           dataAccessExpirationDate:expirationDate];
+                                           refreshDate:expirationDate];
 }
 #endif
 
@@ -544,7 +543,7 @@ NSURLSessionDataDelegate
     NSInteger statusCode = _URLResponse.statusCode;
 
     if (!error && [response.MIMEType hasPrefix:@"image"]) {
-      error = [NSError fbErrorWithCode:FBSDKErrorGraphRequestNonTextMimeTypeReturned
+      error = [FBSDKError errorWithCode:FBSDKGraphRequestNonTextMimeTypeReturnedErrorCode
                                 message:@"Response is a non-text MIME type; endpoints that return images and other "
                @"binary data should be fetched using NSURLRequest and NSURLSession"];
     } else {
@@ -553,13 +552,13 @@ NSURLSessionDataDelegate
                              statusCode:statusCode];
     }
   } else if (!error) {
-    error = [NSError fbErrorWithCode:FBSDKErrorUnknown
+    error = [FBSDKError errorWithCode:FBSDKUnknownErrorCode
                               message:@"Missing NSURLResponse"];
   }
 
   if (!error) {
     if ([self.requests count] != [results count]) {
-      error = [NSError fbErrorWithCode:FBSDKErrorGraphRequestProtocolMismatch
+      error = [FBSDKError errorWithCode:FBSDKGraphRequestProtocolMismatchErrorCode
                                 message:@"Unexpected number of results returned from server."];
     } else {
       [_logger appendFormat:@"Response <#%lu>\nDuration: %llu msec\nSize: %lu kB\nResponse Body:\n%@\n\n",
@@ -619,7 +618,7 @@ NSURLSessionDataDelegate
   NSDictionary *responseError = nil;
   if (!response) {
     if ((error != NULL) && (*error == nil)) {
-      *error = [self errorWithCode:FBSDKErrorUnknown
+      *error = [self errorWithCode:FBSDKUnknownErrorCode
                         statusCode:statusCode
                 parsedJSONResponse:nil
                         innerError:nil
@@ -666,7 +665,7 @@ NSURLSessionDataDelegate
       [results addObject:result];
     }
   } else if (error != NULL) {
-    *error = [self errorWithCode:FBSDKErrorGraphRequestProtocolMismatch
+    *error = [self errorWithCode:FBSDKGraphRequestProtocolMismatchErrorCode
                       statusCode:statusCode
               parsedJSONResponse:results
                       innerError:nil
@@ -727,9 +726,9 @@ NSURLSessionDataDelegate
 
 #if !TARGET_OS_TV
     if (resultError && ![metadata.request isGraphErrorRecoveryDisabled] && isSingleRequestToRecover) {
-      self->_recoveringRequestMetadata = metadata;
-      self->_errorRecoveryProcessor = [[FBSDKGraphErrorRecoveryProcessor alloc] init];
-      if ([self->_errorRecoveryProcessor processError:resultError request:metadata.request delegate:self]) {
+      _recoveringRequestMetadata = metadata;
+      _errorRecoveryProcessor = [[FBSDKGraphErrorRecoveryProcessor alloc] init];
+      if ([_errorRecoveryProcessor processError:resultError request:metadata.request delegate:self]) {
         return;
       }
     }
@@ -754,9 +753,9 @@ NSURLSessionDataDelegate
     }
     [metadata invokeCompletionHandlerForConnection:self withResults:body error:error];
 
-    if (--self->_expectingResults == 0) {
-      if (canNotifyDelegate && [self->_delegate respondsToSelector:@selector(requestConnectionDidFinishLoading:)]) {
-        [self->_delegate requestConnectionDidFinishLoading:self];
+    if (--_expectingResults == 0) {
+      if (canNotifyDelegate && [_delegate respondsToSelector:@selector(requestConnectionDidFinishLoading:)]) {
+        [_delegate requestConnectionDidFinishLoading:self];
       }
     }
   };
@@ -781,8 +780,8 @@ NSURLSessionDataDelegate
   BOOL isAccountStoreLogin = [metadataTokenString isEqualToString:accountStoreTokenString];
 
   if ([metadataTokenString isEqualToString:currentTokenString] || isAccountStoreLogin) {
-    NSInteger errorCode = [error.userInfo[FBSDKGraphRequestErrorGraphErrorCodeKey] integerValue];
-    NSInteger errorSubcode = [error.userInfo[FBSDKGraphRequestErrorGraphErrorSubcodeKey] integerValue];
+    NSInteger errorCode = [error.userInfo[FBSDKGraphRequestErrorGraphErrorCode] integerValue];
+    NSInteger errorSubcode = [error.userInfo[FBSDKGraphRequestErrorGraphErrorSubcode] integerValue];
     if (errorCode == 190 || errorCode == 102) {
       if (isAccountStoreLogin) {
         if (errorSubcode == 460) {
@@ -794,7 +793,7 @@ NSURLSessionDataDelegate
           adapter.forceBlockingRenew = YES;
         } else {
           [adapter renewSystemAuthorization:^(ACAccountCredentialRenewResult result, NSError *renewError) {
-            NSOperationQueue *queue = self->_delegateQueue ?: [NSOperationQueue mainQueue];
+            NSOperationQueue *queue = _delegateQueue ?: [NSOperationQueue mainQueue];
             [queue addOperationWithBlock:^{
               clearToken(errorSubcode);
               finishAndInvokeCompletionHandler();
@@ -807,7 +806,7 @@ NSURLSessionDataDelegate
     } else if (errorCode >= 200 && errorCode < 300) {
       // permission error
       [adapter renewSystemAuthorization:^(ACAccountCredentialRenewResult result, NSError *renewError) {
-        NSOperationQueue *queue = self->_delegateQueue ?: [NSOperationQueue mainQueue];
+        NSOperationQueue *queue = _delegateQueue ?: [NSOperationQueue mainQueue];
         [queue addOperationWithBlock:finishAndInvokeCompletionHandler];
       }];
       return;
@@ -854,8 +853,8 @@ NSURLSessionDataDelegate
 
     if ([errorDictionary isKindOfClass:[NSDictionary class]]) {
       NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-      [FBSDKInternalUtility dictionary:userInfo setObject:errorDictionary[@"code"] forKey:FBSDKGraphRequestErrorGraphErrorCodeKey];
-      [FBSDKInternalUtility dictionary:userInfo setObject:errorDictionary[@"error_subcode"] forKey:FBSDKGraphRequestErrorGraphErrorSubcodeKey];
+      [FBSDKInternalUtility dictionary:userInfo setObject:errorDictionary[@"code"] forKey:FBSDKGraphRequestErrorGraphErrorCode];
+      [FBSDKInternalUtility dictionary:userInfo setObject:errorDictionary[@"error_subcode"] forKey:FBSDKGraphRequestErrorGraphErrorSubcode];
       //"message" is preferred over error_msg or error_reason.
       [FBSDKInternalUtility dictionary:userInfo setObject:errorDictionary[@"error_msg"] forKey:FBSDKErrorDeveloperMessageKey];
       [FBSDKInternalUtility dictionary:userInfo setObject:errorDictionary[@"error_reason"] forKey:FBSDKErrorDeveloperMessageKey];
@@ -867,20 +866,20 @@ NSURLSessionDataDelegate
       [FBSDKInternalUtility dictionary:userInfo setObject:result forKey:FBSDKGraphRequestErrorParsedJSONResponseKey];
 
       FBSDKErrorRecoveryConfiguration *recoveryConfiguration = [g_errorConfiguration
-                                                                recoveryConfigurationForCode:[userInfo[FBSDKGraphRequestErrorGraphErrorCodeKey] stringValue]
-                                                                subcode:[userInfo[FBSDKGraphRequestErrorGraphErrorSubcodeKey] stringValue]
+                                                                recoveryConfigurationForCode:[userInfo[FBSDKGraphRequestErrorGraphErrorCode] stringValue]
+                                                                subcode:[userInfo[FBSDKGraphRequestErrorGraphErrorSubcode] stringValue]
                                                                 request:request];
       if ([errorDictionary[@"is_transient"] boolValue]) {
-        userInfo[FBSDKGraphRequestErrorKey] = @(FBSDKGraphRequestErrorTransient);
+        userInfo[FBSDKGraphRequestErrorCategoryKey] = @(FBSDKGraphRequestErrorCategoryTransient);
       } else {
-        [FBSDKInternalUtility dictionary:userInfo setObject:@(recoveryConfiguration.errorCategory) forKey:FBSDKGraphRequestErrorKey];
+        [FBSDKInternalUtility dictionary:userInfo setObject:@(recoveryConfiguration.errorCategory) forKey:FBSDKGraphRequestErrorCategoryKey];
       }
       [FBSDKInternalUtility dictionary:userInfo setObject:recoveryConfiguration.localizedRecoveryDescription forKey:NSLocalizedRecoverySuggestionErrorKey];
       [FBSDKInternalUtility dictionary:userInfo setObject:recoveryConfiguration.localizedRecoveryOptionDescriptions forKey:NSLocalizedRecoveryOptionsErrorKey];
       FBSDKErrorRecoveryAttempter *attempter = [FBSDKErrorRecoveryAttempter recoveryAttempterFromConfiguration:recoveryConfiguration];
       [FBSDKInternalUtility dictionary:userInfo setObject:attempter forKey:NSRecoveryAttempterErrorKey];
 
-      return [NSError fbErrorWithCode:FBSDKErrorGraphRequestGraphAPI
+      return [FBSDKError errorWithCode:FBSDKGraphRequestGraphAPIErrorCode
                               userInfo:userInfo
                                message:nil
                        underlyingError:nil];
@@ -890,7 +889,7 @@ NSURLSessionDataDelegate
   return nil;
 }
 
-- (NSError *)errorWithCode:(FBSDKError)code
+- (NSError *)errorWithCode:(FBSDKErrorCode)code
                 statusCode:(NSInteger)statusCode
         parsedJSONResponse:(id)response
                 innerError:(NSError *)innerError
@@ -1029,8 +1028,8 @@ totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend
     FBSDKGraphRequestMetadata *retryMetadata = [[FBSDKGraphRequestMetadata alloc] initWithRequest:retryRequest completionHandler:_recoveringRequestMetadata.completionHandler batchParameters:_recoveringRequestMetadata.batchParameters];
     [retryRequest startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *retriedError) {
       [self processResultBody:result error:retriedError metadata:retryMetadata canNotifyDelegate:YES];
-      self->_errorRecoveryProcessor = nil;
-      self->_recoveringRequestMetadata = nil;
+      _errorRecoveryProcessor = nil;
+      _recoveringRequestMetadata = nil;
     }];
   } else {
     [self processResultBody:nil error:error metadata:_recoveringRequestMetadata canNotifyDelegate:YES];
