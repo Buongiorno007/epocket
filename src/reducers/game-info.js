@@ -63,10 +63,10 @@ export const passGameResult = (mission_id, api_status, token, status, insta_data
     );
 
 }
-export const getGameInfo = (token) => async dispatch => {
+export const getGameInfo = (token, latt, long) => async dispatch => {
     dispatch(loaderState(true));
     let received_promise = httpGet(
-        urls.game_get,
+        urls.game_get + "?coords=" + latt + "%2C" + long,
         token
     );
     received_promise.then(

@@ -45,8 +45,50 @@ class ProfileSettings extends React.Component {
         errorVisible: false,
         userCount: 0
     };
-    componentDidMount() { }
+    isFblogged=()=>{
+        let body = JSON.stringify({});
+        let promise = httpPost(
+            urls.facebook_is_logged,
+            body,
+            this.props.token
+        );
+         promise.then(
+            result => {
+                if(result.body.logged && result.body.active && result.body.token){
+                    this.props.setFacebookToken(result.body.token);
+                }
+                this.props.loaderState(false);
 
+            },
+            error => {
+                this.props.loaderState(false);
+            }
+        );
+    }
+    isInstalogged=()=>{
+        let body = JSON.stringify({});
+        let promise = httpPost(
+            urls.insta_is_logged,
+            body,
+            this.props.token
+        );
+         promise.then(
+            result => {
+                if(result.body.logged && result.body.active && result.body.token){
+                    this.props.setInstaToken(result.body.token);
+                }
+                this.props.loaderState(false);
+            },
+            error => {
+                this.props.loaderState(false);
+            }
+        );
+    }
+    componentDidMount() { 
+        this.props.loaderState(true);
+        this.isFblogged();
+        this.isInstalogged();
+    }
     LogOut = () => {
         AsyncStorage.multiSet([["user_info", ""], ["balance", ""], ["token", ""], ["insta_token", ""], ["facebook_token", ""]], () => {
             NavigationService.navigate("Start");
@@ -226,11 +268,11 @@ class ProfileSettings extends React.Component {
                             .then((res) => {
                                 this.props.loaderState(false);
                             });
-                        if (data.msg = "Not enough friends") {
+                        if (data.msg === "Not enough friends") {
                             if (data.subsc_needed) {
                                 this.setState({ userCount: data.subsc_needed })
+                                this.setModalVisible(true)
                             }
-                            this.setModalVisible(true)
                         } else {
                             this.setErrorVisible(true)
                         }

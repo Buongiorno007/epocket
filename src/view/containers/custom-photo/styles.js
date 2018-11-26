@@ -38,7 +38,7 @@ export default StyleSheet.create({
   photoAndroid: {
     width: photo_size,
     height: photo_size,
-    resizeMode: 'stretch',
+    resizeMode: 'cover',
     borderRadius: photo_size / 2,
   },
   icon: {
