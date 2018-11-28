@@ -36,13 +36,7 @@ class MissionSuccess extends React.Component {
           translucent={true}
         />
         <LinearGradient
-          colors={[
-            "#F7BB42",
-            this.props.userColor.orange,
-            this.props.userColor.pink,
-            "rgba(214, 41, 197, 0.88)",
-            "rgba(119, 12, 225, 0.69)"
-          ]}
+          colors={this.props.userColor.earn_more}
           start={{ x: 0.0, y: 1.4 }}
           end={{ x: 1.0, y: 0.0 }}
           style={styles.grad}

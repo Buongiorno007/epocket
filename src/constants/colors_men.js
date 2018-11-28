@@ -42,5 +42,15 @@ export default
     zifi_text: "#BDC3C9",
     transparent: "rgba(255,255,255, 0)",
     second_gradient_color: "#6A00B9",
-    first_gradient_color: "#00EEFF"
+    second_gradient_color_02: "rgba(106,0,185, 0.2)",
+    first_gradient_color: "#00EEFF",
+    first_gradient_color_02: "rgba(0,238,255, 0.2)",
+    earn_more: ["#00EEFF",
+      "#15B8E9",
+      "#2B7FD2",
+      "rgba(4,162,235,0.88)",
+      "rgba(106,0,185, 0.2)"],
+    pink_blue: "#6A00B9",
+    history_first_active:"#00EEFF",
+    history_second_active:"#6A00B9",
   };

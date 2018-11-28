@@ -90,7 +90,7 @@ class HistoryCard extends React.Component {
                   <LinearTextGradient
                       numberOfLines={2}
                     locations={[0, 1]}
-                    colors={[this.props.userColor.light_orange, this.props.userColor.pink]}
+                    colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
                     start={{ x: 0.0, y: 1.0 }}
                     end={{ x: 1.0, y: 1.0 }}
                     style={styles.item_name_text}

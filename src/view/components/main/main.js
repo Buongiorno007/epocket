@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StatusBar, BackHandler } from "react-native";
+import { View, StatusBar, BackHandler, AsyncStorage } from "react-native";
 //components
 import Map from "./../map/map";
 import Profile from "./../profile/profile";
@@ -23,6 +23,7 @@ import { bindActionCreators } from "redux";
 import { showDoneNotification } from "../../../reducers/main-task-done-notification";
 import { showFailedNotification } from "../../../reducers/main-task-failed-notification";
 import { setActiveCard } from "../../../reducers/set-active-card";
+import { setColor } from "../../../reducers/user-color"
 //services
 import GeolocationService from "../../../services/geolocation-service";
 
@@ -32,6 +33,11 @@ class Main extends React.Component {
     this.backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
       this.props.setActiveCard(false);
       return true;
+    });
+    AsyncStorage.getItem("user_info").then(value => {
+      let object = JSON.parse(value);
+      this.props.setColor(object.sex);
+      NavigationService.navigate("ProfileEdit", { async_storage_user });
     });
   }
   renderSecondTab = () => {
@@ -101,7 +107,8 @@ const mapDispatchToProps = dispatch =>
     {
       showDoneNotification,
       showFailedNotification,
-      setActiveCard
+      setActiveCard,
+      setColor
     },
     dispatch
   );

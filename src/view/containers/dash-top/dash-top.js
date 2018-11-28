@@ -164,7 +164,7 @@ class DashTop extends React.Component {
         :
         <View style={styles.content}>
           <LinearGradient
-            colors={[this.props.userColor.orange_02, this.props.userColor.pink_02]}
+            colors={[this.props.userColor.second_gradient_color_02, this.props.userColor.first_gradient_color_02]}
             start={{ x: 0.0, y: 5.0 }}
             end={{ x: 1.0, y: 5.0 }}
             style={styles.location}
@@ -268,13 +268,13 @@ class DashTop extends React.Component {
               </View>
               <View style={styles.time_counter_container}>
                 <LinearGradient
-                  colors={[this.props.userColor.orange_02, this.props.userColor.pink_02]}
+                  colors={[this.props.userColor.second_gradient_color_02, this.props.userColor.first_gradient_color_02]}
                   start={{ x: 0.0, y: 5.0 }}
                   end={{ x: 1.0, y: 5.0 }}
                   style={styles.time_counter}>
                   <LinearTextGradient
                     locations={[0, 1]}
-                    colors={[this.props.userColor.orange, this.props.userColor.pink]}
+                    colors={[this.props.userColor.second_gradient_color, this.props.userColor.first_gradient_color]}
                     start={{ x: 0.0, y: 1.0 }}
                     end={{ x: 0.5, y: 0.2 }}
                     style={styles.time_counter_text}>
@@ -286,13 +286,13 @@ class DashTop extends React.Component {
                   <Text style={styles.time_divider_pink}>:</Text>
                 </View>
                 <LinearGradient
-                  colors={[this.props.userColor.orange_02, this.props.userColor.pink_02]}
+                  colors={[this.props.userColor.second_gradient_color_02, this.props.userColor.first_gradient_color_02]}
                   start={{ x: 0.0, y: 5.0 }}
                   end={{ x: 1.0, y: 5.0 }}
                   style={styles.time_counter}>
                   <LinearTextGradient
                     locations={[0, 1]}
-                    colors={[this.props.userColor.orange, this.props.userColor.pink]}
+                    colors={[this.props.userColor.second_gradient_color, this.props.userColor.first_gradient_color]}
                     start={{ x: 0.0, y: 1.0 }}
                     end={{ x: 0.5, y: 0.2 }}
                     style={styles.time_counter_text}>
@@ -304,13 +304,13 @@ class DashTop extends React.Component {
                   <Text style={styles.time_divider_pink}>:</Text>
                 </View>
                 <LinearGradient
-                  colors={[this.props.userColor.orange_02, this.props.userColor.pink_02]}
+                  colors={[this.props.userColor.second_gradient_color_02, this.props.userColor.first_gradient_color_02]}
                   start={{ x: 0.0, y: 5.0 }}
                   end={{ x: 1.0, y: 5.0 }}
                   style={styles.time_counter}>
                   <LinearTextGradient
                     locations={[0, 1]}
-                    colors={[this.props.userColor.orange, this.props.userColor.pink]}
+                    colors={[this.props.userColor.second_gradient_color, this.props.userColor.first_gradient_color]}
                     start={{ x: 0.0, y: 1.0 }}
                     end={{ x: 0.5, y: 0.2 }}
                     style={styles.time_counter_text}>
@@ -360,13 +360,13 @@ class DashTop extends React.Component {
               </View>
               <View style={styles.small_time_counter_container}>
                 <LinearGradient
-                  colors={[this.props.userColor.orange_02, this.props.userColor.pink_02]}
+                  colors={[this.props.userColor.second_gradient_color_02, this.props.userColor.first_gradient_color_02]}
                   start={{ x: 0.0, y: 5.0 }}
                   end={{ x: 1.0, y: 5.0 }}
                   style={styles.small_time_counter}>
                   <LinearTextGradient
                     locations={[0, 1]}
-                    colors={[this.props.userColor.orange, this.props.userColor.pink]}
+                    colors={[this.props.userColor.second_gradient_color, this.props.userColor.first_gradient_color]}
                     start={{ x: 0.0, y: 1.0 }}
                     end={{ x: 0.5, y: 0.2 }}
                     style={styles.time_counter_text}>
@@ -378,13 +378,13 @@ class DashTop extends React.Component {
                   <Text style={styles.time_divider_pink}>:</Text>
                 </View>
                 <LinearGradient
-                  colors={[this.props.userColor.orange_02, this.props.userColor.pink_02]}
+                  colors={[this.props.userColor.second_gradient_color_02, this.props.userColor.first_gradient_color_02]}
                   start={{ x: 0.0, y: 5.0 }}
                   end={{ x: 1.0, y: 5.0 }}
                   style={styles.small_time_counter}>
                   <LinearTextGradient
                     locations={[0, 1]}
-                    colors={[this.props.userColor.orange, this.props.userColor.pink]}
+                    colors={[this.props.userColor.second_gradient_color, this.props.userColor.first_gradient_color]}
                     start={{ x: 0.0, y: 1.0 }}
                     end={{ x: 0.5, y: 0.2 }}
                     style={styles.time_counter_text}>
@@ -396,13 +396,13 @@ class DashTop extends React.Component {
                   <Text style={styles.time_divider_pink}>:</Text>
                 </View>
                 <LinearGradient
-                  colors={[this.props.userColor.orange_02, this.props.userColor.pink_02]}
+                  colors={[this.props.userColor.second_gradient_color_02, this.props.userColor.first_gradient_color_02]}
                   start={{ x: 0.0, y: 5.0 }}
                   end={{ x: 1.0, y: 5.0 }}
                   style={styles.small_time_counter}>
                   <LinearTextGradient
                     locations={[0, 1]}
-                    colors={[this.props.userColor.orange, this.props.userColor.pink]}
+                    colors={[this.props.userColor.second_gradient_color, this.props.userColor.first_gradient_color]}
                     start={{ x: 0.0, y: 1.0 }}
                     end={{ x: 0.5, y: 0.2 }}
                     style={styles.time_counter_text}>

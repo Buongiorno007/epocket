@@ -190,7 +190,7 @@ class CustomAlert extends Component {
                 {this.props.subtitle &&
                   <LinearTextGradient
                     locations={[0, 1]}
-                    colors={[this.props.userColor.light_orange, this.props.userColor.pink]}
+                    colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
                     start={{ x: 0.0, y: 1.0 }}
                     end={{ x: 1.0, y: 1.0 }}
                     style={styles.modal_title_text}
@@ -209,7 +209,7 @@ class CustomAlert extends Component {
                 >
                   <LinearTextGradient
                     locations={[0, 1]}
-                    colors={[this.props.userColor.light_orange, this.props.userColor.pink]}
+                    colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
                     start={{ x: 0.0, y: 1.0 }}
                     end={{ x: 1.0, y: 1.0 }}
                     style={styles.alert_text}
@@ -237,7 +237,7 @@ class CustomAlert extends Component {
                     {this.props.datepicker || this.props.subtitle ?
                       <LinearTextGradient
                         locations={[0, 1]}
-                        colors={[this.props.userColor.light_orange, this.props.userColor.pink]}
+                        colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
                         start={{ x: 0.0, y: 1.0 }}
                         end={{ x: 1.0, y: 1.0 }}
                         style={styles.alert_text}

@@ -296,7 +296,7 @@ class ProfileEdit extends React.Component {
                 >
                   <LinearTextGradient
                     locations={[0, 1]}
-                    colors={this.state.user.sex == 1 ? [this.props.userColor.light_orange, this.props.userColor.pink] : [this.props.userColor.black41_09, this.props.userColor.black41_09]}
+                    colors={this.state.user.sex == 1 ? [this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color] : [this.props.userColor.black41_09, this.props.userColor.black41_09]}
                     start={{ x: 0.0, y: 0.0 }}
                     end={{ x: 0.7, y: 1.0 }}
                     style={styles.title}
@@ -306,7 +306,7 @@ class ProfileEdit extends React.Component {
                 </Button>
                 <LinearTextGradient
                   locations={[0, 1]}
-                  colors={[this.props.userColor.light_orange, this.props.userColor.pink]}
+                  colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
                   start={{ x: 0.0, y: 0.0 }}
                   end={{ x: 0.7, y: 1.0 }}
                   style={styles.title}
@@ -322,7 +322,7 @@ class ProfileEdit extends React.Component {
                 >
                   <LinearTextGradient
                     locations={[0, 1]}
-                    colors={this.state.user.sex == 0 ? [this.props.userColor.light_orange, this.props.userColor.pink] : [this.props.userColor.black41_09, this.props.userColor.black41_09]}
+                    colors={this.state.user.sex == 0 ? [this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color] : [this.props.userColor.black41_09, this.props.userColor.black41_09]}
                     start={{ x: 0.0, y: 0.0 }}
                     end={{ x: 0.7, y: 1.0 }}
                     style={styles.title}

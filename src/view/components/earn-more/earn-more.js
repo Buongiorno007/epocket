@@ -207,13 +207,7 @@ class EarnMore extends React.Component {
           onLoginFailure={(data) => console.log(data)}
         />
         <LinearGradient
-          colors={[
-            "#F7BB42",
-            this.props.userColor.orange,
-            this.props.userColor.pink,
-            "rgba(214, 41, 197, 0.88)",
-            "rgba(119, 12, 225, 0.69)"
-          ]}
+          colors={this.props.userColor.earn_more}
           start={{ x: 0.0, y: 1.4 }}
           end={{ x: 1.0, y: 0.0 }}
           style={styles.grad}
@@ -237,7 +231,7 @@ class EarnMore extends React.Component {
             active
             short
             title={RU.MISSION.EARN_MORE.toUpperCase()}
-            color={this.props.userColor.pink}
+            color={this.props.userColor.pink_blue}
             handler={() => { this.earnMore() }}
           />
           <Button

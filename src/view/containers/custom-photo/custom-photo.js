@@ -35,7 +35,7 @@ class CustomPhoto extends Component {
             style={styles.edit_photo_btn}
             onPress={() => this.props.PhotoEdit()}>
             <LinearGradient
-              colors={[this.props.userColor.light_orange, this.props.userColor.pink]}
+              colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
               start={{ x: 0.5, y: -0.5 }}
               end={{ x: 0.6, y: 1.0 }}
               style={styles.edit_photo_container}>
@@ -47,7 +47,7 @@ class CustomPhoto extends Component {
         }
 
         <LinearGradient
-          colors={[this.props.userColor.light_orange, this.props.userColor.pink]}
+          colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
           start={{ x: 0.0, y: 0.0 }}
           end={{ x: 0.6, y: 1.0 }}
           style={styles.photo_container}

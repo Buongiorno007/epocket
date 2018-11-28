@@ -279,7 +279,7 @@ class Dashboard extends React.Component {
           {
             !this.props.activeCard ?
               <LinearGradient
-                colors={[this.props.userColor.pink, this.props.userColor.orange]}
+                colors={[this.props.userColor.second_gradient_color, this.props.userColor.first_gradient_color]}
                 start={{ x: 1.0, y: 0.0 }}
                 end={{ x: 0.0, y: 1.0 }}
                 style={styles.grad}

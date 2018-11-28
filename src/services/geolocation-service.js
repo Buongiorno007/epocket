@@ -99,7 +99,7 @@ class GeolocationService extends React.Component {
 
     notification
       .android.setChannelId('chanelId')
-      .android.setColor(this.props.userColor.pink)
+      .android.setColor(this.props.userColor.pink_blue)
       .android.setSmallIcon('@drawable/ic_notif');
 
     firebase.notifications().displayNotification(notification)

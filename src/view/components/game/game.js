@@ -32,7 +32,7 @@ class Game extends React.Component {
 		interval: null,
 		progress: 1,
 		progressGradient: {
-			colors: [this.props.userColor.pink, this.props.userColor.light_orange],
+			colors: [this.props.userColor.second_gradient_color, this.props.userColor.first_gradient_color],
 			start: { x: 0.0, y: 1.0 },
 			end: { x: 1.0, y: 0.0 }
 		}
