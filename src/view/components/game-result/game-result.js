@@ -415,8 +415,8 @@ class GameResult extends React.Component {
                 <LinearGradient
                     colors={[
                         "#F7BB42",
-                        colors.orange,
-                        colors.pink,
+                        this.props.userColor.orange,
+                        this.props.userColor.pink,
                         "rgba(214, 41, 197, 0.88)",
                         "rgba(119, 12, 225, 0.69)"
                     ]}
@@ -442,7 +442,7 @@ class GameResult extends React.Component {
                         transparent
                         block
                         style={this.props.navigation.state.params.status === "success" ? styles.button_short : styles.button}
-                        androidRippleColor={colors.card_shadow}
+                        androidRippleColor={this.props.userColor.card_shadow}
                         onPress={() => {
                             this.props.navigation.state.params.status === "success" ? this.sheckForGames("home") : this.sheckForGames("insta")
                         }}
@@ -471,6 +471,7 @@ const mapStateToProps = (state) => {
         game_info: state.game_info,
         game_status: state.game_status,
         token: state.token,
+        userColor: state.userColor,
         game_error: state.game_error,
         appState: state.appState,
         insta_token: state.insta_token,

@@ -22,6 +22,7 @@ import { setToken } from "../../../reducers/token";
 import { loaderState } from "../../../reducers/loader";
 import { setBalance } from "../../../reducers/user-balance";
 import { connect } from "react-redux";
+import { setColor } from "../../../reducers/user-color";
 import { bindActionCreators } from "redux";
 import { getPush } from "../../../reducers/push";
 import { saveUser } from "../../../reducers/profile-state";
@@ -169,6 +170,7 @@ class SignIn extends React.Component {
         };
         this.props.getPush(result.body.token)
         this.props.saveUser(user_info);
+        this.props.setColor(user_info.sex)
         this.props.setToken(result.body.token);
         this.props.setBalance(result.body.balance);
         NavigationService.navigate("Main");
@@ -233,11 +235,11 @@ class SignIn extends React.Component {
             <View style={styles.form}>
               <TextField
                 label={RU.MOBILE_NUMBER}
-                textColor={colors.input}
-                tintColor={colors.input}
-                baseColor={colors.input}
+                textColor={this.props.userColor.input}
+                tintColor={this.props.userColor.input}
+                baseColor={this.props.userColor.input}
                 placeholder={RU.PHONE_MASK}
-                placeholderTextColor={colors.input_placeholder}
+                placeholderTextColor={this.props.userColor.input_placeholder}
                 labelPadding={16}
                 inputContainerPadding={16}
                 onChangeText={text => {
@@ -274,11 +276,11 @@ class SignIn extends React.Component {
               <TextField
                 label={""}
                 style={styles.code_input}
-                textColor={colors.input}
-                tintColor={colors.input}
-                baseColor={colors.input}
+                textColor={this.props.userColor.input}
+                tintColor={this.props.userColor.input}
+                baseColor={this.props.userColor.input}
                 placeholder={RU.CODE_MASK}
-                placeholderTextColor={colors.input_placeholder}
+                placeholderTextColor={this.props.userColor.input_placeholder}
                 labelPadding={16}
                 inputContainerPadding={16}
                 maxLength={6}
@@ -307,6 +309,7 @@ class SignIn extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  userColor: state.userColor,
   loader: state.loader
 });
 
@@ -316,6 +319,7 @@ const mapDispatchToProps = dispatch =>
       setToken,
       setBalance,
       loaderState,
+      setColor,
       getPush,
       saveUser
     },

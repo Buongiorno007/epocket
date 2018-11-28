@@ -226,7 +226,7 @@ class GameStart extends React.Component {
 
                     />
                     <LinearGradient
-                        colors={[colors.transparent, colors.drag_panel_color]}
+                        colors={[this.props.userColor.transparent, this.props.userColor.drag_panel_color]}
                         start={{ x: 0.0, y: 0.0 }}
                         end={{ x: 0.0, y: 0.8 }}
                         style={styles.gradient}
@@ -237,7 +237,7 @@ class GameStart extends React.Component {
                         active={this.props.game_error.error_text === "" ? true : false}
                         gradient
                         title={RU.GAME.RESULT.PUBLISH_AND_CONTINUE.toUpperCase()}
-                        color={colors.white}
+                        color={this.props.userColor.white}
                         handler={() => {
                             this.goInst();
                         }}
@@ -253,6 +253,7 @@ const mapStateToProps = (state) => {
     return {
         game_info: state.game_info,
         game_expired_timer: state.game_expired_timer,
+        userColor: state.userColor,
         token: state.token,
         appState: state.appState,
         loader: state.loader,

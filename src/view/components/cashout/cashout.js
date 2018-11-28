@@ -11,7 +11,7 @@ import TimerModal from "../../containers/timer-modal/timer-modal";
 //constants
 import { urls } from "../../../constants/urls";
 import { RU } from "../../../locales/ru";
-import { colors } from "../../../constants/colors";
+import { colors } from "../../../constants/colors_men";
 //redux
 import { setBalance } from "../../../reducers/user-balance";
 import { loaderState } from "../../../reducers/loader";
@@ -77,7 +77,7 @@ class Cashout extends React.Component {
           }}
         />
         <LinearGradient
-          colors={[colors.orange, colors.pink]}
+          colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
           start={{ x: 0.0, y: 5.0 }}
           end={{ x: 1.0, y: 5.0 }}
           style={styles.grad}
@@ -93,6 +93,7 @@ class Cashout extends React.Component {
 const mapStateToProps = state => ({
   selectedMall: state.selectedMall,
   token: state.token,
+  userColor: state.userColor,
   loader: state.loader
 });
 const mapDispatchToProps = dispatch =>

@@ -29,6 +29,7 @@ class GameTimer extends React.Component {
     }
 }
 const mapStateToProps = state => ({
+    userColor: state.userColor,
 });
 
 const mapDispatchToProps = dispatch =>

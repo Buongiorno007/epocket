@@ -65,6 +65,7 @@ class QrCode extends React.Component {
 
 const mapStateToProps = state => ({
   selectedMall: state.selectedMall,
+  userColor: state.userColor,
   token: state.token,
   socket: state.socket,
 });

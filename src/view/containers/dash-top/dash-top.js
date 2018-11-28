@@ -164,7 +164,7 @@ class DashTop extends React.Component {
         :
         <View style={styles.content}>
           <LinearGradient
-            colors={[colors.orange_02, colors.pink_02]}
+            colors={[this.props.userColor.orange_02, this.props.userColor.pink_02]}
             start={{ x: 0.0, y: 5.0 }}
             end={{ x: 1.0, y: 5.0 }}
             style={styles.location}
@@ -178,7 +178,7 @@ class DashTop extends React.Component {
               <View>
                 <LinearTextGradient
                   locations={[0, 1]}
-                  colors={[colors.orange, colors.pink]}
+                  colors={[this.props.userColor.orange, this.props.userColor.pink]}
                   start={{ x: 0.0, y: 1.0 }}
                   end={{ x: 0.5, y: 0.2 }}
                   style={styles.up_text}
@@ -187,7 +187,7 @@ class DashTop extends React.Component {
                 </LinearTextGradient>
                 <LinearTextGradient
                   locations={[0, 1]}
-                  colors={[colors.orange, colors.pink]}
+                  colors={[this.props.userColor.orange, this.props.userColor.pink]}
                   start={{ x: 0.0, y: 1.0 }}
                   end={{ x: 0.5, y: 0.2 }}
                   style={styles.down_text}
@@ -198,7 +198,7 @@ class DashTop extends React.Component {
                 </LinearTextGradient>
               </View>
             </View>
-            <View style={[styles.middle_border, { borderColor: colors.pink_02 }]} />
+            <View style={[styles.middle_border, { borderColor: this.props.userColor.pink_02 }]} />
             <View style={styles.location_right}>
               <FastImage
                 resizeMode={FastImage.resizeMode.contain}
@@ -208,7 +208,7 @@ class DashTop extends React.Component {
               <View>
                 <LinearTextGradient
                   locations={[0, 1]}
-                  colors={[colors.orange, colors.pink]}
+                  colors={[this.props.userColor.orange, this.props.userColor.pink]}
                   start={{ x: 0.0, y: 1.0 }}
                   end={{ x: 0.5, y: 0.2 }}
                   style={styles.up_text}
@@ -217,7 +217,7 @@ class DashTop extends React.Component {
                 </LinearTextGradient>
                 <LinearTextGradient
                   locations={[0, 1]}
-                  colors={[colors.orange, colors.pink]}
+                  colors={[this.props.userColor.orange, this.props.userColor.pink]}
                   start={{ x: 0.0, y: 1.0 }}
                   end={{ x: 0.5, y: 0.2 }}
                   style={styles.down_text}
@@ -233,7 +233,7 @@ class DashTop extends React.Component {
               <View style={styles.epc_counter_container}>
                 <LinearTextGradient
                   locations={[0, 1]}
-                  colors={[colors.orange, colors.pink]}
+                  colors={[this.props.userColor.orange, this.props.userColor.pink]}
                   start={{ x: 0.0, y: 1.0 }}
                   end={{ x: 0.5, y: 0.2 }}
                   style={styles.epc_counter}>
@@ -242,7 +242,7 @@ class DashTop extends React.Component {
                 <View style={styles.epc_counter_info}>
                   <LinearTextGradient
                     locations={[0, 1]}
-                    colors={[colors.orange, colors.pink]}
+                    colors={[this.props.userColor.orange, this.props.userColor.pink]}
                     start={{ x: 0.0, y: 1.0 }}
                     end={{ x: 0.5, y: 0.2 }}
                     style={styles.epc}>
@@ -250,7 +250,7 @@ class DashTop extends React.Component {
                   </LinearTextGradient>
                   <LinearTextGradient
                     locations={[0, 1]}
-                    colors={[colors.orange, colors.pink]}
+                    colors={[this.props.userColor.orange, this.props.userColor.pink]}
                     start={{ x: 0.0, y: 1.0 }}
                     end={{ x: 0.5, y: 0.2 }}
                     style={styles.epc_info}>
@@ -258,7 +258,7 @@ class DashTop extends React.Component {
                   </LinearTextGradient>
                   <LinearTextGradient
                     locations={[0, 1]}
-                    colors={[colors.orange, colors.pink]}
+                    colors={[this.props.userColor.orange, this.props.userColor.pink]}
                     start={{ x: 0.0, y: 1.0 }}
                     end={{ x: 0.5, y: 0.2 }}
                     style={styles.epc_info}>
@@ -268,13 +268,13 @@ class DashTop extends React.Component {
               </View>
               <View style={styles.time_counter_container}>
                 <LinearGradient
-                  colors={[colors.orange_02, colors.pink_02]}
+                  colors={[this.props.userColor.orange_02, this.props.userColor.pink_02]}
                   start={{ x: 0.0, y: 5.0 }}
                   end={{ x: 1.0, y: 5.0 }}
                   style={styles.time_counter}>
                   <LinearTextGradient
                     locations={[0, 1]}
-                    colors={[colors.orange, colors.pink]}
+                    colors={[this.props.userColor.orange, this.props.userColor.pink]}
                     start={{ x: 0.0, y: 1.0 }}
                     end={{ x: 0.5, y: 0.2 }}
                     style={styles.time_counter_text}>
@@ -286,13 +286,13 @@ class DashTop extends React.Component {
                   <Text style={styles.time_divider_pink}>:</Text>
                 </View>
                 <LinearGradient
-                  colors={[colors.orange_02, colors.pink_02]}
+                  colors={[this.props.userColor.orange_02, this.props.userColor.pink_02]}
                   start={{ x: 0.0, y: 5.0 }}
                   end={{ x: 1.0, y: 5.0 }}
                   style={styles.time_counter}>
                   <LinearTextGradient
                     locations={[0, 1]}
-                    colors={[colors.orange, colors.pink]}
+                    colors={[this.props.userColor.orange, this.props.userColor.pink]}
                     start={{ x: 0.0, y: 1.0 }}
                     end={{ x: 0.5, y: 0.2 }}
                     style={styles.time_counter_text}>
@@ -304,13 +304,13 @@ class DashTop extends React.Component {
                   <Text style={styles.time_divider_pink}>:</Text>
                 </View>
                 <LinearGradient
-                  colors={[colors.orange_02, colors.pink_02]}
+                  colors={[this.props.userColor.orange_02, this.props.userColor.pink_02]}
                   start={{ x: 0.0, y: 5.0 }}
                   end={{ x: 1.0, y: 5.0 }}
                   style={styles.time_counter}>
                   <LinearTextGradient
                     locations={[0, 1]}
-                    colors={[colors.orange, colors.pink]}
+                    colors={[this.props.userColor.orange, this.props.userColor.pink]}
                     start={{ x: 0.0, y: 1.0 }}
                     end={{ x: 0.5, y: 0.2 }}
                     style={styles.time_counter_text}>
@@ -343,7 +343,7 @@ class DashTop extends React.Component {
               <View style={styles.small_epc_counter_container}>
                 <LinearTextGradient
                   locations={[0, 1]}
-                  colors={[colors.orange, colors.pink]}
+                  colors={[this.props.userColor.orange, this.props.userColor.pink]}
                   start={{ x: 0.0, y: 1.0 }}
                   end={{ x: 0.5, y: 0.2 }}
                   style={styles.small_epc_counter}>
@@ -351,7 +351,7 @@ class DashTop extends React.Component {
                 </LinearTextGradient>
                 <LinearTextGradient
                   locations={[0, 1]}
-                  colors={[colors.orange, colors.pink]}
+                  colors={[this.props.userColor.orange, this.props.userColor.pink]}
                   start={{ x: 0.0, y: 1.0 }}
                   end={{ x: 0.5, y: 0.2 }}
                   style={styles.time_counter_text}>
@@ -360,13 +360,13 @@ class DashTop extends React.Component {
               </View>
               <View style={styles.small_time_counter_container}>
                 <LinearGradient
-                  colors={[colors.orange_02, colors.pink_02]}
+                  colors={[this.props.userColor.orange_02, this.props.userColor.pink_02]}
                   start={{ x: 0.0, y: 5.0 }}
                   end={{ x: 1.0, y: 5.0 }}
                   style={styles.small_time_counter}>
                   <LinearTextGradient
                     locations={[0, 1]}
-                    colors={[colors.orange, colors.pink]}
+                    colors={[this.props.userColor.orange, this.props.userColor.pink]}
                     start={{ x: 0.0, y: 1.0 }}
                     end={{ x: 0.5, y: 0.2 }}
                     style={styles.time_counter_text}>
@@ -378,13 +378,13 @@ class DashTop extends React.Component {
                   <Text style={styles.time_divider_pink}>:</Text>
                 </View>
                 <LinearGradient
-                  colors={[colors.orange_02, colors.pink_02]}
+                  colors={[this.props.userColor.orange_02, this.props.userColor.pink_02]}
                   start={{ x: 0.0, y: 5.0 }}
                   end={{ x: 1.0, y: 5.0 }}
                   style={styles.small_time_counter}>
                   <LinearTextGradient
                     locations={[0, 1]}
-                    colors={[colors.orange, colors.pink]}
+                    colors={[this.props.userColor.orange, this.props.userColor.pink]}
                     start={{ x: 0.0, y: 1.0 }}
                     end={{ x: 0.5, y: 0.2 }}
                     style={styles.time_counter_text}>
@@ -396,13 +396,13 @@ class DashTop extends React.Component {
                   <Text style={styles.time_divider_pink}>:</Text>
                 </View>
                 <LinearGradient
-                  colors={[colors.orange_02, colors.pink_02]}
+                  colors={[this.props.userColor.orange_02, this.props.userColor.pink_02]}
                   start={{ x: 0.0, y: 5.0 }}
                   end={{ x: 1.0, y: 5.0 }}
                   style={styles.small_time_counter}>
                   <LinearTextGradient
                     locations={[0, 1]}
-                    colors={[colors.orange, colors.pink]}
+                    colors={[this.props.userColor.orange, this.props.userColor.pink]}
                     start={{ x: 0.0, y: 1.0 }}
                     end={{ x: 0.5, y: 0.2 }}
                     style={styles.time_counter_text}>
@@ -429,6 +429,7 @@ class DashTop extends React.Component {
 const mapStateToProps = state => ({
   selectedMall: state.selectedMall,
   balance: state.balance,
+  userColor: state.userColor,
   activeCard: state.activeCard,
   timer: state.timer,
   timer_status: state.timer_status,

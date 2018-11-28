@@ -105,6 +105,7 @@ class ScannerCamera extends React.Component {
 const mapStateToProps = state => ({
   selectedMission: state.selectedMission,
   token: state.token,
+  userColor: state.userColor,
   loader: state.loader,
   showQR: state.showQR
 });

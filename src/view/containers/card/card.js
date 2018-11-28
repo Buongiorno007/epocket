@@ -28,7 +28,7 @@ class Card extends React.Component {
                   borderColor: this.props.item.color,
                   backgroundColor: "transparent",
                   elevation: 0,
-                  shadowColor: colors.card_shadow,
+                  shadowColor: this.props.userColor.card_shadow,
                   shadowOffset: {
                     width: 0,
                     height: 0

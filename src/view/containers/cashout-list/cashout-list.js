@@ -8,7 +8,7 @@ import CustomAlert from "../custom-alert/custom-alert";
 import styles from "./styles";
 import { RU } from "./../../../locales/ru";
 import { urls } from "../../../constants/urls";
-import { colors } from "../../../constants/colors";
+import { colors } from "../../../constants/colors_men";
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -116,7 +116,7 @@ class CashoutList extends React.Component {
                 active
                 gradient
                 title={RU.CASH.BUTTON}
-                color={colors.white}
+                color={this.props.userColor.white}
                 handler={() => this.sendOrder()}
               />
             </View>
@@ -132,6 +132,7 @@ class CashoutList extends React.Component {
 }
 const mapStateToProps = state => ({
   selectedMall: state.selectedMall,
+  userColor: state.userColor,
   token: state.token,
   loader: state.loader
 });

@@ -115,6 +115,7 @@ class HistoryList extends React.Component {
 const mapStateToProps = state => {
   return {
     token: state.token,
+    userColor: state.userColor,
     receivedBonusesJSX: state.receivedBonusesJSX,
     spentBonusesJSX: state.spentBonusesJSX
   };

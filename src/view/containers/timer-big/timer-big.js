@@ -12,19 +12,19 @@ class TimerBig extends React.Component {
         <View style={styles.outer_circle}>
           <RadialGradient
             style={styles.outer_circle}
-            colors={[colors.light_blue, colors.blue]}
+            colors={[this.props.userColor.light_blue, this.props.userColor.blue]}
           />
         </View>
         <View style={styles.inner_circle}>
           <RadialGradient
             style={styles.inner_circle}
-            colors={[colors.light_blue, colors.blue]}
+            colors={[this.props.userColor.light_blue, this.props.userColor.blue]}
           />
         </View>
         <View style={styles.center_circle}>
           <RadialGradient
             style={styles.center_circle}
-            colors={[colors.light_blue, colors.blue]}
+            colors={[this.props.userColor.light_blue, this.props.userColor.blue]}
           />
         </View>
       </View>

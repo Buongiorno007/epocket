@@ -4,9 +4,12 @@ import { Button, Text } from "native-base";
 import { Dimensions } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 //constants
-import { colors } from "../../../constants/colors";
+import { colors } from "../../../constants/colors_men";
 import styles from "./styles";
 const { width } = Dimensions.get("window");
+//redux
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 {
   /* 
@@ -39,7 +42,7 @@ class CustomButton extends React.Component {
       >
         {this.props.gradient && (
           <LinearGradient
-            colors={[colors.light_orange, colors.pink]}
+            colors={[this.props.userColor.light_orange, this.props.userColor.pink]}
             start={{ x: 0.0, y: 0.0 }}
             end={{ x: 0.7, y: 1.0 }}
             style={[
@@ -61,7 +64,7 @@ class CustomButton extends React.Component {
             <View
               style={[
                 styles.button_container,
-                this.props.short ? this.props.extra_short?{ width: width * 0.3 - 2 }: { width: width * 0.5 - 2 } : { width: width * 0.85 - 2 },
+                this.props.short ? this.props.extra_short ? { width: width * 0.3 - 2 } : { width: width * 0.5 - 2 } : { width: width * 0.85 - 2 },
                 styles.background_btn
               ]}
             />
@@ -73,8 +76,8 @@ class CustomButton extends React.Component {
             this.props.color
               ? { color: this.props.color }
               : this.props.active
-                ? { color: colors.pink }
-                : { color: colors.white }
+                ? { color: this.props.userColor.pink }
+                : { color: this.props.userColor.white }
           ]}
         >
           {this.props.title ? this.props.title : "OK"}
@@ -84,4 +87,17 @@ class CustomButton extends React.Component {
   }
 }
 
-export default CustomButton;
+const mapStateToProps = state => ({
+  userColor: state.userColor,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {},
+    dispatch
+  );
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CustomButton);

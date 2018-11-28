@@ -20,8 +20,8 @@ class CashoutCode extends React.Component {
         <QRCode
           value={this.props.link}
           size={this.state.width * 0.65}
-          bgColor={colors.black}
-          fgColor={colors.white}
+          bgColor={this.props.userColor.black}
+          fgColor={this.props.userColor.white}
         />
       </View>
     );

@@ -12,7 +12,7 @@ import LinearGradient from "react-native-linear-gradient";
 //constants
 import styles from "./styles";
 import { RU } from "../../../locales/ru";
-import { colors } from "./../../../constants/colors";
+import { colors } from "../../../constants/colors_men";
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -47,7 +47,7 @@ class TimerModal extends React.Component {
                 }}
               >
                 <LinearGradient
-                  colors={[colors.light_orange, colors.pink]}
+                  colors={[this.props.userColor.light_orange, this.props.userColor.pink]}
                   start={{ x: 0.0, y: 1.0 }}
                   end={{ x: 1.0, y: 1.0 }}
                   style={styles.confirm_button}
@@ -81,7 +81,7 @@ class TimerModal extends React.Component {
                 }}
               >
                 <LinearGradient
-                  colors={[colors.light_orange, colors.pink]}
+                  colors={[this.props.userColor.light_orange, this.props.userColor.pink]}
                   start={{ x: 0.0, y: 1.0 }}
                   end={{ x: 1.0, y: 1.0 }}
                   style={styles.confirm_button}
@@ -98,6 +98,7 @@ class TimerModal extends React.Component {
 const mapStateToProps = state => {
   return {
     doneNotification: state.doneNotification,
+    userColor: state.userColor,
     failedNotification: state.failedNotification,
     activeTab: state.activeTab,
   };

@@ -155,7 +155,7 @@ class PhotoView extends React.Component {
               block
               style={[styles.button, styles.remove]}
               onPress={() => NavigationService.navigate("Photograph")}
-              androidRippleColor={colors.card_shadow}
+              androidRippleColor={this.props.userColor.card_shadow}
             >
               <Text
                 uppercase={false}
@@ -169,7 +169,7 @@ class PhotoView extends React.Component {
               transparent
               block
               style={[styles.button, styles.send]}
-              androidRippleColor={colors.card_shadow}
+              androidRippleColor={this.props.userColor.card_shadow}
               onPress={() => this.sendPhoto()}
             >
               <Text
@@ -189,6 +189,7 @@ class PhotoView extends React.Component {
 const mapStateToProps = state => ({
   selectedMission: state.selectedMission,
   selectedMall: state.selectedMall,
+  userColor: state.userColor,
   token: state.token,
   loader: state.loader
 });

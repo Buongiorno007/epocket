@@ -40,6 +40,7 @@ import game_controller from "./game-controller"
 import game_error from "./game-error"
 import game_expired_img from "./game-expired-image"
 import navigateToMall from "./navigate-to-mall"
+import userColor from "./user-color"
 
 export default combineReducers({
   isConnected,
@@ -82,5 +83,6 @@ export default combineReducers({
   game_controller,
   game_error,
   game_expired_img,
-  navigateToMall
+  navigateToMall,
+  userColor
 });

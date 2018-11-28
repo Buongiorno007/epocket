@@ -191,6 +191,7 @@ class Start extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  userColor: state.userColor,
   isConnected: state.isConnected,
   loader: state.loader,
   token: state.token,

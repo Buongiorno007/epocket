@@ -20,7 +20,6 @@ import { showDoneNotification } from "../reducers/main-task-done-notification";
 //constants
 import { urls } from "../constants/urls";
 import firebase from 'react-native-firebase';
-import { colors } from "../constants/colors";
 
 class GeolocationService extends React.Component {
 
@@ -100,7 +99,7 @@ class GeolocationService extends React.Component {
 
     notification
       .android.setChannelId('chanelId')
-      .android.setColor(colors.pink)
+      .android.setColor(this.props.userColor.pink)
       .android.setSmallIcon('@drawable/ic_notif');
 
     firebase.notifications().displayNotification(notification)
@@ -206,6 +205,7 @@ class GeolocationService extends React.Component {
 const mapStateToProps = state => {
   return {
     isLocation: state.isLocation,
+    userColor: state.userColor,
     location: state.location,
     selectedMall: state.selectedMall,
     timer_status: state.timer_status,

@@ -20,7 +20,7 @@ import { WheelPicker } from 'react-native-wheel-picker-android'
 //constants
 import styles from "./styles";
 import { ICONS } from "../../../constants/icons";
-import { colors } from "../../../constants/colors";
+import { colors } from "../../../constants/colors_men";
 import Blur from "../blur/blur";
 const today = new Date();
 const months = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь']
@@ -190,7 +190,7 @@ class CustomAlert extends Component {
                 {this.props.subtitle &&
                   <LinearTextGradient
                     locations={[0, 1]}
-                    colors={[colors.light_orange, colors.pink]}
+                    colors={[this.props.userColor.light_orange, this.props.userColor.pink]}
                     start={{ x: 0.0, y: 1.0 }}
                     end={{ x: 1.0, y: 1.0 }}
                     style={styles.modal_title_text}
@@ -209,7 +209,7 @@ class CustomAlert extends Component {
                 >
                   <LinearTextGradient
                     locations={[0, 1]}
-                    colors={[colors.light_orange, colors.pink]}
+                    colors={[this.props.userColor.light_orange, this.props.userColor.pink]}
                     start={{ x: 0.0, y: 1.0 }}
                     end={{ x: 1.0, y: 1.0 }}
                     style={styles.alert_text}
@@ -237,7 +237,7 @@ class CustomAlert extends Component {
                     {this.props.datepicker || this.props.subtitle ?
                       <LinearTextGradient
                         locations={[0, 1]}
-                        colors={[colors.light_orange, colors.pink]}
+                        colors={[this.props.userColor.light_orange, this.props.userColor.pink]}
                         start={{ x: 0.0, y: 1.0 }}
                         end={{ x: 1.0, y: 1.0 }}
                         style={styles.alert_text}
@@ -258,7 +258,7 @@ class CustomAlert extends Component {
   }
 }
 const mapStateToProps = state => ({
-
+  userColor: state.userColor,
 });
 
 const mapDispatchToProps = dispatch =>

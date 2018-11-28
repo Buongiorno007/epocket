@@ -32,7 +32,7 @@ class Game extends React.Component {
 		interval: null,
 		progress: 1,
 		progressGradient: {
-			colors: [colors.pink, colors.light_orange],
+			colors: [this.props.userColor.pink, this.props.userColor.light_orange],
 			start: { x: 0.0, y: 1.0 },
 			end: { x: 1.0, y: 0.0 }
 		}
@@ -123,7 +123,7 @@ class Game extends React.Component {
 					progress={this.state.progress}
 					width={width * 0.85}
 					useNativeDriver={true}
-					unfilledColor={colors.black_o90} />
+					unfilledColor={this.props.userColor.black_o90} />
 				<View style={styles.container}>
 					{this.props.game_images.map((game_element, index) => {
 						return (
@@ -154,7 +154,7 @@ class Game extends React.Component {
 						short
 						gradient
 						title={RU.GAME.CONFIRM.toUpperCase()}
-						color={colors.white}
+						color={this.props.userColor.white}
 						handler={() => {
 							this.submitGame()
 						}}
@@ -172,6 +172,7 @@ const mapStateToProps = (state) => {
 		tempTime: state.tempTime,
 		token: state.token,
 		fixedTime: state.fixedTime,
+		userColor: state.userColor,
 		appState: state.appState,
 		game_images: state.game_controller.game_images
 	};

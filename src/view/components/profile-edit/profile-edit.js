@@ -17,8 +17,9 @@ import Blur from "../../containers/blur/blur";
 //constants
 import styles from "./styles";
 import { RU } from "../../../locales/ru";
-import { colors } from "../../../constants/colors";
+import { colors } from "../../../constants/colors_men";
 //redux
+import { setColor } from "../../../reducers/user-color";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { saveUser } from "../../../reducers/profile-state";
@@ -107,6 +108,12 @@ class ProfileEdit extends React.Component {
             birthDay: this.props.birthday,
             phone: this.state.user.phone,
           };
+          if (user.sex) {
+            this.props.setColor(true)
+          }
+          else {
+            this.props.setColor(false)
+          }
           this.props.saveUser(user);
           this.props.loaderState(false);
           NavigationService.navigate("Main");
@@ -243,9 +250,9 @@ class ProfileEdit extends React.Component {
               <TextField
                 label={RU.NAMES}
                 placeholder={RU.ENTER_NAME}
-                tintColor={colors.black41_09}
-                baseColor={colors.black41_09}
-                textColor={colors.black}
+                tintColor={this.props.userColor.black41_09}
+                baseColor={this.props.userColor.black41_09}
+                textColor={this.props.userColor.black}
                 fontSize={20}
                 labelFontSize={12}
                 onChangeText={text => { this.ChangeUserName(text) }}
@@ -289,7 +296,7 @@ class ProfileEdit extends React.Component {
                 >
                   <LinearTextGradient
                     locations={[0, 1]}
-                    colors={this.state.user.sex == 1 ? [colors.light_orange, colors.pink] : [colors.black41_09, colors.black41_09]}
+                    colors={this.state.user.sex == 1 ? [this.props.userColor.light_orange, this.props.userColor.pink] : [this.props.userColor.black41_09, this.props.userColor.black41_09]}
                     start={{ x: 0.0, y: 0.0 }}
                     end={{ x: 0.7, y: 1.0 }}
                     style={styles.title}
@@ -299,7 +306,7 @@ class ProfileEdit extends React.Component {
                 </Button>
                 <LinearTextGradient
                   locations={[0, 1]}
-                  colors={[colors.light_orange, colors.pink]}
+                  colors={[this.props.userColor.light_orange, this.props.userColor.pink]}
                   start={{ x: 0.0, y: 0.0 }}
                   end={{ x: 0.7, y: 1.0 }}
                   style={styles.title}
@@ -315,7 +322,7 @@ class ProfileEdit extends React.Component {
                 >
                   <LinearTextGradient
                     locations={[0, 1]}
-                    colors={this.state.user.sex == 0 ? [colors.light_orange, colors.pink] : [colors.black41_09, colors.black41_09]}
+                    colors={this.state.user.sex == 0 ? [this.props.userColor.light_orange, this.props.userColor.pink] : [this.props.userColor.black41_09, this.props.userColor.black41_09]}
                     start={{ x: 0.0, y: 0.0 }}
                     end={{ x: 0.7, y: 1.0 }}
                     style={styles.title}
@@ -334,7 +341,7 @@ class ProfileEdit extends React.Component {
             short
             gradient
             title={RU.PROFILE_PAGE.ACCEPT.toUpperCase()}
-            color={colors.white}
+            color={this.props.userColor.white}
             handler={() => this.SubmitEdit()}
           />
           <CustomButton
@@ -343,7 +350,7 @@ class ProfileEdit extends React.Component {
             short
             bordered
             title={RU.PROFILE_PAGE.DECLINE_2.toUpperCase()}
-            color={colors.pink}
+            color={this.props.userColor.pink}
             handler={() => this.state.changed ? this.Exit() : NavigationService.navigate("Main")}
           />
         </View>
@@ -378,6 +385,7 @@ class ProfileEdit extends React.Component {
 const mapStateToProps = state => ({
   user: state.profileState,
   token: state.token,
+  userColor: state.userColor,
   loader: state.loader,
   birthday: state.birthday
 });
@@ -386,7 +394,8 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       saveUser,
-      loaderState
+      loaderState,
+      setColor
     },
     dispatch
   );

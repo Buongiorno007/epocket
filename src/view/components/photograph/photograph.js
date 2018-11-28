@@ -33,6 +33,7 @@ class Photograph extends React.Component {
   };
 }
 const mapStateToProps = state => ({
+  userColor: state.userColor,
   loader: state.loader
 });
 

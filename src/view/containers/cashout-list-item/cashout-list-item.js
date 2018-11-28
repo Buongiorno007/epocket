@@ -5,7 +5,7 @@ import { Button } from "native-base";
 import Icon from "react-native-vector-icons/Feather";
 //constants
 import styles from "./styles";
-import { colors } from "./../../../constants/colors";
+import { colors } from "../../../constants/colors_men";
 //services
 import NavigationService from "./../../../services/route";
 //redux
@@ -59,7 +59,7 @@ class CashoutList extends React.Component {
             rounded
             block
             transparent
-            androidRippleColor={colors.card_shadow}
+            androidRippleColor={this.props.userColor.card_shadow}
             style={styles.calculate_button}
             onPress={() => this.setItemCount(--this.state.count)}
           >
@@ -71,7 +71,7 @@ class CashoutList extends React.Component {
             rounded
             block
             transparent
-            androidRippleColor={colors.card_shadow}
+            androidRippleColor={this.props.userColor.card_shadow}
             style={styles.calculate_button}
             onPress={() => this.setItemCount(++this.state.count)}
           >
@@ -84,6 +84,7 @@ class CashoutList extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  userColor: state.userColor,
   loader: state.loader
 });
 const mapDispatchToProps = dispatch =>

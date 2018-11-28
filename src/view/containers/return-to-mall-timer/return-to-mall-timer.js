@@ -142,7 +142,7 @@ class ReturnToMall extends React.Component {
                 active
                 gradient
                 short
-                color={colors.white}
+                color={this.props.userColor.white}
                 handler={() => {
                   this.closeModal();
                 }}
@@ -156,6 +156,7 @@ class ReturnToMall extends React.Component {
 
 const mapStateToProps = state => ({
   selectedMall: state.selectedMall,
+  userColor: state.userColor,
   token: state.token
 });
 

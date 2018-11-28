@@ -38,8 +38,8 @@ class MissionSuccess extends React.Component {
         <LinearGradient
           colors={[
             "#F7BB42",
-            colors.orange,
-            colors.pink,
+            this.props.userColor.orange,
+            this.props.userColor.pink,
             "rgba(214, 41, 197, 0.88)",
             "rgba(119, 12, 225, 0.69)"
           ]}
@@ -62,7 +62,7 @@ class MissionSuccess extends React.Component {
             transparent
             block
             style={styles.button}
-            androidRippleColor={colors.card_shadow}
+            androidRippleColor={this.props.userColor.card_shadow}
             onPress={() => {
               this.earnMore()
             }}
@@ -76,7 +76,7 @@ class MissionSuccess extends React.Component {
 }
 
 const mapStateToProps = state => ({
-
+  userColor: state.userColor,
 });
 
 const mapDispatchToProps = dispatch =>

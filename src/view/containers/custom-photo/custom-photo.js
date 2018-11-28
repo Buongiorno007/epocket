@@ -8,8 +8,10 @@ const { width } = Dimensions.get("window");
 import LinearGradient from "react-native-linear-gradient";
 //constants
 import styles from "./styles";
-import { colors } from "./../../../constants/colors";
-
+import { colors } from "../../../constants/colors_men";
+//redux
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 {
   /* 
 call example
@@ -33,7 +35,7 @@ class CustomPhoto extends Component {
             style={styles.edit_photo_btn}
             onPress={() => this.props.PhotoEdit()}>
             <LinearGradient
-              colors={[colors.light_orange, colors.pink]}
+              colors={[this.props.userColor.light_orange, this.props.userColor.pink]}
               start={{ x: 0.5, y: -0.5 }}
               end={{ x: 0.6, y: 1.0 }}
               style={styles.edit_photo_container}>
@@ -45,7 +47,7 @@ class CustomPhoto extends Component {
         }
 
         <LinearGradient
-          colors={[colors.light_orange, colors.pink]}
+          colors={[this.props.userColor.light_orange, this.props.userColor.pink]}
           start={{ x: 0.0, y: 0.0 }}
           end={{ x: 0.6, y: 1.0 }}
           style={styles.photo_container}
@@ -75,4 +77,17 @@ class CustomPhoto extends Component {
     );
   }
 }
-export default CustomPhoto;
+const mapStateToProps = state => ({
+  userColor: state.userColor,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {},
+    dispatch
+  );
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CustomPhoto);

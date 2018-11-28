@@ -31,5 +31,5 @@ class CashoutBalance extends React.Component {
     );
   };
 }
-const mapStateToProps = state => ({ balance: state.balance });
+const mapStateToProps = state => ({ userColor: state.userColor, balance: state.balance });
 export default connect(mapStateToProps)(CashoutBalance);

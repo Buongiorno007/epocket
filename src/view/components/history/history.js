@@ -41,7 +41,7 @@ class History extends React.Component {
     return (
       <View style={styles.main_view}>
         <LinearGradient
-          colors={[colors.light_orange, colors.pink]}
+          colors={[this.props.userColor.light_orange, this.props.userColor.pink]}
           start={{ x: 0.0, y: 1.0 }}
           end={{ x: 1.0, y: 1.0 }}
           style={styles.grad}
@@ -58,7 +58,7 @@ class History extends React.Component {
                     : null
                 }
                 title={RU.HISTORY_PAGE.GETTED}
-                active_color={colors.orange}
+                active_color={this.props.userColor.orange}
                 disabled={this.state.pickedBonuses}
               />
               <HistoryNavButton
@@ -68,7 +68,7 @@ class History extends React.Component {
                     : null
                 }
                 title={RU.HISTORY_PAGE.LOST}
-                active_color={colors.dark_pink}
+                active_color={this.props.userColor.dark_pink}
                 disabled={!this.state.pickedBonuses}
               />
             </View>
@@ -89,6 +89,7 @@ class History extends React.Component {
 const mapStateToProps = state => {
   return {
     receivedBonusesJSX: state.receivedBonusesJSX,
+    userColor: state.userColor,
     spentBonusesJSX: state.spentBonusesJSX
   };
 };

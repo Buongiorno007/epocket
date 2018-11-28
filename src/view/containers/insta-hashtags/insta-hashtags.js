@@ -22,7 +22,9 @@ class InstaHashTags extends React.Component {
   };
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  userColor: state.userColor,
+});
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {},

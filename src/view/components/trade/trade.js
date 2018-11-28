@@ -48,7 +48,7 @@ class Trade extends React.Component {
             gradient
             short
             title={RU.OK}
-            color={colors.white}
+            color={this.props.userColor.white}
             handler={() => { NavigationService.navigate("Main"); }}
           />
         </View>
@@ -58,6 +58,7 @@ class Trade extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  userColor: state.userColor,
   socket: state.socket,
 });
 

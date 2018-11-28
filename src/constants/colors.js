@@ -1,4 +1,5 @@
-export const colors = {
+export const colors =
+{
   black: "#000000",
   white: "#ffffff",
   black_o33: "rgba(0, 0, 0, 0.33)",
@@ -39,5 +40,7 @@ export const colors = {
   trc_marker_light_green: "rgba(68, 191, 239, 0.27)",
   trc_marker_blue: "rgba(68, 191, 239, 0)",
   zifi_text: "#BDC3C9",
-  transparent: "rgba(255,255,255, 0)"
+  transparent: "rgba(255,255,255, 0)",
+  second_gradient_color: "#6A00B9",
+  first_gradient_color: "#00EEFF"
 };

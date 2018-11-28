@@ -99,6 +99,7 @@ class LocationDisabled extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  userColor: state.userColor,
   timer_status: state.timer_status
 });
 

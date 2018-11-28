@@ -180,7 +180,7 @@ class FooterNavigation extends React.Component {
 const mapStateToProps = state => {
   return {
     activeTab: state.activeTab,
-    activeTab: state.activeTab,
+    userColor: state.userColor,
     dashboard: state.dashboard,
     token: state.token
   };

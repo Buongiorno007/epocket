@@ -256,11 +256,11 @@ class SignUp extends React.Component {
             <View style={styles.form}>
               <TextField
                 label={RU.MOBILE_NUMBER}
-                textColor={colors.input}
-                tintColor={colors.input}
-                baseColor={colors.input}
+                textColor={this.props.userColor.input}
+                tintColor={this.props.userColor.input}
+                baseColor={this.props.userColor.input}
                 placeholder={RU.PHONE_MASK}
-                placeholderTextColor={colors.input_placeholder}
+                placeholderTextColor={this.props.userColor.input_placeholder}
                 labelPadding={16}
                 inputContainerPadding={16}
                 onChangeText={text => this.onChangedPhone(text)}
@@ -280,11 +280,11 @@ class SignUp extends React.Component {
               </Text>
               <TextField
                 label={RU.FIRST_LAST_NAME}
-                textColor={colors.input}
-                tintColor={colors.input}
-                baseColor={colors.input}
+                textColor={this.props.userColor.input}
+                tintColor={this.props.userColor.input}
+                baseColor={this.props.userColor.input}
                 placeholder={RU.NAMES}
-                placeholderTextColor={colors.input_placeholder}
+                placeholderTextColor={this.props.userColor.input_placeholder}
                 value={this.state.name}
                 labelPadding={16}
                 inputContainerPadding={16}
@@ -306,11 +306,11 @@ class SignUp extends React.Component {
               <TextField
                 label=""
                 style={styles.code_input}
-                textColor={colors.input}
-                tintColor={colors.input}
-                baseColor={colors.input}
+                textColor={this.props.userColor.input}
+                tintColor={this.props.userColor.input}
+                baseColor={this.props.userColor.input}
                 placeholder={RU.CODE_MASK}
-                placeholderTextColor={colors.input_placeholder}
+                placeholderTextColor={this.props.userColor.input_placeholder}
                 labelPadding={16}
                 label=""
                 inputContainerPadding={16}
@@ -354,6 +354,7 @@ class SignUp extends React.Component {
   }
 }
 const mapStateToProps = state => ({
+  userColor: state.userColor,
   loader: state.loader
 });
 

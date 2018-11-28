@@ -86,6 +86,7 @@ class Main extends React.Component {
 const mapStateToProps = state => ({
   activeTab: state.activeTab,
   loader: state.loader,
+  userColor: state.userColor,
   isConnected: state.isConnected,
   dashboard: state.dashboard,
   info: state.info,

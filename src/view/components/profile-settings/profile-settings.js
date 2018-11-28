@@ -340,7 +340,7 @@ class ProfileSettings extends React.Component {
                                 extra_short
                                 gradient
                                 title={this.props.insta_token ? RU.PROFILE_SETTINGS.REMOVE : RU.PROFILE_SETTINGS.ADD}
-                                color={colors.white}
+                                color={this.props.userColor.white}
                                 handler={() => { !this.props.insta_token ? this.refs.instagramLogin.show() : this.disConnectInsta() }}
                             />
                         </View>
@@ -359,7 +359,7 @@ class ProfileSettings extends React.Component {
                                 extra_short
                                 gradient
                                 title={this.props.facebook_token ? RU.PROFILE_SETTINGS.REMOVE : RU.PROFILE_SETTINGS.ADD}
-                                color={colors.white}
+                                color={this.props.userColor.white}
                                 handler={() => { !this.props.facebook_token ? this.LoginFacebook() : this.disConnectFacebook() }}
                             />
                         </View>
@@ -409,6 +409,7 @@ class ProfileSettings extends React.Component {
 const mapStateToProps = state => {
     return {
         user: state.profileState,
+        userColor: state.userColor,
         token: state.token,
         insta_token: state.insta_token,
         facebook_token: state.facebook_token,

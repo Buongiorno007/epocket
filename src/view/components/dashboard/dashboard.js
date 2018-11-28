@@ -279,7 +279,7 @@ class Dashboard extends React.Component {
           {
             !this.props.activeCard ?
               <LinearGradient
-                colors={[colors.pink, colors.orange]}
+                colors={[this.props.userColor.pink, this.props.userColor.orange]}
                 start={{ x: 1.0, y: 0.0 }}
                 end={{ x: 0.0, y: 1.0 }}
                 style={styles.grad}
@@ -307,6 +307,7 @@ const mapStateToProps = state => ({
   isLocation: state.isLocation,
   isConnected: state.isConnected,
   location: state.location,
+  userColor: state.userColor,
   selectedMall: state.selectedMall,
   token: state.token,
   balance: state.balance,

@@ -209,8 +209,8 @@ class EarnMore extends React.Component {
         <LinearGradient
           colors={[
             "#F7BB42",
-            colors.orange,
-            colors.pink,
+            this.props.userColor.orange,
+            this.props.userColor.pink,
             "rgba(214, 41, 197, 0.88)",
             "rgba(119, 12, 225, 0.69)"
           ]}
@@ -237,7 +237,7 @@ class EarnMore extends React.Component {
             active
             short
             title={RU.MISSION.EARN_MORE.toUpperCase()}
-            color={colors.pink}
+            color={this.props.userColor.pink}
             handler={() => { this.earnMore() }}
           />
           <Button
@@ -245,7 +245,7 @@ class EarnMore extends React.Component {
             transparent
             block
             style={styles.skip_button}
-            androidRippleColor={colors.card_shadow}
+            androidRippleColor={this.props.userColor.card_shadow}
             onPress={() => { this.skip(); }}
           >
             <Text style={styles.text}>{RU.MISSION.SKIP}</Text>
@@ -261,6 +261,7 @@ const mapStateToProps = state => ({
   loader: state.loader,
   token: state.token,
   insta_token: state.insta_token,
+  userColor: state.userColor,
   insta_post: state.insta_post,
   appState: state.appState
 });

@@ -81,6 +81,7 @@ class CardList extends React.Component {
 
 const mapStateToProps = state => ({
   activeCard: state.activeCard,
+  userColor: state.userColor,
   missions: state.missions,
 });
 

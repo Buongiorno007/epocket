@@ -17,7 +17,7 @@ class TradePrice extends React.Component {
           <LinearTextGradient
             style={styles.text}
             locations={[0, 1]}
-            colors={[colors.light_red, colors.dark_pink]}
+            colors={[this.props.userColor.light_red, this.props.userColor.dark_pink]}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
           >
@@ -26,7 +26,7 @@ class TradePrice extends React.Component {
           <LinearTextGradient
             style={styles.text}
             locations={[0, 1]}
-            colors={[colors.light_red, colors.dark_pink]}
+            colors={[this.props.userColor.light_red, this.props.userColor.dark_pink]}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
           >

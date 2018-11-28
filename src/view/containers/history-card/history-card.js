@@ -64,7 +64,7 @@ class HistoryCard extends React.Component {
                   <LinearTextGradient
                     numberOfLines={1}
                     locations={[0, 1]}
-                    colors={[colors.pink, colors.orange]}
+                    colors={[this.props.userColor.pink, this.props.userColor.orange]}
                     start={{ x: 0.0, y: 1.0 }}
                     end={{ x: 1.0, y: 1.0 }}
                     style={styles.name_text}
@@ -90,7 +90,7 @@ class HistoryCard extends React.Component {
                   <LinearTextGradient
                       numberOfLines={2}
                     locations={[0, 1]}
-                    colors={[colors.light_orange, colors.pink]}
+                    colors={[this.props.userColor.light_orange, this.props.userColor.pink]}
                     start={{ x: 0.0, y: 1.0 }}
                     end={{ x: 1.0, y: 1.0 }}
                     style={styles.item_name_text}
@@ -124,6 +124,7 @@ class HistoryCard extends React.Component {
 const mapStateToProps = state => {
   return {
     token: state.token,
+    userColor: state.userColor,
     receivedBonusesJSX: state.receivedBonusesJSX,
     spentBonusesJSX: state.spentBonusesJSX
   };

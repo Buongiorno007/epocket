@@ -40,7 +40,7 @@ class ScannerMission extends React.Component {
               NavigationService.navigate("Main");
             }}
             style={styles.button}
-            androidRippleColor={colors.card_shadow}
+            androidRippleColor={this.props.userColor.card_shadow}
           >
             <Close name="x" style={styles.icon} />
           </Button>
@@ -51,6 +51,7 @@ class ScannerMission extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  userColor: state.userColor,
   selectedMission: state.selectedMission
 });
 

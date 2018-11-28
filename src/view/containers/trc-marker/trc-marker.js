@@ -5,6 +5,9 @@ import MapView, { Marker, Circle } from "react-native-maps";
 import styles from "./styles";
 import { colors } from "./../../../constants/colors";
 import { ICONS } from "../../../constants/icons";
+//redux
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 class TRCMarker extends React.Component {
   constructor(props) {
@@ -30,7 +33,7 @@ class TRCMarker extends React.Component {
           }}
           onPress={this.props.onPress}
           coordinate={this.state.coordinate}
-          pinColor={colors.blue}
+          pinColor={this.props.userColor.blue}
 
         >
           <ImageBackground
@@ -60,8 +63,8 @@ class TRCMarker extends React.Component {
           strokeWidth={0}
           fillColor={
             this.props.marker.id == this.props.selected
-              ? colors.trc_marker_light_green
-              : colors.trc_marker_blue
+              ? this.props.userColor.trc_marker_light_green
+              : this.props.userColor.trc_marker_blue
           }
         />
       </View> : null
@@ -69,4 +72,17 @@ class TRCMarker extends React.Component {
   }
 }
 
-export default TRCMarker;
+const mapStateToProps = state => ({
+  userColor: state.userColor,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {},
+    dispatch
+  );
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TRCMarker);

@@ -109,7 +109,7 @@ class PhotoCamera extends React.Component {
                 transparent
                 block
                 style={styles.button}
-                androidRippleColor={colors.card_shadow}
+                androidRippleColor={this.props.userColor.card_shadow}
                 onPress={() => this.setState({ type: !this.state.type })}
               >
                 <Refresh name="refresh" style={styles.icon_refresh} />
@@ -121,7 +121,7 @@ class PhotoCamera extends React.Component {
                 transparent
                 block
                 style={[styles.button, styles.button_circle]}
-                androidRippleColor={colors.card_shadow}
+                androidRippleColor={this.props.userColor.card_shadow}
                 onPress={this.takePicture}
               >
                 <Circle name="circle" style={styles.icon_circle} />
@@ -133,7 +133,7 @@ class PhotoCamera extends React.Component {
                 transparent
                 block
                 style={styles.button}
-                androidRippleColor={colors.card_shadow}
+                androidRippleColor={this.props.userColor.card_shadow}
                 onPress={() => this.setState({ flash: !this.state.flash })}
               >
                 <FastImage
@@ -152,6 +152,7 @@ class PhotoCamera extends React.Component {
 
 const mapStateToProps = state => ({
   loader: state.loader,
+  userColor: state.userColor,
   selectedMall: state.selectedMall,
   token: state.token,
 });

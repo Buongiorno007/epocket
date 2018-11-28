@@ -95,7 +95,7 @@ class GameStart extends React.Component {
                             <LinearTextGradient
                                 style={styles.game_cost_text}
                                 locations={[0, 1]}
-                                colors={[colors.light_red, colors.dark_pink]}
+                                colors={[this.props.userColor.light_red, this.props.userColor.dark_pink]}
                                 start={{ x: 0, y: 0 }}
                                 end={{ x: 1, y: 0 }}
                             >
@@ -115,7 +115,7 @@ class GameStart extends React.Component {
                             short
                             gradient
                             title={RU.GAME.START.toUpperCase()}
-                            color={colors.white}
+                            color={this.props.userColor.white}
                             handler={() => {
                                 this.props.setGameStatus("game")
                             }}
@@ -134,6 +134,7 @@ const mapStateToProps = (state) => {
         token: state.token,
         location: state.location,
         loader: state.loader,
+        userColor: state.userColor,
         game_error: state.game_error,
         game_status: state.game_status,
         selectedMall: state.selectedMall,

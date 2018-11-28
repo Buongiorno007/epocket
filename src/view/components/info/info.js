@@ -58,7 +58,9 @@ class Info extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    userColor: state.userColor,
+  };
 };
 
 const mapDispatchToProps = dispatch =>

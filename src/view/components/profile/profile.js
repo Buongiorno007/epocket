@@ -131,7 +131,7 @@ class Profile extends React.Component {
                 short
                 gradient
                 title={RU.PROFILE_PAGE.ADD_DATA.toUpperCase()}
-                color={colors.white}
+                color={this.props.userColor.white}
                 handler={() => this.ToEdit()}
               />
             </View>
@@ -146,7 +146,9 @@ class Profile extends React.Component {
 }
 const mapStateToProps = state => {
   return {
-    user: state.profileState
+    user: state.profileState,
+    userColor: state.userColor,
+    userColor: state.userColor,
   };
 };
 

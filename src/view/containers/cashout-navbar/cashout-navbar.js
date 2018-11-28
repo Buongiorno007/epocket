@@ -16,7 +16,7 @@ class CashoutNavbar extends React.Component {
           rounded
           block
           transparent
-          androidRippleColor={colors.card_shadow}
+          androidRippleColor={this.props.userColor.card_shadow}
           style={styles.button}
           onPress={() => NavigationService.navigate("Main")}
         >
