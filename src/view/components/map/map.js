@@ -4,7 +4,7 @@ import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import geolib from "geolib";
-import LinearGradient from "react-native-linear-gradient";
+import { LinearTextGradient } from "react-native-text-gradient";
 //containers
 import TrcInformation from "../../containers/trc-information/trc-information";
 import UserMarker from "../../containers/user-marker/user-marker";
@@ -49,8 +49,22 @@ class Map extends React.Component {
       longitudeDelta: 0.25
     },
     errorText: "",
-    distance: 0
+    distance: 0,
+    shopActive: false,
+    taskActive: true,
+    discountActive: false
   };
+  toggleTab = (tab) => {
+    if (tab == "shop") {
+      this.setState({ shopActive: true, taskActive: false, discountActive: false })
+    }
+    else if (tab == "task") {
+      this.setState({ shopActive: false, taskActive: true, discountActive: false })
+    }
+    else if (tab == "discount") {
+      this.setState({ shopActive: false, taskActive: false, discountActive: true })
+    }
+  }
   setModalVisible = visible => {
     this.setState({ errorVisible: visible });
   };
@@ -257,8 +271,54 @@ class Map extends React.Component {
           this.state.location_loader && this.props.isLocation && <ActivityIndicator /> :
           this.state.location_loader && <ActivityIndicator />
         }
-
-        {this.props.isLocation ? (
+        <View style={styles.state_change_block}>
+          <Button style={styles.state_change_block_btn} transparent onPress={() => this.toggleTab("shop")}>
+            <FastImage
+              resizeMode={FastImage.resizeMode.contain}
+              style={styles.state_change_block_geo}
+              source={{ uri: this.state.shopActive ? ICONS.MAP_TABS.SHOP_ACTIVE : ICONS.MAP_TABS.SHOP_INACTIVE }}
+            />
+            <LinearTextGradient
+              locations={[0, 1]}
+              colors={[this.state.shopActive ? this.props.userColor.first_gradient_color : this.props.userColor.gray, this.state.shopActive ? this.props.userColor.second_gradient_color : this.props.userColor.gray]}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+              style={styles.state_change_block_text}>
+              {RU.MAP_TABS.SHOP}
+            </LinearTextGradient>
+          </Button>
+          <Button style={styles.state_change_block_btn} transparent onPress={() => this.toggleTab("task")}>
+            <FastImage
+              resizeMode={FastImage.resizeMode.contain}
+              style={styles.state_change_block_geo}
+              source={{ uri: this.state.taskActive ? ICONS.MAP_TABS.TASK_ACTIVE : ICONS.MAP_TABS.TASK_INACTIVE }}
+            />
+            <LinearTextGradient
+              locations={[0, 1]}
+              colors={[this.state.taskActive ? this.props.userColor.first_gradient_color : this.props.userColor.gray, this.state.taskActive ? this.props.userColor.second_gradient_color : this.props.userColor.gray]}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+              style={styles.state_change_block_text}>
+              {RU.MAP_TABS.TASK}
+            </LinearTextGradient>
+          </Button>
+          <Button style={styles.state_change_block_btn} transparent onPress={() => this.toggleTab("discount")}>
+            <FastImage
+              resizeMode={FastImage.resizeMode.contain}
+              style={styles.state_change_block_geo}
+              source={{ uri: this.state.discountActive ? ICONS.MAP_TABS.DISCOUNT_ACTIVE : ICONS.MAP_TABS.DISCOUNT_INACTIVE }}
+            />
+            <LinearTextGradient
+              locations={[0, 1]}
+              colors={[this.state.discountActive ? this.props.userColor.first_gradient_color : this.props.userColor.gray, this.state.discountActive ? this.props.userColor.second_gradient_color : this.props.userColor.gray]}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+              style={styles.state_change_block_text}>
+              {RU.MAP_TABS.DISCOUNT}
+            </LinearTextGradient>
+          </Button>
+        </View>
+        {/* {this.props.isLocation ? (
           <View style={styles.trc_info}>
             <Button style={styles.img_geo_btn} transparent onPress={() => this.props.setInfo(true)}>
               <FastImage
@@ -275,7 +335,7 @@ class Map extends React.Component {
             ) : null}
           </View>
         ) : null
-        }
+        } */}
 
         <MapView
           style={styles.map_view}

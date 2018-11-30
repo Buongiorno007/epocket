@@ -114,6 +114,11 @@ export const RU = {
     CANCEL: "Отменено",
     RESULT: "ИТОГ"
   },
+  MAP_TABS: {
+    SHOP: "Точка выдачи",
+    TASK: "Задания и бонусы",
+    DISCOUNT: "Дисконт центры"
+  },
   PROFILE_PAGE: {
     EXIT_TO_START: "Вы уверены, что хотите выйти?",
     DECLINE: "Отмена",

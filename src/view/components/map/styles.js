@@ -26,6 +26,31 @@ export default StyleSheet.create({
         top: 40,
         zIndex: 2
     },
+    state_change_block: {
+        width: width * 0.85,
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        position: "absolute",
+        top: 30,
+        zIndex: 2
+    },
+    state_change_block_text: {
+        textAlign: "center",
+        fontSize: 12,
+        fontFamily: "Rubik-Medium"
+    },
+    state_change_block_btn: {
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: 'column',
+        width: 60,
+        height: 60,
+        marginRight: 15,
+        marginLeft: 15,
+        borderRadius: 12
+    },
     img_geo: {
         width: 50,
         height: 50,
@@ -37,6 +62,10 @@ export default StyleSheet.create({
         height: 50,
         marginRight: 15,
         borderRadius: 12
+    },
+    state_change_block_geo: {
+        width: 25,
+        height: 25,
     },
     img_geo_gradient: {
         alignItems: "center",
