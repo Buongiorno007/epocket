@@ -93,7 +93,7 @@ export const RU = {
 
   },
   CASH: {
-    TITLE: "Ваши бонусы:",
+    TITLE: "Баланс:",
     BUTTON: "СФОРМИРОВАТЬ QR",
     NO_CASH: "В этом ТРЦ нет доступных товаров",
     NO_CASH_SMILE: "¯\\_(ツ)_/¯"

@@ -34,9 +34,9 @@ class History extends React.Component {
     let pick = this.state.pickedBonuses;
     this.setState({ pickedBonuses: !pick });
   };
-  componentDidMount() {}
+  componentDidMount() { }
 
-  
+
   render() {
     return (
       <View style={styles.main_view}>
@@ -50,6 +50,8 @@ class History extends React.Component {
 
           <View style={styles.history_nav}>
             <Balance />
+          </View>
+          <View style={styles.list_container}>
             <View style={styles.nav_buttons}>
               <HistoryNavButton
                 handler={
@@ -72,14 +74,12 @@ class History extends React.Component {
                 disabled={!this.state.pickedBonuses}
               />
             </View>
-          </View>
-          <View style={styles.list_container}>
             <HistoryList picked_bonuses={this.state.pickedBonuses} />
           </View>
         </LinearGradient>
         {/* {(this.props.receivedBonusesJSX.loader ||
           this.props.spentBonusesJSX.loader) && <ActivityIndicator />} */}
-          <TimerModal/>
+        <TimerModal />
         <FooterNavigation />
       </View>
     );

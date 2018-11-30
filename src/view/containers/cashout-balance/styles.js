@@ -3,24 +3,22 @@ import { StyleSheet, Dimensions } from 'react-native';
 const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
-    container : {
+    container: {
         width: width,
-        height: 55,
-        paddingTop: 5,
+        height: height * 0.15,
+        paddingTop: 10,
+        paddingLeft: width * 0.04,
+        paddingRight: width * 0.04,
         alignItems: 'center',
-        justifyContent: 'flex-start',
+        justifyContent: 'space-between',
+        flexDirection: 'row',
         zIndex: 2,
     },
     block: {
+        width: (width - width * 0.08) / 2,
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingLeft: width * 0.04,
-        paddingRight: width * 0.04,
-        backgroundColor: 'rgba(255, 255, 255, 0.36)',
-        borderRadius: 12,
-        width: width * 0.85,
-        height: 35
     },
     balance_title: {
         flexDirection: 'row',
@@ -35,8 +33,11 @@ export default StyleSheet.create({
     },
     item: {
         justifyContent: 'center',
-        width: width * 0.377,
         height: height * 0.08
+    },
+    navigation_item: {
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     icon: {
         width: 20,
