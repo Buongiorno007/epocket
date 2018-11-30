@@ -27,14 +27,21 @@ export default StyleSheet.create({
         zIndex: 2
     },
     state_change_block: {
-        width: width * 0.85,
+        width: width,
         height: 50,
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
         position: "absolute",
         top: 30,
-        zIndex: 2
+        zIndex: 3
+    },
+    state_change_block_gradient: {
+        position: "absolute",
+        top: 0,
+        height: 300,
+        zIndex: 2,
+        width: width
     },
     state_change_block_text: {
         textAlign: "center",

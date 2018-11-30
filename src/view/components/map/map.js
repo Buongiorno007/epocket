@@ -5,6 +5,7 @@ import { Button } from "native-base";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import geolib from "geolib";
 import { LinearTextGradient } from "react-native-text-gradient";
+import LinearGradient from "react-native-linear-gradient";
 //containers
 import TrcInformation from "../../containers/trc-information/trc-information";
 import UserMarker from "../../containers/user-marker/user-marker";
@@ -271,6 +272,12 @@ class Map extends React.Component {
           this.state.location_loader && this.props.isLocation && <ActivityIndicator /> :
           this.state.location_loader && <ActivityIndicator />
         }
+        <LinearGradient
+          colors={[this.props.userColor.drag_panel_color, this.props.userColor.transparent]}
+          start={{ x: 0.0, y: 0.1 }}
+          end={{ x: 0.0, y: 1 }}
+          style={styles.state_change_block_gradient}
+        />
         <View style={styles.state_change_block}>
           <Button style={styles.state_change_block_btn} transparent onPress={() => this.toggleTab("shop")}>
             <FastImage
