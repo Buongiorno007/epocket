@@ -7,7 +7,7 @@ import styles from "./styles";
 import { colors } from "./../../../constants/colors";
 
 class HistoryNavButton extends React.Component {
-  componentDidMount() {}
+  componentDidMount() { }
 
   render() {
     return (
@@ -15,21 +15,16 @@ class HistoryNavButton extends React.Component {
         rounded
         transparent
         onPress={this.props.handler}
-        style={[
-          this.props.disabled
-            ? styles.semi_transparent_button_active
-            : styles.semi_transparent_button_disabled
-        ]}
+        style={[styles.button]}
       >
         <Text
-          style={[
-            this.props.disabled
-              ? [{ color: this.props.active_color }, styles.button_text_active]
-              : styles.button_text_disabled
-          ]}
+          style={[styles.button_text]}
         >
-          {this.props.title}
+          {this.props.title.toUpperCase()}
         </Text>
+        {this.props.disabled &&
+          <View style={[styles.dot]} />
+        }
       </Button>
     );
   }

@@ -21,7 +21,7 @@ class CashoutBalance extends React.Component {
   render = () => {
     return (
       <View style={styles.container}>
-        {!this.props.navigation &&
+        {this.props.navigation &&
           <View style={styles.block}>
             <Button
               rounded
@@ -33,9 +33,9 @@ class CashoutBalance extends React.Component {
               <FastImage
                 resizeMode={FastImage.resizeMode.contain}
                 style={styles.icon}
-                source={{ uri: ICONS.COMMON.CASH_EPC_WHITE }}
+                source={{ uri: ICONS.COMMON.CLOSE }}
               />
-              <Text style={[styles.text, styles.title]}>{"Go back thing"}</Text>
+              <Text style={[styles.text, styles.title]}>{this.props.navigation.title}</Text>
             </Button>
           </View>
         }

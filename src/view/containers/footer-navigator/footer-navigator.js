@@ -142,7 +142,7 @@ class FooterNavigation extends React.Component {
                 ]}
               >
                 {" "}
-                {RU.HISTORY}{" "}
+                {RU.HISTORY.toUpperCase()}{" "}
               </Label>
             ) : null}
           </Button>

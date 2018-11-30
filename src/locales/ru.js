@@ -3,7 +3,7 @@ export const RU = {
   PROFILE: "Профиль",
   CASHOUT: "Обналичить",
   SHOP: "Торговый\nцентр",
-  HISTORY: "История",
+  HISTORY: "Кошельки",
   INFO: "Инфо",
   LOCATION_DISABLED: "Геолокация\nотключена",
   LOCATION_ENABLE: "ВКЛЮЧИТЬ ГЕОЛОКАЦИЮ",
@@ -143,8 +143,8 @@ export const RU = {
     ALREADY_ACCOUNT: "Этот аккаунт уже привязан к другому пользователю"
   },
   HISTORY_PAGE: {
-    GETTED: "Полученные\nбонусы",
-    LOST: "Потраченные\nбонусы",
+    GETTED: "Полученные бонусы",
+    LOST: "Потраченные бонусы",
     ALL_BONUSES_RECEIVED: "Сумма всех полученных бонусов:",
     ALL_BONUSES_SPENT: "Сумма всех потраченных бонусов:",
     NO_HISTORY: "Ваша история пока пуста",

@@ -23,19 +23,18 @@ export default StyleSheet.create({
   summary: {
     paddingLeft: width * 0.04,
     paddingRight: width * 0.04,
-    paddingTop: width * 0.12,
-    paddingBottom: width * 0.02,
-    flexDirection: "row"
+    paddingTop: width * 0.035,
+    paddingBottom: width * 0.035,
+    flexDirection: "row",
+    justifyContent:"space-between"
   },
   summary_bold: {
-    flex: 1,
     fontFamily: "Rubik-Medium",
     fontSize: 12,
     color: colors.black_o60,
     alignSelf: "flex-end"
   },
   summary_light: {
-    flex: 4,
     fontFamily: "Rubik-Regular",
     fontSize: 11,
     color: colors.sum_grey,

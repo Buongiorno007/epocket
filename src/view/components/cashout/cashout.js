@@ -76,13 +76,18 @@ class Cashout extends React.Component {
             this.props.loaderState(false);
           }}
         />
+        <Balance
+          navigation={{
+            title: "Карта",
+            direction: "Main"
+          }}
+        />
         <LinearGradient
           colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
           start={{ x: 0.0, y: 5.0 }}
           end={{ x: 1.0, y: 5.0 }}
           style={styles.grad}
         />
-        <Balance />
         <List data={this.state.products} />
         <TimerModal />
         <FooterNavigation />
