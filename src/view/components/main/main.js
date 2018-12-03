@@ -36,8 +36,8 @@ class Main extends React.Component {
     });
     AsyncStorage.getItem("user_info").then(value => {
       let object = JSON.parse(value);
+      console.log(object)
       this.props.setColor(object.sex);
-      NavigationService.navigate("ProfileEdit", { async_storage_user });
     });
   }
   renderSecondTab = () => {

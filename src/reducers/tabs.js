@@ -1,6 +1,6 @@
 export const CHANGE_ACTIVE_TAB = 'tabs/CHANGE_ACTIVE_TAB';
 
-export default (state = {activeTab: 2}, action) => {
+export default (state = {activeTab: 4}, action) => {
     // console.log('action',action);
     switch (action.type) {
         case CHANGE_ACTIVE_TAB:
