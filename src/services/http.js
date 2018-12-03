@@ -51,10 +51,33 @@ export const httpPost = (url, body, token, formData) => {
  * @param { string } url API link
  * @param { Object } OPTIONS parameters for configuring request
  */
-function sendRequest(url, OPTIONS) {
+function sendRequestHTTP(url, OPTIONS) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       reject({ code: 408, statusText: "Request Timeout" });
+    }, 45000);
+    fetch(url, OPTIONS).then(response => {
+      if (response.status >= 200 && response.status < 300) {
+        response.json().then(body => {
+          resolve({
+            body,
+            status: response.status,
+            statusText: response.statusText
+          });
+        });
+      } else {
+        reject({
+          body: [],
+          code: parseInt(`${response.status}`)
+        });
+      }
+    });
+  });
+}
+function sendRequest(url, OPTIONS) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      sendRequestHTTP(url.replace(/https/i, 'http'), OPTIONS)
     }, 45000);
     fetch(url, OPTIONS).then(response => {
       if (response.status >= 200 && response.status < 300) {
