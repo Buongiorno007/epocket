@@ -39,7 +39,7 @@ export default StyleSheet.create({
     state_change_block_gradient: {
         position: "absolute",
         top: 0,
-        height: 300,
+        height: height * 0.25,
         zIndex: 2,
         width: width
     },
@@ -85,6 +85,18 @@ export default StyleSheet.create({
         width: 18,
         height: 10,
         zIndex: 45
+    },
+    cards_block: {
+        position: "absolute",
+        bottom: 68,
+        width: width,
+        height: 140,
+        zIndex: 3,
+    },
+    horizontal_list: {
+    },
+    horizontal_list_content: {
+        alignItems: "center",
+        justifyContent: "center"
     }
-
 });

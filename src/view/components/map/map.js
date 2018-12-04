@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Platform, StatusBar } from "react-native";
+import { View, Platform, StatusBar, FlatList } from "react-native";
 import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
@@ -15,6 +15,10 @@ import FooterNavigation from "../../containers/footer-navigator/footer-navigator
 import CurrentGeolocation from "../../containers/current-geolocation/current-geolocation";
 import CustomAlert from "../../containers/custom-alert/custom-alert";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
+import CardTask from "../../containers/map-card-task/map-card-task"
+import CardCashout from "../../containers/map-card-shop/map-card-shop"
+import CardDiscount from "../../containers/map-card-discount/map-card-discount"
+import CardFirst from "../../containers/map-card-first/map-card-first"
 //constants
 import { mapStyle } from "./mapCustomStyle";
 import styles from "./styles";
@@ -53,17 +57,57 @@ class Map extends React.Component {
     distance: 0,
     shopActive: false,
     taskActive: true,
-    discountActive: false
+    discountActive: false,
+    focusedOnMark: false,
+    firstCardData: null,
+    allMarkers: {},
+    cards: [
+      {
+        active: true,
+        color: "black",
+        price: "dfsdf",
+        trade: "dfsdf",
+        date_start: "e5346346dfgdfgdfg",
+        date_end: "e534634dfgdfgdfgdfgƒ6"
+      },
+      {
+        active: true,
+        color: "black",
+        price: "dfsdf",
+        trade: "dfsdf",
+        date_start: "e5346346dfgdfgdfg",
+        date_end: "e534634dfgdfgdfgdfgƒ6"
+      },
+      {
+        active: true,
+        color: "black",
+        price: "dfsdf",
+        trade: "dfsdf",
+        date_start: "e5346346dfgdfgdfg",
+        date_end: "e534634dfgdfgdfgdfgƒ6"
+      },
+      {
+        active: true,
+        color: "black",
+        price: "dfsdf",
+        trade: "dfsdf",
+        date_start: "e5346346dfgdfgdfg",
+        date_end: "e534634dfgdfgdfgdfgƒ6"
+      }
+    ]
   };
   toggleTab = (tab) => {
     if (tab == "shop") {
-      this.setState({ shopActive: true, taskActive: false, discountActive: false })
+      this.setState({ shopActive: true, taskActive: false, discountActive: false, focusedOnMark: false })
+      this.props.setOutlets(this.state.allMarkers.cashouts);
     }
     else if (tab == "task") {
-      this.setState({ shopActive: false, taskActive: true, discountActive: false })
+      this.setState({ shopActive: false, taskActive: true, discountActive: false, focusedOnMark: false })
+      this.props.setOutlets(this.state.allMarkers.outlets);
     }
     else if (tab == "discount") {
-      this.setState({ shopActive: false, taskActive: false, discountActive: true })
+      this.setState({ shopActive: false, taskActive: false, discountActive: true, focusedOnMark: false })
+      this.props.setOutlets(this.state.allMarkers.discounts);
     }
   }
   setModalVisible = visible => {
@@ -129,12 +173,13 @@ class Map extends React.Component {
     let promise = httpPost(urls.outlets, JSON.stringify({}), this.props.token);
     promise.then(
       result => {
+        console.log(result)
         this.setModalVisible(false);
         this.props.loaderState(false);
+        this.setState({ allMarkers: result.body })
         this.props.setOutlets(result.body.outlets)
-
         if (this.props.selectedMall.id) {
-          this.selectTRC(this.props.selectedMall);
+          this.selectMark(this.props.selectedMall, false, "task");
         } else {
           this.props.isLocation &&
             this.selectNearestMall(
@@ -147,10 +192,10 @@ class Map extends React.Component {
         }
       },
       error => {
+        console.log(error)
         let error_respons = handleError(error, this.constructor.name, "loadTRC");
         this.setState({ errorText: error_respons.error_text });
         this.setModalVisible(error_respons.error_modal);
-        this.setState({ load_missions: false });
         this.props.loaderState(false);
       }
     );
@@ -198,8 +243,83 @@ class Map extends React.Component {
     try { this.selectTRC(mall_array[Number(nearestMall.key)], ANIMATE_MAP); } catch (e) { }
   };
 
+  _renderItem = item => (
+    item.item.adress ?
+      <CardFirst
+        item={item.item}
+        onPressItem={this._showSelectedCard}
+      />
+      :
+      this.state.taskActive ?
+        <CardTask
+          item={item.item}
+          onPressItem={this._showSelectedCard}
+        />
+        : this.state.shopActive ?
+          <CardCashout
+            item={item.item}
+            onPressItem={this._showSelectedCard}
+          />
+          :
+          <CardDiscount
+            item={item.item}
+            onPressItem={this._showSelectedCard}
+          />
+  );
+  _showSelectedCard = selectedCard => {
+    console.log(selectedCard)
+    // this.props.setDashboardState(2);
+    // this.props.setActiveCard(true);
+    // this.props.selectMission(this._submissionOrder(selectedCard));
+  };
+  loadTaskItems = () => {
 
-  selectTRC = (trc, ANIMATE_MAP) => {
+  }
+  loadCashoutItems = (trc) => {
+    this.setModalVisible(false);
+    this.props.loaderState(true);
+    let body = {
+      outletId: trc.id
+    };
+    let promise = httpPost(
+      urls.get_outlet_products,
+      JSON.stringify(body),
+      this.props.token
+    );
+    promise.then(
+      result => {
+        this.setModalVisible(false);
+        this.props.loaderState(false);
+        let cards = result.body.products;
+        cards.unshift(trc)
+        this.setState({ cards })
+        console.log(cards)
+        this.setState({ focusedOnMark: true })
+        //this.props.setBalance(result.body.balance);
+        //this.setState({ products: result.body.products });
+      },
+      error => {
+        this.props.loaderState(false);
+        let error_respons = handleError(error, this.constructor.name, "loadData");
+        this.setState({ errorText: error_respons.error_text });
+        this.setModalVisible(error_respons.error_modal);
+      }
+    );
+  }
+  loadDiscountItems = () => {
+
+  }
+  selectMark = (trc, ANIMATE_MAP, mark_type) => {
+    console.log(trc, mark_type)
+    if (mark_type === "task") {
+      this.loadTaskItems();
+    }
+    else if (mark_type === "shop") {
+      this.loadCashoutItems(trc);
+    }
+    else {
+      this.loadDiscountItems();
+    }
     // if (trc.id !== this.props.selectedMall.id) {
     let bounds = geolib.getBounds([
       { latitude: trc.lat, longitude: trc.lng },
@@ -236,10 +356,12 @@ class Map extends React.Component {
       this.props.showDashboard(false);
       ANIMATE_MAP &&
         this.moveMapTo(
-          Number(center.latitude),
-          Number(center.longitude),
-          Math.abs(bounds.maxLat - bounds.minLat) * 1.3,
-          Math.abs(bounds.maxLng - bounds.minLng) * 1.3
+          Number(trc.lat),
+          Number(trc.lng),
+          0.0008,
+          0.0008
+          // Math.abs(bounds.maxLat - bounds.minLat) * 1.3,
+          // Math.abs(bounds.maxLng - bounds.minLng) * 1.3
         );
     }
 
@@ -274,7 +396,7 @@ class Map extends React.Component {
         }
         <LinearGradient
           colors={[this.props.userColor.drag_panel_color, this.props.userColor.transparent]}
-          start={{ x: 0.0, y: 0.1 }}
+          start={{ x: 0.0, y: 0.5 }}
           end={{ x: 0.0, y: 1 }}
           style={styles.state_change_block_gradient}
         />
@@ -343,7 +465,17 @@ class Map extends React.Component {
           </View>
         ) : null
         } */}
-
+        {this.state.focusedOnMark &&
+          <View style={styles.cards_block}>
+            <FlatList
+              contentContainerStyle={styles.horizontal_list_content}
+              horizontal={true}
+              style={styles.horizontal_list}
+              data={this.state.cards}
+              renderItem={this._renderItem}>
+            </FlatList>
+          </View>
+        }
         <MapView
           style={styles.map_view}
           initialRegion={this.state.region}
@@ -363,29 +495,39 @@ class Map extends React.Component {
           >
             <UserMarker />
           </Marker>
-          {this.props.outlets.map(marker => (
-            <TRCMarker
-              marker={marker}
-              key={marker.id}
-              selected={this.props.selectedMall.id}
-              onPress={() => {
-                this.selectTRC(marker);
-              }}
-            />
-          ))}
+          {
+            this.props.outlets.map(marker => (
+              marker.lat != "None" && marker.lng != "None" ?
+                <TRCMarker
+                  marker={marker}
+                  key={marker.id}
+                  selected={this.props.selectedMall.id}
+                  onPress={() => {
+                    this.state.taskActive ?
+                      this.selectMark(marker, true, "task")
+                      :
+                      this.state.shopActive ?
+                        this.selectMark(marker, true, "shop") :
+                        this.selectMark(marker, true, "discount")
+                  }}
+                /> :
+                null
+            ))
+          }
         </MapView>
         {
           !this.props.isLocation ? (
             <LocationDisabled />
-          ) : (
-              this.props.isConnected && (
-                <CurrentGeolocation
-                  onPress={() => {
-                    this.getCurrentGeolocation();
-                  }}
-                />
-              )
-            )
+          ) : (null)
+          // : (
+          //     this.props.isConnected && (
+          //       <CurrentGeolocation
+          //         onPress={() => {
+          //           this.getCurrentGeolocation();
+          //         }}
+          //       />
+          //     )
+          //   )
         }
         <FooterNavigation />
       </View >
