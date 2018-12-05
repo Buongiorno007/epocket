@@ -19,10 +19,10 @@ export default StyleSheet.create({
     shadowColor: colors.card_shadow,
     shadowOffset: {
       width: 0,
-      height: 7
+      height: 3
     },
-    shadowRadius: 12,
-    shadowOpacity: 0.7,
+    shadowRadius: 5,
+    shadowOpacity: 0.3,
   },
   price: {
     fontFamily: "Rubik-Regular",

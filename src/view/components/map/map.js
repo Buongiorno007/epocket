@@ -17,7 +17,6 @@ import CustomAlert from "../../containers/custom-alert/custom-alert";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 import CardTask from "../../containers/map-card-task/map-card-task"
 import CardCashout from "../../containers/map-card-shop/map-card-shop"
-import CardDiscount from "../../containers/map-card-discount/map-card-discount"
 import CardFirst from "../../containers/map-card-first/map-card-first"
 //constants
 import { mapStyle } from "./mapCustomStyle";
@@ -97,9 +96,11 @@ class Map extends React.Component {
     ]
   };
   toggleTab = (tab) => {
+    this.moveMapTo(this.state.region.latitude, this.state.region.longitude);
     if (tab == "shop") {
       this.setState({ shopActive: true, taskActive: false, discountActive: false, focusedOnMark: false })
-      this.props.setOutlets(this.state.allMarkers.cashouts);
+      //this.props.setOutlets(this.state.allMarkers.cashouts);
+      this.props.setOutlets(this.state.allMarkers.outlets);
     }
     else if (tab == "task") {
       this.setState({ shopActive: false, taskActive: true, discountActive: false, focusedOnMark: false })
@@ -107,7 +108,8 @@ class Map extends React.Component {
     }
     else if (tab == "discount") {
       this.setState({ shopActive: false, taskActive: false, discountActive: true, focusedOnMark: false })
-      this.props.setOutlets(this.state.allMarkers.discounts);
+      //this.props.setOutlets(this.state.allMarkers.discounts);
+      this.props.setOutlets(this.state.allMarkers.outlets);
     }
   }
   setModalVisible = visible => {
@@ -261,7 +263,7 @@ class Map extends React.Component {
             onPressItem={this._showSelectedCard}
           />
           :
-          <CardDiscount
+          <CardCashout
             item={item.item}
             onPressItem={this._showSelectedCard}
           />
@@ -272,14 +274,73 @@ class Map extends React.Component {
     // this.props.setActiveCard(true);
     // this.props.selectMission(this._submissionOrder(selectedCard));
   };
-  loadTaskItems = () => {
-
+  loadTaskItems = (trc) => {
+    this.props.loaderState(true);
+    this.setModalVisible(false);
+    let body = {
+      outletId: trc.id
+    };
+    let promise = httpPost(
+      urls.missions,
+      JSON.stringify(body),
+      this.props.token
+    );
+    promise.then(
+      result => {
+        this.setModalVisible(false);
+        console.log(result)
+        if (result.status == 200) {
+          let cards = result.body.missions;
+          cards.unshift(trc)
+          this.setState({ cards })
+          this.setState({ focusedOnMark: true })
+          //this.props.setMissions(this.getActiveMissions(result.body.missions));
+        }
+        this.props.loaderState(false);
+      },
+      error => {
+        let error_respons = handleError(error, this.constructor.name, "getMissions");
+        this.setState({ errorText: error_respons.error_text, errorCode: error_respons.error_code });
+        this.setModalVisible(error_respons.error_modal);
+        this.props.loaderState(false);
+      }
+    );
   }
   loadCashoutItems = (trc) => {
     this.setModalVisible(false);
     this.props.loaderState(true);
     let body = {
-      outletId: trc.id
+      cashoutId: trc.id
+    };
+    let promise = httpPost(
+      urls.get_outlet_products,
+      JSON.stringify(body),
+      this.props.token
+    );
+    promise.then(
+      result => {
+        this.setModalVisible(false);
+        this.props.loaderState(false);
+        let cards = result.body.products;
+        cards.unshift(trc)
+        this.setState({ cards })
+        this.setState({ focusedOnMark: true })
+        console.log(cards)
+        //this.props.setBalance(result.body.balance);
+      },
+      error => {
+        this.props.loaderState(false);
+        let error_respons = handleError(error, this.constructor.name, "loadData");
+        this.setState({ errorText: error_respons.error_text });
+        this.setModalVisible(error_respons.error_modal);
+      }
+    );
+  }
+  loadDiscountItems = (trc) => {
+    this.setModalVisible(false);
+    this.props.loaderState(true);
+    let body = {
+      cashoutId: trc.id
     };
     let promise = httpPost(
       urls.get_outlet_products,
@@ -306,19 +367,16 @@ class Map extends React.Component {
       }
     );
   }
-  loadDiscountItems = () => {
-
-  }
   selectMark = (trc, ANIMATE_MAP, mark_type) => {
     console.log(trc, mark_type)
     if (mark_type === "task") {
-      this.loadTaskItems();
+      this.loadTaskItems(trc);
     }
     else if (mark_type === "shop") {
       this.loadCashoutItems(trc);
     }
     else {
-      this.loadDiscountItems();
+      this.loadDiscountItems(trc);
     }
     // if (trc.id !== this.props.selectedMall.id) {
     let bounds = geolib.getBounds([
@@ -354,12 +412,13 @@ class Map extends React.Component {
       this.props.showDashboard(true);
     } else {
       this.props.showDashboard(false);
+      console.log(Math.abs(bounds.maxLat - bounds.minLat) * 1.3)
       ANIMATE_MAP &&
         this.moveMapTo(
           Number(trc.lat),
           Number(trc.lng),
-          0.0008,
-          0.0008
+          0.0058,
+          0.0058
           // Math.abs(bounds.maxLat - bounds.minLat) * 1.3,
           // Math.abs(bounds.maxLng - bounds.minLng) * 1.3
         );
@@ -370,7 +429,6 @@ class Map extends React.Component {
     //     this.moveMapTo(this.props.location.lat, this.props.location.lng, 0.0008, 0.0008);
     // }
   };
-
   render() {
     return (
       <View style={styles.main_view}>
@@ -472,6 +530,7 @@ class Map extends React.Component {
               horizontal={true}
               style={styles.horizontal_list}
               data={this.state.cards}
+              keyExtractor={(item, index) => item.key}
               renderItem={this._renderItem}>
             </FlatList>
           </View>

@@ -19,7 +19,7 @@ class CardTask extends React.Component {
     return (
       <Button
         style={
-          this.props.item.active
+          this.props.item.status
             ? [styles.card, Platform.OS === 'android' && {
               borderTopWidth: 1,
               borderTopColor: 'rgba(217, 221, 224, 0.5)',
@@ -41,14 +41,14 @@ class CardTask extends React.Component {
             ]
         }
         onPress={
-          this.props.item.active
+          this.props.item.status
             ? this._onPress
             : null
         }
       >
         <Text
           style={[
-            this.props.item.active
+            this.props.item.status
               ? styles.price
               : [styles.price, { color: this.props.item.color }]
           ]}
@@ -60,7 +60,7 @@ class CardTask extends React.Component {
         </Text>
         <Text
           style={[
-            this.props.item.active
+            this.props.item.status
               ? styles.time_range
               : [styles.failed_time_range, { color: this.props.item.color }]
           ]}
