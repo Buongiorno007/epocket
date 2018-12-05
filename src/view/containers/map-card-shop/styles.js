@@ -13,8 +13,8 @@ export default StyleSheet.create({
     marginLeft: width * 0.05,
     padding: 15,
     flexDirection: "column",
-    alignItems: "flex-start",
-    justifyContent: "space-around",
+    alignItems: "center",
+    justifyContent: "center",
     elevation: 5,
     shadowColor: colors.card_shadow,
     shadowOffset: {
@@ -24,14 +24,27 @@ export default StyleSheet.create({
     shadowRadius: 5,
     shadowOpacity: 0.3,
   },
+  icon: {
+    height: width * 0.2,
+    width: width * 0.2,
+    borderRadius: width * 0.1
+  },
   price: {
     fontFamily: "Rubik-Regular",
-    fontSize: 15,
-    color: colors.black_o60
+    fontSize: 8,
+    textAlign: "center",
+    color: colors.black_o30
+  },
+  text_cashout: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 5
   },
   owner: {
-    fontFamily: "Rubik-Bold",
-    fontSize: 15
+    fontFamily: "Rubik-Medium",
+    textAlign: "center",
+    fontSize: 12,
+    color: colors.black
   },
   time_range: {
     fontFamily: "Rubik-Regular",

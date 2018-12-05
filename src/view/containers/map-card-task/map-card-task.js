@@ -43,6 +43,7 @@ class CardTask extends React.Component {
           </Text>
         </View>
         <FlatList
+          listKey={"cardList" + this.props.item.id}
           style={styles.list}
           contentContainerStyle={styles.list_content}
           horizontal={true}

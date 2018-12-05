@@ -99,8 +99,8 @@ class Map extends React.Component {
     this.moveMapTo(this.state.region.latitude, this.state.region.longitude);
     if (tab == "shop") {
       this.setState({ shopActive: true, taskActive: false, discountActive: false, focusedOnMark: false })
-      //this.props.setOutlets(this.state.allMarkers.cashouts);
-      this.props.setOutlets(this.state.allMarkers.outlets);
+      this.props.setOutlets(this.state.allMarkers.cashouts);
+      //this.props.setOutlets(this.state.allMarkers.outlets);
     }
     else if (tab == "task") {
       this.setState({ shopActive: false, taskActive: true, discountActive: false, focusedOnMark: false })
@@ -108,8 +108,8 @@ class Map extends React.Component {
     }
     else if (tab == "discount") {
       this.setState({ shopActive: false, taskActive: false, discountActive: true, focusedOnMark: false })
-      //this.props.setOutlets(this.state.allMarkers.discounts);
-      this.props.setOutlets(this.state.allMarkers.outlets);
+      this.props.setOutlets(this.state.allMarkers.discounts);
+      //this.props.setOutlets(this.state.allMarkers.outlets);
     }
   }
   setModalVisible = visible => {
@@ -129,7 +129,6 @@ class Map extends React.Component {
     }, 200);
   };
   componentWillReceiveProps = nextProps => {
-    console.log(this.props.location)
     if (
       this.props.location.lat === 0 &&
       this.props.location.lng === 0 &&
@@ -176,7 +175,6 @@ class Map extends React.Component {
     let promise = httpPost(urls.outlets, JSON.stringify({}), this.props.token);
     promise.then(
       result => {
-        console.log(result)
         this.setModalVisible(false);
         this.props.loaderState(false);
         this.setState({ allMarkers: result.body })
@@ -195,7 +193,6 @@ class Map extends React.Component {
         }
       },
       error => {
-        console.log(error)
         let error_respons = handleError(error, this.constructor.name, "loadTRC");
         this.setState({ errorText: error_respons.error_text });
         this.setModalVisible(error_respons.error_modal);
@@ -379,7 +376,6 @@ class Map extends React.Component {
     );
   }
   selectMark = (trc, ANIMATE_MAP, mark_type) => {
-    console.log(trc, mark_type)
     if (mark_type === "task") {
       this.loadTaskItems(trc);
     }
@@ -423,7 +419,6 @@ class Map extends React.Component {
       this.props.showDashboard(true);
     } else {
       this.props.showDashboard(false);
-      console.log(Math.abs(bounds.maxLat - bounds.minLat) * 1.3)
       ANIMATE_MAP &&
         this.moveMapTo(
           Number(trc.lat),
@@ -440,6 +435,7 @@ class Map extends React.Component {
     //     this.moveMapTo(this.props.location.lat, this.props.location.lng, 0.0008, 0.0008);
     // }
   };
+  _keyExtractor = (item, index) => item.key;
   render() {
     return (
       <View style={styles.main_view}>
@@ -537,10 +533,12 @@ class Map extends React.Component {
         {this.state.focusedOnMark &&
           <View style={styles.cards_block}>
             <FlatList
+              listKey={"cards"}
               contentContainerStyle={styles.horizontal_list_content}
               horizontal={true}
               style={styles.horizontal_list}
               data={this.state.cards}
+              keyExtractor={this._keyExtractor}
               renderItem={this._renderItem}>
             </FlatList>
           </View>

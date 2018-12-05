@@ -41,9 +41,36 @@ class CardDiscount extends React.Component {
                 {this.props.item.name}
               </Text>
             </View>
-            <View style={styles.timer}>
-
-            </View>
+            {this.props.timer_status &&
+              <View style={styles.timer}>
+                <View style={styles.time_counter_container}>
+                  <View style={styles.time_counter}>
+                    <Text style={styles.time_counter_text}>
+                      {this.props.timer.hours < 10 && "0"}
+                      {this.props.timer.hours}
+                    </Text>
+                  </View>
+                  <View>
+                    <Text style={styles.time_divider}>:</Text>
+                  </View>
+                  <View style={styles.time_counter}>
+                    <Text style={styles.time_counter_text}>
+                      {this.props.timer.minutes < 10 && "0"}
+                      {this.props.timer.minutes}
+                    </Text>
+                  </View>
+                  <View>
+                    <Text style={styles.time_divider}>:</Text>
+                  </View>
+                  <View style={styles.time_counter}>
+                    <Text style={styles.time_counter_text}>
+                      {this.props.timer.seconds < 10 && "0"}
+                      {this.props.timer.seconds}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            }
             <CustomButton
               mapCard
               style={styles.bottom_btn}
@@ -65,6 +92,8 @@ class CardDiscount extends React.Component {
 
 const mapStateToProps = state => ({
   userColor: state.userColor,
+  timer: state.timer,
+  timer_status: state.timer_status,
 });
 
 const mapDispatchToProps = dispatch =>

@@ -44,6 +44,7 @@ export default StyleSheet.create({
     alignSelf: "flex-end"
   },
   timer: {
+    height: width * 0.1,
     width: width * 0.45 - 20,
     alignItems: "center",
     justifyContent: "center"
@@ -67,5 +68,27 @@ export default StyleSheet.create({
     fontFamily: "Rubik-Regular",
     fontSize: 12,
     color: colors.black_o60
-  }
+  },
+  time_counter_container: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    height: 20,
+    width: width * 0.45 - 20
+  },
+  time_divider: {
+    color: colors.white_o70
+  },
+  time_counter: {
+    width: width * 0.1,
+    backgroundColor: colors.white_o36,
+    borderRadius: 25
+  },
+  time_counter_text: {
+    color: colors.white,
+    fontFamily: "Rubik-Regular",
+    fontSize: 10,
+    padding: 2,
+    textAlign: "center"
+  },
 });

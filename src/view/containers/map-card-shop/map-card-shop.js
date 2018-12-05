@@ -7,6 +7,7 @@ import { colors } from "../../../constants/colors";
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import FastImage from "react-native-fast-image";
 
 class CardCashout extends React.Component {
   constructor(props) {
@@ -26,14 +27,19 @@ class CardCashout extends React.Component {
         }
         onPress={this._onPress}
       >
-        <Text
-          style={[styles.price]}
-        >
-          {this.props.item.price} epc
+        <FastImage
+          resizeMode={FastImage.resizeMode.cover}
+          style={styles.icon}
+          source={{ uri: this.props.item.photo }}
+        />
+        <View style={styles.text_cashout}>
+          <Text style={[styles.owner, { color: this.props.userColor.black }]}>
+            {this.props.item.name.toUpperCase()}
+          </Text>
+          <Text style={[styles.price]}>
+            {this.props.item.price} epc
         </Text>
-        <Text style={[styles.owner, { color: this.props.userColor.black }]}>
-          {this.props.item.name}
-        </Text>
+        </View>
       </Button>
     );
   }
