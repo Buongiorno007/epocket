@@ -7,7 +7,7 @@ const { width, height } = Dimensions.get("window");
 export default StyleSheet.create({
   card: {
     height: width * 0.4,
-    width: width * 0.4,
+    width: width * 0.35,
     backgroundColor: colors.white,
     borderRadius: 12,
     marginLeft: width * 0.05,

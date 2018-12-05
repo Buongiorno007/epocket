@@ -12,9 +12,8 @@ export default StyleSheet.create({
     alignSelf: "center",
     // overflow: "visible",
     borderRadius: 50,
-    zIndex: 5
+    zIndex: 5,
   },
-
   enabled_button: {
     backgroundColor: colors.white
   },
@@ -23,8 +22,9 @@ export default StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
     fontFamily: "Rubik-Medium",
+    textAlign: "center",
     fontSize: 10,
-    zIndex: 6
+    zIndex: 6,
   },
   disabled_button: {
     borderWidth: 1,
@@ -36,15 +36,15 @@ export default StyleSheet.create({
   gradient: {
     position: "absolute",
   },
-  border_btn : {
+  border_btn: {
     position: "absolute",
-    borderRadius : 50,
-    backgroundColor : colors.pink
+    borderRadius: 50,
+    backgroundColor: colors.pink
   },
-  background_btn : {
+  background_btn: {
     position: "absolute",
     height: 38,
-    borderRadius : 50,
+    borderRadius: 50,
     backgroundColor: colors.drag_panel_color
   }
 });

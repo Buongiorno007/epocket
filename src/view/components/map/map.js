@@ -129,6 +129,7 @@ class Map extends React.Component {
     }, 200);
   };
   componentWillReceiveProps = nextProps => {
+    console.log(this.props.location)
     if (
       this.props.location.lat === 0 &&
       this.props.location.lng === 0 &&
@@ -249,22 +250,32 @@ class Map extends React.Component {
     item.item.adress ?
       <CardFirst
         item={item.item}
+        key={item.item.id}
         onPressItem={this._showSelectedCard}
+        btnText={
+          this.state.taskActive ? RU.MAP.TASKS.toUpperCase() :
+            this.state.shopActive ? RU.MAP.MAKE_PREORDER.toUpperCase() :
+              RU.MAP.LIST_PRODUCTS.toUpperCase()
+        }
       />
       :
       this.state.taskActive ?
+        item.item.status &&
         <CardTask
           item={item.item}
+          key={item.item.id}
           onPressItem={this._showSelectedCard}
         />
         : this.state.shopActive ?
           <CardCashout
             item={item.item}
+            key={item.item.id}
             onPressItem={this._showSelectedCard}
           />
           :
           <CardCashout
             item={item.item}
+            key={item.item.id}
             onPressItem={this._showSelectedCard}
           />
   );
@@ -530,7 +541,6 @@ class Map extends React.Component {
               horizontal={true}
               style={styles.horizontal_list}
               data={this.state.cards}
-              keyExtractor={(item, index) => item.key}
               renderItem={this._renderItem}>
             </FlatList>
           </View>

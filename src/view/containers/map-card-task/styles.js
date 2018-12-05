@@ -11,7 +11,7 @@ export default StyleSheet.create({
     backgroundColor: colors.white,
     borderRadius: 12,
     marginLeft: width * 0.05,
-    padding: 15,
+    padding: 10,
     flexDirection: "column",
     alignItems: "flex-start",
     justifyContent: "space-around",
@@ -24,18 +24,32 @@ export default StyleSheet.create({
     shadowRadius: 5,
     shadowOpacity: 0.3,
   },
-  price: {
-    fontFamily: "Rubik-Regular",
-    fontSize: 15,
-    color: colors.black_o60
+  top_container: {
+    alignSelf: "flex-start",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+
+  },
+  list: {
+    height: width * 0.2,
+    width: width * 0.4 - 20,
+    justifyContent: "flex-end"
+  },
+  list_content: {
   },
   owner: {
     fontFamily: "Rubik-Bold",
-    fontSize: 15
+    fontSize: 12,
+    color: colors.black
   },
   time_range: {
+    fontFamily: "Rubik",
+    fontSize: 10,
+    color: colors.black_90
+  },
+  list_item_text: {
     fontFamily: "Rubik-Regular",
-    fontSize: 12,
-    color: colors.black_o60
+    fontSize: 11,
+    color: colors.black_90
   }
 });

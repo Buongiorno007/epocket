@@ -34,6 +34,7 @@ class CustomButton extends React.Component {
           styles.button_container,
           this.props.active ? styles.enabled_button : styles.disabled_button,
           this.props.short && { width: width * 0.5 },
+          this.props.semi_short && { width: width * 0.4 },
           this.props.extra_short && { width: width * 0.3 },
         ]}
         onPress={() => {
@@ -47,7 +48,9 @@ class CustomButton extends React.Component {
             end={{ x: 0.7, y: 1.0 }}
             style={[
               styles.button_container,
-              this.props.short ? this.props.extra_short ? { width: width * 0.3 } : { width: width * 0.5 } : null,
+              this.props.short && { width: width * 0.5 },
+              this.props.extra_short && { width: width * 0.3 },
+              this.props.semi_short && { width: width * 0.4 },
               styles.gradient
             ]}
           />
@@ -58,13 +61,17 @@ class CustomButton extends React.Component {
               styles.button_container,
               this.props.short && { width: width * 0.5 },
               this.props.extra_short && { width: width * 0.3 },
+              this.props.semi_short && { width: width * 0.4 },
               styles.border_btn
             ]}
           >
             <View
               style={[
                 styles.button_container,
-                this.props.short ? this.props.extra_short ? { width: width * 0.3 - 2 } : { width: width * 0.5 - 2 } : { width: width * 0.85 - 2 },
+                { width: width * 0.85 - 2 },
+                this.props.short && { width: width * 0.5 - 2 },
+                this.props.extra_short && { width: width * 0.3 - 2 },
+                this.props.semi_short && { width: width * 0.4 - 2 },
                 styles.background_btn
               ]}
             />
@@ -77,7 +84,8 @@ class CustomButton extends React.Component {
               ? { color: this.props.color }
               : this.props.active
                 ? { color: this.props.userColor.pink }
-                : { color: this.props.userColor.white }
+                : { color: this.props.userColor.white },
+            this.props.mapCard && { fontSize: 9 }
           ]}
         >
           {this.props.title ? this.props.title : "OK"}

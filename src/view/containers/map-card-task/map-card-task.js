@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Dimensions, Platform } from "react-native";
+import { View, Text, Dimensions, Platform, FlatList } from "react-native";
 import { Button } from "native-base";
 //constants
 import styles from "./styles";
@@ -15,59 +15,41 @@ class CardTask extends React.Component {
   _onPress = () => {
     this.props.onPressItem(this.props.item);
   };
+  _renderItem = item => (
+    <View style={styles.list_item}>
+      <Text style={styles.list_item_text}>{item.index + 1}. {item.item.name}</Text>
+    </View>
+  );
+  _keyExtractor = (item, index) => item.key;
   render() {
     return (
       <Button
         style={
-          this.props.item.status
-            ? [styles.card, Platform.OS === 'android' && {
-              borderTopWidth: 1,
-              borderTopColor: 'rgba(217, 221, 224, 0.5)',
-            }]
-            : [
-              styles.card,
-              {
-                borderWidth: 1,
-                borderColor: this.props.item.color,
-                backgroundColor: "transparent",
-                elevation: 0,
-                shadowColor: this.props.userColor.card_shadow,
-                shadowOffset: {
-                  width: 0,
-                  height: 0
-                },
-                shadowRadius: 0
-              }
-            ]
+          [styles.card, Platform.OS === 'android' && {
+            borderTopWidth: 1,
+            borderTopColor: 'rgba(217, 221, 224, 0.5)',
+          }]
         }
-        onPress={
-          this.props.item.status
-            ? this._onPress
-            : null
-        }
+        onPress={this._onPress}
       >
-        <Text
-          style={[
-            this.props.item.status
-              ? styles.price
-              : [styles.price, { color: this.props.item.color }]
-          ]}
-        >
-          {this.props.item.price} epc
-        </Text>
-        <Text style={[styles.owner, { color: this.props.item.color }]}>
-          {this.props.item.trade}
-        </Text>
-        <Text
-          style={[
-            this.props.item.status
-              ? styles.time_range
-              : [styles.failed_time_range, { color: this.props.item.color }]
-          ]}
-        >
-          {this.props.item.date_start.substring(10, 16)} -{" "}
-          {this.props.item.date_end.substring(10, 16)}
-        </Text>
+        <View style={styles.top_container}>
+          <Text
+            style={styles.time_range}
+          >
+            {this.props.item.price} epc /{this.props.item.date_start.substring(10, 16)} - {this.props.item.date_end.substring(10, 16)}
+          </Text>
+          <Text style={[styles.owner]}>
+            {this.props.item.trade}
+          </Text>
+        </View>
+        <FlatList
+          style={styles.list}
+          contentContainerStyle={styles.list_content}
+          horizontal={true}
+          keyExtractor={this._keyExtractor}
+          data={this.props.item.subMissions}
+          renderItem={this._renderItem}>
+        </FlatList>
       </Button>
     );
   }
