@@ -41,6 +41,7 @@ import game_error from "./game-error"
 import game_expired_img from "./game-expired-image"
 import navigateToMall from "./navigate-to-mall"
 import userColor from "./user-color"
+import initial_outlets from "./initial-outlets"
 
 export default combineReducers({
   isConnected,
@@ -69,6 +70,7 @@ export default combineReducers({
   timer_interval,
   socket,
   outlets,
+  initial_outlets,
   birthday,
   showQR,
   sheduleRequestStart,

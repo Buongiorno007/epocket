@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Platform, Text, ImageBackground } from "react-native";
 import MapView, { Marker, Circle } from "react-native-maps";
+import LinearGradient from "react-native-linear-gradient";
 //constants
 import styles from "./styles";
 import { colors } from "./../../../constants/colors";
@@ -27,7 +28,10 @@ class TRCMarker extends React.Component {
       this.props.marker.price ?
         <View style={styles.main_view}>
           <Marker
-            style={styles.marker}
+            style={[styles.marker, this.props.discountMarker && {
+              width: 60,
+              height: 60,
+            }]}
             ref={marker => {
               this.marker = marker;
             }}
@@ -36,23 +40,32 @@ class TRCMarker extends React.Component {
             pinColor={this.props.userColor.blue}
 
           >
+            {this.props.active &&
+              <LinearGradient
+                colors={[this.props.userColor.active_marker_blue, this.props.userColor.active_marker_lightblue]}
+                start={{ x: 0.0, y: 1.0 }}
+                end={{ x: 1.0, y: 0.0 }}
+                style={this.props.discountMarker ? styles.big_gradient : styles.gradient}
+              />
+            }
             <ImageBackground
               key={this.props.marker.id}
-              style={styles.image}
-              source={{ uri: this.props.active ? ICONS.COMMON.STORE_ACTIVE : ICONS.COMMON.STORE_INACTIVE }}
-            />
-            <View style={styles.mall_price_view}>
-              <Text
-                style={styles.mall_price}
-              >
-                {this.props.marker.price}
-              </Text>
-              <Text
-                style={styles.mall_price_epc}
-              >
-                epc
-          </Text>
-            </View >
+              style={this.props.discountMarker ? styles.discount_image : styles.image}
+              source={{ uri: this.props.active ? this.props.discountMarker ? ICONS.COMMON.DISCOUNT_ACTIVE : ICONS.COMMON.STORE_ACTIVE : this.props.discountMarker ? ICONS.COMMON.DISCOUNT_INACTIVE : ICONS.COMMON.STORE_INACTIVE }}
+            >
+              {this.props.discountMarker &&
+                <View style={styles.discount_text_container}>
+                  <Text style={[styles.discount_text, this.props.active && { color: this.props.userColor.white }]}>%</Text>
+                  <Text style={[styles.discount_text, this.props.active && { color: this.props.userColor.white }]}>-N</Text>
+                </View>
+              }
+            </ImageBackground>
+            {!this.props.discountMarker &&
+              <View style={[!this.props.active ? styles.mall_price_view : styles.mall_price_view_fill]}>
+                <Text style={styles.mall_price}>{!this.props.active ? this.props.marker.price : "      "}</Text>
+                <Text style={styles.mall_price_epc} >{!this.props.active ? "epc" : "      "}</Text>
+              </View >
+            }
           </Marker>
           <Circle
             center={{

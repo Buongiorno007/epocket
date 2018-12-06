@@ -35,6 +35,7 @@ import { updateMall } from "../../../reducers/selected-mall";
 import { showDashboard } from "../../../reducers/show-dashboard";
 import { loaderState } from "../../../reducers/loader";
 import { setOutlets } from "../../../reducers/outlet-list";
+import { setInitialOutlets } from "../../../reducers/initial-outlets"
 import { setInfo } from "../../../reducers/info"
 //services
 import { httpPost } from "../../../services/http";
@@ -59,25 +60,22 @@ class Map extends React.Component {
     discountActive: false,
     focusedOnMark: false,
     firstCardData: null,
-    allMarkers: {},
     cards: []
   };
   toggleTab = (tab) => {
     this.moveMapTo(this.state.region.latitude, this.state.region.longitude);
     if (tab == "shop") {
       this.setState({ shopActive: true, taskActive: false, discountActive: false, focusedOnMark: false })
-      let allShops = [...this.state.allMarkers.cashouts, ...this.state.allMarkers.outlets]
+      let allShops = [...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]
       this.props.setOutlets(allShops);
-      //this.props.setOutlets(this.state.allMarkers.outlets);
     }
     else if (tab == "task") {
       this.setState({ shopActive: false, taskActive: true, discountActive: false, focusedOnMark: false })
-      this.props.setOutlets(this.state.allMarkers.outlets);
+      this.props.setOutlets(this.props.initial_outlets.outlets);
     }
     else if (tab == "discount") {
       this.setState({ shopActive: false, taskActive: false, discountActive: true, focusedOnMark: false })
-      this.props.setOutlets(this.state.allMarkers.discounts);
-      //this.props.setOutlets(this.state.allMarkers.outlets);
+      this.props.setOutlets(this.props.initial_outlets.discounts);
     }
   }
   setModalVisible = visible => {
@@ -145,8 +143,8 @@ class Map extends React.Component {
       result => {
         this.setModalVisible(false);
         this.props.loaderState(false);
-        this.setState({ allMarkers: result.body })
         this.props.setOutlets(result.body.outlets)
+        this.props.setInitialOutlets(result.body)
         if (this.props.selectedMall.id) {
           this.selectMark(this.props.selectedMall, false, "task");
         } else {
@@ -245,7 +243,6 @@ class Map extends React.Component {
           />
   );
   _showSelectedCard = selectedCard => {
-    console.log(selectedCard)
     // this.props.setDashboardState(2);
     // this.props.setActiveCard(true);
     // this.props.selectMission(this._submissionOrder(selectedCard));
@@ -264,12 +261,10 @@ class Map extends React.Component {
     promise.then(
       result => {
         this.setModalVisible(false);
-        console.log(result)
         if (result.status == 200) {
           let cards = result.body.missions;
           cards.unshift(trc)
-          this.setState({ cards })
-          this.setState({ focusedOnMark: true })
+          this.setState({ cards, focusedOnMark: true })
           //this.props.setMissions(this.getActiveMissions(result.body.missions));
         }
         this.props.loaderState(false);
@@ -307,9 +302,7 @@ class Map extends React.Component {
         this.props.loaderState(false);
         let cards = result.body.products;
         cards.unshift(trc)
-        this.setState({ cards })
-        this.setState({ focusedOnMark: true })
-        console.log(cards)
+        this.setState({ cards, focusedOnMark: true })
         //this.props.setBalance(result.body.balance);
       },
       error => {
@@ -337,9 +330,7 @@ class Map extends React.Component {
         this.props.loaderState(false);
         let cards = result.body.products;
         cards.unshift(trc)
-        this.setState({ cards })
-        console.log(cards)
-        this.setState({ focusedOnMark: true })
+        this.setState({ cards, focusedOnMark: true })
         //this.props.setBalance(result.body.balance);
         //this.setState({ products: result.body.products });
       },
@@ -351,25 +342,35 @@ class Map extends React.Component {
       }
     );
   }
+
   selectMark = (trc, ANIMATE_MAP, mark_type) => {
+    // use JSON.stringify because js copies array with link, so changes applied to the new array applies to the old one as well
     if (mark_type === "task") {
-      console.log("state", this.state.allMarkers.outlets)
-      this.props.setOutlets(this.state.allMarkers.outlets);
+      this.props.setOutlets(this.props.initial_outlets.outlets);
       this.loadTaskItems(trc);
+      let new_outlets = JSON.parse(JSON.stringify(this.props.initial_outlets.outlets));
+      let id = this.props.outlets.indexOf(trc);
+      new_outlets[id].active = true;
+      this.props.setOutlets(new_outlets);
     }
     else if (mark_type === "shop") {
-      let allShops = [...this.state.allMarkers.cashouts, ...this.state.allMarkers.outlets]
-      this.props.setOutlets(allShops);
+      this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
       this.loadCashoutItems(trc);
+      let new_outlets = JSON.parse(JSON.stringify([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]));
+      let id = this.props.outlets.indexOf(trc);
+      new_outlets[id].active = true;
+      this.props.setOutlets(new_outlets);
     }
     else {
-      this.props.setOutlets(this.state.allMarkers.discounts);
+      this.props.setOutlets(this.props.initial_outlets.discounts);
       this.loadDiscountItems(trc);
+      let new_outlets = JSON.parse(JSON.stringify(this.props.initial_outlets.discounts));
+      let id = this.props.outlets.indexOf(trc);
+      new_outlets[id].active = true;
+      this.props.setOutlets(new_outlets);
     }
-    let new_outlets = this.props.outlets;
-    new_outlets[new_outlets.indexOf(trc)].active = true;
-    this.props.setOutlets(new_outlets);
-    // if (trc.id !== this.props.selectedMall.id) {
+
+
     let bounds = geolib.getBounds([
       { latitude: trc.lat, longitude: trc.lng },
       { latitude: this.props.location.lat, longitude: this.props.location.lng }
@@ -413,11 +414,6 @@ class Map extends React.Component {
           // Math.abs(bounds.maxLng - bounds.minLng) * 1.3
         );
     }
-
-    // } else {
-    //     this.props.updateMall();
-    //     this.moveMapTo(this.props.location.lat, this.props.location.lng, 0.0008, 0.0008);
-    // }
   };
   _keyExtractor = (item, index) => item.key;
   render() {
@@ -554,6 +550,7 @@ class Map extends React.Component {
                   key={marker.id}
                   selected={this.props.selectedMall.id}
                   active={marker.active}
+                  discountMarker={this.state.discountActive}
                   onPress={() => {
                     this.state.taskActive ?
                       this.selectMark(marker, true, "task")
@@ -600,7 +597,8 @@ const mapStateToProps = state => {
     token: state.token,
     outlets: state.outlets,
     timer_status: state.timer_status,
-    navigateToMall: state.navigateToMall
+    navigateToMall: state.navigateToMall,
+    initial_outlets: state.initial_outlets
   };
 };
 
@@ -609,6 +607,7 @@ const mapDispatchToProps = dispatch =>
     {
       updateMall,
       showDashboard,
+      setInitialOutlets,
       setLocation,
       setDistance,
       loaderState,

@@ -51,6 +51,8 @@ export default
       "rgba(4,162,235,0.88)",
       "rgba(106,0,185, 0.2)"],
     pink_blue: "#6A00B9",
-    history_first_active:"#00EEFF",
-    history_second_active:"#6A00B9",
+    history_first_active: "#00EEFF",
+    history_second_active: "#6A00B9",
+    active_marker_blue: "rgba(0,35,207,0.15)",
+    active_marker_lightblue: "rgba(46,255,234,0.15)",
   };
