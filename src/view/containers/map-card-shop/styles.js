@@ -11,7 +11,7 @@ export default StyleSheet.create({
     backgroundColor: colors.white,
     borderRadius: 12,
     marginLeft: width * 0.05,
-    padding: 15,
+    padding: 10,
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
@@ -36,6 +36,7 @@ export default StyleSheet.create({
     color: colors.black_o30
   },
   text_cashout: {
+    height: width * 0.07,
     alignItems: "center",
     justifyContent: "center",
     marginTop: 5

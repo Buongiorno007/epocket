@@ -34,7 +34,7 @@ class CardDiscount extends React.Component {
         >
           <View style={styles.dark_cont}>
             <View style={styles.top_text}>
-              <Text style={[styles.price]}>
+              <Text numberOfLines={1}  style={[styles.price]}>
                 {this.props.item.adress}
               </Text>
               <Text style={[styles.owner]}>

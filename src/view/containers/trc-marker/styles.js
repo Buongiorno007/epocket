@@ -10,7 +10,7 @@ export default StyleSheet.create({
         overflow: 'visible',
     },
     image: {
-        width: 30,
+        width: 35,
         height: 35,
         zIndex : 1000,
     },

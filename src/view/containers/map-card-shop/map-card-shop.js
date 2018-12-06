@@ -33,10 +33,10 @@ class CardCashout extends React.Component {
           source={{ uri: this.props.item.photo }}
         />
         <View style={styles.text_cashout}>
-          <Text style={[styles.owner, { color: this.props.userColor.black }]}>
+          <Text numberOfLines={1} style={[styles.owner, { color: this.props.userColor.black }]}>
             {this.props.item.name.toUpperCase()}
           </Text>
-          <Text style={[styles.price]}>
+          <Text numberOfLines={1} style={[styles.price]}>
             {this.props.item.price} epc
         </Text>
         </View>

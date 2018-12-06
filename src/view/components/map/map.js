@@ -60,46 +60,14 @@ class Map extends React.Component {
     focusedOnMark: false,
     firstCardData: null,
     allMarkers: {},
-    cards: [
-      {
-        active: true,
-        color: "black",
-        price: "dfsdf",
-        trade: "dfsdf",
-        date_start: "e5346346dfgdfgdfg",
-        date_end: "e534634dfgdfgdfgdfgƒ6"
-      },
-      {
-        active: true,
-        color: "black",
-        price: "dfsdf",
-        trade: "dfsdf",
-        date_start: "e5346346dfgdfgdfg",
-        date_end: "e534634dfgdfgdfgdfgƒ6"
-      },
-      {
-        active: true,
-        color: "black",
-        price: "dfsdf",
-        trade: "dfsdf",
-        date_start: "e5346346dfgdfgdfg",
-        date_end: "e534634dfgdfgdfgdfgƒ6"
-      },
-      {
-        active: true,
-        color: "black",
-        price: "dfsdf",
-        trade: "dfsdf",
-        date_start: "e5346346dfgdfgdfg",
-        date_end: "e534634dfgdfgdfgdfgƒ6"
-      }
-    ]
+    cards: []
   };
   toggleTab = (tab) => {
     this.moveMapTo(this.state.region.latitude, this.state.region.longitude);
     if (tab == "shop") {
       this.setState({ shopActive: true, taskActive: false, discountActive: false, focusedOnMark: false })
-      this.props.setOutlets(this.state.allMarkers.cashouts);
+      let allShops = [...this.state.allMarkers.cashouts, ...this.state.allMarkers.outlets]
+      this.props.setOutlets(allShops);
       //this.props.setOutlets(this.state.allMarkers.outlets);
     }
     else if (tab == "task") {
@@ -317,9 +285,17 @@ class Map extends React.Component {
   loadCashoutItems = (trc) => {
     this.setModalVisible(false);
     this.props.loaderState(true);
-    let body = {
-      cashoutId: trc.id
-    };
+    let body;
+    if (trc.outlet) {
+      body = {
+        cashoutId: trc.id // clicked marked = cashout
+      };
+    }
+    else {
+      body = {
+        outletId: trc.id // clicked marker = outlet
+      };
+    }
     let promise = httpPost(
       urls.get_outlet_products,
       JSON.stringify(body),
@@ -377,14 +353,22 @@ class Map extends React.Component {
   }
   selectMark = (trc, ANIMATE_MAP, mark_type) => {
     if (mark_type === "task") {
+      console.log("state", this.state.allMarkers.outlets)
+      this.props.setOutlets(this.state.allMarkers.outlets);
       this.loadTaskItems(trc);
     }
     else if (mark_type === "shop") {
+      let allShops = [...this.state.allMarkers.cashouts, ...this.state.allMarkers.outlets]
+      this.props.setOutlets(allShops);
       this.loadCashoutItems(trc);
     }
     else {
+      this.props.setOutlets(this.state.allMarkers.discounts);
       this.loadDiscountItems(trc);
     }
+    let new_outlets = this.props.outlets;
+    new_outlets[new_outlets.indexOf(trc)].active = true;
+    this.props.setOutlets(new_outlets);
     // if (trc.id !== this.props.selectedMall.id) {
     let bounds = geolib.getBounds([
       { latitude: trc.lat, longitude: trc.lng },
@@ -569,6 +553,7 @@ class Map extends React.Component {
                   marker={marker}
                   key={marker.id}
                   selected={this.props.selectedMall.id}
+                  active={marker.active}
                   onPress={() => {
                     this.state.taskActive ?
                       this.selectMark(marker, true, "task")

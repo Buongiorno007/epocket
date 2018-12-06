@@ -94,8 +94,10 @@ export default StyleSheet.create({
         zIndex: 3,
     },
     horizontal_list: {
+        height: width * 0.4,
     },
     horizontal_list_content: {
+        height: width * 0.4,
         alignItems: "center",
         justifyContent: "center"
     }

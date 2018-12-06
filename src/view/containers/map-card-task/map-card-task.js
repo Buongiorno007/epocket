@@ -17,7 +17,7 @@ class CardTask extends React.Component {
   };
   _renderItem = item => (
     <View style={styles.list_item}>
-      <Text style={styles.list_item_text}>{item.index + 1}. {item.item.name}</Text>
+      <Text numberOfLines={2} style={styles.list_item_text}>{item.index + 1}. {item.item.name}</Text>
     </View>
   );
   _keyExtractor = (item, index) => item.key;
@@ -35,10 +35,13 @@ class CardTask extends React.Component {
         <View style={styles.top_container}>
           <Text
             style={styles.time_range}
+            numberOfLines={1}
           >
             {this.props.item.price} epc /{this.props.item.date_start.substring(10, 16)} - {this.props.item.date_end.substring(10, 16)}
           </Text>
-          <Text style={[styles.owner]}>
+          <Text style={[styles.owner]}
+            numberOfLines={1}
+          >
             {this.props.item.trade}
           </Text>
         </View>
