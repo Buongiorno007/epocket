@@ -50,8 +50,8 @@ class Map extends React.Component {
     region: {
       latitude: this.props.location.lat,
       longitude: this.props.location.lng,
-      latitudeDelta: 0.3,
-      longitudeDelta: 0.25
+      latitudeDelta: 0.04323,
+      longitudeDelta: 0.04028
     },
     errorText: "",
     distance: 0,
@@ -91,8 +91,8 @@ class Map extends React.Component {
         {
           latitude: lat,
           longitude: lng,
-          latitudeDelta: latD || 0.089,
-          longitudeDelta: lngD || 0.089
+          latitudeDelta: latD || 0.04323,
+          longitudeDelta: lngD || 0.04028
         },
         animation_time || 450
       );
@@ -123,8 +123,8 @@ class Map extends React.Component {
       }
     }
     if (nextProps.navigateToMall) {
-      this.moveMapTo(nextProps.selectedMall.lat, nextProps.selectedMall.lng, 0.0005,
-        0.0005);
+      this.moveMapTo(nextProps.selectedMall.lat, nextProps.selectedMall.lng, 0.0058,
+        0.0058);
       this.setState({ location_loader: false });
       this.props.setNavigateToMall(false)
     }
@@ -150,7 +150,7 @@ class Map extends React.Component {
         this.props.setOutlets(result.body.outlets)
         this.props.setInitialOutlets(result.body)
         if (this.props.selectedMall.id) {
-          this.selectMark(this.props.selectedMall, false, "task");
+          //this.selectMark(this.props.selectedMall, false, "task");
         } else {
           this.props.isLocation &&
             this.selectNearestMall(
@@ -192,9 +192,7 @@ class Map extends React.Component {
         if (!this.props.selectedMall.id) {
           this.moveMapTo(
             position.coords.latitude,
-            position.coords.longitude,
-            0.0008,
-            0.0008
+            position.coords.longitude
           );
         }
         if (this.props.selectedMall.id) {
@@ -344,11 +342,11 @@ class Map extends React.Component {
     );
   }
   onRegionChange = (region) => {
-    if (Number(region.latitude).toFixed(3) == this.state.pickedMark.latitude && Number(region.longitude).toFixed(5) == this.state.pickedMark.longitude) {
-      console.log(Number(region.latitude).toFixed(3))
-      console.log(this.state.pickedMark.latitude)
-      console.log(Number(region.longitude).toFixed(5))
-      console.log(this.state.pickedMark.longitude)
+    if ((this.state.pickedMark.latitude == 0 && this.state.pickedMark.longitude == 0)
+      ||
+      (Number(region.latitude).toFixed(3) == this.state.pickedMark.latitude && Number(region.longitude).toFixed(5) == this.state.pickedMark.longitude)) {
+      console.log(Number(region.latitude).toFixed(3), Number(region.longitude).toFixed(5))
+      console.log(this.state.pickedMark.latitude, this.state.pickedMark.longitude)
     }
     else {
       this.setState({ focusedOnMark: false })
