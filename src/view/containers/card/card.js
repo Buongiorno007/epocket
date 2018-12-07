@@ -4,6 +4,9 @@ import { Button } from "native-base";
 //constants
 import styles from "./styles";
 import { colors } from "../../../constants/colors";
+//redux
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 class Card extends React.Component {
   constructor(props) {
@@ -17,25 +20,25 @@ class Card extends React.Component {
       <Button
         style={
           this.props.item.active
-            ? [styles.card, Platform.OS === 'android' && {  
-              borderTopWidth : 1,
-              borderTopColor : 'rgba(217, 221, 224, 0.5)',
+            ? [styles.card, Platform.OS === 'android' && {
+              borderTopWidth: 1,
+              borderTopColor: 'rgba(217, 221, 224, 0.5)',
             }]
             : [
-                styles.card,
-                {
-                  borderWidth: 1,
-                  borderColor: this.props.item.color,
-                  backgroundColor: "transparent",
-                  elevation: 0,
-                  shadowColor: this.props.userColor.card_shadow,
-                  shadowOffset: {
-                    width: 0,
-                    height: 0
-                  },
-                  shadowRadius: 0
-                }
-              ]
+              styles.card,
+              {
+                borderWidth: 1,
+                borderColor: this.props.item.color,
+                backgroundColor: "transparent",
+                elevation: 0,
+                shadowColor: this.props.userColor.card_shadow,
+                shadowOffset: {
+                  width: 0,
+                  height: 0
+                },
+                shadowRadius: 0
+              }
+            ]
         }
         onPress={
           this.props.item.active
@@ -70,4 +73,20 @@ class Card extends React.Component {
   }
 }
 
-export default Card;
+const mapStateToProps = state => ({
+  userColor: state.userColor,
+  timer: state.timer,
+  timer_status: state.timer_status,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+    },
+    dispatch
+  );
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Card);

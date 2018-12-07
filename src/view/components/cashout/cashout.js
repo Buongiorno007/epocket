@@ -30,37 +30,38 @@ class Cashout extends React.Component {
   setModalVisible = visible => {
     this.setState({ errorVisible: visible });
   };
-  loadData = () => {
-    this.setModalVisible(false);
-    this.props.loaderState(true);
-    let body = {
-      outletId: this.props.selectedMall.id
-    };
-    let promise = httpPost(
-      urls.get_outlet_products,
-      JSON.stringify(body),
-      this.props.token
-    );
-    promise.then(
-      result => {
-        this.setModalVisible(false);
-        this.props.loaderState(false);
-        this.props.setBalance(result.body.balance);
-        this.setState({ products: result.body.products });
-      },
-      error => {
-        // this.props.loaderState(false);
-        let error_respons = handleError(error, this.constructor.name, "loadData");
-        this.setState({ errorText: error_respons.error_text });
-        this.setModalVisible(error_respons.error_modal);
+  separateProducts = (list_of_products) => {
+    let categoryList = [];
+    let addedIds = [];
+    addedIds.push(list_of_products[0].category.id)
+    for (let i = 0; i < list_of_products.length; i++) {
+      if (!addedIds.includes(list_of_products[i].category.id)) {
+        addedIds.push(list_of_products[i].category.id)
       }
-    );
-  };
+    }
+    addedIds.forEach(element => {
+      let category = list_of_products.find(x => x.category.id === element).category;
+      categoryList.push(category)
+    });
+    let separatedList = [...categoryList];
+    separatedList.map(function (element) {
+      element.products = []
+    })
+    categoryList.forEach(category => {
+      list_of_products.forEach(product => {
+        if (product.category.id === category.id) {
+          let categoryCopy = categoryList.find(x => x.id === category.id);
+          categoryCopy.products.push(product)
+        }
+      });
+    });
+    return separatedList;
+  }
   componentDidMount = () => {
-    this.props.selectedMall.id && this.loadData();
-    // this.props.loaderState(true);
+    let data = this.separateProducts(this.props.navigation.state.params.cashout_data)
+    console.log(data)
+    this.setState({ products: data })
   };
-
   render = () => {
     return (
       <View style={styles.container}>
@@ -69,7 +70,7 @@ class Cashout extends React.Component {
           first_btn_title={RU.REPEAT}
           visible={this.state.errorVisible}
           first_btn_handler={() => {
-            this.loadData();
+            //this.loadData();
           }}
           decline_btn_handler={() => {
             this.setModalVisible(!this.state.errorVisible);
@@ -90,7 +91,6 @@ class Cashout extends React.Component {
         />
         <List data={this.state.products} />
         <TimerModal />
-        <FooterNavigation />
       </View>
     );
   };

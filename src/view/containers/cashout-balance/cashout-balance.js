@@ -33,7 +33,7 @@ class CashoutBalance extends React.Component {
               <FastImage
                 resizeMode={FastImage.resizeMode.contain}
                 style={styles.icon}
-                source={{ uri: ICONS.COMMON.CLOSE }}
+                source={{ uri: ICONS.COMMON.NAVIGATE_BACK }}
               />
               <Text style={[styles.text, styles.title]}>{this.props.navigation.title}</Text>
             </Button>

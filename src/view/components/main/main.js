@@ -40,19 +40,6 @@ class Main extends React.Component {
       this.props.setColor(object.sex);
     });
   }
-  renderSecondTab = () => {
-    let container;
-    if (this.props.dashboard) {
-      container = <Dashboard />
-    }
-    else if (this.props.info) {
-      container = <Info />
-    }
-    else {
-      container = <Map />
-    }
-    return container
-  }
   renderLastTab = () => {
     let container;
     if (this.props.game_status == "start" || this.props.game_status == "lock") {
@@ -77,7 +64,7 @@ class Main extends React.Component {
         <View style={styles.content}>
           {this.props.activeTab == 0 ? <Profile /> : null}
           {this.props.activeTab == 1 ? <Cashout /> : null}
-          {this.props.activeTab == 2 ? this.renderSecondTab() : null}
+          {this.props.activeTab == 2 ? <Map /> : null}
           {this.props.activeTab == 3 ? <History /> : null}
           {this.props.activeTab == 4 ? this.renderLastTab() : null}
         </View>

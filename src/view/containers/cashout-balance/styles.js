@@ -40,8 +40,8 @@ export default StyleSheet.create({
         alignItems: 'center',
     },
     icon: {
-        width: 20,
-        height: 30,
+        width: 10,
+        height: 20,
         marginRight: width * 0.02,
     },
     cash: {

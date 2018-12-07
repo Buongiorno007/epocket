@@ -69,7 +69,6 @@ class CardList extends React.Component {
                   <Text style={styles.no_tasks_text}>{RU.NO_TASKS}</Text>
                 </View>
               )}
-            <FooterNavigation />
           </View>
         ) : (
             <OpenedCard style={!this.props.activeCard ? styles.disabled : null} />

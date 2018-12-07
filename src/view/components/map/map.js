@@ -40,6 +40,7 @@ import { setInfo } from "../../../reducers/info"
 //services
 import { httpPost } from "../../../services/http";
 import { handleError } from "../../../services/http-error-handler";
+import NavigationService from "../../../services/route";
 import getCurrentGeolocation from "../../../services/get-location"
 import { sendToTelegramm } from '../../../services/telegramm-notification'
 
@@ -216,7 +217,7 @@ class Map extends React.Component {
       <CardFirst
         item={item.item}
         key={item.item.id}
-        onPressItem={this._showSelectedCard}
+        onPressItem={this.openNext}
         btnText={
           this.state.taskActive ? RU.MAP.TASKS.toUpperCase() :
             this.state.shopActive ? RU.MAP.MAKE_PREORDER.toUpperCase() :
@@ -244,6 +245,18 @@ class Map extends React.Component {
             onPressItem={this._showSelectedCard}
           />
   );
+  openNext = selectedCard => {
+    console.log(selectedCard)
+    console.log(this.state.cards)
+    let copyOfCards = [...this.state.cards]
+    copyOfCards.shift();
+    if (this.state.taskActive) {
+      NavigationService.navigate("Dashboard", { dashboard_data: copyOfCards });
+    }
+    else {
+      NavigationService.navigate("Cashout", { cashout_data: copyOfCards });
+    }
+  }
   _showSelectedCard = selectedCard => {
     // this.props.setDashboardState(2);
     // this.props.setActiveCard(true);
@@ -396,9 +409,12 @@ class Map extends React.Component {
     this.props.setDistance(distance);
 
     if (distance <= 0 && this.props.isLocation) {
-      this.props.showDashboard(true);
+      let copyOfCards = [...this.state.cards]
+      copyOfCards.shift();
+      if (this.state.taskActive) {
+        NavigationService.navigate("Dashboard", { dashboard_data: copyOfCards });
+      }
     } else {
-      this.props.showDashboard(false);
       ANIMATE_MAP &&
         this.moveMapTo(
           Number(trc.lat),

@@ -227,5 +227,10 @@ export const RU = {
       POST_SUCCESS_MESSAGE: 'Ваш пост успешно опубликован',
       POST_NO_PUBLISH_MESSAGE: 'Ваш пост не был опубликован',
     }
-  }
+  },
+  CASHOUT_LIST: {
+    POSITIONS_1: "позиция",
+    POSITIONS_2: "позиции",
+    POSITIONS_3: "позиций",
+  },
 };

@@ -1,5 +1,7 @@
 import React from "react";
-import { View, ScrollView, Text } from "react-native";
+import { View, ScrollView, Text, TouchableOpacity } from "react-native";
+import Accordion from 'react-native-collapsible/Accordion';
+import FastImage from 'react-native-fast-image'
 //containers
 import Item from "./../../containers/cashout-list-item/cashout-list-item";
 import CustomButton from "./../../containers/custom-button/custom-button";
@@ -9,6 +11,7 @@ import styles from "./styles";
 import { RU } from "./../../../locales/ru";
 import { urls } from "../../../constants/urls";
 import { colors } from "../../../constants/colors_men";
+import { ICONS } from "./../../../constants/icons";
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -22,10 +25,10 @@ import { handleError } from "../../../services/http-error-handler";
 class CashoutList extends React.Component {
   state = {
     errorVisible: false,
-    errorText: ""
+    errorText: "",
+    activeSections: []
   };
   order = [];
-
   setModalVisible = visible => {
     this.setState({ errorVisible: visible });
   };
@@ -83,6 +86,50 @@ class CashoutList extends React.Component {
     }
   };
 
+  _renderHeader = section => {
+    return (
+      <View style={styles.header}>
+        <View style={styles.header_container}>
+          <FastImage
+            style={styles.round_image}
+            resizeMode={FastImage.resizeMode.contain}
+            source={{ uri: ICONS.WHITE_LOGO, priority: FastImage.priority.high }}
+          />
+          <View style={styles.header_text}>
+            <Text >{section.name}</Text>
+            <Text >{
+              section.products.length === 1 ?
+                section.products.length + " " + RU.CASHOUT_LIST.POSITIONS_1 :
+                section.products.length > 1 && section.products.length <= 4 ?
+                  section.products.length + " " + RU.CASHOUT_LIST.POSITIONS_2 :
+                  section.products.length + " " + RU.CASHOUT_LIST.POSITIONS_3
+            }</Text>
+          </View>
+          <FastImage
+            style={styles.arrow}
+            resizeMode={FastImage.resizeMode.contain}
+            source={{ uri: ICONS.WHITE_LOGO }}
+          />
+        </View>
+      </View>
+    );
+  };
+  _renderContent = section => {
+    return (
+      <View style={styles.content}>
+        {section.products.map((item, i) => (
+          <Item
+            key={i}
+            item={item}
+            addItemToOrder={this.addItemToOrder}
+          />
+        ))}
+      </View>
+    );
+  };
+  _updateSections = activeSections => {
+    this.setState({ activeSections });
+  };
   render = () => {
     return (
       <View style={styles.container}>
@@ -103,15 +150,18 @@ class CashoutList extends React.Component {
               style={styles.scroll}
               showsVerticalScrollIndicator={false}
             >
-              {this.props.data.map((item, i) => (
-                <Item
-                  key={i}
-                  item={item}
-                  addItemToOrder={this.addItemToOrder}
-                />
-              ))}
+              <Accordion
+                activeSections={this.state.activeSections}
+                onChange={this._updateSections}
+                sectionContainerStyle={styles.header}
+                touchableComponent={TouchableOpacity}
+                sections={this.props.data}
+                renderHeader={this._renderHeader}
+                renderContent={this._renderContent}
+                onChange={this._updateSections}
+              />
             </ScrollView>
-            <View style={styles.button}>
+            {/* <View style={styles.button}>
               <CustomButton
                 active
                 gradient
@@ -119,7 +169,7 @@ class CashoutList extends React.Component {
                 color={this.props.userColor.white}
                 handler={() => this.sendOrder()}
               />
-            </View>
+            </View> */}
           </View>
         ) : (
             <View style={styles.empty}>

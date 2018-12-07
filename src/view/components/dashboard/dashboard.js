@@ -50,8 +50,11 @@ class Dashboard extends React.Component {
   };
 
   componentDidMount = () => {
-    this.getMissions();
-    this.callTimer();
+    console.log(this.props.navigation.state.params.dashboard_data)
+    this.props.setMissions(this.getActiveMissions(this.props.navigation.state.params.dashboard_data));
+    this.setState({ load_missions: false, load_timer: false });
+    //this.getMissions();
+    //this.callTimer();
   };
   setStartMissionErrorVisible = visible => {
     this.setState({ startMissionErrorVisible: visible });

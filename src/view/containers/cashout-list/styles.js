@@ -18,6 +18,33 @@ export default StyleSheet.create({
     backgroundColor: "rgba(245, 249, 254, 1)",
     zIndex: 2
   },
+  header: {
+    width: width,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  header_container: {
+    backgroundColor: "red",
+    width: width * 0.85,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+  round_image: {
+    width: 50,
+    height: 50,
+    borderRadius: 25
+  },
+  arrow: {
+    width: 20,
+    height: 20,
+  },
+  header_text: {
+    flexDirection: "column",
+  },
+  content: {
+    width: width,
+  },
   scroll: {
     width: width,
     marginBottom: 20
