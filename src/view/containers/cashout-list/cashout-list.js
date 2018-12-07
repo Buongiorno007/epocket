@@ -90,20 +90,22 @@ class CashoutList extends React.Component {
     return (
       <View style={styles.header}>
         <View style={styles.header_container}>
-          <FastImage
-            style={styles.round_image}
-            resizeMode={FastImage.resizeMode.contain}
-            source={{ uri: ICONS.WHITE_LOGO, priority: FastImage.priority.high }}
-          />
-          <View style={styles.header_text}>
-            <Text >{section.name}</Text>
-            <Text >{
-              section.products.length === 1 ?
-                section.products.length + " " + RU.CASHOUT_LIST.POSITIONS_1 :
-                section.products.length > 1 && section.products.length <= 4 ?
-                  section.products.length + " " + RU.CASHOUT_LIST.POSITIONS_2 :
-                  section.products.length + " " + RU.CASHOUT_LIST.POSITIONS_3
-            }</Text>
+          <View style={styles.left_part}>
+            <FastImage
+              style={styles.round_image}
+              resizeMode={FastImage.resizeMode.contain}
+              source={require("../../../assets/img/settings.png")}
+            />
+            <View style={styles.header_text}>
+              <Text style={styles.header_name}>{section.name.toUpperCase()}</Text>
+              <Text style={styles.positions}>{
+                section.products.length === 1 ?
+                  section.products.length + " " + RU.CASHOUT_LIST.POSITIONS_1 :
+                  section.products.length > 1 && section.products.length <= 4 ?
+                    section.products.length + " " + RU.CASHOUT_LIST.POSITIONS_2 :
+                    section.products.length + " " + RU.CASHOUT_LIST.POSITIONS_3
+              }</Text>
+            </View>
           </View>
           <FastImage
             style={styles.arrow}

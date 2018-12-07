@@ -26,6 +26,7 @@ export const colors =
   white_o25: "rgba(255,255,255, 0.25)",
   black_o60: "rgba(0,0,0, 0.6)",
   black_o90: "rgba(0,0,0, 0.09)",
+  black_38: "rgba(0,0,0, 0.38)",
   black_90: "rgba(0,0,0, 0.9)",
   black_50: "rgba(0,0,0, 0.5)",
   drag_panel_color: "#F5F9FE",

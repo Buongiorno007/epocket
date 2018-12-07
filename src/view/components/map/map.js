@@ -68,7 +68,16 @@ class Map extends React.Component {
     }
   };
   toggleTab = (tab) => {
-    this.moveMapTo(this.state.region.latitude, this.state.region.longitude);
+    console.log(this.map.__lastRegion)
+    this.map.animateToRegion(
+      {
+        latitude: this.map.__lastRegion.latitude - 0.0008344042843,
+        longitude: this.map.__lastRegion.longitude,
+        latitudeDelta: 0.04323,
+        longitudeDelta: 0.04028
+      },
+      450
+    );
     if (tab == "shop") {
       this.setState({ shopActive: true, taskActive: false, discountActive: false, focusedOnMark: false })
       let allShops = [...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]
@@ -126,6 +135,7 @@ class Map extends React.Component {
     if (nextProps.navigateToMall) {
       this.moveMapTo(nextProps.selectedMall.lat, nextProps.selectedMall.lng, 0.0058,
         0.0058);
+      this.selectMark(this.props.selectedMall, false, "task");
       this.setState({ location_loader: false });
       this.props.setNavigateToMall(false)
     }

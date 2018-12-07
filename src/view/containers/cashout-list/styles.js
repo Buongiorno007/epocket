@@ -24,16 +24,32 @@ export default StyleSheet.create({
     justifyContent: "center",
   },
   header_container: {
-    backgroundColor: "red",
     width: width * 0.85,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center"
   },
+  header_name: {
+    fontSize: 12,
+    fontFamily: "Rubik-Medium",
+    color: colors.black
+  },
+  positions: {
+    fontSize: 8,
+    fontFamily: "Rubik-Regular",
+    color: colors.black_38
+  },
+  left_part: {
+    width: width * 0.6,
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center"
+  },
   round_image: {
     width: 50,
     height: 50,
-    borderRadius: 25
+    borderRadius: 25,
+    marginRight: 30
   },
   arrow: {
     width: 20,
