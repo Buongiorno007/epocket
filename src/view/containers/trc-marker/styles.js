@@ -13,7 +13,6 @@ export default StyleSheet.create({
         width: 35,
         height: 35,
         zIndex: 1000,
-        marginTop: 10
     },
     gradient: {
         width: 55,
@@ -22,6 +21,7 @@ export default StyleSheet.create({
         zIndex: 999,
         position: "absolute",
         top: 0,
+        bottom: 0
     },
     big_gradient: {
         width: 60,

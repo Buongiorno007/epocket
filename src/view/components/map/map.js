@@ -60,7 +60,11 @@ class Map extends React.Component {
     discountActive: false,
     focusedOnMark: false,
     firstCardData: null,
-    cards: []
+    cards: [],
+    pickedMark: {
+      latitude: 0,
+      longitude: 0
+    }
   };
   toggleTab = (tab) => {
     this.moveMapTo(this.state.region.latitude, this.state.region.longitude);
@@ -81,7 +85,7 @@ class Map extends React.Component {
   setModalVisible = visible => {
     this.setState({ errorVisible: visible });
   };
-  moveMapTo = (lat, lng, latD, lngD) => {
+  moveMapTo = (lat, lng, latD, lngD, animation_time, timeout) => {
     setTimeout(() => {
       this.map.animateToRegion(
         {
@@ -90,9 +94,9 @@ class Map extends React.Component {
           latitudeDelta: latD || 0.089,
           longitudeDelta: lngD || 0.089
         },
-        450
+        animation_time || 450
       );
-    }, 200);
+    }, timeout || 200);
   };
   componentWillReceiveProps = nextProps => {
     if (
@@ -248,7 +252,6 @@ class Map extends React.Component {
     // this.props.selectMission(this._submissionOrder(selectedCard));
   };
   loadTaskItems = (trc) => {
-    this.props.loaderState(true);
     this.setModalVisible(false);
     let body = {
       outletId: trc.id
@@ -278,7 +281,6 @@ class Map extends React.Component {
     );
   }
   loadCashoutItems = (trc) => {
-    this.setModalVisible(false);
     this.props.loaderState(true);
     let body;
     if (trc.outlet) {
@@ -314,7 +316,6 @@ class Map extends React.Component {
     );
   }
   loadDiscountItems = (trc) => {
-    this.setModalVisible(false);
     this.props.loaderState(true);
     let body = {
       cashoutId: trc.id
@@ -342,35 +343,31 @@ class Map extends React.Component {
       }
     );
   }
-
-  selectMark = (trc, ANIMATE_MAP, mark_type) => {
-    // use JSON.stringify because js copies array with link, so changes applied to the new array applies to the old one as well
-    if (mark_type === "task") {
-      this.props.setOutlets(this.props.initial_outlets.outlets);
-      this.loadTaskItems(trc);
-      let new_outlets = JSON.parse(JSON.stringify(this.props.initial_outlets.outlets));
-      let id = this.props.outlets.indexOf(trc);
-      new_outlets[id].active = true;
-      this.props.setOutlets(new_outlets);
-    }
-    else if (mark_type === "shop") {
-      this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
-      this.loadCashoutItems(trc);
-      let new_outlets = JSON.parse(JSON.stringify([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]));
-      let id = this.props.outlets.indexOf(trc);
-      new_outlets[id].active = true;
-      this.props.setOutlets(new_outlets);
+  onRegionChange = (region) => {
+    if (Number(region.latitude).toFixed(3) == this.state.pickedMark.latitude && Number(region.longitude).toFixed(5) == this.state.pickedMark.longitude) {
+      console.log(Number(region.latitude).toFixed(3))
+      console.log(this.state.pickedMark.latitude)
+      console.log(Number(region.longitude).toFixed(5))
+      console.log(this.state.pickedMark.longitude)
     }
     else {
-      this.props.setOutlets(this.props.initial_outlets.discounts);
-      this.loadDiscountItems(trc);
-      let new_outlets = JSON.parse(JSON.stringify(this.props.initial_outlets.discounts));
-      let id = this.props.outlets.indexOf(trc);
-      new_outlets[id].active = true;
-      this.props.setOutlets(new_outlets);
+      this.setState({ focusedOnMark: false })
+      if (this.state.shopActive) {
+        this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
+      } else if (this.state.taskActive) {
+        this.props.setOutlets(this.props.initial_outlets.outlets);
+      } else {
+        this.props.setOutlets(this.props.initial_outlets.discounts);
+      }
     }
-
-
+  }
+  selectMark = (trc, ANIMATE_MAP, mark_type) => {
+    this.setState({
+      pickedMark: {
+        latitude: Number(trc.lat).toFixed(3),
+        longitude: Number(trc.lng).toFixed(5)
+      }
+    })
     let bounds = geolib.getBounds([
       { latitude: trc.lat, longitude: trc.lng },
       { latitude: this.props.location.lat, longitude: this.props.location.lng }
@@ -409,10 +406,44 @@ class Map extends React.Component {
           Number(trc.lat),
           Number(trc.lng),
           0.0058,
-          0.0058
+          0.0058,
           // Math.abs(bounds.maxLat - bounds.minLat) * 1.3,
           // Math.abs(bounds.maxLng - bounds.minLng) * 1.3
         );
+      // use JSON.stringify because js copies array with link, so changes applied to the new array applies to the old one as well
+      if (mark_type === "task") {
+        this.props.loaderState(true);
+        this.loadTaskItems(trc);
+        this.props.setOutlets(this.props.initial_outlets.outlets);
+        let new_outlets = JSON.parse(JSON.stringify(this.props.initial_outlets.outlets));
+        let id = this.props.outlets.indexOf(trc);
+        if (new_outlets[id]) {
+          new_outlets[id].active = true;
+          this.props.setOutlets(new_outlets);
+        }
+      }
+      else if (mark_type === "shop") {
+        this.props.loaderState(true);
+        this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
+        this.loadCashoutItems(trc);
+        let new_outlets = JSON.parse(JSON.stringify([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]));
+        let id = this.props.outlets.indexOf(trc);
+        if (new_outlets[id]) {
+          new_outlets[id].active = true;
+          this.props.setOutlets(new_outlets);
+        }
+      }
+      else {
+        this.props.loaderState(true);
+        this.props.setOutlets(this.props.initial_outlets.discounts);
+        this.loadDiscountItems(trc);
+        let new_outlets = JSON.parse(JSON.stringify(this.props.initial_outlets.discounts));
+        let id = this.props.outlets.indexOf(trc);
+        if (new_outlets[id]) {
+          new_outlets[id].active = true;
+          this.props.setOutlets(new_outlets);
+        }
+      }
     }
   };
   _keyExtractor = (item, index) => item.key;
@@ -533,6 +564,9 @@ class Map extends React.Component {
           showUserLocation
           followUserLocation
           loadingEnabled
+          onRegionChangeComplete={
+            this.onRegionChange
+          }
         >
           <Marker
             coordinate={{

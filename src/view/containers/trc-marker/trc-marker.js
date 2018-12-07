@@ -50,7 +50,9 @@ class TRCMarker extends React.Component {
             }
             <ImageBackground
               key={this.props.marker.id}
-              style={this.props.discountMarker ? styles.discount_image : styles.image}
+              style={[this.props.discountMarker ? styles.discount_image : styles.image, this.props.active && {
+                marginTop: 10
+              }]}
               source={{ uri: this.props.active ? this.props.discountMarker ? ICONS.COMMON.DISCOUNT_ACTIVE : ICONS.COMMON.STORE_ACTIVE : this.props.discountMarker ? ICONS.COMMON.DISCOUNT_INACTIVE : ICONS.COMMON.STORE_INACTIVE }}
             >
               {this.props.discountMarker &&
