@@ -4,6 +4,7 @@ import MapView, { Marker, Circle } from "react-native-maps";
 import LinearGradient from "react-native-linear-gradient";
 //constants
 import styles from "./styles";
+import { RU } from "./../../../locales/ru";
 import { colors } from "./../../../constants/colors";
 import { ICONS } from "../../../constants/icons";
 //redux
@@ -65,7 +66,7 @@ class TRCMarker extends React.Component {
             {!this.props.discountMarker &&
               <View style={[!this.props.active ? styles.mall_price_view : styles.mall_price_view_fill]}>
                 <Text style={styles.mall_price}>{!this.props.active ? this.props.marker.price : "      "}</Text>
-                <Text style={styles.mall_price_epc} >{!this.props.active ? "epc" : "      "}</Text>
+                <Text style={styles.mall_price_epc} >{!this.props.active ? RU.EPC : "      "}</Text>
               </View >
             }
           </Marker>

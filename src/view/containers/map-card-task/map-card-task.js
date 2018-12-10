@@ -3,6 +3,7 @@ import { View, Text, Dimensions, Platform, FlatList } from "react-native";
 import { Button } from "native-base";
 //constants
 import styles from "./styles";
+import { RU } from "../../../locales/ru";
 import { colors } from "../../../constants/colors";
 //redux
 import { connect } from "react-redux";
@@ -37,7 +38,7 @@ class CardTask extends React.Component {
             style={styles.time_range}
             numberOfLines={1}
           >
-            {this.props.item.price} epc /{this.props.item.date_start.substring(10, 16)} - {this.props.item.date_end.substring(10, 16)}
+            {this.props.item.price} {RU.EPC} /{this.props.item.date_start.substring(10, 16)} - {this.props.item.date_end.substring(10, 16)}
           </Text>
           <Text style={[styles.owner]}
             numberOfLines={1}

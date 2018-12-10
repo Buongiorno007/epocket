@@ -6,15 +6,12 @@ const { width, height } = Dimensions.get("window");
 
 export default StyleSheet.create({
   container: {
-    paddingBottom: 25,
     paddingTop: width * 0.075,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     alignItems: "center",
-    position: "absolute",
-    height: height * 0.75,
+    height: height * 0.9,
     width: width,
-    bottom: 50,
     backgroundColor: "rgba(245, 249, 254, 1)",
     zIndex: 2
   },
@@ -25,9 +22,15 @@ export default StyleSheet.create({
   },
   header_container: {
     width: width * 0.85,
+    paddingBottom: 15,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center"
+  },
+  borderTop: {
+    paddingTop: 15,
+    borderTopColor: colors.settings_gray,
+    borderTopWidth: 1,
   },
   header_name: {
     fontSize: 12,
@@ -46,9 +49,9 @@ export default StyleSheet.create({
     alignItems: "center"
   },
   round_image: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     marginRight: 30
   },
   arrow: {

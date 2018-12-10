@@ -23,7 +23,7 @@ class HistoryCard extends React.Component {
     errorText: ""
   };
   componentDidMount() {
-    let error_respons = handleError({code: this.props.info.error}, this.constructor.name, "componentDidMount");
+    let error_respons = handleError({ code: this.props.info.error }, this.constructor.name, "componentDidMount");
     this.setState({ errorText: error_respons.error_text });
   }
   setModalVisible = visible => {
@@ -52,71 +52,71 @@ class HistoryCard extends React.Component {
             }}
           />
         ) : (
-          <View>
-            {this.props.type == "received" ? (
-              <View style={styles.received_card}>
-                <View style={styles.cost}>
-                  <Text style={styles.price_text}>
-                    {this.props.info.price} epc
-                  </Text>
-                </View>
-                <View style={styles.name}>
-                  <LinearTextGradient
-                    numberOfLines={1}
-                    locations={[0, 1]}
-                    colors={[this.props.userColor.pink, this.props.userColor.orange]}
-                    start={{ x: 0.0, y: 1.0 }}
-                    end={{ x: 1.0, y: 1.0 }}
-                    style={styles.name_text}
-                  >
+            <View>
+              {this.props.type == "received" ? (
+                <View style={styles.received_card}>
+                  <View style={styles.cost}>
+                    <Text style={styles.price_text}>
+                      {this.props.info.price} {RU.EPC}
+                    </Text>
+                  </View>
+                  <View style={styles.name}>
+                    <LinearTextGradient
+                      numberOfLines={1}
+                      locations={[0, 1]}
+                      colors={[this.props.userColor.pink, this.props.userColor.orange]}
+                      start={{ x: 0.0, y: 1.0 }}
+                      end={{ x: 1.0, y: 1.0 }}
+                      style={styles.name_text}
+                    >
                       {this.props.info.trade_point_name.toUpperCase()}
-                  </LinearTextGradient>
+                    </LinearTextGradient>
+                  </View>
+                  <View style={styles.date}>
+                    <Text style={styles.date_text}>
+                      {this.props.info.date
+                        .split("T")[1]
+                        .split("+")[0]
+                        .slice(0, -7)}
+                    </Text>
+                    <Text style={styles.date_text}>
+                      {this.format(this.props.info.date.split("T")[0])}
+                    </Text>
+                  </View>
                 </View>
-                <View style={styles.date}>
-                  <Text style={styles.date_text}>
-                    {this.props.info.date
-                      .split("T")[1]
-                      .split("+")[0]
-                      .slice(0, -7)}
-                  </Text>
-                  <Text style={styles.date_text}>
-                    {this.format(this.props.info.date.split("T")[0])}
-                  </Text>
-                </View>
-              </View>
-            ) : (
-              <View style={styles.spent_card}>
-                <View style={styles.name_and_price}>
-                  <LinearTextGradient
-                      numberOfLines={2}
-                    locations={[0, 1]}
-                    colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
-                    start={{ x: 0.0, y: 1.0 }}
-                    end={{ x: 1.0, y: 1.0 }}
-                    style={styles.item_name_text}
-                  >
-                    {this.props.info.product_name}
-                  </LinearTextGradient>
-                  <Text style={styles.amount}>
-                    {this.props.info.price} x {this.props.info.amount} ={" "}
-                    {this.props.info.price * this.props.info.amount} epc
-                  </Text>
-                </View>
-                <View style={styles.date}>
-                  <Text style={styles.date_text}>
-                    {this.props.info.date
-                      .split("T")[1]
-                      .split("+")[0]
-                      .slice(0, -3)}
-                  </Text>
-                  <Text style={styles.date_text}>
-                    {this.format(this.props.info.date.split("T")[0])}
-                  </Text>
-                </View>
-              </View>
-            )}
-          </View>
-        )}
+              ) : (
+                  <View style={styles.spent_card}>
+                    <View style={styles.name_and_price}>
+                      <LinearTextGradient
+                        numberOfLines={2}
+                        locations={[0, 1]}
+                        colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
+                        start={{ x: 0.0, y: 1.0 }}
+                        end={{ x: 1.0, y: 1.0 }}
+                        style={styles.item_name_text}
+                      >
+                        {this.props.info.product_name}
+                      </LinearTextGradient>
+                      <Text style={styles.amount}>
+                        {this.props.info.price} x {this.props.info.amount} ={" "}
+                        {this.props.info.price * this.props.info.amount} {RU.EPC}
+                      </Text>
+                    </View>
+                    <View style={styles.date}>
+                      <Text style={styles.date_text}>
+                        {this.props.info.date
+                          .split("T")[1]
+                          .split("+")[0]
+                          .slice(0, -3)}
+                      </Text>
+                      <Text style={styles.date_text}>
+                        {this.format(this.props.info.date.split("T")[0])}
+                      </Text>
+                    </View>
+                  </View>
+                )}
+            </View>
+          )}
       </View>
     );
   }

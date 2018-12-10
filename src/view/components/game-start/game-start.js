@@ -3,17 +3,25 @@ import { View, Text, Image } from 'react-native';
 import { LinearTextGradient } from "react-native-text-gradient";
 import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
+import geolib from "geolib";
 //redux
 import { connect } from 'react-redux';
 import { setTabState } from "../../../reducers/tabs";
 import { setNavigateToMall } from "../../../reducers/navigate-to-mall"
 import { bindActionCreators } from 'redux';
 import { setGameStatus } from "../../../reducers/game-status"
+import { loaderState } from "../../../reducers/loader";
 import { getGameInfo } from "../../../reducers/game-info";
 import { resetGameExpiredTimer } from "../../../reducers/game-expired-timer"
 import { errorState } from "../../../reducers/game-error"
+import { setLocation } from "../../../reducers/geolocation-coords";
+import { setDistance } from "../../../reducers/distance";
+import { updateMall } from "../../../reducers/selected-mall";
+import { setOutlets } from "../../../reducers/outlet-list";
+import { setInitialOutlets } from "../../../reducers/initial-outlets"
 //constants
 import styles from './styles';
+import { urls } from "../../../constants/urls";
 import { colors } from './../../../constants/colors';
 import { RU } from '../../../locales/ru';
 //containers
@@ -23,15 +31,94 @@ import ActivityIndicator from "../../containers/activity-indicator/activity-indi
 import CustomAlert from "../../containers/custom-alert/custom-alert";
 import TrcInformation from "../../containers/trc-information/trc-information";
 //services
+import { httpPost } from "../../../services/http";
+import { handleError } from "../../../services/http-error-handler";
 import NavigationService from "./../../../services/route";
 import "../../../services/correcting-interval";
 
 class GameStart extends React.Component {
     state = {
+        errorVisible: false,
+        errorText: "",
     };
     componentDidMount() {
         this.props.getGameInfo(this.props.token, this.props.location.lat, this.props.location.lng)
+        this.loadTRC();
     }
+    setModalVisible = visible => {
+        this.setState({ errorVisible: visible });
+    };
+    selectMark = (trc) => {
+        this.setState({
+            pickedMark: {
+                latitude: Number(trc.lat).toFixed(3),
+                longitude: Number(trc.lng).toFixed(5)
+            }
+        })
+        let bounds = geolib.getBounds([
+            { latitude: trc.lat, longitude: trc.lng },
+            { latitude: this.props.location.lat, longitude: this.props.location.lng }
+        ]);
+        let center = geolib.getCenter([
+            { latitude: trc.lat, longitude: trc.lng },
+            { latitude: this.props.location.lat, longitude: this.props.location.lng }
+        ]);
+        let distance =
+            geolib.getDistance(
+                { latitude: trc.lat, longitude: trc.lng },
+                {
+                    latitude: this.props.location.lat,
+                    longitude: this.props.location.lng
+                }
+            ) - trc.rad;
+        let curr_trc = {
+            active: true,
+            name: trc.name,
+            adress: trc.adress,
+            lat: Number(trc.lat),
+            lng: Number(trc.lng),
+            distance: distance,
+            id: trc.id,
+            rad: trc.rad
+        };
+        this.props.updateMall(curr_trc);
+        this.props.setDistance(distance);
+    };
+    selectNearestMall = (my_location, mall_array, ANIMATE_MAP) => {
+        let nearestMall = geolib.findNearest(my_location, mall_array, 0);
+        try { this.selectMark(mall_array[Number(nearestMall.key)]); } catch (e) { }
+    };
+    loadTRC = () => {
+        this.setModalVisible(false);
+        this.props.loaderState(true);
+        let promise = httpPost(urls.outlets, JSON.stringify({}), this.props.token);
+        promise.then(
+            result => {
+                this.setModalVisible(false);
+                this.props.loaderState(false);
+                this.props.setOutlets(result.body.outlets)
+                this.props.setInitialOutlets(result.body)
+                if (this.props.selectedMall.id) {
+                    //this.selectMark(this.props.selectedMall, false, "task");
+                } else {
+                    this.props.isLocation &&
+                        this.selectNearestMall(
+                            {
+                                latitude: this.props.location.lat,
+                                longitude: this.props.location.lng
+                            },
+                            result.body.outlets, true
+                        );
+                }
+            },
+            error => {
+                let error_respons = handleError(error, this.constructor.name, "loadTRC");
+                this.setState({ errorText: error_respons.error_text });
+                this.setModalVisible(error_respons.error_modal);
+                this.props.loaderState(false);
+            }
+        );
+    };
     goToMap = () => {
         NavigationService.navigate("Main")
         this.props.setNavigateToMall(true)
@@ -41,6 +128,17 @@ class GameStart extends React.Component {
         return (
             <View style={styles.main_view}>
                 {this.props.loader && <ActivityIndicator />}
+                <CustomAlert
+                    title={this.state.errorText}
+                    first_btn_title={RU.REPEAT}
+                    visible={this.state.errorVisible}
+                    first_btn_handler={() => {
+                        this.loadTRC();
+                    }}
+                    decline_btn_handler={() => {
+                        this.setModalVisible(!this.state.errorVisible);
+                    }}
+                />
                 <CustomAlert
                     title={this.props.game_error.error_text}
                     first_btn_title={RU.REPEAT}
@@ -130,6 +228,7 @@ class GameStart extends React.Component {
 //
 const mapStateToProps = (state) => {
     return {
+        isLocation: state.isLocation,
         game_info: state.game_info,
         token: state.token,
         location: state.location,
@@ -146,6 +245,13 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     getGameInfo,
     setGameStatus,
     errorState,
+    setLocation,
+    setInitialOutlets,
+    setOutlets,
+    setLocation,
+    setDistance,
+    updateMall,
+    loaderState,
     setTabState,
     resetGameExpiredTimer,
     setNavigateToMall

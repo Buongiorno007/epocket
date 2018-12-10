@@ -1,12 +1,12 @@
 import React from "react";
 import { View, StatusBar } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
-
 //containers
 import CardList from "../../containers/card-list/card-list";
 import CustomAlert from "../../containers/custom-alert/custom-alert";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 import DashTop from "../../containers/dash-top/dash-top";
+import Balance from "../../containers/cashout-balance/cashout-balance";
 import TimerModal from "../../containers/timer-modal/timer-modal";
 //constants
 import styles from "./styles";
@@ -288,7 +288,12 @@ class Dashboard extends React.Component {
                 style={styles.grad}
               /> : <View style={styles.white} />
           }
-
+          <Balance
+            navigation={{
+              title: "Карта",
+              direction: "Main"
+            }}
+          />
           <DashTop
             mainMissionPrice={this.state.mainMissionPrice}
           />

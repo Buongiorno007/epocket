@@ -24,8 +24,7 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "center",
-    paddingBottom: 50
-
+    paddingBottom: 50,
   },
   nav_buttons: {
     width: width * 0.85,

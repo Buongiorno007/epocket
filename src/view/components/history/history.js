@@ -46,8 +46,6 @@ class History extends React.Component {
           end={{ x: 1.0, y: 1.0 }}
           style={styles.grad}
         >
-
-
           <View style={styles.history_nav}>
             <Balance />
           </View>

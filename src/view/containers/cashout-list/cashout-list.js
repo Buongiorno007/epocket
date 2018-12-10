@@ -89,7 +89,7 @@ class CashoutList extends React.Component {
   _renderHeader = section => {
     return (
       <View style={styles.header}>
-        <View style={styles.header_container}>
+        <View style={[styles.header_container, section.id != this.props.data[0].id && styles.borderTop]}>
           <View style={styles.left_part}>
             <FastImage
               style={styles.round_image}

@@ -33,28 +33,31 @@ class Cashout extends React.Component {
   separateProducts = (list_of_products) => {
     let categoryList = [];
     let addedIds = [];
-    addedIds.push(list_of_products[0].category.id)
-    for (let i = 0; i < list_of_products.length; i++) {
-      if (!addedIds.includes(list_of_products[i].category.id)) {
-        addedIds.push(list_of_products[i].category.id)
-      }
-    }
-    addedIds.forEach(element => {
-      let category = list_of_products.find(x => x.category.id === element).category;
-      categoryList.push(category)
-    });
-    let separatedList = [...categoryList];
-    separatedList.map(function (element) {
-      element.products = []
-    })
-    categoryList.forEach(category => {
-      list_of_products.forEach(product => {
-        if (product.category.id === category.id) {
-          let categoryCopy = categoryList.find(x => x.id === category.id);
-          categoryCopy.products.push(product)
+    let separatedList = [];
+    if (list_of_products.length > 0) {
+      addedIds.push(list_of_products[0].category.id)
+      for (let i = 0; i < list_of_products.length; i++) {
+        if (!addedIds.includes(list_of_products[i].category.id)) {
+          addedIds.push(list_of_products[i].category.id)
         }
+      }
+      addedIds.forEach(element => {
+        let category = list_of_products.find(x => x.category.id === element).category;
+        categoryList.push(category)
       });
-    });
+      separatedList = [...categoryList];
+      separatedList.map(function (element) {
+        element.products = []
+      })
+      categoryList.forEach(category => {
+        list_of_products.forEach(product => {
+          if (product.category.id === category.id) {
+            let categoryCopy = categoryList.find(x => x.id === category.id);
+            categoryCopy.products.push(product)
+          }
+        });
+      });
+    }
     return separatedList;
   }
   componentDidMount = () => {

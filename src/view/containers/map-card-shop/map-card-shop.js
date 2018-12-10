@@ -8,6 +8,7 @@ import { colors } from "../../../constants/colors";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import FastImage from "react-native-fast-image";
+import { RU } from "../../../locales/ru";
 
 class CardCashout extends React.Component {
   constructor(props) {
@@ -37,7 +38,7 @@ class CardCashout extends React.Component {
             {this.props.item.name.toUpperCase()}
           </Text>
           <Text numberOfLines={1} style={[styles.price]}>
-            {this.props.item.price} epc
+            {this.props.item.price} {RU.EPC}
         </Text>
         </View>
       </Button>

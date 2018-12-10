@@ -4,6 +4,7 @@ import { Button } from "native-base";
 import Close from "react-native-vector-icons/Feather";
 //constants
 import { colors } from "./../../../constants/colors";
+import { RU } from "../../../locales/ru";
 import styles from "./styles";
 //redux
 import { connect } from "react-redux";
@@ -17,7 +18,7 @@ class ScannerMission extends React.Component {
       <View style={styles.container}>
         <View style={[styles.item, styles.cost]}>
           <Text style={[styles.text, styles.cost]}>
-            {this.props.selectedMission.price} epc
+            {this.props.selectedMission.price} {RU.EPC}
           </Text>
           <Text />
         </View>

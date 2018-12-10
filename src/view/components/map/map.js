@@ -48,13 +48,13 @@ class Map extends React.Component {
   state = {
     location_loader: false,
     errorVisible: false,
+    errorText: "",
     region: {
       latitude: this.props.location.lat,
       longitude: this.props.location.lng,
       latitudeDelta: 0.04323,
       longitudeDelta: 0.04028
     },
-    errorText: "",
     distance: 0,
     shopActive: false,
     taskActive: true,
@@ -160,6 +160,7 @@ class Map extends React.Component {
         this.props.loaderState(false);
         this.props.setOutlets(result.body.outlets)
         this.props.setInitialOutlets(result.body)
+        console.log(this.props.selectedMall)
         if (this.props.selectedMall.id) {
           //this.selectMark(this.props.selectedMall, false, "task");
         } else {
@@ -207,7 +208,7 @@ class Map extends React.Component {
           );
         }
         if (this.props.selectedMall.id) {
-          this.selectTRC(this.props.selectedMall);
+          this.selectMark(this.props.selectedMall, false, "task");
         }
         this.props.loaderState(false);
       },
@@ -219,7 +220,7 @@ class Map extends React.Component {
 
   selectNearestMall = (my_location, mall_array, ANIMATE_MAP) => {
     let nearestMall = geolib.findNearest(my_location, mall_array, 0);
-    try { this.selectTRC(mall_array[Number(nearestMall.key)], ANIMATE_MAP); } catch (e) { }
+    try { this.selectMark(mall_array[Number(nearestMall.key)], ANIMATE_MAP, "task"); } catch (e) { }
   };
 
   _renderItem = item => (
