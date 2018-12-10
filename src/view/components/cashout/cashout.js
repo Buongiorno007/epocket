@@ -92,7 +92,7 @@ class Cashout extends React.Component {
           end={{ x: 1.0, y: 5.0 }}
           style={styles.grad}
         />
-        <List data={this.state.products} />
+        <List data={this.state.products} dataInit={this.props.navigation.state.params.cashout_data} />
         <TimerModal />
       </View>
     );

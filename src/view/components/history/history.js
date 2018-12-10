@@ -58,7 +58,6 @@ class History extends React.Component {
                     : null
                 }
                 title={RU.HISTORY_PAGE.GETTED}
-                active_color={this.props.userColor.history_first_active}
                 disabled={this.state.pickedBonuses}
               />
               <HistoryNavButton
@@ -68,7 +67,6 @@ class History extends React.Component {
                     : null
                 }
                 title={RU.HISTORY_PAGE.LOST}
-                active_color={this.props.userColor.history_second_active}
                 disabled={!this.state.pickedBonuses}
               />
             </View>

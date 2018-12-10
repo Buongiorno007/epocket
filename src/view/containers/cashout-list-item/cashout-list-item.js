@@ -38,19 +38,20 @@ class CashoutList extends React.Component {
             rounded
             onPress={() =>
               NavigationService.navigate("Picture", {
-                image: 'data:image/jpeg;base64,' + this.props.item.photo
+                image: this.props.item.photo,
+                copyOfCards: this.props.copyOfCards
               })
             }
           >
             <FastImage
               resizeMode={FastImage.resizeMode.contain}
-              source={{ uri: 'data:image/jpeg;base64,' + this.props.item.photo }}
+              source={{ uri: this.props.item.photo }}
               style={styles.photo}
             />
           </Button>
           <View style={styles.title}>
-            <Text style={styles.text}>{this.props.item.price} {RU.EPC}</Text>
-            <Text numberOfLines={2} style={styles.text}>{this.props.item.name}</Text>
+            <Text numberOfLines={2} style={styles.text}>{this.props.item.name.toUpperCase()}</Text>
+            <Text style={styles.text_epc}>{this.props.item.price} {RU.EPC}</Text>
           </View>
         </View>
         <View style={styles.calculate}>
@@ -65,7 +66,7 @@ class CashoutList extends React.Component {
           >
             <Icon name="minus" style={styles.icon} />
           </Button>
-          <Text style={styles.text}>{this.state.count}</Text>
+          <Text style={styles.text_count}>{this.state.count}</Text>
           <Button
             disabled={this.state.count == this.props.item.amount ? true : false}
             rounded

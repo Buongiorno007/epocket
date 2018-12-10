@@ -233,5 +233,7 @@ export const RU = {
     POSITIONS_1: "позиция",
     POSITIONS_2: "позиции",
     POSITIONS_3: "позиций",
+    LIST_OF_PRODUCTS: "Список",
+    CART: "Корзина"
   },
 };

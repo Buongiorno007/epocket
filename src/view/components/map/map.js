@@ -572,6 +572,7 @@ class Map extends React.Component {
               listKey={"cards"}
               contentContainerStyle={styles.horizontal_list_content}
               horizontal={true}
+              showsHorizontalScrollIndicator={false}
               style={styles.horizontal_list}
               data={this.state.cards}
               keyExtractor={this._keyExtractor}

@@ -7,6 +7,9 @@ import { Button } from "native-base";
 import { colors } from "./../../../constants/colors";
 //services
 import NavigationService from "./../../../services/route";
+//redux
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 class CashoutNavbar extends React.Component {
   render = () => {
@@ -18,7 +21,7 @@ class CashoutNavbar extends React.Component {
           transparent
           androidRippleColor={this.props.userColor.card_shadow}
           style={styles.button}
-          onPress={() => NavigationService.navigate("Main")}
+          onPress={() => NavigationService.navigate("Cashout", { cashout_data: this.props.copyOfCards })}
         >
           <Close name="x" style={styles.icon} />
         </Button>
@@ -27,4 +30,16 @@ class CashoutNavbar extends React.Component {
   };
 }
 
-export default CashoutNavbar;
+const mapStateToProps = state => ({
+  userColor: state.userColor,
+});
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+    },
+    dispatch
+  );
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CashoutNavbar);

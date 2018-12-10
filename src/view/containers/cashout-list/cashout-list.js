@@ -6,6 +6,8 @@ import FastImage from 'react-native-fast-image'
 import Item from "./../../containers/cashout-list-item/cashout-list-item";
 import CustomButton from "./../../containers/custom-button/custom-button";
 import CustomAlert from "../custom-alert/custom-alert";
+import HistoryNavButton from "./../../containers/history-nav-button/history-nav-button";
+import CartCard from "./../../containers/cashout-cart-card/cashout-cart-card"
 //constants
 import styles from "./styles";
 import { RU } from "./../../../locales/ru";
@@ -26,9 +28,18 @@ class CashoutList extends React.Component {
   state = {
     errorVisible: false,
     errorText: "",
+    pickedCart: true,
     activeSections: []
   };
   order = [];
+  pickCart = () => {
+    let pick = this.state.pickedCart;
+    this.setState({ pickedCart: !pick });
+  };
+  pickAll = () => {
+    let pick = this.state.pickedCart;
+    this.setState({ pickedCart: !pick });
+  };
   setModalVisible = visible => {
     this.setState({ errorVisible: visible });
   };
@@ -123,6 +134,7 @@ class CashoutList extends React.Component {
           <Item
             key={i}
             item={item}
+            copyOfCards={this.props.dataInit}
             addItemToOrder={this.addItemToOrder}
           />
         ))}
@@ -146,12 +158,32 @@ class CashoutList extends React.Component {
             this.setModalVisible(!this.state.errorVisible);
           }}
         />
+        <View style={styles.nav_buttons}>
+          <HistoryNavButton
+            handler={
+              !this.state.pickedCart
+                ? () => this.pickAll()
+                : null
+            }
+            title={RU.CASHOUT_LIST.LIST_OF_PRODUCTS}
+            disabled={this.state.pickedCart}
+          />
+          <HistoryNavButton
+            handler={
+              this.state.pickedCart
+                ? () => this.pickCart()
+                : null
+            }
+            title={RU.CASHOUT_LIST.CART}
+            disabled={!this.state.pickedCart}
+          />
+        </View>
         {this.props.data.length > 0 ? (
-          <View>
-            <ScrollView
-              style={styles.scroll}
-              showsVerticalScrollIndicator={false}
-            >
+          <ScrollView
+            style={styles.scroll}
+            showsVerticalScrollIndicator={false}
+          >
+            {this.state.pickedCart ?
               <Accordion
                 activeSections={this.state.activeSections}
                 onChange={this._updateSections}
@@ -162,17 +194,34 @@ class CashoutList extends React.Component {
                 renderContent={this._renderContent}
                 onChange={this._updateSections}
               />
-            </ScrollView>
-            {/* <View style={styles.button}>
-              <CustomButton
-                active
-                gradient
-                title={RU.CASH.BUTTON}
-                color={this.props.userColor.white}
-                handler={() => this.sendOrder()}
-              />
-            </View> */}
-          </View>
+              :
+              <View style={styles.cart_container}>
+                <ScrollView
+                  style={styles.scroll}
+                  contentContainerStyle={{
+                    alignItems: "center",
+                  }}
+                  showsVerticalScrollIndicator={false}
+                >
+                  {this.order.map((item, i) => (
+                    <CartCard
+                      cardInfo={item}
+                    />
+                  ))}
+                </ScrollView>
+                <View style={styles.button}>
+                  <CustomButton
+                    active
+                    gradient
+                    title={RU.CASH.BUTTON}
+                    color={this.props.userColor.white}
+                    handler={() => this.sendOrder()}
+                  />
+                </View>
+              </View>
+            }
+            <View style={styles.filler} />
+          </ScrollView>
         ) : (
             <View style={styles.empty}>
               <Text>{RU.CASH.NO_CASH}</Text>

@@ -6,7 +6,6 @@ const { width, height } = Dimensions.get("window");
 
 export default StyleSheet.create({
   container: {
-    paddingTop: width * 0.075,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     alignItems: "center",
@@ -52,21 +51,36 @@ export default StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    marginRight: 30
+    marginRight: 20
   },
   arrow: {
     width: 20,
     height: 20,
+    borderRadius: 10,
+  },
+  nav_buttons: {
+    width: width * 0.85,
+    height: 45,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    zIndex: 1
   },
   header_text: {
     flexDirection: "column",
+    height: width * 0.12,
+    justifyContent: "space-around",
   },
   content: {
     width: width,
   },
   scroll: {
     width: width,
-    marginBottom: 20
+    paddingTop: 15,
+  },
+  filler: {
+    width: width,
+    height: height * 0.1,
   },
   empty: {
     width: width,
@@ -76,5 +90,11 @@ export default StyleSheet.create({
     flexDirection: "column",
     paddingLeft: width * 0.04,
     paddingRight: width * 0.04
+  },
+  cart_container: {
+    width: width,
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column",
   }
 });

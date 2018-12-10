@@ -31,7 +31,7 @@ class Picture extends React.Component {
           translucent={true}
           backgroundColor={"transparent"}
         />
-        <Navbar />
+        <Navbar copyOfCards={this.props.navigation.state.params.copyOfCards} />
         <View style={styles.block}>
           <FastImage
             resizeMode={FastImage.resizeMode.contain}

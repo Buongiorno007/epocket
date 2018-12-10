@@ -11,52 +11,55 @@ export default StyleSheet.create({
     marginBottom: width * 0.05,
     flexDirection: "row",
     alignItems: "center",
-    alignSelf : 'center',
+    alignSelf: 'center',
     justifyContent: "space-between",
   },
   info: {
+    flex: 2,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
-    width: width * 0.85 * 0.6
   },
   button: {
     backgroundColor: colors.drag_panel_color,
-    elevation: 5,
-    shadowColor: colors.card_shadow,
-    shadowOffset: {
-      width: 1,
-      height: 2
-    },
-    shadowRadius: 5,
-    shadowOpacity: 5,
     width: 45,
     height: 45,
-    borderRadius: 7,
+    borderRadius: 23,
     alignSelf: "flex-start",
-    marginRight: 5,
-    marginLeft: 5
+    marginRight: 20
   },
   photo: {
     width: 45,
     height: 45,
-    borderRadius: 7,
+    borderRadius: 23,
   },
   title: {
     height: width * 0.12,
-    width : width * 0.38,
+    flex: 1,
     flexDirection: "column",
     justifyContent: "space-around",
     alignItems: "flex-start"
   },
   text: {
-    color: colors.black,
-    fontSize: width * 0.035,
-    marginLeft: 2,
-    marginRight: 2
+    fontSize: 12,
+    flex: 1,
+    flexWrap: 'wrap',
+    fontFamily: "Rubik-Medium",
+    color: colors.black
+  },
+  text_count: {
+    textAlign: "center",
+    fontSize: 12,
+    fontFamily: "Rubik-Regular",
+    color: colors.black
+  },
+  text_epc: {
+    fontSize: 8,
+    fontFamily: "Rubik-Regular",
+    color: colors.black_38
   },
   calculate: {
-    width: width * 0.85 * 0.35,
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -65,14 +68,14 @@ export default StyleSheet.create({
     backgroundColor: colors.white,
     width: 35,
     height: 35,
-    elevation: 8,
+    elevation: 4,
     shadowColor: colors.card_shadow,
     shadowOffset: {
-      width: 1,
-      height: 1
+      width: 0,
+      height: 5
     },
-    shadowRadius: 2,
-    shadowOpacity: 2
+    shadowRadius: 5,
+    shadowOpacity: 1
   },
   value: {
     fontSize: 16,
