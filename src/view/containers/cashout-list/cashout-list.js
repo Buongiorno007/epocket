@@ -1,5 +1,5 @@
 import React from "react";
-import { View, ScrollView, Text, TouchableOpacity } from "react-native";
+import { View, ScrollView, Text, TouchableOpacity, FlatList } from "react-native";
 import Accordion from 'react-native-collapsible/Accordion';
 import FastImage from 'react-native-fast-image'
 //containers
@@ -29,6 +29,7 @@ class CashoutList extends React.Component {
     errorVisible: false,
     errorText: "",
     pickedCart: true,
+    orderCopy: [],
     activeSections: []
   };
   order = [];
@@ -49,9 +50,28 @@ class CashoutList extends React.Component {
     });
     if (order_item.count) {
       this.order.push(order_item);
+      this.setState({ orderCopy: this.order })
     }
   };
-
+  deleteElem = order_item => {
+    let copy = [...this.order];
+    let spliceId;
+    let order_item_category = order_item.category.id;
+    for (let i = 0; i < this.order.length; i++) {
+      if (this.order[i].id === order_item.id) {
+        spliceId = i;
+      }
+    }
+    copy.splice(spliceId, 1);
+    this.order = copy;
+    this.setState({
+      orderCopy: copy
+    });
+    let deletedCatIndex = this.props.data.findIndex(x => x.id === order_item_category);
+    let deletedCat = this.props.data[deletedCatIndex];
+    let pickedProduct = deletedCat.products.find(x => x.id === order_item.id);
+    pickedProduct.count = 0;
+  };
   sendOrder = () => {
     total_price = 0;
     this.order.forEach(item => {
@@ -144,6 +164,13 @@ class CashoutList extends React.Component {
   _updateSections = activeSections => {
     this.setState({ activeSections });
   };
+  _renderItem = item => (
+    <CartCard
+      key={item.item.id}
+      cardInfo={item.item}
+      deleteElem={this.deleteElem}
+    />
+  );
   render = () => {
     return (
       <View style={styles.container}>
@@ -196,19 +223,16 @@ class CashoutList extends React.Component {
               />
               :
               <View style={styles.cart_container}>
-                <ScrollView
-                  style={styles.scroll}
+                <FlatList
+                  listKey={"cart"}
                   contentContainerStyle={{
                     alignItems: "center",
                   }}
                   showsVerticalScrollIndicator={false}
-                >
-                  {this.order.map((item, i) => (
-                    <CartCard
-                      cardInfo={item}
-                    />
-                  ))}
-                </ScrollView>
+                  style={styles.scroll}
+                  data={this.state.orderCopy}
+                  renderItem={this._renderItem}>
+                </FlatList>
                 <View style={styles.button}>
                   <CustomButton
                     active

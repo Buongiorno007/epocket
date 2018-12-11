@@ -22,8 +22,7 @@ export default StyleSheet.create({
     height: height * 0.9,
     width: width,
     alignItems: "center",
-    justifyContent: "center",
-    alignSelf: "center",
+    justifyContent: "flex-start",
     paddingBottom: 50,
   },
   nav_buttons: {

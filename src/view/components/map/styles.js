@@ -90,7 +90,7 @@ export default StyleSheet.create({
         position: "absolute",
         bottom: 68,
         width: width,
-        height: 140,
+        height: width * 0.4,
         zIndex: 3,
     },
     horizontal_list: {

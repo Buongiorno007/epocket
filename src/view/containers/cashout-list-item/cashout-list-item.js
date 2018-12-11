@@ -66,7 +66,7 @@ class CashoutList extends React.Component {
           >
             <Icon name="minus" style={styles.icon} />
           </Button>
-          <Text style={styles.text_count}>{this.state.count}</Text>
+          <Text style={styles.text_count}>{this.props.item.count ? this.props.item.count : "0"}</Text>
           <Button
             disabled={this.state.count == this.props.item.amount ? true : false}
             rounded
