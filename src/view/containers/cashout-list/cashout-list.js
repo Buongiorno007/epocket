@@ -203,24 +203,28 @@ class CashoutList extends React.Component {
             }
             title={RU.CASHOUT_LIST.CART}
             disabled={!this.state.pickedCart}
+            cartCount={this.state.orderCopy.length}
           />
         </View>
         {this.props.data.length > 0 ? (
-          <ScrollView
-            style={styles.scroll}
-            showsVerticalScrollIndicator={false}
-          >
+          <View style={styles.container_for_scroll}>
             {this.state.pickedCart ?
-              <Accordion
-                activeSections={this.state.activeSections}
-                onChange={this._updateSections}
-                sectionContainerStyle={styles.header}
-                touchableComponent={TouchableOpacity}
-                sections={this.props.data}
-                renderHeader={this._renderHeader}
-                renderContent={this._renderContent}
-                onChange={this._updateSections}
-              />
+              <ScrollView
+                style={styles.scroll}
+                showsVerticalScrollIndicator={false}
+              >
+                <Accordion
+                  activeSections={this.state.activeSections}
+                  onChange={this._updateSections}
+                  sectionContainerStyle={styles.header}
+                  touchableComponent={TouchableOpacity}
+                  sections={this.props.data}
+                  renderHeader={this._renderHeader}
+                  renderContent={this._renderContent}
+                  onChange={this._updateSections}
+                />
+                <View style={styles.filler} />
+              </ScrollView>
               :
               <View style={styles.cart_container}>
                 <FlatList
@@ -229,7 +233,7 @@ class CashoutList extends React.Component {
                     alignItems: "center",
                   }}
                   showsVerticalScrollIndicator={false}
-                  style={styles.scroll}
+                  style={styles.scroll_fixed}
                   data={this.state.orderCopy}
                   renderItem={this._renderItem}>
                 </FlatList>
@@ -237,6 +241,7 @@ class CashoutList extends React.Component {
                   <CustomButton
                     active
                     gradient
+                    short
                     title={RU.CASH.BUTTON}
                     color={this.props.userColor.white}
                     handler={() => this.sendOrder()}
@@ -244,8 +249,8 @@ class CashoutList extends React.Component {
                 </View>
               </View>
             }
-            <View style={styles.filler} />
-          </ScrollView>
+
+          </View>
         ) : (
             <View style={styles.empty}>
               <Text>{RU.CASH.NO_CASH}</Text>

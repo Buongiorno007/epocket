@@ -28,5 +28,22 @@ export default StyleSheet.create({
     height: 5,
     width: 5,
     borderRadius: 5
+  },
+  number: {
+    color: colors.white,
+    fontFamily: "Rubik-Medium",
+    fontSize: 9,
+    textAlign: "center"
+  },
+  cart_number: {
+    position: "absolute",
+    top: 5,
+    right: (width * 0.85) / 10,
+    backgroundColor: colors.pink,
+    height: 16,
+    width: 16,
+    borderRadius: 8,
+    alignItems: "center",
+    justifyContent: "center",
   }
 });

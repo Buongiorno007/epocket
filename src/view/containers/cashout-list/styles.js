@@ -74,8 +74,16 @@ export default StyleSheet.create({
   content: {
     width: width,
   },
+  container_for_scroll: {
+    width: width,
+  },
   scroll: {
     width: width,
+    paddingTop: 15,
+  },
+  scroll_fixed: {
+    width: width,
+    height: height * 0.65,
     paddingTop: 15,
   },
   filler: {
@@ -96,5 +104,11 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "column",
+  },
+  button: {
+    alignItems: "center",
+    paddingTop: 15,
+    width: width,
+    justifyContent: "center"
   }
 });

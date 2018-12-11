@@ -17,6 +17,11 @@ class HistoryNavButton extends React.Component {
         onPress={this.props.handler}
         style={[styles.button]}
       >
+        {this.props.cartCount &&
+          <View style={[styles.cart_number]} >
+            <Text style={styles.number}>{this.props.cartCount}</Text>
+          </View>
+        }
         <Text
           style={[styles.button_text]}
         >
