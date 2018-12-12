@@ -44,5 +44,11 @@ export default StyleSheet.create({
         width: width,
         zIndex: 1,
         backgroundColor: colors.black_50
+    },
+    top: {
+        width: width,
+        zIndex: 2,
+        alignItems: "center",
+        justifyContent: "space-between"
     }
 });

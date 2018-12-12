@@ -30,7 +30,8 @@ class Cashout extends React.Component {
     errorText: "",
     products: [],
     topScaleY: new Animated.Value(1),
-    topHeight: new Animated.Value(height * 0.2),
+    topHeight: new Animated.Value(height * 0.15),
+    topBigHeight: new Animated.Value(height * 0.35),
     topImageOpacity: new Animated.Value(1),
     draggedDown: true
   };
@@ -71,7 +72,7 @@ class Cashout extends React.Component {
     let data = this.separateProducts(this.props.navigation.state.params.cashout_data)
     this.setState({ products: data })
   };
-  animateTop = (topScaleProps, topHeightProps, topImageOpacityProps) => {
+  animateTop = (topScaleProps, topHeightProps, topImageOpacityProps, topBigHeightProps) => {
     Animated.parallel([
       Animated.timing(this.state.topScaleY,
         {
@@ -91,6 +92,13 @@ class Cashout extends React.Component {
           duration: topImageOpacityProps.duration,
           easing: Easing.linear
         })
+      ,
+      Animated.timing(this.state.topBigHeight,
+        {
+          toValue: topBigHeightProps.toValue,
+          duration: topBigHeightProps.duration,
+          easing: Easing.linear
+        })
     ]).start();
   }
   getDirectionAndColor = (dy, moveY) => {
@@ -106,11 +114,15 @@ class Cashout extends React.Component {
             duration: 150
           },
           {
-            toValue: height * 0.2,
+            toValue: height * 0.15,
             duration: 100,
           },
           {
             toValue: 1,
+            duration: 150,
+          },
+          {
+            toValue: height * 0.35,
             duration: 150,
           }
         );
@@ -129,6 +141,10 @@ class Cashout extends React.Component {
           {
             toValue: 0,
             duration: 150,
+          },
+          {
+            toValue: height * 0.12,
+            duration: 150,
           }
         );
       }
@@ -138,8 +154,6 @@ class Cashout extends React.Component {
     super(props)
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: (evt, gestureState) => true,
-      onMoveShouldSetResponderCapture: (evt, gestureState) => false,
-      onPanResponderTerminationRequest: () => false,
       onPanResponderMove: (evt, gestureState) => {
         this.getDirectionAndColor(gestureState.dy, gestureState.moveY);
       },
@@ -150,7 +164,7 @@ class Cashout extends React.Component {
           if (draggedDown) {
             this.setState({ draggedDown: true })
           }
-          else if (draggedUp) {
+          if (draggedUp) {
             this.setState({ draggedDown: false })
           }
         }
@@ -174,26 +188,32 @@ class Cashout extends React.Component {
             this.props.loaderState(false);
           }}
         />
-        <Balance
-          navigation={{
-            title: "Карта",
-            direction: "Main"
-          }}
-        />
         <Animated.View
+          style={[styles.top, {
+            height: this.state.topBigHeight,
+          }]}
           {...this._panResponder.panHandlers}
-          style={[styles.cashout_top,
-          {
-            height: this.state.topHeight,
-            transform: [
-              {
-                scaleY: this.state.topScaleY
-              }
-            ]
-          }
-          ]}>
-          <Text numberOfLines={1} style={styles.general_text} >{this.props.navigation.state.params.general_info.adress}</Text>
-          <Text numberOfLines={1} style={styles.general_text_big}>{this.props.navigation.state.params.general_info.name}</Text>
+        >
+          <Balance
+            navigation={{
+              title: "Карта",
+              direction: "Main"
+            }}
+          />
+          <Animated.View
+            style={[styles.cashout_top,
+            {
+              height: this.state.topHeight,
+              transform: [
+                {
+                  scaleY: this.state.topScaleY
+                }
+              ]
+            }
+            ]}>
+            <Text numberOfLines={1} style={styles.general_text} >{this.props.navigation.state.params.general_info.adress}</Text>
+            <Text numberOfLines={1} style={styles.general_text_big}>{this.props.navigation.state.params.general_info.name}</Text>
+          </Animated.View>
         </Animated.View>
         <LinearGradient
           colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
