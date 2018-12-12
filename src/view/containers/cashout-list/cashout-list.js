@@ -1,5 +1,5 @@
 import React from "react";
-import { View, ScrollView, Text, TouchableOpacity, FlatList, Animated, Image, Easing } from "react-native";
+import { View, ScrollView, Text, TouchableOpacity, FlatList, Animated, Image, Easing, Dimensions } from "react-native";
 import Accordion from 'react-native-collapsible/Accordion';
 import FastImage from 'react-native-fast-image'
 //containers
@@ -24,6 +24,8 @@ import NavigationService from "./../../../services/route";
 import { httpPost } from "../../../services/http";
 import { handleError } from "../../../services/http-error-handler";
 
+const { width, height } = Dimensions.get("window");
+
 class CashoutList extends React.Component {
   state = {
     errorVisible: false,
@@ -37,7 +39,7 @@ class CashoutList extends React.Component {
 
   pickCart = () => {
     let pick = this.state.pickedCart;
-    this.setState({ pickedCart: !pick });
+    this.setState({ pickedCart: !pick, activeSections: [] });
   };
   pickAll = () => {
     let pick = this.state.pickedCart;
@@ -118,6 +120,9 @@ class CashoutList extends React.Component {
       );
     }
   };
+  componentWillReceiveProps = (nextProps) => {
+    console.log("componentWillReceiveProps", nextProps.draggedDown)
+  }
   checkForActive = (section, isActive) => {
     spin = '0deg';
     if (isActive) {
@@ -168,7 +173,7 @@ class CashoutList extends React.Component {
                 }
               ]
             }]}
-            source={{ uri: ICONS.DOWN_ARROW }}
+            source={require('../../../assets/img/arrow_down.png')}
           />
         </View>
       </View>
@@ -176,22 +181,27 @@ class CashoutList extends React.Component {
   };
   _renderContent = section => {
     return (
-      <View style={styles.content}>
-        {section.products.map((item, i) => (
-          <Item
-            key={i}
-            item={item}
-            copyOfCards={this.props.dataInit}
-            addItemToOrder={this.addItemToOrder}
-          />
-        ))}
-      </View>
+      <FlatList
+        listKey={"rows"}
+        showsVerticalScrollIndicator={false}
+        style={styles.content}
+        data={section.products}
+        scrollEnabled={false}
+        renderItem={this._renderRow}>
+      </FlatList>
     );
   };
   _updateSections = activeSections => {
     this.setState({ activeSections });
   };
-
+  _renderRow = item => (
+    <Item
+      key={item.item.id}
+      item={item.item}
+      copyOfCards={this.props.dataInit}
+      addItemToOrder={this.addItemToOrder}
+    />
+  );
   _renderItem = item => (
     <CartCard
       key={item.item.id}
@@ -238,7 +248,7 @@ class CashoutList extends React.Component {
           <View style={styles.container_for_scroll}>
             {this.state.pickedCart ?
               <ScrollView
-                style={styles.scroll}
+                style={[styles.scroll, this.props.draggedDown && { height: height * 0.55 }]}
                 showsVerticalScrollIndicator={false}
               >
                 <Accordion
@@ -254,7 +264,7 @@ class CashoutList extends React.Component {
                 <View style={styles.filler} />
               </ScrollView>
               :
-              <View style={styles.cart_container}>
+              <View style={[styles.cart_container, this.props.draggedDown && { height: height * 0.55 }]}>
                 {this.state.orderCopy.length ?
                   <FlatList
                     listKey={"cart"}
@@ -262,7 +272,7 @@ class CashoutList extends React.Component {
                       alignItems: "center",
                     }}
                     showsVerticalScrollIndicator={false}
-                    style={styles.scroll_fixed}
+                    style={[styles.scroll_fixed, this.props.draggedDown && { height: height * 0.55 }]}
                     data={this.state.orderCopy}
                     renderItem={this._renderItem}>
                   </FlatList>

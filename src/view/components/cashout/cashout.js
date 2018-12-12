@@ -30,8 +30,9 @@ class Cashout extends React.Component {
     errorText: "",
     products: [],
     topScaleY: new Animated.Value(1),
-    topHeight: new Animated.Value(height * 0.15),
+    topHeight: new Animated.Value(height * 0.2),
     topImageOpacity: new Animated.Value(1),
+    draggedDown: true
   };
   setModalVisible = visible => {
     this.setState({ errorVisible: visible });
@@ -70,57 +71,66 @@ class Cashout extends React.Component {
     let data = this.separateProducts(this.props.navigation.state.params.cashout_data)
     this.setState({ products: data })
   };
-  getDirectionAndColor = (dy) => {
+  animateTop = (topScaleProps, topHeightProps, topImageOpacityProps) => {
+    Animated.parallel([
+      Animated.timing(this.state.topScaleY,
+        {
+          toValue: topScaleProps.toValue,
+          duration: topScaleProps.duration,
+          easing: Easing.linear
+        }),
+      Animated.timing(this.state.topHeight,
+        {
+          toValue: topHeightProps.toValue,
+          duration: topHeightProps.duration,
+          easing: Easing.linear
+        }),
+      Animated.timing(this.state.topImageOpacity,
+        {
+          toValue: topImageOpacityProps.toValue,
+          duration: topImageOpacityProps.duration,
+          easing: Easing.linear
+        })
+    ]).start();
+  }
+  getDirectionAndColor = (dy, moveY) => {
     const draggedDown = dy > 30;
     const draggedUp = dy < -30;
-    let dragDirection = '';
-
-    if (draggedDown || draggedUp) {
+    console.log(dy)
+    if (moveY < 233) {
       if (draggedDown) {
         console.log('draggedDown ')
-        Animated.parallel([
-          Animated.timing(this.state.topScaleY,
-            {
-              toValue: 1,
-              duration: 150,
-              easing: Easing.linear
-            }),
-          Animated.timing(this.state.topHeight,
-            {
-              toValue: height * 0.15,
-              duration: 100,
-              easing: Easing.linear
-            }),
-          Animated.timing(this.state.topImageOpacity,
-            {
-              toValue: 1,
-              duration: 150,
-              easing: Easing.linear
-            })
-        ]).start();
+        this.animateTop(
+          {
+            toValue: 1,
+            duration: 150
+          },
+          {
+            toValue: height * 0.2,
+            duration: 100,
+          },
+          {
+            toValue: 1,
+            duration: 150,
+          }
+        );
       }
       if (draggedUp) {
         console.log('draggedUp ')
-        Animated.parallel([
-          Animated.timing(this.state.topScaleY,
-            {
-              toValue: 0.00000001,
-              duration: 100,
-              easing: Easing.linear
-            }),
-          Animated.timing(this.state.topHeight,
-            {
-              toValue: 0,
-              duration: 150,
-              easing: Easing.linear
-            }),
-          Animated.timing(this.state.topImageOpacity,
-            {
-              toValue: 0,
-              duration: 150,
-              easing: Easing.linear
-            })
-        ]).start();
+        this.animateTop(
+          {
+            toValue: 0.00000001,
+            duration: 100,
+          },
+          {
+            toValue: 0,
+            duration: 150,
+          },
+          {
+            toValue: 0,
+            duration: 150,
+          }
+        );
       }
     }
   }
@@ -128,11 +138,22 @@ class Cashout extends React.Component {
     super(props)
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: (evt, gestureState) => true,
+      onMoveShouldSetResponderCapture: (evt, gestureState) => false,
+      onPanResponderTerminationRequest: () => false,
       onPanResponderMove: (evt, gestureState) => {
-        this.getDirectionAndColor(gestureState.dy);
+        this.getDirectionAndColor(gestureState.dy, gestureState.moveY);
       },
       onPanResponderRelease: (evt, gestureState) => {
-        console.log('dragg released', gestureState.dy)
+        const draggedDown = gestureState.dy > 30;
+        const draggedUp = gestureState.dy < -30;
+        if (gestureState.moveY < 233) {
+          if (draggedDown) {
+            this.setState({ draggedDown: true })
+          }
+          else if (draggedUp) {
+            this.setState({ draggedDown: false })
+          }
+        }
       }
     })
   }
@@ -140,7 +161,6 @@ class Cashout extends React.Component {
     return (
       <View
         style={styles.container}
-        {...this._panResponder.panHandlers}
       >
         <CustomAlert
           title={this.state.errorText}
@@ -161,6 +181,7 @@ class Cashout extends React.Component {
           }}
         />
         <Animated.View
+          {...this._panResponder.panHandlers}
           style={[styles.cashout_top,
           {
             height: this.state.topHeight,
@@ -190,7 +211,9 @@ class Cashout extends React.Component {
           opacity: this.state.topImageOpacity
         }]} />
         <List
-          data={this.state.products} dataInit={this.props.navigation.state.params.cashout_data} />
+          draggedDown={this.state.draggedDown}
+          data={this.state.products}
+          dataInit={this.props.navigation.state.params.cashout_data} />
         <TimerModal />
       </View>
     );
