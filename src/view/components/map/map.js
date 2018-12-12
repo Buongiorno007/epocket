@@ -260,12 +260,12 @@ class Map extends React.Component {
     console.log(selectedCard)
     console.log(this.state.cards)
     let copyOfCards = [...this.state.cards]
-    copyOfCards.shift();
+    copyOfCards.shift(); //remove card with outlet|cashout information
     if (this.state.taskActive) {
       NavigationService.navigate("Dashboard", { dashboard_data: copyOfCards });
     }
     else {
-      NavigationService.navigate("Cashout", { cashout_data: copyOfCards });
+      NavigationService.navigate("Cashout", { cashout_data: copyOfCards, general_info: selectedCard });
     }
   }
   _showSelectedCard = selectedCard => {

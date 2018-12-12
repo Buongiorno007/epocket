@@ -97,6 +97,7 @@ export const RU = {
     TITLE: "Баланс:",
     BUTTON: "СФОРМИРОВАТЬ QR",
     NO_CASH: "В этом ТРЦ нет доступных товаров",
+    NO_CART: "Ваша корзина пуста",
     NO_CASH_SMILE: "¯\\_(ツ)_/¯"
   },
   QRCODE: {

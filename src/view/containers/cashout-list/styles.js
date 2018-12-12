@@ -54,9 +54,10 @@ export default StyleSheet.create({
     marginRight: 20
   },
   arrow: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
+    width: 15,
+    height: 15,
+    borderRadius: 8,
+    resizeMode: "contain"
   },
   nav_buttons: {
     width: width * 0.85,
@@ -93,6 +94,15 @@ export default StyleSheet.create({
   empty: {
     width: width,
     height: height / 2,
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column",
+    paddingLeft: width * 0.04,
+    paddingRight: width * 0.04
+  },
+  empty_cart: {
+    width: width,
+    height: height * 0.65,
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "column",

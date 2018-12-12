@@ -1,7 +1,8 @@
 import React from "react";
 import styles from "./styles";
-import { View } from "react-native";
+import { View, PanResponder, Animated, Dimensions, Easing, Text } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
+import FastImage from 'react-native-fast-image'
 //containers
 import List from "../../containers/cashout-list/cashout-list";
 import Balance from "../../containers/cashout-balance/cashout-balance";
@@ -21,11 +22,16 @@ import { bindActionCreators } from "redux";
 import { httpPost } from "../../../services/http";
 import { handleError } from "../../../services/http-error-handler";
 
+const { width, height } = Dimensions.get('window');
+
 class Cashout extends React.Component {
   state = {
     errorVisible: false,
     errorText: "",
-    products: []
+    products: [],
+    topScaleY: new Animated.Value(1),
+    topHeight: new Animated.Value(height * 0.15),
+    topImageOpacity: new Animated.Value(1),
   };
   setModalVisible = visible => {
     this.setState({ errorVisible: visible });
@@ -62,12 +68,80 @@ class Cashout extends React.Component {
   }
   componentDidMount = () => {
     let data = this.separateProducts(this.props.navigation.state.params.cashout_data)
-    console.log(data)
     this.setState({ products: data })
   };
+  getDirectionAndColor = (dy) => {
+    const draggedDown = dy > 30;
+    const draggedUp = dy < -30;
+    let dragDirection = '';
+
+    if (draggedDown || draggedUp) {
+      if (draggedDown) {
+        console.log('draggedDown ')
+        Animated.parallel([
+          Animated.timing(this.state.topScaleY,
+            {
+              toValue: 1,
+              duration: 150,
+              easing: Easing.linear
+            }),
+          Animated.timing(this.state.topHeight,
+            {
+              toValue: height * 0.15,
+              duration: 100,
+              easing: Easing.linear
+            }),
+          Animated.timing(this.state.topImageOpacity,
+            {
+              toValue: 1,
+              duration: 150,
+              easing: Easing.linear
+            })
+        ]).start();
+      }
+      if (draggedUp) {
+        console.log('draggedUp ')
+        Animated.parallel([
+          Animated.timing(this.state.topScaleY,
+            {
+              toValue: 0.00000001,
+              duration: 100,
+              easing: Easing.linear
+            }),
+          Animated.timing(this.state.topHeight,
+            {
+              toValue: 0,
+              duration: 150,
+              easing: Easing.linear
+            }),
+          Animated.timing(this.state.topImageOpacity,
+            {
+              toValue: 0,
+              duration: 150,
+              easing: Easing.linear
+            })
+        ]).start();
+      }
+    }
+  }
+  constructor(props) {
+    super(props)
+    this._panResponder = PanResponder.create({
+      onStartShouldSetPanResponder: (evt, gestureState) => true,
+      onPanResponderMove: (evt, gestureState) => {
+        this.getDirectionAndColor(gestureState.dy);
+      },
+      onPanResponderRelease: (evt, gestureState) => {
+        console.log('dragg released', gestureState.dy)
+      }
+    })
+  }
   render = () => {
     return (
-      <View style={styles.container}>
+      <View
+        style={styles.container}
+        {...this._panResponder.panHandlers}
+      >
         <CustomAlert
           title={this.state.errorText}
           first_btn_title={RU.REPEAT}
@@ -86,13 +160,37 @@ class Cashout extends React.Component {
             direction: "Main"
           }}
         />
+        <Animated.View
+          style={[styles.cashout_top,
+          {
+            height: this.state.topHeight,
+            transform: [
+              {
+                scaleY: this.state.topScaleY
+              }
+            ]
+          }
+          ]}>
+          <Text numberOfLines={1} style={styles.general_text} >{this.props.navigation.state.params.general_info.adress}</Text>
+          <Text numberOfLines={1} style={styles.general_text_big}>{this.props.navigation.state.params.general_info.name}</Text>
+        </Animated.View>
         <LinearGradient
           colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
           start={{ x: 0.0, y: 5.0 }}
           end={{ x: 1.0, y: 5.0 }}
           style={styles.grad}
         />
-        <List data={this.state.products} dataInit={this.props.navigation.state.params.cashout_data} />
+        <Animated.Image
+          style={[styles.background_image, {
+            opacity: this.state.topImageOpacity
+          }]}
+          source={{ uri: this.props.navigation.state.params.general_info.photo }}
+        />
+        <Animated.View style={[styles.background_image_mask, {
+          opacity: this.state.topImageOpacity
+        }]} />
+        <List
+          data={this.state.products} dataInit={this.props.navigation.state.params.cashout_data} />
         <TimerModal />
       </View>
     );
