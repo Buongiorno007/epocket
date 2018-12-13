@@ -181,16 +181,19 @@ class CashoutList extends React.Component {
   };
   _renderContent = section => {
     return (
-      <FlatList
-        listKey={"rows"}
-        showsVerticalScrollIndicator={false}
-        style={styles.content}
-        data={section.products}
-        scrollEnabled={false}
-        renderItem={this._renderRow}>
-      </FlatList>
+      <View style={styles.content}>
+        {section.products.map((item, i) => (
+          <Item
+            key={i}
+            item={item}
+            copyOfCards={this.props.dataInit}
+            addItemToOrder={this.addItemToOrder}
+          />
+        ))}
+      </View>
     );
   };
+
   _updateSections = activeSections => {
     this.setState({ activeSections });
   };

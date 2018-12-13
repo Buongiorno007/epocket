@@ -126,6 +126,7 @@ class Cashout extends React.Component {
             duration: 150,
           }
         );
+        this.setState({ draggedDown: true })
       }
       if (draggedUp) {
         console.log('draggedUp ')
@@ -147,6 +148,7 @@ class Cashout extends React.Component {
             duration: 150,
           }
         );
+        this.setState({ draggedDown: false })
       }
     }
   }
@@ -158,16 +160,6 @@ class Cashout extends React.Component {
         this.getDirectionAndColor(gestureState.dy, gestureState.moveY);
       },
       onPanResponderRelease: (evt, gestureState) => {
-        const draggedDown = gestureState.dy > 30;
-        const draggedUp = gestureState.dy < -30;
-        if (gestureState.moveY < 233) {
-          if (draggedDown) {
-            this.setState({ draggedDown: true })
-          }
-          if (draggedUp) {
-            this.setState({ draggedDown: false })
-          }
-        }
       }
     })
   }
