@@ -62,11 +62,11 @@ class Main extends React.Component {
           backgroundColor={"transparent"}
         />
         <View style={styles.content}>
-          {this.props.activeTab == 0 ? <Profile /> : null}
-          {this.props.activeTab == 1 ? <Cashout /> : null}
-          {this.props.activeTab == 2 ? <Map /> : null}
-          {this.props.activeTab == 3 ? <History /> : null}
-          {this.props.activeTab == 4 ? this.renderLastTab() : null}
+          {this.props.activeTab == 0 ? this.renderLastTab() : null}
+          {this.props.activeTab == 1 ? <Map /> : null}
+          {this.props.activeTab == 2 ? <History /> : null}
+          {this.props.activeTab == 3 ? <Profile /> : null}
+
         </View>
         {!this.props.isConnected && <NoInternet />}
         {!this.props.dashboard && this.props.timer_status && <ReturnToMall />}

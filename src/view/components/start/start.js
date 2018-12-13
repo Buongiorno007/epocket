@@ -58,7 +58,7 @@ class Start extends React.Component {
   }
 
   componentDidMount = () => {
-    this.props.setTabState(4);
+    this.props.setTabState(0);
     this.props.getConnection();
     this._getLocation();
     this.props.locationStateListener();

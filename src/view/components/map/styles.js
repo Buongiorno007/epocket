@@ -12,7 +12,7 @@ export default StyleSheet.create({
         position: 'absolute',
         top: 0,
         width: width,
-        height: height - 50,
+        height: height - 60,
         position: "absolute",
         zIndex: 1,
     },

@@ -21,7 +21,7 @@ export default StyleSheet.create({
         color: colors.white
     },
     general_text_big: {
-        fontSize: 18,
+        fontSize: 24,
         fontFamily: "Rubik-Medium",
         color: colors.white
     },

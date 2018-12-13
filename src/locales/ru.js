@@ -3,7 +3,7 @@ export const RU = {
   TITLE: "EpocketCash",
   PROFILE: "Профиль",
   CASHOUT: "Обналичить",
-  SHOP: "Торговый\nцентр",
+  SHOP: "Карта",
   HISTORY: "Кошельки",
   INFO: "Инфо",
   LOCATION_DISABLED: "Геолокация\nотключена",
