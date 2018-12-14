@@ -55,6 +55,7 @@ class Dashboard extends React.Component {
   componentDidMount = () => {
     this.props.setMissions(this.props.navigation.state.params.dashboard_data);
     this.setState({ load_missions: false, load_timer: false });
+    this.callTimer()
   };
   pickTasks = () => {
     let pick = this.state.pickedTask;
@@ -287,16 +288,16 @@ class Dashboard extends React.Component {
           backgroundColor={"transparent"}
         />
 
-        <View style={styles.container}>
-          {
-            !this.props.activeCard ?
-              <LinearGradient
-                colors={[this.props.userColor.second_gradient_color, this.props.userColor.first_gradient_color]}
-                start={{ x: 1.0, y: 0.0 }}
-                end={{ x: 0.0, y: 1.0 }}
-                style={styles.grad}
-              /> : <View style={styles.white} />
-          }
+        {
+          !this.props.activeCard ?
+            <LinearGradient
+              colors={[this.props.userColor.second_gradient_color, this.props.userColor.first_gradient_color]}
+              start={{ x: 1.0, y: 0.0 }}
+              end={{ x: 0.0, y: 1.0 }}
+              style={styles.grad}
+            /> : <View style={styles.white} />
+        }
+        <View style={styles.dash_top}>
           <Balance
             navigation={{
               title: "Карта",
@@ -306,7 +307,9 @@ class Dashboard extends React.Component {
           <DashTop
             mainMissionPrice={this.state.mainMissionPrice}
           />
-          <View style={this.dashboardStyles()}>
+        </View>
+        <View style={this.dashboardStyles()}>
+          {!this.props.activeCard &&
             <View style={styles.nav_buttons}>
               <HistoryNavButton
                 handler={
@@ -327,22 +330,22 @@ class Dashboard extends React.Component {
                 disabled={!this.state.pickedTask}
               />
             </View>
-            {this.state.pickedTask ?
-              <CardList
-                onScrollBeginDrag={() => {
-                  //this.getMissions()
-                }}
-              /> :
-              <CardListPosts posts={[
-                {
-                  id: 1,
-                  name: "test",
-                  timer: 172799,
-                  value: 10
-                }
-              ]} />
-            }
-          </View>
+          }
+          {this.state.pickedTask ?
+            <CardList
+              onScrollBeginDrag={() => {
+                //this.getMissions()
+              }}
+            /> :
+            <CardListPosts posts={[
+              {
+                id: 1,
+                name: "test",
+                timer: 172799,
+                value: 10
+              }
+            ]} />
+          }
         </View>
         {this.state.load_missions && <ActivityIndicator />}
         <TimerModal callTimer={() => { this.callTimer() }} />

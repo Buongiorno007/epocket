@@ -12,6 +12,13 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between"
   },
+  dash_top: {
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    height: height * 0.35,
+    width: width
+  },
   nav_buttons: {
     width: width * 0.85,
     height: 45,
@@ -41,8 +48,7 @@ export default StyleSheet.create({
     backgroundColor: colors.white
   },
   drag_container: {
-    position: "absolute",
-    bottom: 0,
+    height: height * 0.7,
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
     overflow: "hidden",

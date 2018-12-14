@@ -21,9 +21,11 @@ class CardList extends React.Component {
   _renderItem = item => (
     item.item.type != "instagram_connect" && item.item.type != "facebook_connect" ?
       <Card item={item.item} onPressItem={this._showSelectedCard} /> :
-      <LongCard item={item.item} onPressItem={console.log("social card pressed")} />
+      <LongCard item={item.item} onPressItem={this.connectSocial} />
   );
+  connectSocial = () => {
 
+  }
   _submissionOrder = (mission) => {
     let insta_sub_mission = {
       desc: RU.MISSION.SUBMISSION_3,

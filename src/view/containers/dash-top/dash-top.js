@@ -14,152 +14,59 @@ import { setDashboardState } from "../../../reducers/dashboard-state";
 import LinearGradient from "react-native-linear-gradient";
 import { LinearTextGradient } from "react-native-text-gradient";
 import { Button } from "native-base";
-
+//this.props.mainMissionPrice
 class DashTop extends React.Component {
   render() {
     return (
       !this.props.activeCard ?
         <View style={styles.content}>
-          <View style={styles.location}>
-            <View style={styles.location_left}>
-              <FastImage
-                resizeMode={FastImage.resizeMode.contain}
-                style={styles.icon}
-                source={{ uri: ICONS.COMMON.GEOLOCATION_WHITE }}
-              />
-              <View>
-                <Text style={styles.up_text}>{RU.YOU_ARE_HERE}</Text>
-                <Text
-                  numberOfLines={1}
-                  style={styles.down_text}>
-                  {this.props.selectedMall.name}
-                </Text>
-              </View>
-            </View>
-            <View style={styles.middle_border} />
-            <View style={styles.location_right}>
-              <FastImage
-                resizeMode={FastImage.resizeMode.contain}
-                style={styles.icon}
-                source={{ uri: ICONS.COMMON.CASH_EPC_WHITE }}
-              />
-              <View>
-                <Text style={styles.up_text}>{RU.YOUR_BONUS}</Text>
-                <Text style={styles.down_text}>{this.props.balance} {RU.EPC}</Text>
-              </View>
+          <View style={styles.epc_counter_container}>
+            <Text style={styles.epc_counter}>
+              {this.props.mainMissionPrice}
+            </Text>
+            <View style={styles.epc_counter_info}>
+              <Text style={styles.epc}>{RU.EPC}</Text>
+              <Text style={styles.epc_info}>{RU.FOR_BEING_IN_MALL}</Text>
+              <Text style={styles.epc_info}>{RU.TIME_STARTED}</Text>
             </View>
           </View>
-
-          <View style={this.props.dashboardState === 1 ? null : styles.disabled} >
-            <View style={this.props.timer_status ? null : styles.disabled}>
-              <View style={styles.epc_counter_container}>
-                <Text style={styles.epc_counter}>
-                  {this.props.mainMissionPrice}
-                </Text>
-                <View style={styles.epc_counter_info}>
-                  <Text style={styles.epc}>{RU.EPC}</Text>
-                  <Text style={styles.epc_info}>{RU.FOR_BEING_IN_MALL}</Text>
-                  <Text style={styles.epc_info}>{RU.TIME_STARTED}</Text>
-                </View>
-              </View>
-              <View style={styles.time_counter_container}>
-                <View style={styles.time_counter}>
-                  <Text style={styles.time_counter_text}>
-                    {this.props.timer.hours < 10 && "0"}
-                    {this.props.timer.hours}
-                  </Text>
-                </View>
-                <View>
-                  <Text style={styles.time_divider}>:</Text>
-                </View>
-                <View style={styles.time_counter}>
-                  <Text style={styles.time_counter_text}>
-                    {this.props.timer.minutes < 10 && "0"}
-                    {this.props.timer.minutes}
-                  </Text>
-                </View>
-                <View>
-                  <Text style={styles.time_divider}>:</Text>
-                </View>
-                <View style={styles.time_counter}>
-                  <Text style={styles.time_counter_text}>
-                    {this.props.timer.seconds < 10 && "0"}
-                    {this.props.timer.seconds}
-                  </Text>
-                </View>
-              </View>
+          <View style={styles.time_counter_container}>
+            <View style={styles.time_counter}>
+              <Text style={styles.time_counter_text}>
+                {this.props.timer.hours < 10 && "0"}
+                {this.props.timer.hours}
+              </Text>
             </View>
-            <View
-              style={
-                this.props.timer_status
-                  ? styles.disabled
-                  : styles.main_task_expired_container
-              }
-            >
-              {/* <Text style={styles.main_task_expired}>
+            <View>
+              <Text style={styles.time_divider}>:</Text>
+            </View>
+            <View style={styles.time_counter}>
+              <Text style={styles.time_counter_text}>
+                {this.props.timer.minutes < 10 && "0"}
+                {this.props.timer.minutes}
+              </Text>
+            </View>
+            <View>
+              <Text style={styles.time_divider}>:</Text>
+            </View>
+            <View style={styles.time_counter}>
+              <Text style={styles.time_counter_text}>
+                {this.props.timer.seconds < 10 && "0"}
+                {this.props.timer.seconds}
+              </Text>
+            </View>
+          </View>
+          <View
+            style={
+              this.props.timer_status
+                ? styles.disabled
+                : styles.main_task_expired_container
+            }
+          >
+            {/* <Text style={styles.main_task_expired}>
                 {RU.MAIN_TASK_EXPIRED}
               </Text> */}
-            </View>
           </View>
-          <Button
-            transparent
-            style={
-              this.props.dashboardState === 2
-                ? styles.small_head
-                : styles.disabled
-            }
-            onPress={() => {
-              this.props.setDashboardState(1);
-            }}
-          >
-            <View
-              style={
-                this.props.timer_status ? styles.small_head : styles.disabled
-              }
-            >
-              <View style={styles.small_epc_counter_container}>
-                <Text style={styles.small_epc_counter}>
-                  {this.props.mainMissionPrice}
-                </Text>
-                <Text style={styles.time_counter_text}>{RU.EPC}</Text>
-              </View>
-              <View style={styles.small_time_counter_container}>
-                <View style={styles.small_time_counter}>
-                  <Text style={styles.time_counter_text}>
-                    {this.props.timer.hours < 10 && "0"}
-                    {this.props.timer.hours}
-                  </Text>
-                </View>
-                <View>
-                  <Text style={styles.time_divider}>:</Text>
-                </View>
-                <View style={styles.small_time_counter}>
-                  <Text style={styles.time_counter_text}>
-                    {this.props.timer.minutes < 10 && "0"}
-                    {this.props.timer.minutes}
-                  </Text>
-                </View>
-                <View>
-                  <Text style={styles.time_divider}>:</Text>
-                </View>
-                <View style={styles.small_time_counter}>
-                  <Text style={styles.time_counter_text}>
-                    {this.props.timer.seconds < 10 && "0"}
-                    {this.props.timer.seconds}
-                  </Text>
-                </View>
-              </View>
-            </View>
-
-            <View
-              style={
-                this.props.timer_status
-                  ? styles.disabled
-                  : styles.main_task_expired_container
-              }
-            >
-            </View>
-          </Button>
         </View>
         :
         <View style={styles.content}>
@@ -193,7 +100,6 @@ class DashTop extends React.Component {
                   style={styles.down_text}
                   numberOfLines={1}
                 >
-
                   {this.props.selectedMall.name}
                 </LinearTextGradient>
               </View>

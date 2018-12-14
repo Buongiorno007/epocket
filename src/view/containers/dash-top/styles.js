@@ -6,9 +6,9 @@ const { width, height } = Dimensions.get("window");
 
 export default StyleSheet.create({
   content: {
-    top: 30,
-    justifyContent: "center",
-    alignItems: "center"
+    justifyContent: "flex-start",
+    alignItems: "center",
+    top: -20
   },
   disabled: {
     display: "none"
@@ -33,7 +33,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   middle_border: {
-    height : 25,
+    height: 25,
     borderRightWidth: 1,
     borderColor: colors.white_o25,
   },
@@ -55,14 +55,13 @@ export default StyleSheet.create({
     width: width * 0.3,
   },
   epc_counter_container: {
-    top: 18,
-    height: 80,
     width: width * 0.85,
     flexDirection: "row",
+    justifyContent: "flex-start",
     alignItems: "center"
   },
   epc_counter: {
-    top: 5,
+    paddingTop: 5,
     color: colors.white,
     fontFamily: "Rubik-Light",
     fontSize: 76
@@ -81,11 +80,10 @@ export default StyleSheet.create({
     fontSize: 18
   },
   time_counter_container: {
-    top: 40,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    width: width * 0.85
+    width: width * 0.85,
   },
   time_counter: {
     width: width * 0.25,
@@ -128,7 +126,7 @@ export default StyleSheet.create({
     fontSize: 30
   },
   small_head: {
-    top: 5,
+    paddingTop: 5,
     flexDirection: "row",
     justifyContent: "space-between",
     alignSelf: "center"

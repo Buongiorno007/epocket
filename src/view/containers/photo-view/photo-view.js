@@ -46,7 +46,8 @@ class PhotoView extends React.Component {
     this.props.loaderState(true);
     let body = {
       outlet_id: this.props.selectedMall.id,
-      photo: this.props.navigation.state.params.image
+      photo: this.props.navigation.state.params.image,
+      missionId: this.props.selectedMission.id
     };
     let promise = httpPost(
       urls.insta_upload_photo,
