@@ -1,9 +1,11 @@
 import React from "react";
-import { View, StatusBar } from "react-native";
+import { View, StatusBar, Text } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 //containers
 import CardList from "../../containers/card-list/card-list";
+import CardListPosts from "../../containers/card-posts-list/card-posts-list";
 import CustomAlert from "../../containers/custom-alert/custom-alert";
+import HistoryNavButton from "./../../containers/history-nav-button/history-nav-button";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 import DashTop from "../../containers/dash-top/dash-top";
 import Balance from "../../containers/cashout-balance/cashout-balance";
@@ -33,6 +35,7 @@ import { handleError } from "../../../services/http-error-handler";
 
 class Dashboard extends React.Component {
   state = {
+    pickedTask: true,
     startMissionErrorVisible: false,
     missionsErrorVisible: false,
     finishMissionErrorVisible: false,
@@ -50,11 +53,16 @@ class Dashboard extends React.Component {
   };
 
   componentDidMount = () => {
-    console.log(this.props.navigation.state.params.dashboard_data)
-    this.props.setMissions(this.getActiveMissions(this.props.navigation.state.params.dashboard_data));
+    this.props.setMissions(this.props.navigation.state.params.dashboard_data);
     this.setState({ load_missions: false, load_timer: false });
-    //this.getMissions();
-    //this.callTimer();
+  };
+  pickTasks = () => {
+    let pick = this.state.pickedTask;
+    this.setState({ pickedTask: !pick });
+  };
+  pickPosts = () => {
+    let pick = this.state.pickedTask;
+    this.setState({ pickedTask: !pick });
   };
   setStartMissionErrorVisible = visible => {
     this.setState({ startMissionErrorVisible: visible });
@@ -114,7 +122,8 @@ class Dashboard extends React.Component {
       let currentTime = moment().format("HH:mm:ss");
       let startTime = moment(item.date_start).subtract(3, "hours").format("HH:mm:ss");
       let endTime = moment(item.date_end).subtract(3, "hours").format("HH:mm:ss")
-      item.active = currentTime > startTime && currentTime < endTime;
+      item.active = (item.type != "instagram_connect" && item.type != "facebook_connect")
+        ? (currentTime > startTime && currentTime < endTime) : true;
     });
     return orderBy(orderBy(missions, ['price'], ['desc']), ['active'], ['desc']);
   }
@@ -298,11 +307,41 @@ class Dashboard extends React.Component {
             mainMissionPrice={this.state.mainMissionPrice}
           />
           <View style={this.dashboardStyles()}>
-            <CardList
-              onScrollBeginDrag={() => {
-                this.getMissions()
-              }}
-            />
+            <View style={styles.nav_buttons}>
+              <HistoryNavButton
+                handler={
+                  !this.state.pickedTask
+                    ? () => this.pickTasks()
+                    : null
+                }
+                title={RU.DASHBOARD_LIST.TASKS_TAB_TITLE}
+                disabled={this.state.pickedTask}
+              />
+              <HistoryNavButton
+                handler={
+                  this.state.pickedTask
+                    ? () => this.pickPosts()
+                    : null
+                }
+                title={RU.DASHBOARD_LIST.POSTS_TAB_TITLE}
+                disabled={!this.state.pickedTask}
+              />
+            </View>
+            {this.state.pickedTask ?
+              <CardList
+                onScrollBeginDrag={() => {
+                  //this.getMissions()
+                }}
+              /> :
+              <CardListPosts posts={[
+                {
+                  id: 1,
+                  name: "test",
+                  timer: 172799,
+                  value: 10
+                }
+              ]} />
+            }
           </View>
         </View>
         {this.state.load_missions && <ActivityIndicator />}

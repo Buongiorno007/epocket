@@ -8,3 +8,10 @@ export function toHHMMSS(secs) {
         .filter((v, i) => v !== '00' || i > 0)
         .join(':');
 }
+export function toDDHHMM(secs) {
+    var sec_num = parseInt(secs, 10);
+    var hours = Math.floor(sec_num / 3600) % 24;
+    var minutes = Math.floor(sec_num / 60) % 60;
+    var days = Math.floor(sec_num / 86400) % 24;
+    return { days, hours, minutes }
+}

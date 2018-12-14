@@ -91,4 +91,27 @@ export default StyleSheet.create({
     padding: 2,
     textAlign: "center"
   },
+  social_card: {
+    height: width * 0.4,
+    width: width * 0.4,
+    backgroundColor: colors.white,
+    borderRadius: 12,
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: 10,
+  },
+  social_container_cart: {
+    height: width * 0.4,
+    width: width * 0.4,
+  },
+  social_icon: {
+    height: 30,
+    width: 30,
+  },
+  social_text: {
+    fontFamily: "Rubik",
+    fontSize: 10,
+    color: colors.black_90,
+    textAlign: "center"
+  }
 });

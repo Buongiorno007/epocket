@@ -43,6 +43,8 @@ import { handleError } from "../../../services/http-error-handler";
 import NavigationService from "../../../services/route";
 import getCurrentGeolocation from "../../../services/get-location"
 import { sendToTelegramm } from '../../../services/telegramm-notification'
+import { orderBy } from 'lodash';
+import moment from "moment";
 
 class Map extends React.Component {
   state = {
@@ -153,7 +155,7 @@ class Map extends React.Component {
   loadTRC = () => {
     this.setModalVisible(false);
     this.props.loaderState(true);
-    let promise = httpPost(urls.outlets, JSON.stringify({}), this.props.token);
+    let promise = httpPost(urls.outlets, JSON.stringify({ geolocation_status: true }), this.props.token);
     promise.then(
       result => {
         this.setModalVisible(false);
@@ -236,25 +238,36 @@ class Map extends React.Component {
         }
       />
       :
-      this.state.taskActive ?
-        item.item.status &&
-        <CardTask
+      item.item.type === "instagram_connect" || item.item.type === "facebook_connect" ?
+        <CardFirst
+          type={item.item.type}
           item={item.item}
           key={item.item.id}
-          onPressItem={this._showSelectedCard}
+          onPressItem={this.openNext}
+          btnText={
+            RU.EXECUTE.toUpperCase()
+          }
         />
-        : this.state.shopActive ?
-          <CardCashout
+        :
+        this.state.taskActive ?
+          item.item.active &&
+          <CardTask
             item={item.item}
             key={item.item.id}
             onPressItem={this._showSelectedCard}
           />
-          :
-          <CardCashout
-            item={item.item}
-            key={item.item.id}
-            onPressItem={this._showSelectedCard}
-          />
+          : this.state.shopActive ?
+            <CardCashout
+              item={item.item}
+              key={item.item.id}
+              onPressItem={this._showSelectedCard}
+            />
+            :
+            <CardCashout
+              item={item.item}
+              key={item.item.id}
+              onPressItem={this._showSelectedCard}
+            />
   );
   openNext = selectedCard => {
     console.log(selectedCard)
@@ -273,6 +286,15 @@ class Map extends React.Component {
     // this.props.setActiveCard(true);
     // this.props.selectMission(this._submissionOrder(selectedCard));
   };
+  getActiveMissions = (missions) => {
+    missions.forEach((item) => {
+      let currentTime = moment().format("HH:mm:ss");
+      let startTime = moment(item.date_start).subtract(3, "hours").format("HH:mm:ss");
+      let endTime = moment(item.date_end).subtract(3, "hours").format("HH:mm:ss")
+      item.active = (currentTime > startTime && currentTime < endTime)
+    });
+    return orderBy(orderBy(missions, ['price'], ['desc']), ['active'], ['desc']);
+  }
   loadTaskItems = (trc) => {
     this.setModalVisible(false);
     let body = {
@@ -287,10 +309,24 @@ class Map extends React.Component {
       result => {
         this.setModalVisible(false);
         if (result.status == 200) {
-          let cards = result.body.missions;
+          let cards = this.getActiveMissions(result.body.missions);
+          if (!false) { //check for instagramm
+            cards.unshift({
+              type: "instagram_connect",
+              reward: "10",
+              price: 0
+            })
+          }
+          if (!false) { //check for facebook
+            cards.unshift({
+              type: "facebook_connect",
+              reward: "10",
+              price: 0
+            })
+          }
           cards.unshift(trc)
+          console.log(cards)
           this.setState({ cards, focusedOnMark: true })
-          //this.props.setMissions(this.getActiveMissions(result.body.missions));
         }
         this.props.loaderState(false);
       },

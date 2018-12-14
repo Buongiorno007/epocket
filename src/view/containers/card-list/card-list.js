@@ -3,6 +3,7 @@ import { View, Text, FlatList } from "react-native";
 //containers
 import Card from "../card/card";
 import OpenedCard from "../opened-card/opened-card";
+import LongCard from "../card-long/card-long"
 import FooterNavigation from "../../containers/footer-navigator/footer-navigator";
 //constants
 import { RU } from "../../../locales/ru";
@@ -18,7 +19,9 @@ import { orderBy } from 'lodash';
 class CardList extends React.Component {
 
   _renderItem = item => (
-    <Card item={item.item} onPressItem={this._showSelectedCard} />
+    item.item.type != "instagram_connect" && item.item.type != "facebook_connect" ?
+      <Card item={item.item} onPressItem={this._showSelectedCard} /> :
+      <LongCard item={item.item} onPressItem={console.log("social card pressed")} />
   );
 
   _submissionOrder = (mission) => {
@@ -26,7 +29,8 @@ class CardList extends React.Component {
       desc: RU.MISSION.SUBMISSION_3,
       id: 1,
       name: "insta submission",
-      type: 2
+      type: 2,
+      flatlistData: [],
     }
     mission.subMissions.length && (mission.subMissions = orderBy(mission.subMissions, ['type'], ['desc']))
     mission.subMissions.push(insta_sub_mission)
@@ -45,15 +49,13 @@ class CardList extends React.Component {
           <View style={styles.list_view}>
             {this.props.missions.length > 0 ? (
               <View style={styles.list_view}>
-                <View style={styles.shadow}>
-                  <Text style={styles.tasks}>{RU.TASKS.toUpperCase()}</Text>
-                </View>
                 <FlatList
                   contentContainerStyle={styles.contentContainerStyle}
                   style={styles.list_view}
                   horizontal={false}
                   numColumns={2}
-                  keyExtractor={this.keyExtractor}  
+                  columnWrapperStyle={{ flexWrap: 'wrap' }}
+                  keyExtractor={this.keyExtractor}
                   data={this.props.missions}
                   renderItem={this._renderItem}
                   /*
@@ -81,7 +83,7 @@ class CardList extends React.Component {
 const mapStateToProps = state => ({
   activeCard: state.activeCard,
   userColor: state.userColor,
-  missions: state.missions,
+  missions: state.missions
 });
 
 const mapDispatchToProps = dispatch =>

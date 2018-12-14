@@ -12,6 +12,14 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between"
   },
+  nav_buttons: {
+    width: width * 0.85,
+    height: 45,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    zIndex: 1
+  },
   container: {
     position: "absolute",
     top: 0,
@@ -30,11 +38,8 @@ export default StyleSheet.create({
     position: "absolute",
     height: height,
     width: width,
-    backgroundColor : colors.white
+    backgroundColor: colors.white
   },
-
-
-
   drag_container: {
     position: "absolute",
     bottom: 0,
@@ -42,6 +47,7 @@ export default StyleSheet.create({
     borderTopLeftRadius: 20,
     overflow: "hidden",
     width: width,
+    alignItems: "center",
     backgroundColor: colors.drag_panel_color
   },
   drag_container_small: {

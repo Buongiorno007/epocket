@@ -4,6 +4,8 @@ export const RU = {
   PROFILE: "Профиль",
   CASHOUT: "Обналичить",
   SHOP: "Карта",
+  INSTAGRAM: " Instagram ",
+  FACEBOOK: " Facebook ",
   HISTORY: "Кошельки",
   INFO: "Инфо",
   LOCATION_DISABLED: "Геолокация\nотключена",
@@ -48,6 +50,17 @@ export const RU = {
     TITLE_BOTTOM: "Не потеряй прогресс вернись в ТРЦ в течении 5 мин",
     TIME_IS_UP: "Ваше время истекло. "
   },
+  DASHBOARD_LIST: {
+    TASKS_TAB_TITLE: "Задания",
+    POSTS_TAB_TITLE: "Посты",
+    CONNECT: "Подключите свой",
+    ACCOUNT_AND_GET: "аккаунт и получите",
+    WILL_GET: "Вы получите ",
+    OVER: " через",
+    DD: "дня",
+    HH: "часа",
+    MM: "минут",
+  },
   NO_INTERNET: "Нет соединения\nс интернетом",
   CARD_FAILED: "Срок выполнения этого задания уже истек",
   MAIN_TASK_FAILED: "Таймер задания на время обнулен :(",
@@ -76,6 +89,7 @@ export const RU = {
     "Нам нужно ваше разрешение на использование камеры телефона",
   TASKS: "Задания:",
   NO_TASKS: "К сожалению, в данный момент у нас нет заданий для вас",
+  NO_POSTS: "В данный момент у Вас нет постов в ожидании",
   MISSION: {
     SUCCESS: "Задание выполнено!",
     CASH: "Вам начислено",
@@ -124,7 +138,9 @@ export const RU = {
   MAP: {
     TASKS: "Задания",
     MAKE_PREORDER: "Сделать предзаказ",
-    LIST_PRODUCTS: "Список товаров"
+    LIST_PRODUCTS: "Список товаров",
+    CONNECT_INSTA: "Подключите Instagram и получите ",
+    CONNECT_FACEBOOK: "Подключите Facebook и получите "
   },
   PROFILE_PAGE: {
     EXIT_TO_START: "Вы уверены что хотите выйти?",

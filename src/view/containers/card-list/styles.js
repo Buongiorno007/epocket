@@ -23,7 +23,7 @@ export default StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-start",
     paddingBottom: 50,
-    paddingTop : 10
+    paddingTop: 10
   },
   tasks: {
     fontFamily: "Rubik-Medium",
@@ -31,7 +31,7 @@ export default StyleSheet.create({
     width: width * 0.85,
     textAlign: "left",
     alignSelf: "center",
-    color : colors.sum_grey
+    color: colors.sum_grey
   },
   no_tasks: {
     alignSelf: "center",
