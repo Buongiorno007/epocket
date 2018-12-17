@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Animated } from "react-native";
 import FastImage from 'react-native-fast-image'
 //constants
 import styles from "./styles";
@@ -19,11 +19,13 @@ class DashTop extends React.Component {
   render() {
     return (
       !this.props.activeCard ?
-        <View style={styles.content}>
+        <View style={styles_top.content}>
           <View style={styles.epc_counter_container}>
-            <Text style={styles.epc_counter}>
+            <Animated.Text style={[styles.epc_counter,
+              // { fontSize: this.state.epcСounterFontSize }
+            ]}>
               {this.props.mainMissionPrice}
-            </Text>
+            </Animated.Text>
             <View style={styles.epc_counter_info}>
               <Text style={styles.epc}>{RU.EPC}</Text>
               <Text style={styles.epc_info}>{RU.FOR_BEING_IN_MALL}</Text>

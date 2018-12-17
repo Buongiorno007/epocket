@@ -8,7 +8,11 @@ export default StyleSheet.create({
   content: {
     justifyContent: "flex-start",
     alignItems: "center",
-    top: -20
+  },
+  content_old: {
+    justifyContent: "flex-start",
+    alignItems: "center",
+    top: 30
   },
   disabled: {
     display: "none"
@@ -55,18 +59,27 @@ export default StyleSheet.create({
     width: width * 0.3,
   },
   epc_counter_container: {
-    width: width * 0.85,
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center"
+  },
+  epc_counter_container_currency: {
+    justifyContent: "flex-start",
+    alignItems: "center",
+    flexDirection: "row"
   },
   epc_counter: {
     paddingTop: 5,
     color: colors.white,
     fontFamily: "Rubik-Light",
   },
+  epc_counter_currency: {
+    color: colors.white,
+    fontFamily: "Rubik-Light",
+    fontSize: 15
+  },
   epc_counter_info: {
-    paddingLeft: 10
+    paddingLeft: 0
   },
   epc: {
     color: colors.white,
@@ -82,10 +95,8 @@ export default StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    width: width * 0.85,
   },
   time_counter: {
-    width: width * 0.25,
     backgroundColor: colors.white_o36,
     borderRadius: 25
   },

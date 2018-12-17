@@ -111,6 +111,7 @@ class Map extends React.Component {
     }, timeout || 200);
   };
   componentWillReceiveProps = nextProps => {
+    console.log(nextProps)
     if (
       this.props.location.lat === 0 &&
       this.props.location.lng === 0 &&
@@ -125,6 +126,7 @@ class Map extends React.Component {
         this.props.location.lat !== nextProps.location.lat &&
         this.props.location.lng !== nextProps.location.lng
       ) {
+        console.log("componentWillReceiveProps ???")
         this.props.isLocation && this.selectNearestMall(
           {
             latitude: this.props.location.lat,
@@ -135,6 +137,7 @@ class Map extends React.Component {
       }
     }
     if (nextProps.navigateToMall) {
+      console.log("will navigatetomall")
       this.moveMapTo(nextProps.selectedMall.lat, nextProps.selectedMall.lng, 0.0058,
         0.0058);
       this.selectMark(this.props.selectedMall, false, "task");
@@ -142,7 +145,6 @@ class Map extends React.Component {
       this.props.setNavigateToMall(false)
     }
   };
-
   componentDidMount = () => {
     this.loadTRC();
     if (this.props.location.lat === 0 && this.props.location.lng === 0) {
@@ -164,7 +166,9 @@ class Map extends React.Component {
         this.props.setInitialOutlets(result.body)
         console.log(this.props.selectedMall)
         if (this.props.selectedMall.id) {
-          //this.selectMark(this.props.selectedMall, false, "task");
+          console.log("true relocation")
+          console.log(this.props.secondDashboardCallBlock)
+          this.selectMark(this.props.selectedMall, false, "task");
         } else {
           this.props.isLocation &&
             this.selectNearestMall(
@@ -195,33 +199,9 @@ class Map extends React.Component {
       return this.checkLat(Number(item.lat)) && this.checkLng(Number(item.lng));
     });
   }
-  getCurrentGeolocation = () => {
-    this.props.loaderState(true);
-    navigator.geolocation.getCurrentPosition(
-      position => {
-        this.props.setLocation({
-          lng: position.coords.longitude,
-          lat: position.coords.latitude
-        });
-        if (!this.props.selectedMall.id) {
-          this.moveMapTo(
-            position.coords.latitude,
-            position.coords.longitude
-          );
-        }
-        if (this.props.selectedMall.id) {
-          this.selectMark(this.props.selectedMall, false, "task");
-        }
-        this.props.loaderState(false);
-      },
-      error => {
-        this.props.loaderState(false);
-      }
-    );
-  };
-
   selectNearestMall = (my_location, mall_array, ANIMATE_MAP) => {
     let nearestMall = geolib.findNearest(my_location, mall_array, 0);
+    console.log("selectNearest")
     try { this.selectMark(mall_array[Number(nearestMall.key)], ANIMATE_MAP, "task"); } catch (e) { }
   };
 
@@ -270,12 +250,10 @@ class Map extends React.Component {
             />
   );
   openNext = selectedCard => {
-    console.log(selectedCard)
-    console.log(this.state.cards)
     let copyOfCards = [...this.state.cards]
     copyOfCards.shift(); //remove card with outlet|cashout information
     if (this.state.taskActive) {
-      NavigationService.navigate("Dashboard", { dashboard_data: copyOfCards });
+      NavigationService.navigate("Dashboard", { dashboard_data: copyOfCards, general_info: selectedCard });
     }
     else {
       NavigationService.navigate("Cashout", { cashout_data: copyOfCards, general_info: selectedCard });
@@ -459,7 +437,7 @@ class Map extends React.Component {
       let copyOfCards = [...this.state.cards]
       copyOfCards.shift();
       if (this.state.taskActive) {
-        NavigationService.navigate("Dashboard", { dashboard_data: copyOfCards });
+        NavigationService.navigate("Dashboard", { dashboard_data: copyOfCards, general_info: this.props.selectedMall });
       }
     } else {
       ANIMATE_MAP &&
@@ -694,7 +672,8 @@ const mapStateToProps = state => {
     outlets: state.outlets,
     timer_status: state.timer_status,
     navigateToMall: state.navigateToMall,
-    initial_outlets: state.initial_outlets
+    initial_outlets: state.initial_outlets,
+    secondDashboardCallBlock: state.secondDashboardCallBlock
   };
 };
 

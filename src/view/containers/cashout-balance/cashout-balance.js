@@ -7,6 +7,8 @@ import { ICONS } from "./../../../constants/icons";
 import { RU } from "./../../../locales/ru";
 //redux
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { setSecondDashboardCallBlock } from "../../../reducers/second-dash-call"
 //services
 import NavigationService from "./../../../services/route";
 import { Button } from "native-base";
@@ -17,6 +19,10 @@ class CashoutBalance extends React.Component {
       NavigationService.navigate(this.props.navigation.direction)
       :
       console.log("Fail. No navigation prop")
+    if (this.props.navigation.preventSecondCall) {
+      console.log("prevent second call")
+      this.props.setSecondDashboardCallBlock(true)
+    }
   }
   render = () => {
     return (
@@ -59,4 +65,14 @@ class CashoutBalance extends React.Component {
   };
 }
 const mapStateToProps = state => ({ userColor: state.userColor, balance: state.balance });
-export default connect(mapStateToProps)(CashoutBalance);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      setSecondDashboardCallBlock,
+    },
+    dispatch
+  );
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CashoutBalance);

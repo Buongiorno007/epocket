@@ -16,7 +16,6 @@ export default StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "flex-start",
-    height: height * 0.35,
     width: width
   },
   nav_buttons: {
@@ -48,7 +47,7 @@ export default StyleSheet.create({
     backgroundColor: colors.white
   },
   drag_container: {
-    height: height * 0.7,
+    height: height * 0.65,
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
     overflow: "hidden",
@@ -77,5 +76,18 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between"
   },
-
+  background_image: {
+      position: "absolute",
+      resizeMode: "cover",
+      height: height,
+      width: width,
+      zIndex: 1,
+  },
+  background_image_mask: {
+      position: "absolute",
+      height: height,
+      width: width,
+      zIndex: 1,
+      backgroundColor: colors.black_50
+  },
 });

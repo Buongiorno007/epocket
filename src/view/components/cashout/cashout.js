@@ -132,7 +132,7 @@ class Cashout extends React.Component {
         console.log('draggedUp ')
         this.animateTop(
           {
-            toValue: 0.00000001,
+            toValue: 0,
             duration: 100,
           },
           {
