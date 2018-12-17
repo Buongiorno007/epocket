@@ -55,6 +55,7 @@ const CustomLayoutLinear = {
 class Dashboard extends React.Component {
   state = {
     pickedTask: true,
+    notInMall: false,
     startMissionErrorVisible: false,
     missionsErrorVisible: false,
     finishMissionErrorVisible: false,
@@ -64,7 +65,8 @@ class Dashboard extends React.Component {
     mainMissionId: 0,
     mainMissionPrice: 0,
     body: {
-      outletId: this.props.selectedMall.id
+      outletId: this.props.selectedMall.id,
+      notInMall: (this.props.distance <= 0 && this.props.isLocation) ? false : true
     },
     errorText: "",
     errorCode: "",
@@ -250,8 +252,9 @@ class Dashboard extends React.Component {
   }
   componentDidMount = () => {
     this.props.setMissions(this.props.navigation.state.params.dashboard_data);
+    console.log(this.props.navigation.state.params.posts)
     this.setState({ load_missions: false, load_timer: false });
-    // this.callTimer();
+    this.callTimer();
   };
   pickTasks = () => {
     let pick = this.state.pickedTask;
@@ -271,6 +274,12 @@ class Dashboard extends React.Component {
     this.setState({ missionsErrorVisible: visible });
   };
   callTimer() {
+    let curr_time = {
+      hours: 0,
+      minutes: 0,
+      seconds: 0
+    };
+    this.props.updateTimer(curr_time);
     this.setStartMissionErrorVisible(false);
     let promise = httpPost(
       urls.start_mission,
@@ -291,15 +300,36 @@ class Dashboard extends React.Component {
               this.props.showFailedNotification(true);
               this.props.timerStatus(false);
             } else {
+              this.setState({ notInMall: false })
               if (result.body.interval <= 0) {
                 this.props.timerStatus(false);
                 this.finishMainMission();
               } else if (result.body.interval > 0) {
                 //blocks second call on mount
-                this.props.timerStatus(true);
-                this.setState({ finishMissionCalled: false })
-                clearCorrectingInterval(this.props.timer_interval);
-                this.timer(result.body.interval * 1000);
+                if (this.props.distance <= 0 && this.props.isLocation) {
+                  this.props.timerStatus(true);
+                  this.setState({ finishMissionCalled: false })
+                  clearCorrectingInterval(this.props.timer_interval);
+                  this.timer(result.body.interval * 1000);
+                }
+                else {
+                  this.props.timerStatus(false);
+                  this.setState({ notInMall: true })
+                  let time = result.body.interval * 1000
+                  let hours = Math.floor(
+                    (time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+                  );
+                  let minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
+                  let seconds = Math.floor((time % (1000 * 60)) / 1000);
+                  if (hours >= 0 && minutes >= 0 && seconds >= 0) {
+                    let curr_time = {
+                      hours: hours,
+                      minutes: minutes,
+                      seconds: seconds
+                    };
+                    this.props.updateTimer(curr_time);
+                  }
+                }
               }
             }
           }
@@ -520,8 +550,7 @@ class Dashboard extends React.Component {
                 flexDirection: this.state.flexDirection,
                 top: this.state.topPadding
               }]}>
-                <Text style={styles_top.epc_info}>{RU.DASHBOARD_LIST.TIMER_MISSON_NOT_FOUND}</Text>
-                <Animated.View style={[this.props.timer_status ? styles_top.epc_counter_container : styles_top.disabled,
+                <Animated.View style={[styles_top.epc_counter_container,
                 {
                   width: this.state.epcCounterContainerWidth
                 }]}>
@@ -553,11 +582,11 @@ class Dashboard extends React.Component {
                   }]}>
                     <Text style={styles_top.epc}>{RU.EPC}</Text>
                     <Text style={styles_top.epc_info}>{RU.FOR_BEING_IN_MALL}</Text>
-                    <Text style={styles_top.epc_info}>{RU.TIME_STARTED}</Text>
+                    <Text style={this.state.notInMall ? styles_top.epc : styles_top.epc_info}>{this.state.notInMall ? RU.NOT_IN_MALL : RU.TIME_STARTED}</Text>
                   </Animated.View>
                 </Animated.View>
 
-                <Animated.View style={[this.props.timer_status ? styles_top.time_counter_container : styles_top.disabled,
+                <Animated.View style={[styles_top.time_counter_container,
                 {
                   width: this.state.timerWidth
                 }]}>
@@ -594,9 +623,7 @@ class Dashboard extends React.Component {
                 </Animated.View>
                 <View
                   style={
-                    this.props.timer_status
-                      ? styles_top.disabled
-                      : styles_top.main_task_expired_container
+                    styles_top.disabled
                   }
                 >
                   {/* <Text style={styles.main_task_expired}>
@@ -675,7 +702,7 @@ class Dashboard extends React.Component {
                   onPress={() => { this.props.setDashboardState(1); }} >
                   <View
                     style={
-                      this.props.timer_status ? styles_top.small_head : styles_top.disabled
+                      styles_top.small_head
                     }
                   >
                     <View style={styles_top.small_epc_counter_container}>
@@ -752,9 +779,7 @@ class Dashboard extends React.Component {
                   </View>
                   <View
                     style={
-                      this.props.timer_status
-                        ? styles_top.disabled
-                        : styles_top.main_task_expired_container
+                      styles_top.disabled
                     }
                   >
                   </View>
@@ -795,14 +820,7 @@ class Dashboard extends React.Component {
                 //this.getMissions()
               }}
             /> :
-            <CardListPosts posts={[
-              {
-                id: 1,
-                name: "test",
-                timer: 172799,
-                value: 10
-              }
-            ]} />
+            <CardListPosts posts={this.props.navigation.state.params.posts} />
           }
         </Animated.View>
         {this.state.load_missions && <ActivityIndicator />}
@@ -825,6 +843,7 @@ const mapStateToProps = state => ({
   missions: state.missions,
   timer_interval: state.timer_interval,
   activeCard: state.activeCard,
+  distance: state.distance
 });
 
 const mapDispatchToProps = dispatch =>

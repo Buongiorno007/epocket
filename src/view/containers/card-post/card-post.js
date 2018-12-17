@@ -29,14 +29,14 @@ class PostCard extends React.Component {
                 <FastImage
                     resizeMode={FastImage.resizeMode.contain}
                     style={styles.social_icon}
-                    source={{ uri: ICONS.INSTAGRAM_COLOR }}
+                    source={{ uri: this.props.item.photo ? this.props.item.photo : ICONS.INSTAGRAM_COLOR }}
                 />
                 <View style={styles.social_text_container}>
                     <Text style={[styles.social_text, styles.social_text_title]}>
                         {this.props.item.name}
                     </Text>
                     <Text style={[styles.social_text, styles.social_text_desc]}>
-                        {RU.DASHBOARD_LIST.WILL_GET + this.props.item.value + " " + RU.EPC + RU.DASHBOARD_LIST.OVER}
+                        {RU.DASHBOARD_LIST.WILL_GET + this.props.item.value && this.props.item.value != " NO DATA" ? this.props.item.value : 0 + " " + RU.EPC + RU.DASHBOARD_LIST.OVER}
                     </Text>
                     <View style={styles.timer_row}>
                         <View style={styles.timer_column}>

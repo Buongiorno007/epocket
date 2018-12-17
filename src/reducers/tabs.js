@@ -1,3 +1,4 @@
+import { setSecondDashboardCallBlock } from "./second-dash-call"
 export const CHANGE_ACTIVE_TAB = 'tabs/CHANGE_ACTIVE_TAB';
 
 export default (state = { activeTab: 0 }, action) => {
@@ -9,9 +10,16 @@ export default (state = { activeTab: 0 }, action) => {
             return state;
     }
 }
-
-export const setTabState = (activeTab) => ({
-    type: CHANGE_ACTIVE_TAB,
-    activeTab
-})
+export const setState = (activeTab) => {
+    {
+        return {
+            type: CHANGE_ACTIVE_TAB,
+            activeTab
+        }
+    }
+}
+export const setTabState = (activeTab) => async dispatch => {
+    dispatch(setSecondDashboardCallBlock(false));
+    dispatch(setState(activeTab))
+}
 

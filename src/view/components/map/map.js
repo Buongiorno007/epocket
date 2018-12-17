@@ -51,6 +51,7 @@ class Map extends React.Component {
     location_loader: false,
     errorVisible: false,
     errorText: "",
+    posts: [],
     region: {
       latitude: this.props.location.lat,
       longitude: this.props.location.lng,
@@ -111,7 +112,6 @@ class Map extends React.Component {
     }, timeout || 200);
   };
   componentWillReceiveProps = nextProps => {
-    console.log(nextProps)
     if (
       this.props.location.lat === 0 &&
       this.props.location.lng === 0 &&
@@ -164,11 +164,8 @@ class Map extends React.Component {
         this.props.loaderState(false);
         this.props.setOutlets(result.body.outlets)
         this.props.setInitialOutlets(result.body)
-        console.log(this.props.selectedMall)
         if (this.props.selectedMall.id) {
-          console.log("true relocation")
-          console.log(this.props.secondDashboardCallBlock)
-          this.selectMark(this.props.selectedMall, false, "task");
+          !this.props.secondDashboardCallBlock && this.selectMark(this.props.selectedMall, false, "task");
         } else {
           this.props.isLocation &&
             this.selectNearestMall(
@@ -253,7 +250,8 @@ class Map extends React.Component {
     let copyOfCards = [...this.state.cards]
     copyOfCards.shift(); //remove card with outlet|cashout information
     if (this.state.taskActive) {
-      NavigationService.navigate("Dashboard", { dashboard_data: copyOfCards, general_info: selectedCard });
+      console.log(selectedCard)
+      NavigationService.navigate("Dashboard", { dashboard_data: copyOfCards, general_info: selectedCard, posts: this.state.posts });
     }
     else {
       NavigationService.navigate("Cashout", { cashout_data: copyOfCards, general_info: selectedCard });
@@ -287,6 +285,7 @@ class Map extends React.Component {
       result => {
         this.setModalVisible(false);
         if (result.status == 200) {
+          this.setState({ posts: result.body.posts })
           let cards = this.getActiveMissions(result.body.missions);
           if (!false) { //check for instagramm
             cards.unshift({
@@ -430,6 +429,7 @@ class Map extends React.Component {
       id: trc.id,
       rad: trc.rad
     };
+    console.log(curr_trc)
     this.props.updateMall(curr_trc);
     this.props.setDistance(distance);
 
@@ -437,7 +437,8 @@ class Map extends React.Component {
       let copyOfCards = [...this.state.cards]
       copyOfCards.shift();
       if (this.state.taskActive) {
-        NavigationService.navigate("Dashboard", { dashboard_data: copyOfCards, general_info: this.props.selectedMall });
+        this.loadTaskItems(trc);
+        NavigationService.navigate("Dashboard", { dashboard_data: copyOfCards, general_info: this.props.selectedMall, posts: this.state.posts });
       }
     } else {
       ANIMATE_MAP &&

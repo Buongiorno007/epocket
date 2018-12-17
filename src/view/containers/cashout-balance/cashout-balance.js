@@ -20,7 +20,6 @@ class CashoutBalance extends React.Component {
       :
       console.log("Fail. No navigation prop")
     if (this.props.navigation.preventSecondCall) {
-      console.log("prevent second call")
       this.props.setSecondDashboardCallBlock(true)
     }
   }
