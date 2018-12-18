@@ -13,6 +13,11 @@ export default StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "flex-start",
   },
+  content_center: {
+    justifyContent: "center",
+    alignItems: "center",
+    paddingBottom: height * 0.15
+  },
   content_old: {
     justifyContent: "flex-start",
     alignItems: "center",
@@ -69,7 +74,7 @@ export default StyleSheet.create({
   },
   epc_counter_container_currency: {
     justifyContent: "flex-start",
-    alignItems: "center",
+    alignItems: "flex-end",
     flexDirection: "row"
   },
   epc_counter: {
@@ -80,7 +85,8 @@ export default StyleSheet.create({
   epc_counter_currency: {
     color: colors.white,
     fontFamily: "Rubik-Light",
-    fontSize: 15
+    fontSize: 15,
+    paddingBottom: 5,
   },
   epc_counter_info: {
     paddingLeft: 0
@@ -175,4 +181,23 @@ export default StyleSheet.create({
     fontFamily: "Rubik-Medium",
     color: colors.white
   },
+  finishMission_text: {
+    fontSize: 18,
+    fontFamily: "Rubik-Regular",
+    color: colors.white,
+    textAlign: "center"
+  },
+  text_small: {
+    fontSize: 12,
+    fontFamily: "Rubik-Regular",
+    color: colors.white_o89,
+    textAlign: "center"
+  },
+  finishMission_text_container: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    justifyContent: "center",
+    width: width * 0.85,
+  }
 });

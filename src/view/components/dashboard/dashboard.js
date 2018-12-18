@@ -107,7 +107,7 @@ class Dashboard extends React.Component {
         const draggedUp = gestureState.dy < -30;
         console.log(gestureState.dy)
         if (gestureState.moveY < 233) {
-          if (this.state.body.notInMall) {
+          if (this.state.body.notInMall || this.state.finishMissionCalled) {
             if (draggedDown) {
               if (this.props.activeCard) {
               } else {
@@ -834,96 +834,127 @@ class Dashboard extends React.Component {
                   </View>
                 </Animated.View>
                 :
-                <Animated.View style={[styles_top.content, {
-                  flexDirection: this.state.flexDirection,
-                  top: this.state.topPadding,
-                  transform: [
-                    {
-                      scaleY: this.state.allScaleY
-                    }
-                  ]
-                }]}>
-                  <Animated.View style={[styles_top.epc_counter_container,
-                  {
-                    width: this.state.epcCounterContainerWidth
+                this.state.finishMissionCalled ?
+                  <Animated.View style={[styles_top.content_center, {
+                    flexDirection: this.state.flexDirection,
+                    top: this.state.topPadding,
+                    transform: [
+                      {
+                        scaleY: this.state.allScaleY
+                      }
+                    ]
+                  },
+                  { height: this.state.topHeight }]}>
+                    <View style={styles_top.finishMission_text_container}>
+                      <Text style={styles_top.finishMission_text} >{RU.GOT_EPC}</Text>
+                      <LinearTextGradient
+                        locations={[0, 1]}
+                        colors={[this.props.userColor.orange, this.props.userColor.pink]}
+                        start={{ x: 0.0, y: 1.0 }}
+                        end={{ x: 0.5, y: 0.2 }}
+                        style={styles_top.finishMission_text}
+                      >
+                        {this.state.mainMissionPrice + " " + RU.EPC}
+                      </LinearTextGradient>
+                      <Text style={styles_top.finishMission_text} >{RU.FOR_TRC}</Text>
+                    </View>
+                    <Text style={styles_top.text_small}>{RU.COME_TOMMOROW}</Text>
+                  </Animated.View>
+                  :
+                  <Animated.View style={[styles_top.content, {
+                    flexDirection: this.state.flexDirection,
+                    top: this.state.topPadding,
+                    transform: [
+                      {
+                        scaleY: this.state.allScaleY
+                      }
+                    ]
                   }]}>
-                    <View style={styles_top.epc_counter_container_currency}>
-                      <Animated.Text style={[styles_top.epc_counter,
-                      { fontSize: this.state.epcСounterFontSize }
-                      ]}>
-                        {this.state.mainMissionPrice}
-                      </Animated.Text>
-                      <Animated.Text style={[styles_top.epc_counter_currency,
+                    <Animated.View style={[styles_top.epc_counter_container,
+                    {
+                      width: this.state.epcCounterContainerWidth
+                    }]}>
+                      <View style={styles_top.epc_counter_container_currency}>
+                        <Animated.Text style={[styles_top.epc_counter,
+                        {
+                          fontSize: this.state.epcСounterFontSize,
+                          color: this.props.userColor.second_gradient_color
+                        }
+                        ]}>
+                          {this.state.mainMissionPrice}
+                        </Animated.Text>
+                        <Animated.Text style={[styles_top.epc_counter_currency,
+                        {
+                          transform: [
+                            {
+                              scaleY: this.state.epcScale
+                            }
+                          ],
+                          color: this.props.userColor.second_gradient_color
+                        }
+                        ]}>
+                          {" " + RU.EPC}
+                        </Animated.Text>
+                      </View>
+                      <Animated.View style={[styles_top.epc_counter_info,
                       {
                         transform: [
                           {
-                            scaleY: this.state.epcScale
+                            scaleY: this.state.textScale
                           }
                         ]
-                      }
-                      ]}>
-                        {" " + RU.EPC}
-                      </Animated.Text>
-                    </View>
-                    <Animated.View style={[styles_top.epc_counter_info,
-                    {
-                      transform: [
-                        {
-                          scaleY: this.state.textScale
-                        }
-                      ]
-                    }]}>
-                      <Text style={styles_top.epc}>{RU.EPC}</Text>
-                      <Text style={styles_top.epc_info}>{RU.FOR_BEING_IN_MALL}</Text>
-                      <Text style={this.state.notInMall ? styles_top.epc : styles_top.epc_info}>{this.state.notInMall ? RU.NOT_IN_MALL : RU.TIME_STARTED}</Text>
+                      }]}>
+                        <Text style={styles_top.epc}>{RU.EPC}</Text>
+                        <Text style={styles_top.epc_info}>{RU.FOR_BEING_IN_MALL}</Text>
+                        <Text style={this.state.notInMall ? styles_top.epc : styles_top.epc_info}>{this.state.notInMall ? RU.NOT_IN_MALL : RU.TIME_STARTED}</Text>
+                      </Animated.View>
                     </Animated.View>
-                  </Animated.View>
 
-                  <Animated.View style={[styles_top.time_counter_container,
-                  {
-                    width: this.state.timerWidth
-                  }]}>
-                    <Animated.View style={[styles_top.time_counter, {
-                      width: this.state.timerCounterWidth
+                    <Animated.View style={[styles_top.time_counter_container,
+                    {
+                      width: this.state.timerWidth
                     }]}>
-                      <Text style={styles_top.time_counter_text}>
-                        {this.props.timer.hours < 10 && "0"}
-                        {this.props.timer.hours}
-                      </Text>
+                      <Animated.View style={[styles_top.time_counter, {
+                        width: this.state.timerCounterWidth
+                      }]}>
+                        <Text style={styles_top.time_counter_text}>
+                          {this.props.timer.hours < 10 && "0"}
+                          {this.props.timer.hours}
+                        </Text>
+                      </Animated.View>
+                      <View>
+                        <Text style={styles_top.time_divider}>:</Text>
+                      </View>
+                      <Animated.View style={[styles_top.time_counter, {
+                        width: this.state.timerCounterWidth
+                      }]}>
+                        <Text style={styles_top.time_counter_text}>
+                          {this.props.timer.minutes < 10 && "0"}
+                          {this.props.timer.minutes}
+                        </Text>
+                      </Animated.View>
+                      <View>
+                        <Text style={styles_top.time_divider}>:</Text>
+                      </View>
+                      <Animated.View style={[styles_top.time_counter, {
+                        width: this.state.timerCounterWidth
+                      }]}>
+                        <Text style={styles_top.time_counter_text}>
+                          {this.props.timer.seconds < 10 && "0"}
+                          {this.props.timer.seconds}
+                        </Text>
+                      </Animated.View>
                     </Animated.View>
-                    <View>
-                      <Text style={styles_top.time_divider}>:</Text>
-                    </View>
-                    <Animated.View style={[styles_top.time_counter, {
-                      width: this.state.timerCounterWidth
-                    }]}>
-                      <Text style={styles_top.time_counter_text}>
-                        {this.props.timer.minutes < 10 && "0"}
-                        {this.props.timer.minutes}
-                      </Text>
-                    </Animated.View>
-                    <View>
-                      <Text style={styles_top.time_divider}>:</Text>
-                    </View>
-                    <Animated.View style={[styles_top.time_counter, {
-                      width: this.state.timerCounterWidth
-                    }]}>
-                      <Text style={styles_top.time_counter_text}>
-                        {this.props.timer.seconds < 10 && "0"}
-                        {this.props.timer.seconds}
-                      </Text>
-                    </Animated.View>
-                  </Animated.View>
-                  <View
-                    style={
-                      styles_top.disabled
-                    }
-                  >
-                    {/* <Text style={styles.main_task_expired}>
+                    <View
+                      style={
+                        styles_top.disabled
+                      }
+                    >
+                      {/* <Text style={styles.main_task_expired}>
                        {RU.MAIN_TASK_EXPIRED}
                      </Text> */}
-                  </View>
-                </Animated.View>
+                    </View>
+                  </Animated.View>
               :
               <View style={styles_top.content_old}>
                 <LinearGradient
