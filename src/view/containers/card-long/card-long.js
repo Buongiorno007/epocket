@@ -52,7 +52,7 @@ class LongCard extends React.Component {
                     transparent
                     block
                     style={styles.arrow_cont}
-                    onPress={() => { console.log("social connect") }}>
+                    onPress={this._onPress}>
                     <FastImage
                         resizeMode={FastImage.resizeMode.contain}
                         style={styles.arrow}

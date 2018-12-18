@@ -24,6 +24,8 @@ import { setBalance } from "../../../reducers/user-balance";
 import { connect } from "react-redux";
 import { setColor } from "../../../reducers/user-color";
 import { bindActionCreators } from "redux";
+import { setInstaToken } from "../../../reducers/insta-token";
+import { setFacebookToken } from "../../../reducers/facebook-token"
 import { getPush } from "../../../reducers/push";
 import { saveUser } from "../../../reducers/profile-state";
 //services
@@ -146,7 +148,51 @@ class SignIn extends React.Component {
       }
     );
   };
+  isFblogged = (token) => {
+    this.props.loaderState(true);
+    let body = JSON.stringify({});
+    let promise = httpPost(
+      urls.facebook_is_logged,
+      body,
+      token
+    );
+    promise.then(
+      result => {
+        console.log(result)
+        if (result.body.logged && result.body.active && result.body.token) {
+          this.props.setFacebookToken(result.body.token);
+        }
+        this.props.loaderState(false);
 
+      },
+      error => {
+        console.log(error)
+        this.props.loaderState(false);
+      }
+    );
+  }
+  isInstalogged = (token) => {
+    this.props.loaderState(true);
+    let body = JSON.stringify({});
+    let promise = httpPost(
+      urls.insta_is_logged,
+      body,
+      token
+    );
+    promise.then(
+      result => {
+        console.log(result)
+        if (result.body.logged && result.body.active && result.body.token) {
+          this.props.setInstaToken(result.body.token);
+        }
+        this.props.loaderState(false);
+      },
+      error => {
+        console.log(error)
+        this.props.loaderState(false);
+      }
+    );
+  }
   confirmLogin = () => {
     Keyboard.dismiss();
     this.setFailedConfirmVisible(false);
@@ -173,6 +219,8 @@ class SignIn extends React.Component {
         this.props.setColor(user_info.sex)
         this.props.setToken(result.body.token);
         this.props.setBalance(result.body.balance);
+        this.isFblogged(result.body.token);
+        this.isInstalogged(result.body.token);
         NavigationService.navigate("Main");
       },
       error => {
@@ -319,6 +367,8 @@ const mapDispatchToProps = dispatch =>
       setToken,
       setBalance,
       loaderState,
+      setInstaToken,
+      setFacebookToken,
       setColor,
       getPush,
       saveUser

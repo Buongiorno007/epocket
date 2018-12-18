@@ -6,6 +6,7 @@ import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import geolib from "geolib";
 import { LinearTextGradient } from "react-native-text-gradient";
 import LinearGradient from "react-native-linear-gradient";
+import CookieManager from 'react-native-cookies';
 //containers
 import TrcInformation from "../../containers/trc-information/trc-information";
 import UserMarker from "../../containers/user-marker/user-marker";
@@ -37,19 +38,26 @@ import { loaderState } from "../../../reducers/loader";
 import { setOutlets } from "../../../reducers/outlet-list";
 import { setInitialOutlets } from "../../../reducers/initial-outlets"
 import { setInfo } from "../../../reducers/info"
+import { setInstaToken } from "../../../reducers/insta-token";
+import { setFacebookToken } from "../../../reducers/facebook-token"
 //services
 import { httpPost } from "../../../services/http";
 import { handleError } from "../../../services/http-error-handler";
 import NavigationService from "../../../services/route";
 import getCurrentGeolocation from "../../../services/get-location"
 import { sendToTelegramm } from '../../../services/telegramm-notification'
+import InstagramLogin from '../../../services/Instagram'
+import FacebookLogin from '../../../services/Facebook'
 import { orderBy } from 'lodash';
 import moment from "moment";
 
 class Map extends React.Component {
   state = {
+    modalVisible: false,
+    userCount: 0,
     location_loader: false,
     errorVisible: false,
+    errorLoginVisible: false,
     errorText: "",
     posts: [],
     region: {
@@ -95,8 +103,86 @@ class Map extends React.Component {
       this.props.setOutlets(this.props.initial_outlets.discounts);
     }
   }
-  setModalVisible = visible => {
+  LoginFacebook = () => {
+    this.props.loaderState(true);
+    let body = JSON.stringify({
+    });
+    let promise = httpPost(
+      urls.facebook_login,
+      body,
+      this.props.token
+    );
+    promise.then(
+      result => {
+        console.log(result)
+        this.props.loaderState(false);
+        this.refs.facebookLogin.show(result.body.url)
+      },
+      error => {
+        CookieManager.clearAll()
+          .then((res) => {
+            this.props.loaderState(false);
+          });
+      }
+    );
+  }
+  connectFacebook = (token) => {
+    this.props.setFacebookToken(String(token));
+  }
+  connectInsta = (instagram_token) => {
+    this.props.loaderState(true);
+    let body = JSON.stringify({
+      instagram_token
+    });
+    let promise = httpPost(
+      urls.insta_login,
+      body,
+      this.props.token
+    );
+    promise.then(
+      result => {
+        if (result.status === 200) {
+          this.props.setInstaToken(String(instagram_token))
+          this.props.loaderState(false);
+
+        }
+        else if (result.status == 201) {
+          CookieManager.clearAll()
+            .then((res) => {
+              this.setModalVisible(true);
+              this.setState({ userCount: result.body.subsc_needed })
+              this.props.loaderState(false);
+            });
+        }
+        else {
+          CookieManager.clearAll()
+            .then((res) => {
+              this.setErrorVisible(true)
+              this.props.loaderState(false);
+            });
+        }
+      },
+      error => {
+        CookieManager.clearAll()
+          .then((res) => {
+            this.props.loaderState(false);
+            console.log("Rejected: ", error);
+          });
+      }
+    );
+  }
+  setErrorVisible = visible => {
     this.setState({ errorVisible: visible });
+  };
+  setErrorLoginVisible = visible => {
+    this.setState({
+      errorLoginVisible: visible
+    });
+  };
+  setModalVisible = visible => {
+    this.setState({
+      modalVisible: visible
+    });
   };
   moveMapTo = (lat, lng, latD, lngD, animation_time, timeout) => {
     setTimeout(() => {
@@ -220,7 +306,14 @@ class Map extends React.Component {
           type={item.item.type}
           item={item.item}
           key={item.item.id}
-          onPressItem={this.openNext}
+          onPressItem={() => {
+            if (item.item.type === "facebook_connect") {
+              this.LoginFacebook()
+            }
+            else if (item.item.type === "instagram_connect") {
+              this.refs.instagramLogin.show()
+            }
+          }}
           btnText={
             RU.EXECUTE.toUpperCase()
           }
@@ -287,14 +380,14 @@ class Map extends React.Component {
         if (result.status == 200) {
           this.setState({ posts: result.body.posts })
           let cards = this.getActiveMissions(result.body.missions);
-          if (!false) { //check for instagramm
+          if (!this.props.insta_token) { //check for instagramm !this.props.insta_token
             cards.unshift({
               type: "instagram_connect",
               reward: "10",
               price: 0
             })
           }
-          if (!false) { //check for facebook
+          if (!this.props.facebook_token) { //check for facebook !this.props.facebook_token
             cards.unshift({
               type: "facebook_connect",
               reward: "10",
@@ -491,6 +584,29 @@ class Map extends React.Component {
     return (
       <View style={styles.main_view}>
         <CustomAlert
+          title={RU.PROFILE_PAGE.ALREADY_ACCOUNT}
+          first_btn_title={RU.OK}
+          visible={this.state.errorLoginVisible}
+          first_btn_handler={() =>
+            this.setLoginErrorVisible(!this.state.errorVisible)
+          }
+          decline_btn_handler={() =>
+            this.setLoginErrorVisible(!this.state.errorVisible)
+          }
+        />
+        <CustomAlert
+          title={RU.PROFILE_PAGE.NOT_ENOUGHT_SUB}
+          subtitle={this.state.userCount + RU.PROFILE_PAGE.SUBS}
+          first_btn_title={RU.OK}
+          visible={this.state.modalVisible}
+          first_btn_handler={() =>
+            this.setModalVisible(!this.state.modalVisible)
+          }
+          decline_btn_handler={() =>
+            this.setModalVisible(!this.state.modalVisible)
+          }
+        />
+        <CustomAlert
           title={this.state.errorText}
           first_btn_title={RU.REPEAT}
           visible={this.state.errorVisible}
@@ -498,7 +614,41 @@ class Map extends React.Component {
             this.loadTRC();
           }}
           decline_btn_handler={() => {
-            this.setModalVisible(!this.state.errorVisible);
+            this.setErrorVisible(!this.state.errorVisible);
+          }}
+        />
+        <FacebookLogin
+          ref='facebookLogin'
+          scopes={['basic']}
+          onLoginSuccess={(json) => this.connectFacebook(json.token)}
+          onLoginFailure={(data) => {
+            console.log("Fail", data)
+            CookieManager.clearAll()
+              .then((res) => {
+                this.props.loaderState(false);
+              });
+            if (data.msg === "Not enough friends") {
+              if (data.subsc_needed) {
+                this.setState({ userCount: data.subsc_needed })
+                this.setModalVisible(true)
+              }
+            } else {
+              this.setErrorVisible(true)
+            }
+
+          }}
+        />
+        <InstagramLogin
+          ref='instagramLogin'
+          clientId='7df789fc907d4ffbbad30b7e25ba3933'
+          scopes={['basic']}
+          onLoginSuccess={(token) => this.connectInsta(token)}
+          onLoginFailure={(data) => {
+            console.log(data)
+            CookieManager.clearAll()
+              .then((res) => {
+                this.props.loaderState(false);
+              });
           }}
         />
         <StatusBar
@@ -674,6 +824,8 @@ const mapStateToProps = state => {
     timer_status: state.timer_status,
     navigateToMall: state.navigateToMall,
     initial_outlets: state.initial_outlets,
+    insta_token: state.insta_token,
+    facebook_token: state.facebook_token,
     secondDashboardCallBlock: state.secondDashboardCallBlock
   };
 };
@@ -689,7 +841,10 @@ const mapDispatchToProps = dispatch =>
       loaderState,
       setOutlets,
       setNavigateToMall,
-      setInfo
+      setInfo,
+      setInstaToken,
+      setFacebookToken,
+      loaderState,
     },
     dispatch
   );

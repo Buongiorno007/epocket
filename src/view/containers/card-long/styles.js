@@ -24,7 +24,7 @@ export default StyleSheet.create({
             height: 7
         },
         shadowRadius: 12,
-        shadowOpacity: 0.7
+        shadowOpacity: 0.7,
     },
     social_icon: {
         height: 30,

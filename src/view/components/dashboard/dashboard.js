@@ -7,6 +7,7 @@ import FastImage from 'react-native-fast-image'
 import LinearGradient from "react-native-linear-gradient";
 import { LinearTextGradient } from "react-native-text-gradient";
 import { Button } from "native-base";
+import CookieManager from 'react-native-cookies';
 //containers
 import CardList from "../../containers/card-list/card-list";
 import CardListPosts from "../../containers/card-posts-list/card-posts-list";
@@ -32,6 +33,10 @@ import { timerStatus } from "../../../reducers/timer-status";
 import { setMissions } from "../../../reducers/missions";
 import { updateTimer } from "../../../reducers/timer";
 import { reloadTimer } from "../../../reducers/timer-interval";
+import { setCount } from "../../../reducers/social-count"
+import { setInstaToken } from "../../../reducers/insta-token";
+import { setFacebookToken } from "../../../reducers/facebook-token"
+import { loaderState } from "../../../reducers/loader";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 //services
@@ -39,6 +44,8 @@ import { httpPost } from "../../../services/http";
 import "../../../services/correcting-interval";
 import { orderBy } from 'lodash';
 import moment from "moment";
+import InstagramLogin from '../../../services/Instagram'
+import FacebookLogin from '../../../services/Facebook'
 import { handleError } from "../../../services/http-error-handler";
 
 const { width, height } = Dimensions.get("window");
@@ -54,6 +61,9 @@ const CustomLayoutLinear = {
 };
 class Dashboard extends React.Component {
   state = {
+    modalVisible: false,
+    errorVisible: false,
+    userCount: 0,
     pickedTask: true,
     notInMall: false,
     startMissionErrorVisible: false,
@@ -251,11 +261,95 @@ class Dashboard extends React.Component {
     ]).start();
   }
   componentDidMount = () => {
+    let count = 0;
+    this.props.navigation.state.params.dashboard_data.forEach(element => {
+      if (element.type === "instagram_connect" || element.type === "facebook_connect") {
+        count++
+      }
+    });
+    this.props.setCount(count)
     this.props.setMissions(this.props.navigation.state.params.dashboard_data);
-    console.log(this.props.navigation.state.params.posts)
     this.setState({ load_missions: false, load_timer: false });
     this.callTimer();
   };
+  setErrorVisible = visible => {
+    this.setState({
+      errorVisible: visible
+    });
+  };
+  setModalVisible = visible => {
+    this.setState({
+      modalVisible: visible
+    });
+  };
+  LoginFacebook = () => {
+    this.props.loaderState(true);
+    let body = JSON.stringify({
+    });
+    let promise = httpPost(
+      urls.facebook_login,
+      body,
+      this.props.token
+    );
+    promise.then(
+      result => {
+        console.log(result)
+        this.props.loaderState(false);
+        this.refs.facebookLogin.show(result.body.url)
+      },
+      error => {
+        CookieManager.clearAll()
+          .then((res) => {
+            this.props.loaderState(false);
+          });
+      }
+    );
+  }
+  connectFacebook = (token) => {
+    this.props.setFacebookToken(String(token));
+  }
+  connectInsta = (instagram_token) => {
+    this.props.loaderState(true);
+    let body = JSON.stringify({
+      instagram_token
+    });
+    let promise = httpPost(
+      urls.insta_login,
+      body,
+      this.props.token
+    );
+    promise.then(
+      result => {
+        if (result.status === 200) {
+          this.props.setInstaToken(String(instagram_token))
+          this.props.loaderState(false);
+
+        }
+        else if (result.status == 201) {
+          CookieManager.clearAll()
+            .then((res) => {
+              this.setModalVisible(true);
+              this.setState({ userCount: result.body.subsc_needed })
+              this.props.loaderState(false);
+            });
+        }
+        else {
+          CookieManager.clearAll()
+            .then((res) => {
+              this.setErrorVisible(true)
+              this.props.loaderState(false);
+            });
+        }
+      },
+      error => {
+        CookieManager.clearAll()
+          .then((res) => {
+            this.props.loaderState(false);
+            console.log("Rejected: ", error);
+          });
+      }
+    );
+  }
   pickTasks = () => {
     let pick = this.state.pickedTask;
     this.setState({ pickedTask: !pick });
@@ -465,6 +559,29 @@ class Dashboard extends React.Component {
     return (
       <View style={styles.main_view}>
         <CustomAlert
+          title={RU.PROFILE_PAGE.ALREADY_ACCOUNT}
+          first_btn_title={RU.OK}
+          visible={this.state.errorVisible}
+          first_btn_handler={() =>
+            this.setErrorVisible(!this.state.errorVisible)
+          }
+          decline_btn_handler={() =>
+            this.setErrorVisible(!this.state.errorVisible)
+          }
+        />
+        <CustomAlert
+          title={RU.PROFILE_PAGE.NOT_ENOUGHT_SUB}
+          subtitle={this.state.userCount + RU.PROFILE_PAGE.SUBS}
+          first_btn_title={RU.OK}
+          visible={this.state.modalVisible}
+          first_btn_handler={() =>
+            this.setModalVisible(!this.state.modalVisible)
+          }
+          decline_btn_handler={() =>
+            this.setModalVisible(!this.state.modalVisible)
+          }
+        />
+        <CustomAlert
           title={this.state.errorText}
           first_btn_title={RU.REPEAT}
           visible={this.state.startMissionErrorVisible}
@@ -501,6 +618,41 @@ class Dashboard extends React.Component {
             this.setFinishMissionErrorVisible(
               !this.state.finishMissionErrorVisible
             );
+          }}
+        />
+        {this.props.loader && <ActivityIndicator />}
+        <FacebookLogin
+          ref='facebookLogin'
+          scopes={['basic']}
+          onLoginSuccess={(json) => this.connectFacebook(json.token)}
+          onLoginFailure={(data) => {
+            console.log("Fail", data)
+            CookieManager.clearAll()
+              .then((res) => {
+                this.props.loaderState(false);
+              });
+            if (data.msg === "Not enough friends") {
+              if (data.subsc_needed) {
+                this.setState({ userCount: data.subsc_needed })
+                this.setModalVisible(true)
+              }
+            } else {
+              this.setErrorVisible(true)
+            }
+
+          }}
+        />
+        <InstagramLogin
+          ref='instagramLogin'
+          clientId='7df789fc907d4ffbbad30b7e25ba3933'
+          scopes={['basic']}
+          onLoginSuccess={(token) => this.connectInsta(token)}
+          onLoginFailure={(data) => {
+            console.log(data)
+            CookieManager.clearAll()
+              .then((res) => {
+                this.props.loaderState(false);
+              });
           }}
         />
         <StatusBar
@@ -816,6 +968,14 @@ class Dashboard extends React.Component {
           }
           {this.state.pickedTask ?
             <CardList
+              connectSocial={(e) => {
+                if (e.type === "facebook_connect") {
+                  this.LoginFacebook()
+                }
+                else if (e.type === "instagram_connect") {
+                  this.refs.instagramLogin.show()
+                }
+              }}
               onScrollBeginDrag={() => {
                 //this.getMissions()
               }}
@@ -843,7 +1003,8 @@ const mapStateToProps = state => ({
   missions: state.missions,
   timer_interval: state.timer_interval,
   activeCard: state.activeCard,
-  distance: state.distance
+  distance: state.distance,
+  socialCount: state.socialCount
 });
 
 const mapDispatchToProps = dispatch =>
@@ -856,7 +1017,11 @@ const mapDispatchToProps = dispatch =>
       setBalance,
       updateTimer,
       setMissions,
-      reloadTimer
+      reloadTimer,
+      setCount,
+      setInstaToken,
+      setFacebookToken,
+      loaderState,
     },
     dispatch
   );

@@ -9,6 +9,8 @@ import { RU } from "../../../locales/ru";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
+const { width, height } = Dimensions.get("window");
+
 class Card extends React.Component {
   constructor(props) {
     super(props);
@@ -21,12 +23,15 @@ class Card extends React.Component {
       <Button
         style={
           this.props.item.active
-            ? [styles.card, Platform.OS === 'android' && {
+            ? [styles.card,
+            this.props.socialCount === 1 && { top: -(width * 0.2 - 20) }, //rows in flatlist have to be similar height, so this string is here to avoid this issue
+            Platform.OS === 'android' && {
               borderTopWidth: 1,
               borderTopColor: 'rgba(217, 221, 224, 0.5)',
             }]
             : [
               styles.card,
+              this.props.socialCount === 1 && { top: -(width * 0.2 - 20) }, //rows in flatlist have to be similar height, so this string is here to avoid this issue
               {
                 borderWidth: 1,
                 borderColor: this.props.item.color,
@@ -78,6 +83,7 @@ const mapStateToProps = state => ({
   userColor: state.userColor,
   timer: state.timer,
   timer_status: state.timer_status,
+  socialCount: state.socialCount
 });
 
 const mapDispatchToProps = dispatch =>

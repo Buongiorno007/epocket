@@ -21,11 +21,8 @@ class CardList extends React.Component {
   _renderItem = item => (
     item.item.type != "instagram_connect" && item.item.type != "facebook_connect" ?
       <Card item={item.item} onPressItem={this._showSelectedCard} /> :
-      <LongCard item={item.item} onPressItem={this.connectSocial} />
+      <LongCard item={item.item} onPressItem={this.props.connectSocial} />
   );
-  connectSocial = () => {
-
-  }
   _submissionOrder = (mission) => {
     let insta_sub_mission = {
       desc: RU.MISSION.SUBMISSION_3,
@@ -56,7 +53,7 @@ class CardList extends React.Component {
                   style={styles.list_view}
                   horizontal={false}
                   numColumns={2}
-                  columnWrapperStyle={{ flexWrap: 'wrap' }}
+                  columnWrapperStyle={{ flexWrap: this.props.socialCount === 1 ? 'nowrap' : 'wrap' }}
                   keyExtractor={this.keyExtractor}
                   data={this.props.missions}
                   renderItem={this._renderItem}
@@ -85,7 +82,8 @@ class CardList extends React.Component {
 const mapStateToProps = state => ({
   activeCard: state.activeCard,
   userColor: state.userColor,
-  missions: state.missions
+  missions: state.missions,
+  socialCount: state.socialCount
 });
 
 const mapDispatchToProps = dispatch =>

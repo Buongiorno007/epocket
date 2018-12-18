@@ -43,6 +43,7 @@ import navigateToMall from "./navigate-to-mall"
 import userColor from "./user-color"
 import initial_outlets from "./initial-outlets"
 import secondDashboardCallBlock from "./second-dash-call"
+import socialCount from "./social-count"
 
 export default combineReducers({
   isConnected,
@@ -88,5 +89,6 @@ export default combineReducers({
   game_expired_img,
   navigateToMall,
   userColor,
-  secondDashboardCallBlock
+  secondDashboardCallBlock,
+  socialCount
 });

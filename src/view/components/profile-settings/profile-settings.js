@@ -45,53 +45,7 @@ class ProfileSettings extends React.Component {
         errorVisible: false,
         userCount: 0
     };
-    isFblogged = () => {
-        let body = JSON.stringify({});
-        let promise = httpPost(
-            urls.facebook_is_logged,
-            body,
-            this.props.token
-        );
-        promise.then(
-            result => {
-                console.log(result)
-                if (result.body.logged && result.body.active && result.body.token) {
-                    this.props.setFacebookToken(result.body.token);
-                }
-                this.props.loaderState(false);
-
-            },
-            error => {
-                console.log(error)
-                this.props.loaderState(false);
-            }
-        );
-    }
-    isInstalogged = () => {
-        let body = JSON.stringify({});
-        let promise = httpPost(
-            urls.insta_is_logged,
-            body,
-            this.props.token
-        );
-        promise.then(
-            result => {
-                console.log(result)
-                if (result.body.logged && result.body.active && result.body.token) {
-                    this.props.setInstaToken(result.body.token);
-                }
-                this.props.loaderState(false);
-            },
-            error => {
-                console.log(error)
-                this.props.loaderState(false);
-            }
-        );
-    }
     componentDidMount() {
-        this.props.loaderState(true);
-        this.isFblogged();
-        this.isInstalogged();
     }
     LogOut = () => {
         AsyncStorage.multiSet([["user_info", ""], ["balance", ""], ["token", ""], ["insta_token", ""], ["facebook_token", ""]], () => {
