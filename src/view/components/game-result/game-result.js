@@ -345,7 +345,7 @@ class GameResult extends React.Component {
     chooseBackground = (status) => {
         let img, style;
         if (status === "success") {
-            img = require('../../../assets/img/EARN_MORE_BACK.png')
+            img = require('../../../assets/img/ANIMATED_EARN_MORE.gif')
             style = styles.image
         }
         else {
@@ -412,16 +412,16 @@ class GameResult extends React.Component {
                     onLoginSuccess={(token) => this.connectInsta(token)}
                     onLoginFailure={(data) => console.log(data)}
                 />
+                <FastImage
+                    resizeMode={FastImage.resizeMode.contain}
+                    style={this.chooseBackground(this.props.navigation.state.params.status).style}
+                    source={this.chooseBackground(this.props.navigation.state.params.status).img}
+                />
                 <LinearGradient
                     colors={this.props.userColor.earn_more}
                     start={{ x: 0.0, y: 1.4 }}
                     end={{ x: 1.0, y: 0.0 }}
                     style={styles.grad}
-                />
-                <FastImage
-                    resizeMode={FastImage.resizeMode.contain}
-                    style={this.chooseBackground(this.props.navigation.state.params.status).style}
-                    source={this.chooseBackground(this.props.navigation.state.params.status).img}
                 />
                 <View style={this.props.navigation.state.params.status === "success" ? styles.success : styles.failed}>
                     <Text style={styles.zifi_text}>{this.chooseZifiText(this.props.navigation.state.params.status)}</Text>

@@ -9,6 +9,10 @@ export default StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
   },
+  content_end: {
+    justifyContent: "flex-end",
+    alignItems: "flex-start",
+  },
   content_old: {
     justifyContent: "flex-start",
     alignItems: "center",
@@ -152,5 +156,23 @@ export default StyleSheet.create({
     fontFamily: "Rubik",
     fontSize: 20,
     color: colors.white
-  }
+  },
+  cashout_text_container: {
+    width: width * 0.85,
+    alignItems: "flex-start",
+    justifyContent: "flex-end",
+    zIndex: 2,
+    top: height * 0.15,
+    paddingBottom: 10
+  },
+  general_text: {
+    fontSize: 12,
+    fontFamily: "Rubik-Medium",
+    color: colors.white
+  },
+  general_text_big: {
+    fontSize: 24,
+    fontFamily: "Rubik-Medium",
+    color: colors.white
+  },
 });

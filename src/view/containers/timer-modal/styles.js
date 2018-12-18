@@ -1,61 +1,72 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { colors } from '../../../constants/colors'
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
-    // main_view: {
-    //     flex : 1,
-    //     flexDirection: 'column',
-    //     alignItems: 'center',
-    //     justifyContent: 'space-between',
-    // },
-    // content: {
-    //     position : 'absolute',
-    //     top : 0,
-    //     left : 0,
-    //     right : 0,
-    //     height : height,
-    //     width: width,
-    // },
     main_task_done: {
         width: width,
         height: height,
         alignItems: 'center',
-        justifyContent: 'center'
-    }, 
+        justifyContent: 'center',
+        backgroundColor: colors.black
+    },
     main_task_done_content: {
         width: width * 0.85,
-        height: 200,
+        height: height * 0.5,
         alignItems: 'center',
-        justifyContent: 'space-around',
-        backgroundColor: colors.white,
-        borderRadius: 20,
-        elevation: 10,       
-        shadowColor: colors.card_shadow,
-        shadowOffset: {
-            width: 0,
-            height: 7
-        },
-        shadowRadius: 12,
-        shadowOpacity: 0.7,
+        justifyContent: 'space-between',
     },
     text: {
-        textAlign: 'center'
+        textAlign: 'center',
+        fontSize: 17,
+        color: colors.white
+    },
+    text_big: {
+        textAlign: 'center',
+        fontSize: 18,
+        fontFamily: "Rubik-Medium",
+        color: colors.white
+    },
+    text_small: {
+        textAlign: 'center',
+        fontSize: 12,
+        fontFamily: "Rubik-Regular",
+        color: colors.white_o74
     },
     confirm_button: {
-        width: width * 0.3,
+        width: width * 0.5,
         borderRadius: 40,
         height: 40,
         alignItems: 'center',
         justifyContent: 'center',
         alignSelf: 'center',
-        overflow : 'hidden'
+        overflow: 'hidden',
+        backgroundColor: colors.white
     },
     confirm_button_text: {
-        textAlign : 'center',
+        textAlign: 'center',
         alignSelf: 'center',
-        color : colors.white,
-        position : 'absolute'
+        position: 'absolute',
+    },
+    grad: {
+        position: "absolute",
+        height: height,
+        width: width,
+    },
+    image: {
+        left: 0,
+        top: 0,
+        position: "absolute",
+        height: height,
+        width: width,
+    },
+    textBlack: {
+        color: colors.black
+    },
+    textWhite: {
+        color: colors.white
+    },
+    backgroundColorWhite: {
+        backgroundColor: colors.white
     }
-
 });

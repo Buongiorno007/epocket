@@ -6,7 +6,8 @@ import { colors } from '../../../constants/colors'
 export default StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: colors.black
     },
     grad: {
         position: "absolute",

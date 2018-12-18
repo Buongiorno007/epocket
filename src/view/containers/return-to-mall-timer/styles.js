@@ -6,73 +6,70 @@ const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
 
-    container : {
+    container: {
         position: "absolute",
-        height : height * 0.25,
-        width  : width * 0.85,
-        top : 100,
+        height: height,
+        width: width,
         alignItems: 'center',
         alignSelf: 'center',
         justifyContent: "center",
         backgroundColor: colors.white,
-        zIndex : 10,
-        borderRadius: 12,
-        elevation : 3,
-        shadowColor: colors.card_shadow,
-        shadowOffset: {
-            width: 1,
-            height: 2
-        },
-        shadowRadius: 5,
-        shadowOpacity: 5,
+        zIndex: 10,
+        padding: 10
     },
-    text_common : {
+    text_common: {
         textAlign: "center",
-        alignSelf: 'center',
-        width  : width * 0.85 - 50,
-        marginBottom: 5,
-        marginTop: 5,
     },
-    top_title : {
-        color: colors.orange,
+    name_title: {
+        color: colors.black,
+        fontFamily: 'Rubik-Medium',
+        fontSize: 18,
+    },
+    adress_title: {
+        color: colors.black_o60,
+        fontFamily: 'Rubik-Regular',
+        fontSize: 11,
+    },
+    top_title: {
+        color: colors.black,
         fontFamily: 'Rubik-Regular',
         fontSize: 15,
     },
-    timer : {
-        color: colors.pink,
+    timer: {
+        color: colors.black,
         fontFamily: 'Rubik-Bold',
         fontSize: 25,
     },
-    bottom_title : {
+    bottom_title: {
+        color: colors.black,
         fontFamily: 'Rubik-Regular',
         fontSize: 10,
-        opacity : 0.8
     },
-    close_view : {
+    close_view: {
         flexDirection: 'column',
         justifyContent: 'space-around',
         alignItems: 'center',
-        height : height * 0.25,
-        width  : width * 0.85,
+        height: height * 0.3,
+        width: width * 0.85,
     },
     image_content: {
         width: width,
         flexDirection: "row",
         justifyContent: "flex-end",
         alignItems: "flex-start",
-        position : 'absolute',
-        top : 0,
-        right : 0,
-        zIndex : 10
-      },
-      close_container: {
+        position: 'absolute',
+        top: 10,
+        right: 0,
+        zIndex: 10
+    },
+    close_container: {
         width: 55,
         height: 55,
         justifyContent: "center",
         alignItems: "center",
-      },  
-      close: {
+    },
+    close: {
         width: 15,
         height: 15,
-      },
+    },
 });

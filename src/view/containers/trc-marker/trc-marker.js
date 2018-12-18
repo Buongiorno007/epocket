@@ -83,7 +83,8 @@ class TRCMarker extends React.Component {
                 : this.props.userColor.trc_marker_blue
             }
           />
-        </View> : null
+        </View>
+        : null
     );
   }
 }

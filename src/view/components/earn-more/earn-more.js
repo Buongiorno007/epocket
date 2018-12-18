@@ -206,16 +206,16 @@ class EarnMore extends React.Component {
           onLoginSuccess={(token) => this.connectInsta(token)}
           onLoginFailure={(data) => console.log(data)}
         />
+        <FastImage
+          resizeMode={FastImage.resizeMode.contain}
+          style={styles.image_background}
+          source={require('../../../assets/img/ANIMATED_EARN_MORE.gif')}
+        />
         <LinearGradient
           colors={this.props.userColor.earn_more}
           start={{ x: 0.0, y: 1.4 }}
           end={{ x: 1.0, y: 0.0 }}
           style={styles.grad}
-        />
-        <FastImage
-          resizeMode={FastImage.resizeMode.contain}
-          style={styles.image_background}
-          source={require('../../../assets/img/EARN_MORE_BACK.png')}
         />
         <FastImage
           resizeMode={FastImage.resizeMode.contain}

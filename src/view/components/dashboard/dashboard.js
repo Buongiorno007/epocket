@@ -62,6 +62,7 @@ const CustomLayoutLinear = {
 class Dashboard extends React.Component {
   state = {
     modalVisible: false,
+    pickedCashout: false,
     errorVisible: false,
     userCount: 0,
     pickedTask: true,
@@ -91,6 +92,7 @@ class Dashboard extends React.Component {
     topPadding: new Animated.Value(-20),
     listHeight: new Animated.Value(height * 0.65),
     topImageOpacity: new Animated.Value(1),
+    allScaleY: new Animated.Value(1),
     flexDirection: 'column'
   };
   constructor(props) {
@@ -105,93 +107,196 @@ class Dashboard extends React.Component {
         const draggedUp = gestureState.dy < -30;
         console.log(gestureState.dy)
         if (gestureState.moveY < 233) {
-          if (draggedDown) {
-            if (this.props.activeCard) {
-            } else {
-              this.runAnimation(
-                {
-                  toValue: 76,
-                  duration: 100
-                },
-                {
-                  toValue: height * 0.35,
-                  duration: 100
-                },
-                {
-                  toValue: 1,
-                  duration: 100
-                },
-                {
-                  toValue: 0,
-                  duration: 100
-                },
-                {
-                  toValue: width * 0.85,
-                  duration: 50
-                },
-                {
-                  toValue: width * 0.25,
-                  duration: 50
-                },
-                {
-                  toValue: width * 0.85,
-                  duration: 50
-                },
-                'column',
-                {
-                  toValue: -20,
-                  duration: 100
-                },
-                {
-                  toValue: height * 0.65,
-                  duration: 20
-                },
-              );
+          if (this.state.body.notInMall) {
+            if (draggedDown) {
+              if (this.props.activeCard) {
+              } else {
+                this.runAnimation(
+                  {
+                    toValue: 76,
+                    duration: 100
+                  },
+                  {
+                    toValue: height * 0.35,
+                    duration: 100
+                  },
+                  {
+                    toValue: 1,
+                    duration: 100
+                  },
+                  {
+                    toValue: 0,
+                    duration: 100
+                  },
+                  {
+                    toValue: width * 0.85,
+                    duration: 50
+                  },
+                  {
+                    toValue: width * 0.25,
+                    duration: 50
+                  },
+                  {
+                    toValue: width * 0.85,
+                    duration: 50
+                  },
+                  'column',
+                  {
+                    toValue: -20,
+                    duration: 100
+                  },
+                  {
+                    toValue: height * 0.65,
+                    duration: 10
+                  },
+                  {
+                    toValue: 1,
+                    duration: 200
+                  },
+                  {
+                    toValue: 1,
+                    duration: 200
+                  },
+                );
+              }
+            }
+            if (draggedUp) {
+              if (this.props.activeCard) {
+              } else {
+                Animated.parallel([
+                  Animated.timing(this.state.topHeight,
+                    {
+                      toValue: height * 0.15, //0.2
+                      duration: 100,
+                      easing: Easing.linear
+                    }),
+                  Animated.timing(this.state.topImageOpacity,
+                    {
+                      toValue: 0,
+                      duration: 200,
+                      easing: Easing.linear
+                    }),
+                  Animated.timing(this.state.listHeight,
+                    {
+                      toValue: height * 0.85,
+                      duration: 10,
+                      easing: Easing.linear
+                    }),
+                  Animated.timing(this.state.allScaleY,
+                    {
+                      toValue: 0,
+                      duration: 200,
+                      easing: Easing.linear
+                    }),
+                ]).start();
+              }
             }
           }
-          if (draggedUp) {
-            //closed
-            if (this.props.activeCard) {
-            } else {
-              this.runAnimation(
-                {
-                  toValue: 30,
-                  duration: 100
-                },
-                {
-                  toValue: height * 0.2, //0.2
-                  duration: 100
-                },
-                {
-                  toValue: 0,
-                  duration: 100
-                },
-                {
-                  toValue: 1,
-                  duration: 100
-                },
-                {
-                  toValue: width * 0.6,
-                  duration: 50
-                },
-                {
-                  toValue: width * 0.2,
-                  duration: 50
-                },
-                {
-                  toValue: width * 0.3,
-                  duration: 50
-                },
-                'row',
-                {
-                  toValue: -60,
-                  duration: 100
-                },
-                {
-                  toValue: height * 0.8,
-                  duration: 20
-                },
-              );
+          else {
+            if (draggedDown) {
+              if (this.props.activeCard) {
+              } else {
+                this.runAnimation(
+                  {
+                    toValue: 76,
+                    duration: 100
+                  },
+                  {
+                    toValue: height * 0.35,
+                    duration: 100
+                  },
+                  {
+                    toValue: 1,
+                    duration: 100
+                  },
+                  {
+                    toValue: 0,
+                    duration: 100
+                  },
+                  {
+                    toValue: width * 0.85,
+                    duration: 50
+                  },
+                  {
+                    toValue: width * 0.25,
+                    duration: 50
+                  },
+                  {
+                    toValue: width * 0.85,
+                    duration: 50
+                  },
+                  'column',
+                  {
+                    toValue: -20,
+                    duration: 100
+                  },
+                  {
+                    toValue: height * 0.65,
+                    duration: 10
+                  },
+                  {
+                    toValue: 1,
+                    duration: 100
+                  },
+                  {
+                    toValue: 1,
+                    duration: 100
+                  },
+                );
+              }
+            }
+            if (draggedUp) {
+              //closed
+              if (this.props.activeCard) {
+              } else {
+                this.runAnimation(
+                  {
+                    toValue: 30,
+                    duration: 100
+                  },
+                  {
+                    toValue: height * 0.2, //0.2
+                    duration: 100
+                  },
+                  {
+                    toValue: 0,
+                    duration: 100
+                  },
+                  {
+                    toValue: 1,
+                    duration: 100
+                  },
+                  {
+                    toValue: width * 0.6,
+                    duration: 50
+                  },
+                  {
+                    toValue: width * 0.2,
+                    duration: 50
+                  },
+                  {
+                    toValue: width * 0.3,
+                    duration: 50
+                  },
+                  'row',
+                  {
+                    toValue: -60,
+                    duration: 100
+                  },
+                  {
+                    toValue: height * 0.8,
+                    duration: 10
+                  },
+                  {
+                    toValue: 1,
+                    duration: 100
+                  },
+                  {
+                    toValue: 1,
+                    duration: 100
+                  },
+                );
+              }
             }
           }
         }
@@ -200,7 +305,7 @@ class Dashboard extends React.Component {
       }
     })
   }
-  runAnimation = (epcСounterFontSizeProps, topHeightProps, textScaleProps, epcScaleProps, timerWidthProps, timerCounterWidthProps, epcCounterContainerWidthProps, flexDirectionProp, topPaddingProps, listHeightProps) => {
+  runAnimation = (epcСounterFontSizeProps, topHeightProps, textScaleProps, epcScaleProps, timerWidthProps, timerCounterWidthProps, epcCounterContainerWidthProps, flexDirectionProp, topPaddingProps, listHeightProps, topImageOpacityProps, allScaleYProps) => {
     Animated.parallel([
       Animated.timing(this.state.epcСounterFontSize,
         {
@@ -256,6 +361,18 @@ class Dashboard extends React.Component {
           duration: listHeightProps.duration,
           easing: Easing.linear
         }),
+      Animated.timing(this.state.topImageOpacity,
+        {
+          toValue: topImageOpacityProps.toValue,
+          duration: topImageOpacityProps.duration,
+          easing: Easing.linear
+        }),
+      Animated.timing(this.state.allScaleY,
+        {
+          toValue: allScaleYProps.toValue,
+          duration: allScaleYProps.duration,
+          easing: Easing.linear
+        }),
       LayoutAnimation.configureNext(CustomLayoutLinear),
       this.setState({ flexDirection: flexDirectionProp })
     ]).start();
@@ -270,7 +387,7 @@ class Dashboard extends React.Component {
     this.props.setCount(count)
     this.props.setMissions(this.props.navigation.state.params.dashboard_data);
     this.setState({ load_missions: false, load_timer: false });
-    this.callTimer();
+    this.props.navigation.state.params.general_info.outlet ? this.setState({ pickedCashout: true }) : this.callTimer();
   };
   setErrorVisible = visible => {
     this.setState({
@@ -375,6 +492,9 @@ class Dashboard extends React.Component {
     };
     this.props.updateTimer(curr_time);
     this.setStartMissionErrorVisible(false);
+    console.log(urls.start_mission,
+      this.state.body,
+      this.props.token)
     let promise = httpPost(
       urls.start_mission,
       JSON.stringify(this.state.body),
@@ -547,8 +667,8 @@ class Dashboard extends React.Component {
         break;
       }
       case 2: {
-        return this.props.timer_status
-          ? [styles.drag_container]
+        return this.state.pickedCashout && this.props.activeCard
+          ? [styles.drag_container, { height: height * 0.9 }]
           : [styles.drag_container];
         break;
       }
@@ -698,91 +818,112 @@ class Dashboard extends React.Component {
           }
           {
             !this.props.activeCard ?
-              <Animated.View style={[styles_top.content, {
-                flexDirection: this.state.flexDirection,
-                top: this.state.topPadding
-              }]}>
-                <Animated.View style={[styles_top.epc_counter_container,
-                {
-                  width: this.state.epcCounterContainerWidth
+              this.state.pickedCashout ?
+                <Animated.View style={[styles_top.content_end, {
+                  flexDirection: this.state.flexDirection,
+                  top: this.state.topPadding,
+                  transform: [
+                    {
+                      scaleY: this.state.allScaleY
+                    }
+                  ]
                 }]}>
-                  <View style={styles_top.epc_counter_container_currency}>
-                    <Animated.Text style={[styles_top.epc_counter,
-                    { fontSize: this.state.epcСounterFontSize }
-                    ]}>
-                      {this.state.mainMissionPrice}
-                    </Animated.Text>
-                    <Animated.Text style={[styles_top.epc_counter_currency,
+                  <View style={styles_top.cashout_text_container}>
+                    <Text numberOfLines={1} style={styles_top.general_text} >{this.props.navigation.state.params.general_info.adress}</Text>
+                    <Text numberOfLines={1} style={styles_top.general_text_big}>{this.props.navigation.state.params.general_info.name}</Text>
+                  </View>
+                </Animated.View>
+                :
+                <Animated.View style={[styles_top.content, {
+                  flexDirection: this.state.flexDirection,
+                  top: this.state.topPadding,
+                  transform: [
+                    {
+                      scaleY: this.state.allScaleY
+                    }
+                  ]
+                }]}>
+                  <Animated.View style={[styles_top.epc_counter_container,
+                  {
+                    width: this.state.epcCounterContainerWidth
+                  }]}>
+                    <View style={styles_top.epc_counter_container_currency}>
+                      <Animated.Text style={[styles_top.epc_counter,
+                      { fontSize: this.state.epcСounterFontSize }
+                      ]}>
+                        {this.state.mainMissionPrice}
+                      </Animated.Text>
+                      <Animated.Text style={[styles_top.epc_counter_currency,
+                      {
+                        transform: [
+                          {
+                            scaleY: this.state.epcScale
+                          }
+                        ]
+                      }
+                      ]}>
+                        {" " + RU.EPC}
+                      </Animated.Text>
+                    </View>
+                    <Animated.View style={[styles_top.epc_counter_info,
                     {
                       transform: [
                         {
-                          scaleY: this.state.epcScale
+                          scaleY: this.state.textScale
                         }
                       ]
-                    }
-                    ]}>
-                      {" " + RU.EPC}
-                    </Animated.Text>
-                  </View>
-                  <Animated.View style={[styles_top.epc_counter_info,
-                  {
-                    transform: [
-                      {
-                        scaleY: this.state.textScale
-                      }
-                    ]
-                  }]}>
-                    <Text style={styles_top.epc}>{RU.EPC}</Text>
-                    <Text style={styles_top.epc_info}>{RU.FOR_BEING_IN_MALL}</Text>
-                    <Text style={this.state.notInMall ? styles_top.epc : styles_top.epc_info}>{this.state.notInMall ? RU.NOT_IN_MALL : RU.TIME_STARTED}</Text>
+                    }]}>
+                      <Text style={styles_top.epc}>{RU.EPC}</Text>
+                      <Text style={styles_top.epc_info}>{RU.FOR_BEING_IN_MALL}</Text>
+                      <Text style={this.state.notInMall ? styles_top.epc : styles_top.epc_info}>{this.state.notInMall ? RU.NOT_IN_MALL : RU.TIME_STARTED}</Text>
+                    </Animated.View>
                   </Animated.View>
-                </Animated.View>
 
-                <Animated.View style={[styles_top.time_counter_container,
-                {
-                  width: this.state.timerWidth
-                }]}>
-                  <Animated.View style={[styles_top.time_counter, {
-                    width: this.state.timerCounterWidth
+                  <Animated.View style={[styles_top.time_counter_container,
+                  {
+                    width: this.state.timerWidth
                   }]}>
-                    <Text style={styles_top.time_counter_text}>
-                      {this.props.timer.hours < 10 && "0"}
-                      {this.props.timer.hours}
-                    </Text>
+                    <Animated.View style={[styles_top.time_counter, {
+                      width: this.state.timerCounterWidth
+                    }]}>
+                      <Text style={styles_top.time_counter_text}>
+                        {this.props.timer.hours < 10 && "0"}
+                        {this.props.timer.hours}
+                      </Text>
+                    </Animated.View>
+                    <View>
+                      <Text style={styles_top.time_divider}>:</Text>
+                    </View>
+                    <Animated.View style={[styles_top.time_counter, {
+                      width: this.state.timerCounterWidth
+                    }]}>
+                      <Text style={styles_top.time_counter_text}>
+                        {this.props.timer.minutes < 10 && "0"}
+                        {this.props.timer.minutes}
+                      </Text>
+                    </Animated.View>
+                    <View>
+                      <Text style={styles_top.time_divider}>:</Text>
+                    </View>
+                    <Animated.View style={[styles_top.time_counter, {
+                      width: this.state.timerCounterWidth
+                    }]}>
+                      <Text style={styles_top.time_counter_text}>
+                        {this.props.timer.seconds < 10 && "0"}
+                        {this.props.timer.seconds}
+                      </Text>
+                    </Animated.View>
                   </Animated.View>
-                  <View>
-                    <Text style={styles_top.time_divider}>:</Text>
-                  </View>
-                  <Animated.View style={[styles_top.time_counter, {
-                    width: this.state.timerCounterWidth
-                  }]}>
-                    <Text style={styles_top.time_counter_text}>
-                      {this.props.timer.minutes < 10 && "0"}
-                      {this.props.timer.minutes}
-                    </Text>
-                  </Animated.View>
-                  <View>
-                    <Text style={styles_top.time_divider}>:</Text>
-                  </View>
-                  <Animated.View style={[styles_top.time_counter, {
-                    width: this.state.timerCounterWidth
-                  }]}>
-                    <Text style={styles_top.time_counter_text}>
-                      {this.props.timer.seconds < 10 && "0"}
-                      {this.props.timer.seconds}
-                    </Text>
-                  </Animated.View>
-                </Animated.View>
-                <View
-                  style={
-                    styles_top.disabled
-                  }
-                >
-                  {/* <Text style={styles.main_task_expired}>
+                  <View
+                    style={
+                      styles_top.disabled
+                    }
+                  >
+                    {/* <Text style={styles.main_task_expired}>
                        {RU.MAIN_TASK_EXPIRED}
                      </Text> */}
-                </View>
-              </Animated.View>
+                  </View>
+                </Animated.View>
               :
               <View style={styles_top.content_old}>
                 <LinearGradient
@@ -853,9 +994,10 @@ class Dashboard extends React.Component {
                   style={styles_top.small_head}
                   onPress={() => { this.props.setDashboardState(1); }} >
                   <View
-                    style={
-                      styles_top.small_head
-                    }
+                    style={[
+                      styles_top.small_head,
+                      this.state.pickedCashout && styles_top.disabled
+                    ]}
                   >
                     <View style={styles_top.small_epc_counter_container}>
                       <LinearTextGradient
@@ -984,7 +1126,7 @@ class Dashboard extends React.Component {
           }
         </Animated.View>
         {this.state.load_missions && <ActivityIndicator />}
-        <TimerModal callTimer={() => { this.callTimer() }} />
+        <TimerModal reward={this.state.mainMissionPrice} callTimer={() => { this.callTimer() }} />
       </View >
     );
   }

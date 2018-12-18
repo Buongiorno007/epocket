@@ -5,9 +5,10 @@ import {
   Modal,
   Text,
   AppState,
-  TouchableHighlight
+  TouchableHighlight,
 } from "react-native";
 import { Button } from "native-base";
+import FastImage from 'react-native-fast-image'
 import LinearGradient from "react-native-linear-gradient";
 //constants
 import styles from "./styles";
@@ -26,17 +27,27 @@ class TimerModal extends React.Component {
         <Modal
           animationType="slide"
           transparent={true}
-          visible={this.props.doneNotification}
+          visible={this.props.doneNotification} //this.props.doneNotification
           onRequestClose={() => {
             //alert("Modal has been closed.");
           }}
         >
           <View style={styles.main_task_done}>
+            <FastImage
+              resizeMode={FastImage.resizeMode.contain}
+              source={require('../../../assets/img/ANIMATED_EARN_MORE.gif')}
+              style={styles.image}
+            />
+            <LinearGradient
+              colors={this.props.userColor.earn_more}
+              start={{ x: 0.0, y: 1.4 }}
+              end={{ x: 1.0, y: 0.0 }}
+              style={styles.grad}
+            />
             <View style={styles.main_task_done_content}>
-              <View style={styles.texts}>
-                <Text style={styles.text}>{RU.CONGRAT}</Text>
-                <Text style={styles.text}>{RU.GOT_EPC}</Text>
-              </View>
+              <Text style={styles.text_big}>{RU.CONGRAT}</Text>
+              <Text style={styles.text}>{RU.GOT_EPC + this.props.reward + " " + RU.EPC + RU.FOR_TRC}</Text>
+              <Text style={styles.text_small}>{RU.COME_TOMMOROW}</Text>
 
               <Button
                 transparent
@@ -46,13 +57,7 @@ class TimerModal extends React.Component {
                   try { this.props.activeTab === 2 && this.props.callTimer() } catch (e) { }
                 }}
               >
-                <LinearGradient
-                  colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
-                  start={{ x: 0.0, y: 1.0 }}
-                  end={{ x: 1.0, y: 1.0 }}
-                  style={styles.confirm_button}
-                />
-                <Text style={styles.confirm_button_text}>{RU.OK}</Text>
+                <Text style={[styles.confirm_button_text, { color: this.props.userColor.second_gradient_color }]}>{RU.OK}</Text>
               </Button>
             </View>
           </View>
@@ -60,18 +65,15 @@ class TimerModal extends React.Component {
         <Modal
           animationType="slide"
           transparent={true}
-          visible={this.props.failedNotification}
+          visible={this.props.failedNotification} //this.props.failedNotification
           onRequestClose={() => {
             //alert("Modal has been closed.");
           }}
         >
-          <View style={styles.main_task_done}>
+          <View style={[styles.main_task_done, styles.backgroundColorWhite]}>
             <View style={styles.main_task_done_content}>
-              <View style={styles.texts}>
-                <Text style={styles.text}>{RU.MAIN_TASK_FAILED}</Text>
-                <Text style={styles.text}>{RU.MAIN_TASK_FAILURE_REASON}</Text>
-              </View>
-
+              <Text style={[styles.text_big, styles.textBlack]}>{RU.MAIN_TASK_FAILED}</Text>
+              <Text style={[styles.text, styles.textBlack]}>{RU.MAIN_TASK_FAILURE_REASON}</Text>
               <Button
                 transparent
                 style={styles.confirm_button}
@@ -86,7 +88,7 @@ class TimerModal extends React.Component {
                   end={{ x: 1.0, y: 1.0 }}
                   style={styles.confirm_button}
                 />
-                <Text style={styles.confirm_button_text}>{RU.OK}</Text>
+                <Text style={[styles.confirm_button_text, styles.textWhite]}>{RU.OK}</Text>
               </Button>
             </View>
           </View>

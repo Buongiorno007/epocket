@@ -6,7 +6,8 @@ import { colors } from '../../../constants/colors'
 export default StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: colors.black
     },
     grad: {
         position: "absolute",
@@ -22,12 +23,12 @@ export default StyleSheet.create({
     },
     image_template: {
         zIndex: 1,
-        alignSelf : 'center',
+        alignSelf: 'center',
         top: width * 0.2,
         height: 165,
         width: width,
         // backgroundColor :  colors.white,
-        marginBottom : 30,
+        marginBottom: 30,
     },
     success: {
         zIndex: 1,
@@ -36,10 +37,10 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
-    text_common : {
+    text_common: {
         width: width * 0.85,
-        textAlign : 'center',
-        marginBottom : 25,
+        textAlign: 'center',
+        marginBottom: 25,
     },
     more_money: {
         fontSize: 30,
@@ -56,21 +57,21 @@ export default StyleSheet.create({
 
     skip_button: {
         width: width * 0.85,
-        height : 60,
+        height: 60,
         alignSelf: 'center',
         alignItems: 'center',
         justifyContent: 'center',
-        
+
     },
     text: {
         fontSize: 14,
         color: colors.white,
     },
-    earn_more_btn : {
+    earn_more_btn: {
 
     },
-    toast : {
-        alignItems : 'center',
-        justifyContent : 'center',
+    toast: {
+        alignItems: 'center',
+        justifyContent: 'center',
     }
 });

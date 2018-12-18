@@ -91,6 +91,23 @@ class ReturnToMall extends React.Component {
   render() {
     return (
       <View style={[styles.container]}>
+        <View style={styles.image_content}>
+          <Button
+            transparent
+            block
+            rounded
+            style={styles.close_container}
+            onPress={() => {
+              this.closeModal();
+            }}
+          >
+            <FastImage
+              resizeMode={FastImage.resizeMode.contain}
+              style={styles.close}
+              source={{ uri: ICONS.COMMON.CLOSE }}
+            />
+          </Button>
+        </View>
         <CustomAlert
           title={this.state.errorText}
           first_btn_title={RU.REPEAT}
@@ -104,23 +121,12 @@ class ReturnToMall extends React.Component {
         />
         {!this.state.time_out ? (
           <View style={[styles.close_view]}>
-            <View style={styles.image_content}>
-              <Button
-                transparent
-                block
-                rounded
-                style={styles.close_container}
-                onPress={() => {
-                  this.closeModal();
-                }}
-              >
-                <FastImage
-                  resizeMode={FastImage.resizeMode.contain}
-                  style={styles.close}
-                  source={{ uri: ICONS.COMMON.CLOSE }}
-                />
-              </Button>
-            </View>
+            <Text style={[styles.adress_title, styles.text_common]}>
+              {this.props.selectedMall.adress}
+            </Text>
+            <Text style={[styles.name_title, styles.text_common]}>
+              {this.props.selectedMall.name}
+            </Text>
             <Text style={[styles.top_title, styles.text_common]}>
               {RU.RETURN_TO_MALL.TITLE_TOP}
             </Text>
@@ -130,14 +136,10 @@ class ReturnToMall extends React.Component {
                 : null}
               {this.state.seconds}
             </Text>
-            <Text style={[styles.bottom_title, styles.text_common]}>
-              {RU.RETURN_TO_MALL.TITLE_BOTTOM}
-            </Text>
           </View>
         ) : (
             <View style={[styles.close_view]}>
-              <Text>{RU.RETURN_TO_MALL.TIME_IS_UP}</Text>
-
+              <Text style={[styles.top_title, styles.text_common]}>{RU.RETURN_TO_MALL.TIME_IS_UP}</Text>
               <CustomButton
                 active
                 gradient

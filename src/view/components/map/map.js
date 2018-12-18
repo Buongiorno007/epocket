@@ -96,7 +96,7 @@ class Map extends React.Component {
     }
     else if (tab == "task") {
       this.setState({ shopActive: false, taskActive: true, discountActive: false, focusedOnMark: false })
-      this.props.setOutlets(this.props.initial_outlets.outlets);
+      this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
     }
     else if (tab == "discount") {
       this.setState({ shopActive: false, taskActive: false, discountActive: true, focusedOnMark: false })
@@ -246,6 +246,7 @@ class Map extends React.Component {
     let promise = httpPost(urls.outlets, JSON.stringify({ geolocation_status: true }), this.props.token);
     promise.then(
       result => {
+        console.log(result)
         this.setModalVisible(false);
         this.props.loaderState(false);
         this.props.setOutlets(result.body.outlets)
@@ -376,7 +377,8 @@ class Map extends React.Component {
     );
     promise.then(
       result => {
-        this.setModalVisible(false);
+        console.log(result)
+        this.setErrorVisible(false);
         if (result.status == 200) {
           this.setState({ posts: result.body.posts })
           let cards = this.getActiveMissions(result.body.missions);
@@ -403,7 +405,7 @@ class Map extends React.Component {
       error => {
         let error_respons = handleError(error, this.constructor.name, "getMissions");
         this.setState({ errorText: error_respons.error_text, errorCode: error_respons.error_code });
-        this.setModalVisible(error_respons.error_modal);
+        this.setErrorVisible(error_respons.error_modal);
         this.props.loaderState(false);
       }
     );
@@ -475,15 +477,13 @@ class Map extends React.Component {
     if ((this.state.pickedMark.latitude == 0 && this.state.pickedMark.longitude == 0)
       ||
       (Number(region.latitude).toFixed(3) == this.state.pickedMark.latitude && Number(region.longitude).toFixed(5) == this.state.pickedMark.longitude)) {
-      console.log(Number(region.latitude).toFixed(3), Number(region.longitude).toFixed(5))
-      console.log(this.state.pickedMark.latitude, this.state.pickedMark.longitude)
     }
     else {
       this.setState({ focusedOnMark: false })
       if (this.state.shopActive) {
         this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
       } else if (this.state.taskActive) {
-        this.props.setOutlets(this.props.initial_outlets.outlets);
+        this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
       } else {
         this.props.setOutlets(this.props.initial_outlets.discounts);
       }
@@ -547,8 +547,8 @@ class Map extends React.Component {
       if (mark_type === "task") {
         this.props.loaderState(true);
         this.loadTaskItems(trc);
-        this.props.setOutlets(this.props.initial_outlets.outlets);
-        let new_outlets = JSON.parse(JSON.stringify(this.props.initial_outlets.outlets));
+        this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
+        let new_outlets = JSON.parse(JSON.stringify([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]));
         let id = this.props.outlets.indexOf(trc);
         if (new_outlets[id]) {
           new_outlets[id].active = true;
@@ -769,6 +769,7 @@ class Map extends React.Component {
           </Marker>
           {
             this.props.outlets.map(marker => (
+              console.log(marker),
               marker.lat != "None" && marker.lng != "None" ?
                 <TRCMarker
                   marker={marker}
