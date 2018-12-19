@@ -4,49 +4,27 @@ import { colors } from '../../../constants/colors'
 
 export default StyleSheet.create({
     main_view: {
+        position: "absolute",
         flex: 1,
         width: width,
+        height: height,
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        bottom: Platform.OS==="ios"?100:0,
-        zIndex: 99
+        bottom: Platform.OS === "ios" ? 60 : 0,
+        zIndex: 998
     },
     circle_container: {
-        width: width * 0.6,
-        height: width * 0.6,
-        bottom: Platform.OS==="ios"?-100:0,
+        zIndex: 999,
+        width: width * 0.85,
+        height: height * 0.3,
+        bottom: Platform.OS === "ios" ? -60 : 0,
         alignItems: 'center',
         justifyContent: 'center',
     },
     btnContainer: {
-        bottom: Platform.OS==="ios"?-100:0,
-    },
-    outer_circle: {
-        width: width * 0.5,
-        height: width * 0.5,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: colors.blue,
-        opacity: 0.3,
-        borderRadius: width * 0.5,
-        position: 'absolute',
-    },
-
-    inner_circle: {
-        width: width * 0.3,
-        height: width * 0.3,
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: colors.blue,
-        opacity: 0.35,
-        borderRadius: width * 0.3,
-        position: 'absolute',
-    },
-    location_icon: {
-        width: 40,
-        height: 40,
+        zIndex: 999,
+        bottom: Platform.OS === "ios" ? -60 : 0,
     },
     enable_location: {
         width: width * 0.6,
@@ -60,7 +38,9 @@ export default StyleSheet.create({
     location_disable_text: {
         textAlign: 'center',
         alignSelf: 'center',
-        color: colors.white,
+        color: colors.black,
+        fontFamily: "Rubik-Regular",
+        fontSize: 12
     },
     location_enable_text: {
         textAlign: 'center',

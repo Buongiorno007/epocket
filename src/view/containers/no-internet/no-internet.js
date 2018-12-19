@@ -4,7 +4,7 @@ import FastImage from 'react-native-fast-image'
 //constants
 import { RU } from "../../../locales/ru";
 import styles from "./styles";
-const gif_url = "../../../assets/img/No_connect_BG.gif";
+const gif_url = "../../../assets/img/wifi.gif";
 class NoInternet extends React.Component {
   render() {
     return (

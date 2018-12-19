@@ -11,5 +11,8 @@ export default StyleSheet.create({
     height: height,
     zIndex: 98,
     backgroundColor: "rgba(242, 242, 242, 0.5)"
+  },
+  blur_container_strong: {
+    backgroundColor: "rgba(242, 242, 242, 0.9)"
   }
 });

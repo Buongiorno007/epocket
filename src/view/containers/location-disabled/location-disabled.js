@@ -20,6 +20,8 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { locationState } from "../../../reducers/geolocation-status";
 import { setLocation } from "../../../reducers/geolocation-coords";
+//components
+import Blur from "../blur/blur";
 class LocationDisabled extends React.Component {
   async checkIsLocation() {
 
@@ -61,19 +63,12 @@ class LocationDisabled extends React.Component {
   render() {
     return (
       <View style={styles.main_view}>
-        {!this.props.timer_status ?
-          <View style={styles.circle_container}>
-            <View style={styles.outer_circle} />
-            <View style={styles.inner_circle} />
-            <FastImage
-              resizeMode={FastImage.resizeMode.contain}
-              style={styles.location_icon}
-              source={{ uri: ICONS.COMMON.GEOLOCATION_DISABLED }}
-            />
-            <Text style={styles.location_disable_text}>
-              {RU.LOCATION_DISABLED}
-            </Text>
-          </View> : null}
+        <Blur strong />
+        <View style={styles.circle_container}>
+          <Text style={styles.location_disable_text}>
+            {RU.LOCATION_DISABLED}
+          </Text>
+        </View>
         <View style={[styles.enable_location, styles.btnContainer]}>
           <Button
             transparent

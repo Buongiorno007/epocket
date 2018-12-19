@@ -44,6 +44,8 @@ import userColor from "./user-color"
 import initial_outlets from "./initial-outlets"
 import secondDashboardCallBlock from "./second-dash-call"
 import socialCount from "./social-count"
+import profileIsVirgin from "./profile-virgin"
+import geolocationIsVirgin from "./geo-virgin"
 
 export default combineReducers({
   isConnected,
@@ -90,5 +92,7 @@ export default combineReducers({
   navigateToMall,
   userColor,
   secondDashboardCallBlock,
-  socialCount
+  socialCount,
+  profileIsVirgin,
+  geolocationIsVirgin
 });

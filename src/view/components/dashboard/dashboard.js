@@ -105,7 +105,6 @@ class Dashboard extends React.Component {
       onPanResponderMove: (evt, gestureState) => {
         const draggedDown = gestureState.dy > 30;
         const draggedUp = gestureState.dy < -30;
-        console.log(gestureState.dy)
         if (gestureState.moveY < 233) {
           if (this.state.body.notInMall || this.state.finishMissionCalled) {
             if (draggedDown) {
@@ -147,7 +146,7 @@ class Dashboard extends React.Component {
                   },
                   {
                     toValue: height * 0.65,
-                    duration: 10
+                    duration: 1100
                   },
                   {
                     toValue: 1,
@@ -232,7 +231,7 @@ class Dashboard extends React.Component {
                   },
                   {
                     toValue: height * 0.65,
-                    duration: 10
+                    duration: 1100
                   },
                   {
                     toValue: 1,
@@ -785,9 +784,9 @@ class Dashboard extends React.Component {
           !this.props.activeCard ?
             <View style={styles.grad}>
               <LinearGradient
-                colors={[this.props.userColor.second_gradient_color, this.props.userColor.first_gradient_color]}
-                start={{ x: 1.0, y: 0.0 }}
-                end={{ x: 0.0, y: 1.0 }}
+                colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
+                start={{ x: 0.0, y: 5.0 }}
+                end={{ x: 1.0, y: 5.0 }}
                 style={styles.grad}
               />
               <Animated.Image

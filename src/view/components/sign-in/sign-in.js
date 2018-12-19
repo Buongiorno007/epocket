@@ -26,6 +26,8 @@ import { setColor } from "../../../reducers/user-color";
 import { bindActionCreators } from "redux";
 import { setInstaToken } from "../../../reducers/insta-token";
 import { setFacebookToken } from "../../../reducers/facebook-token"
+import { setProfileVirgin } from "../../../reducers/profile-virgin"
+import { setGeoVirgin } from "../../../reducers/geo-virgin"
 import { getPush } from "../../../reducers/push";
 import { saveUser } from "../../../reducers/profile-state";
 //services
@@ -219,6 +221,8 @@ class SignIn extends React.Component {
         this.props.setColor(user_info.sex)
         this.props.setToken(result.body.token);
         this.props.setBalance(result.body.balance);
+        this.props.setProfileVirgin(result.body.profile_virgin)
+        this.props.setGeoVirgin(result.body.geo_virgin)
         this.isFblogged(result.body.token);
         this.isInstalogged(result.body.token);
         NavigationService.navigate("Main");
@@ -371,7 +375,9 @@ const mapDispatchToProps = dispatch =>
       setFacebookToken,
       setColor,
       getPush,
-      saveUser
+      saveUser,
+      setProfileVirgin,
+      setGeoVirgin
     },
     dispatch
   );

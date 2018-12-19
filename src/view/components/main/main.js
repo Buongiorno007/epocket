@@ -15,6 +15,7 @@ import ActivityIndicator from "../../containers/activity-indicator/activity-indi
 import ReturnToMall from "../../containers/return-to-mall-timer/return-to-mall-timer";
 import NoInternet from "../../containers/no-internet/no-internet";
 import TimerModal from "../../containers/timer-modal/timer-modal";
+import LocationDisabled from "../../containers/location-disabled/location-disabled";
 //constants
 import styles from "./styles";
 //redux
@@ -72,6 +73,11 @@ class Main extends React.Component {
         {!this.props.dashboard && this.props.timer_status && <ReturnToMall />}
         <GeolocationService />
         {this.props.loader && <ActivityIndicator />}
+        {
+          !this.props.isLocation ? (
+            <LocationDisabled />
+          ) : (null)
+        }
       </View>
     );
   }
@@ -86,7 +92,8 @@ const mapStateToProps = state => ({
   timer_status: state.timer_status,
   doneNotification: state.doneNotification,
   failedNotification: state.failedNotification,
-  game_status: state.game_status
+  game_status: state.game_status,
+  isLocation: state.isLocation,
 });
 
 const mapDispatchToProps = dispatch =>

@@ -15,10 +15,9 @@ export default StyleSheet.create({
         width: width,
     },
     image: {
-        zIndex: 1,
         position: "absolute",
-        top: width * 0.1,
-        height: 165,
+        top: 0,
+        height: height,
         width: width,
     },
     image_failed: {

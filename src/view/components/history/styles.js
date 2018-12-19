@@ -36,7 +36,7 @@ export default StyleSheet.create({
   history_nav: {
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "center",
-    flex: 1
+    justifyContent: "space-between",
+    height: height * 0.12
   }
 });

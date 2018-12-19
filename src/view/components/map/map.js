@@ -79,7 +79,6 @@ class Map extends React.Component {
     }
   };
   toggleTab = (tab) => {
-    console.log(this.map.__lastRegion)
     this.map.animateToRegion(
       {
         latitude: this.map.__lastRegion.latitude - 0.0008344042843,
@@ -385,14 +384,14 @@ class Map extends React.Component {
           if (!this.props.insta_token) { //check for instagramm !this.props.insta_token
             cards.unshift({
               type: "instagram_connect",
-              reward: "10",
+              reward: result.body.networks.insta_reward,
               price: 0
             })
           }
           if (!this.props.facebook_token) { //check for facebook !this.props.facebook_token
             cards.unshift({
               type: "facebook_connect",
-              reward: "10",
+              reward: result.body.networks.fb_reward,
               price: 0
             })
           }
@@ -769,7 +768,6 @@ class Map extends React.Component {
           </Marker>
           {
             this.props.outlets.map(marker => (
-              console.log(marker),
               marker.lat != "None" && marker.lng != "None" ?
                 <TRCMarker
                   marker={marker}
@@ -790,20 +788,6 @@ class Map extends React.Component {
             ))
           }
         </MapView>
-        {
-          !this.props.isLocation ? (
-            <LocationDisabled />
-          ) : (null)
-          // : (
-          //     this.props.isConnected && (
-          //       <CurrentGeolocation
-          //         onPress={() => {
-          //           this.getCurrentGeolocation();
-          //         }}
-          //       />
-          //     )
-          //   )
-        }
         <FooterNavigation />
       </View >
     );
