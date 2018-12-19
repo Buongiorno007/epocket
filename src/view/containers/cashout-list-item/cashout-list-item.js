@@ -39,7 +39,8 @@ class CashoutList extends React.Component {
             onPress={() =>
               NavigationService.navigate("Picture", {
                 image: this.props.item.photo,
-                copyOfCards: this.props.copyOfCards
+                copyOfCards: this.props.copyOfCards,
+                general_info: this.props.general_info
               })
             }
           >

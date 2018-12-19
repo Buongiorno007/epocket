@@ -4,6 +4,9 @@ import QRCode from "react-native-qrcode";
 //constants
 import styles from "./styles";
 import { colors } from "../../../constants/colors";
+//redux
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 class CashoutCode extends React.Component {
   static defaultProps = {
@@ -13,6 +16,7 @@ class CashoutCode extends React.Component {
   state = {
     width: Dimensions.get("window").width
   };
+
 
   render = () => {
     return (
@@ -28,4 +32,16 @@ class CashoutCode extends React.Component {
   };
 }
 
-export default CashoutCode;
+const mapStateToProps = state => ({
+  userColor: state.userColor,
+});
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+    },
+    dispatch
+  );
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CashoutCode);

@@ -21,7 +21,7 @@ class CashoutNavbar extends React.Component {
           transparent
           androidRippleColor={this.props.userColor.card_shadow}
           style={styles.button}
-          onPress={() => NavigationService.navigate("Cashout", { cashout_data: this.props.copyOfCards })}
+          onPress={() => NavigationService.navigate("Cashout", { cashout_data: this.props.copyOfCards, general_info: this.props.general_info })}
         >
           <Close name="x" style={styles.icon} />
         </Button>

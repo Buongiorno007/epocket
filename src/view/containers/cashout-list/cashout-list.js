@@ -78,7 +78,8 @@ class CashoutList extends React.Component {
   };
   sendOrder = () => {
     total_price = 0;
-    this.order.forEach(item => {
+    let copyForCategoryClean = [...this.order];
+    copyForCategoryClean.forEach(item => {
       /*
         ВОТ ЭТА СТРОЧКА
         item.amount = item.count;
@@ -86,6 +87,7 @@ class CashoutList extends React.Component {
         ОНА НУЖНА ПОТОМУ ЧТО БЕКЕНД ПРИНИМАЕТ ПОЛЕ amount 
       */
       item.amount = item.count;
+      item.category.products = [];
       total_price += item.count * item.price;
     });
     if (total_price) {
@@ -93,7 +95,7 @@ class CashoutList extends React.Component {
       this.props.loaderState(true);
       let body = {
         outletId: this.props.selectedMall.id,
-        products: this.order
+        products: copyForCategoryClean
       };
       console.log(body)
       let promise = httpPost(
@@ -108,7 +110,9 @@ class CashoutList extends React.Component {
           NavigationService.navigate("QrCode", {
             total_price: total_price,
             link: result.body.link,
-            orderId: result.body.orderId
+            orderId: result.body.orderId,
+            general_info: this.props.general_info,
+            copyOfCards: this.props.dataInit
           });
         },
         error => {
@@ -188,6 +192,7 @@ class CashoutList extends React.Component {
             item={item}
             copyOfCards={this.props.dataInit}
             addItemToOrder={this.addItemToOrder}
+            general_info={this.props.general_info}
           />
         ))}
       </View>
@@ -284,16 +289,20 @@ class CashoutList extends React.Component {
                     <Text>{RU.CASH.NO_CART}</Text>
                   </View>
                 }
-                <View style={styles.button}>
-                  <CustomButton
-                    active
-                    gradient
-                    short
-                    title={RU.CASH.BUTTON}
-                    color={this.props.userColor.white}
-                    handler={() => this.sendOrder()}
-                  />
-                </View>
+                {this.state.orderCopy.length ?
+                  <View style={styles.button}>
+                    <CustomButton
+                      active
+                      gradient
+                      short
+                      title={RU.CASH.BUTTON}
+                      color={this.props.userColor.white}
+                      handler={() => this.sendOrder()}
+                    />
+                  </View>
+                  :
+                  null
+                }
               </View>
             }
 

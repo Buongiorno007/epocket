@@ -18,10 +18,10 @@ class Trade extends React.Component {
 
   totalApprove = (product_list) => {
     let result = true;
-    product_list.forEach((item)=>{
+    product_list.forEach((item) => {
       if (item.approve === false || item.amount === 0) {
         return result = false
-      } 
+      }
     });
     return result;
   }
@@ -34,20 +34,20 @@ class Trade extends React.Component {
           translucent={true}
           backgroundColor={"transparent"}
         />
-        <Status status={this.props.socket.status} total_approve={this.totalApprove(this.props.socket.products)}/>
-          <View style={styles.scroll}>
-            <Title date={this.props.socket.time} />
-            <ScrollView>
-              <List list={this.props.socket.products} />
-            </ScrollView>
-            {this.props.socket.status !== -1 && <Price price={this.props.socket.total} />}
-          </View>
+        <Status status={this.props.socket.status} total_approve={this.totalApprove(this.props.socket.products)} />
+        <View style={styles.scroll}>
+          <Title date={this.props.socket.time} />
+          <ScrollView>
+            <List list={this.props.socket.products} />
+          </ScrollView>
+          {this.props.socket.status !== -1 && <Price price={this.props.socket.total} />}
+        </View>
         <View style={styles.button}>
           <CustomButton
             active
             gradient
             short
-            title={RU.OK}
+            title={RU.OK.toUpperCase()}
             color={this.props.userColor.white}
             handler={() => { NavigationService.navigate("Main"); }}
           />

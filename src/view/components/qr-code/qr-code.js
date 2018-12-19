@@ -39,7 +39,7 @@ class QrCode extends React.Component {
     let thisStatus = this.props.socket.status;
     let nextStatus = nextProps.socket.status;
     ((nextStatus === 1 || nextStatus === -1) && thisStatus === 2) && NavigationService.navigate("Trade");
-      
+
   }
 
   render = () => {
@@ -50,7 +50,7 @@ class QrCode extends React.Component {
           translucent={true}
           backgroundColor={"transparent"}
         />
-        {!this.state.modal && <Navbar />}
+        {!this.state.modal && <Navbar general_info={this.props.navigation.state.params.general_info} copyOfCards={this.props.navigation.state.params.copyOfCards} />}
         {!this.state.modal && (
           <Message
             total_price={this.props.navigation.state.params.total_price}

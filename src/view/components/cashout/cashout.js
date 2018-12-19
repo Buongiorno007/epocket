@@ -69,6 +69,7 @@ class Cashout extends React.Component {
     return separatedList;
   }
   componentDidMount = () => {
+    console.log()
     let data = this.separateProducts(this.props.navigation.state.params.cashout_data)
     this.setState({ products: data })
   };
@@ -223,6 +224,7 @@ class Cashout extends React.Component {
           opacity: this.state.topImageOpacity
         }]} />
         <List
+          general_info={this.props.navigation.state.params.general_info}
           draggedDown={this.state.draggedDown}
           data={this.state.products}
           dataInit={this.props.navigation.state.params.cashout_data} />
