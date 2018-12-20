@@ -12,24 +12,33 @@ export default StyleSheet.create({
     image: {
         width: 35,
         height: 35,
-        zIndex: 1000,
+        zIndex: 997,
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0
     },
     gradient: {
         width: 55,
         height: 55,
         borderRadius: 30,
-        zIndex: 999,
+        zIndex: 996,
         position: "absolute",
         top: 0,
-        bottom: 0
+        bottom: 0,
+        left: 10,
+        right: 0
     },
     big_gradient: {
         width: 60,
         height: 60,
         borderRadius: 30,
-        zIndex: 999,
+        zIndex: 996,
         position: "absolute",
         top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0
     },
     discount_image: {
         width: 40,
@@ -37,7 +46,11 @@ export default StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         height: 40,
-        zIndex: 1000,
+        zIndex: 997,
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0
     },
     discount_text_container: {
         justifyContent: "center",

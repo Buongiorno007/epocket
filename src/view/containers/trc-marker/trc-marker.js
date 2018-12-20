@@ -46,24 +46,25 @@ class TRCMarker extends React.Component {
                 colors={[this.props.userColor.active_marker_blue, this.props.userColor.active_marker_lightblue]}
                 start={{ x: 0.0, y: 1.0 }}
                 end={{ x: 1.0, y: 0.0 }}
-                style={this.props.discountMarker ? styles.big_gradient : styles.gradient}
+                style={[this.props.discountMarker ? styles.big_gradient : styles.gradient]}
               />
             }
             <ImageBackground
               key={this.props.marker.id}
               style={[this.props.discountMarker ? styles.discount_image : styles.image, this.props.active && {
                 marginTop: 10
-              }]}
+              },
+              this.props.cashoutMarker && { left: 20 }]}
               source={{ uri: this.props.active ? this.props.discountMarker ? ICONS.COMMON.DISCOUNT_ACTIVE : ICONS.COMMON.STORE_ACTIVE : this.props.discountMarker ? ICONS.COMMON.DISCOUNT_INACTIVE : ICONS.COMMON.STORE_INACTIVE }}
             >
               {this.props.discountMarker &&
                 <View style={styles.discount_text_container}>
                   <Text style={[styles.discount_text, this.props.active && { color: this.props.userColor.white }]}>%</Text>
-                  <Text style={[styles.discount_text, this.props.active && { color: this.props.userColor.white }]}>-N</Text>
+                  <Text style={[styles.discount_text, this.props.active && { color: this.props.userColor.white }]}>-{this.props.marker.discount}</Text>
                 </View>
               }
             </ImageBackground>
-            {!this.props.discountMarker &&
+            {(!this.props.discountMarker && !this.props.cashoutMarker) &&
               <View style={[!this.props.active ? styles.mall_price_view : styles.mall_price_view_fill]}>
                 <Text style={styles.mall_price}>{!this.props.active ? this.props.marker.price : "      "}</Text>
                 <Text style={styles.mall_price_epc} >{!this.props.active ? RU.EPC : "      "}</Text>

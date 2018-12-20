@@ -36,7 +36,12 @@ class CashoutList extends React.Component {
     rotateAngle: new Animated.Value(0)
   };
   order = [];
-
+  componentWillReceiveProps = (nextProps) => {
+    if (nextProps.activeIndex || nextProps.activeIndex == 0) {
+      console.log(nextProps)
+      this.setState({ activeSections: [nextProps.activeIndex] })
+    }
+  }
   pickCart = () => {
     let pick = this.state.pickedCart;
     this.setState({ pickedCart: !pick, activeSections: [] });
@@ -124,9 +129,6 @@ class CashoutList extends React.Component {
       );
     }
   };
-  componentWillReceiveProps = (nextProps) => {
-    console.log("componentWillReceiveProps", nextProps.draggedDown)
-  }
   checkForActive = (section, isActive) => {
     spin = '0deg';
     if (isActive) {

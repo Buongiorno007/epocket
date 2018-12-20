@@ -330,7 +330,7 @@ class Map extends React.Component {
             <CardCashout
               item={item.item}
               key={item.item.id}
-              onPressItem={this._showSelectedCard}
+              onPressItem={this.openAccordion}
             />
             :
             <CardCashout
@@ -355,6 +355,12 @@ class Map extends React.Component {
     // this.props.setActiveCard(true);
     // this.props.selectMission(this._submissionOrder(selectedCard));
   };
+  openAccordion = selectedCard => {
+    let selectedCashout = this.state.cards[0];
+    let copyOfCards = [...this.state.cards]
+    copyOfCards.shift(); //remove card with outlet|cashout information
+    NavigationService.navigate("Cashout", { cashout_data: copyOfCards, general_info: selectedCashout, cardForAccordion: selectedCard });
+  }
   getActiveMissions = (missions) => {
     missions.forEach((item) => {
       let currentTime = moment().format("HH:mm:ss");
@@ -775,6 +781,7 @@ class Map extends React.Component {
                   selected={this.props.selectedMall.id}
                   active={marker.active}
                   discountMarker={this.state.discountActive}
+                  cashoutMarker={this.state.shopActive}
                   onPress={() => {
                     this.state.taskActive ?
                       this.selectMark(marker, true, "task")

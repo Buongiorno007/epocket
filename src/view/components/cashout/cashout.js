@@ -68,9 +68,24 @@ class Cashout extends React.Component {
     }
     return separatedList;
   }
+  findActiveAccordion = (card, arrayForAccordion) => {
+    let categoryIndex;
+    arrayForAccordion.forEach(category => {
+      category.products.forEach(product => {
+        if (product === card) {
+          categoryIndex = arrayForAccordion.findIndex(x => x.id === category.id)
+        }
+      });
+    });
+    return categoryIndex;
+  }
   componentDidMount = () => {
-    console.log()
     let data = this.separateProducts(this.props.navigation.state.params.cashout_data)
+    if (this.props.navigation.state.params.cardForAccordion) {
+      let activeIndex = this.findActiveAccordion(this.props.navigation.state.params.cardForAccordion, data)
+      this.setState({ activeIndex })
+      console.log(activeIndex)
+    }
     this.setState({ products: data })
   };
   animateTop = (topScaleProps, topHeightProps, topImageOpacityProps, topBigHeightProps) => {
@@ -227,7 +242,8 @@ class Cashout extends React.Component {
           general_info={this.props.navigation.state.params.general_info}
           draggedDown={this.state.draggedDown}
           data={this.state.products}
-          dataInit={this.props.navigation.state.params.cashout_data} />
+          dataInit={this.props.navigation.state.params.cashout_data}
+          activeIndex={this.state.activeIndex} />
         <TimerModal />
       </View>
     );
