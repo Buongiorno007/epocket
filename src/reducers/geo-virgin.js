@@ -1,3 +1,4 @@
+import { AsyncStorage } from 'react-native'
 export const SET_GEO_VIRGIN = 'geo-virgin/SET_GEO_VIRGIN';
 
 export default (state = [], action) => {
@@ -9,6 +10,9 @@ export default (state = [], action) => {
     }
 }
 
-export const setGeoVirgin = (status) => ({
-    type: SET_GEO_VIRGIN, status
-})
+export const setGeoVirgin = (status) => {
+    AsyncStorage.setItem("geo_virgin", String(status));
+    return {
+        type: SET_GEO_VIRGIN, status
+    }
+}

@@ -30,6 +30,8 @@ import { bindActionCreators } from "redux";
 import { setToken } from "../../../reducers/token";
 import { loaderState } from "../../../reducers/loader";
 import { setBalance } from "../../../reducers/user-balance";
+import { setProfileVirgin } from "../../../reducers/profile-virgin"
+import { setGeoVirgin } from "../../../reducers/geo-virgin"
 import { getPush } from "../../../reducers/push";
 import { saveUser } from "../../../reducers/profile-state";
 //services
@@ -196,6 +198,8 @@ class SignUp extends React.Component {
         this.props.setBalance(0);
         this.setState({ step: 3, acceptButton: false });
         this.props.getPush(result.body.token)
+        this.props.setGeoVirgin(false)
+        this.props.setProfileVirgin(false)
       },
       error => {
         console.log('error', error)
@@ -395,7 +399,9 @@ const mapDispatchToProps = dispatch =>
       setBalance,
       loaderState,
       getPush,
-      saveUser
+      saveUser,
+      setProfileVirgin,
+      setGeoVirgin
     },
     dispatch
   );

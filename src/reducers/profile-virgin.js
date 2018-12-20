@@ -1,3 +1,4 @@
+import { AsyncStorage } from 'react-native'
 export const SET_PROFILE_VIRGIN = 'profile-virgin/SET_PROFILE_VIRGIN';
 
 export default (state = [], action) => {
@@ -9,6 +10,9 @@ export default (state = [], action) => {
     }
 }
 
-export const setProfileVirgin = (status) => ({
-    type: SET_PROFILE_VIRGIN, status
-})
+export const setProfileVirgin = (status) => {
+    AsyncStorage.setItem("profile_virgin", String(status));
+    return {
+        type: SET_PROFILE_VIRGIN, status
+    }
+}

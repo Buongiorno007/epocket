@@ -15,15 +15,21 @@ export default StyleSheet.create({
         zIndex: 998
     },
     circle_container: {
-        zIndex: 999,
+        zIndex: 1001,
         width: width * 0.85,
         height: height * 0.3,
         bottom: Platform.OS === "ios" ? -60 : 0,
         alignItems: 'center',
         justifyContent: 'center',
     },
+    virgin_container: {
+        bottom: 60,
+    },
+    virgin_btn_container: {
+        bottom: 10,
+    },
     btnContainer: {
-        zIndex: 999,
+        zIndex: 1001,
         bottom: Platform.OS === "ios" ? -60 : 0,
     },
     enable_location: {
@@ -42,10 +48,24 @@ export default StyleSheet.create({
         fontFamily: "Rubik-Regular",
         fontSize: 12
     },
+    location_disable_text_white: {
+        textAlign: 'center',
+        alignSelf: 'center',
+        color: colors.white,
+        fontFamily: "Rubik-Bold",
+        fontSize: 20
+    },
     location_enable_text: {
         textAlign: 'center',
         alignSelf: 'center',
         color: colors.white,
         position: 'absolute'
+    },
+    bottom_image: {
+        position: "absolute",
+        bottom: 0,
+        zIndex: 999,
+        width: width,
+        height: height * 0.9
     }
 });

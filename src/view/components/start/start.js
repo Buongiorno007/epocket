@@ -26,8 +26,10 @@ import { setBalance } from "../../../reducers/user-balance";
 import { getConnection } from "../../../reducers/net-info";
 import { setTabState } from "../../../reducers/tabs";
 import { loaderState } from "../../../reducers/loader";
+import { setGeoVirgin } from "../../../reducers/geo-virgin"
 import { getPush } from "../../../reducers/push";
 import { setFacebookToken } from "../../../reducers/facebook-token"
+import { setProfileVirgin } from "../../../reducers/profile-virgin"
 import {
   locationStateListener,
   locationState
@@ -60,20 +62,19 @@ class Start extends React.Component {
   componentDidMount = () => {
     this.props.setTabState(0);
     this.props.getConnection();
-    this._getLocation();
     this.props.locationStateListener();
     this.props.locationCoordsListener();
     if (Platform.OS === "ios") {
       BackgroundGeolocationModule.ready(geo_config(), state => {
         if (!state.enabled) {
-          BackgroundGeolocationModule.start(function () { });
+          //BackgroundGeolocationModule.start(function () { });
         }
       });
     } else {
       BackgroundGeolocationModule.configure(geo_config())
       BackgroundGeolocationModule.checkStatus(status => {
         if (!status.isRunning) {
-          BackgroundGeolocationModule.start();
+          //BackgroundGeolocationModule.start();
         }
       });
     }
@@ -81,7 +82,7 @@ class Start extends React.Component {
   };
 
   _initialConfig = () => {
-    AsyncStorage.multiGet(["insta_token", "token", "balance", "facebook_token"], (err, stores) => {
+    AsyncStorage.multiGet(["insta_token", "token", "balance", "facebook_token", "geo_virgin", "profile_virgin"], (err, stores) => {
       stores.map((result, i, store) => {
         this.props.loaderState(false);
         // get at each store's key/value so you can work with it
@@ -109,24 +110,18 @@ class Start extends React.Component {
             value && this.props.setBalance(value);
             break;
           }
+          case 'geo_virgin': {
+            console.log(value)
+            value && this.props.setGeoVirgin(value);
+            break;
+          }
+          case 'profile_virgin': {
+            value && this.props.setProfileVirgin(value);
+            break;
+          }
         }
       });
     });
-  };
-
-  _getLocation = () => {
-    navigator.geolocation.getCurrentPosition(
-      position => {
-        this.props.locationState(true);
-        this.props.setLocation({
-          lng: position.coords.longitude,
-          lat: position.coords.latitude
-        });
-      },
-      error => {
-        this.props.locationState(false);
-      },
-    );
   };
   goToSignIn = () => {
     this.props.loaderState(true);
@@ -211,9 +206,11 @@ const mapDispatchToProps = dispatch =>
       setToken,
       setInstaToken,
       setFacebookToken,
+      setGeoVirgin,
       setBalance,
       loaderState,
-      getPush
+      getPush,
+      setProfileVirgin
     },
     dispatch
   );

@@ -47,7 +47,6 @@ class CashoutList extends React.Component {
     });
   }
   componentDidMount = () => {
-    console.log("did mount")
     AsyncStorage.multiGet(["cashout_cart", "cashout_cart_time"]).then(response => {
       responseOrder = JSON.parse(response[0][1]);
       let diff = moment().diff(response[1][1], 'seconds')
