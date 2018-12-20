@@ -144,21 +144,21 @@ class Start extends React.Component {
           translucent={true}
           backgroundColor={"transparent"}
         />
-        <View style={styles.background_view}></View>
-        <FastImage
-          style={styles.bottom_image}
-          source={{ uri: ICONS.COMMON.START_BACKGROUND }}
+        <LinearGradient
+          colors={["rgba(89,91,241,1)", "rgba(232,67,232, 0)", "rgba(255,187,71,0)"]}
+          start={{ x: 1.0, y: 0.0 }}
+          end={{ x: 0.0, y: 1.0 }}
+          style={styles.grad}
         />
         <FastImage
           resizeMode={FastImage.resizeMode.contain}
           style={styles.top_image}
           source={require('../../../assets/img/ANIMATED_EARN_MORE.gif')}
         />
-        <LinearGradient
-          colors={["rgba(89,91,241,0.65)", "#E843E8", "rgba(255,187,71,0.64)"]}
-          start={{ x: 1.0, y: 0.0 }}
-          end={{ x: 0.0, y: 1.0 }}
-          style={styles.grad}
+        <FastImage
+          resizeMode={FastImage.resizeMode.contain}
+          style={styles.top_image}
+          source={require('../../../assets/img/START_GRADIENT.png')}
         />
         <FastImage
           resizeMode={FastImage.resizeMode.contain}

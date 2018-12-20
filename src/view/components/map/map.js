@@ -351,9 +351,6 @@ class Map extends React.Component {
     }
   }
   _showSelectedCard = selectedCard => {
-    // this.props.setDashboardState(2);
-    // this.props.setActiveCard(true);
-    // this.props.selectMission(this._submissionOrder(selectedCard));
   };
   openAccordion = selectedCard => {
     let selectedCashout = this.state.cards[0];

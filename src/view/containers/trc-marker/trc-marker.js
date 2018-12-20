@@ -26,7 +26,7 @@ class TRCMarker extends React.Component {
 
   render() {
     return (
-      this.props.marker.price ?
+      this.props.marker.price || this.props.marker.discount ?
         <View style={styles.main_view}>
           <Marker
             style={[styles.marker, this.props.discountMarker && {
@@ -52,7 +52,7 @@ class TRCMarker extends React.Component {
             <ImageBackground
               key={this.props.marker.id}
               style={[this.props.discountMarker ? styles.discount_image : styles.image, this.props.active && {
-                marginTop: 10
+                marginTop: this.props.discountMarker ? 0 : 10
               },
               this.props.cashoutMarker && { left: 20 }]}
               source={{ uri: this.props.active ? this.props.discountMarker ? ICONS.COMMON.DISCOUNT_ACTIVE : ICONS.COMMON.STORE_ACTIVE : this.props.discountMarker ? ICONS.COMMON.DISCOUNT_INACTIVE : ICONS.COMMON.STORE_INACTIVE }}
@@ -84,9 +84,7 @@ class TRCMarker extends React.Component {
                 : this.props.userColor.trc_marker_blue
             }
           />
-        </View>
-        : null
-    );
+        </View> : null);
   }
 }
 

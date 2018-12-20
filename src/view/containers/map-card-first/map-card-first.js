@@ -14,6 +14,9 @@ import { bindActionCreators } from "redux";
 import CustomButton from "../custom-button/custom-button";
 
 class CardDiscount extends React.Component {
+  state = {
+    notInMall: (this.props.distance <= 0 && this.props.isLocation) ? false : true
+  }
   constructor(props) {
     super(props);
   }
@@ -71,7 +74,7 @@ class CardDiscount extends React.Component {
                   {this.props.item.name}
                 </Text>
               </View>
-              {this.props.timer_status &&
+              {!this.state.notInMall && this.props.timer_status &&
                 <View style={styles.timer}>
                   <View style={styles.time_counter_container}>
                     <View style={styles.time_counter}>
@@ -125,6 +128,8 @@ const mapStateToProps = state => ({
   userColor: state.userColor,
   timer: state.timer,
   timer_status: state.timer_status,
+  isLocation: state.isLocation,
+  distance: state.distance,
 });
 
 const mapDispatchToProps = dispatch =>

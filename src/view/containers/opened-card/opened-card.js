@@ -17,11 +17,13 @@ import { bindActionCreators } from "redux";
 //services
 import NavigationService from "../../../services/route";
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
+import colors_men from "../../../constants/colors_men";
 
 
 class OpenedCard extends React.Component {
   state = {
-    errorVisible: true
+    errorVisible: true,
+    notInMall: (this.props.distance <= 0 && this.props.isLocation) ? false : true
   };
   setModalVisible = visible => {
     this.setState({ errorVisible: visible });
@@ -108,14 +110,31 @@ class OpenedCard extends React.Component {
                 )}
               </ScrollView>
               <View style={styles.my_button}>
-                <CustomButton
-                  handler={() => {
-                    this.executeTask();
-                  }}
-                  active
-                  title={RU.EXECUTE}
-                  color={this.props.selectedMission.color}
-                />
+                {!this.state.notInMall ?
+                  <CustomButton
+                    handler={() => {
+                      this.executeTask();
+                    }}
+                    active
+                    title={RU.EXECUTE}
+                    color={this.props.selectedMission.color}
+                  />
+                  :
+                  <Button
+                    transparent
+                    block
+                    rounded
+                    bordered
+                    light
+                    style={styles.notInMall}
+                    onPress={() => { }}
+                  >
+                    <Text style={styles.notInMall_text}>
+                      {RU.NOT_IN_ZONE.toUpperCase()}
+                    </Text>
+                  </Button>
+
+                }
               </View>
             </View>
           ) : (
@@ -141,7 +160,9 @@ class OpenedCard extends React.Component {
 
 const mapStateToProps = state => ({
   userColor: state.userColor,
-  selectedMission: state.selectedMission
+  selectedMission: state.selectedMission,
+  isLocation: state.isLocation,
+  distance: state.distance,
 });
 
 const mapDispatchToProps = dispatch =>

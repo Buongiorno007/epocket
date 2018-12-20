@@ -20,6 +20,26 @@ export default StyleSheet.create({
     height: width * 0.6,
     width: width,
   },
+  notInMall: {
+    width: width * 0.85,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    borderRadius: 50,
+    borderStyle: 'dotted',
+    zIndex: 5,
+  },
+  notInMall_text: {
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    fontFamily: "Rubik-Medium",
+    textAlign: "center",
+    fontSize: 10,
+    zIndex: 6,
+    color: colors.white
+  },
   grad: {
     position: "absolute",
     bottom: 0,
@@ -93,7 +113,7 @@ export default StyleSheet.create({
     color: colors.white,
     fontFamily: "Rubik-Light",
     fontSize: 16,
-    flexWrap : 'wrap'
+    flexWrap: 'wrap'
 
   },
   my_button: {

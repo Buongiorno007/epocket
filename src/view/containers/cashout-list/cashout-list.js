@@ -38,7 +38,6 @@ class CashoutList extends React.Component {
   order = [];
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.activeIndex || nextProps.activeIndex == 0) {
-      console.log(nextProps)
       this.setState({ activeSections: [nextProps.activeIndex] })
     }
   }

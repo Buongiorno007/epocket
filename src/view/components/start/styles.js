@@ -36,7 +36,7 @@ export default StyleSheet.create({
     position: "absolute",
     height: height,
     width: width,
-    backgroundColor: colors.backgroundForAnimated
+    backgroundColor: "#595BF1"
   },
   grad: {
     position: "absolute",
