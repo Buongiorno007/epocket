@@ -144,45 +144,47 @@ class Start extends React.Component {
           translucent={true}
           backgroundColor={"transparent"}
         />
-
-        <View style={styles.main_view}>
-          <FastImage
-            style={styles.bottom_image}
-            source={{ uri: ICONS.COMMON.START_BACKGROUND }}
-          />
-          <LinearGradient
-            colors={["#595BF1", "#E843E8", "rgba(255,187,71,0.64)"]}
-            start={{ x: 1.0, y: 0.0 }}
-            end={{ x: 0.0, y: 1.0 }}
-            style={styles.grad}
-          />
-          <FastImage
-            resizeMode={FastImage.resizeMode.contain}
-            style={styles.top_image}
-            // source={{ uri: ICONS.COMMON.START_TOP_BACKGROUND }}
-            source={require('../../../assets/img/START_TOP_BACKGROUND.png')}
-          />
-          <Text style={styles.start_title}>{RU.START_TITLE}</Text>
-          {this.state.enable_login && (
-            <View style={styles.signup_signin_buttons}>
-              <CustomButton
-                style={styles.signup_button}
-                active
-                title={RU.SIGN_UP_TITLE}
-                handler={() => this.goToSignUp()}
-              />
-              <Button
-                rounded
-                block
-                transparent
-                style={styles.go_to_signin}
-                onPress={() => this.goToSignIn()}
-              >
-                <Text style={styles.go_to_signin_text}>{RU.GO_TO_SIGNIN}</Text>
-              </Button>
-            </View>
-          )}
-        </View>
+        <View style={styles.background_view}></View>
+        <FastImage
+          style={styles.bottom_image}
+          source={{ uri: ICONS.COMMON.START_BACKGROUND }}
+        />
+        <FastImage
+          resizeMode={FastImage.resizeMode.contain}
+          style={styles.top_image}
+          source={require('../../../assets/img/ANIMATED_EARN_MORE.gif')}
+        />
+        <LinearGradient
+          colors={["rgba(89,91,241,0.65)", "#E843E8", "rgba(255,187,71,0.64)"]}
+          start={{ x: 1.0, y: 0.0 }}
+          end={{ x: 0.0, y: 1.0 }}
+          style={styles.grad}
+        />
+        <FastImage
+          resizeMode={FastImage.resizeMode.contain}
+          style={styles.top_logo_image}
+          source={{ uri: ICONS.COMMON.CASH_EPC_WHITE }}
+        />
+        <Text style={styles.start_title}>{RU.START_TITLE}</Text>
+        {this.state.enable_login && (
+          <View style={styles.signup_signin_buttons}>
+            <CustomButton
+              style={styles.signup_button}
+              active
+              title={RU.SIGN_UP_TITLE}
+              handler={() => this.goToSignUp()}
+            />
+            <Button
+              rounded
+              block
+              transparent
+              style={styles.go_to_signin}
+              onPress={() => this.goToSignIn()}
+            >
+              <Text style={styles.go_to_signin_text}>{RU.GO_TO_SIGNIN}</Text>
+            </Button>
+          </View>
+        )}
         {this.props.loader && <ActivityIndicator />}
         {!this.props.isConnected && <NoInternet />}
       </View>

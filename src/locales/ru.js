@@ -1,4 +1,4 @@
-const EPC = "руб."
+const EPC = "epc"
 export const RU = {
   TITLE: "EpocketCash",
   PROFILE: "Профиль",
@@ -19,7 +19,7 @@ export const RU = {
   SIGN_UP: "Зарегистрироваться",
   SIGN_IN: "Войти",
   NAMES: "Имя, Фамилия",
-  PHONE_MASK: "- - -  - -  - - -  - -  - -",
+  PHONE_MASK: "38(0 - -) - - -  - - - -",
   ACCEPT: "ПОДТВЕРДИТЬ",
   CODE_SENT: "На ваш номер телефона отправлен 6-ти значный код",
   ENTER_CODE: "Введите его для подтверждения регистрации",
@@ -229,7 +229,7 @@ export const RU = {
     GAMES_FOR_TODAY: "игр доступно на сегодня",
     START: "Старт",
     COST_TEXT: "задание на",
-    GET_EPC: "Можете получить " + EPC + " посетив ближайший ТРЦ",
+    GET_EPC: "Можете получить " + EPC.toUpperCase() + " посетив ближайший ТРЦ",
     RESULT: {
       CONGRATS: "Поздравляем!",
       YOU_WON: "Вы выиграли",

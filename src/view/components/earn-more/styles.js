@@ -7,7 +7,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: colors.black
+        backgroundColor: colors.backgroundForAnimated
     },
     grad: {
         position: "absolute",

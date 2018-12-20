@@ -96,7 +96,12 @@ class Profile extends React.Component {
           <View style={styles.photo_container}>
             <CustomPhoto src={this.state.user.photo} />
           </View>
-          <View style={styles.text_container}>
+          <Button
+            transparent
+            block
+            rounded
+            onPress={() => this.ToEdit()}
+            style={styles.text_container}>
             <View style={styles.text_item}>
               <Text style={styles.title}>{RU.NAMES}</Text>
               <Text style={styles.name}>{this.state.user.username}</Text>
@@ -122,7 +127,7 @@ class Profile extends React.Component {
                 : null
             }
 
-          </View>
+          </Button>
           {
             ((this.state.user.sex != 0 && this.state.user.sex != 1) || !this.state.user.birthDay) &&
             <View style={styles.btn_container}>

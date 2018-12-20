@@ -22,7 +22,7 @@ export default StyleSheet.create({
 		width: width * 0.85,
 		alignItems: "center",
 		justifyContent: "center",
-		marginTop: height * 0.05
+		marginTop: width * 0.19
 	},
 	text_container: {
 		flexDirection: 'row',
@@ -57,7 +57,7 @@ export default StyleSheet.create({
 	zifi: {
 		width: width * 0.35,
 		height: width * 0.35,
-		marginBottom: height * 0.05
+		marginBottom: width * 0.05
 	},
 	zifi_text: {
 		textAlign: "center",
@@ -65,7 +65,7 @@ export default StyleSheet.create({
 		color: colors.zifi_text,
 		fontSize: 15,
 		fontFamily: 'Rubik-BoldItalic',
-		marginTop: height * 0.05
+		marginTop: width * 0.05
 	},
 	game_title_text: {
 		textAlign: "center",

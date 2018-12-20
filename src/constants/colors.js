@@ -46,5 +46,6 @@ export const colors =
   zifi_text: "#BDC3C9",
   transparent: "rgba(255,255,255, 0)",
   second_gradient_color: "#6A00B9",
-  first_gradient_color: "#00EEFF"
+  first_gradient_color: "#00EEFF",
+  backgroundForAnimated: "#595BF1"
 };

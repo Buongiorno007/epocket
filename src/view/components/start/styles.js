@@ -9,12 +9,18 @@ export default StyleSheet.create({
     alignItems: "center"
   },
   top_image: {
-    position: "relative",
-    top: width * 0.1,
-    height: 165,
+    position: "absolute",
+    height: height,
     width: width,
+    top: 0,
+    left: 0
   },
-
+  top_logo_image: {
+    position: "absolute",
+    height: 50,
+    width: 50,
+    top: width * 0.6
+  },
   bottom_image: {
     position: "absolute",
     bottom: 0,
@@ -23,9 +29,14 @@ export default StyleSheet.create({
   },
   background: {
     position: "absolute",
-    // flex : 1,
     height: height,
     width: width,
+  },
+  background_view: {
+    position: "absolute",
+    height: height,
+    width: width,
+    backgroundColor: colors.backgroundForAnimated
   },
   grad: {
     position: "absolute",
@@ -34,7 +45,7 @@ export default StyleSheet.create({
   },
   start_title: {
     position: "relative",
-    top: width * 0.1+50,
+    top: width * 0.1 + 50,
     color: colors.white,
     fontFamily: "Rubik-Light",
     fontSize: 18,

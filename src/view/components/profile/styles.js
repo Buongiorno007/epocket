@@ -34,7 +34,7 @@ export default StyleSheet.create({
   },
   info: {
     width: width,
-    flexDirection : 'column',
+    flexDirection: 'column',
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "flex-start",
@@ -66,18 +66,21 @@ export default StyleSheet.create({
   text_container: {
     justifyContent: "flex-start",
     alignItems: "flex-start",
+    width: width * 0.85,
+    flexDirection: "column",
+    height: width * 1.75
   },
-  text_item : {
-    marginBottom : 20
+  text_item: {
+    marginBottom: 20
   },
-  title : {
-    color : colors.black41_09,
+  title: {
+    color: colors.black41_09,
     fontSize: 15
   },
   btn_container: {
     width: width,
     height: height * 0.4,
-    alignSelf : 'center',
+    alignSelf: 'center',
     justifyContent: "center",
     alignItems: "center"
   },

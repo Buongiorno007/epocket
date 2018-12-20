@@ -68,19 +68,47 @@ class SignUp extends React.Component {
   setFailedConfirmVisible = visible => {
     this.setState({ failedConfirmVisible: visible });
   };
+  mask = (text) => {
+    let phoneCopy = text;
+    let maskedPhone = this.mphone(phoneCopy);
+    if (phoneCopy != maskedPhone) {
+      this.setState({ phone: maskedPhone })
+    }
+  }
+
+  mphone = (v) => {
+    let r = v.replace(/\D/g, "");
+    r = r.replace(/^0/, "");
+    if (r.length > 10) {
+      // 11+ digits.
+      r = r.replace(/^(\d{2})(\d{3})(\d{0,3})(\d{0,4}).*/, "$1 ($2) $3 $4");
+    }
+    else if (r.length > 5) {
+      // 6..10 digits. Format as 4+4
+      r = r.replace(/^(\d{2})(\d{0,3})(\d{0,5}).*/, "$1 ($2) $3");
+    }
+    else if (r.length > 2) {
+      // 3..5 digits.
+      r = r.replace(/^(\d{2})(\d{0,3})/, "$1 ($2");
+    }
+    else {
+      // 0..2 digits.
+      r = r.replace(/^(\d*)/, "$1");
+    }
+    return r;
+  }
   onChangedPhone(text) {
     this.setState({ numberExists: false });
     let newText = "";
-    let phonePattern = /^\d+$/;
-    // console.log("text", text, phonePattern.test(text));
+    let phonePattern = /^.+$/;
     if (phonePattern.test(text)) {
       newText = text;
-      //   console.log("phonePattern.length", text.length);
-      this.setState({ phoneCorrect: text.length > 8 });
+      this.setState({ phoneCorrect: text.length == 17 });
     } else {
       newText = text.substring(0, text.length - 1);
     }
     this.setState({ phone: newText });
+    this.mask(newText)
   }
 
   onChangedName(text) {
@@ -116,8 +144,9 @@ class SignUp extends React.Component {
     this.setFailedSignVisible(false);
     this.props.loaderState(true);
     Keyboard.dismiss();
+    let bodyPhone = this.state.phone.replace(/\D/g, '')
     let body = {
-      phone: "+" + this.state.phone
+      phone: "+" + bodyPhone
     };
     let promise = httpPost(urls.sign_up, JSON.stringify(body));
     promise.then(
@@ -143,8 +172,9 @@ class SignUp extends React.Component {
     Keyboard.dismiss();
     this.setFailedConfirmVisible(false);
     this.props.loaderState(true);
+    let bodyPhone = this.state.phone.replace(/\D/g, '')
     let body = {
-      phone: "+" + this.state.phone,
+      phone: "+" + bodyPhone,
       code: this.state.code,
       name: this.state.name
     };
@@ -265,7 +295,7 @@ class SignUp extends React.Component {
                 inputContainerPadding={16}
                 onChangeText={text => this.onChangedPhone(text)}
                 value={this.state.phone}
-                maxLength={12}
+                maxLength={17}
                 keyboardType="numeric"
                 prefix="+"
               />
