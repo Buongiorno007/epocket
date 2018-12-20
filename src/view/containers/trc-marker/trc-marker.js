@@ -26,7 +26,7 @@ class TRCMarker extends React.Component {
 
   render() {
     return (
-      this.props.marker.price || this.props.marker.discount ?
+      this.props.marker.price ?
         <View style={styles.main_view}>
           <Marker
             style={[styles.marker, this.props.discountMarker && {

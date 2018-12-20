@@ -1,5 +1,5 @@
 import React from "react";
-import { View, ScrollView, Text, TouchableOpacity, FlatList, Animated, Image, Easing, Dimensions } from "react-native";
+import { View, ScrollView, Text, TouchableOpacity, FlatList, Animated, Image, Easing, Dimensions, AsyncStorage } from "react-native";
 import Accordion from 'react-native-collapsible/Accordion';
 import FastImage from 'react-native-fast-image'
 //containers
@@ -23,6 +23,7 @@ import { loaderState } from "../../../reducers/loader";
 import NavigationService from "./../../../services/route";
 import { httpPost } from "../../../services/http";
 import { handleError } from "../../../services/http-error-handler";
+import moment from "moment";
 
 const { width, height } = Dimensions.get("window");
 
@@ -36,6 +37,30 @@ class CashoutList extends React.Component {
     rotateAngle: new Animated.Value(0)
   };
   order = [];
+  setCartData = (order) => {
+    let currentTime = moment().format();
+    order.forEach(item => {
+      item.category.products = [];
+    });
+    let jsonOrder = JSON.stringify(order)
+    AsyncStorage.multiSet([["cashout_cart", jsonOrder], ["cashout_cart_time", currentTime],], () => {
+    });
+  }
+  componentDidMount = () => {
+    console.log("did mount")
+    AsyncStorage.multiGet(["cashout_cart", "cashout_cart_time"]).then(response => {
+      responseOrder = JSON.parse(response[0][1]);
+      let diff = moment().diff(response[1][1], 'seconds')
+      if (diff < 86400) {
+        this.order = responseOrder;
+        this.setState({ orderCopy: responseOrder })
+      }
+      else {
+        this.order = [];
+        this.setState({ orderCopy: [] })
+      }
+    })
+  }
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.activeIndex || nextProps.activeIndex == 0) {
       this.setState({ activeSections: [nextProps.activeIndex] })
@@ -59,6 +84,7 @@ class CashoutList extends React.Component {
     if (order_item.count) {
       this.order.push(order_item);
       this.setState({ orderCopy: this.order })
+      this.setCartData(this.order)
     }
   };
   deleteElem = order_item => {
@@ -75,6 +101,7 @@ class CashoutList extends React.Component {
     this.setState({
       orderCopy: copy
     });
+    this.setCartData(this.order)
     let deletedCatIndex = this.props.data.findIndex(x => x.id === order_item_category);
     let deletedCat = this.props.data[deletedCatIndex];
     let pickedProduct = deletedCat.products.find(x => x.id === order_item.id);
