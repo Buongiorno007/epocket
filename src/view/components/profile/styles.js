@@ -21,7 +21,6 @@ export default StyleSheet.create({
     height: height * 0.1,
     alignItems: "flex-end",
     justifyContent: 'flex-end',
-
   },
   settings_btn: {
     height: 30,
@@ -82,8 +81,24 @@ export default StyleSheet.create({
     height: height * 0.4,
     alignSelf: 'center',
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    zIndex: 1001
   },
-
-
+  btn_container_absolute: {
+    width: width,
+    height: height * 0.4,
+    alignSelf: 'center',
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 1001,
+    position: "absolute",
+    bottom: 80
+  },
+  animation: {
+    zIndex: 1000,
+    width: width,
+    height: height,
+    position: "absolute",
+    bottom: 0
+  }
 });

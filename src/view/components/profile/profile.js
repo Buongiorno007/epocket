@@ -29,10 +29,10 @@ class Profile extends React.Component {
 			photo: this.props.user.user_photo_url,
 			phone: this.props.user.user_phone
 		},
-		modalVisible: false
+		modalVisible: false,
+		animationVisible: this.props.profileIsVirgin && this.props.profileIsVirgin != "false"
 	};
 	componentDidMount() {
-		console.log(this.props.profileIsVirgin);
 		AsyncStorage.getItem('user_info').then((value) => {
 			let object = JSON.parse(value);
 			this.setState({
@@ -45,6 +45,9 @@ class Profile extends React.Component {
 				}
 			});
 		});
+		setTimeout(() => {
+			this.setState({ animationVisible: false })
+		}, 5000);
 	}
 
 	ToEdit = () => {
@@ -76,6 +79,24 @@ class Profile extends React.Component {
 		return (
 			<View style={styles.main_view}>
 				{this.state.modalVisible ? <Blur /> : null}
+				{this.state.animationVisible ? <Blur dark /> : null}
+				{this.state.animationVisible ?
+					<FastImage
+						style={styles.animation}
+						resizeMode={FastImage.resizeMode.contain}
+						source={require('../../../assets/img/smile.gif')}
+					/> : null}
+				{((this.state.user.sex != 0 && this.state.user.sex != 1) || !this.state.user.birthDay) || this.state.animationVisible ?
+					<View style={styles.btn_container_absolute}>
+						<CustomButton
+							active
+							short
+							gradient
+							title={RU.PROFILE_PAGE.ADD_DATA.toUpperCase()}
+							color={this.props.userColor.white}
+							handler={() => this.ToEdit()}
+						/>
+					</View> : null}
 				<View style={styles.header}>
 					<Button
 						transparent
@@ -85,7 +106,7 @@ class Profile extends React.Component {
 							this.ToSettings();
 						}}
 					>
-						<Image
+						<FastImage
 							style={styles.settings_img}
 							resizeMode={FastImage.resizeMode.contain}
 							source={require('../../../assets/img/settings.png')}
@@ -121,18 +142,6 @@ class Profile extends React.Component {
 							</View>
 						) : null}
 					</Button>
-					{((this.state.user.sex != 0 && this.state.user.sex != 1) || !this.state.user.birthDay) && (
-						<View style={styles.btn_container}>
-							<CustomButton
-								active
-								short
-								gradient
-								title={RU.PROFILE_PAGE.ADD_DATA.toUpperCase()}
-								color={this.props.userColor.white}
-								handler={() => this.ToEdit()}
-							/>
-						</View>
-					)}
 				</View>
 				<TimerModal />
 				<FooterNavigation />

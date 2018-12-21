@@ -58,26 +58,25 @@ class Start extends React.Component {
     super(props);
     Keyboard.dismiss();
   }
-
+  _getLocation = () => {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        this.props.locationState(true);
+        this.props.setLocation({
+          lng: position.coords.longitude,
+          lat: position.coords.latitude
+        });
+      },
+      error => {
+        this.props.locationState(false);
+      },
+    );
+  };
   componentDidMount = () => {
     this.props.setTabState(0);
     this.props.getConnection();
     this.props.locationStateListener();
     this.props.locationCoordsListener();
-    if (Platform.OS === "ios") {
-      BackgroundGeolocationModule.ready(geo_config(), state => {
-        if (!state.enabled) {
-          //BackgroundGeolocationModule.start(function () { });
-        }
-      });
-    } else {
-      BackgroundGeolocationModule.configure(geo_config())
-      BackgroundGeolocationModule.checkStatus(status => {
-        if (!status.isRunning) {
-          //BackgroundGeolocationModule.start();
-        }
-      });
-    }
     this._initialConfig();
   };
 
@@ -100,6 +99,7 @@ class Start extends React.Component {
           case 'token': {
             if (value) {
               this.props.setToken(value);
+              this._getLocation();
               NavigationService.navigate("Main");
             } else {
               this.setState({ enable_login: true });
@@ -111,7 +111,6 @@ class Start extends React.Component {
             break;
           }
           case 'geo_virgin': {
-            console.log(value)
             value && this.props.setGeoVirgin(value);
             break;
           }

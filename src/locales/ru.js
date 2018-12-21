@@ -8,6 +8,7 @@ export const RU = {
   FACEBOOK: " Facebook ",
   HISTORY: "Кошельки",
   INFO: "Инфо",
+  CONNECT_SOCIAL: "Подключи соцсети и стань богаче!",
   LOCATION_VIRGIN: "Включи геолокацию и получи свои первые деньги",
   LOCATION_DISABLED: "Для дальнейших действий в приложении требуется включить геолокацию",
   LOCATION_ENABLE: "ВКЛЮЧИТЬ ГЕОЛОКАЦИЮ",

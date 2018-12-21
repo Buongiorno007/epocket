@@ -29,6 +29,7 @@ import {
 //components
 import Blur from "../blur/blur";
 //services
+import geo_config from "./geolocation-config";
 import NavigationService from "../../../services/route";
 import BackgroundGeolocationModule from "../../../services/background-geolocation-picker"
 
@@ -56,11 +57,37 @@ class LocationDisabled extends React.Component {
       });
 
   }
+  _getLocation = () => {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        this.props.locationState(true);
+        this.props.setLocation({
+          lng: position.coords.longitude,
+          lat: position.coords.latitude
+        });
+      },
+      error => {
+        this.props.locationState(false);
+      },
+    );
+  };
+
   connectGeolocation = () => {
     if (Platform.OS === "ios") {
-      BackgroundGeolocationModule.start(function () { });
+      BackgroundGeolocationModule.ready(geo_config(), state => {
+        if (!state.enabled) {
+          BackgroundGeolocationModule.start(function () { });
+          this._getLocation();
+        }
+      });
     } else {
-      BackgroundGeolocationModule.start();
+      BackgroundGeolocationModule.configure(geo_config())
+      BackgroundGeolocationModule.checkStatus(status => {
+        if (!status.isRunning) {
+          BackgroundGeolocationModule.start();
+          this._getLocation();
+        }
+      });
     }
   }
   _requestLocation = () => {
@@ -123,7 +150,7 @@ class LocationDisabled extends React.Component {
               transparent
               style={styles.enable_location}
               onPress={() => {
-                this._requestLocation();
+                this.connectGeolocation();
               }}
             >
               <LinearGradient

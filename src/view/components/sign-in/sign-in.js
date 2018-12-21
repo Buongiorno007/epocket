@@ -268,24 +268,6 @@ class SignIn extends React.Component {
         this.props.setGeoVirgin(result.body.geo_virgin)
         this.isFblogged(result.body.token);
         this.isInstalogged(result.body.token);
-        if (!result.body.geo_virgin) {
-          this.props.locationStateListener();
-          this.props.locationCoordsListener();
-          if (Platform.OS === "ios") {
-            BackgroundGeolocationModule.ready(geo_config(), state => {
-              if (!state.enabled) {
-                BackgroundGeolocationModule.start(function () { });
-              }
-            });
-          } else {
-            BackgroundGeolocationModule.configure(geo_config())
-            BackgroundGeolocationModule.checkStatus(status => {
-              if (!status.isRunning) {
-                BackgroundGeolocationModule.start();
-              }
-            });
-          }
-        }
         NavigationService.navigate("Main");
       },
       error => {

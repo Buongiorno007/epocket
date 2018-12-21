@@ -57,7 +57,7 @@ export default StyleSheet.create({
   },
   image_block_text_button: {
     width: width,
-    paddingLeft:20,
+    paddingLeft: 20,
     backgroundColor: "transparent",
     flexDirection: 'column',
     justifyContent: "flex-start",
@@ -78,7 +78,7 @@ export default StyleSheet.create({
     height: 30,
     width: 30,
     alignSelf: 'flex-end',
-    alignItems : 'center'
+    alignItems: 'center'
   },
   close_img: {
     height: 15,
@@ -130,12 +130,45 @@ export default StyleSheet.create({
     alignItems: "center"
   },
   image_block_button: {
-    paddingLeft: width * 0.05
+    paddingLeft: width * 0.05,
+    zIndex: 1001,
+    position: "absolute"
   },
   button: {
     width: width,
     height: height * 0.12,
     paddingLeft: width * 0.1,
     paddingRight: width * 0.1,
+  },
+  animation: {
+    zIndex: 1000,
+    width: width,
+    height: height,
+    position: "absolute",
+    bottom: 0
+  },
+  top_insta: {
+    top: height * 0.245,
+    right: 10
+  },
+  top_facebook: {
+    top: height * 0.365,
+    right: 10
+  },
+  white_text_container: {
+    position: "absolute",
+    zIndex: 1001,
+    justifyContent: "flex-start",
+    alignItems: "center",
+    width: width * 0.85,
+    bottom: 0,
+    height: height * 0.3,
+  },
+  white_text: {
+    textAlign: 'center',
+    alignSelf: 'center',
+    color: colors.white,
+    fontFamily: "Rubik-Bold",
+    fontSize: 20
   }
 });

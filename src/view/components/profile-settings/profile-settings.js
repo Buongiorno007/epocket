@@ -9,6 +9,7 @@ import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 import CookieManager from 'react-native-cookies';
+import Blur from '../../containers/blur/blur';
 //redux
 import { connect } from "react-redux";
 import { setGameStatus } from "../../../reducers/game-status"
@@ -43,9 +44,13 @@ class ProfileSettings extends React.Component {
     state = {
         modalVisible: false,
         errorVisible: false,
-        userCount: 0
+        userCount: 0,
+        animationState: this.props.facebook_token || this.props.insta_token
     };
     componentDidMount() {
+        setTimeout(() => {
+            this.setState({ animationState: false })
+        }, 5000);
     }
     LogOut = () => {
         AsyncStorage.multiSet([["user_info", ""], ["balance", ""], ["token", ""], ["insta_token", ""], ["facebook_token", ""]], () => {
@@ -250,6 +255,43 @@ class ProfileSettings extends React.Component {
                             });
                     }}
                 />
+                {this.state.animationState ? <Blur dark /> : null}
+                {this.state.animationState ?
+                    <FastImage
+                        style={styles.animation}
+                        resizeMode={FastImage.resizeMode.contain}
+                        source={require('../../../assets/img/smile.gif')}
+                    /> : null}
+                {this.state.animationState ?
+                    <View style={styles.white_text_container}>
+                        <Text style={styles.white_text}>
+                            {RU.CONNECT_SOCIAL}
+                        </Text>
+                    </View> : null}
+                <View style={[styles.image_block_button,
+                styles.top_insta]}>
+                    <CustomButton
+                        active
+                        short
+                        extra_short
+                        gradient
+                        title={this.props.insta_token ? RU.PROFILE_SETTINGS.REMOVE : RU.PROFILE_SETTINGS.ADD}
+                        color={this.props.userColor.white}
+                        handler={() => { !this.props.insta_token ? this.refs.instagramLogin.show() : this.disConnectInsta() }}
+                    />
+                </View>
+                <View style={[styles.image_block_button,
+                styles.top_facebook]}>
+                    <CustomButton
+                        active
+                        short
+                        extra_short
+                        gradient
+                        title={this.props.facebook_token ? RU.PROFILE_SETTINGS.REMOVE : RU.PROFILE_SETTINGS.ADD}
+                        color={this.props.userColor.white}
+                        handler={() => { !this.props.facebook_token ? this.LoginFacebook() : this.disConnectFacebook() }}
+                    />
+                </View>
                 <View style={styles.header}>
                     <Text style={[styles.header_text, styles.image_block_text_big]}>{RU.PROFILE_SETTINGS.SETTINGS}</Text>
                     <Button
@@ -291,17 +333,6 @@ class ProfileSettings extends React.Component {
                             <Text style={styles.image_block_text_big}>{RU.PROFILE_SETTINGS.INSTAGRAM}</Text>
                             <Text style={styles.image_block_text_small}>{RU.PROFILE_SETTINGS.INSTAGRAM_ADDITIONAL}</Text>
                         </View>
-                        <View style={styles.image_block_button}>
-                            <CustomButton
-                                active
-                                short
-                                extra_short
-                                gradient
-                                title={this.props.insta_token ? RU.PROFILE_SETTINGS.REMOVE : RU.PROFILE_SETTINGS.ADD}
-                                color={this.props.userColor.white}
-                                handler={() => { !this.props.insta_token ? this.refs.instagramLogin.show() : this.disConnectInsta() }}
-                            />
-                        </View>
                     </View>
                     <View style={[styles.image_block, styles.image_block_with_border]}>
                         <FastImage style={styles.settings_img}
@@ -309,17 +340,6 @@ class ProfileSettings extends React.Component {
                         </FastImage>
                         <View style={styles.image_block_text}>
                             <Text style={styles.image_block_text_big}>Facebook</Text>
-                        </View>
-                        <View style={styles.image_block_button}>
-                            <CustomButton
-                                active
-                                short
-                                extra_short
-                                gradient
-                                title={this.props.facebook_token ? RU.PROFILE_SETTINGS.REMOVE : RU.PROFILE_SETTINGS.ADD}
-                                color={this.props.userColor.white}
-                                handler={() => { !this.props.facebook_token ? this.LoginFacebook() : this.disConnectFacebook() }}
-                            />
                         </View>
                     </View>
                     <View style={[styles.image_block_with_button, styles.image_block_with_top_border]}>
