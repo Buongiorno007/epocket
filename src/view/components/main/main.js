@@ -73,11 +73,7 @@ class Main extends React.Component {
         {!this.props.dashboard && this.props.timer_status && <ReturnToMall />}
         <GeolocationService />
         {this.props.loader && <ActivityIndicator />}
-        {
-          !this.props.isLocation ? (
-            <LocationDisabled />
-          ) : (null)
-        }
+        {!this.props.isLocation && <LocationDisabled />}
       </View>
     );
   }

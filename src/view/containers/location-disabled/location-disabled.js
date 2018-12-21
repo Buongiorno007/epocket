@@ -29,7 +29,6 @@ import {
 //components
 import Blur from "../blur/blur";
 //services
-import geo_config from "./geolocation-config";
 import NavigationService from "../../../services/route";
 import BackgroundGeolocationModule from "../../../services/background-geolocation-picker"
 

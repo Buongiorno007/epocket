@@ -140,9 +140,9 @@ class Start extends React.Component {
           backgroundColor={"transparent"}
         />
         <LinearGradient
-          colors={["rgba(89,91,241,1)", "rgba(232,67,232, 0)", "rgba(255,187,71,0)"]}
-          start={{ x: 1.0, y: 0.0 }}
-          end={{ x: 0.0, y: 1.0 }}
+          colors={["rgba(89,91,241,1)", "rgba(232,67,232, 0.1)", "rgba(255,187,71,0)"]}
+          start={{ x: 1.0, y: 0.1 }}
+          end={{ x: 0.0, y: 1.5 }}
           style={styles.grad}
         />
         <FastImage
@@ -153,7 +153,7 @@ class Start extends React.Component {
         <FastImage
           resizeMode={FastImage.resizeMode.contain}
           style={styles.top_image}
-          source={require('../../../assets/img/START_GRADIENT.png')}
+          source={require('../../../assets/img/START_GRADIENT_med.png')}
         />
         <FastImage
           resizeMode={FastImage.resizeMode.contain}

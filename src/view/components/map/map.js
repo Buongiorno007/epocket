@@ -677,7 +677,7 @@ class Map extends React.Component {
             />
             <LinearTextGradient
               locations={[0, 1]}
-              colors={[this.state.shopActive ? this.props.userColor.first_gradient_color : this.props.userColor.gray, this.state.shopActive ? this.props.userColor.second_gradient_color : this.props.userColor.gray]}
+              colors={[this.state.shopActive ? this.props.userColor.light_orange : this.props.userColor.gray, this.state.shopActive ? this.props.userColor.pink : this.props.userColor.gray]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={styles.state_change_block_text}>
@@ -692,7 +692,7 @@ class Map extends React.Component {
             />
             <LinearTextGradient
               locations={[0, 1]}
-              colors={[this.state.taskActive ? this.props.userColor.first_gradient_color : this.props.userColor.gray, this.state.taskActive ? this.props.userColor.second_gradient_color : this.props.userColor.gray]}
+              colors={[this.state.taskActive ? this.props.userColor.light_orange : this.props.userColor.gray, this.state.taskActive ? this.props.userColor.pink : this.props.userColor.gray]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={styles.state_change_block_text}>
@@ -707,7 +707,7 @@ class Map extends React.Component {
             />
             <LinearTextGradient
               locations={[0, 1]}
-              colors={[this.state.discountActive ? this.props.userColor.first_gradient_color : this.props.userColor.gray, this.state.discountActive ? this.props.userColor.second_gradient_color : this.props.userColor.gray]}
+              colors={[this.state.discountActive ? this.props.userColor.light_orange : this.props.userColor.gray, this.state.discountActive ? this.props.userColor.pink : this.props.userColor.gray]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={styles.state_change_block_text}>

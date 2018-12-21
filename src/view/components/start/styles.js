@@ -15,6 +15,14 @@ export default StyleSheet.create({
     top: 0,
     left: 0
   },
+  top_image_grad: {
+    position: "absolute",
+    height: height,
+    width: width,
+    top: 0,
+    left: 0,
+    resizeMode: "cover"
+  },
   top_logo_image: {
     position: "absolute",
     height: 50,
