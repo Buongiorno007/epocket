@@ -62,7 +62,6 @@ export default StyleSheet.create({
     width: 20,
     height: 20,
     borderRadius: 10,
-    backgroundColor: colors.pink,
     alignItems: 'center',
     justifyContent: 'center',
 
@@ -81,7 +80,6 @@ export default StyleSheet.create({
     fontSize: 15,
     lineHeight: 18,
     textAlign: 'center',
-    color: colors.pink,
     alignItems: 'center',
     justifyContent: 'center',
   }

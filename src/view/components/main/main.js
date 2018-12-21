@@ -70,7 +70,7 @@ class Main extends React.Component {
 
         </View>
         {!this.props.isConnected && <NoInternet />}
-        {!this.props.dashboard && this.props.timer_status && <ReturnToMall />}
+        {this.props.timerShow && this.props.timer_status && <ReturnToMall />}
         <GeolocationService />
         {this.props.loader && <ActivityIndicator />}
         {!this.props.isLocation && <LocationDisabled />}
@@ -90,6 +90,7 @@ const mapStateToProps = state => ({
   failedNotification: state.failedNotification,
   game_status: state.game_status,
   isLocation: state.isLocation,
+  timerShow: state.timerShow
 });
 
 const mapDispatchToProps = dispatch =>

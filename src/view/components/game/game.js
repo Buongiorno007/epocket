@@ -136,6 +136,8 @@ class Game extends React.Component {
 									this.changePressed(index);
 								}}
 							>
+								<View style={[game_element.pressed ? index >= 6 ? styles.pressed_button_last_line : styles.pressed_button : index >= 6 ? styles.item_last_line : styles.item,
+								{ position: "absolute" }]} />
 								<FastImage
 									style={styles.image_in_square}
 									resizeMode={FastImage.resizeMode.contain}

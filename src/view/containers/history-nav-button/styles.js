@@ -24,7 +24,6 @@ export default StyleSheet.create({
   dot: {
     position: "absolute",
     bottom: 5,
-    backgroundColor: colors.pink,
     height: 5,
     width: 5,
     borderRadius: 5
@@ -39,7 +38,6 @@ export default StyleSheet.create({
     position: "absolute",
     top: 5,
     right: (width * 0.85) / 10,
-    backgroundColor: colors.pink,
     height: 16,
     width: 16,
     borderRadius: 8,

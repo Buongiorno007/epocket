@@ -316,7 +316,7 @@ class GameResult extends React.Component {
         let text;
         let style;
         if (status === "success") {
-            text = RU.GAME.RESULT.CONGRATS + "\n" + RU.GAME.RESULT.YOU_WON + " " + this.props.game_info.cost + " " + RU.EPC
+            text = RU.GAME.RESULT.CONGRATS + "\n" + RU.GAME.RESULT.YOU_WON + " " + this.props.game_info.cost + " " + RU.EPC.toUpperCase()
             style = styles.congratulation
         }
         else if (status === "failed" || status === "expired") {
@@ -441,7 +441,8 @@ class GameResult extends React.Component {
                             this.props.navigation.state.params.status === "success" ? this.sheckForGames("home") : this.sheckForGames("insta")
                         }}
                     >
-                        <Text style={styles.text}>{this.chooseButtonText(this.props.navigation.state.params.status)}</Text>
+                        <Text style={[styles.text,
+                        { color: this.props.userColor.pink_blue }]}>{this.chooseButtonText(this.props.navigation.state.params.status)}</Text>
                     </Button>
                     {this.props.navigation.state.params.status === "success" ? null :
                         <Button

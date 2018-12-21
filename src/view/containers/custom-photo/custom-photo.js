@@ -12,6 +12,7 @@ import { colors } from "../../../constants/colors_men";
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { ICONS } from "../../../constants/icons";
 {
   /* 
 call example
@@ -39,8 +40,8 @@ class CustomPhoto extends Component {
               start={{ x: 0.5, y: -0.5 }}
               end={{ x: 0.6, y: 1.0 }}
               style={styles.edit_photo_container}>
-              <View style={styles.edit_photo_background}>
-                <Icon name='plus' style={styles.edit_photo_img} />
+              <View style={[styles.edit_photo_background]}>
+                <Icon name='plus' style={[styles.edit_photo_img, { color: this.props.userColor.pink_blue }]} />
               </View>
             </LinearGradient>
           </Button>
@@ -68,7 +69,7 @@ class CustomPhoto extends Component {
               <FastImage
                 style={styles.icon}
                 resizeMode={FastImage.resizeMode.contain}
-                source={require('../../../assets/img/UNSET_PROILE.png')}
+                source={{ uri: ICONS.PROFILE_UNSET }}
               />
             )}
         </LinearGradient>

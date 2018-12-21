@@ -11,16 +11,18 @@ class GameTimer extends React.Component {
     render() {
         return (
             <View style={styles.small_time_counter_container}>
-                <View style={styles.small_time_counter}>
-                    <Text style={styles.time_counter_text}>
+                <View style={[styles.small_time_counter,
+                { backgroundColor: this.props.userColor.first_gradient_color_01 }]}>
+                    <Text style={[styles.time_counter_text, { color: this.props.userColor.pink_blue }]}>
                         {this.props.minutes}
                     </Text>
                 </View>
                 <View>
-                    <Text style={styles.time_divider}>:</Text>
+                    <Text style={[styles.time_divider, { color: this.props.userColor.pink_blue }]}>:</Text>
                 </View>
-                <View style={styles.small_time_counter}>
-                    <Text style={styles.time_counter_text}>
+                <View style={[styles.small_time_counter,
+                { backgroundColor: this.props.userColor.first_gradient_color_01 }]}>
+                    <Text style={[styles.time_counter_text, { color: this.props.userColor.pink_blue }]}>
                         {this.props.seconds}
                     </Text>
                 </View>

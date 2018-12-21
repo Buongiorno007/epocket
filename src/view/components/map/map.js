@@ -40,6 +40,7 @@ import { setInitialOutlets } from "../../../reducers/initial-outlets"
 import { setInfo } from "../../../reducers/info"
 import { setInstaToken } from "../../../reducers/insta-token";
 import { setFacebookToken } from "../../../reducers/facebook-token"
+import { showTimer } from "../../../reducers/show-dashboard-timer"
 //services
 import { httpPost } from "../../../services/http";
 import { handleError } from "../../../services/http-error-handler";
@@ -222,7 +223,6 @@ class Map extends React.Component {
       }
     }
     if (nextProps.navigateToMall) {
-      console.log("will navigatetomall")
       this.moveMapTo(nextProps.selectedMall.lat, nextProps.selectedMall.lng, 0.0058,
         0.0058);
       this.selectMark(this.props.selectedMall, false, "task");
@@ -524,11 +524,10 @@ class Map extends React.Component {
       id: trc.id,
       rad: trc.rad
     };
-    console.log(curr_trc)
     this.props.updateMall(curr_trc);
     this.props.setDistance(distance);
-
     if (distance <= 0 && this.props.isLocation) {
+      this.props.showTimer(false);
       let copyOfCards = [...this.state.cards]
       copyOfCards.shift();
       if (this.state.taskActive) {
@@ -536,6 +535,7 @@ class Map extends React.Component {
         NavigationService.navigate("Dashboard", { dashboard_data: copyOfCards, general_info: this.props.selectedMall, posts: this.state.posts });
       }
     } else {
+      this.props.showTimer(true);
       ANIMATE_MAP &&
         this.moveMapTo(
           Number(trc.lat),
@@ -834,6 +834,7 @@ const mapDispatchToProps = dispatch =>
       setInstaToken,
       setFacebookToken,
       loaderState,
+      showTimer
     },
     dispatch
   );

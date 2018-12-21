@@ -37,7 +37,7 @@ export default StyleSheet.create({
         textAlign: "center",
         width: (width * 0.85),
         color: colors.white,
-        fontSize: 15,
+        fontSize: 17,
         fontFamily: 'Rubik-BoldItalic',
         marginTop: height * 0.05
     },
@@ -57,21 +57,21 @@ export default StyleSheet.create({
         marginTop: width - width * 0.5
     },
     congratulation: {
-        fontSize: 18,
+        fontSize: 20,
         width: width * 0.75,
         fontFamily: "Rubik-Medium",
         color: colors.white,
         textAlign: "center"
     },
     fail: {
-        fontSize: 13,
+        fontSize: 15,
         width: width * 0.75,
         fontFamily: "Rubik-Regular",
         color: colors.white,
         textAlign: "center"
     },
     cash: {
-        fontSize: 18,
+        fontSize: 20,
         fontFamily: "Rubik-Medium",
         color: colors.white,
     },
@@ -99,7 +99,6 @@ export default StyleSheet.create({
         backgroundColor: "transparent"
     },
     text: {
-        fontSize: width * 0.03,
-        color: '#F55890'
+        fontSize: width * 0.03
     }
 });

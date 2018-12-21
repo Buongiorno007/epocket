@@ -26,6 +26,7 @@ import {
   locationCoordsListener,
   setLocation
 } from "../../../reducers/geolocation-coords";
+import { setGeoVirgin } from "../../../reducers/geo-virgin"
 //components
 import Blur from "../blur/blur";
 //services
@@ -89,6 +90,7 @@ class LocationDisabled extends React.Component {
         }
       });
     }
+    this.props.setGeoVirgin(false)
   }
   _requestLocation = () => {
     switch (Platform.OS) {
@@ -181,7 +183,8 @@ const mapDispatchToProps = dispatch =>
       locationState,
       setLocation,
       locationStateListener,
-      locationCoordsListener
+      locationCoordsListener,
+      setGeoVirgin
     },
     dispatch
   );

@@ -356,6 +356,7 @@ class SignIn extends React.Component {
               </Text>
               <Animated.View style={[{ marginTop: this.state.signInMargin }]}>
                 <CustomButton
+                color={this.props.userColor.pink}
                   handler={() => {
                     this.login();
                   }}
@@ -387,6 +388,7 @@ class SignIn extends React.Component {
               ) : null}
               <Animated.View style={[{ marginTop: this.state.signInMargin }]}>
                 <CustomButton
+                color={this.props.userColor.pink}
                   handler={() => {
                     this.confirmLogin();
                   }}

@@ -5,6 +5,9 @@ import { Button } from "native-base";
 //constants
 import styles from "./styles";
 import { colors } from "./../../../constants/colors";
+//redux
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 class HistoryNavButton extends React.Component {
   componentDidMount() { }
@@ -18,7 +21,7 @@ class HistoryNavButton extends React.Component {
         style={[styles.button]}
       >
         {this.props.cartCount &&
-          <View style={[styles.cart_number]} >
+          <View style={[styles.cart_number, { backgroundColor: this.props.userColor.pink_blue }]} >
             <Text style={styles.number}>{this.props.cartCount}</Text>
           </View>
         }
@@ -28,11 +31,26 @@ class HistoryNavButton extends React.Component {
           {this.props.title.toUpperCase()}
         </Text>
         {this.props.disabled &&
-          <View style={[styles.dot]} />
+          <View style={[styles.dot,
+          { backgroundColor: this.props.userColor.pink_blue }]} />
         }
       </Button>
     );
   }
 }
 
-export default HistoryNavButton;
+const mapStateToProps = state => ({
+  userColor: state.userColor,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+    },
+    dispatch
+  );
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HistoryNavButton);

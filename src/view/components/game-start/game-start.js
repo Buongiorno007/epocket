@@ -193,7 +193,7 @@ class GameStart extends React.Component {
                             <LinearTextGradient
                                 style={styles.game_cost_text}
                                 locations={[0, 1]}
-                                colors={[this.props.userColor.light_red, this.props.userColor.dark_pink]}
+                                colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
                                 start={{ x: 0, y: 0 }}
                                 end={{ x: 1, y: 0 }}
                             >

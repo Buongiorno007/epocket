@@ -23,6 +23,7 @@ import { setColor } from "../../../reducers/user-color";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { saveUser } from "../../../reducers/profile-state";
+import { setProfileVirgin } from "../../../reducers/profile-virgin"
 import { loaderState } from "../../../reducers/loader";
 //service
 import { httpPost } from "../../../services/http";
@@ -100,6 +101,7 @@ class ProfileEdit extends React.Component {
       );
       promise.then(
         result => {
+          this.props.setProfileVirgin(false)
           this.setRejectVisible(false);
           let user = {
             name: this.state.user.username,
@@ -350,7 +352,7 @@ class ProfileEdit extends React.Component {
             short
             bordered
             title={RU.PROFILE_PAGE.DECLINE_2.toUpperCase()}
-            color={this.props.userColor.pink}
+            color={this.props.userColor.pink_blue}
             handler={() => this.state.changed ? this.Exit() : NavigationService.navigate("Main")}
           />
         </View>
@@ -395,7 +397,8 @@ const mapDispatchToProps = dispatch =>
     {
       saveUser,
       loaderState,
-      setColor
+      setColor,
+      setProfileVirgin
     },
     dispatch
   );

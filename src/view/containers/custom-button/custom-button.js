@@ -62,6 +62,7 @@ class CustomButton extends React.Component {
               this.props.short && { width: width * 0.5 },
               this.props.extra_short && { width: width * 0.3 },
               this.props.semi_short && { width: width * 0.4 },
+              { backgroundColor: this.props.userColor.pink_blue },
               styles.border_btn
             ]}
           >
@@ -83,7 +84,7 @@ class CustomButton extends React.Component {
             this.props.color
               ? { color: this.props.color }
               : this.props.active
-                ? { color: this.props.userColor.pink }
+                ? { color: this.props.userColor.pink_blue }
                 : { color: this.props.userColor.white },
             this.props.mapCard && { fontSize: 9 }
           ]}

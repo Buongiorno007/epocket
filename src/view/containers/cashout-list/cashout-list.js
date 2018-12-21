@@ -38,19 +38,17 @@ class CashoutList extends React.Component {
   };
   order = [];
   setCartData = (order) => {
+    let orderCopy = [...order]
     let currentTime = moment().format();
-    order.forEach(item => {
-      item.category.products = [];
-    });
-    let jsonOrder = JSON.stringify(order)
-    AsyncStorage.multiSet([["cashout_cart", jsonOrder], ["cashout_cart_time", currentTime],], () => {
+    let jsonOrder = JSON.stringify(orderCopy)
+    AsyncStorage.multiSet([["cashout_cart", jsonOrder], ["cashout_cart_time", currentTime], ["cashout_cart_id", String(this.props.general_info.id)],], () => {
     });
   }
   componentDidMount = () => {
-    AsyncStorage.multiGet(["cashout_cart", "cashout_cart_time"]).then(response => {
+    AsyncStorage.multiGet(["cashout_cart", "cashout_cart_time", "cashout_cart_id"]).then(response => {
       responseOrder = JSON.parse(response[0][1]);
       let diff = moment().diff(response[1][1], 'seconds')
-      if (diff < 86400) {
+      if ((diff < 86400) && String(this.props.general_info.id) == response[2][1]) {
         this.order = responseOrder;
         this.setState({ orderCopy: responseOrder })
       }
@@ -117,7 +115,6 @@ class CashoutList extends React.Component {
         ОНА НУЖНА ПОТОМУ ЧТО БЕКЕНД ПРИНИМАЕТ ПОЛЕ amount 
       */
       item.amount = item.count;
-      item.category.products = [];
       total_price += item.count * item.price;
     });
     if (total_price) {
@@ -144,12 +141,18 @@ class CashoutList extends React.Component {
             general_info: this.props.general_info,
             copyOfCards: this.props.dataInit
           });
+          AsyncStorage.multiSet([["cashout_cart", ""], ["cashout_cart_time", ""], ["cashout_cart_id", ""]], () => { });
+          this.order = [];
+          this.setState({ orderCopy: [] })
         },
         error => {
           let error_respons = handleError(error, this.constructor.name, "sendOrder");
           this.setState({ errorText: error_respons.error_text });
           this.setModalVisible(error_respons.error_modal);
           this.props.loaderState(false);
+          AsyncStorage.multiSet([["cashout_cart", ""], ["cashout_cart_time", ""], ["cashout_cart_id", ""]], () => { });
+          this.order = [];
+          this.setState({ orderCopy: [] })
         }
       );
     }

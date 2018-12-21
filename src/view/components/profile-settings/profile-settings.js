@@ -45,7 +45,7 @@ class ProfileSettings extends React.Component {
         modalVisible: false,
         errorVisible: false,
         userCount: 0,
-        animationState: this.props.facebook_token || this.props.insta_token
+        animationState: this.props.facebook_token && this.props.insta_token
     };
     componentDidMount() {
         setTimeout(() => {
@@ -53,7 +53,7 @@ class ProfileSettings extends React.Component {
         }, 5000);
     }
     LogOut = () => {
-        AsyncStorage.multiSet([["user_info", ""], ["balance", ""], ["token", ""], ["insta_token", ""], ["facebook_token", ""]], () => {
+        AsyncStorage.multiSet([["user_info", ""], ["balance", ""], ["token", ""], ["insta_token", ""], ["facebook_token", ""], ["cashout_cart", ""], ["cashout_cart_time", ""], ["cashout_cart_id", ""]], () => {
             NavigationService.navigate("Start");
             this.props.setGameStatus("start");
             this.props.setInstaToken("");

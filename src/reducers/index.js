@@ -46,6 +46,7 @@ import secondDashboardCallBlock from "./second-dash-call"
 import socialCount from "./social-count"
 import profileIsVirgin from "./profile-virgin"
 import geolocationIsVirgin from "./geo-virgin"
+import timerShow from "./show-dashboard-timer"
 
 export default combineReducers({
   isConnected,
@@ -94,5 +95,6 @@ export default combineReducers({
   secondDashboardCallBlock,
   socialCount,
   profileIsVirgin,
-  geolocationIsVirgin
+  geolocationIsVirgin,
+  timerShow
 });

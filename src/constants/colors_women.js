@@ -45,6 +45,7 @@ export default
         second_gradient_color_02: "rgba(245,88,144, 0.2)",
         first_gradient_color: "#FF9950",
         first_gradient_color_02: "rgba(255,153,80, 0.2)",
+        first_gradient_color_01: "rgba(255,153,80, 0.1)",
         earn_more: ["#F7BB42",
             "#FF8D50",
             "#F55890",

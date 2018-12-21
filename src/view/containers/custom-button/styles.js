@@ -38,8 +38,7 @@ export default StyleSheet.create({
   },
   border_btn: {
     position: "absolute",
-    borderRadius: 50,
-    backgroundColor: colors.pink
+    borderRadius: 50
   },
   background_btn: {
     position: "absolute",

@@ -198,8 +198,8 @@ class SignUp extends React.Component {
         this.props.setBalance(0);
         this.setState({ step: 3, acceptButton: false });
         this.props.getPush(result.body.token)
-        this.props.setGeoVirgin(false)
-        this.props.setProfileVirgin(false)
+        this.props.setGeoVirgin(true)
+        this.props.setProfileVirgin(true)
       },
       error => {
         console.log('error', error)
@@ -327,6 +327,7 @@ class SignUp extends React.Component {
               />
               <Animated.View style={[{ marginTop: this.state.signUpMargin }]}>
                 <CustomButton
+                  color={this.props.userColor.pink}
                   active={this.state.phoneCorrect && this.state.nameCorrect}
                   title={RU.SIGN_UP}
                   handler={() => this.sendForm()}
@@ -362,6 +363,7 @@ class SignUp extends React.Component {
               </Text>
               <Animated.View style={[{ marginTop: this.state.signUpMargin }]}>
                 <CustomButton
+                  color={this.props.userColor.pink}
                   active={this.state.codeCorrect}
                   title={RU.ACCEPT}
                   handler={() => this.sendCode()}
@@ -374,6 +376,7 @@ class SignUp extends React.Component {
               <Text style={styles.enter_code}>{RU.USE_YOUR_PHONE}</Text>
               <Animated.View style={[{ marginTop: this.state.signUpMargin }]}>
                 <CustomButton
+                  color={this.props.userColor.pink}
                   active
                   title={RU.OK}
                   handler={() => this.goToMap()}

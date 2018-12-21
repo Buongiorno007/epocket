@@ -1,7 +1,7 @@
 import React from "react";
 import {
   View, StatusBar, Text, Animated, PanResponder, Dimensions, Easing,
-  LayoutAnimation, UIManager, Platform
+  LayoutAnimation, UIManager, Platform, AsyncStorage
 } from "react-native";
 import FastImage from 'react-native-fast-image'
 import LinearGradient from "react-native-linear-gradient";
@@ -65,6 +65,7 @@ class Dashboard extends React.Component {
     pickedCashout: false,
     errorVisible: false,
     userCount: 0,
+    sex: 0,
     pickedTask: true,
     notInMall: false,
     startMissionErrorVisible: false,
@@ -306,12 +307,8 @@ class Dashboard extends React.Component {
   }
   runAnimation = (epcСounterFontSizeProps, topHeightProps, textScaleProps, epcScaleProps, timerWidthProps, timerCounterWidthProps, epcCounterContainerWidthProps, flexDirectionProp, topPaddingProps, listHeightProps, topImageOpacityProps, allScaleYProps) => {
     Animated.parallel([
-      Animated.timing(this.state.epcСounterFontSize,
-        {
-          toValue: epcСounterFontSizeProps.toValue,
-          duration: epcСounterFontSizeProps.duration,
-          easing: Easing.linear
-        }),
+      LayoutAnimation.configureNext(CustomLayoutLinear),
+      this.setState({ epcСounterFontSize: epcСounterFontSizeProps.toValue }),
       Animated.timing(this.state.topHeight,
         {
           toValue: topHeightProps.toValue,
@@ -377,6 +374,12 @@ class Dashboard extends React.Component {
     ]).start();
   }
   componentDidMount = () => {
+    AsyncStorage.getItem('user_info').then((value) => {
+      let object = JSON.parse(value);
+      this.setState({
+        sex: object.sex,
+      });
+    });
     let count = 0;
     this.props.navigation.state.params.dashboard_data.forEach(element => {
       if (element.type === "instagram_connect" || element.type === "facebook_connect") {
@@ -848,7 +851,7 @@ class Dashboard extends React.Component {
                       <Text style={styles_top.finishMission_text} >{RU.GOT_EPC}</Text>
                       <LinearTextGradient
                         locations={[0, 1]}
-                        colors={[this.props.userColor.orange, this.props.userColor.pink]}
+                        colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
                         start={{ x: 0.0, y: 1.0 }}
                         end={{ x: 0.5, y: 0.2 }}
                         style={styles_top.finishMission_text}
@@ -874,14 +877,19 @@ class Dashboard extends React.Component {
                       width: this.state.epcCounterContainerWidth
                     }]}>
                       <View style={styles_top.epc_counter_container_currency}>
-                        <Animated.Text style={[styles_top.epc_counter,
-                        {
-                          fontSize: this.state.epcСounterFontSize,
-                          color: this.props.userColor.second_gradient_color
-                        }
-                        ]}>
+                        <LinearTextGradient
+                          locations={[0, 1]}
+                          colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
+                          start={{ x: 0.0, y: 1.0 }}
+                          end={{ x: 1.5, y: 0.0 }}
+                          style={[styles_top.epc_counter,
+                          {
+                            fontSize: this.state.epcСounterFontSize
+                          }
+                          ]}
+                        >
                           {this.state.mainMissionPrice}
-                        </Animated.Text>
+                        </LinearTextGradient>
                         <Animated.Text style={[styles_top.epc_counter_currency,
                         {
                           transform: [
@@ -889,7 +897,7 @@ class Dashboard extends React.Component {
                               scaleY: this.state.epcScale
                             }
                           ],
-                          color: this.props.userColor.second_gradient_color
+                          color: this.props.userColor.pink_blue
                         }
                         ]}>
                           {" " + RU.EPC}
@@ -966,12 +974,12 @@ class Dashboard extends React.Component {
                     <FastImage
                       resizeMode={FastImage.resizeMode.contain}
                       style={styles_top.icon}
-                      source={{ uri: ICONS.COMMON.LOCATION_PINK }}
+                      source={{ uri: this.state.sex == 0 ? ICONS.COMMON.LOCATION_PINK : ICONS.COMMON.LOCATION_BLUE }}
                     />
                     <View>
                       <LinearTextGradient
                         locations={[0, 1]}
-                        colors={[this.props.userColor.orange, this.props.userColor.pink]}
+                        colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
                         start={{ x: 0.0, y: 1.0 }}
                         end={{ x: 0.5, y: 0.2 }}
                         style={styles_top.up_text}
@@ -980,7 +988,7 @@ class Dashboard extends React.Component {
                       </LinearTextGradient>
                       <LinearTextGradient
                         locations={[0, 1]}
-                        colors={[this.props.userColor.orange, this.props.userColor.pink]}
+                        colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
                         start={{ x: 0.0, y: 1.0 }}
                         end={{ x: 0.5, y: 0.2 }}
                         style={styles_top.down_text}
@@ -990,17 +998,17 @@ class Dashboard extends React.Component {
                       </LinearTextGradient>
                     </View>
                   </View>
-                  <View style={[styles_top.middle_border, { borderColor: this.props.userColor.pink_02 }]} />
+                  <View style={[styles_top.middle_border, { borderColor: this.props.userColor.second_gradient_color_02 }]} />
                   <View style={styles_top.location_right}>
                     <FastImage
                       resizeMode={FastImage.resizeMode.contain}
                       style={styles_top.icon}
-                      source={{ uri: ICONS.COMMON.CASH_EPC_PINK }}
+                      source={{ uri: this.state.sex == 0 ? ICONS.COMMON.CASH_EPC_PINK : ICONS.COMMON.CASH_EPC_BLUE }}
                     />
                     <View>
                       <LinearTextGradient
                         locations={[0, 1]}
-                        colors={[this.props.userColor.orange, this.props.userColor.pink]}
+                        colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
                         start={{ x: 0.0, y: 1.0 }}
                         end={{ x: 0.5, y: 0.2 }}
                         style={styles_top.up_text}
@@ -1009,7 +1017,7 @@ class Dashboard extends React.Component {
                       </LinearTextGradient>
                       <LinearTextGradient
                         locations={[0, 1]}
-                        colors={[this.props.userColor.orange, this.props.userColor.pink]}
+                        colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
                         start={{ x: 0.0, y: 1.0 }}
                         end={{ x: 0.5, y: 0.2 }}
                         style={styles_top.down_text}
@@ -1032,7 +1040,7 @@ class Dashboard extends React.Component {
                     <View style={styles_top.small_epc_counter_container}>
                       <LinearTextGradient
                         locations={[0, 1]}
-                        colors={[this.props.userColor.orange, this.props.userColor.pink]}
+                        colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
                         start={{ x: 0.0, y: 1.0 }}
                         end={{ x: 0.5, y: 0.2 }}
                         style={styles_top.small_epc_counter}>
@@ -1040,7 +1048,7 @@ class Dashboard extends React.Component {
                       </LinearTextGradient>
                       <LinearTextGradient
                         locations={[0, 1]}
-                        colors={[this.props.userColor.orange, this.props.userColor.pink]}
+                        colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
                         start={{ x: 0.0, y: 1.0 }}
                         end={{ x: 0.5, y: 0.2 }}
                         style={styles_top.time_counter_text}>
@@ -1064,7 +1072,7 @@ class Dashboard extends React.Component {
                         </LinearTextGradient>
                       </LinearGradient>
                       <View>
-                        <Text style={styles_top.time_divider_pink}>:</Text>
+                        <Text style={[styles_top.time_divider_pink, { color: this.props.userColor.pink_blue }]}>:</Text>
                       </View>
                       <LinearGradient
                         colors={[this.props.userColor.second_gradient_color_02, this.props.userColor.first_gradient_color_02]}
@@ -1082,7 +1090,7 @@ class Dashboard extends React.Component {
                         </LinearTextGradient>
                       </LinearGradient>
                       <View>
-                        <Text style={styles_top.time_divider_pink}>:</Text>
+                        <Text style={[styles_top.time_divider_pink, { color: this.props.userColor.pink_blue }]}>:</Text>
                       </View>
                       <LinearGradient
                         colors={[this.props.userColor.second_gradient_color_02, this.props.userColor.first_gradient_color_02]}

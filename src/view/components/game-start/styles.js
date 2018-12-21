@@ -45,13 +45,13 @@ export default StyleSheet.create({
 	},
 	game_cost_text: {
 		color: colors.black41,
-		fontSize: 15,
+		fontSize: 17,
 		fontFamily: 'Rubik-Bold'
 	},
 	game_description_text: {
 		textAlign: "center",
 		color: colors.black41,
-		fontSize: 13,
+		fontSize: 15,
 		fontFamily: 'Rubik-Regular'
 	},
 	zifi: {
@@ -63,7 +63,7 @@ export default StyleSheet.create({
 		textAlign: "center",
 		width: (width * 0.85),
 		color: colors.zifi_text,
-		fontSize: 15,
+		fontSize: 17,
 		fontFamily: 'Rubik-BoldItalic',
 		marginTop: width * 0.05
 	},
@@ -71,7 +71,7 @@ export default StyleSheet.create({
 		textAlign: "center",
 		width: (width * 0.85),
 		color: colors.black,
-		fontSize: 15,
+		fontSize: 17,
 		fontFamily: 'Rubik-Regular'
 	},
 	TextStyle: {

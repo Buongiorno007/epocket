@@ -165,7 +165,8 @@ class Start extends React.Component {
             <CustomButton
               style={styles.signup_button}
               active
-              title={RU.SIGN_UP_TITLE}
+              title={RU.SIGN_UP_TITLE.toUpperCase()}
+              color={"#F55890"}
               handler={() => this.goToSignUp()}
             />
             <Button

@@ -99,27 +99,27 @@ export default StyleSheet.create({
 		textAlign: "right",
 		width: width * 0.85,
 		color: colors.black,
-		fontSize: 12,
+		fontSize: 13,
 		fontFamily: 'Rubik-Regular'
 	},
 	game_cost_text: {
 		textAlign: "left",
 		width: (width * 0.85) / 3,
 		color: colors.black,
-		fontSize: 15,
+		fontSize: 16,
 		fontFamily: 'Rubik-Regular'
 	},
 	game_title_text: {
 		textAlign: "center",
 		width: (width * 0.85) / 3,
 		color: colors.black,
-		fontSize: 15,
+		fontSize: 16,
 		fontFamily: 'Rubik-Bold'
 	},
 	game_description_text: {
 		textAlign: "center",
 		color: colors.black41,
-		fontSize: 13,
+		fontSize: 14,
 		fontFamily: 'Rubik-Regular'
 	},
 	pressed_button: {

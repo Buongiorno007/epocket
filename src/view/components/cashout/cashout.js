@@ -61,6 +61,12 @@ class Cashout extends React.Component {
         list_of_products.forEach(product => {
           if (product.category.id === category.id) {
             let categoryCopy = categoryList.find(x => x.id === category.id);
+            let id = product.category.id;
+            let name = product.category.name;
+            product.category = {
+              id: id,
+              name: name
+            }
             categoryCopy.products.push(product)
           }
         });
@@ -81,6 +87,7 @@ class Cashout extends React.Component {
   }
   componentDidMount = () => {
     let data = this.separateProducts(this.props.navigation.state.params.cashout_data)
+    console.log(data)
     if (this.props.navigation.state.params.cardForAccordion) {
       let activeIndex = this.findActiveAccordion(this.props.navigation.state.params.cardForAccordion, data)
       this.setState({ activeIndex })
