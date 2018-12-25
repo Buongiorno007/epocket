@@ -18,6 +18,7 @@ import { errorState } from "../../../reducers/game-error"
 import { setFixedTime } from "../../../reducers/fixedTime";
 import { setTempTime } from "../../../reducers/tempTime";
 import { setGameInfo } from "../../../reducers/game-info"
+import { getGameInfo } from "../../../reducers/game-info";
 //constants
 import styles from './styles';
 import { colors } from '../../../constants/colors';
@@ -121,10 +122,11 @@ class GameResult extends React.Component {
         }, 0)
     }
     goHome = () => {
+        this.props.getGameInfo(this.props.token, this.props.location.lat, this.props.location.lng)
         NavigationService.navigate("Main")
         setTimeout(() => {
             this.props.setGameStatus("start")
-        }, 500)
+        }, 0)
     }
     connectInsta = (instagram_token) => {
         this.props.loaderState(true);
@@ -269,7 +271,7 @@ class GameResult extends React.Component {
         }
         this.props.setAppState(nextAppState)
     }
-    componentDidMount = () => {
+    componentWillMount = () => {
         AppState.addEventListener('change', this._handleAppStateChange);
         this.props.setGameStatus(this.props.navigation.state.params.status);
     }
@@ -295,22 +297,38 @@ class GameResult extends React.Component {
     chooseZifi = (status) => {
         let zifi;
         if (status === "success") {
-            // zifi = ICONS.ZIFI.SHOCKED
             zifi = require('../../../assets/img/zifi/shocked.gif')
         }
         else if (status === "failed") {
-            //zifi = ICONS.ZIFI.GRIMACES
             zifi = require('../../../assets/img/zifi/grimaces.gif')
         }
         else if (status === "expired") {
-            //zifi = ICONS.ZIFI.BORED
             zifi = require('../../../assets/img/zifi/bored.gif')
         }
         else {
-            //zifi = ICONS.ZIFI.SHOCKED
             zifi = require('../../../assets/img/zifi/shocked.gif')
         }
         return zifi
+    }
+    chooseZifiCloud = (status) => {
+        let zifiCloud, style;
+        if (status === "success") {
+            zifiCloud = ICONS.ZIFI.CLOUD_1_TRANSPARENT
+            style = styles.zifi_cloud_success
+        }
+        else if (status === "failed") {
+            zifiCloud = ICONS.ZIFI.CLOUD_2_TRANSPARENT
+            style = styles.zifi_cloud_failed
+        }
+        else if (status === "expired") {
+            zifiCloud = ICONS.ZIFI.CLOUD_2_TRANSPARENT
+            style = styles.zifi_cloud_failed
+        }
+        else {
+            zifiCloud = ICONS.ZIFI.CLOUD_1_TRANSPARENT
+            style = styles.zifi_cloud_success
+        }
+        return { zifiCloud, style }
     }
     chooseResultText = (status) => {
         let text;
@@ -424,6 +442,11 @@ class GameResult extends React.Component {
                     style={styles.grad}
                 />
                 <View style={this.props.navigation.state.params.status === "success" ? styles.success : styles.failed}>
+                    <FastImage
+                        resizeMode={FastImage.resizeMode.contain}
+                        style={this.chooseZifiCloud(this.props.navigation.state.params.status).style}
+                        source={{ uri: this.chooseZifiCloud(this.props.navigation.state.params.status).zifiCloud }}
+                    />
                     <Text style={styles.zifi_text}>{this.chooseZifiText(this.props.navigation.state.params.status)}</Text>
                     <Image
                         //resizeMode={FastImage.resizeMode.contain}
@@ -470,7 +493,8 @@ const mapStateToProps = (state) => {
         game_error: state.game_error,
         appState: state.appState,
         insta_token: state.insta_token,
-        loader: state.loader
+        loader: state.loader,
+        location: state.location
     };
 };
 
@@ -484,7 +508,8 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     setTempTime,
     errorState,
     setAppState,
-    setInstaToken
+    setInstaToken,
+    getGameInfo,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameResult);

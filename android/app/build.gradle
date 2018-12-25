@@ -152,7 +152,16 @@ android {
         doNotStrip '*/mips64/*.so'
     }
 }
-
+subprojects {
+    afterEvaluate {project ->
+        if (project.hasProperty("android")) {
+            android {
+                compileSdkVersion 27
+                buildToolsVersion '27.0.3'
+            }
+        }
+    }
+}
 dependencies {
     implementation project(':react-native-fbsdk')
     implementation project(':react-native-cookies')

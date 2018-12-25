@@ -6,8 +6,9 @@ import { colors } from '../../../constants/colors'
 export default StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: colors.backgroundForAnimated,
         alignItems: 'center',
-        backgroundColor: colors.backgroundForAnimated
+        justifyContent: 'center'
     },
     grad: {
         position: "absolute",
@@ -23,6 +24,7 @@ export default StyleSheet.create({
     image_failed: {
         zIndex: 1,
         position: "absolute",
+        top: 0,
         backgroundColor: "black",
         height: width,
         width: width,
@@ -43,18 +45,19 @@ export default StyleSheet.create({
     },
     success: {
         zIndex: 1,
-        flex: 1,
         width: width * 0.85,
+        height: height * 0.5,
         alignItems: 'center',
         justifyContent: 'center'
     },
     failed: {
         zIndex: 1,
-        flex: 1,
+        position: "absolute",
+        bottom: 60,
         width: width * 0.85,
+        height: height * 0.5,
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: width - width * 0.5
     },
     congratulation: {
         fontSize: 20,
@@ -100,5 +103,19 @@ export default StyleSheet.create({
     },
     text: {
         fontSize: width * 0.03
-    }
+    },
+    zifi_cloud_failed: {
+        position: "absolute",
+        top: -10,
+        left: 15,
+        width: 70,
+        height: 70
+    },
+    zifi_cloud_success: {
+        position: "absolute",
+        top: 0,
+        left: 30,
+        width: 70,
+        height: 70
+    },
 });

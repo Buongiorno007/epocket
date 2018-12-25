@@ -23,6 +23,7 @@ import { setInitialOutlets } from "../../../reducers/initial-outlets"
 import styles from './styles';
 import { urls } from "../../../constants/urls";
 import { colors } from './../../../constants/colors';
+import { ICONS } from "../../../constants/icons";
 import { RU } from '../../../locales/ru';
 //containers
 import CustomButton from '../../containers/custom-button/custom-button';
@@ -41,9 +42,9 @@ class GameStart extends React.Component {
         errorVisible: false,
         errorText: "",
     };
-    componentDidMount() {
-        this.props.getGameInfo(this.props.token, this.props.location.lat, this.props.location.lng)
+    componentWillMount() {
         this.loadTRC();
+        this.props.getGameInfo(this.props.token, this.props.location.lat, this.props.location.lng)
     }
     setModalVisible = visible => {
         this.setState({ errorVisible: visible });
@@ -90,7 +91,6 @@ class GameStart extends React.Component {
     };
     loadTRC = () => {
         this.setModalVisible(false);
-        this.props.loaderState(true);
         let promise = httpPost(urls.outlets, JSON.stringify({}), this.props.token);
         promise.then(
             result => {
@@ -166,6 +166,11 @@ class GameStart extends React.Component {
                 }
 
                 <View style={styles.container}>
+                    <FastImage
+                        resizeMode={FastImage.resizeMode.contain}
+                        style={styles.zifi_cloud}
+                        source={{ uri: this.props.game_info.no_more_games ? ICONS.ZIFI.CLOUD_1 : ICONS.ZIFI.CLOUD_2 }}
+                    />
                     <Text style={styles.zifi_text}>{this.props.game_info.no_more_games ? RU.GAME.ZIFI.BORING : RU.GAME.ZIFI.PLAYFUL}</Text>
                     <Image
                         //resizeMode={FastImage.resizeMode.contain}

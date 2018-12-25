@@ -356,12 +356,12 @@ class SignIn extends React.Component {
               </Text>
               <Animated.View style={[{ marginTop: this.state.signInMargin }]}>
                 <CustomButton
-                color={this.props.userColor.pink}
+                  color={this.state.acceptButton ? this.props.userColor.pink : this.props.userColor.white}
                   handler={() => {
                     this.login();
                   }}
                   active={this.state.acceptButton}
-                  title={RU.SIGN_IN}
+                  title={RU.SIGN_IN.toUpperCase()}
                 />
               </Animated.View>
             </View>
@@ -388,12 +388,12 @@ class SignIn extends React.Component {
               ) : null}
               <Animated.View style={[{ marginTop: this.state.signInMargin }]}>
                 <CustomButton
-                color={this.props.userColor.pink}
+                  color={this.state.acceptButton ? this.props.userColor.pink : this.props.userColor.white}
                   handler={() => {
                     this.confirmLogin();
                   }}
                   active={this.state.acceptButton}
-                  title={RU.ACCEPT}
+                  title={RU.ACCEPT.toUpperCase()}
                 />
               </Animated.View>
             </View>

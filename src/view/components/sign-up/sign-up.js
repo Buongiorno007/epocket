@@ -327,9 +327,9 @@ class SignUp extends React.Component {
               />
               <Animated.View style={[{ marginTop: this.state.signUpMargin }]}>
                 <CustomButton
-                  color={this.props.userColor.pink}
+                  color={this.state.phoneCorrect && this.state.nameCorrect ? this.props.userColor.pink : this.props.userColor.white}
                   active={this.state.phoneCorrect && this.state.nameCorrect}
-                  title={RU.SIGN_UP}
+                  title={RU.SIGN_UP.toUpperCase()}
                   handler={() => this.sendForm()}
                 />
               </Animated.View>
@@ -363,9 +363,9 @@ class SignUp extends React.Component {
               </Text>
               <Animated.View style={[{ marginTop: this.state.signUpMargin }]}>
                 <CustomButton
-                  color={this.props.userColor.pink}
+                  color={this.state.codeCorrect ? this.props.userColor.pink : this.props.userColor.white}
                   active={this.state.codeCorrect}
-                  title={RU.ACCEPT}
+                  title={RU.ACCEPT.toUpperCase()}
                   handler={() => this.sendCode()}
                 />
               </Animated.View>
@@ -378,7 +378,7 @@ class SignUp extends React.Component {
                 <CustomButton
                   color={this.props.userColor.pink}
                   active
-                  title={RU.OK}
+                  title={RU.OK.toUpperCase()}
                   handler={() => this.goToMap()}
                 />
               </Animated.View>

@@ -79,7 +79,6 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
             }
             else if (game.game_set) {
                 let win_array = [];
-                console.log(game)
                 game.game_set.forEach(el => {
                     if (el.option) {
                         win_array.push(el.id);

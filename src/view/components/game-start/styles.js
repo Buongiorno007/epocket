@@ -77,5 +77,12 @@ export default StyleSheet.create({
 	TextStyle: {
 		color: '#fff',
 		textAlign: 'center'
+	},
+	zifi_cloud: {
+		position: "absolute",
+		top: 0,
+		left: 30,
+		width: 70,
+		height: 70
 	}
 });
