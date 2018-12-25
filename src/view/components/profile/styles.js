@@ -66,8 +66,14 @@ export default StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "flex-start",
     width: width * 0.85,
-    flexDirection: "column",
-    height: width * 1.75
+    height: height * 0.5,
+  },
+  text_container_android: {
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    width: width * 0.85,
+    height: height * 0.5,
+    borderRadius: 25
   },
   text_item: {
     marginBottom: 20

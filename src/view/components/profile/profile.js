@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, AsyncStorage, Image } from 'react-native';
+import { View, Text, AsyncStorage, Image, Platform, TouchableOpacity } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Button } from 'native-base';
 //constants
@@ -117,31 +117,58 @@ class Profile extends React.Component {
 					<View style={styles.photo_container}>
 						<CustomPhoto src={this.state.user.photo} />
 					</View>
-					<Button transparent block rounded onPress={() => this.ToEdit()} style={styles.text_container}>
-						<View style={styles.text_item}>
-							<Text style={styles.title}>{RU.NAMES}</Text>
-							<Text style={styles.name}>{this.state.user.username}</Text>
-						</View>
-						<View style={styles.text_item}>
-							<Text style={styles.title}>{RU.PROFILE_PAGE.PHONE}</Text>
-							<Text style={styles.phone}>+ {this.state.user.phone}</Text>
-						</View>
-						{this.state.user.birthDay ? (
+					{Platform.OS == "ios" ?
+						<Button transparent block rounded onPress={() => this.ToEdit()} style={styles.text_container}>
 							<View style={styles.text_item}>
-								<Text style={styles.title}>{RU.PROFILE_PAGE.BIRTHDAY}</Text>
-								<Text style={styles.phone}>{this.state.user.birthDay}</Text>
+								<Text style={styles.title}>{RU.NAMES}</Text>
+								<Text style={styles.name}>{this.state.user.username}</Text>
 							</View>
-						) : null}
-						{this.state.user.sex === 1 || this.state.user.sex === 0 ? (
 							<View style={styles.text_item}>
-								<Text style={styles.title}>{RU.PROFILE_PAGE.SEX}</Text>
-								<Text style={styles.phone}>
-									{this.state.user.sex == 0 && RU.PROFILE_PAGE.FEMALE}
-									{this.state.user.sex == 1 && RU.PROFILE_PAGE.MALE}
-								</Text>
+								<Text style={styles.title}>{RU.PROFILE_PAGE.PHONE}</Text>
+								<Text style={styles.phone}>+ {this.state.user.phone}</Text>
 							</View>
-						) : null}
-					</Button>
+							{this.state.user.birthDay ? (
+								<View style={styles.text_item}>
+									<Text style={styles.title}>{RU.PROFILE_PAGE.BIRTHDAY}</Text>
+									<Text style={styles.phone}>{this.state.user.birthDay}</Text>
+								</View>
+							) : null}
+							{this.state.user.sex === 1 || this.state.user.sex === 0 ? (
+								<View style={styles.text_item}>
+									<Text style={styles.title}>{RU.PROFILE_PAGE.SEX}</Text>
+									<Text style={styles.phone}>
+										{this.state.user.sex == 0 && RU.PROFILE_PAGE.FEMALE}
+										{this.state.user.sex == 1 && RU.PROFILE_PAGE.MALE}
+									</Text>
+								</View>
+							) : null}
+						</Button>
+						:
+						<TouchableOpacity onPress={() => this.ToEdit()} style={styles.text_container_android}>
+							<View style={styles.text_item}>
+								<Text style={styles.title}>{RU.NAMES}</Text>
+								<Text style={styles.name}>{this.state.user.username}</Text>
+							</View>
+							<View style={styles.text_item}>
+								<Text style={styles.title}>{RU.PROFILE_PAGE.PHONE}</Text>
+								<Text style={styles.phone}>+ {this.state.user.phone}</Text>
+							</View>
+							{this.state.user.birthDay ? (
+								<View style={styles.text_item}>
+									<Text style={styles.title}>{RU.PROFILE_PAGE.BIRTHDAY}</Text>
+									<Text style={styles.phone}>{this.state.user.birthDay}</Text>
+								</View>
+							) : null}
+							{this.state.user.sex === 1 || this.state.user.sex === 0 ? (
+								<View style={styles.text_item}>
+									<Text style={styles.title}>{RU.PROFILE_PAGE.SEX}</Text>
+									<Text style={styles.phone}>
+										{this.state.user.sex == 0 && RU.PROFILE_PAGE.FEMALE}
+										{this.state.user.sex == 1 && RU.PROFILE_PAGE.MALE}
+									</Text>
+								</View>
+							) : null}
+						</TouchableOpacity>}
 				</View>
 				<TimerModal />
 				<FooterNavigation />

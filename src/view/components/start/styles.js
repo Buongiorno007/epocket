@@ -6,6 +6,8 @@ const { width, height } = Dimensions.get("window");
 export default StyleSheet.create({
   main_view: {
     flex: 1,
+    height: height,
+    width: width,
     alignItems: "center"
   },
   top_image: {

@@ -13,7 +13,7 @@ export default StyleSheet.create({
     flexDirection: "column",
     alignItems: "flex-start",
     justifyContent: "space-around",
-    elevation: 5,
+    elevation: 2,
     shadowColor: colors.card_shadow,
     shadowOffset: {
       width: 0,

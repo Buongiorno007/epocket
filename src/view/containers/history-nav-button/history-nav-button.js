@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { Button } from "native-base";
 //constants
@@ -20,7 +20,7 @@ class HistoryNavButton extends React.Component {
         onPress={this.props.handler}
         style={[styles.button]}
       >
-        {this.props.cartCount &&
+        {this.props.cartCount != 0 && this.props.cartCount &&
           <View style={[styles.cart_number, { backgroundColor: this.props.userColor.pink_blue }]} >
             <Text style={styles.number}>{this.props.cartCount}</Text>
           </View>
@@ -32,7 +32,8 @@ class HistoryNavButton extends React.Component {
         </Text>
         {this.props.disabled &&
           <View style={[styles.dot,
-          { backgroundColor: this.props.userColor.pink_blue }]} />
+          { backgroundColor: this.props.userColor.pink_blue }]} >
+          </View>
         }
       </Button>
     );

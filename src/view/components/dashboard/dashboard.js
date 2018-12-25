@@ -49,6 +49,16 @@ import FacebookLogin from '../../../services/Facebook'
 import { handleError } from "../../../services/http-error-handler";
 
 const { width, height } = Dimensions.get("window");
+const CustomLayoutLinearFont = {
+  duration: 150,
+  create: {
+    type: LayoutAnimation.Types.linear,
+    property: LayoutAnimation.Properties.fontSize,
+  },
+  update: {
+    type: LayoutAnimation.Types.curveEaseInEaseOut,
+  },
+};
 const CustomLayoutLinear = {
   duration: 150,
   create: {
@@ -88,7 +98,7 @@ class Dashboard extends React.Component {
     timerWidth: new Animated.Value(width * 0.85),
     timerCounterWidth: new Animated.Value(width * 0.25),
     textScale: new Animated.Value(1),
-    epcScale: new Animated.Value(0),
+    epcScale: new Animated.Value(Platform.OS == "ios" ? 0 : 0.00001),
     epcCounterContainerWidth: new Animated.Value(width * 0.85),
     topPadding: new Animated.Value(-20),
     listHeight: new Animated.Value(height * 0.65),
@@ -98,8 +108,8 @@ class Dashboard extends React.Component {
   };
   constructor(props) {
     super(props)
-    if (Platform.OS === 'android') {
-      UIManager.setLayoutAnimationEnabledExperimental(true)
+    if (Platform.OS != 'ios') {
+      UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
     }
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -125,7 +135,7 @@ class Dashboard extends React.Component {
                     duration: 100
                   },
                   {
-                    toValue: 0,
+                    toValue: Platform.OS == "ios" ? 0 : 0.00001,
                     duration: 100
                   },
                   {
@@ -184,7 +194,7 @@ class Dashboard extends React.Component {
                     }),
                   Animated.timing(this.state.allScaleY,
                     {
-                      toValue: 0,
+                      toValue: Platform.OS == "ios" ? 0 : 0.00001,
                       duration: 200,
                       easing: Easing.linear
                     }),
@@ -210,7 +220,7 @@ class Dashboard extends React.Component {
                     duration: 100
                   },
                   {
-                    toValue: 0,
+                    toValue: Platform.OS == "ios" ? 0 : 0.0001,
                     duration: 100
                   },
                   {
@@ -259,7 +269,7 @@ class Dashboard extends React.Component {
                     duration: 100
                   },
                   {
-                    toValue: 0,
+                    toValue: Platform.OS == "ios" ? 0 : 0.001,
                     duration: 100
                   },
                   {
@@ -307,7 +317,7 @@ class Dashboard extends React.Component {
   }
   runAnimation = (epcСounterFontSizeProps, topHeightProps, textScaleProps, epcScaleProps, timerWidthProps, timerCounterWidthProps, epcCounterContainerWidthProps, flexDirectionProp, topPaddingProps, listHeightProps, topImageOpacityProps, allScaleYProps) => {
     Animated.parallel([
-      LayoutAnimation.configureNext(CustomLayoutLinear),
+      LayoutAnimation.configureNext(Platform.OS == "ios" ? CustomLayoutLinearFont : LayoutAnimation.Presets.linear),
       this.setState({ epcСounterFontSize: epcСounterFontSizeProps.toValue }),
       Animated.timing(this.state.topHeight,
         {
@@ -369,7 +379,7 @@ class Dashboard extends React.Component {
           duration: allScaleYProps.duration,
           easing: Easing.linear
         }),
-      LayoutAnimation.configureNext(CustomLayoutLinear),
+      LayoutAnimation.configureNext(Platform.OS == "ios" ? CustomLayoutLinear : LayoutAnimation.Presets.linear),
       this.setState({ flexDirection: flexDirectionProp })
     ]).start();
   }
@@ -494,9 +504,6 @@ class Dashboard extends React.Component {
     };
     this.props.updateTimer(curr_time);
     this.setStartMissionErrorVisible(false);
-    console.log(urls.start_mission,
-      this.state.body,
-      this.props.token)
     let promise = httpPost(
       urls.start_mission,
       JSON.stringify(this.state.body),

@@ -145,12 +145,12 @@ class Start extends React.Component {
           style={styles.grad}
         />
         <FastImage
-          resizeMode={FastImage.resizeMode.contain}
+          resizeMode={FastImage.resizeMode.cover}
           style={styles.top_image}
           source={require('../../../assets/img/ANIMATED_EARN_MORE.gif')}
         />
         <FastImage
-          resizeMode={FastImage.resizeMode.contain}
+          resizeMode={FastImage.resizeMode.cover}
           style={styles.top_image}
           source={require('../../../assets/img/START_GRADIENT_med.png')}
         />

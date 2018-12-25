@@ -35,7 +35,8 @@ export default StyleSheet.create({
     left_image: {
         width: 60,
         height: 60,
-        borderRadius: 30
+        borderRadius: 30,
+        zIndex: 10,
     },
     left_image_container: {
         width: 60,
