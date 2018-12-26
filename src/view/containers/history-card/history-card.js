@@ -13,6 +13,8 @@ import { getBonuses } from "../../../reducers/history-bonuses";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { handleError } from "../../../services/http-error-handler";
+//services
+import moment from "moment";
 
 class HistoryCard extends React.Component {
   constructor(props) {
@@ -20,9 +22,12 @@ class HistoryCard extends React.Component {
   }
   state = {
     errorVisible: true,
-    errorText: ""
+    errorText: "",
+    timeZome: parseInt(moment().format('Z'))
   };
   componentDidMount() {
+    console.log(moment(this.props.info.date).add('hours', this.state.timeZome).format().split("T")[1]
+      .split("+")[0])
     let error_respons = handleError({ code: this.props.info.error }, this.constructor.name, "componentDidMount");
     this.setState({ errorText: error_respons.error_text });
   }
@@ -74,10 +79,9 @@ class HistoryCard extends React.Component {
                   </View>
                   <View style={styles.date}>
                     <Text style={styles.date_text}>
-                      {this.props.info.date
+                      {moment(this.props.info.date).add('hours', this.state.timeZome).format()
                         .split("T")[1]
-                        .split("+")[0]
-                        .slice(0, -7)}
+                        .split("+")[0]}
                     </Text>
                     <Text style={styles.date_text}>
                       {this.format(this.props.info.date.split("T")[0])}
@@ -104,10 +108,9 @@ class HistoryCard extends React.Component {
                     </View>
                     <View style={styles.date}>
                       <Text style={styles.date_text}>
-                        {this.props.info.date
+                        {moment(this.props.info.date).add('hours', this.state.timeZome).format()
                           .split("T")[1]
-                          .split("+")[0]
-                          .slice(0, -3)}
+                          .split("+")[0]}
                       </Text>
                       <Text style={styles.date_text}>
                         {this.format(this.props.info.date.split("T")[0])}

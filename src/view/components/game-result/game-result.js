@@ -123,10 +123,10 @@ class GameResult extends React.Component {
     }
     goHome = () => {
         this.props.getGameInfo(this.props.token, this.props.location.lat, this.props.location.lng)
-        NavigationService.navigate("Main")
         setTimeout(() => {
+            NavigationService.navigate("Main")
             this.props.setGameStatus("start")
-        }, 0)
+        }, 500)
     }
     connectInsta = (instagram_token) => {
         this.props.loaderState(true);

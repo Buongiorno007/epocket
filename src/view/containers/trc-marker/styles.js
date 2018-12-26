@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import { colors } from '../../../constants/colors'
 
 export default StyleSheet.create({
@@ -13,7 +13,7 @@ export default StyleSheet.create({
         width: 35,
         height: 35,
         zIndex: 997,
-        top: 0,
+        top: Platform.OS == "ios" ? 0 : 10,
         bottom: 0,
         left: 0,
         right: 0
@@ -26,7 +26,7 @@ export default StyleSheet.create({
         position: "absolute",
         top: 0,
         bottom: 0,
-        left: 10,
+        left: Platform.OS == "ios" ? 10 : 10,
         right: 0
     },
     big_gradient: {
@@ -42,7 +42,7 @@ export default StyleSheet.create({
     },
     discount_image: {
         width: 40,
-        marginTop: 10,
+        marginTop: Platform.OS == "ios" ? 10 : 0,
         alignItems: "center",
         justifyContent: "center",
         height: 40,

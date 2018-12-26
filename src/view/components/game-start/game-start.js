@@ -42,9 +42,20 @@ class GameStart extends React.Component {
         errorVisible: false,
         errorText: "",
     };
-    componentWillMount() {
+    componentDidMount() {
+        this.props.setGameStatus("start")
         this.loadTRC();
-        this.props.getGameInfo(this.props.token, this.props.location.lat, this.props.location.lng)
+    }
+    componentWillReceiveProps = (nextProps) => {
+        if (this.props.game_status == "initial" && nextProps.game_status == "start") {
+            this.props.getGameInfo(this.props.token, nextProps.location.lat, nextProps.location.lng)
+        }
+        if (
+            (nextProps.location.lat != this.props.location.lat) &&
+            (nextProps.location.lng != this.props.location.lng)
+        ) {
+            this.props.getGameInfo(this.props.token, nextProps.location.lat, nextProps.location.lng)
+        }
     }
     setModalVisible = visible => {
         this.setState({ errorVisible: visible });
@@ -95,7 +106,6 @@ class GameStart extends React.Component {
         promise.then(
             result => {
                 this.setModalVisible(false);
-                this.props.loaderState(false);
                 this.props.setOutlets(result.body.outlets)
                 this.props.setInitialOutlets(result.body)
                 if (this.props.selectedMall.id) {
@@ -115,7 +125,6 @@ class GameStart extends React.Component {
                 let error_respons = handleError(error, this.constructor.name, "loadTRC");
                 this.setState({ errorText: error_respons.error_text });
                 this.setModalVisible(error_respons.error_modal);
-                this.props.loaderState(false);
             }
         );
     };
@@ -243,6 +252,7 @@ const mapStateToProps = (state) => {
         game_status: state.game_status,
         selectedMall: state.selectedMall,
         distance: state.distance,
+        activeTab: state.activeTab,
     };
 };
 

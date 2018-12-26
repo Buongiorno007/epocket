@@ -10,12 +10,11 @@ import { ICONS } from "../../../constants/icons";
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-
 class TRCMarker extends React.Component {
   constructor(props) {
     super(props);
   }
-
+  ios = Platform.OS == "ios" ? true : false;
   state = {
     coordinate: {
       latitude: parseFloat(this.props.marker.lat),
@@ -32,6 +31,10 @@ class TRCMarker extends React.Component {
             style={[styles.marker, this.props.discountMarker && {
               width: 60,
               height: 60,
+            },
+            !this.ios && (this.props.discountMarker || this.props.cashoutMarker) && {
+              width: 60,
+              height: 60,
             }]}
             ref={marker => {
               this.marker = marker;
@@ -46,15 +49,20 @@ class TRCMarker extends React.Component {
                 colors={[this.props.userColor.active_marker_blue, this.props.userColor.active_marker_lightblue]}
                 start={{ x: 0.0, y: 1.0 }}
                 end={{ x: 1.0, y: 0.0 }}
-                style={[this.props.discountMarker ? styles.big_gradient : styles.gradient]}
+                style={[this.props.discountMarker ? styles.big_gradient : styles.gradient,
+                !this.ios && this.props.cashoutMarker && {
+                  top: 0,
+                  left: 0
+                }]}
               />
             }
             <ImageBackground
               key={this.props.marker.id}
-              style={[this.props.discountMarker ? styles.discount_image : styles.image, this.props.active && {
+              style={[this.props.discountMarker ? styles.discount_image : styles.image, this.props.active && this.ios && {
                 marginTop: this.props.discountMarker ? 0 : 10
               },
-              this.props.cashoutMarker && { left: 20 }]}
+              this.ios && this.props.cashoutMarker && { left: 20 },
+              !this.ios && this.props.cashoutMarker && { left: -2.5, top: -2.5 }]}
               source={{ uri: this.props.active ? this.props.discountMarker ? ICONS.COMMON.DISCOUNT_ACTIVE : ICONS.COMMON.STORE_ACTIVE : this.props.discountMarker ? ICONS.COMMON.DISCOUNT_INACTIVE : ICONS.COMMON.STORE_INACTIVE }}
             >
               {this.props.discountMarker &&
@@ -84,7 +92,7 @@ class TRCMarker extends React.Component {
                 : this.props.userColor.trc_marker_blue
             }
           />
-        </View> : null);
+        </View > : null);
   }
 }
 

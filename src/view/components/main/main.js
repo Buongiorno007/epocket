@@ -25,6 +25,8 @@ import { showDoneNotification } from "../../../reducers/main-task-done-notificat
 import { showFailedNotification } from "../../../reducers/main-task-failed-notification";
 import { setActiveCard } from "../../../reducers/set-active-card";
 import { setColor } from "../../../reducers/user-color"
+import { getGameInfo } from "../../../reducers/game-info";
+
 //services
 import GeolocationService from "../../../services/geolocation-service";
 
@@ -40,10 +42,11 @@ class Main extends React.Component {
       console.log(object)
       this.props.setColor(object.sex);
     });
+    //this.props.getGameInfo(this.props.token, this.props.location.lat, this.props.location.lng)
   }
   renderLastTab = () => {
     let container;
-    if (this.props.game_status == "start" || this.props.game_status == "lock") {
+    if (this.props.game_status == "start" || this.props.game_status == "lock" || this.props.game_status == "initial") {
       container = <GameStart />
     }
     else if (this.props.game_status == "expired") {
@@ -90,7 +93,9 @@ const mapStateToProps = state => ({
   failedNotification: state.failedNotification,
   game_status: state.game_status,
   isLocation: state.isLocation,
-  timerShow: state.timerShow
+  timerShow: state.timerShow,
+  token: state.token,
+  location: state.location,
 });
 
 const mapDispatchToProps = dispatch =>
@@ -99,7 +104,8 @@ const mapDispatchToProps = dispatch =>
       showDoneNotification,
       showFailedNotification,
       setActiveCard,
-      setColor
+      setColor,
+      getGameInfo
     },
     dispatch
   );

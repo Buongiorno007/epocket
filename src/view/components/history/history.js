@@ -18,6 +18,7 @@ import HistoryList from "./../../containers/history-list/history-list";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 import TimerModal from "../../containers/timer-modal/timer-modal";
 
+
 class History extends React.Component {
   constructor(props) {
     super(props);
@@ -34,7 +35,6 @@ class History extends React.Component {
     let pick = this.state.pickedBonuses;
     this.setState({ pickedBonuses: !pick });
   };
-  componentDidMount() { }
 
 
   render() {

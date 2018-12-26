@@ -16,14 +16,15 @@ export default (state = { lng: 0, lat: 0 }, action) => {
 }
 
 export const locationCoordsListener = () => async dispatch => {
-    if (Platform.OS==="ios"){
+    if (Platform.OS === "ios") {
+        console.log("location setted")
         BackgroundGeolocationModule.on('location', (location) => dispatch(
             setLocation({
                 lng: Number(location.coords.longitude),
                 lat: Number(location.coords.latitude)
             })
-        ));     
-    }else{
+        ));
+    } else {
         BackgroundGeolocationModule.on('location', (location) => {
             location.lng ? dispatch(setLocation(location)) : dispatch(setLocation({
                 lat: location.latitude,

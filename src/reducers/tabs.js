@@ -1,4 +1,6 @@
 import { setSecondDashboardCallBlock } from "./second-dash-call"
+import { setGameStatus } from "./game-status"
+
 export const CHANGE_ACTIVE_TAB = 'tabs/CHANGE_ACTIVE_TAB';
 
 export default (state = { activeTab: 0 }, action) => {
@@ -20,6 +22,7 @@ export const setState = (activeTab) => {
 }
 export const setTabState = (activeTab) => async dispatch => {
     dispatch(setSecondDashboardCallBlock(false));
+    dispatch(setGameStatus("initial"))
     dispatch(setState(activeTab))
 }
 

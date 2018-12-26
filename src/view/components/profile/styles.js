@@ -67,6 +67,7 @@ export default StyleSheet.create({
     alignItems: "flex-start",
     width: width * 0.85,
     height: height * 0.5,
+    flexDirection: "column"
   },
   text_container_android: {
     justifyContent: "flex-start",
