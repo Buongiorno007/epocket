@@ -826,7 +826,6 @@ class Dashboard extends React.Component {
               navigation={{
                 title: "Карта",
                 direction: "Main",
-                preventSecondCall: true
               }}
             />
           }

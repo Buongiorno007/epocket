@@ -42,7 +42,6 @@ import game_expired_img from "./game-expired-image"
 import navigateToMall from "./navigate-to-mall"
 import userColor from "./user-color"
 import initial_outlets from "./initial-outlets"
-import secondDashboardCallBlock from "./second-dash-call"
 import socialCount from "./social-count"
 import profileIsVirgin from "./profile-virgin"
 import geolocationIsVirgin from "./geo-virgin"
@@ -92,7 +91,6 @@ export default combineReducers({
   game_expired_img,
   navigateToMall,
   userColor,
-  secondDashboardCallBlock,
   socialCount,
   profileIsVirgin,
   geolocationIsVirgin,

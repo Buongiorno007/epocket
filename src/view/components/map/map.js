@@ -331,18 +331,14 @@ class Map extends React.Component {
         this.props.loaderState(false);
         this.props.setOutlets(result.body.outlets)
         this.props.setInitialOutlets(result.body)
-        if (this.props.selectedMall.id) {
-          !this.props.secondDashboardCallBlock && this.selectMark(this.props.selectedMall, false, "task");
-        } else {
-          this.props.isLocation &&
-            this.selectNearestMall(
-              {
-                latitude: this.props.location.lat,
-                longitude: this.props.location.lng
-              },
-              result.body.outlets, true
-            );
-        }
+        this.props.isLocation &&
+          this.selectNearestMall(
+            {
+              latitude: this.props.location.lat,
+              longitude: this.props.location.lng
+            },
+            result.body.outlets, true
+          );
       },
       error => {
         let error_respons = handleError(error, this.constructor.name, "loadTRC");
@@ -645,7 +641,8 @@ class Map extends React.Component {
       }
     );
   }
-  selectMark = (trc, ANIMATE_MAP, mark_type, dashboard) => {
+  selectMark = (trc, ANIMATE_MAP, mark_type) => {
+    console.log("SELECTED TRC", trc)
     this.setState({
       pickedMark: {
         latitude: Number(trc.lat).toFixed(3),
@@ -982,7 +979,6 @@ const mapStateToProps = state => {
     initial_outlets: state.initial_outlets,
     insta_token: state.insta_token,
     facebook_token: state.facebook_token,
-    secondDashboardCallBlock: state.secondDashboardCallBlock
   };
 };
 
