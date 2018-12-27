@@ -115,7 +115,7 @@ class SignIn extends React.Component {
   mphone = (v) => {
     let r = v.replace(/\D/g, "");
     r = r.replace(/^0/, "");
-    if (r.length > 10) {
+    if (r.length > 7) {
       // 11+ digits.
       r = r.replace(/^(\d{2})(\d{3})(\d{0,3})(\d{0,4}).*/, "$1 ($2) $3 $4");
     }
