@@ -57,6 +57,7 @@ export const passGameResult = (mission_id, api_status, token, status, insta_data
         },
         error => {
             let error_response = handleError(error, "game-info", "passGameResult")
+            NavigationService.navigate("GameResult", { status: "failed", insta_data });
             dispatch(errorState(error_response))
             dispatch(loaderState(false));
         }
