@@ -16,6 +16,7 @@ import TimerModal from '../../containers/timer-modal/timer-modal';
 //redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { setBirthDay } from "../../../reducers/birthday";
 //service
 import NavigationService from '../../../services/route';
 
@@ -58,6 +59,9 @@ class Profile extends React.Component {
 			user_sex: this.state.user.sex,
 			user_birthDay: this.state.user.birthDay
 		};
+		if (async_storage_user.user_birthDay && async_storage_user.user_birthDay != "") {
+			this.props.setBirthDay(async_storage_user.user_birthDay);
+		}
 		NavigationService.navigate('ProfileEdit', { async_storage_user });
 	};
 	ToSettings = () => {
@@ -185,6 +189,8 @@ const mapStateToProps = (state) => {
 	};
 };
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+	setBirthDay
+}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

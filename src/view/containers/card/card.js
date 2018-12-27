@@ -24,17 +24,17 @@ class Card extends React.Component {
         style={
           this.props.item.active
             ? [styles.card,
-            this.props.socialCount === 1 && { top: -(width * 0.2 - 20) }, //rows in flatlist have to be similar height, so this string is here to avoid this issue
+            (this.props.missions.length - this.props.socialCount != 1) && this.props.socialCount === 1 && { top: -(width * 0.2 - 20) }, //rows in flatlist have to be similar height, so this string is here to avoid this issue
             Platform.OS === 'android' && {
               borderTopWidth: 1,
               borderTopColor: 'rgba(217, 221, 224, 0.5)',
             }]
             : [
               styles.card,
-              this.props.socialCount === 1 && { top: -(width * 0.2 - 20) }, //rows in flatlist have to be similar height, so this string is here to avoid this issue
+              (this.props.missions.length - this.props.socialCount != 1) && this.props.socialCount === 1 && { top: -(width * 0.2 - 20) }, //rows in flatlist have to be similar height, so this string is here to avoid this issue
               {
                 borderWidth: 1,
-                borderColor: this.props.item.color,
+                borderColor: this.props.item.color ? this.props.item.color : this.props.userColor.black,
                 backgroundColor: "transparent",
                 elevation: 0,
                 shadowColor: this.props.userColor.card_shadow,
@@ -56,19 +56,19 @@ class Card extends React.Component {
           style={[
             this.props.item.active
               ? styles.price
-              : [styles.price, { color: this.props.item.color }]
+              : [styles.price, { color: this.props.item.color ? this.props.item.color : this.props.userColor.black }]
           ]}
         >
           {this.props.item.price} {RU.EPC}
         </Text>
-        <Text style={[styles.owner, { color: this.props.item.color }]}>
+        <Text style={[styles.owner, { color: this.props.item.color ? this.props.item.color : this.props.userColor.black }]}>
           {this.props.item.trade}
         </Text>
         <Text
           style={[
             this.props.item.active
               ? styles.time_range
-              : [styles.failed_time_range, { color: this.props.item.color }]
+              : [styles.failed_time_range, { color: this.props.item.color ? this.props.item.color : this.props.userColor.black }]
           ]}
         >
           {this.props.item.date_start.substring(10, 16)} -{" "}
@@ -83,7 +83,8 @@ const mapStateToProps = state => ({
   userColor: state.userColor,
   timer: state.timer,
   timer_status: state.timer_status,
-  socialCount: state.socialCount
+  socialCount: state.socialCount,
+  missions: state.missions,
 });
 
 const mapDispatchToProps = dispatch =>

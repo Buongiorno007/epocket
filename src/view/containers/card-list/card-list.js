@@ -40,31 +40,51 @@ class CardList extends React.Component {
     this.props.setActiveCard(true);
     this.props.selectMission(this._submissionOrder(selectedCard));
   };
-  keyExtractor = item => item.id;
+  keyExtractor = item => { this.props.missions.length - this.props.socialCount == 1 ? item.id : item.id + 100 };
   render() {
     return (
       <View style={styles.list_view}>
         {!this.props.activeCard ? (
           <View style={styles.list_view}>
             {this.props.missions.length > 0 ? (
-              <View style={styles.list_view}>
-                <FlatList
-                  contentContainerStyle={styles.contentContainerStyle}
-                  style={styles.list_view}
-                  horizontal={false}
-                  numColumns={2}
-                  columnWrapperStyle={{ flexWrap: this.props.socialCount === 1 ? 'nowrap' : 'wrap' }}
-                  keyExtractor={this.keyExtractor}
-                  data={this.props.missions}
-                  renderItem={this._renderItem}
-                  /*
-                  это функция для обновления списка миссий по принципу pool to refresh
-                  сделать свайп сверху вниз
-                  вызывается по колбеку в родительский компонент
-                  */
-                  onScrollBeginDrag={() => this.props.onScrollBeginDrag()}
-                />
-              </View>
+              this.props.missions.length - this.props.socialCount == 1 ?
+                < View style={styles.list_view}>
+                  <FlatList
+                    key={"solo_mission"}
+                    contentContainerStyle={styles.contentContainerStyle}
+                    style={styles.list_view}
+                    horizontal={false}
+                    keyExtractor={this.keyExtractor}
+                    data={this.props.missions}
+                    renderItem={this._renderItem}
+                    /*
+                    это функция для обновления списка миссий по принципу pool to refresh
+                    сделать свайп сверху вниз
+                    вызывается по колбеку в родительский компонент
+                    */
+                    onScrollBeginDrag={() => this.props.onScrollBeginDrag()}
+                  />
+                </View>
+                :
+                < View style={styles.list_view}>
+                  <FlatList
+                    key={"multi_mission"}
+                    contentContainerStyle={styles.contentContainerStyle}
+                    style={styles.list_view}
+                    horizontal={false}
+                    numColumns={2}
+                    columnWrapperStyle={{ flexWrap: this.props.socialCount === 1 ? 'nowrap' : 'wrap' }}
+                    keyExtractor={this.keyExtractor}
+                    data={this.props.missions}
+                    renderItem={this._renderItem}
+                    /*
+                    это функция для обновления списка миссий по принципу pool to refresh
+                    сделать свайп сверху вниз
+                    вызывается по колбеку в родительский компонент
+                    */
+                    onScrollBeginDrag={() => this.props.onScrollBeginDrag()}
+                  />
+                </View>
             ) : (
                 <View style={styles.no_tasks}>
                   <Text style={styles.no_tasks_text}>{RU.NO_TASKS}</Text>
@@ -73,7 +93,8 @@ class CardList extends React.Component {
           </View>
         ) : (
             <OpenedCard style={!this.props.activeCard ? styles.disabled : null} />
-          )}
+          )
+        }
       </View>
     );
   }

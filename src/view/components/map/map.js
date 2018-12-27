@@ -19,6 +19,7 @@ import ActivityIndicator from "../../containers/activity-indicator/activity-indi
 import CardTask from "../../containers/map-card-task/map-card-task"
 import CardCashout from "../../containers/map-card-shop/map-card-shop"
 import CardFirst from "../../containers/map-card-first/map-card-first"
+import TimerModal from "../../containers/timer-modal/timer-modal";
 //constants
 import { mapStyle } from "./mapCustomStyle";
 import styles from "./styles";
@@ -41,6 +42,12 @@ import { setInfo } from "../../../reducers/info"
 import { setInstaToken } from "../../../reducers/insta-token";
 import { setFacebookToken } from "../../../reducers/facebook-token"
 import { showTimer } from "../../../reducers/show-dashboard-timer"
+import { timerStatus } from "../../../reducers/timer-status";
+import { updateTimer } from "../../../reducers/timer";
+import { reloadTimer } from "../../../reducers/timer-interval";
+import { showDoneNotification } from "../../../reducers/main-task-done-notification";
+import { showFailedNotification } from "../../../reducers/main-task-failed-notification";
+import { setBalance } from "../../../reducers/user-balance";
 //services
 import { httpPost } from "../../../services/http";
 import { handleError } from "../../../services/http-error-handler";
@@ -50,7 +57,8 @@ import { sendToTelegramm } from '../../../services/telegramm-notification'
 import InstagramLogin from '../../../services/Instagram'
 import FacebookLogin from '../../../services/Facebook'
 import { orderBy } from 'lodash';
-import moment from "moment";
+import moment from "moment-timezone";
+import "../../../services/correcting-interval";
 
 class Map extends React.Component {
   state = {
@@ -77,8 +85,75 @@ class Map extends React.Component {
     pickedMark: {
       latitude: 0,
       longitude: 0
-    }
+    },
+    mainMissionPrice: 0,
   };
+  timer(interval) {
+    let countDownDate = new Date().getTime() + interval;
+    clearCorrectingInterval(this.props.timer_interval);
+    // Update the count down every 1 second
+    let x = setCorrectingInterval(() => {
+      // Get todays date and time
+      let now = new Date().getTime();
+
+      // Find the distance between now an the count down date
+      let distance = countDownDate - now;
+
+      // Time calculations for days, hours, minutes and seconds
+      let hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      if (hours >= 0 && minutes >= 0 && seconds >= 0) {
+        let curr_time = {
+          hours: hours,
+          minutes: minutes,
+          seconds: seconds
+        };
+        this.props.updateTimer(curr_time);
+      }
+      // If the count down is finished, write some text
+      if (distance <= 0) {
+        clearCorrectingInterval(this.props.timer_interval);
+        this.finishMainMission();
+        this.setState({ finishMissionCalled: true })
+      }
+    }, 1000);
+    this.props.reloadTimer(x);
+  }
+  finishMainMission() {
+    if (this.state.finishMissionCalled) {
+      console.log("finishMainMission called second time")
+    } else {
+      this.setFinishMissionErrorVisible(false);
+      this.setState({ load_missions: true });
+      let body = {
+        outletId: this.props.selectedMall.id,
+        missionId: this.state.mainMissionId
+      };
+      let promise = httpPost(
+        urls.finish_mission,
+        JSON.stringify(body),
+        this.props.token
+      );
+      promise.then(
+        result => {
+          this.setFinishMissionErrorVisible(false);
+          this.props.timerStatus(false);
+          this.props.showDoneNotification(true);
+          this.props.setBalance(result.body.balance);
+          this.setState({ load_missions: false });
+        },
+        error => {
+          let error_respons = handleError(error, this.constructor.name, "finishMainMission");
+          this.setState({ errorText: error_respons.error_text, errorCode: error_respons.error_code });
+          this.setFinishMissionErrorVisible(error_respons.error_modal);
+          this.setState({ load_missions: false });
+        }
+      );
+    }
+  }
   toggleTab = (tab) => {
     this.map.animateToRegion(
       {
@@ -242,7 +317,13 @@ class Map extends React.Component {
   loadTRC = () => {
     this.setModalVisible(false);
     this.props.loaderState(true);
-    let promise = httpPost(urls.outlets, JSON.stringify({ geolocation_status: true }), this.props.token);
+    let promise = httpPost(urls.outlets, JSON.stringify({
+      geolocation_status: true,
+      tzone: {
+        timezone: moment.tz.guess(),
+        timedelta: moment().format('Z')
+      }
+    }), this.props.token);
     promise.then(
       result => {
         console.log(result)
@@ -399,7 +480,6 @@ class Map extends React.Component {
             })
           }
           cards.unshift(trc)
-          console.log(cards)
           this.setState({ cards, focusedOnMark: true })
         }
         this.props.loaderState(false);
@@ -491,7 +571,81 @@ class Map extends React.Component {
       }
     }
   }
-  selectMark = (trc, ANIMATE_MAP, mark_type) => {
+  callTimer() {
+    let curr_time = {
+      hours: 0,
+      minutes: 0,
+      seconds: 0
+    };
+    this.props.updateTimer(curr_time);
+    this.setErrorVisible(false);
+    let body = {
+      outletId: this.props.selectedMall.id,
+      notInMall: (this.props.distance <= 0 && this.props.isLocation) ? false : true
+    }
+    let promise = httpPost(
+      urls.start_mission,
+      JSON.stringify(body),
+      this.props.token
+    );
+    promise.then(
+      result => {
+        this.setErrorVisible(false);
+        this.setState({ load_timer: false });
+        this.setState(
+          {
+            mainMissionId: result.body.id,
+            mainMissionPrice: result.body.price
+          },
+          () => {
+            if (result.body.failed) {
+              this.props.showFailedNotification(true);
+              this.props.timerStatus(false);
+            } else {
+              this.setState({ notInMall: false })
+              if (result.body.interval <= 0) {
+                this.props.timerStatus(false);
+                this.finishMainMission();
+              } else if (result.body.interval > 0) {
+                //blocks second call on mount
+                if (this.props.distance <= 0 && this.props.isLocation) {
+                  this.props.timerStatus(true);
+                  this.setState({ finishMissionCalled: false })
+                  clearCorrectingInterval(this.props.timer_interval);
+                  this.timer(result.body.interval * 1000);
+                }
+                else {
+                  this.props.timerStatus(false);
+                  this.setState({ notInMall: true })
+                  let time = result.body.interval * 1000
+                  let hours = Math.floor(
+                    (time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+                  );
+                  let minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
+                  let seconds = Math.floor((time % (1000 * 60)) / 1000);
+                  if (hours >= 0 && minutes >= 0 && seconds >= 0) {
+                    let curr_time = {
+                      hours: hours,
+                      minutes: minutes,
+                      seconds: seconds
+                    };
+                    this.props.updateTimer(curr_time);
+                  }
+                }
+              }
+            }
+          }
+        );
+      },
+      error => {
+        this.setState({ load_timer: false });
+        let error_respons = handleError(error, this.constructor.name, "callTimer");
+        this.setState({ errorText: error_respons.error_text, errorCode: error_respons.error_code });
+        this.setErrorVisible(error_respons.error_modal);
+      }
+    );
+  }
+  selectMark = (trc, ANIMATE_MAP, mark_type, dashboard) => {
     this.setState({
       pickedMark: {
         latitude: Number(trc.lat).toFixed(3),
@@ -532,10 +686,11 @@ class Map extends React.Component {
       copyOfCards.shift();
       if (this.state.taskActive) {
         this.loadTaskItems(trc);
-        NavigationService.navigate("Dashboard", { dashboard_data: copyOfCards, general_info: this.props.selectedMall, posts: this.state.posts });
+        if (!this.props.selectedMall.outlet) {
+          this.callTimer()
+        }
       }
     } else {
-      this.props.showTimer(true);
       ANIMATE_MAP &&
         this.moveMapTo(
           Number(trc.lat),
@@ -607,6 +762,17 @@ class Map extends React.Component {
           decline_btn_handler={() =>
             this.setModalVisible(!this.state.modalVisible)
           }
+        />
+        <CustomAlert
+          title={this.state.errorText}
+          first_btn_title={RU.REPEAT}
+          visible={this.state.errorVisible}
+          first_btn_handler={() => {
+            this.loadTRC();
+          }}
+          decline_btn_handler={() => {
+            this.setErrorVisible(!this.state.errorVisible);
+          }}
         />
         <CustomAlert
           title={this.state.errorText}
@@ -792,6 +958,7 @@ class Map extends React.Component {
             ))
           }
         </MapView>
+        <TimerModal reward={this.state.mainMissionPrice} callTimer={() => { this.callTimer() }} />
         <FooterNavigation />
       </View >
     );
@@ -834,7 +1001,13 @@ const mapDispatchToProps = dispatch =>
       setInstaToken,
       setFacebookToken,
       loaderState,
-      showTimer
+      showTimer,
+      showDoneNotification,
+      showFailedNotification,
+      timerStatus,
+      setBalance,
+      updateTimer,
+      reloadTimer,
     },
     dispatch
   );

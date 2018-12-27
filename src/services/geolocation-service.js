@@ -17,6 +17,7 @@ import { setGameStatus } from "../reducers/game-status"
 import { setMainTaskId } from "../reducers/main-task-id"
 import { setSheduleRequestStart } from "../reducers/set-shedule-request-start"
 import { showDoneNotification } from "../reducers/main-task-done-notification";
+import { showTimer } from "../reducers/show-dashboard-timer"
 //constants
 import { urls } from "../constants/urls";
 import firebase from 'react-native-firebase';
@@ -157,9 +158,11 @@ class GeolocationService extends React.Component {
 
     if (distance <= 0 && nextProps.isLocation && this.props.isLocation) {
       this.props.showDashboard(true);
+      this.props.showTimer(false);
       !this.props.dashboard && this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_4);
     } else {
       this.props.showDashboard(false);
+      this.props.showTimer(true);
       this.props.dashboard && this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_5);
     }
     if (distance === 120) {
@@ -228,7 +231,8 @@ const mapDispatchToProps = dispatch =>
       setSheduleRequestStart,
       setAppState,
       setMainTaskId,
-      setGameStatus
+      setGameStatus,
+      showTimer
     },
     dispatch
   );
