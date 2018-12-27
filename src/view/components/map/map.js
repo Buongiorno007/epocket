@@ -126,7 +126,7 @@ class Map extends React.Component {
     if (this.state.finishMissionCalled) {
       console.log("finishMainMission called second time")
     } else {
-      this.setFinishMissionErrorVisible(false);
+      this.setErrorVisible(false);
       this.setState({ load_missions: true });
       let body = {
         outletId: this.props.selectedMall.id,
@@ -139,7 +139,7 @@ class Map extends React.Component {
       );
       promise.then(
         result => {
-          this.setFinishMissionErrorVisible(false);
+          this.setErrorVisible(false);
           this.props.timerStatus(false);
           this.props.showDoneNotification(true);
           this.props.setBalance(result.body.balance);
@@ -148,7 +148,7 @@ class Map extends React.Component {
         error => {
           let error_respons = handleError(error, this.constructor.name, "finishMainMission");
           this.setState({ errorText: error_respons.error_text, errorCode: error_respons.error_code });
-          this.setFinishMissionErrorVisible(error_respons.error_modal);
+          this.setErrorVisible(error_respons.error_modal);
           this.setState({ load_missions: false });
         }
       );

@@ -45,7 +45,7 @@ class ProfileSettings extends React.Component {
         modalVisible: false,
         errorVisible: false,
         userCount: 0,
-        animationState: this.props.facebook_token && this.props.insta_token
+        animationState: !this.props.facebook_token && !this.props.insta_token
     };
     componentDidMount() {
         setTimeout(() => {
