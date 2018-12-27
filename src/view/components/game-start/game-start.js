@@ -215,25 +215,25 @@ class GameStart extends React.Component {
                             </LinearTextGradient>
                         </View>
                     }
-                </View>
-                <View style={styles.game_description}>
-                    <Text style={styles.game_description_text}>{this.props.game_status === "lock" ? RU.GAME.LOCK : this.props.game_info.no_more_games ? RU.GAME.GET_EPC : this.props.game_info.description}</Text>
-                </View>
-                {this.props.game_info.no_more_games ?
-                    null :
-                    <View style={styles.btn_container}>
-                        < CustomButton
-                            active={this.props.game_error.error_text === "" ? true : false}
-                            short
-                            gradient
-                            title={RU.GAME.START.toUpperCase()}
-                            color={this.props.userColor.white}
-                            handler={() => {
-                                this.props.setGameStatus("game")
-                            }}
-                        />
+                    <View style={styles.game_description}>
+                        <Text style={styles.game_description_text}>{this.props.game_status === "lock" ? RU.GAME.LOCK : this.props.game_info.no_more_games ? RU.GAME.GET_EPC : this.props.game_info.description}</Text>
                     </View>
-                }
+                    {this.props.game_info.no_more_games ?
+                        null :
+                        <View style={styles.btn_container}>
+                            < CustomButton
+                                active={this.props.game_error.error_text === "" ? true : false}
+                                short
+                                gradient
+                                title={RU.GAME.START.toUpperCase()}
+                                color={this.props.userColor.white}
+                                handler={() => {
+                                    this.props.setGameStatus("game")
+                                }}
+                            />
+                        </View>
+                    }
+                </View>
                 <FooterNavigation />
             </View>
         );

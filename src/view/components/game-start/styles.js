@@ -5,7 +5,6 @@ import { colors } from '../../../constants/colors';
 
 export default StyleSheet.create({
 	main_view: {
-		flex: 1,
 		flexDirection: 'column',
 		alignItems: 'center',
 		justifyContent: 'center',
@@ -14,15 +13,14 @@ export default StyleSheet.create({
 		height: height
 	},
 	btn_container: {
-		flex: 1,
 	},
 	container: {
 		flexDirection: 'column',
 		flexWrap: 'wrap',
 		width: width * 0.85,
 		alignItems: "center",
-		justifyContent: "center",
-		marginTop: width * 0.19
+		height: height * 0.5,
+		justifyContent: "space-between",
 	},
 	text_container: {
 		flexDirection: 'row',
@@ -34,14 +32,14 @@ export default StyleSheet.create({
 	game_title: {
 		alignItems: "center",
 		justifyContent: "center",
-		marginTop: 30,
-		width: width * 0.85
+		width: width * 0.85,
+		position: "absolute",
+		top: 35
 	},
 	game_description: {
 		width: width * 0.8,
 		alignItems: "center",
 		justifyContent: "center",
-		flex: 0.5
 	},
 	game_cost_text: {
 		color: colors.black41,
@@ -65,7 +63,6 @@ export default StyleSheet.create({
 		color: colors.zifi_text,
 		fontSize: 17,
 		fontFamily: 'Rubik-BoldItalic',
-		marginTop: width * 0.05
 	},
 	game_title_text: {
 		textAlign: "center",
