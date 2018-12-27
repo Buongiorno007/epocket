@@ -40,7 +40,9 @@ class CardList extends React.Component {
     this.props.setActiveCard(true);
     this.props.selectMission(this._submissionOrder(selectedCard));
   };
-  keyExtractor = item => { this.props.missions.length - this.props.socialCount == 1 ? item.id : item.id + 100 };
+  keyExtractor = item => {
+    return item.id
+  };
   render() {
     return (
       <View style={styles.list_view}>

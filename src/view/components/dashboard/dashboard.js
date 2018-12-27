@@ -104,7 +104,12 @@ class Dashboard extends React.Component {
     listHeight: new Animated.Value(height * 0.65),
     topImageOpacity: new Animated.Value(1),
     allScaleY: new Animated.Value(1),
-    flexDirection: 'column'
+    flexDirection: 'column',
+    notInMallTimer: {
+      hours: 0,
+      minutes: 0,
+      seconds: 0
+    }
   };
   constructor(props) {
     super(props)
@@ -545,12 +550,12 @@ class Dashboard extends React.Component {
                   let minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
                   let seconds = Math.floor((time % (1000 * 60)) / 1000);
                   if (hours >= 0 && minutes >= 0 && seconds >= 0) {
-                    let curr_time = {
+                    let notInMallTimer = {
                       hours: hours,
                       minutes: minutes,
                       seconds: seconds
                     };
-                    this.props.updateTimer(curr_time);
+                    this.setState({ notInMallTimer })
                   }
                 }
               }
@@ -932,8 +937,8 @@ class Dashboard extends React.Component {
                         width: this.state.timerCounterWidth
                       }]}>
                         <Text style={styles_top.time_counter_text}>
-                          {this.props.timer.hours < 10 && "0"}
-                          {this.props.timer.hours}
+                          {this.state.notInMall ? this.state.notInMallTimer.hours < 10 && "0" : this.props.timer.hours < 10 && "0"}
+                          {this.state.notInMall ? this.state.notInMallTimer.hours : this.props.timer.hours}
                         </Text>
                       </Animated.View>
                       <View>
@@ -943,8 +948,8 @@ class Dashboard extends React.Component {
                         width: this.state.timerCounterWidth
                       }]}>
                         <Text style={styles_top.time_counter_text}>
-                          {this.props.timer.minutes < 10 && "0"}
-                          {this.props.timer.minutes}
+                          {this.state.notInMall ? this.state.notInMallTimer.minutes < 10 && "0" : this.props.timer.minutes < 10 && "0"}
+                          {this.state.notInMall ? this.state.notInMallTimer.minutes : this.props.timer.minutes}
                         </Text>
                       </Animated.View>
                       <View>
@@ -954,8 +959,8 @@ class Dashboard extends React.Component {
                         width: this.state.timerCounterWidth
                       }]}>
                         <Text style={styles_top.time_counter_text}>
-                          {this.props.timer.seconds < 10 && "0"}
-                          {this.props.timer.seconds}
+                          {this.state.notInMall ? this.state.notInMallTimer.seconds < 10 && "0" : this.props.timer.seconds < 10 && "0"}
+                          {this.state.notInMall ? this.state.notInMallTimer.seconds : this.props.timer.seconds}
                         </Text>
                       </Animated.View>
                     </Animated.View>
@@ -1074,8 +1079,8 @@ class Dashboard extends React.Component {
                           start={{ x: 0.0, y: 1.0 }}
                           end={{ x: 0.5, y: 0.2 }}
                           style={styles_top.time_counter_text}>
-                          {this.props.timer.hours < 10 && "0"}
-                          {this.props.timer.hours}
+                          {this.state.notInMall ? this.state.notInMallTimer.hours < 10 && "0" : this.props.timer.hours < 10 && "0"}
+                          {this.state.notInMall ? this.state.notInMallTimer.hours : this.props.timer.hours}
                         </LinearTextGradient>
                       </LinearGradient>
                       <View>
@@ -1092,8 +1097,8 @@ class Dashboard extends React.Component {
                           start={{ x: 0.0, y: 1.0 }}
                           end={{ x: 0.5, y: 0.2 }}
                           style={styles_top.time_counter_text}>
-                          {this.props.timer.minutes < 10 && "0"}
-                          {this.props.timer.minutes}
+                          {this.state.notInMall ? this.state.notInMallTimer.minutes < 10 && "0" : this.props.timer.minutes < 10 && "0"}
+                          {this.state.notInMall ? this.state.notInMallTimer.minutes : this.props.timer.minutes}
                         </LinearTextGradient>
                       </LinearGradient>
                       <View>
@@ -1110,8 +1115,8 @@ class Dashboard extends React.Component {
                           start={{ x: 0.0, y: 1.0 }}
                           end={{ x: 0.5, y: 0.2 }}
                           style={styles_top.time_counter_text}>
-                          {this.props.timer.seconds < 10 && "0"}
-                          {this.props.timer.seconds}
+                          {this.state.notInMall ? this.state.notInMallTimer.seconds < 10 && "0" : this.props.timer.seconds < 10 && "0"}
+                          {this.state.notInMall ? this.state.notInMallTimer.seconds : this.props.timer.seconds}
                         </LinearTextGradient>
                       </LinearGradient>
                     </View>
