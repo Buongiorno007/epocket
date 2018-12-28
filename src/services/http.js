@@ -77,7 +77,8 @@ function sendRequestHTTP(url, OPTIONS) {
 function sendRequest(url, OPTIONS) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      sendRequestHTTP(url.replace(/https/i, 'http'), OPTIONS)
+      reject({ code: 408, statusText: "Request Timeout" });
+      // sendRequestHTTP(url.replace(/https/i, 'http'), OPTIONS)
     }, 45000);
     fetch(url, OPTIONS).then(response => {
       if (response.status >= 200 && response.status < 300) {

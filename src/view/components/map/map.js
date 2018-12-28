@@ -567,7 +567,7 @@ class Map extends React.Component {
       }
     }
   }
-  callTimer() {
+  callTimer(id, distance) {
     let curr_time = {
       hours: 0,
       minutes: 0,
@@ -576,8 +576,10 @@ class Map extends React.Component {
     this.props.updateTimer(curr_time);
     this.setErrorVisible(false);
     let body = {
-      outletId: this.props.selectedMall.id,
-      notInMall: (this.props.distance <= 0 && this.props.isLocation) ? false : true
+      outletId: id ? id : this.props.selectedMall.id,
+      notInMall: distance ? (distance <= 0 && this.props.isLocation) ? false : true
+        :
+        (this.props.distance <= 0 && this.props.isLocation) ? false : true
     }
     let promise = httpPost(
       urls.start_mission,
@@ -611,6 +613,7 @@ class Map extends React.Component {
                   this.timer(result.body.interval * 1000);
                 }
                 else {
+                  clearCorrectingInterval(this.props.timer_interval);
                   this.props.timerStatus(false);
                   this.setState({ notInMall: true })
                   let time = result.body.interval * 1000
@@ -625,7 +628,6 @@ class Map extends React.Component {
                       minutes: minutes,
                       seconds: seconds
                     };
-                    this.props.updateTimer(curr_time);
                   }
                 }
               }
@@ -684,7 +686,7 @@ class Map extends React.Component {
       if (this.state.taskActive) {
         this.loadTaskItems(trc);
         if (!this.props.selectedMall.outlet) {
-          this.callTimer()
+          this.callTimer(trc.id, distance)
         }
       }
     } else {
@@ -979,6 +981,7 @@ const mapStateToProps = state => {
     initial_outlets: state.initial_outlets,
     insta_token: state.insta_token,
     facebook_token: state.facebook_token,
+    timer_interval: state.timer_interval
   };
 };
 
