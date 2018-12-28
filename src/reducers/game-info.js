@@ -66,12 +66,14 @@ export const passGameResult = (mission_id, api_status, token, status, insta_data
 }
 export const getGameInfo = (token, latt, long) => async dispatch => {
     dispatch(loaderState(true));
+    console.log("1")
     let received_promise = httpGet(
         urls.game_get + "?coords=" + latt + "%2C" + long,
         token
     );
     received_promise.then(
         result => {
+            console.log("2")
             let game = result.body;
             if (game.ticker === false && !game.game_set) {
                 dispatch(setGameStatus("lock"));
@@ -117,6 +119,7 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
         },
         error => {
             if (error.code === 400) {
+                console.log("3")
                 let info = {
                     description: "...",
                     cost: "0",
@@ -134,6 +137,7 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
                 dispatch(loaderState(false));
             }
             else {
+                console.log("4")
                 let error_response = handleError(error, "game-info", "getGameInfo")
                 dispatch(errorState(error_response))
                 dispatch(loaderState(false));

@@ -50,7 +50,7 @@ class GameStart extends React.Component {
         if (this.props.game_status == "initial" && nextProps.game_status == "start") {
             this.props.getGameInfo(this.props.token, nextProps.location.lat, nextProps.location.lng)
         }
-        if (
+        else if (
             (nextProps.location.lat != this.props.location.lat) &&
             (nextProps.location.lng != this.props.location.lng)
         ) {
