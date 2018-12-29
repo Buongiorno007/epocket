@@ -189,7 +189,6 @@ class Map extends React.Component {
     );
     promise.then(
       result => {
-        console.log(result)
         this.props.loaderState(false);
         this.refs.facebookLogin.show(result.body.url)
       },
@@ -241,7 +240,6 @@ class Map extends React.Component {
         CookieManager.clearAll()
           .then((res) => {
             this.props.loaderState(false);
-            console.log("Rejected: ", error);
           });
       }
     );
@@ -287,7 +285,6 @@ class Map extends React.Component {
         this.props.location.lat !== nextProps.location.lat &&
         this.props.location.lng !== nextProps.location.lng
       ) {
-        console.log("componentWillReceiveProps ???")
         this.props.isLocation && this.selectNearestMall(
           {
             latitude: this.props.location.lat,
@@ -326,7 +323,6 @@ class Map extends React.Component {
     }), this.props.token);
     promise.then(
       result => {
-        console.log(result)
         this.setModalVisible(false);
         this.props.loaderState(false);
         this.props.setOutlets(result.body.outlets)
@@ -361,7 +357,6 @@ class Map extends React.Component {
   }
   selectNearestMall = (my_location, mall_array, ANIMATE_MAP) => {
     let nearestMall = geolib.findNearest(my_location, mall_array, 0);
-    console.log("selectNearest")
     try { this.selectMark(mall_array[Number(nearestMall.key)], ANIMATE_MAP, "task"); } catch (e) { }
   };
 
@@ -369,7 +364,6 @@ class Map extends React.Component {
     item.item.adress ?
       <CardFirst
         item={item.item}
-        key={item.item.id}
         onPressItem={this.openNext}
         btnText={
           this.state.taskActive ? RU.MAP.TASKS.toUpperCase() :
@@ -382,7 +376,6 @@ class Map extends React.Component {
         <CardFirst
           type={item.item.type}
           item={item.item}
-          key={item.item.id}
           onPressItem={() => {
             if (item.item.type === "facebook_connect") {
               this.LoginFacebook()
@@ -400,19 +393,16 @@ class Map extends React.Component {
           item.item.active &&
           <CardTask
             item={item.item}
-            key={item.item.id}
             onPressItem={this._showSelectedCard}
           />
           : this.state.shopActive ?
             <CardCashout
               item={item.item}
-              key={item.item.id}
               onPressItem={this.openAccordion}
             />
             :
             <CardCashout
               item={item.item}
-              key={item.item.id}
               onPressItem={this._showSelectedCard}
             />
   );
@@ -420,7 +410,6 @@ class Map extends React.Component {
     let copyOfCards = [...this.state.cards]
     copyOfCards.shift(); //remove card with outlet|cashout information
     if (this.state.taskActive) {
-      console.log(selectedCard)
       NavigationService.navigate("Dashboard", { dashboard_data: copyOfCards, general_info: selectedCard, posts: this.state.posts });
     }
     else {
@@ -456,7 +445,6 @@ class Map extends React.Component {
     );
     promise.then(
       result => {
-        console.log(result)
         this.setErrorVisible(false);
         if (result.status == 200) {
           this.setState({ posts: result.body.posts })
@@ -735,7 +723,10 @@ class Map extends React.Component {
       }
     }
   };
-  _keyExtractor = (item, index) => item.key;
+  _keyExtractor = (item, index) => {
+    let key = item.id + "_" + item.name
+    return key
+  };
   render() {
     return (
       <View style={styles.main_view}>
@@ -789,7 +780,6 @@ class Map extends React.Component {
           scopes={['basic']}
           onLoginSuccess={(json) => this.connectFacebook(json.token)}
           onLoginFailure={(data) => {
-            console.log("Fail", data)
             CookieManager.clearAll()
               .then((res) => {
                 this.props.loaderState(false);
@@ -811,7 +801,6 @@ class Map extends React.Component {
           scopes={['basic']}
           onLoginSuccess={(token) => this.connectInsta(token)}
           onLoginFailure={(data) => {
-            console.log(data)
             CookieManager.clearAll()
               .then((res) => {
                 this.props.loaderState(false);
@@ -939,7 +928,7 @@ class Map extends React.Component {
               marker.lat != "None" && marker.lng != "None" ?
                 <TRCMarker
                   marker={marker}
-                  key={marker.id}
+                  key={marker.id + "_" + marker.lat}
                   selected={this.props.selectedMall.id}
                   active={marker.active}
                   discountMarker={this.state.discountActive}

@@ -189,13 +189,11 @@ class GeolocationService extends React.Component {
     if (nextProps.timer_status && !nextProps.sheduleRequestStart) {
       this.props.setSheduleRequestStart(true);
       this.sendTimerRequest();
-      console.log("timer started");
     }
     if (!nextProps.timer_status && nextProps.sheduleRequestStart) {
       this.props.setSheduleRequestStart(false);
       BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
       BackgroundTimer.stopBackgroundTimer();
-      console.log("timer canceled");
     }
     if (!nextProps.isLocation && !this.props.isLocation) { this.props.showDashboard(false); }
   };

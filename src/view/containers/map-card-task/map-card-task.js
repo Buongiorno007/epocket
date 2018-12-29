@@ -21,7 +21,7 @@ class CardTask extends React.Component {
       <Text numberOfLines={2} style={styles.list_item_text}>{item.index + 1}. {item.item.name}</Text>
     </View>
   );
-  _keyExtractor = (item, index) => item.key;
+  _keyExtractor = (item, index) => String(item.id);
   render() {
     return (
       <Button

@@ -247,6 +247,9 @@ class CashoutList extends React.Component {
       deleteElem={this.deleteElem}
     />
   );
+  keyExtractor = item => {
+    return item.id
+  };
   render = () => {
     return (
       <View style={styles.container}>
@@ -309,6 +312,7 @@ class CashoutList extends React.Component {
                     contentContainerStyle={{
                       alignItems: "center",
                     }}
+                    keyExtractor={this.keyExtractor}
                     showsVerticalScrollIndicator={false}
                     style={[styles.scroll_fixed, this.props.draggedDown && { height: height * 0.55 }]}
                     data={this.state.orderCopy}

@@ -41,7 +41,7 @@ class CardList extends React.Component {
     this.props.selectMission(this._submissionOrder(selectedCard));
   };
   keyExtractor = item => {
-    return item.id
+    return item.id + item.type + ""
   };
   render() {
     return (

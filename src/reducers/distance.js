@@ -3,7 +3,6 @@ export const DISTANCE_UPDATE = 'distance/DISTANCE_UPDATE';
 export default (state = null, action) => {
 	switch (action.type) {
 		case DISTANCE_UPDATE:
-			console.log(action.distance)
 			return action.distance;
 		default:
 			return state;

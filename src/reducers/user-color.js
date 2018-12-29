@@ -1,11 +1,10 @@
 export const SET_COLOR = 'user-color/SET_COLOR';
 import colors_men from "../constants/colors_men";
 import colors_women from "../constants/colors_women";
-console.log(colors_men)
+
 export default (state = colors_women, action) => {
 	switch (action.type) {
 		case SET_COLOR:
-			console.log(action.color)
 			return action.color;
 		default:
 			return state;
