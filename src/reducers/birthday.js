@@ -10,7 +10,6 @@ export default (state = "", action) => {
 }
 
 export const setBirthDay = date => {
-    console.log(date)
     let stringDate;
     if(date.day && date.month && date.year){
         let stringDay=String(date.day);

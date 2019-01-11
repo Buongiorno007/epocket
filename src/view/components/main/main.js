@@ -39,7 +39,6 @@ class Main extends React.Component {
     });
     AsyncStorage.getItem("user_info").then(value => {
       let object = JSON.parse(value);
-      console.log(object)
       this.props.setColor(object.sex);
     });
     //this.props.getGameInfo(this.props.token, this.props.location.lat, this.props.location.lng)
