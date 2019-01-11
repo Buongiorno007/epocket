@@ -15,7 +15,7 @@ import { bindActionCreators } from "redux";
 import { RU } from "./../../../locales/ru";
 
 class CashoutList extends React.Component {
-  state = { count: 0 };
+  state = { count: this.props.item.count ? this.props.item.count : 0 };
   item = this.props.item;
 
   setItemCount = count => {
@@ -26,7 +26,9 @@ class CashoutList extends React.Component {
       this.props.loaderState(false);
     });
   };
-
+  componentWillReceiveProps = (nextProps) => {
+    console.log(nextProps)
+  }
   render = () => {
     return (
       <View style={styles.container}>
@@ -67,7 +69,7 @@ class CashoutList extends React.Component {
           >
             <Icon name="minus" style={styles.icon} />
           </Button>
-          <Text style={styles.text_count}>{this.props.item.count ? this.props.item.count : "0"}</Text>
+          <Text style={styles.text_count}>{this.props.item.count ? this.props.item.count : 0}</Text>
           <Button
             disabled={this.state.count == this.props.item.amount ? true : false}
             rounded

@@ -87,7 +87,6 @@ class Cashout extends React.Component {
   }
   componentDidMount = () => {
     let data = this.separateProducts(this.props.navigation.state.params.cashout_data)
-    console.log(data)
     if (this.props.navigation.state.params.cardForAccordion) {
       let activeIndex = this.findActiveAccordion(this.props.navigation.state.params.cardForAccordion, data)
       this.setState({ activeIndex })

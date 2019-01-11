@@ -15,7 +15,6 @@ export default StyleSheet.create({
         zIndex: 2,
     },
     block: {
-        width: (width - width * 0.08) / 2,
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
