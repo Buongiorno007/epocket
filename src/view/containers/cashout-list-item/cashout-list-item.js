@@ -22,12 +22,19 @@ class CashoutList extends React.Component {
     this.props.loaderState(true);
     this.setState({ count }, () => {
       this.item.count = count;
-      this.props.addItemToOrder(this.item);
+      if (count === 0) {
+        this.deleteElement();
+      }
+      else {
+        this.props.addItemToOrder(this.item);
+      }
       this.props.loaderState(false);
     });
   };
   componentWillReceiveProps = (nextProps) => {
-    console.log(nextProps)
+  }
+  deleteElement = () => {
+    this.props.deleteElem(this.item)
   }
   render = () => {
     return (

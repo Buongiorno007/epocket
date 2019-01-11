@@ -225,6 +225,7 @@ class CashoutList extends React.Component {
             copyOfCards={this.props.dataInit}
             addItemToOrder={this.addItemToOrder}
             general_info={this.props.general_info}
+            deleteElem={this.deleteElem}
           />
         ))}
       </View>
