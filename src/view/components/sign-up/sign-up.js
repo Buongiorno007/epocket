@@ -105,7 +105,7 @@ class SignUp extends React.Component {
     let phonePattern = /^.+$/;
     if (phonePattern.test(text)) {
       newText = text;
-      this.setState({ phoneCorrect: text.length == 17 });
+      this.setState({ phoneCorrect: text.length >= 16 });
     } else {
       newText = text.substring(0, text.length - 1);
     }
@@ -183,38 +183,37 @@ class SignUp extends React.Component {
     };
     console.log(body)
     let promise = httpPost(urls.sign_up_confirm, JSON.stringify(body));
-    // promise.then(
-    //   result => {
-    //     this.setFailedConfirmVisible(false);
-    //     console.log("Fulfilled sendCode: ", result);
-    //     this.props.loaderState(false);
-    //     let new_user = {
-    //       name: this.state.name,
-    //       phone: this.state.phone,
-    //       balance: 0,
-    //       sex: result.body.sex ? 1 : 0,
-    //       birthDay: result.body.birthDay
-    //     };
-    //     this.props.saveUser(new_user);
-    //     this.props.setToken(result.body.token);
-    //     this.props.setBalance(0);
-    //     this.setState({ step: 3, acceptButton: false });
-    //     this.props.getPush(result.body.token)
-    //     this.props.setGeoVirgin(true)
-    //     this.props.setProfileVirgin(true)
-    //   },
-    //   error => {
-    //     console.log('error', error)
-    //     this.props.loaderState(false);
-    //     let error_respons = handleError(error, this.constructor.name, "sendCode");
-    //     this.setState({ errorText: error_respons.error_text });
-    //     if (error_respons.error_code === 400) {
-    //       this.setState({ invalidCode: true });
-    //     } else {
-    //       this.setFailedConfirmVisible(error_respons.error_modal);
-    //     }
-    //   }
-    // );
+    promise.then(
+      result => {
+        this.setFailedConfirmVisible(false);
+        console.log("Fulfilled sendCode: ", result);
+        this.props.loaderState(false);
+        let new_user = {
+          name: this.state.name,
+          phone: this.state.phone,
+          balance: 0,
+          sex: result.body.sex ? 1 : 0,
+          birthDay: result.body.birthDay
+        };
+        this.props.saveUser(new_user);
+        this.props.setToken(result.body.token);
+        this.props.setBalance(0);
+        this.setState({ step: 3, acceptButton: false });
+        this.props.getPush(result.body.token)
+        this.props.setGeoVirgin(true)
+        this.props.setProfileVirgin(true)
+      },
+      error => {
+        this.props.loaderState(false);
+        let error_respons = handleError(error, this.constructor.name, "sendCode");
+        this.setState({ errorText: error_respons.error_text });
+        if (error_respons.error_code === 400) {
+          this.setState({ invalidCode: true });
+        } else {
+          this.setFailedConfirmVisible(error_respons.error_modal);
+        }
+      }
+    );
   }
 
   goToMap() {

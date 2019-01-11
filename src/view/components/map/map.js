@@ -365,6 +365,7 @@ class Map extends React.Component {
       <CardFirst
         item={item.item}
         onPressItem={this.openNext}
+        taskActive={this.state.taskActive}
         btnText={
           this.state.taskActive ? RU.MAP.TASKS.toUpperCase() :
             this.state.shopActive ? RU.MAP.MAKE_PREORDER.toUpperCase() :
@@ -376,6 +377,7 @@ class Map extends React.Component {
         <CardFirst
           type={item.item.type}
           item={item.item}
+          taskActive={this.state.taskActive}
           onPressItem={() => {
             if (item.item.type === "facebook_connect") {
               this.LoginFacebook()
@@ -434,6 +436,7 @@ class Map extends React.Component {
     return orderBy(orderBy(missions, ['price'], ['desc']), ['active'], ['desc']);
   }
   loadTaskItems = (trc) => {
+    this.setState({ cards: [], focusedOnMark: false });
     this.setModalVisible(false);
     let body = {
       outletId: trc.id
@@ -545,7 +548,7 @@ class Map extends React.Component {
       (Number(region.latitude).toFixed(3) == this.state.pickedMark.latitude && Number(region.longitude).toFixed(5) == this.state.pickedMark.longitude)) {
     }
     else {
-      this.setState({ focusedOnMark: false })
+      this.setState({ focusedOnMark: false, cards: [] })
       if (this.state.shopActive) {
         this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
       } else if (this.state.taskActive) {
@@ -667,59 +670,51 @@ class Map extends React.Component {
     };
     this.props.updateMall(curr_trc);
     this.props.setDistance(distance);
-    if (distance <= 0 && this.props.isLocation) {
-      this.props.showTimer(false);
-      let copyOfCards = [...this.state.cards]
-      copyOfCards.shift();
-      if (this.state.taskActive) {
-        this.loadTaskItems(trc);
+    ANIMATE_MAP &&
+      this.moveMapTo(
+        Number(trc.lat),
+        Number(trc.lng),
+        0.0058,
+        0.0058,
+      );
+    // use JSON.stringify because js copies array with link, so changes applied to the new array applies to the old one
+    if (mark_type === "task") {
+      this.props.loaderState(true);
+      this.loadTaskItems(trc);
+      this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
+      let new_outlets = JSON.parse(JSON.stringify([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]));
+      let id = this.props.outlets.indexOf(trc);
+      if (new_outlets[id]) {
+        new_outlets[id].active = true;
+        this.props.setOutlets(new_outlets);
+      }
+      if (distance <= 0 && this.props.isLocation) { //start timer 
+        this.props.showTimer(false);
         if (!this.props.selectedMall.outlet) {
           this.callTimer(trc.id, distance)
         }
       }
-    } else {
-      ANIMATE_MAP &&
-        this.moveMapTo(
-          Number(trc.lat),
-          Number(trc.lng),
-          0.0058,
-          0.0058,
-          // Math.abs(bounds.maxLat - bounds.minLat) * 1.3,
-          // Math.abs(bounds.maxLng - bounds.minLng) * 1.3
-        );
-      // use JSON.stringify because js copies array with link, so changes applied to the new array applies to the old one as well
-      if (mark_type === "task") {
-        this.props.loaderState(true);
-        this.loadTaskItems(trc);
-        this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
-        let new_outlets = JSON.parse(JSON.stringify([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]));
-        let id = this.props.outlets.indexOf(trc);
-        if (new_outlets[id]) {
-          new_outlets[id].active = true;
-          this.props.setOutlets(new_outlets);
-        }
+    }
+    else if (mark_type === "shop") {
+      this.props.loaderState(true);
+      this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
+      this.loadCashoutItems(trc);
+      let new_outlets = JSON.parse(JSON.stringify([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]));
+      let id = this.props.outlets.indexOf(trc);
+      if (new_outlets[id]) {
+        new_outlets[id].active = true;
+        this.props.setOutlets(new_outlets);
       }
-      else if (mark_type === "shop") {
-        this.props.loaderState(true);
-        this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
-        this.loadCashoutItems(trc);
-        let new_outlets = JSON.parse(JSON.stringify([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]));
-        let id = this.props.outlets.indexOf(trc);
-        if (new_outlets[id]) {
-          new_outlets[id].active = true;
-          this.props.setOutlets(new_outlets);
-        }
-      }
-      else {
-        this.props.loaderState(true);
-        this.props.setOutlets(this.props.initial_outlets.discounts);
-        this.loadDiscountItems(trc);
-        let new_outlets = JSON.parse(JSON.stringify(this.props.initial_outlets.discounts));
-        let id = this.props.outlets.indexOf(trc);
-        if (new_outlets[id]) {
-          new_outlets[id].active = true;
-          this.props.setOutlets(new_outlets);
-        }
+    }
+    else {
+      this.props.loaderState(true);
+      this.props.setOutlets(this.props.initial_outlets.discounts);
+      this.loadDiscountItems(trc);
+      let new_outlets = JSON.parse(JSON.stringify(this.props.initial_outlets.discounts));
+      let id = this.props.outlets.indexOf(trc);
+      if (new_outlets[id]) {
+        new_outlets[id].active = true;
+        this.props.setOutlets(new_outlets);
       }
     }
   };

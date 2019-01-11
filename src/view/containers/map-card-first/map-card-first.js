@@ -34,7 +34,7 @@ class CardDiscount extends React.Component {
           this.props.type && styles.social_container_cart]
         }
       >
-        {this.props.type ?
+        {this.props.type === "instagram_connect" || this.props.type === "facebook_connect" ?
           <View style={styles.social_card}>
             <FastImage
               resizeMode={FastImage.resizeMode.contain}
@@ -74,8 +74,8 @@ class CardDiscount extends React.Component {
                   {this.props.item.name}
                 </Text>
               </View>
-              {!this.state.notInMall && this.props.timer_status &&
-                <View style={styles.timer}>
+              {!this.state.notInMall && this.props.timer_status && this.props.taskActive &&
+                < View style={styles.timer}>
                   <View style={styles.time_counter_container}>
                     <View style={styles.time_counter}>
                       <Text style={styles.time_counter_text}>

@@ -140,7 +140,7 @@ class SignIn extends React.Component {
     let phonePattern = /^.+$/;
     if (phonePattern.test(text)) {
       newText = text;
-      this.setState({ acceptButton: newText.length == 17 });
+      this.setState({ acceptButton: newText.length >= 16 });
     } else {
       this.setState({ acceptButton: false });
       newText = text.substring(0, text.length - 1);

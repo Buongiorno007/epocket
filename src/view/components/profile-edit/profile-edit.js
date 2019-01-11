@@ -80,7 +80,7 @@ class ProfileEdit extends React.Component {
   };
   SubmitEdit = () => {
     if (!this.state.user.username ||
-      this.props.birthday === "") {
+      this.props.birthday === "" || !this.state.user.photo) {
       this.setModalVisible(true);
     } else {
       this.props.loaderState(true);
@@ -91,7 +91,6 @@ class ProfileEdit extends React.Component {
         birthDay: this.props.birthday,
         photo: "data:image/jpeg;base64," + this.state.user.photo
       };
-      console.log(this.props.token)
       console.log(body)
       let promise = httpPost(
         urls.edit_profile_data,
