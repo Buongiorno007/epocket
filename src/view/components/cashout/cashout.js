@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./styles";
-import { View, PanResponder, Animated, Dimensions, Easing, Text } from "react-native";
+import { View, PanResponder, Animated, Dimensions, Easing, Text, StatusBar, Platform } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import FastImage from 'react-native-fast-image'
 //containers
@@ -150,7 +150,7 @@ class Cashout extends React.Component {
       if (draggedUp) {
         this.animateTop(
           {
-            toValue: 0,
+            toValue: Platform.OS === "ios" ? 0 : 0.00001,
             duration: 100,
           },
           {
@@ -186,6 +186,11 @@ class Cashout extends React.Component {
       <View
         style={styles.container}
       >
+        <StatusBar
+          barStyle="dark-content"
+          translucent={true}
+          backgroundColor={"transparent"}
+        />
         <CustomAlert
           title={this.state.errorText}
           first_btn_title={RU.REPEAT}

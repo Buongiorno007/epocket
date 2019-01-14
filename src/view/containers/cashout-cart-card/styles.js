@@ -21,7 +21,7 @@ export default StyleSheet.create({
         borderRadius: 12,
         justifyContent: "space-between",
         backgroundColor: colors.white,
-        elevation: 4,
+        elevation: 3,
         shadowColor: colors.card_shadow,
         shadowOffset: {
             width: 1,
@@ -41,6 +41,7 @@ export default StyleSheet.create({
     left_image_container: {
         width: 60,
         height: 60,
+        elevation: 4,
         borderRadius: 30,
         position: "absolute",
         backgroundColor: colors.white,
