@@ -692,6 +692,11 @@ class Dashboard extends React.Component {
   render() {
     return (
       <View style={styles.main_view}>
+        <StatusBar
+          barStyle="dark-content"
+          translucent={true}
+          backgroundColor={"transparent"}
+        />
         <CustomAlert
           title={RU.PROFILE_PAGE.ALREADY_ACCOUNT}
           first_btn_title={RU.OK}

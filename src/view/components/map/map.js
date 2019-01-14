@@ -48,6 +48,7 @@ import { reloadTimer } from "../../../reducers/timer-interval";
 import { showDoneNotification } from "../../../reducers/main-task-done-notification";
 import { showFailedNotification } from "../../../reducers/main-task-failed-notification";
 import { setBalance } from "../../../reducers/user-balance";
+import { setMainMissionCost } from "../../../reducers/main-task-cost"
 //services
 import { httpPost } from "../../../services/http";
 import { handleError } from "../../../services/http-error-handler";
@@ -581,6 +582,7 @@ class Map extends React.Component {
       result => {
         this.setErrorVisible(false);
         this.setState({ load_timer: false });
+        this.props.setMainMissionCost(result.body.price);
         this.setState(
           {
             mainMissionId: result.body.id,
@@ -941,7 +943,7 @@ class Map extends React.Component {
             ))
           }
         </MapView>
-        <TimerModal reward={this.state.mainMissionPrice} callTimer={() => { this.callTimer() }} />
+        <TimerModal />
         <FooterNavigation />
       </View >
     );
@@ -991,6 +993,7 @@ const mapDispatchToProps = dispatch =>
       setBalance,
       updateTimer,
       reloadTimer,
+      setMainMissionCost
     },
     dispatch
   );

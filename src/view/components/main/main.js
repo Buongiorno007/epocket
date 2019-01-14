@@ -76,6 +76,7 @@ class Main extends React.Component {
         <GeolocationService />
         {this.props.loader && <ActivityIndicator />}
         {!this.props.isLocation && <LocationDisabled />}
+        <TimerModal />
       </View>
     );
   }

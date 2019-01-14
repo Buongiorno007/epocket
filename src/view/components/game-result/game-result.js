@@ -36,6 +36,7 @@ import { handleError } from "../../../services/http-error-handler";
 import CustomAlert from "../../containers/custom-alert/custom-alert";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 
+
 class GameResult extends React.Component {
     state = {
         modalVisible: false,
