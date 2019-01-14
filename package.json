@@ -41,7 +41,7 @@
         "react-native-image-picker": "^0.26.10",
         "react-native-imask": "0.0.3",
         "react-native-linear-gradient": "^2.4.0",
-        "react-native-maps": "^0.21.0",
+        "react-native-maps": "^0.22.0",
         "react-native-material-textfield": "^0.10.2",
         "react-native-mauron85-background-geolocation": "git+https://github.com/kruyvanna/react-native-background-geolocation.git",
         "react-native-permissions": "^1.1.1",

@@ -156,21 +156,23 @@ class Map extends React.Component {
     }
   }
   toggleTab = (tab) => {
-    this.map.animateToRegion(
-      {
-        latitude: this.map.__lastRegion.latitude - 0.0008344042843,
-        longitude: this.map.__lastRegion.longitude,
-        latitudeDelta: 0.04323,
-        longitudeDelta: 0.04028
-      },
-      450
-    );
+    if (this.map)
+      this.map.animateToRegion(
+        {
+          latitude: this.map.__lastRegion.latitude - 0.0008344042843,
+          longitude: this.map.__lastRegion.longitude,
+          latitudeDelta: 0.04323,
+          longitudeDelta: 0.04028
+        },
+        450
+      );
     if (tab == "shop") {
       this.setState({ shopActive: true, taskActive: false, discountActive: false, focusedOnMark: false })
       let allShops = [...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]
       this.props.setOutlets(allShops);
     }
     else if (tab == "task") {
+      this.loadTRC();
       this.setState({ shopActive: false, taskActive: true, discountActive: false, focusedOnMark: false })
       this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
     }
@@ -260,15 +262,16 @@ class Map extends React.Component {
   };
   moveMapTo = (lat, lng, latD, lngD, animation_time, timeout) => {
     setTimeout(() => {
-      this.map.animateToRegion(
-        {
-          latitude: lat,
-          longitude: lng,
-          latitudeDelta: latD || 0.04323,
-          longitudeDelta: lngD || 0.04028
-        },
-        animation_time || 450
-      );
+      if (this.map)
+        this.map.animateToRegion(
+          {
+            latitude: lat,
+            longitude: lng,
+            latitudeDelta: latD || 0.04323,
+            longitudeDelta: lngD || 0.04028
+          },
+          animation_time || 450
+        );
     }, timeout || 200);
   };
   componentWillReceiveProps = nextProps => {
@@ -632,7 +635,9 @@ class Map extends React.Component {
         this.setState({ load_timer: false });
         let error_respons = handleError(error, this.constructor.name, "callTimer");
         this.setState({ errorText: error_respons.error_text, errorCode: error_respons.error_code });
-        this.setErrorVisible(error_respons.error_modal);
+        if (error.code != 416) {
+          this.setErrorVisible(error_respons.error_modal);
+        }
       }
     );
   }

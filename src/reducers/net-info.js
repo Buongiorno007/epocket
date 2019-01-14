@@ -5,7 +5,6 @@ export const UPDATE_CONNECTION = 'net-info/UPDATE_CONNECTION';
 export default (state = false, action) => {
     switch (action.type) {
         case UPDATE_CONNECTION:
-            console.log('getConnection', action.connection)
             return action.connection;
         default:
             return state;
@@ -15,7 +14,6 @@ export default (state = false, action) => {
 export const checkForInternetReacheable = (connection) => async dispatch => {
     if (connection) {
         NetInfo.getConnectionInfo().then(connectionInfo => {
-            console.log(connectionInfo)
             if (connectionInfo.type === "none") {
                 dispatch(getStatus(false))
             }

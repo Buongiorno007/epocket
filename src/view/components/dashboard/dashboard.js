@@ -567,7 +567,12 @@ class Dashboard extends React.Component {
         this.setState({ load_timer: false });
         let error_respons = handleError(error, this.constructor.name, "callTimer");
         this.setState({ errorText: error_respons.error_text, errorCode: error_respons.error_code });
-        this.setStartMissionErrorVisible(error_respons.error_modal);
+        if (error.code != 416) {
+          this.setStartMissionErrorVisible(error_respons.error_modal);
+        }
+        else {
+          this.setState({ finishMissionCalled: true })
+        }
       }
     );
   }
