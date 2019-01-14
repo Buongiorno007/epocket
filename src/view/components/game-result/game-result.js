@@ -467,18 +467,19 @@ class GameResult extends React.Component {
                         <Text style={[styles.text,
                         { color: this.props.userColor.pink_blue }]}>{this.chooseButtonText(this.props.navigation.state.params.status)}</Text>
                     </Button>
-                    {this.props.navigation.state.params.status === "success" ? null :
-                        <Button
-                            transparent
-                            style={styles.wait_button}
-                            onPress={() => {
-                                this.sheckForGames("wait")
-                            }}
-                        >
-                            <Text style={styles.fail}>{RU.GAME.RESULT.WAIT_30}</Text>
-                        </Button>
-                    }
-
+                    <Button
+                        rounded
+                        transparent
+                        block
+                        style={[styles.wait_button, this.props.navigation.state.params.status == "success" && {
+                            display: "none"
+                        }]}
+                        onPress={() => {
+                            this.sheckForGames("wait")
+                        }}
+                    >
+                        <Text style={styles.fail}>{RU.GAME.RESULT.WAIT_30}</Text>
+                    </Button>
                 </View>
             </View >
         );

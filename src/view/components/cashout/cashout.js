@@ -125,10 +125,8 @@ class Cashout extends React.Component {
   getDirectionAndColor = (dy, moveY) => {
     const draggedDown = dy > 30;
     const draggedUp = dy < -30;
-    console.log(dy)
     if (moveY < 233) {
       if (draggedDown) {
-        console.log('draggedDown ')
         this.animateTop(
           {
             toValue: 1,
@@ -150,7 +148,6 @@ class Cashout extends React.Component {
         this.setState({ draggedDown: true })
       }
       if (draggedUp) {
-        console.log('draggedUp ')
         this.animateTop(
           {
             toValue: 0,

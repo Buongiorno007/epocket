@@ -113,8 +113,8 @@ export const RU = {
 
   },
   CASH: {
-    TITLE: "Баланс:",
-    YOUR_TITLE: "Ваш баланс:",
+    TITLE: "Баланс: ",
+    YOUR_TITLE: "Ваш баланс: ",
     BUTTON: "СФОРМИРОВАТЬ QR",
     NO_CASH: "В этом ТРЦ нет доступных товаров",
     NO_CART: "Ваша корзина пуста",

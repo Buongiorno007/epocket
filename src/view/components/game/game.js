@@ -105,6 +105,7 @@ class Game extends React.Component {
 	render() {
 		return (
 			<View style={styles.main_view}>
+				{this.props.loader && <ActivityIndicator />}
 				<View style={styles.game_title}>
 					<Text style={styles.game_cost_text}>{this.props.game_info.cost} {RU.EPC}</Text>
 					<Text style={styles.game_title_text}>{this.props.game_info.title}</Text>
@@ -173,6 +174,7 @@ const mapStateToProps = (state) => {
 		game_info: state.game_info,
 		tempTime: state.tempTime,
 		token: state.token,
+		loader: state.loader,
 		fixedTime: state.fixedTime,
 		userColor: state.userColor,
 		appState: state.appState,

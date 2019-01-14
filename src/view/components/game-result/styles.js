@@ -53,9 +53,8 @@ export default StyleSheet.create({
     failed: {
         zIndex: 1,
         position: "absolute",
-        bottom: 60,
+        bottom: 10,
         width: width * 0.85,
-        height: height * 0.5,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -98,8 +97,8 @@ export default StyleSheet.create({
         alignSelf: 'center',
         alignItems: 'center',
         justifyContent: 'center',
-        width: width * 0.35,
-        backgroundColor: "transparent"
+        width: width * 0.75,
+        backgroundColor: "transparent",
     },
     text: {
         fontSize: width * 0.03

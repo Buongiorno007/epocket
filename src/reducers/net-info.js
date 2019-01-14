@@ -4,18 +4,23 @@ export const UPDATE_CONNECTION = 'net-info/UPDATE_CONNECTION';
 
 export default (state = false, action) => {
     // console.log('getConnection',action)
-	switch (action.type) {
-		case UPDATE_CONNECTION:
-			return action.connection;
-		default:
-			return state;
-	}
+    switch (action.type) {
+        case UPDATE_CONNECTION:
+            return action.connection;
+        default:
+            return state;
+    }
 }
 
 export const getConnection = () => async dispatch => {
     NetInfo.isConnected.addEventListener('connectionChange', (connection) => dispatch(getStatus(connection)));
     AppState.addEventListener('change', () => {
         NetInfo.isConnected.addEventListener('connectionChange', (connection) => dispatch(getStatus(connection)));
+        NetInfo.getConnectionInfo().then(connectionInfo => {
+            if (connectionInfo.type === "none") {
+                dispatch(getStatus(false))
+            }
+        });
     });
 }
 
