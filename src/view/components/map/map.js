@@ -177,6 +177,7 @@ class Map extends React.Component {
       this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
     }
     else if (tab == "discount") {
+      console.log(this.props.initial_outlets.discounts)
       this.setState({ shopActive: false, taskActive: false, discountActive: true, focusedOnMark: false })
       this.props.setOutlets(this.props.initial_outlets.discounts);
     }

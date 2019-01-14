@@ -5,6 +5,7 @@ import {
   Modal,
   Text,
   AppState,
+  Platform,
   TouchableHighlight,
 } from "react-native";
 import { Button } from "native-base";
@@ -23,7 +24,8 @@ import { showFailedNotification } from "../../../reducers/main-task-failed-notif
 class TimerModal extends React.Component {
   render() {
     return (
-      <View style={[styles.main_task]}>
+      <View style={[styles.main_task,
+      Platform.OS === "ios" && !this.props.doneNotification && !this.props.failedNotification && { display: "none" }]}>
         {this.props.doneNotification &&
           <View style={[styles.main_task_done]}>
             <FastImage
