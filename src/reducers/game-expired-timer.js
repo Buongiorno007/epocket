@@ -8,6 +8,7 @@ import { loaderState } from "./loader";
 import { setGameStatus } from "./game-status"
 import { setGameExpiredImage } from "./game-expired-image"
 import { errorState } from "./game-error"
+import { getGameInfo } from "./game-info";
 //constants
 import { ICONS } from "../constants/icons";
 import { urls } from "../constants/urls";
@@ -21,7 +22,7 @@ export default (state = 1, action) => {
             return state;
     }
 }
-export const shutDownExpiredTimer = (token, id) => async dispatch => {
+export const shutDownExpiredTimer = (token, id, lat, ln) => async dispatch => {
     let body = {
         is_played: "True",
         id
@@ -36,6 +37,7 @@ export const shutDownExpiredTimer = (token, id) => async dispatch => {
             let time = result.body.time;
             dispatch(setGameExpiredTimer(time))
             dispatch(setGameStatus("start"))
+            dispatch(getGameInfo(token, lat, ln));
             dispatch(errorState(null));
         },
         error => {

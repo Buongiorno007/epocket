@@ -42,7 +42,7 @@ class GameStart extends React.Component {
         errorVisible: false,
         errorText: "",
     };
-    componentDidMount() {
+    componentWillMount() {
         this.props.setGameStatus("start")
         this.loadTRC();
     }

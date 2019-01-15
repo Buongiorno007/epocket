@@ -53,7 +53,7 @@ class GameResult extends React.Component {
             modalVisible: visible
         });
     };
-    sheckForGames = (next_navigation) => {
+    checkForGames = (next_navigation) => {
         this.props.loaderState(true);
         let received_promise = httpGet(
             urls.game_get,
@@ -95,7 +95,7 @@ class GameResult extends React.Component {
                     this.props.setGameStatus("start");
                 }
                 else {
-                    let error_response = handleError(error, this.component.name, "sheckForGames")
+                    let error_response = handleError(error, this.component.name, "checkForGames")
                     this.props.errorState(error_response)
                     this.props.loaderState(false);
                 }
@@ -145,7 +145,6 @@ class GameResult extends React.Component {
                     this.props.setInstaToken(String(instagram_token))
                     this.props.loaderState(false);
                     this.shareToInsta();
-
                 }
                 else if (result.status == 201) {
                     CookieManager.clearAll()
@@ -267,7 +266,7 @@ class GameResult extends React.Component {
         if (this.props.appState.match(/active/) && (nextAppState === 'inactive')) {
             if (this.props.navigation.state.params.status != "success") {
                 console.log("user tried to abuse")
-                this.sheckForGames("wait");
+                this.checkForGames("wait");
             }
         }
         this.props.setAppState(nextAppState)
@@ -462,7 +461,7 @@ class GameResult extends React.Component {
                         style={this.props.navigation.state.params.status === "success" ? styles.button_short : styles.button}
                         androidRippleColor={this.props.userColor.card_shadow}
                         onPress={() => {
-                            this.props.navigation.state.params.status === "success" ? this.sheckForGames("home") : this.sheckForGames("insta")
+                            this.props.navigation.state.params.status === "success" ? this.checkForGames("home") : this.checkForGames("insta")
                         }}
                     >
                         <Text style={[styles.text,
@@ -476,7 +475,7 @@ class GameResult extends React.Component {
                             display: "none"
                         }]}
                         onPress={() => {
-                            this.sheckForGames("wait")
+                            this.checkForGames("wait")
                         }}
                     >
                         <Text style={styles.fail}>{RU.GAME.RESULT.WAIT_30}</Text>
