@@ -20,7 +20,7 @@ class HistoryNavButton extends React.Component {
         onPress={this.props.handler}
         style={[styles.button]}
       >
-        {this.props.cartCount != 0 && this.props.cartCount &&
+        {this.props.cartCount != 0 && this.props.cartCount && !this.props.disabled &&
           <View style={[styles.cart_number, { backgroundColor: this.props.userColor.pink_blue }]} >
             <Text style={styles.number}>{this.props.cartCount}</Text>
           </View>
