@@ -172,8 +172,15 @@ class GameResult extends React.Component {
     }
     confirmPost = () => {
         this.props.loaderState(true);
+        // let checkPost = httpPost(
+        //     urls.insta_getmedia,
+        //     this.props.id
+        // );
+        // checkPost.then(
+        //     result => { },
+        //     error => { });
         let received_promise = httpGet(
-            urls.game_get,
+            urls.game_get + "?coords=" + this.props.location.lat + "%2C" + this.props.location.lng,
             this.props.token
         );
         received_promise.then(
@@ -253,13 +260,14 @@ class GameResult extends React.Component {
             url: this.props.navigation.state.params.insta_data.base64,
         };
         setTimeout(() => {
-            Platform.OS === 'ios' ? Share.open(shareImageBase64).then(
+            Share.open(shareImageBase64).then(
                 result => {
+                    console.log(result)
                     this.confirmPost()
                 },
                 error => {
                 }
-            ) : this.confirmPost(), Share.open(shareImageBase64);
+            )
         }, 2000);
     }
     _handleAppStateChange = (nextAppState) => {
