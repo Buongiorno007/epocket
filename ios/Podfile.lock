@@ -201,6 +201,8 @@ PODS:
   - RNBackgroundGeolocation (2.14.2):
     - CocoaLumberjack (~> 3.0)
     - React
+  - RNFS (2.13.3):
+    - React
   - RNInstagramStoryShare (0.1.0):
     - React
   - RNVectorIcons (4.6.0):
@@ -246,6 +248,7 @@ DEPENDENCIES:
   - rn-fetch-blob (from `../node_modules/rn-fetch-blob`)
   - RNBackgroundFetch (from `../node_modules/react-native-background-fetch`)
   - RNBackgroundGeolocation (from `../node_modules/react-native-background-geolocation`)
+  - RNFS (from `../node_modules/react-native-fs`)
   - RNInstagramStoryShare (from `../node_modules/react-native-instagram-story-share/ios`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/yoga.podspec`)
@@ -307,6 +310,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-background-fetch"
   RNBackgroundGeolocation:
     :path: "../node_modules/react-native-background-geolocation"
+  RNFS:
+    :path: "../node_modules/react-native-fs"
   RNInstagramStoryShare:
     :path: "../node_modules/react-native-instagram-story-share/ios"
   RNVectorIcons:
@@ -351,11 +356,12 @@ SPEC CHECKSUMS:
   rn-fetch-blob: 76a8f798dae965bbcd146a2438f2e1d381c91ae3
   RNBackgroundFetch: 8c4f77f83c398c659bce82af2f0a885079417b9e
   RNBackgroundGeolocation: c9bbf69b9aa277f0b46754cc5f853bd26051a18f
+  RNFS: bbb1a64eb245763daf34aea86f97c97c4e85f74c
   RNInstagramStoryShare: eca347b80831872ffa40e80111cb7f32d567c299
   RNVectorIcons: c0dbfbf6068fefa240c37b0f71bd03b45dddac44
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
-PODFILE CHECKSUM: 7640c43dc00958d1bb0016a8d2b48fa1a401958a
+PODFILE CHECKSUM: 4cab46027441afe9de5d1845507897eca5e41ead
 
 COCOAPODS: 1.5.3

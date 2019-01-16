@@ -60,7 +60,7 @@ class QrCode extends React.Component {
           />
         </View>
 
-        {/* {this.props.socket.status === 2 ? <Process /> : null} */}
+        {this.props.socket.status === 2 ? <Process /> : null}
       </View>
     );
   };
