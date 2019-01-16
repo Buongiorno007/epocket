@@ -5,6 +5,7 @@ import LinearGradient from "react-native-linear-gradient";
 import { Button, Toast } from "native-base";
 import Share from 'react-native-share';
 import CookieManager from 'react-native-cookies';
+import RNInstagramStoryShare from 'react-native-instagram-story-share'
 //redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -248,6 +249,12 @@ class GameResult extends React.Component {
             }
         );
     }
+    successCallback = (callback) => {
+        console.log("successCallback", callback)
+    }
+    failureCallback = (callback) => {
+        console.log("failureCallback", callback)
+    }
     shareToInsta = () => {
         Clipboard.setString(formatItem(this.props.game_info.insta_data.hash_tag));
         Toast.show({
@@ -259,16 +266,21 @@ class GameResult extends React.Component {
             title: formatItem(this.props.game_info.insta_data.hash_tag),
             url: this.props.navigation.state.params.insta_data.base64,
         };
-        setTimeout(() => {
-            Share.open(shareImageBase64).then(
-                result => {
-                    console.log(result)
-                    this.confirmPost()
-                },
-                error => {
-                }
-            )
-        }, 2000);
+        RNInstagramStoryShare.share({
+            backgroundImage: this.props.navigation.state.params.insta_data.base64,
+            deeplinkingUrl: 'instagram-stories://share'
+        },
+            this.successCallback, this.failureCallback)
+        // setTimeout(() => {
+        //     Share.open(shareImageBase64).then(
+        //         result => {
+        //             console.log(result)
+        //             this.confirmPost()
+        //         },
+        //         error => {
+        //         }
+        //     )
+        // }, 2000);
     }
     _handleAppStateChange = (nextAppState) => {
         if (this.props.appState.match(/active/) && (nextAppState === 'inactive')) {

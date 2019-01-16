@@ -45,6 +45,7 @@
         "react-native-material-textfield": "^0.10.2",
         "react-native-mauron85-background-geolocation": "git+https://github.com/kruyvanna/react-native-background-geolocation.git",
         "react-native-permissions": "^1.1.1",
+        "react-native-instagram-story-share": "Jobeso/react-native-instagram-story-share#a6969025c0a2b0ad437f4f3f987abe08f6bf15e8",
         "react-native-qrcode": "^0.2.6",
         "react-native-qrcode-scanner": "^1.0.1",
         "react-native-radial-gradient": "^1.0.4",

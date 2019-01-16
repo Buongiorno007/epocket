@@ -163,6 +163,7 @@ subprojects {
     }
 }
 dependencies {
+    implementation project(':react-native-instagram-story-share')
     implementation project(':react-native-fbsdk')
     implementation project(':react-native-cookies')
     implementation project(':rn-fetch-blob')
