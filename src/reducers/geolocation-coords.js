@@ -34,7 +34,7 @@ export const locationCoordsListener = () => async dispatch => {
 }
 
 export const setLocation = (location) => {
-    // sendToTelegramm('anton ' + JSON.stringify(location))
+    //sendToTelegramm('epc location : ' + JSON.stringify(location))
     return { type: CHANGE_LOCATION, location }
 }
 

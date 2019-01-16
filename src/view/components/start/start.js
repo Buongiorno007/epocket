@@ -101,6 +101,20 @@ class Start extends React.Component {
               this.props.setToken(value);
               this._getLocation();
               NavigationService.navigate("Main");
+              if (Platform.OS === "ios") {
+                BackgroundGeolocationModule.ready(geo_config(), state => {
+                  if (!state.enabled) {
+                    BackgroundGeolocationModule.start(function () { });
+                  }
+                });
+              } else {
+                BackgroundGeolocationModule.configure(geo_config())
+                BackgroundGeolocationModule.checkStatus(status => {
+                  if (!status.isRunning) {
+                    BackgroundGeolocationModule.start();
+                  }
+                });
+              }
             } else {
               this.setState({ enable_login: true });
             }
