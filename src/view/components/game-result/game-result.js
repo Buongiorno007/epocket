@@ -6,6 +6,8 @@ import { Button, Toast } from "native-base";
 import Share from 'react-native-share';
 import CookieManager from 'react-native-cookies';
 import RNInstagramStoryShare from 'react-native-instagram-story-share'
+import RNFetchBlob from 'rn-fetch-blob';
+import RNFS from 'react-native-fs';
 //redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -249,11 +251,8 @@ class GameResult extends React.Component {
             }
         );
     }
-    successCallback = (callback) => {
-        console.log("successCallback", callback)
-    }
-    failureCallback = (callback) => {
-        console.log("failureCallback", callback)
+    callCallback = (callback) => {
+        console.log("callback", callback)
     }
     shareToInsta = () => {
         Clipboard.setString(formatItem(this.props.game_info.insta_data.hash_tag));
@@ -266,11 +265,29 @@ class GameResult extends React.Component {
             title: formatItem(this.props.game_info.insta_data.hash_tag),
             url: this.props.navigation.state.params.insta_data.base64,
         };
-        RNInstagramStoryShare.share({
-            backgroundImage: this.props.navigation.state.params.insta_data.base64,
-            deeplinkingUrl: 'instagram-stories://share'
-        },
-            this.successCallback, this.failureCallback)
+        if (Platform.OS === "ios") {
+            RNInstagramStoryShare.share({
+                backgroundImage: this.props.navigation.state.params.insta_data.base64,
+                deeplinkingUrl: 'instagram-stories://share'
+            }, this.callCallback, this.callCallback)
+        }
+        else {
+            let image_data = this.props.navigation.state.params.insta_data.base64.split('data:image/jpg;base64,')[1];
+            const dirs = RNFetchBlob.fs.dirs
+            const file_path = dirs.DCIMDir + "/epc_game_img.jpg"
+            RNFS.writeFile(file_path, image_data, 'base64')
+                .then(() => {
+                    console.log("writeFile success")
+                    RNInstagramStoryShare.share({
+                        backgroundImage: file_path,
+                        deeplinkingUrl: 'instagram-stories://share'
+                    }, this.callCallback, this.callCallback)
+                })
+                .catch((err) => {
+                    console.log("writeFile error", err)
+                })
+
+        }
         // setTimeout(() => {
         //     Share.open(shareImageBase64).then(
         //         result => {

@@ -57,6 +57,8 @@ target 'EpocketCash' do
 
   pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
   pod 'RNInstagramStoryShare', :path => '../node_modules/react-native-instagram-story-share/ios'
+  pod 'RNFS', :path => '../node_modules/react-native-fs'
+
 end
   post_install do |installer|
     installer.pods_project.targets.each do |target|

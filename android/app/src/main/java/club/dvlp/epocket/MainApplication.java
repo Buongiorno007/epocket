@@ -8,6 +8,7 @@ import com.facebook.appevents.AppEventsLogger;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.ReactApplication;
+import com.rnfs.RNFSPackage;
 import com.jobeso.RNInstagramStoryShare.RNInstagramStorySharePackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.psykar.cookiemanager.CookieManagerPackage;
@@ -68,6 +69,7 @@ public class MainApplication extends Application implements ShareApplication, Re
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new RNFSPackage(),
             new RNInstagramStorySharePackage(),
                     new FBSDKPackage(mCallbackManager),
                     new CookieManagerPackage(),
