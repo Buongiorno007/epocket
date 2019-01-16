@@ -45,6 +45,7 @@ class GameResult extends React.Component {
         modalVisible: false,
         errorVisible: false,
         userCount: 0,
+        filePath: ""
     };
     setErrorVisible = visible => {
         this.setState({
@@ -253,18 +254,20 @@ class GameResult extends React.Component {
     }
     callCallback = (callback) => {
         console.log("callback", callback)
+        if (Platform.OS != "ios") {
+            setTimeout(() => {
+                let filePath = "/storage/emulated/0/DCIM/epc_game_img.jpg";
+                RNFS.exists(filePath)
+                    .then((res) => {
+                        if (res) {
+                            RNFS.unlink(filePath)
+                                .then(() => console.log('epc_game_img.jpg DELETED'))
+                        }
+                    })
+            }, 1000);
+        }
     }
     shareToInsta = () => {
-        Clipboard.setString(formatItem(this.props.game_info.insta_data.hash_tag));
-        Toast.show({
-            text: RU.MISSION.HASHTAGS_MESSAGE,
-            buttonText: "",
-            duration: 3000
-        })
-        let shareImageBase64 = {
-            title: formatItem(this.props.game_info.insta_data.hash_tag),
-            url: this.props.navigation.state.params.insta_data.base64,
-        };
         if (Platform.OS === "ios") {
             RNInstagramStoryShare.share({
                 backgroundImage: this.props.navigation.state.params.insta_data.base64,
@@ -275,6 +278,7 @@ class GameResult extends React.Component {
             let image_data = this.props.navigation.state.params.insta_data.base64.split('data:image/jpg;base64,')[1];
             const dirs = RNFetchBlob.fs.dirs
             const file_path = dirs.DCIMDir + "/epc_game_img.jpg"
+            this.setState({ filePath: file_path })
             RNFS.writeFile(file_path, image_data, 'base64')
                 .then(() => {
                     console.log("writeFile success")
@@ -288,6 +292,16 @@ class GameResult extends React.Component {
                 })
 
         }
+        // Clipboard.setString(formatItem(this.props.game_info.insta_data.hash_tag));
+        // Toast.show({
+        //     text: RU.MISSION.HASHTAGS_MESSAGE,
+        //     buttonText: "",
+        //     duration: 3000
+        // })
+        // let shareImageBase64 = {
+        //     title: formatItem(this.props.game_info.insta_data.hash_tag),
+        //     url: this.props.navigation.state.params.insta_data.base64,
+        // };
         // setTimeout(() => {
         //     Share.open(shareImageBase64).then(
         //         result => {
