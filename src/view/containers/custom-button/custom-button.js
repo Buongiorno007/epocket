@@ -3,8 +3,10 @@ import { View } from "react-native";
 import { Button, Text } from "native-base";
 import { Dimensions } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
+import FastImage from 'react-native-fast-image'
 //constants
 import { colors } from "../../../constants/colors_men";
+import { ICONS } from "./../../../constants/icons";
 import styles from "./styles";
 const { width } = Dimensions.get("window");
 //redux
@@ -51,7 +53,8 @@ class CustomButton extends React.Component {
               this.props.short && { width: width * 0.5 },
               this.props.extra_short && { width: width * 0.3 },
               this.props.semi_short && { width: width * 0.4 },
-              styles.gradient
+              styles.gradient,
+              this.props.instaLogo && styles.insta_button
             ]}
           />
         )}
@@ -78,6 +81,12 @@ class CustomButton extends React.Component {
             />
           </View>
         )}
+        {this.props.instaLogo &&
+          <FastImage
+            style={styles.insta_logo}
+            resizeMode={FastImage.resizeMode.contain}
+            source={{ uri: ICONS.INSTAGRAM_COLOR_FILLED }}
+          />}
         <Text
           style={[
             styles.button_text,

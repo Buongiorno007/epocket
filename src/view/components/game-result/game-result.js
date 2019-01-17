@@ -269,7 +269,7 @@ class GameResult extends React.Component {
     }
     shareToInsta = () => {
         //post directly to stories
-        
+
         // if (Platform.OS === "ios") {
         //     RNInstagramStoryShare.share({
         //         backgroundImage: this.props.navigation.state.params.insta_data.base64,
@@ -294,7 +294,7 @@ class GameResult extends React.Component {
         //         })
 
         // }
-        
+
         //default share menu
 
         Clipboard.setString(formatItem(this.props.game_info.insta_data.hash_tag));
@@ -514,12 +514,19 @@ class GameResult extends React.Component {
                         rounded
                         transparent
                         block
-                        style={this.props.navigation.state.params.status === "success" ? styles.button_short : styles.button}
+                        style={[this.props.navigation.state.params.status === "success" ? styles.button_short : styles.button]}
                         androidRippleColor={this.props.userColor.card_shadow}
                         onPress={() => {
                             this.props.navigation.state.params.status === "success" ? this.checkForGames("home") : this.checkForGames("insta")
                         }}
                     >
+                        {this.props.navigation.state.params.status != "success" &&
+                            <FastImage
+                                style={styles.insta_logo}
+                                resizeMode={FastImage.resizeMode.contain}
+                                source={{ uri: ICONS.INSTAGRAM_COLOR_FILLED }}
+                            />
+                        }
                         <Text style={[styles.text,
                         { color: this.props.userColor.pink_blue }]}>{this.chooseButtonText(this.props.navigation.state.params.status)}</Text>
                     </Button>

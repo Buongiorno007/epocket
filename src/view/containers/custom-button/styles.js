@@ -10,9 +10,15 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "center",
+    flexDirection: "row",
     // overflow: "visible",
     borderRadius: 50,
     zIndex: 5,
+  },
+  insta_button: {
+    justifyContent: "space-between",
+    paddingLeft: 15,
+    paddingRight: 15,
   },
   enabled_button: {
     backgroundColor: colors.white
@@ -32,6 +38,11 @@ export default StyleSheet.create({
   },
   disabled_button_text: {
     color: colors.white
+  },
+  insta_logo: {
+    width: 25,
+    height: 25,
+    zIndex: 6,
   },
   gradient: {
     position: "absolute",

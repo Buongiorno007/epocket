@@ -239,6 +239,7 @@ class GameStart extends React.Component {
                     <CustomButton
                         active={this.props.game_error.error_text === "" ? true : false}
                         gradient
+                        instaLogo={true}
                         title={RU.GAME.RESULT.PUBLISH_AND_CONTINUE.toUpperCase()}
                         color={this.props.userColor.white}
                         handler={() => {

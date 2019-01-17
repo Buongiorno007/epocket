@@ -88,9 +88,12 @@ export default StyleSheet.create({
     button: {
         backgroundColor: colors.white,
         marginTop: width * 0.05,
+        paddingLeft: 15,
+        paddingRight: 15,
         alignSelf: 'center',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
+        flexDirection: "row",
         width: width * 0.75,
     },
     wait_button: {
@@ -102,6 +105,10 @@ export default StyleSheet.create({
     },
     text: {
         fontSize: width * 0.03
+    },
+    insta_logo: {
+        width: 25,
+        height: 25
     },
     zifi_cloud_failed: {
         position: "absolute",
