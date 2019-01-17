@@ -28,35 +28,46 @@ export default StyleSheet.create({
     },
     state_change_block: {
         width: width,
-        height: 50,
+        height: 60,
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
         position: "absolute",
         top: 30,
-        zIndex: 3
-    },
-    state_change_block_gradient: {
-        position: "absolute",
-        top: 0,
-        height: height * 0.25,
-        zIndex: 2,
-        width: width
+        zIndex: 3,
     },
     state_change_block_text: {
         textAlign: "center",
         fontSize: 12,
+        paddingLeft: 5,
+        paddingRight: 5,
         fontFamily: "Rubik-Medium"
     },
     state_change_block_btn: {
         alignItems: "center",
         justifyContent: "center",
-        flexDirection: 'column',
-        width: 60,
-        height: 60,
-        marginRight: 15,
-        marginLeft: 15,
-        borderRadius: 12
+        flexDirection: 'row',
+        width: (width * 0.85) / 3,
+        height: 50,
+        paddingLeft: 10,
+        paddingRight: 10,
+        borderRadius: 0,
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+        borderLeftWidth: 1,
+        borderRightWidth: 1,
+        borderColor: colors.white,
+        backgroundColor: colors.white_o75
+    },
+    state_change_block_btn_left: {
+        borderBottomLeftRadius: 25,
+        borderTopLeftRadius: 25,
+        borderRightWidth: 0,
+    },
+    state_change_block_btn_right: {
+        borderBottomRightRadius: 25,
+        borderTopRightRadius: 25,
+        borderLeftWidth: 0,
     },
     img_geo: {
         width: 50,
@@ -71,8 +82,10 @@ export default StyleSheet.create({
         borderRadius: 12
     },
     state_change_block_geo: {
-        width: 25,
-        height: 25,
+        width: 20,
+        height: 20,
+        paddingLeft: 5,
+        paddingRight: 5
     },
     img_geo_gradient: {
         alignItems: "center",

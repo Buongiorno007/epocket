@@ -22,6 +22,7 @@ export const colors =
   gray: "#9E9E9E",
   white_o36: "rgba(255,255,255, 0.36)",
   white_o74: "rgba(255,255,255, 0.74)",
+  white_o75: "rgba(255,255,255, 0.75)",
   white_o89: "rgba(255,255,255, 0.89)",
   white_o70: "rgba(255,255,255, 0.7)",
   white_o25: "rgba(255,255,255, 0.25)",

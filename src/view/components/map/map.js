@@ -172,9 +172,16 @@ class Map extends React.Component {
       this.props.setOutlets(allShops);
     }
     else if (tab == "task") {
-      this.loadTRC();
+      let newOutlets = [...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets];
+      this.props.isLocation && this.selectNearestMall(
+        {
+          latitude: this.props.location.lat,
+          longitude: this.props.location.lng
+        },
+        this.props.initial_outlets.outlets, true
+      );
       this.setState({ shopActive: false, taskActive: true, discountActive: false, focusedOnMark: false })
-      this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
+      this.props.setOutlets(newOutlets);
     }
     else if (tab == "discount") {
       console.log(this.props.initial_outlets.discounts)
@@ -819,14 +826,8 @@ class Map extends React.Component {
           this.state.location_loader && this.props.isLocation && <ActivityIndicator /> :
           this.state.location_loader && <ActivityIndicator />
         }
-        <LinearGradient
-          colors={[this.props.userColor.drag_panel_color, this.props.userColor.transparent]}
-          start={{ x: 0.0, y: 0.5 }}
-          end={{ x: 0.0, y: 1 }}
-          style={styles.state_change_block_gradient}
-        />
         <View style={styles.state_change_block}>
-          <Button style={styles.state_change_block_btn} transparent onPress={() => this.toggleTab("shop")}>
+          <Button style={[styles.state_change_block_btn, styles.state_change_block_btn_left]} transparent onPress={() => this.toggleTab("shop")}>
             <FastImage
               resizeMode={FastImage.resizeMode.contain}
               style={styles.state_change_block_geo}
@@ -856,7 +857,7 @@ class Map extends React.Component {
               {RU.MAP_TABS.TASK}
             </LinearTextGradient>
           </Button>
-          <Button style={styles.state_change_block_btn} transparent onPress={() => this.toggleTab("discount")}>
+          <Button style={[styles.state_change_block_btn, styles.state_change_block_btn_right]} transparent onPress={() => this.toggleTab("discount")}>
             <FastImage
               resizeMode={FastImage.resizeMode.contain}
               style={styles.state_change_block_geo}
