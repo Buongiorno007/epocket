@@ -23,6 +23,7 @@ export default (state = 1, action) => {
     }
 }
 export const shutDownExpiredTimer = (token, id, lat, ln) => async dispatch => {
+    console.log(token, id, lat, ln)
     let body = {
         is_played: "True",
         id

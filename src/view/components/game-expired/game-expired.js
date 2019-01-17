@@ -132,7 +132,9 @@ class GameStart extends React.Component {
         );
     }
     confirmPost = () => {
-        this.props.shutDownExpiredTimer(this.props.token, this.props.game_expired_img.id, this.props.location.lat, this.props.location.lng);
+        if (this.props.game_expired_img.id) {
+            this.props.shutDownExpiredTimer(this.props.token, this.props.game_expired_img.id, this.props.location.lat, this.props.location.lng);
+        }
     }
     shareToInsta = () => {
         Clipboard.setString(formatItem(this.props.game_info.insta_data.hash_tag));
@@ -237,7 +239,7 @@ class GameStart extends React.Component {
                 </View>
                 <View style={styles.btn_container}>
                     <CustomButton
-                        active={this.props.game_error.error_text === "" ? true : false}
+                        active={this.props.game_error.error_text === "" && this.props.game_expired_img.id ? true : false}
                         gradient
                         instaLogo={true}
                         title={RU.GAME.RESULT.PUBLISH_AND_CONTINUE.toUpperCase()}

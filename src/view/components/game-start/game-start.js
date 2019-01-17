@@ -44,6 +44,8 @@ class GameStart extends React.Component {
     };
     componentWillMount() {
         this.props.setGameStatus("start")
+    }
+    componentDidMount() {
         this.loadTRC();
     }
     componentWillReceiveProps = (nextProps) => {

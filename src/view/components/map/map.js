@@ -292,17 +292,17 @@ class Map extends React.Component {
       this.moveMapTo(nextProps.location.lat, nextProps.location.lng);
       this.setState({ location_loader: false });
     }
-    if (nextProps.distance > 0) {
+    if (nextProps.distance < 0) {
       if (
-        this.props.location.lat !== nextProps.location.lat &&
-        this.props.location.lng !== nextProps.location.lng
+        this.props.location.lat.toFixed(3) !== nextProps.location.lat.toFixed(3) &&
+        this.props.location.lng.toFixed(3) !== nextProps.location.lng.toFixed(3)
       ) {
-        this.props.isLocation && this.selectNearestMall(
+        nextProps.isLocation && this.selectNearestMall(
           {
-            latitude: this.props.location.lat,
-            longitude: this.props.location.lng
+            latitude: nextProps.location.lat,
+            longitude: nextProps.location.lng
           },
-          this.props.outlets, false
+          nextProps.outlets, false
         );
       }
     }
@@ -368,8 +368,20 @@ class Map extends React.Component {
     });
   }
   selectNearestMall = (my_location, mall_array, ANIMATE_MAP) => {
-    let nearestMall = geolib.findNearest(my_location, mall_array, 0);
-    try { this.selectMark(mall_array[Number(nearestMall.key)], ANIMATE_MAP, "task"); } catch (e) { }
+    let newArr = {};
+    mall_array.forEach(item => {
+      let newItem = {
+        latitude: item.lng,
+        longitude: item.lat
+      };
+      let name = item.id;
+      if (item.price > 0) {
+        newArr[name] = newItem;
+      }
+    })
+    let nearestMall = geolib.findNearest(my_location, newArr, 0);
+    let selectedTRC = mall_array.find(x => x.id === Number(nearestMall.key))
+    try { this.selectMark(selectedTRC, ANIMATE_MAP, "task"); } catch (e) { }
   };
 
   _renderItem = item => (
