@@ -268,50 +268,55 @@ class GameResult extends React.Component {
         }
     }
     shareToInsta = () => {
-        if (Platform.OS === "ios") {
-            RNInstagramStoryShare.share({
-                backgroundImage: this.props.navigation.state.params.insta_data.base64,
-                deeplinkingUrl: 'instagram-stories://share'
-            }, this.callCallback, this.callCallback)
-        }
-        else {
-            let image_data = this.props.navigation.state.params.insta_data.base64.split('data:image/jpg;base64,')[1];
-            const dirs = RNFetchBlob.fs.dirs
-            const file_path = dirs.DCIMDir + "/epc_game_img.jpg"
-            this.setState({ filePath: file_path })
-            RNFS.writeFile(file_path, image_data, 'base64')
-                .then(() => {
-                    console.log("writeFile success")
-                    RNInstagramStoryShare.share({
-                        backgroundImage: file_path,
-                        deeplinkingUrl: 'instagram-stories://share'
-                    }, this.callCallback, this.callCallback)
-                })
-                .catch((err) => {
-                    console.log("writeFile error", err)
-                })
+        //post directly to stories
+        
+        // if (Platform.OS === "ios") {
+        //     RNInstagramStoryShare.share({
+        //         backgroundImage: this.props.navigation.state.params.insta_data.base64,
+        //         deeplinkingUrl: 'instagram-stories://share'
+        //     }, this.callCallback, this.callCallback)
+        // }
+        // else {
+        //     let image_data = this.props.navigation.state.params.insta_data.base64.split('data:image/jpg;base64,')[1];
+        //     const dirs = RNFetchBlob.fs.dirs
+        //     const file_path = dirs.DCIMDir + "/epc_game_img.jpg"
+        //     this.setState({ filePath: file_path })
+        //     RNFS.writeFile(file_path, image_data, 'base64')
+        //         .then(() => {
+        //             console.log("writeFile success")
+        //             RNInstagramStoryShare.share({
+        //                 backgroundImage: file_path,
+        //                 deeplinkingUrl: 'instagram-stories://share'
+        //             }, this.callCallback, this.callCallback)
+        //         })
+        //         .catch((err) => {
+        //             console.log("writeFile error", err)
+        //         })
 
-        }
-        // Clipboard.setString(formatItem(this.props.game_info.insta_data.hash_tag));
-        // Toast.show({
-        //     text: RU.MISSION.HASHTAGS_MESSAGE,
-        //     buttonText: "",
-        //     duration: 3000
-        // })
-        // let shareImageBase64 = {
-        //     title: formatItem(this.props.game_info.insta_data.hash_tag),
-        //     url: this.props.navigation.state.params.insta_data.base64,
-        // };
-        // setTimeout(() => {
-        //     Share.open(shareImageBase64).then(
-        //         result => {
-        //             console.log(result)
-        //             this.confirmPost()
-        //         },
-        //         error => {
-        //         }
-        //     )
-        // }, 2000);
+        // }
+        
+        //default share menu
+
+        Clipboard.setString(formatItem(this.props.game_info.insta_data.hash_tag));
+        Toast.show({
+            text: RU.MISSION.HASHTAGS_MESSAGE,
+            buttonText: "",
+            duration: 3000
+        })
+        let shareImageBase64 = {
+            title: formatItem(this.props.game_info.insta_data.hash_tag),
+            url: this.props.navigation.state.params.insta_data.base64,
+        };
+        setTimeout(() => {
+            Share.open(shareImageBase64).then(
+                result => {
+                    console.log(result)
+                    this.confirmPost()
+                },
+                error => {
+                }
+            )
+        }, 2000);
     }
     _handleAppStateChange = (nextAppState) => {
         if (this.props.appState.match(/active/) && (nextAppState === 'inactive')) {
