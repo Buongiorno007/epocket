@@ -37,7 +37,7 @@ export default StyleSheet.create({
         zIndex: 3,
     },
     state_change_block_text: {
-        textAlign: "center",
+        textAlign: "left",
         fontSize: 12,
         paddingLeft: 5,
         paddingRight: 5,
@@ -47,7 +47,7 @@ export default StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         flexDirection: 'row',
-        width: (width * 0.85) / 3,
+        width: (width * 0.9) / 3,
         height: 50,
         paddingLeft: 15,
         paddingRight: 15,
@@ -113,5 +113,14 @@ export default StyleSheet.create({
         height: width * 0.4,
         alignItems: "center",
         justifyContent: "center"
+    },
+    blue_bg: {
+        backgroundColor: colors.map_blue_01
+    },
+    pink_bg: {
+        backgroundColor: colors.map_pink_01
+    },
+    violet_bg: {
+        backgroundColor: colors.map_violet_01
     }
 });

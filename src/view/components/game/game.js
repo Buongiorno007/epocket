@@ -86,7 +86,6 @@ class Game extends React.Component {
 		if (this.props.appState.match(/background|inactive/) && (nextAppState === 'active')) {
 			clearCorrectingInterval(this.state.interval);
 			this.props.setTempTime(this.props.tempTime)
-			console.log(this.props.tempTime)
 			this.startTimer()
 		}
 		this.props.setAppState(nextAppState)

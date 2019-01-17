@@ -839,7 +839,7 @@ class Map extends React.Component {
           this.state.location_loader && <ActivityIndicator />
         }
         <View style={styles.state_change_block}>
-          <Button style={[styles.state_change_block_btn, styles.state_change_block_btn_left]} transparent onPress={() => this.toggleTab("shop")}>
+          <Button style={[styles.state_change_block_btn, styles.state_change_block_btn_left, this.state.shopActive && styles.blue_bg]} transparent onPress={() => this.toggleTab("shop")}>
             <FastImage
               resizeMode={FastImage.resizeMode.contain}
               style={styles.state_change_block_geo}
@@ -847,14 +847,14 @@ class Map extends React.Component {
             />
             <LinearTextGradient
               locations={[0, 1]}
-              colors={[this.state.shopActive ? this.props.userColor.light_orange : this.props.userColor.gray, this.state.shopActive ? this.props.userColor.pink : this.props.userColor.gray]}
+              colors={[this.state.shopActive ? this.props.userColor.map_blue : this.props.userColor.gray, this.state.shopActive ? this.props.userColor.map_blue : this.props.userColor.gray]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={styles.state_change_block_text}>
               {RU.MAP_TABS.SHOP}
             </LinearTextGradient>
           </Button>
-          <Button style={styles.state_change_block_btn} transparent onPress={() => this.toggleTab("task")}>
+          <Button style={[styles.state_change_block_btn, this.state.taskActive && styles.pink_bg]} transparent onPress={() => this.toggleTab("task")}>
             <FastImage
               resizeMode={FastImage.resizeMode.contain}
               style={styles.state_change_block_geo}
@@ -862,14 +862,14 @@ class Map extends React.Component {
             />
             <LinearTextGradient
               locations={[0, 1]}
-              colors={[this.state.taskActive ? this.props.userColor.light_orange : this.props.userColor.gray, this.state.taskActive ? this.props.userColor.pink : this.props.userColor.gray]}
+              colors={[this.state.taskActive ? this.props.userColor.pink : this.props.userColor.gray, this.state.taskActive ? this.props.userColor.pink : this.props.userColor.gray]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={styles.state_change_block_text}>
               {RU.MAP_TABS.TASK}
             </LinearTextGradient>
           </Button>
-          <Button style={[styles.state_change_block_btn, styles.state_change_block_btn_right]} transparent onPress={() => this.toggleTab("discount")}>
+          <Button style={[styles.state_change_block_btn, styles.state_change_block_btn_right, this.state.discountActive && styles.violet_bg]} transparent onPress={() => this.toggleTab("discount")}>
             <FastImage
               resizeMode={FastImage.resizeMode.contain}
               style={styles.state_change_block_geo}
@@ -877,7 +877,7 @@ class Map extends React.Component {
             />
             <LinearTextGradient
               locations={[0, 1]}
-              colors={[this.state.discountActive ? this.props.userColor.light_orange : this.props.userColor.gray, this.state.discountActive ? this.props.userColor.pink : this.props.userColor.gray]}
+              colors={[this.state.discountActive ? this.props.userColor.map_violet : this.props.userColor.gray, this.state.discountActive ? this.props.userColor.map_violet : this.props.userColor.gray]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={styles.state_change_block_text}>

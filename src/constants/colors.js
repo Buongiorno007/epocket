@@ -48,5 +48,8 @@ export const colors =
   transparent: "rgba(255,255,255, 0)",
   second_gradient_color: "#6A00B9",
   first_gradient_color: "#00EEFF",
-  backgroundForAnimated: "#595BF1"
+  backgroundForAnimated: "#595BF1",
+  map_violet_01: "rgba(192,59,226,0.1)",
+  map_blue_01: "rgba(26,169,252,0.1)",
+  map_pink_01: "rgba(245,90,142,0.1)"
 };

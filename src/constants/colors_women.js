@@ -56,4 +56,6 @@ export default
         history_second_active: "#F63272",
         active_marker_blue: "rgba(0,35,207,0.15)",
         active_marker_lightblue: "rgba(46,255,234,0.15)",
+        map_blue: "#0A9EFC",
+        map_violet: "#9541E2"
     };

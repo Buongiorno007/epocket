@@ -319,7 +319,7 @@ class GameResult extends React.Component {
         }, 2000);
     }
     _handleAppStateChange = (nextAppState) => {
-        if (this.props.appState.match(/active/) && (nextAppState === 'inactive')) {
+        if ((this.props.appState.match(/active/) && (nextAppState === 'inactive')) || this.props.appState.match(/active/) && (nextAppState === 'background')) {
             if (this.props.navigation.state.params.status != "success") {
                 console.log("user tried to abuse")
                 this.checkForGames("wait");
