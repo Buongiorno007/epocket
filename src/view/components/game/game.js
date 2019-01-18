@@ -47,7 +47,7 @@ class Game extends React.Component {
 			base64: this.props.game_info.insta_data.base64,
 			hash_tag: this.props.game_info.insta_data.hash_tag,
 		}
-		this.props.passGameResult(this.props.game_info.id, status_for_api, this.props.token, status, instadata);
+		this.props.passGameResult(this.props.game_info.insta_data.id, status_for_api, this.props.token, status, instadata);
 		clearCorrectingInterval(this.state.interval);
 
 	}
@@ -86,7 +86,6 @@ class Game extends React.Component {
 		if (this.props.appState.match(/background|inactive/) && (nextAppState === 'active')) {
 			clearCorrectingInterval(this.state.interval);
 			this.props.setTempTime(this.props.tempTime)
-			console.log(this.props.tempTime)
 			this.startTimer()
 		}
 		this.props.setAppState(nextAppState)
@@ -105,6 +104,7 @@ class Game extends React.Component {
 	render() {
 		return (
 			<View style={styles.main_view}>
+				{this.props.loader && <ActivityIndicator />}
 				<View style={styles.game_title}>
 					<Text style={styles.game_cost_text}>{this.props.game_info.cost} {RU.EPC}</Text>
 					<Text style={styles.game_title_text}>{this.props.game_info.title}</Text>
@@ -173,6 +173,7 @@ const mapStateToProps = (state) => {
 		game_info: state.game_info,
 		tempTime: state.tempTime,
 		token: state.token,
+		loader: state.loader,
 		fixedTime: state.fixedTime,
 		userColor: state.userColor,
 		appState: state.appState,

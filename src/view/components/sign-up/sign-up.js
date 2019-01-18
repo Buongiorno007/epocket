@@ -81,7 +81,7 @@ class SignUp extends React.Component {
   mphone = (v) => {
     let r = v.replace(/\D/g, "");
     r = r.replace(/^0/, "");
-    if (r.length > 7) {
+    if (r.length > 8) {
       // 11+ digits.
       r = r.replace(/^(\d{2})(\d{3})(\d{0,3})(\d{0,4}).*/, "$1 ($2) $3 $4");
     }
@@ -105,7 +105,7 @@ class SignUp extends React.Component {
     let phonePattern = /^.+$/;
     if (phonePattern.test(text)) {
       newText = text;
-      this.setState({ phoneCorrect: text.length == 17 });
+      this.setState({ phoneCorrect: text.length >= 16 });
     } else {
       newText = text.substring(0, text.length - 1);
     }
@@ -150,6 +150,7 @@ class SignUp extends React.Component {
     let body = {
       phone: "+" + bodyPhone
     };
+    console.log(body, this.state.phoneCorrect, this.state.nameCorrect)
     let promise = httpPost(urls.sign_up, JSON.stringify(body));
     promise.then(
       result => {
@@ -180,6 +181,7 @@ class SignUp extends React.Component {
       code: this.state.code,
       name: this.state.name
     };
+    console.log(body)
     let promise = httpPost(urls.sign_up_confirm, JSON.stringify(body));
     promise.then(
       result => {
@@ -202,7 +204,6 @@ class SignUp extends React.Component {
         this.props.setProfileVirgin(true)
       },
       error => {
-        console.log('error', error)
         this.props.loaderState(false);
         let error_respons = handleError(error, this.constructor.name, "sendCode");
         this.setState({ errorText: error_respons.error_text });

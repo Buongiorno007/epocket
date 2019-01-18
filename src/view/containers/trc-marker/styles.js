@@ -70,7 +70,7 @@ export default StyleSheet.create({
     },
     discount_text: {
         fontSize: 13,
-        color: colors.blue_label,
+        color: colors.dark_purple,
         fontFamily: "Rubik-Medium"
     },
     marker: {
@@ -94,13 +94,13 @@ export default StyleSheet.create({
         fontSize: 18,
         paddingRight: 5,
         fontFamily: 'Rubik-Bold',
-        color: colors.blue_label
+        color: colors.dark_pink
     },
     mall_price_epc: {
         height: 15,
         fontSize: 12,
         fontFamily: 'Rubik-Bold',
-        color: colors.blue_label
+        color: colors.dark_pink
     }
 });
 

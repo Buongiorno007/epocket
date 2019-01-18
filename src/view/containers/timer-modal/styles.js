@@ -8,7 +8,19 @@ export default StyleSheet.create({
         height: height,
         alignItems: 'center',
         justifyContent: 'center',
+        zIndex: 1100,
         backgroundColor: colors.backgroundForAnimated
+    },
+    main_task: {
+        width: width,
+        height: height,
+        position: "absolute",
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     main_task_done_content: {
         width: width * 0.85,

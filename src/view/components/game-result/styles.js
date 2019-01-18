@@ -53,9 +53,8 @@ export default StyleSheet.create({
     failed: {
         zIndex: 1,
         position: "absolute",
-        bottom: 60,
+        bottom: 10,
         width: width * 0.85,
-        height: height * 0.5,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -89,20 +88,27 @@ export default StyleSheet.create({
     button: {
         backgroundColor: colors.white,
         marginTop: width * 0.05,
+        paddingLeft: 15,
+        paddingRight: 15,
         alignSelf: 'center',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
+        flexDirection: "row",
         width: width * 0.75,
     },
     wait_button: {
         alignSelf: 'center',
         alignItems: 'center',
         justifyContent: 'center',
-        width: width * 0.35,
-        backgroundColor: "transparent"
+        width: width * 0.75,
+        backgroundColor: "transparent",
     },
     text: {
         fontSize: width * 0.03
+    },
+    insta_logo: {
+        width: 25,
+        height: 25
     },
     zifi_cloud_failed: {
         position: "absolute",

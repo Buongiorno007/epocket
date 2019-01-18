@@ -34,7 +34,8 @@ class CashoutList extends React.Component {
     pickedCart: true,
     orderCopy: [],
     activeSections: [],
-    rotateAngle: new Animated.Value(0)
+    rotateAngle: new Animated.Value(0),
+    key: 0
   };
   order = [];
   setCartData = (order) => {
@@ -106,7 +107,7 @@ class CashoutList extends React.Component {
   };
   sendOrder = () => {
     total_price = 0;
-    let copyForCategoryClean = [...this.order];
+    let copyForCategoryClean = JSON.parse(JSON.stringify(this.order));
     copyForCategoryClean.forEach(item => {
       /*
         ВОТ ЭТА СТРОЧКА
@@ -141,18 +142,15 @@ class CashoutList extends React.Component {
             general_info: this.props.general_info,
             copyOfCards: this.props.dataInit
           });
-          AsyncStorage.multiSet([["cashout_cart", ""], ["cashout_cart_time", ""], ["cashout_cart_id", ""]], () => { });
-          this.order = [];
-          this.setState({ orderCopy: [] })
         },
         error => {
           let error_respons = handleError(error, this.constructor.name, "sendOrder");
           this.setState({ errorText: error_respons.error_text });
           this.setModalVisible(error_respons.error_modal);
           this.props.loaderState(false);
-          AsyncStorage.multiSet([["cashout_cart", ""], ["cashout_cart_time", ""], ["cashout_cart_id", ""]], () => { });
-          this.order = [];
-          this.setState({ orderCopy: [] })
+          //AsyncStorage.multiSet([["cashout_cart", ""], ["cashout_cart_time", ""], ["cashout_cart_id", ""]], () => { });
+          //this.order = [];
+          //this.setState({ orderCopy: [] })
         }
       );
     }
@@ -214,15 +212,20 @@ class CashoutList extends React.Component {
     );
   };
   _renderContent = section => {
+    this.state.orderCopy.forEach(item => {
+      if (section.products.find(x => x.id === item.id))
+        section.products.find(x => x.id === item.id).count = item.count;
+    })
     return (
       <View style={styles.content}>
         {section.products.map((item, i) => (
           <Item
-            key={i}
+            key={this.state.key + i}
             item={item}
             copyOfCards={this.props.dataInit}
             addItemToOrder={this.addItemToOrder}
             general_info={this.props.general_info}
+            deleteElem={this.deleteElem}
           />
         ))}
       </View>
@@ -230,7 +233,7 @@ class CashoutList extends React.Component {
   };
 
   _updateSections = activeSections => {
-    this.setState({ activeSections });
+    this.setState({ activeSections, key: Math.random() }); //change key to force rerender accordion
   };
   _renderRow = item => (
     <Item

@@ -41,6 +41,7 @@ export const passGameResult = (mission_id, api_status, token, status, insta_data
         mission_id,
         status: api_status
     });
+    console.log(body)
     let promise = httpPost(
         urls.game_get,
         body,

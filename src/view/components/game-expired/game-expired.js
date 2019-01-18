@@ -12,6 +12,7 @@ import { setGameStatus } from "../../../reducers/game-status"
 import { setInstaToken } from "../../../reducers/insta-token";
 import { loaderState } from "../../../reducers/loader";
 import { setAppState } from "../../../reducers/app-state"
+import { getGameInfo } from "../../../reducers/game-info";
 import { setGameExpiredTimer, resetGameExpiredTimer, shutDownExpiredTimer } from "../../../reducers/game-expired-timer"
 import { errorState } from "../../../reducers/game-error"
 //constants
@@ -26,6 +27,7 @@ import CustomButton from '../../containers/custom-button/custom-button';
 import FooterNavigation from '../../containers/footer-navigator/footer-navigator';
 import CustomAlert from "../../containers/custom-alert/custom-alert";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
+
 //services
 import "../../../services/correcting-interval";
 import { toHHMMSS } from "./../../../services/convert-time"
@@ -57,6 +59,7 @@ class GameStart extends React.Component {
                 setCorrectingInterval(() => {
                     if (this.props.game_expired_timer <= 1) {
                         clearCorrectingInterval(this.state.interval);
+                        this.props.getGameInfo(this.props.token, this.props.location.lat, this.props.location.lng)
                         this.props.setGameStatus("start");
                     }
                     this.props.setGameExpiredTimer(this.props.game_expired_timer - 1)
@@ -129,7 +132,9 @@ class GameStart extends React.Component {
         );
     }
     confirmPost = () => {
-        this.props.shutDownExpiredTimer(this.props.token, this.props.game_expired_img.id);
+        if (this.props.game_expired_img.id) {
+            this.props.shutDownExpiredTimer(this.props.token, this.props.game_expired_img.id, this.props.location.lat, this.props.location.lng);
+        }
     }
     shareToInsta = () => {
         Clipboard.setString(formatItem(this.props.game_info.insta_data.hash_tag));
@@ -234,8 +239,9 @@ class GameStart extends React.Component {
                 </View>
                 <View style={styles.btn_container}>
                     <CustomButton
-                        active={this.props.game_error.error_text === "" ? true : false}
+                        active={this.props.game_error.error_text === "" && this.props.game_expired_img.id ? true : false}
                         gradient
+                        instaLogo={true}
                         title={RU.GAME.RESULT.PUBLISH_AND_CONTINUE.toUpperCase()}
                         color={this.props.userColor.white}
                         handler={() => {
@@ -257,6 +263,7 @@ const mapStateToProps = (state) => {
         token: state.token,
         appState: state.appState,
         loader: state.loader,
+        location: state.location,
         insta_token: state.insta_token,
         game_error: state.game_error,
         game_expired_img: state.game_expired_img
@@ -271,7 +278,8 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     shutDownExpiredTimer,
     loaderState,
     errorState,
-    setInstaToken
+    setInstaToken,
+    getGameInfo
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameStart);

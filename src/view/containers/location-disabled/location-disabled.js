@@ -95,11 +95,23 @@ class LocationDisabled extends React.Component {
   _requestLocation = () => {
     switch (Platform.OS) {
       case "android": {
+        BackgroundGeolocationModule.configure(geo_config())
+        BackgroundGeolocationModule.checkStatus(status => {
+          if (!status.isRunning) {
+            BackgroundGeolocationModule.start();
+            this._getLocation();
+          }
+        });
         this.checkIsLocation();
         break;
       }
       case "ios": {
-        Permissions.openSettings();
+        BackgroundGeolocationModule.ready(geo_config(), state => {
+          if (!state.enabled) {
+            BackgroundGeolocationModule.start(function () { });
+            this._getLocation();
+          }
+        });
         break;
       }
     }
@@ -152,7 +164,7 @@ class LocationDisabled extends React.Component {
               transparent
               style={styles.enable_location}
               onPress={() => {
-                this.connectGeolocation();
+                this._requestLocation();
               }}
             >
               <LinearGradient

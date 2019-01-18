@@ -113,7 +113,8 @@ export const RU = {
 
   },
   CASH: {
-    TITLE: "Баланс:",
+    TITLE: "Баланс: ",
+    YOUR_TITLE: "Ваш баланс: ",
     BUTTON: "СФОРМИРОВАТЬ QR",
     NO_CASH: "В этом ТРЦ нет доступных товаров",
     NO_CART: "Ваша корзина пуста",
@@ -136,12 +137,13 @@ export const RU = {
     RESULT: "ИТОГ"
   },
   MAP_TABS: {
-    SHOP: "Точка выдачи",
-    TASK: "Задания и бонусы",
-    DISCOUNT: "Дисконт центры"
+    SHOP: "Точки\nвыдачи",
+    TASK: "Задания\nи бонусы",
+    DISCOUNT: "Дисконт\nцентры"
   },
   MAP: {
     TASKS: "Задания",
+    CART: "Корзина",
     MAKE_PREORDER: "Сделать предзаказ",
     LIST_PRODUCTS: "Список товаров",
     CONNECT_INSTA: "Подключите Instagram и получите ",

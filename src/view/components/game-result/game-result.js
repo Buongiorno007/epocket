@@ -5,6 +5,9 @@ import LinearGradient from "react-native-linear-gradient";
 import { Button, Toast } from "native-base";
 import Share from 'react-native-share';
 import CookieManager from 'react-native-cookies';
+import RNInstagramStoryShare from 'react-native-instagram-story-share'
+import RNFetchBlob from 'rn-fetch-blob';
+import RNFS from 'react-native-fs';
 //redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -36,11 +39,13 @@ import { handleError } from "../../../services/http-error-handler";
 import CustomAlert from "../../containers/custom-alert/custom-alert";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 
+
 class GameResult extends React.Component {
     state = {
         modalVisible: false,
         errorVisible: false,
         userCount: 0,
+        filePath: ""
     };
     setErrorVisible = visible => {
         this.setState({
@@ -52,7 +57,7 @@ class GameResult extends React.Component {
             modalVisible: visible
         });
     };
-    sheckForGames = (next_navigation) => {
+    checkForGames = (next_navigation) => {
         this.props.loaderState(true);
         let received_promise = httpGet(
             urls.game_get,
@@ -94,7 +99,7 @@ class GameResult extends React.Component {
                     this.props.setGameStatus("start");
                 }
                 else {
-                    let error_response = handleError(error, this.component.name, "sheckForGames")
+                    let error_response = handleError(error, this.component.name, "checkForGames")
                     this.props.errorState(error_response)
                     this.props.loaderState(false);
                 }
@@ -144,7 +149,6 @@ class GameResult extends React.Component {
                     this.props.setInstaToken(String(instagram_token))
                     this.props.loaderState(false);
                     this.shareToInsta();
-
                 }
                 else if (result.status == 201) {
                     CookieManager.clearAll()
@@ -172,8 +176,15 @@ class GameResult extends React.Component {
     }
     confirmPost = () => {
         this.props.loaderState(true);
+        // let checkPost = httpPost(
+        //     urls.insta_getmedia,
+        //     this.props.id
+        // );
+        // checkPost.then(
+        //     result => { },
+        //     error => { });
         let received_promise = httpGet(
-            urls.game_get,
+            urls.game_get + "?coords=" + this.props.location.lat + "%2C" + this.props.location.lng,
             this.props.token
         );
         received_promise.then(
@@ -241,7 +252,51 @@ class GameResult extends React.Component {
             }
         );
     }
+    callCallback = (callback) => {
+        console.log("callback", callback)
+        if (Platform.OS != "ios") {
+            setTimeout(() => {
+                let filePath = "/storage/emulated/0/DCIM/epc_game_img.jpg";
+                RNFS.exists(filePath)
+                    .then((res) => {
+                        if (res) {
+                            RNFS.unlink(filePath)
+                                .then(() => console.log('epc_game_img.jpg DELETED'))
+                        }
+                    })
+            }, 1000);
+        }
+    }
     shareToInsta = () => {
+        //post directly to stories
+
+        // if (Platform.OS === "ios") {
+        //     RNInstagramStoryShare.share({
+        //         backgroundImage: this.props.navigation.state.params.insta_data.base64,
+        //         deeplinkingUrl: 'instagram-stories://share'
+        //     }, this.callCallback, this.callCallback)
+        // }
+        // else {
+        //     let image_data = this.props.navigation.state.params.insta_data.base64.split('data:image/jpg;base64,')[1];
+        //     const dirs = RNFetchBlob.fs.dirs
+        //     const file_path = dirs.DCIMDir + "/epc_game_img.jpg"
+        //     this.setState({ filePath: file_path })
+        //     RNFS.writeFile(file_path, image_data, 'base64')
+        //         .then(() => {
+        //             console.log("writeFile success")
+        //             RNInstagramStoryShare.share({
+        //                 backgroundImage: file_path,
+        //                 deeplinkingUrl: 'instagram-stories://share'
+        //             }, this.callCallback, this.callCallback)
+        //         })
+        //         .catch((err) => {
+        //             console.log("writeFile error", err)
+        //         })
+
+        // }
+
+        //default share menu
+
         Clipboard.setString(formatItem(this.props.game_info.insta_data.hash_tag));
         Toast.show({
             text: RU.MISSION.HASHTAGS_MESSAGE,
@@ -253,20 +308,21 @@ class GameResult extends React.Component {
             url: this.props.navigation.state.params.insta_data.base64,
         };
         setTimeout(() => {
-            Platform.OS === 'ios' ? Share.open(shareImageBase64).then(
+            Share.open(shareImageBase64).then(
                 result => {
+                    console.log(result)
                     this.confirmPost()
                 },
                 error => {
                 }
-            ) : this.confirmPost(), Share.open(shareImageBase64);
+            )
         }, 2000);
     }
     _handleAppStateChange = (nextAppState) => {
-        if (this.props.appState.match(/active/) && (nextAppState === 'inactive')) {
+        if ((this.props.appState.match(/active/) && (nextAppState === 'inactive')) || this.props.appState.match(/active/) && (nextAppState === 'background')) {
             if (this.props.navigation.state.params.status != "success") {
                 console.log("user tried to abuse")
-                this.sheckForGames("wait");
+                this.checkForGames("wait");
             }
         }
         this.props.setAppState(nextAppState)
@@ -458,27 +514,35 @@ class GameResult extends React.Component {
                         rounded
                         transparent
                         block
-                        style={this.props.navigation.state.params.status === "success" ? styles.button_short : styles.button}
+                        style={[this.props.navigation.state.params.status === "success" ? styles.button_short : styles.button]}
                         androidRippleColor={this.props.userColor.card_shadow}
                         onPress={() => {
-                            this.props.navigation.state.params.status === "success" ? this.sheckForGames("home") : this.sheckForGames("insta")
+                            this.props.navigation.state.params.status === "success" ? this.checkForGames("home") : this.checkForGames("insta")
                         }}
                     >
+                        {this.props.navigation.state.params.status != "success" &&
+                            <FastImage
+                                style={styles.insta_logo}
+                                resizeMode={FastImage.resizeMode.contain}
+                                source={{ uri: ICONS.INSTAGRAM_COLOR_FILLED }}
+                            />
+                        }
                         <Text style={[styles.text,
                         { color: this.props.userColor.pink_blue }]}>{this.chooseButtonText(this.props.navigation.state.params.status)}</Text>
                     </Button>
-                    {this.props.navigation.state.params.status === "success" ? null :
-                        <Button
-                            transparent
-                            style={styles.wait_button}
-                            onPress={() => {
-                                this.sheckForGames("wait")
-                            }}
-                        >
-                            <Text style={styles.fail}>{RU.GAME.RESULT.WAIT_30}</Text>
-                        </Button>
-                    }
-
+                    <Button
+                        rounded
+                        transparent
+                        block
+                        style={[styles.wait_button, this.props.navigation.state.params.status == "success" && {
+                            display: "none"
+                        }]}
+                        onPress={() => {
+                            this.checkForGames("wait")
+                        }}
+                    >
+                        <Text style={styles.fail}>{RU.GAME.RESULT.WAIT_30}</Text>
+                    </Button>
                 </View>
             </View >
         );

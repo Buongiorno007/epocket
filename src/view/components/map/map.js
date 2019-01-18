@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Platform, StatusBar, FlatList } from "react-native";
+import { View, Platform, StatusBar, FlatList, Animated, Easing } from "react-native";
 import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
@@ -48,6 +48,7 @@ import { reloadTimer } from "../../../reducers/timer-interval";
 import { showDoneNotification } from "../../../reducers/main-task-done-notification";
 import { showFailedNotification } from "../../../reducers/main-task-failed-notification";
 import { setBalance } from "../../../reducers/user-balance";
+import { setMainMissionCost } from "../../../reducers/main-task-cost"
 //services
 import { httpPost } from "../../../services/http";
 import { handleError } from "../../../services/http-error-handler";
@@ -87,6 +88,7 @@ class Map extends React.Component {
       longitude: 0
     },
     mainMissionPrice: 0,
+    topNavigationTranslateY: new Animated.Value(0)
   };
   timer(interval) {
     let countDownDate = new Date().getTime() + interval;
@@ -155,25 +157,44 @@ class Map extends React.Component {
     }
   }
   toggleTab = (tab) => {
-    this.map.animateToRegion(
-      {
-        latitude: this.map.__lastRegion.latitude - 0.0008344042843,
-        longitude: this.map.__lastRegion.longitude,
-        latitudeDelta: 0.04323,
-        longitudeDelta: 0.04028
-      },
-      450
-    );
     if (tab == "shop") {
+      if (this.map)
+        this.map.animateToRegion(
+          {
+            latitude: this.map.__lastRegion.latitude - 0.0008344042843,
+            longitude: this.map.__lastRegion.longitude,
+            latitudeDelta: 0.04323,
+            longitudeDelta: 0.04028
+          },
+          450
+        );
       this.setState({ shopActive: true, taskActive: false, discountActive: false, focusedOnMark: false })
       let allShops = [...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]
       this.props.setOutlets(allShops);
     }
     else if (tab == "task") {
+      let newOutlets = [...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets];
+      this.props.isLocation && this.selectNearestMall(
+        {
+          latitude: this.props.location.lat,
+          longitude: this.props.location.lng
+        },
+        this.props.initial_outlets.outlets, true
+      );
       this.setState({ shopActive: false, taskActive: true, discountActive: false, focusedOnMark: false })
-      this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
+      this.props.setOutlets(newOutlets);
     }
     else if (tab == "discount") {
+      if (this.map)
+        this.map.animateToRegion(
+          {
+            latitude: this.map.__lastRegion.latitude - 0.0008344042843,
+            longitude: this.map.__lastRegion.longitude,
+            latitudeDelta: 0.04323,
+            longitudeDelta: 0.04028
+          },
+          450
+        );
       this.setState({ shopActive: false, taskActive: false, discountActive: true, focusedOnMark: false })
       this.props.setOutlets(this.props.initial_outlets.discounts);
     }
@@ -259,15 +280,16 @@ class Map extends React.Component {
   };
   moveMapTo = (lat, lng, latD, lngD, animation_time, timeout) => {
     setTimeout(() => {
-      this.map.animateToRegion(
-        {
-          latitude: lat,
-          longitude: lng,
-          latitudeDelta: latD || 0.04323,
-          longitudeDelta: lngD || 0.04028
-        },
-        animation_time || 450
-      );
+      if (this.map)
+        this.map.animateToRegion(
+          {
+            latitude: lat,
+            longitude: lng,
+            latitudeDelta: latD || 0.04323,
+            longitudeDelta: lngD || 0.04028
+          },
+          animation_time || 450
+        );
     }, timeout || 200);
   };
   componentWillReceiveProps = nextProps => {
@@ -280,17 +302,17 @@ class Map extends React.Component {
       this.moveMapTo(nextProps.location.lat, nextProps.location.lng);
       this.setState({ location_loader: false });
     }
-    if (nextProps.distance > 0) {
+    if (nextProps.distance < 0) {
       if (
-        this.props.location.lat !== nextProps.location.lat &&
-        this.props.location.lng !== nextProps.location.lng
+        this.props.location.lat.toFixed(3) !== nextProps.location.lat.toFixed(3) &&
+        this.props.location.lng.toFixed(3) !== nextProps.location.lng.toFixed(3)
       ) {
-        this.props.isLocation && this.selectNearestMall(
+        nextProps.isLocation && this.selectNearestMall(
           {
-            latitude: this.props.location.lat,
-            longitude: this.props.location.lng
+            latitude: nextProps.location.lat,
+            longitude: nextProps.location.lng
           },
-          this.props.outlets, false
+          nextProps.outlets, false
         );
       }
     }
@@ -356,8 +378,20 @@ class Map extends React.Component {
     });
   }
   selectNearestMall = (my_location, mall_array, ANIMATE_MAP) => {
-    let nearestMall = geolib.findNearest(my_location, mall_array, 0);
-    try { this.selectMark(mall_array[Number(nearestMall.key)], ANIMATE_MAP, "task"); } catch (e) { }
+    let newArr = {};
+    mall_array.forEach(item => {
+      let newItem = {
+        latitude: item.lng,
+        longitude: item.lat
+      };
+      let name = item.id;
+      if (item.price > 0) {
+        newArr[name] = newItem;
+      }
+    })
+    let nearestMall = geolib.findNearest(my_location, newArr, 0);
+    let selectedTRC = mall_array.find(x => x.id === Number(nearestMall.key))
+    try { this.selectMark(selectedTRC, ANIMATE_MAP, "task"); } catch (e) { }
   };
 
   _renderItem = item => (
@@ -365,6 +399,8 @@ class Map extends React.Component {
       <CardFirst
         item={item.item}
         onPressItem={this.openNext}
+        taskActive={this.state.taskActive}
+        shopActive={this.state.shopActive}
         btnText={
           this.state.taskActive ? RU.MAP.TASKS.toUpperCase() :
             this.state.shopActive ? RU.MAP.MAKE_PREORDER.toUpperCase() :
@@ -376,6 +412,7 @@ class Map extends React.Component {
         <CardFirst
           type={item.item.type}
           item={item.item}
+          taskActive={this.state.taskActive}
           onPressItem={() => {
             if (item.item.type === "facebook_connect") {
               this.LoginFacebook()
@@ -434,6 +471,7 @@ class Map extends React.Component {
     return orderBy(orderBy(missions, ['price'], ['desc']), ['active'], ['desc']);
   }
   loadTaskItems = (trc) => {
+    this.setState({ cards: [], focusedOnMark: false });
     this.setModalVisible(false);
     let body = {
       outletId: trc.id
@@ -465,6 +503,13 @@ class Map extends React.Component {
           }
           cards.unshift(trc)
           this.setState({ cards, focusedOnMark: true })
+          Animated.timing(this.state.topNavigationTranslateY,
+            {
+              toValue: -100,
+              duration: 300,
+              useNativeDriver: true,
+              easing: Easing.linear
+            }).start();
         }
         this.props.loaderState(false);
       },
@@ -501,6 +546,13 @@ class Map extends React.Component {
         let cards = result.body.products;
         cards.unshift(trc)
         this.setState({ cards, focusedOnMark: true })
+        Animated.timing(this.state.topNavigationTranslateY,
+          {
+            toValue: -100,
+            duration: 300,
+            useNativeDriver: true,
+            easing: Easing.linear
+          }).start();
         //this.props.setBalance(result.body.balance);
       },
       error => {
@@ -528,6 +580,13 @@ class Map extends React.Component {
         let cards = result.body.products;
         cards.unshift(trc)
         this.setState({ cards, focusedOnMark: true })
+        Animated.timing(this.state.topNavigationTranslateY,
+          {
+            toValue: -100,
+            duration: 300,
+            useNativeDriver: true,
+            easing: Easing.linear
+          }).start();
         //this.props.setBalance(result.body.balance);
         //this.setState({ products: result.body.products });
       },
@@ -542,10 +601,20 @@ class Map extends React.Component {
   onRegionChange = (region) => {
     if ((this.state.pickedMark.latitude == 0 && this.state.pickedMark.longitude == 0)
       ||
-      (Number(region.latitude).toFixed(3) == this.state.pickedMark.latitude && Number(region.longitude).toFixed(5) == this.state.pickedMark.longitude)) {
+      (region.longitudeDelta && Number(region.latitude).toFixed(3) == this.state.pickedMark.latitude && Number(region.longitude).toFixed(5) == this.state.pickedMark.longitude)
+      ||
+      (region.nativeEvent && Number(region.nativeEvent.coordinate.latitude).toFixed(3) == this.state.pickedMark.latitude && Number(region.nativeEvent.coordinate.longitude).toFixed(5) == this.state.pickedMark.longitude)) {
     }
     else {
-      this.setState({ focusedOnMark: false })
+      console.log("focusedOnMark setted to false")
+      this.setState({ focusedOnMark: false, cards: [] })
+      Animated.timing(this.state.topNavigationTranslateY,
+        {
+          toValue: 0,
+          duration: 300,
+          useNativeDriver: true,
+          easing: Easing.linear
+        }).start();
       if (this.state.shopActive) {
         this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
       } else if (this.state.taskActive) {
@@ -578,6 +647,7 @@ class Map extends React.Component {
       result => {
         this.setErrorVisible(false);
         this.setState({ load_timer: false });
+        this.props.setMainMissionCost(result.body.price);
         this.setState(
           {
             mainMissionId: result.body.id,
@@ -627,12 +697,21 @@ class Map extends React.Component {
         this.setState({ load_timer: false });
         let error_respons = handleError(error, this.constructor.name, "callTimer");
         this.setState({ errorText: error_respons.error_text, errorCode: error_respons.error_code });
-        this.setErrorVisible(error_respons.error_modal);
+        if (error.code != 416) {
+          this.setErrorVisible(error_respons.error_modal);
+        }
       }
     );
   }
   selectMark = (trc, ANIMATE_MAP, mark_type) => {
     console.log("SELECTED TRC", trc)
+    ANIMATE_MAP &&
+      this.moveMapTo(
+        Number(trc.lat),
+        Number(trc.lng),
+        0.0058,
+        0.0058,
+      );
     this.setState({
       pickedMark: {
         latitude: Number(trc.lat).toFixed(3),
@@ -667,59 +746,45 @@ class Map extends React.Component {
     };
     this.props.updateMall(curr_trc);
     this.props.setDistance(distance);
-    if (distance <= 0 && this.props.isLocation) {
-      this.props.showTimer(false);
-      let copyOfCards = [...this.state.cards]
-      copyOfCards.shift();
-      if (this.state.taskActive) {
-        this.loadTaskItems(trc);
+    // use JSON.stringify because js copies array with link, so changes applied to the new array applies to the old one
+    if (mark_type === "task") {
+      this.props.loaderState(true);
+      this.loadTaskItems(trc);
+      this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
+      let new_outlets = JSON.parse(JSON.stringify([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]));
+      let id = this.props.outlets.indexOf(trc);
+      console.log(new_outlets[id])
+      if (new_outlets[id]) {
+        new_outlets[id].active = true;
+        this.props.setOutlets(new_outlets);
+      }
+      if (distance <= 0 && this.props.isLocation) { //start timer 
+        this.props.showTimer(false);
         if (!this.props.selectedMall.outlet) {
           this.callTimer(trc.id, distance)
         }
       }
-    } else {
-      ANIMATE_MAP &&
-        this.moveMapTo(
-          Number(trc.lat),
-          Number(trc.lng),
-          0.0058,
-          0.0058,
-          // Math.abs(bounds.maxLat - bounds.minLat) * 1.3,
-          // Math.abs(bounds.maxLng - bounds.minLng) * 1.3
-        );
-      // use JSON.stringify because js copies array with link, so changes applied to the new array applies to the old one as well
-      if (mark_type === "task") {
-        this.props.loaderState(true);
-        this.loadTaskItems(trc);
-        this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
-        let new_outlets = JSON.parse(JSON.stringify([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]));
-        let id = this.props.outlets.indexOf(trc);
-        if (new_outlets[id]) {
-          new_outlets[id].active = true;
-          this.props.setOutlets(new_outlets);
-        }
+    }
+    else if (mark_type === "shop") {
+      this.props.loaderState(true);
+      this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
+      this.loadCashoutItems(trc);
+      let new_outlets = JSON.parse(JSON.stringify([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]));
+      let id = this.props.outlets.indexOf(trc);
+      if (new_outlets[id]) {
+        new_outlets[id].active = true;
+        this.props.setOutlets(new_outlets);
       }
-      else if (mark_type === "shop") {
-        this.props.loaderState(true);
-        this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
-        this.loadCashoutItems(trc);
-        let new_outlets = JSON.parse(JSON.stringify([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]));
-        let id = this.props.outlets.indexOf(trc);
-        if (new_outlets[id]) {
-          new_outlets[id].active = true;
-          this.props.setOutlets(new_outlets);
-        }
-      }
-      else {
-        this.props.loaderState(true);
-        this.props.setOutlets(this.props.initial_outlets.discounts);
-        this.loadDiscountItems(trc);
-        let new_outlets = JSON.parse(JSON.stringify(this.props.initial_outlets.discounts));
-        let id = this.props.outlets.indexOf(trc);
-        if (new_outlets[id]) {
-          new_outlets[id].active = true;
-          this.props.setOutlets(new_outlets);
-        }
+    }
+    else {
+      this.props.loaderState(true);
+      this.props.setOutlets(this.props.initial_outlets.discounts);
+      this.loadDiscountItems(trc);
+      let new_outlets = JSON.parse(JSON.stringify(this.props.initial_outlets.discounts));
+      let id = this.props.outlets.indexOf(trc);
+      if (new_outlets[id]) {
+        new_outlets[id].active = true;
+        this.props.setOutlets(new_outlets);
       }
     }
   };
@@ -816,14 +881,14 @@ class Map extends React.Component {
           this.state.location_loader && this.props.isLocation && <ActivityIndicator /> :
           this.state.location_loader && <ActivityIndicator />
         }
-        <LinearGradient
-          colors={[this.props.userColor.drag_panel_color, this.props.userColor.transparent]}
-          start={{ x: 0.0, y: 0.5 }}
-          end={{ x: 0.0, y: 1 }}
-          style={styles.state_change_block_gradient}
-        />
-        <View style={styles.state_change_block}>
-          <Button style={styles.state_change_block_btn} transparent onPress={() => this.toggleTab("shop")}>
+        <Animated.View style={[styles.state_change_block, {
+          transform: [
+            {
+              translateY: this.state.topNavigationTranslateY
+            }
+          ]
+        }]}>
+          <Button style={[styles.state_change_block_btn, styles.state_change_block_btn_left, this.state.shopActive && styles.blue_bg]} transparent onPress={() => this.toggleTab("shop")}>
             <FastImage
               resizeMode={FastImage.resizeMode.contain}
               style={styles.state_change_block_geo}
@@ -831,14 +896,14 @@ class Map extends React.Component {
             />
             <LinearTextGradient
               locations={[0, 1]}
-              colors={[this.state.shopActive ? this.props.userColor.light_orange : this.props.userColor.gray, this.state.shopActive ? this.props.userColor.pink : this.props.userColor.gray]}
+              colors={[this.state.shopActive ? this.props.userColor.map_blue : this.props.userColor.gray, this.state.shopActive ? this.props.userColor.map_blue : this.props.userColor.gray]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={styles.state_change_block_text}>
-              {RU.MAP_TABS.SHOP}
+              {RU.MAP_TABS.SHOP.toUpperCase()}
             </LinearTextGradient>
           </Button>
-          <Button style={styles.state_change_block_btn} transparent onPress={() => this.toggleTab("task")}>
+          <Button style={[styles.state_change_block_btn, this.state.taskActive && styles.pink_bg]} transparent onPress={() => this.toggleTab("task")}>
             <FastImage
               resizeMode={FastImage.resizeMode.contain}
               style={styles.state_change_block_geo}
@@ -846,14 +911,14 @@ class Map extends React.Component {
             />
             <LinearTextGradient
               locations={[0, 1]}
-              colors={[this.state.taskActive ? this.props.userColor.light_orange : this.props.userColor.gray, this.state.taskActive ? this.props.userColor.pink : this.props.userColor.gray]}
+              colors={[this.state.taskActive ? this.props.userColor.pink : this.props.userColor.gray, this.state.taskActive ? this.props.userColor.pink : this.props.userColor.gray]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={styles.state_change_block_text}>
-              {RU.MAP_TABS.TASK}
+              {RU.MAP_TABS.TASK.toUpperCase()}
             </LinearTextGradient>
           </Button>
-          <Button style={styles.state_change_block_btn} transparent onPress={() => this.toggleTab("discount")}>
+          <Button style={[styles.state_change_block_btn, styles.state_change_block_btn_right, this.state.discountActive && styles.violet_bg]} transparent onPress={() => this.toggleTab("discount")}>
             <FastImage
               resizeMode={FastImage.resizeMode.contain}
               style={styles.state_change_block_geo}
@@ -861,14 +926,14 @@ class Map extends React.Component {
             />
             <LinearTextGradient
               locations={[0, 1]}
-              colors={[this.state.discountActive ? this.props.userColor.light_orange : this.props.userColor.gray, this.state.discountActive ? this.props.userColor.pink : this.props.userColor.gray]}
+              colors={[this.state.discountActive ? this.props.userColor.map_violet : this.props.userColor.gray, this.state.discountActive ? this.props.userColor.map_violet : this.props.userColor.gray]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={styles.state_change_block_text}>
-              {RU.MAP_TABS.DISCOUNT}
+              {RU.MAP_TABS.DISCOUNT.toUpperCase()}
             </LinearTextGradient>
           </Button>
-        </View>
+        </Animated.View>
         {/* {this.props.isLocation ? (
           <View style={styles.trc_info}>
             <Button style={styles.img_geo_btn} transparent onPress={() => this.props.setInfo(true)}>
@@ -911,6 +976,9 @@ class Map extends React.Component {
           showUserLocation
           followUserLocation
           loadingEnabled
+          onPress={
+            this.onRegionChange
+          }
           onRegionChangeComplete={
             this.onRegionChange
           }
@@ -946,7 +1014,7 @@ class Map extends React.Component {
             ))
           }
         </MapView>
-        <TimerModal reward={this.state.mainMissionPrice} callTimer={() => { this.callTimer() }} />
+        <TimerModal />
         <FooterNavigation />
       </View >
     );
@@ -996,6 +1064,7 @@ const mapDispatchToProps = dispatch =>
       setBalance,
       updateTimer,
       reloadTimer,
+      setMainMissionCost
     },
     dispatch
   );

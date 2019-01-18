@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./styles";
-import { View, PanResponder, Animated, Dimensions, Easing, Text } from "react-native";
+import { View, PanResponder, Animated, Dimensions, Easing, Text, StatusBar, Platform } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import FastImage from 'react-native-fast-image'
 //containers
@@ -87,7 +87,6 @@ class Cashout extends React.Component {
   }
   componentDidMount = () => {
     let data = this.separateProducts(this.props.navigation.state.params.cashout_data)
-    console.log(data)
     if (this.props.navigation.state.params.cardForAccordion) {
       let activeIndex = this.findActiveAccordion(this.props.navigation.state.params.cardForAccordion, data)
       this.setState({ activeIndex })
@@ -126,10 +125,8 @@ class Cashout extends React.Component {
   getDirectionAndColor = (dy, moveY) => {
     const draggedDown = dy > 30;
     const draggedUp = dy < -30;
-    console.log(dy)
     if (moveY < 233) {
       if (draggedDown) {
-        console.log('draggedDown ')
         this.animateTop(
           {
             toValue: 1,
@@ -151,10 +148,9 @@ class Cashout extends React.Component {
         this.setState({ draggedDown: true })
       }
       if (draggedUp) {
-        console.log('draggedUp ')
         this.animateTop(
           {
-            toValue: 0,
+            toValue: Platform.OS === "ios" ? 0 : 0.00001,
             duration: 100,
           },
           {
@@ -190,6 +186,11 @@ class Cashout extends React.Component {
       <View
         style={styles.container}
       >
+        <StatusBar
+          barStyle="dark-content"
+          translucent={true}
+          backgroundColor={"transparent"}
+        />
         <CustomAlert
           title={this.state.errorText}
           first_btn_title={RU.REPEAT}

@@ -4,7 +4,6 @@ import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
 //containers
 import FooterNavigation from "../../containers/footer-navigator/footer-navigator";
-import TimerModal from "../../containers/timer-modal/timer-modal";
 //constants
 import styles from "./styles";
 import { ICONS } from "../../../constants/icons";
@@ -50,7 +49,6 @@ class Info extends React.Component {
           </LinearGradient>
 
         </ScrollView>
-        <TimerModal />
         <FooterNavigation />
       </View>
     );

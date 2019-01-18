@@ -22,6 +22,7 @@ export const colors =
   gray: "#9E9E9E",
   white_o36: "rgba(255,255,255, 0.36)",
   white_o74: "rgba(255,255,255, 0.74)",
+  white_o75: "rgba(255,255,255, 0.75)",
   white_o89: "rgba(255,255,255, 0.89)",
   white_o70: "rgba(255,255,255, 0.7)",
   white_o25: "rgba(255,255,255, 0.25)",
@@ -47,5 +48,9 @@ export const colors =
   transparent: "rgba(255,255,255, 0)",
   second_gradient_color: "#6A00B9",
   first_gradient_color: "#00EEFF",
-  backgroundForAnimated: "#595BF1"
+  backgroundForAnimated: "#595BF1",
+  map_violet_01: "rgba(192,59,226,0.1)",
+  map_blue_01: "rgba(26,169,252,0.1)",
+  map_pink_01: "rgba(245,90,142,0.1)",
+  dark_purple: "#9A4BE4"
 };

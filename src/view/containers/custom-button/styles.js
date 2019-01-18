@@ -10,9 +10,15 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "center",
+    flexDirection: "row",
     // overflow: "visible",
     borderRadius: 50,
     zIndex: 5,
+  },
+  insta_button: {
+    justifyContent: "space-between",
+    paddingLeft: 15,
+    paddingRight: 15,
   },
   enabled_button: {
     backgroundColor: colors.white
@@ -33,6 +39,11 @@ export default StyleSheet.create({
   disabled_button_text: {
     color: colors.white
   },
+  insta_logo: {
+    width: 25,
+    height: 25,
+    zIndex: 6,
+  },
   gradient: {
     position: "absolute",
   },
@@ -45,5 +56,23 @@ export default StyleSheet.create({
     height: 38,
     borderRadius: 50,
     backgroundColor: colors.drag_panel_color
+  },
+  cart_circle: {
+    width: 25,
+    height: 25,
+    borderRadius: 13,
+    padding: 0,
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 6,
+    backgroundColor: colors.white
+  },
+  cart_text: {
+    paddingRight: 0,
+    paddingLeft: 0,
+    textAlign: "center",
+    fontSize: 13,
+    fontFamily: "Rubik-Medium",
+    textAlignVertical: "center"
   }
 });

@@ -5,6 +5,7 @@ import {
   Modal,
   Text,
   AppState,
+  Platform,
   TouchableHighlight,
 } from "react-native";
 import { Button } from "native-base";
@@ -23,16 +24,10 @@ import { showFailedNotification } from "../../../reducers/main-task-failed-notif
 class TimerModal extends React.Component {
   render() {
     return (
-      <View>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={this.props.doneNotification} //this.props.doneNotification
-          onRequestClose={() => {
-            //alert("Modal has been closed.");
-          }}
-        >
-          <View style={styles.main_task_done}>
+      <View style={[styles.main_task,
+      Platform.OS === "ios" && !this.props.doneNotification && !this.props.failedNotification && { display: "none" }]}>
+        {this.props.doneNotification &&
+          <View style={[styles.main_task_done]}>
             <FastImage
               resizeMode={FastImage.resizeMode.contain}
               source={require('../../../assets/img/ANIMATED_EARN_MORE.gif')}
@@ -46,7 +41,7 @@ class TimerModal extends React.Component {
             />
             <View style={styles.main_task_done_content}>
               <Text style={styles.text_big}>{RU.CONGRAT}</Text>
-              <Text style={styles.text}>{RU.GOT_EPC + this.props.reward + " " + RU.EPC + RU.FOR_TRC}</Text>
+              <Text style={styles.text}>{RU.GOT_EPC + this.props.doneMissionCost + " " + RU.EPC + RU.FOR_TRC}</Text>
               <Text style={styles.text_small}>{RU.COME_TOMMOROW}</Text>
 
               <Button
@@ -61,17 +56,10 @@ class TimerModal extends React.Component {
               </Button>
             </View>
           </View>
-        </Modal>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={this.props.failedNotification} //this.props.failedNotification
-          onRequestClose={() => {
-            //alert("Modal has been closed.");
-          }}
-        >
+        }
+        {this.props.failedNotification &&
           <View style={[styles.main_task_done, styles.backgroundColorWhite]}>
-            <View style={styles.main_task_done_content}>
+            <View style={[styles.main_task_done_content, styles.backgroundColorWhite]}>
               <Text style={[styles.text_big, styles.textBlack]}>{RU.MAIN_TASK_FAILED}</Text>
               <Text style={[styles.text, styles.textBlack]}>{RU.MAIN_TASK_FAILURE_REASON}</Text>
               <Button
@@ -79,7 +67,6 @@ class TimerModal extends React.Component {
                 style={styles.confirm_button}
                 onPress={() => {
                   this.props.showFailedNotification(false);
-                  try { this.props.activeTab === 2 && this.props.callTimer() } catch (e) { }
                 }}
               >
                 <LinearGradient
@@ -92,8 +79,8 @@ class TimerModal extends React.Component {
               </Button>
             </View>
           </View>
-        </Modal>
-      </View>
+        }
+      </View >
     );
   }
 }
@@ -103,6 +90,7 @@ const mapStateToProps = state => {
     userColor: state.userColor,
     failedNotification: state.failedNotification,
     activeTab: state.activeTab,
+    doneMissionCost: state.doneMissionCost
   };
 };
 

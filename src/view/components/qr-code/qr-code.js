@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StatusBar, BackHandler } from "react-native";
+import { View, StatusBar, BackHandler, Text } from "react-native";
 //containers
 import Navbar from "./../../containers/cashout-navbar/cashout-navbar";
 import Message from "./../../containers/cashout-message/cashout-message";
@@ -44,19 +44,22 @@ class QrCode extends React.Component {
 
   render = () => {
     return (
-      <View style={[styles.container, this.state.modal ? styles.modal : null]}>
+      <View
+        style={[styles.container, this.state.modal ? styles.modal : null]}>
         <StatusBar
           barStyle="dark-content"
           translucent={true}
           backgroundColor={"transparent"}
         />
-        {!this.state.modal && <Navbar general_info={this.props.navigation.state.params.general_info} copyOfCards={this.props.navigation.state.params.copyOfCards} />}
-        {!this.state.modal && (
+        <Code link={this.props.navigation.state.params.link} />
+        <View style={styles.top}>
+          <Navbar general_info={this.props.navigation.state.params.general_info} copyOfCards={this.props.navigation.state.params.copyOfCards} />
+
           <Message
             total_price={this.props.navigation.state.params.total_price}
           />
-        )}
-        {!this.state.modal && <Code link={this.props.navigation.state.params.link} />}
+        </View>
+
         {this.props.socket.status === 2 ? <Process /> : null}
       </View>
     );

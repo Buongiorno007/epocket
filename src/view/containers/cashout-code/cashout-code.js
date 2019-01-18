@@ -7,14 +7,10 @@ import { colors } from "../../../constants/colors";
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-
+const { width, height } = Dimensions.get('window');
 class CashoutCode extends React.Component {
   static defaultProps = {
     link: "http://facebook.github.io/react-native/"
-  };
-
-  state = {
-    width: Dimensions.get("window").width
   };
 
 
@@ -23,7 +19,7 @@ class CashoutCode extends React.Component {
       <View style={styles.container}>
         <QRCode
           value={this.props.link}
-          size={this.state.width * 0.65}
+          size={width * 0.65}
           bgColor={this.props.userColor.black}
           fgColor={this.props.userColor.white}
         />

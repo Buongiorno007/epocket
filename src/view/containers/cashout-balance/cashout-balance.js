@@ -23,7 +23,7 @@ class CashoutBalance extends React.Component {
     return (
       <View style={styles.container}>
         {this.props.navigation &&
-          <View style={styles.block}>
+          <View style={[styles.block]}>
             <Button
               rounded
               block
@@ -47,7 +47,7 @@ class CashoutBalance extends React.Component {
               style={styles.icon}
               source={{ uri: ICONS.COMMON.CASH_EPC_WHITE }}
             />
-            <Text style={[styles.text, styles.title]}>{RU.CASH.TITLE}</Text>
+            <Text style={[styles.text, styles.title]}>{this.props.navigation ? RU.CASH.YOUR_TITLE : RU.CASH.TITLE}</Text>
           </View>
           <View style={[styles.item, styles.balance_value]}>
             <Text style={[styles.text, styles.cash]}>

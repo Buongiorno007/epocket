@@ -7,6 +7,7 @@ import selectedMall from "./selected-mall";
 import dashboard from "./show-dashboard";
 import doneNotification from "./main-task-done-notification";
 import failedNotification from "./main-task-failed-notification";
+import doneMissionCost from "./main-task-cost"
 import timer_status from "./timer-status";
 import timer from "./timer";
 import distance from "./distance";
@@ -94,5 +95,6 @@ export default combineReducers({
   socialCount,
   profileIsVirgin,
   geolocationIsVirgin,
-  timerShow
+  timerShow,
+  doneMissionCost
 });

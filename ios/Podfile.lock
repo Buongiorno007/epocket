@@ -135,13 +135,13 @@ PODS:
   - react-native-fbsdk/Share (0.8.0):
     - FBSDKShareKit
     - React
-  - react-native-google-maps (0.21.0):
+  - react-native-google-maps (0.22.1):
     - Google-Maps-iOS-Utils (= 2.1.0)
     - GoogleMaps (= 2.5.0)
     - React
   - react-native-image-picker (0.14.3):
     - React
-  - react-native-maps (0.21.0):
+  - react-native-maps (0.22.1):
     - React
   - React/Core (0.57.5):
     - yoga (= 0.57.5.React)
@@ -201,6 +201,10 @@ PODS:
   - RNBackgroundGeolocation (2.14.2):
     - CocoaLumberjack (~> 3.0)
     - React
+  - RNFS (2.13.3):
+    - React
+  - RNInstagramStoryShare (0.1.0):
+    - React
   - RNVectorIcons (4.6.0):
     - React
   - SDWebImage/Core (4.4.2)
@@ -244,6 +248,8 @@ DEPENDENCIES:
   - rn-fetch-blob (from `../node_modules/rn-fetch-blob`)
   - RNBackgroundFetch (from `../node_modules/react-native-background-fetch`)
   - RNBackgroundGeolocation (from `../node_modules/react-native-background-geolocation`)
+  - RNFS (from `../node_modules/react-native-fs`)
+  - RNInstagramStoryShare (from `../node_modules/react-native-instagram-story-share/ios`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/yoga.podspec`)
 
@@ -304,6 +310,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-background-fetch"
   RNBackgroundGeolocation:
     :path: "../node_modules/react-native-background-geolocation"
+  RNFS:
+    :path: "../node_modules/react-native-fs"
+  RNInstagramStoryShare:
+    :path: "../node_modules/react-native-instagram-story-share/ios"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
   yoga:
@@ -338,7 +348,7 @@ SPEC CHECKSUMS:
   react-native-camera: eac1e8cc7523273a2a11956d0e5dac08296cf4b0
   react-native-fast-image: cba3d9bf9c2cf8ddb643d887a686c53a5dd90a2c
   react-native-fbsdk: d5f98cc5abecbcc463e3c35c04743d716d002d37
-  react-native-google-maps: 2cfe3b01f8422c7dae51d8764139fd70f888cfce
+  react-native-google-maps: b946d62e25dc66097921ed82520e45b0b081768a
   react-native-image-picker: b303e31c3c4ada1d7cb1342423d328d2efb07fb3
   react-native-maps: 066c2afcc89e18726377bcc685315f989ca22449
   ReactNativeFabric: 01c1333f76fd4708a5833d71f0a4832a9266bf0f
@@ -346,10 +356,12 @@ SPEC CHECKSUMS:
   rn-fetch-blob: 76a8f798dae965bbcd146a2438f2e1d381c91ae3
   RNBackgroundFetch: 8c4f77f83c398c659bce82af2f0a885079417b9e
   RNBackgroundGeolocation: c9bbf69b9aa277f0b46754cc5f853bd26051a18f
+  RNFS: bbb1a64eb245763daf34aea86f97c97c4e85f74c
+  RNInstagramStoryShare: eca347b80831872ffa40e80111cb7f32d567c299
   RNVectorIcons: c0dbfbf6068fefa240c37b0f71bd03b45dddac44
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
-PODFILE CHECKSUM: ffc890abca7859b300e430c9a3bc540cd10ded9c
+PODFILE CHECKSUM: 4cab46027441afe9de5d1845507897eca5e41ead
 
 COCOAPODS: 1.5.3
