@@ -400,6 +400,7 @@ class Map extends React.Component {
         item={item.item}
         onPressItem={this.openNext}
         taskActive={this.state.taskActive}
+        shopActive={this.state.shopActive}
         btnText={
           this.state.taskActive ? RU.MAP.TASKS.toUpperCase() :
             this.state.shopActive ? RU.MAP.MAKE_PREORDER.toUpperCase() :

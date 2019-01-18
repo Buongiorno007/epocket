@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Platform, ImageBackground } from "react-native";
+import { View, Text, Platform, ImageBackground, AsyncStorage } from "react-native";
 import { Button } from "native-base";
 import FastImage from 'react-native-fast-image'
 //constants
@@ -12,10 +12,13 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 //containers
 import CustomButton from "../custom-button/custom-button";
+//services
+import moment from "moment";
 
 class CardDiscount extends React.Component {
   state = {
-    notInMall: (this.props.distance <= 0 && this.props.isLocation) ? false : true
+    notInMall: (this.props.distance <= 0 && this.props.isLocation) ? false : true,
+    cartNumber: 0
   }
   constructor(props) {
     super(props);
@@ -23,6 +26,17 @@ class CardDiscount extends React.Component {
   _onPress = () => {
     this.props.onPressItem(this.props.item);
   };
+  componentWillMount = () => {
+    if (!this.props.type && this.props.shopActive) {
+      AsyncStorage.multiGet(["cashout_cart", "cashout_cart_time", "cashout_cart_id"]).then(response => {
+        responseOrder = JSON.parse(response[0][1]);
+        let diff = moment().diff(response[1][1], 'seconds')
+        if ((diff < 86400) && String(this.props.item.id) == response[2][1]) {
+          this.setState({ cartNumber: responseOrder.length })
+        }
+      })
+    }
+  }
   render() {
     return (
       <View
@@ -112,8 +126,9 @@ class CardDiscount extends React.Component {
                 short
                 extra_short
                 semi_short
+                cartCount={this.state.cartNumber}
                 color={this.props.userColor.white}
-                title={this.props.btnText}
+                title={this.state.cartNumber ? RU.MAP.CART.toUpperCase() : this.props.btnText}
                 handler={() => { this._onPress() }}
               />
             </View>

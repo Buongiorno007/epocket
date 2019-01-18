@@ -143,6 +143,7 @@ export const RU = {
   },
   MAP: {
     TASKS: "Задания",
+    CART: "Корзина",
     MAKE_PREORDER: "Сделать предзаказ",
     LIST_PRODUCTS: "Список товаров",
     CONNECT_INSTA: "Подключите Instagram и получите ",

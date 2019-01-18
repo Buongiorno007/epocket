@@ -100,6 +100,11 @@ class CustomButton extends React.Component {
         >
           {this.props.title ? this.props.title : "OK"}
         </Text>
+        {this.props.cartCount &&
+          <View style={styles.cart_circle}>
+            <Text style={[styles.cart_text, { color: this.props.userColor.pink_blue }]}>{this.props.cartCount}</Text>
+          </View>
+        }
       </Button>
     );
   }

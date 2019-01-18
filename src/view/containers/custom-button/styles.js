@@ -56,5 +56,23 @@ export default StyleSheet.create({
     height: 38,
     borderRadius: 50,
     backgroundColor: colors.drag_panel_color
+  },
+  cart_circle: {
+    width: 25,
+    height: 25,
+    borderRadius: 13,
+    padding: 0,
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 6,
+    backgroundColor: colors.white
+  },
+  cart_text: {
+    paddingRight: 0,
+    paddingLeft: 0,
+    textAlign: "center",
+    fontSize: 13,
+    fontFamily: "Rubik-Medium",
+    textAlignVertical: "center"
   }
 });

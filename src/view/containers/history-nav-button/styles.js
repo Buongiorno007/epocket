@@ -32,6 +32,11 @@ export default StyleSheet.create({
     color: colors.white,
     fontFamily: "Rubik-Medium",
     fontSize: 9,
+    paddingRight: 0,
+    paddingTop: 0,
+    paddingBottom: 0,
+    paddingLeft: 0,
+    textAlignVertical: "center",
     textAlign: "center"
   },
   cart_number: {
