@@ -156,17 +156,17 @@ class Map extends React.Component {
     }
   }
   toggleTab = (tab) => {
-    if (this.map)
-      this.map.animateToRegion(
-        {
-          latitude: this.map.__lastRegion.latitude - 0.0008344042843,
-          longitude: this.map.__lastRegion.longitude,
-          latitudeDelta: 0.04323,
-          longitudeDelta: 0.04028
-        },
-        450
-      );
     if (tab == "shop") {
+      if (this.map)
+        this.map.animateToRegion(
+          {
+            latitude: this.map.__lastRegion.latitude - 0.0008344042843,
+            longitude: this.map.__lastRegion.longitude,
+            latitudeDelta: 0.04323,
+            longitudeDelta: 0.04028
+          },
+          450
+        );
       this.setState({ shopActive: true, taskActive: false, discountActive: false, focusedOnMark: false })
       let allShops = [...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]
       this.props.setOutlets(allShops);
@@ -184,7 +184,16 @@ class Map extends React.Component {
       this.props.setOutlets(newOutlets);
     }
     else if (tab == "discount") {
-      console.log(this.props.initial_outlets.discounts)
+      if (this.map)
+        this.map.animateToRegion(
+          {
+            latitude: this.map.__lastRegion.latitude - 0.0008344042843,
+            longitude: this.map.__lastRegion.longitude,
+            latitudeDelta: 0.04323,
+            longitudeDelta: 0.04028
+          },
+          450
+        );
       this.setState({ shopActive: false, taskActive: false, discountActive: true, focusedOnMark: false })
       this.props.setOutlets(this.props.initial_outlets.discounts);
     }
@@ -572,6 +581,7 @@ class Map extends React.Component {
       (Number(region.latitude).toFixed(3) == this.state.pickedMark.latitude && Number(region.longitude).toFixed(5) == this.state.pickedMark.longitude)) {
     }
     else {
+      console.log("focusedOnMark setted to false")
       this.setState({ focusedOnMark: false, cards: [] })
       if (this.state.shopActive) {
         this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
@@ -663,6 +673,13 @@ class Map extends React.Component {
   }
   selectMark = (trc, ANIMATE_MAP, mark_type) => {
     console.log("SELECTED TRC", trc)
+    ANIMATE_MAP &&
+    this.moveMapTo(
+      Number(trc.lat),
+      Number(trc.lng),
+      0.0058,
+      0.0058,
+    );
     this.setState({
       pickedMark: {
         latitude: Number(trc.lat).toFixed(3),
@@ -697,13 +714,6 @@ class Map extends React.Component {
     };
     this.props.updateMall(curr_trc);
     this.props.setDistance(distance);
-    ANIMATE_MAP &&
-      this.moveMapTo(
-        Number(trc.lat),
-        Number(trc.lng),
-        0.0058,
-        0.0058,
-      );
     // use JSON.stringify because js copies array with link, so changes applied to the new array applies to the old one
     if (mark_type === "task") {
       this.props.loaderState(true);
@@ -851,7 +861,7 @@ class Map extends React.Component {
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={styles.state_change_block_text}>
-              {RU.MAP_TABS.SHOP}
+              {RU.MAP_TABS.SHOP.toUpperCase()}
             </LinearTextGradient>
           </Button>
           <Button style={[styles.state_change_block_btn, this.state.taskActive && styles.pink_bg]} transparent onPress={() => this.toggleTab("task")}>
@@ -866,7 +876,7 @@ class Map extends React.Component {
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={styles.state_change_block_text}>
-              {RU.MAP_TABS.TASK}
+              {RU.MAP_TABS.TASK.toUpperCase()}
             </LinearTextGradient>
           </Button>
           <Button style={[styles.state_change_block_btn, styles.state_change_block_btn_right, this.state.discountActive && styles.violet_bg]} transparent onPress={() => this.toggleTab("discount")}>
@@ -881,7 +891,7 @@ class Map extends React.Component {
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={styles.state_change_block_text}>
-              {RU.MAP_TABS.DISCOUNT}
+              {RU.MAP_TABS.DISCOUNT.toUpperCase()}
             </LinearTextGradient>
           </Button>
         </View>

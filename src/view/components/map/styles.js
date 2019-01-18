@@ -38,9 +38,8 @@ export default StyleSheet.create({
     },
     state_change_block_text: {
         textAlign: "left",
-        fontSize: 12,
+        fontSize: 10,
         paddingLeft: 5,
-        paddingRight: 5,
         fontFamily: "Rubik-Medium"
     },
     state_change_block_btn: {
@@ -63,11 +62,13 @@ export default StyleSheet.create({
         borderBottomLeftRadius: 25,
         borderTopLeftRadius: 25,
         borderRightWidth: 0,
+        paddingLeft: 20,
     },
     state_change_block_btn_right: {
         borderBottomRightRadius: 25,
         borderTopRightRadius: 25,
         borderLeftWidth: 0,
+        paddingRight: 20,
     },
     img_geo: {
         width: 50,
@@ -84,8 +85,6 @@ export default StyleSheet.create({
     state_change_block_geo: {
         width: 20,
         height: 20,
-        paddingLeft: 5,
-        paddingRight: 5
     },
     img_geo_gradient: {
         alignItems: "center",

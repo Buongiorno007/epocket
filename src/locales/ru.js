@@ -137,9 +137,9 @@ export const RU = {
     RESULT: "ИТОГ"
   },
   MAP_TABS: {
-    SHOP: "Точка выдачи",
-    TASK: "Задания и бонусы",
-    DISCOUNT: "Дисконт центры"
+    SHOP: "Точки\nвыдачи",
+    TASK: "Задания\nи бонусы",
+    DISCOUNT: "Дисконт\nцентры"
   },
   MAP: {
     TASKS: "Задания",
