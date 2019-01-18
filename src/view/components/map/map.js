@@ -601,7 +601,9 @@ class Map extends React.Component {
   onRegionChange = (region) => {
     if ((this.state.pickedMark.latitude == 0 && this.state.pickedMark.longitude == 0)
       ||
-      (region && Number(region.latitude).toFixed(3) == this.state.pickedMark.latitude && Number(region.longitude).toFixed(5) == this.state.pickedMark.longitude)) {
+      (region.longitudeDelta && Number(region.latitude).toFixed(3) == this.state.pickedMark.latitude && Number(region.longitude).toFixed(5) == this.state.pickedMark.longitude)
+      ||
+      (region.nativeEvent && Number(region.nativeEvent.coordinate.latitude).toFixed(3) == this.state.pickedMark.latitude && Number(region.nativeEvent.coordinate.longitude).toFixed(5) == this.state.pickedMark.longitude)) {
     }
     else {
       console.log("focusedOnMark setted to false")
@@ -751,6 +753,7 @@ class Map extends React.Component {
       this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
       let new_outlets = JSON.parse(JSON.stringify([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]));
       let id = this.props.outlets.indexOf(trc);
+      console.log(new_outlets[id])
       if (new_outlets[id]) {
         new_outlets[id].active = true;
         this.props.setOutlets(new_outlets);

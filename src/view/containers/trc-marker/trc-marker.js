@@ -46,7 +46,9 @@ class TRCMarker extends React.Component {
           >
             {this.props.active &&
               <LinearGradient
-                colors={[this.props.userColor.active_marker_blue, this.props.userColor.active_marker_lightblue]}
+                colors={this.props.discountMarker ? [this.props.userColor.active_marker_violet, this.props.userColor.active_marker_lightviolet] ://discount marker
+                  this.props.cashoutMarker ? [this.props.userColor.active_marker_blue, this.props.userColor.active_marker_lightblue] ://cashout marker
+                    [this.props.userColor.active_marker_red, this.props.userColor.active_marker_lightred]}//store marker
                 start={{ x: 0.0, y: 1.0 }}
                 end={{ x: 1.0, y: 0.0 }}
                 style={[this.props.discountMarker ? styles.big_gradient : styles.gradient,
@@ -63,7 +65,11 @@ class TRCMarker extends React.Component {
               },
               this.ios && this.props.cashoutMarker && { left: 20 },
               !this.ios && this.props.cashoutMarker && { left: -2.5, top: -2.5 }]}
-              source={{ uri: this.props.active ? this.props.discountMarker ? ICONS.COMMON.DISCOUNT_ACTIVE : ICONS.COMMON.STORE_ACTIVE : this.props.discountMarker ? ICONS.COMMON.DISCOUNT_INACTIVE : ICONS.COMMON.STORE_INACTIVE }}
+              source={{
+                uri: this.props.discountMarker ? this.props.active ? ICONS.COMMON.DISCOUNT_ACTIVE : ICONS.COMMON.DISCOUNT_INACTIVE : //discount marker
+                  this.props.cashoutMarker ? this.props.active ? ICONS.COMMON.CASHOUT_ACTIVE : ICONS.COMMON.CASHOUT_INACTIVE : //cashout marker
+                    this.props.active ? ICONS.COMMON.STORE_ACTIVE : ICONS.COMMON.STORE_INACTIVE //store marker
+              }}
             >
               {this.props.discountMarker &&
                 <View style={styles.discount_text_container}>

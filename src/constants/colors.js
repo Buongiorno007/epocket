@@ -51,5 +51,6 @@ export const colors =
   backgroundForAnimated: "#595BF1",
   map_violet_01: "rgba(192,59,226,0.1)",
   map_blue_01: "rgba(26,169,252,0.1)",
-  map_pink_01: "rgba(245,90,142,0.1)"
+  map_pink_01: "rgba(245,90,142,0.1)",
+  dark_purple: "#9A4BE4"
 };

@@ -3,6 +3,7 @@ export const SET_OUTLETS = 'distance/SET_OUTLETS';
 export default (state = [], action) => {
 	switch (action.type) {
 		case SET_OUTLETS:
+			console.log(action.outlets)
 			return action.outlets;
 		default:
 			return state;
