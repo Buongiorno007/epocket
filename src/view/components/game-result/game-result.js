@@ -273,7 +273,7 @@ class GameResult extends React.Component {
         // if (Platform.OS === "ios") {
         //     RNInstagramStoryShare.share({
         //         backgroundImage: this.props.navigation.state.params.insta_data.base64,
-        //         deeplinkingUrl: 'instagram-stories://share'
+        //         deeplinkingUrl: 'https://www.instagram.com/epocketapp/'
         //     }, this.callCallback, this.callCallback)
         // }
         // else {
@@ -286,7 +286,7 @@ class GameResult extends React.Component {
         //             console.log("writeFile success")
         //             RNInstagramStoryShare.share({
         //                 backgroundImage: file_path,
-        //                 deeplinkingUrl: 'instagram-stories://share'
+        //                 deeplinkingUrl: 'https://www.instagram.com/epocketapp/'
         //             }, this.callCallback, this.callCallback)
         //         })
         //         .catch((err) => {

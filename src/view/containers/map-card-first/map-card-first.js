@@ -26,7 +26,7 @@ class CardDiscount extends React.Component {
   _onPress = () => {
     this.props.onPressItem(this.props.item);
   };
-  componentWillMount = () => {
+  componentDidMount = () => {
     if (!this.props.type && this.props.shopActive) {
       AsyncStorage.multiGet(["cashout_cart", "cashout_cart_time", "cashout_cart_id"]).then(response => {
         responseOrder = JSON.parse(response[0][1]);
@@ -126,9 +126,9 @@ class CardDiscount extends React.Component {
                 short
                 extra_short
                 semi_short
-                cartCount={this.state.cartNumber}
+                cartCount={(!this.props.type && this.props.shopActive && this.state.cartNumber > 0) ? this.state.cartNumber : false}
                 color={this.props.userColor.white}
-                title={this.state.cartNumber ? RU.MAP.CART.toUpperCase() : this.props.btnText}
+                title={this.state.cartNumber > 0 ? RU.MAP.CART.toUpperCase() : this.props.btnText}
                 handler={() => { this._onPress() }}
               />
             </View>

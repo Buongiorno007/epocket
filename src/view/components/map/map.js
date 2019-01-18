@@ -753,7 +753,6 @@ class Map extends React.Component {
       this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
       let new_outlets = JSON.parse(JSON.stringify([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]));
       let id = this.props.outlets.indexOf(trc);
-      console.log(new_outlets[id])
       if (new_outlets[id]) {
         new_outlets[id].active = true;
         this.props.setOutlets(new_outlets);

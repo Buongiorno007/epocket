@@ -302,7 +302,7 @@ class ProfileEdit extends React.Component {
                     end={{ x: 0.7, y: 1.0 }}
                     style={styles.title}
                   >
-                    мужской
+                    {RU.MALE_SEX}
                 </LinearTextGradient>
                 </Button>
                 <LinearTextGradient
@@ -328,7 +328,7 @@ class ProfileEdit extends React.Component {
                     end={{ x: 0.7, y: 1.0 }}
                     style={styles.title}
                   >
-                    женский
+                    {RU.FEMALE_SEX}
                 </LinearTextGradient>
                 </Button>
               </View>
