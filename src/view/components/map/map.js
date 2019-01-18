@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Platform, StatusBar, FlatList } from "react-native";
+import { View, Platform, StatusBar, FlatList, Animated, Easing } from "react-native";
 import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
@@ -88,6 +88,7 @@ class Map extends React.Component {
       longitude: 0
     },
     mainMissionPrice: 0,
+    topNavigationTranslateY: new Animated.Value(0)
   };
   timer(interval) {
     let countDownDate = new Date().getTime() + interval;
@@ -501,6 +502,13 @@ class Map extends React.Component {
           }
           cards.unshift(trc)
           this.setState({ cards, focusedOnMark: true })
+          Animated.timing(this.state.topNavigationTranslateY,
+            {
+              toValue: -100,
+              duration: 300,
+              useNativeDriver: true,
+              easing: Easing.linear
+            }).start();
         }
         this.props.loaderState(false);
       },
@@ -537,6 +545,13 @@ class Map extends React.Component {
         let cards = result.body.products;
         cards.unshift(trc)
         this.setState({ cards, focusedOnMark: true })
+        Animated.timing(this.state.topNavigationTranslateY,
+          {
+            toValue: -100,
+            duration: 300,
+            useNativeDriver: true,
+            easing: Easing.linear
+          }).start();
         //this.props.setBalance(result.body.balance);
       },
       error => {
@@ -564,6 +579,13 @@ class Map extends React.Component {
         let cards = result.body.products;
         cards.unshift(trc)
         this.setState({ cards, focusedOnMark: true })
+        Animated.timing(this.state.topNavigationTranslateY,
+          {
+            toValue: -100,
+            duration: 300,
+            useNativeDriver: true,
+            easing: Easing.linear
+          }).start();
         //this.props.setBalance(result.body.balance);
         //this.setState({ products: result.body.products });
       },
@@ -578,11 +600,18 @@ class Map extends React.Component {
   onRegionChange = (region) => {
     if ((this.state.pickedMark.latitude == 0 && this.state.pickedMark.longitude == 0)
       ||
-      (Number(region.latitude).toFixed(3) == this.state.pickedMark.latitude && Number(region.longitude).toFixed(5) == this.state.pickedMark.longitude)) {
+      (region && Number(region.latitude).toFixed(3) == this.state.pickedMark.latitude && Number(region.longitude).toFixed(5) == this.state.pickedMark.longitude)) {
     }
     else {
       console.log("focusedOnMark setted to false")
       this.setState({ focusedOnMark: false, cards: [] })
+      Animated.timing(this.state.topNavigationTranslateY,
+        {
+          toValue: 0,
+          duration: 300,
+          useNativeDriver: true,
+          easing: Easing.linear
+        }).start();
       if (this.state.shopActive) {
         this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
       } else if (this.state.taskActive) {
@@ -674,12 +703,12 @@ class Map extends React.Component {
   selectMark = (trc, ANIMATE_MAP, mark_type) => {
     console.log("SELECTED TRC", trc)
     ANIMATE_MAP &&
-    this.moveMapTo(
-      Number(trc.lat),
-      Number(trc.lng),
-      0.0058,
-      0.0058,
-    );
+      this.moveMapTo(
+        Number(trc.lat),
+        Number(trc.lng),
+        0.0058,
+        0.0058,
+      );
     this.setState({
       pickedMark: {
         latitude: Number(trc.lat).toFixed(3),
@@ -848,7 +877,13 @@ class Map extends React.Component {
           this.state.location_loader && this.props.isLocation && <ActivityIndicator /> :
           this.state.location_loader && <ActivityIndicator />
         }
-        <View style={styles.state_change_block}>
+        <Animated.View style={[styles.state_change_block, {
+          transform: [
+            {
+              translateY: this.state.topNavigationTranslateY
+            }
+          ]
+        }]}>
           <Button style={[styles.state_change_block_btn, styles.state_change_block_btn_left, this.state.shopActive && styles.blue_bg]} transparent onPress={() => this.toggleTab("shop")}>
             <FastImage
               resizeMode={FastImage.resizeMode.contain}
@@ -894,7 +929,7 @@ class Map extends React.Component {
               {RU.MAP_TABS.DISCOUNT.toUpperCase()}
             </LinearTextGradient>
           </Button>
-        </View>
+        </Animated.View>
         {/* {this.props.isLocation ? (
           <View style={styles.trc_info}>
             <Button style={styles.img_geo_btn} transparent onPress={() => this.props.setInfo(true)}>
@@ -937,6 +972,9 @@ class Map extends React.Component {
           showUserLocation
           followUserLocation
           loadingEnabled
+          onPress={
+            this.onRegionChange
+          }
           onRegionChangeComplete={
             this.onRegionChange
           }
