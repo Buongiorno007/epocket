@@ -146,6 +146,7 @@ export const RU = {
   MAP: {
     TASKS: "Задания",
     CART: "Корзина",
+    WILL_BE_ACTIVE:"Будет активно",
     MAKE_PREORDER: "Сделать предзаказ",
     LIST_PRODUCTS: "Список товаров",
     CONNECT_INSTA: "Подключите Instagram и получите ",

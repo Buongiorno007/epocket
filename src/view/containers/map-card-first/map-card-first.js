@@ -67,7 +67,6 @@ class CardDiscount extends React.Component {
               active
               gradient
               short
-              extra_short
               color={this.props.userColor.white}
               title={this.props.btnText}
               handler={() => { this._onPress() }}
@@ -81,51 +80,49 @@ class CardDiscount extends React.Component {
           >
             <View style={styles.dark_cont}>
               <View style={styles.top_text}>
-                <Text numberOfLines={1} style={[styles.price]}>
+                <Text numberOfLines={1} style={[styles.adress]}>
                   {this.props.item.adress}
                 </Text>
-                <Text style={[styles.owner]}>
+                <Text style={[styles.name]}>
                   {this.props.item.name}
                 </Text>
-              </View>
-              {!this.state.notInMall && this.props.timer_status && this.props.taskActive &&
-                < View style={styles.timer}>
-                  <View style={styles.time_counter_container}>
-                    <View style={styles.time_counter}>
-                      <Text style={styles.time_counter_text}>
-                        {this.props.timer.hours < 10 && "0"}
-                        {this.props.timer.hours}
-                      </Text>
-                    </View>
-                    <View>
-                      <Text style={styles.time_divider}>:</Text>
-                    </View>
-                    <View style={styles.time_counter}>
-                      <Text style={styles.time_counter_text}>
-                        {this.props.timer.minutes < 10 && "0"}
-                        {this.props.timer.minutes}
-                      </Text>
-                    </View>
-                    <View>
-                      <Text style={styles.time_divider}>:</Text>
-                    </View>
-                    <View style={styles.time_counter}>
-                      <Text style={styles.time_counter_text}>
-                        {this.props.timer.seconds < 10 && "0"}
-                        {this.props.timer.seconds}
-                      </Text>
+                {!this.state.notInMall && this.props.timer_status && this.props.taskActive &&
+                  < View style={styles.timer}>
+                    <View style={styles.time_counter_container}>
+                      <View style={styles.time_counter}>
+                        <Text style={styles.time_counter_text}>
+                          {this.props.timer.hours < 10 && "0"}
+                          {this.props.timer.hours}
+                        </Text>
+                      </View>
+                      <View>
+                        <Text style={styles.time_divider}>:</Text>
+                      </View>
+                      <View style={styles.time_counter}>
+                        <Text style={styles.time_counter_text}>
+                          {this.props.timer.minutes < 10 && "0"}
+                          {this.props.timer.minutes}
+                        </Text>
+                      </View>
+                      <View>
+                        <Text style={styles.time_divider}>:</Text>
+                      </View>
+                      <View style={styles.time_counter}>
+                        <Text style={styles.time_counter_text}>
+                          {this.props.timer.seconds < 10 && "0"}
+                          {this.props.timer.seconds}
+                        </Text>
+                      </View>
                     </View>
                   </View>
-                </View>
-              }
+                }
+              </View>
               <CustomButton
                 mapCard
                 style={styles.bottom_btn}
                 active
-                gradient
                 short
-                extra_short
-                semi_short
+                gradient
                 cartCount={(!this.props.type && this.props.shopActive && this.state.cartNumber > 0) ? this.state.cartNumber : false}
                 color={this.props.userColor.white}
                 title={this.state.cartNumber > 0 ? RU.MAP.CART.toUpperCase() : this.props.btnText}

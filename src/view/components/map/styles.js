@@ -102,14 +102,14 @@ export default StyleSheet.create({
         position: "absolute",
         bottom: 68,
         width: width,
-        height: width * 0.4,
+        height: width * 0.65,
         zIndex: 3,
     },
     horizontal_list: {
-        height: width * 0.4,
+        height: width * 0.65,
     },
     horizontal_list_content: {
-        height: width * 0.4,
+        height: width * 0.65,
         alignItems: "center",
         justifyContent: "center"
     },

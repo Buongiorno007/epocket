@@ -6,8 +6,8 @@ const { width, height } = Dimensions.get("window");
 
 export default StyleSheet.create({
   card: {
-    height: width * 0.4,
-    width: width * 0.35,
+    height: width * 0.65,
+    width: width * 0.6,
     backgroundColor: colors.white,
     borderRadius: 12,
     marginLeft: width * 0.05,
@@ -25,13 +25,13 @@ export default StyleSheet.create({
     shadowOpacity: 0.3,
   },
   icon: {
-    height: width * 0.2,
-    width: width * 0.2,
-    borderRadius: width * 0.1
+    height: width * 0.3,
+    width: width * 0.3,
+    borderRadius: width * 0.15
   },
   price: {
     fontFamily: "Rubik-Regular",
-    fontSize: 8,
+    fontSize: 14,
     textAlign: "center",
     color: colors.black_o30
   },
@@ -39,12 +39,12 @@ export default StyleSheet.create({
     height: width * 0.07,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 5
+    marginTop: 10
   },
   owner: {
     fontFamily: "Rubik-Medium",
     textAlign: "center",
-    fontSize: 12,
+    fontSize: 14,
     color: colors.black
   },
   time_range: {

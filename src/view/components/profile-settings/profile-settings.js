@@ -24,10 +24,6 @@ import { ICONS } from "../../../constants/icons";
 import { RU } from "../../../locales/ru";
 import { urls } from "../../../constants/urls";
 import { colors } from "../../../constants/colors";
-const FBSDK = require('react-native-fbsdk');
-const {
-    LoginManager,
-} = FBSDK;
 //containers
 import CustomButton from "../../containers/custom-button/custom-button";
 import CustomAlert from "../../containers/custom-alert/custom-alert";
