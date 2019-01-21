@@ -34,6 +34,8 @@ import { setMissions } from "../../../reducers/missions";
 import { updateTimer } from "../../../reducers/timer";
 import { reloadTimer } from "../../../reducers/timer-interval";
 import { setCount } from "../../../reducers/social-count"
+import { setActiveCard } from "../../../reducers/set-active-card";
+import { selectMission } from "../../../reducers/selected-mission";
 import { setInstaToken } from "../../../reducers/insta-token";
 import { setFacebookToken } from "../../../reducers/facebook-token"
 import { loaderState } from "../../../reducers/loader";
@@ -388,7 +390,24 @@ class Dashboard extends React.Component {
       this.setState({ flexDirection: flexDirectionProp })
     ]).start();
   }
+  _submissionOrder = (mission) => {
+    let insta_sub_mission = {
+      desc: RU.MISSION.SUBMISSION_3,
+      id: 1,
+      name: "insta submission",
+      type: 2,
+      flatlistData: [],
+    }
+    mission.subMissions.length && (mission.subMissions = orderBy(mission.subMissions, ['type'], ['desc']))
+    mission.subMissions.push(insta_sub_mission)
+    return mission
+  }
   componentDidMount = () => {
+    if (this.props.navigation.state.params.cardToOpen) {
+      this.props.setDashboardState(2);
+      this.props.setActiveCard(true);
+      this.props.selectMission(this._submissionOrder(this.props.navigation.state.params.cardToOpen));
+    }
     AsyncStorage.getItem('user_info').then((value) => {
       let object = JSON.parse(value);
       this.setState({
@@ -1223,6 +1242,8 @@ const mapDispatchToProps = dispatch =>
       setInstaToken,
       setFacebookToken,
       loaderState,
+      setActiveCard,
+      selectMission,
     },
     dispatch
   );

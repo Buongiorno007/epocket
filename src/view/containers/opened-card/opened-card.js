@@ -110,29 +110,46 @@ class OpenedCard extends React.Component {
                 )}
               </ScrollView>
               <View style={styles.my_button}>
-                {!this.state.notInMall ?
-                  <CustomButton
-                    handler={() => {
-                      this.executeTask();
-                    }}
-                    active
-                    title={RU.EXECUTE}
-                    color={this.props.selectedMission.color}
-                  />
-                  :
-                  <Button
-                    transparent
-                    block
-                    rounded
-                    bordered
-                    light
-                    style={styles.notInMall}
-                    onPress={() => { }}
-                  >
-                    <Text style={styles.notInMall_text}>
-                      {RU.NOT_IN_ZONE.toUpperCase()}
-                    </Text>
-                  </Button>
+                {
+                  this.props.selectedMission.active ?
+                    this.state.notInMall ?
+                      <Button
+                        transparent
+                        block
+                        rounded
+                        bordered
+                        light
+                        style={styles.notInMall}
+                        onPress={() => { }}
+                      >
+                        <Text style={styles.notInMall_text}>
+                          {RU.NOT_IN_ZONE.toUpperCase()}
+                        </Text>
+                      </Button>
+                      :
+                      <CustomButton
+                        handler={() => {
+                          this.executeTask();
+                        }}
+                        active
+                        title={RU.EXECUTE}
+                        color={this.props.selectedMission.color}
+                      />
+                    :
+                    <Button
+                      transparent
+                      block
+                      rounded
+                      bordered
+                      light
+                      style={styles.notInMall}
+                      onPress={() => { }}
+                    >
+                      <Text style={styles.notInMall_text}>
+                        {RU.MAP.WILL_BE_ACTIVE.toUpperCase() + " " + this.props.selectedMission.date_start.substring(10, 16)} -{" "}
+                        {this.props.selectedMission.date_end.substring(10, 16)}
+                      </Text>
+                    </Button>
 
                 }
               </View>
