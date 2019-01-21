@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 import { colors } from '../../../constants/colors'
@@ -66,9 +66,16 @@ export default StyleSheet.create({
         textAlign: "center"
     },
     fail: {
-        fontSize: 15,
+        fontSize: 12,
         width: width * 0.75,
         fontFamily: "Rubik-Regular",
+        color: colors.white,
+        textAlign: "center"
+    },
+    fail_text: {
+        fontSize: 15,
+        width: width * 0.75,
+        fontFamily: "Rubik-Bold",
         color: colors.white,
         textAlign: "center"
     },
@@ -104,11 +111,13 @@ export default StyleSheet.create({
         backgroundColor: "transparent",
     },
     text: {
-        fontSize: width * 0.03
+        fontSize: 12,
+        fontFamily: "Rubik-Medium"
     },
     insta_logo: {
         width: 25,
-        height: 25
+        height: 25,
+        marginRight: Platform.OS === "ios" ? 0 : 5,
     },
     zifi_cloud_failed: {
         position: "absolute",

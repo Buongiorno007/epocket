@@ -124,6 +124,9 @@ class Game extends React.Component {
 					width={width * 0.85}
 					useNativeDriver={true}
 					unfilledColor={this.props.userColor.black_o90} />
+				<View style={styles.game_description}>
+					<Text style={styles.game_description_text}>{this.props.game_info.description}</Text>
+				</View>
 				<View style={styles.container}>
 					{this.props.game_images.map((game_element, index) => {
 						return (
@@ -146,9 +149,6 @@ class Game extends React.Component {
 							</Button>
 						);
 					})}
-				</View>
-				<View style={styles.game_description}>
-					<Text style={styles.game_description_text}>{this.props.game_info.description}</Text>
 				</View>
 				<View style={styles.btn_container}>
 					<CustomButton

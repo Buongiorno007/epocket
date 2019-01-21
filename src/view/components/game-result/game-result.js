@@ -395,7 +395,7 @@ class GameResult extends React.Component {
         }
         else if (status === "failed" || status === "expired") {
             text = RU.GAME.RESULT.SEND_TO_INST
-            style = styles.fail
+            style = styles.fail_text
         }
         else {
             text = ""

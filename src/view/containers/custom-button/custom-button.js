@@ -95,7 +95,8 @@ class CustomButton extends React.Component {
               : this.props.active
                 ? { color: this.props.userColor.pink_blue }
                 : { color: this.props.userColor.white },
-            this.props.mapCard && { fontSize: 9 }
+            this.props.mapCard && { fontSize: 9 },
+            this.props.instaLogo && { fontSize: 12 }
           ]}
         >
           {this.props.title ? this.props.title : "OK"}
