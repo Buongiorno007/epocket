@@ -427,10 +427,10 @@ class Map extends React.Component {
         />
         :
         this.state.taskActive ?
-          item.item.active &&
+          //item.item.active && //uncomment this to show only active cards at map
           <CardTask
             item={item.item}
-            onPressItem={this._showSelectedCard}
+            onPressItem={this.openTaskDetails}
           />
           : this.state.shopActive ?
             <CardCashout
@@ -455,6 +455,14 @@ class Map extends React.Component {
   }
   _showSelectedCard = selectedCard => {
   };
+  openTaskDetails = selectedCard => {
+    let selectedOutlet = this.state.cards[0];
+    let copyOfCards = [...this.state.cards]
+    copyOfCards.shift(); //remove card with outlet|cashout information
+    if (this.state.taskActive) {
+      NavigationService.navigate("Dashboard", { dashboard_data: copyOfCards, general_info: selectedOutlet, posts: this.state.posts, cardToOpen: selectedCard });
+    }
+  }
   openAccordion = selectedCard => {
     let selectedCashout = this.state.cards[0];
     let copyOfCards = [...this.state.cards]
@@ -753,7 +761,6 @@ class Map extends React.Component {
       this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
       let new_outlets = JSON.parse(JSON.stringify([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]));
       let id = this.props.outlets.indexOf(trc);
-      console.log(new_outlets[id])
       if (new_outlets[id]) {
         new_outlets[id].active = true;
         this.props.setOutlets(new_outlets);

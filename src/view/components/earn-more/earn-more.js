@@ -1,10 +1,9 @@
 import React from "react";
-import { View, Text, StatusBar, Clipboard, AppState, Platform } from "react-native";
+import { View, Text, StatusBar, AppState, Platform } from "react-native";
 import FastImage from 'react-native-fast-image'
 import LinearGradient from "react-native-linear-gradient";
-import { Button, Toast } from "native-base";
+import { Button } from "native-base";
 import CookieManager from 'react-native-cookies';
-import Share from 'react-native-share';
 //constants
 import styles from "./styles";
 import { colors } from "./../../../constants/colors";
@@ -15,6 +14,7 @@ import NavigationService from "./../../../services/route";
 import InstagramLogin from '../../../services/Instagram'
 import { formatItem } from '../../../services/format-hastags'
 import { httpPost } from "../../../services/http";
+import { postToSocial } from "../../../services/post-to-social"
 
 //redux
 import { connect } from "react-redux";
@@ -100,26 +100,7 @@ class EarnMore extends React.Component {
   }
 
   shareToInsta = () => {
-    Clipboard.setString(formatItem(this.props.navigation.state.params.insta_data.hash_tag));
-    Toast.show({
-      text: RU.MISSION.HASHTAGS_MESSAGE,
-      buttonText: "",
-      duration: 3000
-    })
-    let shareImageBase64 = {
-      title: formatItem(this.props.navigation.state.params.insta_data.hash_tag),
-      url: 'data:image/jpg;base64,' + this.props.navigation.state.params.insta_data.base64,
-    };
-    setTimeout(() => {
-      Platform.OS === 'ios' ? Share.open(shareImageBase64).then(
-        result => {
-          this.confirmPost()
-        },
-        error => {
-        }
-      ) : Share.open(shareImageBase64);
-    }, 2000);
-
+    postToSocial(this.props.navigation.state.params.insta_data.base64, 'https://www.instagram.com/epocketapp/', this.confirmPost);
   }
 
   confirmPost = () => {

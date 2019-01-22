@@ -16,11 +16,6 @@ class CardTask extends React.Component {
   _onPress = () => {
     this.props.onPressItem(this.props.item);
   };
-  _renderItem = item => (
-    <View style={styles.list_item}>
-      <Text numberOfLines={2} style={styles.list_item_text}>{item.index + 1}. {item.item.name}</Text>
-    </View>
-  );
   _keyExtractor = (item, index) => String(item.id);
   render() {
     return (
@@ -33,28 +28,34 @@ class CardTask extends React.Component {
         }
         onPress={this._onPress}
       >
-        <View style={styles.top_container}>
-          <Text
-            style={styles.time_range}
+        <View style={styles.inner_conainer}>
+          <View style={styles.name_container}>
+            <Text style={styles.name}
+              numberOfLines={1}
+            >
+              {this.props.item.trade}
+            </Text>
+          </View>
+          <Text style={styles.price}
             numberOfLines={1}
           >
-            {this.props.item.price} {RU.EPC} /{this.props.item.date_start.substring(10, 16)} - {this.props.item.date_end.substring(10, 16)}
+            {this.props.item.price} {RU.EPC}
           </Text>
-          <Text style={[styles.owner]}
-            numberOfLines={1}
-          >
-            {this.props.item.trade}
-          </Text>
+          <View style={styles.bottom_container}>
+            <Text
+              style={styles.time_text}
+              numberOfLines={1}
+            >
+              {RU.MAP.WILL_BE_ACTIVE}
+            </Text>
+            <Text
+              style={styles.time_range}
+              numberOfLines={1}
+            >
+              {this.props.item.date_start.substring(10, 16)} - {this.props.item.date_end.substring(10, 16)}
+            </Text>
+          </View>
         </View>
-        <FlatList
-          listKey={"cardList" + this.props.item.id}
-          style={styles.list}
-          contentContainerStyle={styles.list_content}
-          horizontal={true}
-          keyExtractor={this._keyExtractor}
-          data={this.props.item.subMissions}
-          renderItem={this._renderItem}>
-        </FlatList>
       </Button>
     );
   }

@@ -52,6 +52,12 @@ export default StyleSheet.create({
 		fontSize: 15,
 		fontFamily: 'Rubik-Regular'
 	},
+	game_description_text_bold: {
+		textAlign: "center",
+		color: colors.black41,
+		fontSize: 15,
+		fontFamily: 'Rubik-Bold'
+	},
 	zifi: {
 		width: width * 0.35,
 		height: width * 0.35,

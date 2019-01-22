@@ -49,7 +49,7 @@ export default StyleSheet.create({
 		width: width * 0.85,
 		alignItems: "center",
 		justifyContent: "center",
-		marginTop: height * 0.1
+		marginBottom: height * 0.1
 	},
 	item: {
 		width: (width * 0.85) / 3,
@@ -81,6 +81,7 @@ export default StyleSheet.create({
 		width: width * 0.9,
 		alignItems: "center",
 		justifyContent: "center",
+		fontFamily: 'Rubik-Bold',
 		flex: 0.5
 	},
 	game_title: {
@@ -99,7 +100,7 @@ export default StyleSheet.create({
 		textAlign: "right",
 		width: width * 0.85,
 		color: colors.black,
-		fontSize: 13,
+		fontSize: 15,
 		fontFamily: 'Rubik-Regular'
 	},
 	game_cost_text: {
@@ -119,8 +120,8 @@ export default StyleSheet.create({
 	game_description_text: {
 		textAlign: "center",
 		color: colors.black41,
-		fontSize: 14,
-		fontFamily: 'Rubik-Regular'
+		fontSize: 15,
+		fontFamily: 'Rubik-Bold'
 	},
 	pressed_button: {
 		width: (width * 0.85) / 3,

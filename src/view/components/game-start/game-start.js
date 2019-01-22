@@ -133,7 +133,7 @@ class GameStart extends React.Component {
     goToMap = () => {
         NavigationService.navigate("Main")
         this.props.setNavigateToMall(true)
-        this.props.setTabState(2)
+        this.props.setTabState(1)
     }
     render() {
         return (
@@ -205,7 +205,7 @@ class GameStart extends React.Component {
                         ) : null
                         :
                         <View style={styles.text_container}>
-                            <Text style={styles.game_cost_text}>{this.props.game_info.no_more_games ? RU.GAME.SORRY_TODAY.toLocaleUpperCase() : RU.GAME.COST_TEXT.toLocaleUpperCase()} </Text>
+                            <Text style={styles.game_cost_text}>{this.props.game_info.no_more_games ? RU.GAME.SORRY_TODAY.toLocaleUpperCase() : ""} </Text>
                             <LinearTextGradient
                                 style={styles.game_cost_text}
                                 locations={[0, 1]}
@@ -213,12 +213,12 @@ class GameStart extends React.Component {
                                 start={{ x: 0, y: 0 }}
                                 end={{ x: 1, y: 0 }}
                             >
-                                {this.props.game_info.no_more_games == true ? RU.GAME.NO_GAMES.toLocaleUpperCase() : this.props.game_info.cost.toLocaleUpperCase() + " " + RU.EPC.toLocaleUpperCase()}
+                                {this.props.game_info.no_more_games == true ? RU.GAME.NO_GAMES.toLocaleUpperCase() : RU.GAME.COST_TEXT.toLocaleUpperCase() + " " + this.props.game_info.cost.toLocaleUpperCase() + " " + RU.EPC.toLocaleUpperCase()}
                             </LinearTextGradient>
                         </View>
                     }
                     <View style={styles.game_description}>
-                        <Text style={styles.game_description_text}>{this.props.game_status === "lock" ? RU.GAME.LOCK : this.props.game_info.no_more_games ? RU.GAME.GET_EPC : this.props.game_info.description}</Text>
+                        <Text style={this.props.game_info.no_more_games ? styles.game_description_text : styles.game_description_text_bold}>{this.props.game_status === "lock" ? RU.GAME.LOCK : this.props.game_info.no_more_games ? RU.GAME.GET_EPC : this.props.game_info.description}</Text>
                     </View>
                     {this.props.game_info.no_more_games ?
                         null :

@@ -8,6 +8,8 @@ export const RU = {
   FACEBOOK: " Facebook ",
   HISTORY: "Кошельки",
   INFO: "Инфо",
+  MALE_SEX: "мужской",
+  FEMALE_SEX: "женский",
   CONNECT_SOCIAL: "Подключи соцсети и стань богаче!",
   LOCATION_VIRGIN: "Включи геолокацию и получи свои первые деньги",
   LOCATION_DISABLED: "Для дальнейших действий в приложении требуется включить геолокацию",
@@ -144,6 +146,7 @@ export const RU = {
   MAP: {
     TASKS: "Задания",
     CART: "Корзина",
+    WILL_BE_ACTIVE: "Будет активно",
     MAKE_PREORDER: "Сделать предзаказ",
     LIST_PRODUCTS: "Список товаров",
     CONNECT_INSTA: "Подключите Instagram и получите ",
@@ -183,7 +186,8 @@ export const RU = {
     ALL_BONUSES_RECEIVED: "Сумма всех полученных бонусов:",
     ALL_BONUSES_SPENT: "Сумма всех потраченных бонусов:",
     NO_HISTORY: "Ваша история пока пуста",
-    NO_HISTORY_SMILE: "¯\\_(ツ)_/¯"
+    NO_HISTORY_SMILE: "¯\\_(ツ)_/¯",
+    SHOW_THIS_BARCODE: "Покажите этот штрих-код на кассе для оплаты"
   },
   INFO_PAGE: {
     INFO_TITLE: `

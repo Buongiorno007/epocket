@@ -46,7 +46,8 @@ class ProfileEdit extends React.Component {
       photo: this.props.navigation.state.params.async_storage_user.user_photo_url,
       phone: this.props.navigation.state.params.async_storage_user.user_phone,
       birthDay: this.props.navigation.state.params.async_storage_user.user_birthDay,
-      sex: this.props.navigation.state.params.async_storage_user.user_sex
+      sex: this.props.navigation.state.params.async_storage_user.user_sex,
+      currency: this.props.navigation.state.params.async_storage_user.user_currency,
     },
     modalVisible: false,
     exitVisible: false,
@@ -108,6 +109,7 @@ class ProfileEdit extends React.Component {
             sex: this.state.user.sex,
             birthDay: this.props.birthday,
             phone: this.state.user.phone,
+            currency: this.state.user.currency,
           };
           if (user.sex) {
             this.props.setColor(true)
@@ -302,8 +304,8 @@ class ProfileEdit extends React.Component {
                     end={{ x: 0.7, y: 1.0 }}
                     style={styles.title}
                   >
-                    мужской
-                </LinearTextGradient>
+                    {RU.MALE_SEX}
+                  </LinearTextGradient>
                 </Button>
                 <LinearTextGradient
                   locations={[0, 1]}
@@ -328,8 +330,8 @@ class ProfileEdit extends React.Component {
                     end={{ x: 0.7, y: 1.0 }}
                     style={styles.title}
                   >
-                    женский
-                </LinearTextGradient>
+                    {RU.FEMALE_SEX}
+                  </LinearTextGradient>
                 </Button>
               </View>
             </View>

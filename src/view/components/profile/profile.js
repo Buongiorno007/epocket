@@ -41,7 +41,8 @@ class Profile extends React.Component {
 					phone: object.phone,
 					photo: object.photo,
 					sex: object.sex,
-					birthDay: object.birthDay
+					birthDay: object.birthDay,
+					currency: object.currency,
 				}
 			});
 		});
@@ -56,7 +57,8 @@ class Profile extends React.Component {
 			user_phone: this.state.user.phone,
 			user_photo_url: this.state.user.photo,
 			user_sex: this.state.user.sex,
-			user_birthDay: this.state.user.birthDay
+			user_birthDay: this.state.user.birthDay,
+			user_currency: this.state.user.currency
 		};
 		if (async_storage_user.user_birthDay && async_storage_user.user_birthDay != "") {
 			this.props.setBirthDay(async_storage_user.user_birthDay);

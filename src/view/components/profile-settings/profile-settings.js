@@ -24,10 +24,6 @@ import { ICONS } from "../../../constants/icons";
 import { RU } from "../../../locales/ru";
 import { urls } from "../../../constants/urls";
 import { colors } from "../../../constants/colors";
-const FBSDK = require('react-native-fbsdk');
-const {
-    LoginManager,
-} = FBSDK;
 //containers
 import CustomButton from "../../containers/custom-button/custom-button";
 import CustomAlert from "../../containers/custom-alert/custom-alert";
@@ -209,7 +205,8 @@ class ProfileSettings extends React.Component {
                 user_phone: object.phone,
                 user_photo_url: object.photo,
                 user_sex: object.sex,
-                user_birthDay: object.birthDay
+                user_birthDay: object.birthDay,
+                user_currency: object.currency,
             };
             if (object.birthDay && object.birthDay != "") {
                 this.props.setBirthDay(object.birthDay);

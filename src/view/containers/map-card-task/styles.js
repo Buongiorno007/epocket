@@ -6,15 +6,15 @@ const { width, height } = Dimensions.get("window");
 
 export default StyleSheet.create({
   card: {
-    height: width * 0.4,
-    width: width * 0.4,
+    height: width * 0.65,
+    width: width * 0.65,
     backgroundColor: colors.white,
     borderRadius: 12,
+    padding: 15,
     marginLeft: width * 0.05,
-    padding: 10,
     flexDirection: "column",
-    alignItems: "flex-start",
-    justifyContent: "space-around",
+    alignItems: "center",
+    justifyContent: "center",
     elevation: 2,
     shadowColor: colors.card_shadow,
     shadowOffset: {
@@ -24,32 +24,43 @@ export default StyleSheet.create({
     shadowRadius: 5,
     shadowOpacity: 0.3,
   },
-  top_container: {
-    alignSelf: "flex-start",
+  inner_conainer: {
+    height: width * 0.52,
+    width: width * 0.52,
+    flexDirection: "column",
+    alignItems: "center",
     justifyContent: "space-between",
-    alignItems: "flex-start",
-
   },
-  list: {
-    height: width * 0.2,
-    width: width * 0.4 - 20,
-    justifyContent: "flex-end"
-  },
-  list_content: {
-  },
-  owner: {
+  name: {
     fontFamily: "Rubik-Bold",
-    fontSize: 12,
-    color: colors.black
+    fontSize: 15,
+    color: colors.map_dark_blue
+  },
+  price: {
+    fontFamily: "Rubik-Medium",
+    fontSize: 42,
+    color: colors.pink
   },
   time_range: {
-    fontFamily: "Rubik",
-    fontSize: 10,
-    color: colors.black_90
+    fontFamily: "Rubik-Bold",
+    fontSize: 14,
+    color: colors.black41
   },
-  list_item_text: {
-    fontFamily: "Rubik-Regular",
-    fontSize: 11,
-    color: colors.black_90
+  time_text: {
+    fontFamily: "Rubik-Medium",
+    fontSize: 14,
+    color: colors.black41_054
+  },
+  bottom_container: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  name_container: {
+    width: width * 0.5,
+    padding: 10,
+    borderRadius: 23,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: colors.map_dark_blue_02
   }
 });

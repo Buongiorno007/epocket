@@ -47,9 +47,10 @@ class Card extends React.Component {
             ]
         }
         onPress={
-          this.props.item.active
-            ? this._onPress
-            : null
+          // this.props.item.active
+          //   ? this._onPress
+          //   : null
+          this._onPress
         }
       >
         <Text

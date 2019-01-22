@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { View, AsyncStorage } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { Button } from "native-base";
 //redux
@@ -16,6 +16,7 @@ import Balance from "./../../containers/cashout-balance/cashout-balance";
 import HistoryNavButton from "./../../containers/history-nav-button/history-nav-button";
 import HistoryList from "./../../containers/history-list/history-list";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
+import Barcode from "../../containers/barcode/barcode"
 
 
 class History extends React.Component {
@@ -24,7 +25,9 @@ class History extends React.Component {
   }
   state = {
     pickedBonuses: true,
-    balance: 0
+    balance: 0,
+    showBarcode: false,
+    phone: "0000000000000"
   };
   pickSpentBonuses = () => {
     let pick = this.state.pickedBonuses;
@@ -34,11 +37,19 @@ class History extends React.Component {
     let pick = this.state.pickedBonuses;
     this.setState({ pickedBonuses: !pick });
   };
-
+  componentWillMount = () => {
+    AsyncStorage.getItem('user_info').then((value) => {
+      let object = JSON.parse(value);
+      this.setState({
+        phone: object.phone.replace(/\D/g, '')
+      });
+    });
+  }
 
   render() {
     return (
       <View style={styles.main_view}>
+        {this.state.showBarcode && <Barcode phone={this.state.phone} closeBarcode={() => { this.setState({ showBarcode: !this.state.showBarcode }) }} />}
         <LinearGradient
           colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
           start={{ x: 0.0, y: 1.0 }}
@@ -46,7 +57,7 @@ class History extends React.Component {
           style={styles.grad}
         >
           <View style={styles.history_nav}>
-            <Balance />
+            <Balance barcode openBarcode={() => { this.state.phone ? this.setState({ showBarcode: !this.state.showBarcode }) : console.log("phone is not ready") }} />
           </View>
           <View style={styles.list_container}>
             <View style={styles.nav_buttons}>

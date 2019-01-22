@@ -58,13 +58,13 @@ class Game extends React.Component {
 				setCorrectingInterval(() => {
 					if (this.props.tempTime <= 1) {
 						clearCorrectingInterval(this.state.interval);
-						this.goToResult("expired");
+						this.submitGame(true)
 					}
 					this.props.setTempTime(this.props.tempTime - 1)
 				}, 1000)
 		})
 	}
-	submitGame = () => {
+	submitGame = (timer_expired) => {
 		let pressedArray = [];
 		let pressedIndexArray = [];
 		this.props.game_images.forEach((item) => {
@@ -79,7 +79,12 @@ class Game extends React.Component {
 			this.goToResult("success")
 		}
 		else {
-			this.goToResult("failed")
+			if (timer_expired) {
+				this.goToResult("expired");
+			}
+			else {
+				this.goToResult("failed")
+			}
 		}
 	}
 	_handleAppStateChange = (nextAppState) => {
@@ -124,6 +129,9 @@ class Game extends React.Component {
 					width={width * 0.85}
 					useNativeDriver={true}
 					unfilledColor={this.props.userColor.black_o90} />
+				<View style={styles.game_description}>
+					<Text style={styles.game_description_text}>{this.props.game_info.description}</Text>
+				</View>
 				<View style={styles.container}>
 					{this.props.game_images.map((game_element, index) => {
 						return (
@@ -146,9 +154,6 @@ class Game extends React.Component {
 							</Button>
 						);
 					})}
-				</View>
-				<View style={styles.game_description}>
-					<Text style={styles.game_description_text}>{this.props.game_info.description}</Text>
 				</View>
 				<View style={styles.btn_container}>
 					<CustomButton
