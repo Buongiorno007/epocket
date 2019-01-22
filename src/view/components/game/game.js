@@ -58,13 +58,13 @@ class Game extends React.Component {
 				setCorrectingInterval(() => {
 					if (this.props.tempTime <= 1) {
 						clearCorrectingInterval(this.state.interval);
-						this.goToResult("expired");
+						this.submitGame(true)
 					}
 					this.props.setTempTime(this.props.tempTime - 1)
 				}, 1000)
 		})
 	}
-	submitGame = () => {
+	submitGame = (timer_expired) => {
 		let pressedArray = [];
 		let pressedIndexArray = [];
 		this.props.game_images.forEach((item) => {
@@ -79,7 +79,12 @@ class Game extends React.Component {
 			this.goToResult("success")
 		}
 		else {
-			this.goToResult("failed")
+			if (timer_expired) {
+				this.goToResult("expired");
+			}
+			else {
+				this.goToResult("failed")
+			}
 		}
 	}
 	_handleAppStateChange = (nextAppState) => {
