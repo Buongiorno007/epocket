@@ -1,9 +1,7 @@
 import React from 'react';
-import { View, Text, Clipboard, Platform, AsyncStorage, AppState, Image } from 'react-native';
+import { View, Text, AsyncStorage, AppState, Image } from 'react-native';
 import FastImage from 'react-native-fast-image'
 import LinearGradient from "react-native-linear-gradient";
-import Share from 'react-native-share';
-import { Button, Toast } from "native-base";
 import CookieManager from 'react-native-cookies';
 //redux
 import { connect } from 'react-redux';
@@ -35,6 +33,7 @@ import NavigationService from "./../../../services/route";
 import InstagramLogin from '../../../services/Instagram';
 import { formatItem } from '../../../services/format-hastags'
 import { httpPost } from "../../../services/http";
+import { postToSocial } from "../../../services/post-to-social"
 
 class GameStart extends React.Component {
     state = {
@@ -137,25 +136,7 @@ class GameStart extends React.Component {
         }
     }
     shareToInsta = () => {
-        Clipboard.setString(formatItem(this.props.game_info.insta_data.hash_tag));
-        Toast.show({
-            text: RU.MISSION.HASHTAGS_MESSAGE,
-            buttonText: "",
-            duration: 3000
-        })
-        let shareImageBase64 = {
-            title: formatItem(this.props.game_info.insta_data.hash_tag),
-            url: this.props.game_expired_img.base64,
-        };
-        setTimeout(() => {
-            Platform.OS === 'ios' ? Share.open(shareImageBase64).then(
-                result => {
-                    this.confirmPost()
-                },
-                error => {
-                }
-            ) : Share.open(shareImageBase64), this.confirmPost();
-        }, 2000);
+        postToSocial(this.props.game_expired_img.base64, 'https://www.instagram.com/epocketapp/', this.confirmPost);
     }
     render() {
         return (
