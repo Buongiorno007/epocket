@@ -205,7 +205,8 @@ class ProfileSettings extends React.Component {
                 user_phone: object.phone,
                 user_photo_url: object.photo,
                 user_sex: object.sex,
-                user_birthDay: object.birthDay
+                user_birthDay: object.birthDay,
+                user_currency: object.currency,
             };
             if (object.birthDay && object.birthDay != "") {
                 this.props.setBirthDay(object.birthDay);

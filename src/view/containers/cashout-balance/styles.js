@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
-
+import { colors } from "../../../constants/colors";
 const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
@@ -24,7 +24,7 @@ export default StyleSheet.create({
         alignItems: 'center',
     },
     balance_value: {
-        alignItems: 'flex-end'
+        alignItems: 'flex-start',
     },
     text: {
         color: 'rgba(255, 255, 255, 1)',
@@ -43,8 +43,29 @@ export default StyleSheet.create({
         height: 20,
         marginRight: width * 0.02,
     },
+    epc_icon: {
+        width: 20,
+        height: 30,
+        marginRight: width * 0.02,
+    },
     cash: {
-        textAlign: 'right',
-        fontWeight: 'bold'
+        textAlign: 'left',
+        fontSize: 12,
+        fontFamily: "Rubik-Regular"
+    },
+    title: {
+        fontSize: 12,
+        fontFamily: "Rubik-Medium"
+    },
+    barcode_btn: {
+        backgroundColor: colors.white,
+        justifyContent: "center",
+        alignItems: "center",
+        width: 50,
+        height: 30
+    },
+    barcode_icon: {
+        width: 30,
+        height: 20
     }
 });

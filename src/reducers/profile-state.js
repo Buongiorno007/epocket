@@ -5,7 +5,8 @@ let defaultProfile = {
   phone: "",
   photo: "",
   sex: null,
-  birthDay: ""
+  birthDay: "",
+  currency: ""
 };
 export default (state = defaultProfile, action) => {
   switch (action.type) {

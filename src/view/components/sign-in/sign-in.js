@@ -175,6 +175,7 @@ class SignIn extends React.Component {
     let promise = httpPost(urls.sing_in, JSON.stringify(body));
     promise.then(
       result => {
+        console.log(result)
         this.setFailedSignVisible(false);
         this.props.loaderState(false);
         this.setState({ step: 2, acceptButton: false });
@@ -257,7 +258,8 @@ class SignIn extends React.Component {
           phone: this.state.phone,
           photo: result.body.photo,
           sex: result.body.sex ? 1 : 0,
-          birthDay: result.body.birthDay
+          birthDay: result.body.birthDay,
+          currency: "uah" //result.body.currency
         };
         this.props.getPush(result.body.token)
         this.props.saveUser(user_info);
