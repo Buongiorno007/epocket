@@ -155,7 +155,6 @@ class GeolocationService extends React.Component {
         longitude: nextLocation.longitude
       }
     ) - this.props.selectedMall.rad;
-
     if (distance <= 0 && nextProps.isLocation && this.props.isLocation) {
       this.props.showDashboard(true);
       this.props.showTimer(false);
@@ -174,8 +173,8 @@ class GeolocationService extends React.Component {
     if (
       this.props.selectedMall.lat &&
       this.props.selectedMall.lng &&
-      nextProps.location.lat != this.props.location.lat &&
-      nextProps.location.lng != this.props.location.lng
+      nextProps.location.lat.toFixed(3) != this.props.location.lat.toFixed(3)  &&
+      nextProps.location.lng.toFixed(3)  != this.props.location.lng.toFixed(3) 
     ) {
       this.calculateDistance({
         latitude: this.props.selectedMall.lat,

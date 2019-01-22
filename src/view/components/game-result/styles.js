@@ -95,8 +95,8 @@ export default StyleSheet.create({
     button: {
         backgroundColor: colors.white,
         marginTop: width * 0.05,
-        paddingLeft: 15,
-        paddingRight: 15,
+        paddingLeft: 10,
+        paddingRight: 10,
         alignSelf: 'center',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -117,7 +117,6 @@ export default StyleSheet.create({
     insta_logo: {
         width: 25,
         height: 25,
-        marginRight: Platform.OS === "ios" ? 0 : 5,
     },
     zifi_cloud_failed: {
         position: "absolute",

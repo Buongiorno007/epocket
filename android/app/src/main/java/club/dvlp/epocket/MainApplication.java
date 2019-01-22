@@ -69,8 +69,8 @@ public class MainApplication extends Application implements ShareApplication, Re
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new RNFSPackage(),
-            new RNInstagramStorySharePackage(),
+                    new RNFSPackage(),
+                    new RNInstagramStorySharePackage(),
                     new FBSDKPackage(mCallbackManager),
                     new CookieManagerPackage(),
                     new RNFetchBlobPackage(),
