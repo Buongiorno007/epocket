@@ -97,7 +97,6 @@ class Start extends React.Component {
             break;
           }
           case 'token': {
-            console.log(value)
             if (value) {
               this.props.setToken(value);
               this._getLocation();
