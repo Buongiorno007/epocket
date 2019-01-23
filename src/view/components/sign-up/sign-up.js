@@ -194,7 +194,7 @@ class SignUp extends React.Component {
           balance: 0,
           sex: result.body.sex ? 1 : 0,
           birthDay: result.body.birthDay,
-          currency: "uah" //result.body.currency
+          currency: result.body.currency
         };
         this.props.saveUser(new_user);
         this.props.setToken(result.body.token);

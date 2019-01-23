@@ -163,7 +163,7 @@ subprojects {
     }
 }
 dependencies {
-    compile project(':react-native-svg')
+    compile project(':react-native-sound')
     implementation project(':react-native-fs')
     implementation project(':react-native-instagram-story-share')
     implementation project(':react-native-fbsdk')
