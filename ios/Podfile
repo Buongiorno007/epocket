@@ -58,9 +58,6 @@ target 'EpocketCash' do
   pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
   pod 'RNInstagramStoryShare', :path => '../node_modules/react-native-instagram-story-share/ios'
   pod 'RNFS', :path => '../node_modules/react-native-fs'
-
-  pod 'RNSVG', :path => '../node_modules/react-native-svg'
-
   pod 'RNSound', :path => '../node_modules/react-native-sound'
 
 end

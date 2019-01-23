@@ -10,6 +10,7 @@ import { setFixedTime } from "../../../reducers/fixedTime"
 import { setGameStatus } from "../../../reducers/game-status"
 import { setAppState } from "../../../reducers/app-state"
 import { passGameResult } from "../../../reducers/game-info";
+import { playClock, stopClock, playQuestComplete } from "../../../reducers/sounds";
 import { editGame, clearGame } from "../../../reducers/game-controller"
 //constants
 import styles from './styles';
@@ -56,7 +57,10 @@ class Game extends React.Component {
 		this.setState({
 			interval:
 				setCorrectingInterval(() => {
-					if (this.props.tempTime <= 1) {
+					if (this.props.tempTime === 5) {
+						this.props.playClock(this.props.sounds[0])
+					}
+					else if (this.props.tempTime <= 1) {
 						clearCorrectingInterval(this.state.interval);
 						this.submitGame(true)
 					}
@@ -65,6 +69,7 @@ class Game extends React.Component {
 		})
 	}
 	submitGame = (timer_expired) => {
+		this.props.stopClock(this.props.sounds[0])
 		let pressedArray = [];
 		let pressedIndexArray = [];
 		this.props.game_images.forEach((item) => {
@@ -76,6 +81,7 @@ class Game extends React.Component {
 			pressedIndexArray.push(pressedItem.id)
 		});
 		if (pressedArray.length >= 1 && JSON.stringify(pressedIndexArray) === JSON.stringify(this.props.game_info.true_answer)) { //compare JSONs to compare arrays
+			this.props.playQuestComplete(this.props.sounds[1])
 			this.goToResult("success")
 		}
 		else {
@@ -182,7 +188,8 @@ const mapStateToProps = (state) => {
 		fixedTime: state.fixedTime,
 		userColor: state.userColor,
 		appState: state.appState,
-		game_images: state.game_controller.game_images
+		game_images: state.game_controller.game_images,
+		sounds: state.sounds
 	};
 };
 
@@ -193,7 +200,10 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
 	setAppState,
 	passGameResult,
 	editGame,
-	clearGame
+	clearGame,
+	playClock,
+	stopClock,
+	playQuestComplete
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

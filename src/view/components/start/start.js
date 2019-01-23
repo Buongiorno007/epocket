@@ -25,6 +25,7 @@ import { bindActionCreators } from "redux";
 import { setBalance } from "../../../reducers/user-balance";
 import { getConnection } from "../../../reducers/net-info";
 import { setTabState } from "../../../reducers/tabs";
+import { setSounds } from "../../../reducers/sounds";
 import { loaderState } from "../../../reducers/loader";
 import { setGeoVirgin } from "../../../reducers/geo-virgin"
 import { getPush } from "../../../reducers/push";
@@ -78,6 +79,7 @@ class Start extends React.Component {
     this.props.locationStateListener();
     this.props.locationCoordsListener();
     this._initialConfig();
+    this.props.setSounds()
   };
 
   _initialConfig = () => {
@@ -224,7 +226,8 @@ const mapDispatchToProps = dispatch =>
       setBalance,
       loaderState,
       getPush,
-      setProfileVirgin
+      setProfileVirgin,
+      setSounds
     },
     dispatch
   );
