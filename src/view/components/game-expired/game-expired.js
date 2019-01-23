@@ -147,7 +147,7 @@ class GameStart extends React.Component {
                     first_btn_title={RU.OK}
                     visible={this.state.errorVisible}
                     first_btn_handler={() =>
-                        this.setErrorVisible(!this.state.errorVisible)
+                        this.connectInsta(this.props.insta_token)
                     }
                     decline_btn_handler={() =>
                         this.setErrorVisible(!this.state.errorVisible)
@@ -159,7 +159,7 @@ class GameStart extends React.Component {
                     first_btn_title={RU.OK}
                     visible={this.state.modalVisible}
                     first_btn_handler={() =>
-                        this.setModalVisible(!this.state.modalVisible)
+                        this.connectInsta(this.props.insta_token)
                     }
                     decline_btn_handler={() =>
                         this.setModalVisible(!this.state.modalVisible)

@@ -174,13 +174,15 @@ class Map extends React.Component {
     }
     else if (tab == "task") {
       let newOutlets = [...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets];
-      this.props.isLocation && this.selectNearestMall(
-        {
-          latitude: this.props.location.lat,
-          longitude: this.props.location.lng
-        },
-        this.props.initial_outlets.outlets, true
-      );
+      if (this.props.isLocation && this.props.distance < 0) {
+        this.selectNearestMall(
+          {
+            latitude: this.props.location.lat,
+            longitude: this.props.location.lng
+          },
+          this.props.initial_outlets.outlets, true
+        );
+      }
       this.setState({ shopActive: false, taskActive: true, discountActive: false, focusedOnMark: false })
       this.props.setOutlets(newOutlets);
     }
@@ -302,12 +304,12 @@ class Map extends React.Component {
       this.moveMapTo(nextProps.location.lat, nextProps.location.lng);
       this.setState({ location_loader: false });
     }
-    if (nextProps.distance < 0) {
+    if (nextProps.distance < 0 && nextProps.isLocation) {
       if (
         this.props.location.lat.toFixed(3) !== nextProps.location.lat.toFixed(3) &&
         this.props.location.lng.toFixed(3) !== nextProps.location.lng.toFixed(3)
       ) {
-        nextProps.isLocation && this.selectNearestMall(
+        this.selectNearestMall(
           {
             latitude: nextProps.location.lat,
             longitude: nextProps.location.lng
@@ -349,7 +351,8 @@ class Map extends React.Component {
         this.props.loaderState(false);
         this.props.setOutlets(result.body.outlets)
         this.props.setInitialOutlets(result.body)
-        this.props.isLocation &&
+        if (this.props.isLocation && this.props.distance < 0) {
+          console.log("select nearest")
           this.selectNearestMall(
             {
               latitude: this.props.location.lat,
@@ -357,6 +360,7 @@ class Map extends React.Component {
             },
             result.body.outlets, true
           );
+        }
       },
       error => {
         let error_respons = handleError(error, this.constructor.name, "loadTRC");
