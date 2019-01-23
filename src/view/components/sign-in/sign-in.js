@@ -259,7 +259,7 @@ class SignIn extends React.Component {
           photo: result.body.photo,
           sex: result.body.sex ? 1 : 0,
           birthDay: result.body.birthDay,
-          currency: "uah" //result.body.currency
+          currency: result.body.currency
         };
         this.props.getPush(result.body.token)
         this.props.saveUser(user_info);
