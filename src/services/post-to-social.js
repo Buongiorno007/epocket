@@ -45,10 +45,10 @@ export function postToSocial(postData, deepLink, confirmFuction) {
         //     })
         //     .catch(err => console.log('err:', err))
 
-
+        let base64Prefix = 'data:image/jpg;base64,'
         let shareImageBase64 = {
             title: formatItem(postData.hash_tag),
-            url: postData.base64,
+            url: postData.base64.includes(base64Prefix) ? postData.base64 : postData.base64 + base64Prefix, //check for base64 prefix
             social: Share.Social.INSTAGRAM
         };
         console.log(shareImageBase64)
