@@ -100,7 +100,7 @@ class EarnMore extends React.Component {
   }
 
   shareToInsta = () => {
-    postToSocial(this.props.navigation.state.params.insta_data.base64, 'https://www.instagram.com/epocketapp/', this.confirmPost);
+    postToSocial(this.props.navigation.state.params.insta_data, 'https://www.instagram.com/epocketapp/', this.confirmPost);
   }
 
   confirmPost = () => {
