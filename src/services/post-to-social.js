@@ -1,5 +1,5 @@
 import { Linking, Platform, CameraRoll } from "react-native";
-import RNInstagramStoryShare from 'react-native-instagram-story-share'
+import RNInstagramStoryShare from '../native_modules/react-native-instagram-story-share'
 import RNFetchBlob from 'rn-fetch-blob';
 import RNFS from 'react-native-fs';
 import { formatItem } from './format-hastags'
