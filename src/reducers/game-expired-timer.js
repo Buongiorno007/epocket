@@ -59,6 +59,7 @@ export const resetGameExpiredTimer = (token) => async dispatch => {
     );
     received_promise.then(
         result => {
+            console.log(result)
             let time = result.body.time;
             let oldresult = result;
             convertToBase64(oldresult.body.image).then(

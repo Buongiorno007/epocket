@@ -47,6 +47,8 @@ import socialCount from "./social-count"
 import profileIsVirgin from "./profile-virgin"
 import geolocationIsVirgin from "./geo-virgin"
 import timerShow from "./show-dashboard-timer"
+import sounds from "./sounds"
+import postStatus from "./post-status"
 
 export default combineReducers({
   isConnected,
@@ -96,5 +98,7 @@ export default combineReducers({
   profileIsVirgin,
   geolocationIsVirgin,
   timerShow,
-  doneMissionCost
+  doneMissionCost,
+  sounds,
+  postStatus
 });

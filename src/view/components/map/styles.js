@@ -56,7 +56,7 @@ export default StyleSheet.create({
         borderLeftWidth: 1,
         borderRightWidth: 1,
         borderColor: colors.white,
-        backgroundColor: colors.white_o75
+        backgroundColor: colors.white_o8
     },
     state_change_block_btn_left: {
         borderBottomLeftRadius: 25,
@@ -114,12 +114,15 @@ export default StyleSheet.create({
         justifyContent: "center"
     },
     blue_bg: {
-        backgroundColor: colors.map_blue_01
+        backgroundColor: colors.map_blue_02,
+        position: "absolute"
     },
     pink_bg: {
-        backgroundColor: colors.map_pink_01
+        backgroundColor: colors.map_pink_02,
+        position: "absolute"
     },
     violet_bg: {
-        backgroundColor: colors.map_violet_01
+        backgroundColor: colors.map_violet_02,
+        position: "absolute"
     }
 });

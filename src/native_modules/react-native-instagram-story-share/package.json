@@ -1,0 +1,69 @@
+{
+  "_args": [
+    [
+      "github:Jobeso/react-native-instagram-story-share#a6969025c0a2b0ad437f4f3f987abe08f6bf15e8",
+      "/Users/fpmsoftfpmsoft/Documents/projects/epocket-app"
+    ]
+  ],
+  "_from": "github:Jobeso/react-native-instagram-story-share#a6969025c0a2b0ad437f4f3f987abe08f6bf15e8",
+  "_id": "react-native-instagram-story-share@github:Jobeso/react-native-instagram-story-share#a6969025c0a2b0ad437f4f3f987abe08f6bf15e8",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/react-native-instagram-story-share",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "github:Jobeso/react-native-instagram-story-share#a6969025c0a2b0ad437f4f3f987abe08f6bf15e8",
+    "rawSpec": "github:Jobeso/react-native-instagram-story-share#a6969025c0a2b0ad437f4f3f987abe08f6bf15e8",
+    "saveSpec": "github:Jobeso/react-native-instagram-story-share#a6969025c0a2b0ad437f4f3f987abe08f6bf15e8",
+    "fetchSpec": null,
+    "gitCommittish": "a6969025c0a2b0ad437f4f3f987abe08f6bf15e8"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "github:Jobeso/react-native-instagram-story-share#a6969025c0a2b0ad437f4f3f987abe08f6bf15e8",
+  "_spec": "github:Jobeso/react-native-instagram-story-share#a6969025c0a2b0ad437f4f3f987abe08f6bf15e8",
+  "_where": "/Users/fpmsoftfpmsoft/Documents/projects/epocket-app",
+  "author": {
+    "name": "Johannes Sorg",
+    "email": "johannes@sorg.me"
+  },
+  "bugs": {
+    "url": "https://github.com/Jobeso/react-native-instagram-story-share/issues"
+  },
+  "dependencies": {
+    "prop-types": "^15.6.0"
+  },
+  "description": "React Native Module for Instagram Story Share",
+  "devDependencies": {
+    "babel-eslint": "^8.2.1",
+    "babel-preset-react-native": "^4.0.0",
+    "eslint": "^4.16.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-prettier": "^2.5.0",
+    "eslint-plugin-react": "^7.5.1",
+    "eslint-plugin-react-native": "^3.2.1",
+    "prettier": "^1.5.3"
+  },
+  "homepage": "https://github.com/Jobeso/react-native-instagram-story-share.git",
+  "keywords": [
+    "instagram",
+    "story",
+    "share",
+    "react-native",
+    "react",
+    "native"
+  ],
+  "license": "MIT",
+  "main": "src/index.js",
+  "name": "react-native-instagram-story-share",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jobeso/react-native-instagram-story-share.git"
+  },
+  "version": "0.1.0"
+}

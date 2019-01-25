@@ -17,8 +17,8 @@ import { startExpiredTimer } from "../../../reducers/game-expired-timer"
 import { errorState } from "../../../reducers/game-error"
 import { setFixedTime } from "../../../reducers/fixedTime";
 import { setTempTime } from "../../../reducers/tempTime";
-import { setGameInfo } from "../../../reducers/game-info"
-import { getGameInfo } from "../../../reducers/game-info";
+import { setGameInfo, getGameInfo } from "../../../reducers/game-info"
+import { checkForPostStatus } from "../../../reducers/post-status";
 //constants
 import styles from './styles';
 import { colors } from '../../../constants/colors';
@@ -42,6 +42,7 @@ class GameResult extends React.Component {
         modalVisible: false,
         errorVisible: false,
         userCount: 0,
+        buttonActive: true,
         filePath: ""
     };
     setErrorVisible = visible => {
@@ -104,11 +105,15 @@ class GameResult extends React.Component {
         );
     }
     goInst = () => {
+        this.setState({ buttonActive: false })
         if (!this.props.insta_token) {
             this.refs.instagramLogin.show()
         } else {
             this.shareToInsta();
         }
+        setTimeout(() => {
+            this.setState({ buttonActive: true })
+        }, 5000);
     };
     goLock = () => {
         NavigationService.navigate("Main")
@@ -172,82 +177,14 @@ class GameResult extends React.Component {
         );
     }
     confirmPost = () => {
-        this.props.loaderState(true);
-        let received_promise = httpGet(
-            urls.game_get + "?coords=" + this.props.location.lat + "%2C" + this.props.location.lng,
-            this.props.token
-        );
-        received_promise.then(
-            result => {
-                let game = result.body;
-                let win_array = [];
-                game.game_set.forEach(el => {
-                    if (el.option) {
-                        win_array.push(el.id);
-                    }
-                });
-                convertToBase64(game.insta_image_url).then(
-                    result => {
-                        let info = {
-                            description: game.description,
-                            cost: game.award + "",
-                            title: game.title,
-                            success_image: game.insta_image_url,
-                            no_more_games: false,
-                            time: game.time,
-                            true_answer: win_array,
-                            game_array: game.game_set,
-                            available_game_len: game.available_game_len,
-                            total_game_len: game.games_count,
-                            insta_data: {
-                                base64: 'data:image/jpg;base64,' + result,
-                                id: game.id,
-                                hash_tag: game.hash_tag,
-                            }
-                        }
-                        this.props.setGameInfo(info);
-                        this.props.setFixedTime(game.time)
-                        this.props.setTempTime(game.time)
-                        this.props.loaderState(false);
-                        NavigationService.navigate("Main")
-                        this.props.setGameStatus("start")
-                    }
-                );
-
-            },
-            error => {
-                if (error.code === 400) {
-                    let info = {
-                        description: "...",
-                        cost: "0",
-                        title: "",
-                        success_image: ICONS.FILLER,
-                        no_more_games: true,
-                        time: 0,
-                        available_game_len: 0,
-                        total_game_len: 0,
-                        true_answer: [],
-                        insta_data: {}
-                    }
-                    this.props.setGameInfo(info);
-                    this.props.loaderState(false);
-                    NavigationService.navigate("Main")
-                    this.props.setGameStatus("start")
-                }
-                else {
-                    let error_response = handleError(error, this.component.name, "confirmPost")
-                    this.props.errorState(error_response)
-                    this.props.loaderState(false);
-                }
-            }
-        );
+        this.props.checkForPostStatus(this.props.game_info.id, this.props.token, this.props.location.lat, this.props.location.lng)
+        this.setState({ buttonActive: true })
     }
     shareToInsta = () => {
         this.props.setGameStatus("instagram");
-        postToSocial(this.props.navigation.state.params.insta_data.base64, 'https://www.instagram.com/epocketapp/', this.confirmPost);
+        postToSocial(this.props.navigation.state.params.insta_data, 'https://www.instagram.com/epocketapp/', this.confirmPost);
     }
     _handleAppStateChange = (nextAppState) => {
-        console.log(this.props)
         if ((this.props.appState.match(/active/) && (nextAppState === 'inactive')) || this.props.appState.match(/active/) && (nextAppState === 'background')) {
             if (this.props.navigation.state.params.status != "success" && this.props.game_status != "instagram") {
                 console.log("user tried to abuse")
@@ -446,7 +383,8 @@ class GameResult extends React.Component {
                         style={[this.props.navigation.state.params.status === "success" ? styles.button_short : styles.button]}
                         androidRippleColor={this.props.userColor.card_shadow}
                         onPress={() => {
-                            this.props.navigation.state.params.status === "success" ? this.checkForGames("home") : this.checkForGames("insta")
+                            if (this.state.buttonActive)
+                                this.props.navigation.state.params.status === "success" ? this.checkForGames("home") : this.checkForGames("insta")
                         }}
                     >
                         {this.props.navigation.state.params.status != "success" &&
@@ -487,7 +425,8 @@ const mapStateToProps = (state) => {
         appState: state.appState,
         insta_token: state.insta_token,
         loader: state.loader,
-        location: state.location
+        location: state.location,
+        postStatus: state.postStatus
     };
 };
 
@@ -503,6 +442,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     setAppState,
     setInstaToken,
     getGameInfo,
+    checkForPostStatus
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameResult);
