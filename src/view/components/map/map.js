@@ -347,6 +347,7 @@ class Map extends React.Component {
     }), this.props.token);
     promise.then(
       result => {
+        console.log(result)
         this.setModalVisible(false);
         this.props.loaderState(false);
         this.props.setOutlets(result.body.outlets)
@@ -360,6 +361,18 @@ class Map extends React.Component {
             },
             result.body.outlets, true
           );
+        }
+        else if (this.props.isLocation && this.props.distance >= 0) {
+          let latD = 0.00003212 * this.props.distance;
+          let lngD = 0.00003381 * this.props.distance;
+          if (latD > 0.04323 && lngD > 0.04028) {
+            this.moveMapTo(
+              Number(this.props.location.lat),
+              Number(this.props.location.lng),
+              latD,
+              lngD
+            );
+          }
         }
       },
       error => {
@@ -497,6 +510,7 @@ class Map extends React.Component {
       result => {
         this.setErrorVisible(false);
         if (result.status == 200) {
+          console.log(result)
           this.setState({ posts: result.body.posts })
           let cards = this.getActiveMissions(result.body.missions);
           if (!this.props.insta_token) { //check for instagramm !this.props.insta_token
