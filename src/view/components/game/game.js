@@ -32,6 +32,7 @@ class Game extends React.Component {
 	state = {
 		interval: null,
 		progress: 1,
+		buttonActive: true,
 		progressGradient: {
 			colors: [this.props.userColor.second_gradient_color, this.props.userColor.first_gradient_color],
 			start: { x: 0.0, y: 1.0 },
@@ -69,6 +70,7 @@ class Game extends React.Component {
 		})
 	}
 	submitGame = (timer_expired) => {
+		this.setState({ buttonActive: false })
 		this.props.stopClock(this.props.sounds[0])
 		let pressedArray = [];
 		let pressedIndexArray = [];
@@ -163,7 +165,7 @@ class Game extends React.Component {
 				</View>
 				<View style={styles.btn_container}>
 					<CustomButton
-						active
+						active={this.state.buttonActive ? true : false}
 						short
 						gradient
 						title={RU.GAME.CONFIRM.toUpperCase()}

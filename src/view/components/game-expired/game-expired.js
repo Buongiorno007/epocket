@@ -41,6 +41,7 @@ class GameStart extends React.Component {
         interval: null,
         modalVisible: false,
         errorVisible: false,
+        buttonActive: true,
         userCount: 0,
     };
     setModalVisible = visible => {
@@ -85,11 +86,15 @@ class GameStart extends React.Component {
         AppState.removeEventListener('change', this._handleAppStateChange);
     }
     goInst = () => {
+        this.setState({ buttonActive: false })
         if (!this.props.insta_token) {
             this.refs.instagramLogin.show()
         } else {
             this.shareToInsta();
         }
+        setTimeout(() => {
+            this.setState({ buttonActive: true })
+        }, 5000);
     };
     connectInsta = (instagram_token) => {
         this.props.loaderState(true);
@@ -223,7 +228,7 @@ class GameStart extends React.Component {
                 </View>
                 <View style={styles.btn_container}>
                     <CustomButton
-                        active={this.props.game_error.error_text === "" && this.props.game_expired_img.id ? true : false}
+                        active={this.props.game_error.error_text === "" && this.props.game_expired_img.id && this.state.buttonActive ? true : false}
                         gradient
                         instaLogo={true}
                         title={RU.GAME.RESULT.PUBLISH_AND_CONTINUE.toUpperCase()}

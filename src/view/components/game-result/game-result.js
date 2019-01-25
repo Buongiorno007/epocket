@@ -42,6 +42,7 @@ class GameResult extends React.Component {
         modalVisible: false,
         errorVisible: false,
         userCount: 0,
+        buttonActive: true,
         filePath: ""
     };
     setErrorVisible = visible => {
@@ -104,11 +105,15 @@ class GameResult extends React.Component {
         );
     }
     goInst = () => {
+        this.setState({ buttonActive: false })
         if (!this.props.insta_token) {
             this.refs.instagramLogin.show()
         } else {
             this.shareToInsta();
         }
+        setTimeout(() => {
+            this.setState({ buttonActive: true })
+        }, 5000);
     };
     goLock = () => {
         NavigationService.navigate("Main")
@@ -172,7 +177,8 @@ class GameResult extends React.Component {
         );
     }
     confirmPost = () => {
-        this.props.checkForPostStatus(this.props.game_info.id, this.props.token, this.props.location.lat, this.props.location.lng) 
+        this.props.checkForPostStatus(this.props.game_info.id, this.props.token, this.props.location.lat, this.props.location.lng)
+        this.setState({ buttonActive: true })
     }
     shareToInsta = () => {
         this.props.setGameStatus("instagram");
@@ -377,7 +383,8 @@ class GameResult extends React.Component {
                         style={[this.props.navigation.state.params.status === "success" ? styles.button_short : styles.button]}
                         androidRippleColor={this.props.userColor.card_shadow}
                         onPress={() => {
-                            this.props.navigation.state.params.status === "success" ? this.checkForGames("home") : this.checkForGames("insta")
+                            if (this.state.buttonActive)
+                                this.props.navigation.state.params.status === "success" ? this.checkForGames("home") : this.checkForGames("insta")
                         }}
                     >
                         {this.props.navigation.state.params.status != "success" &&

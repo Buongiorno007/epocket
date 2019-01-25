@@ -14,6 +14,7 @@ import { startExpiredTimer } from "./game-expired-timer"
 import { errorState } from "./game-error"
 import { setTempTime } from "./tempTime";
 import { setGameStatus } from "./game-status"
+import { setGameInfo } from "./game-info"
 
 export default (state = false, action) => {
     switch (action.type) {
@@ -34,7 +35,6 @@ export const checkForPostStatus = (game_id, token, lat, lng) => async dispatch =
     let body = JSON.stringify({
         game_id
     });
-    console.log(body, token)
     let promise = httpPost(
         urls.post_game,
         body,

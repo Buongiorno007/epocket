@@ -899,7 +899,8 @@ class Map extends React.Component {
             }
           ]
         }]}>
-          <Button style={[styles.state_change_block_btn, styles.state_change_block_btn_left, this.state.shopActive && styles.blue_bg]} transparent onPress={() => this.toggleTab("shop")}>
+          <Button style={[styles.state_change_block_btn, styles.state_change_block_btn_left]} transparent onPress={() => this.toggleTab("shop")}>
+            {this.state.shopActive && <View style={[styles.state_change_block_btn, styles.state_change_block_btn_left, styles.blue_bg]}></View>}
             <FastImage
               resizeMode={FastImage.resizeMode.contain}
               style={styles.state_change_block_geo}
@@ -914,7 +915,8 @@ class Map extends React.Component {
               {RU.MAP_TABS.SHOP.toUpperCase()}
             </LinearTextGradient>
           </Button>
-          <Button style={[styles.state_change_block_btn, this.state.taskActive && styles.pink_bg]} transparent onPress={() => this.toggleTab("task")}>
+          <Button style={styles.state_change_block_btn} transparent onPress={() => this.toggleTab("task")}>
+            {this.state.taskActive && <View style={[styles.state_change_block_btn, styles.pink_bg]}></View>}
             <FastImage
               resizeMode={FastImage.resizeMode.contain}
               style={styles.state_change_block_geo}
@@ -929,7 +931,8 @@ class Map extends React.Component {
               {RU.MAP_TABS.TASK.toUpperCase()}
             </LinearTextGradient>
           </Button>
-          <Button style={[styles.state_change_block_btn, styles.state_change_block_btn_right, this.state.discountActive && styles.violet_bg]} transparent onPress={() => this.toggleTab("discount")}>
+          <Button style={[styles.state_change_block_btn, styles.state_change_block_btn_right]} transparent onPress={() => this.toggleTab("discount")}>
+            {this.state.discountActive && <View style={[styles.state_change_block_btn, styles.state_change_block_btn_right, styles.violet_bg]}></View>}
             <FastImage
               resizeMode={FastImage.resizeMode.contain}
               style={styles.state_change_block_geo}
