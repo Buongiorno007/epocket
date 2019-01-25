@@ -5,6 +5,28 @@ import RNFS from 'react-native-fs';
 import { formatItem } from './format-hastags'
 import Share from 'react-native-share';
 
+confirmFuction = () => { //this func will be overrided for iOS for callBack
+    console.log("confirmFuction not overrided")
+}
+
+callCallback = (callback) => {
+    console.log("instagram sharing callback", callback)
+    if (Platform.OS != "ios") {
+        setTimeout(() => {
+            let filePath = "/storage/emulated/0/DCIM/epc_game_img.jpg";
+            RNFS.exists(filePath)
+                .then((res) => {
+                    if (res) {
+                        RNFS.unlink(filePath)
+                            .then(() => {
+                                this.confirmFuction()
+                            })
+                    }
+                })
+        }, 1000);
+    }
+}
+
 export function postToSocialStory(postData, deepLink, confirmFuction) {
     if (Platform.OS === "ios") {
         RNInstagramStoryShare.share({
@@ -19,8 +41,7 @@ export function postToSocialStory(postData, deepLink, confirmFuction) {
         const file_path = dirs.DCIMDir + "/epc_game_img.jpg"
         RNFS.writeFile(file_path, image_data, 'base64')
             .then(() => {
-                console.log("writeFile success")
-                RNInstagramStoryShare.shareToFeed({
+                RNInstagramStoryShare.share({
                     backgroundImage: file_path,
                     deeplinkingUrl: deepLink
                 }, this.callCallback, this.callCallback)
@@ -47,7 +68,7 @@ export function postToSocial(postData, deepLink, confirmFuction) {
 
         let base64Prefix = 'data:image/jpg;base64,'
         let shareImageBase64 = {
-            title: formatItem(postData.hash_tag),
+            title: "",
             url: postData.base64.includes(base64Prefix) ? postData.base64 : postData.base64 + base64Prefix, //check for base64 prefix
             social: Share.Social.INSTAGRAM
         };
@@ -55,15 +76,12 @@ export function postToSocial(postData, deepLink, confirmFuction) {
         setTimeout(() => {
             Share.open(shareImageBase64).then(
                 result => {
-                    console.log(result)
-                    confirmPost()
+                    confirmFuction()
                 },
                 error => {
                 }
             )
         }, 2000);
-
-
     }
     else {
         let image_data = postData.base64.split('data:image/jpg;base64,')[1];
@@ -71,29 +89,14 @@ export function postToSocial(postData, deepLink, confirmFuction) {
         const file_path = dirs.DCIMDir + "/epc_game_img.jpg"
         RNFS.writeFile(file_path, image_data, 'base64')
             .then(() => {
-                console.log("writeFile success")
                 RNInstagramStoryShare.shareToFeed({
                     backgroundImage: file_path,
                     deeplinkingUrl: deepLink
                 }, this.callCallback, this.callCallback)
+                this.confirmFuction = confirmFuction; //override this.confirmFuction to call confirmFunction in callback
             })
             .catch((err) => {
                 console.log("writeFile error", err)
             })
     }
 };
-callCallback = (callback) => {
-    console.log("callback", callback)
-    if (Platform.OS != "ios") {
-        setTimeout(() => {
-            let filePath = "/storage/emulated/0/DCIM/epc_game_img.jpg";
-            RNFS.exists(filePath)
-                .then((res) => {
-                    if (res) {
-                        RNFS.unlink(filePath)
-                            .then(() => console.log('epc_game_img.jpg DELETED'))
-                    }
-                })
-        }, 1000);
-    }
-}

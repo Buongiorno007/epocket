@@ -80,7 +80,9 @@ public class RNInstagramStoryShareModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void shareToFeed(ReadableMap options, @Nullable Callback successCallback, @Nullable Callback failureCallback) {
+  public void shareToFeed(ReadableMap options, @Nullable Callback successCallback, @Nullable Callback failureCallback
+  // @Nullable Callback confirmFuction
+  ) {
     try {
       File media = new File("/storage/emulated/0/DCIM/epc_game_img.jpg");
       Uri uri = FileProvider.getUriForFile(reactContext, "jobeso.RNInstagramStoryShare.FileProvider.provider", media);
@@ -95,6 +97,7 @@ public class RNInstagramStoryShareModule extends ReactContextBaseJavaModule {
         activity.startActivityForResult(share, 0);
       }
       successCallback.invoke("OK");
+      // confirmFuction.invoke("OK");
     } catch (ActivityNotFoundException ex) {
       System.out.println("ERROR");
       System.out.println(ex.getMessage());
