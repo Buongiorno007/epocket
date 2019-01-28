@@ -350,6 +350,17 @@ class Map extends React.Component {
         console.log(result)
         this.setModalVisible(false);
         this.props.loaderState(false);
+        result.body.outlets.forEach(outlet => {
+          let newPrice = 0;
+          if (outlet.mission_data) {
+            getActiveMissions(outlet.mission_data).forEach(mission => {
+              if (mission.active) {
+                newPrice = newPrice + price
+              }
+            });
+            outlet.price = newPrice
+          }
+        });
         this.props.setOutlets(result.body.outlets)
         this.props.setInitialOutlets(result.body)
         if (this.props.isLocation && this.props.distance < 0) {
