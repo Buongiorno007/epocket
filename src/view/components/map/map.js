@@ -3,6 +3,7 @@ import { View, Platform, StatusBar, FlatList, Animated, Easing } from "react-nat
 import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import ClusteredMapView from 'react-native-maps-super-cluster'
 import geolib from "geolib";
 import { LinearTextGradient } from "react-native-text-gradient";
 import LinearGradient from "react-native-linear-gradient";
@@ -1005,7 +1006,7 @@ class Map extends React.Component {
             </FlatList>
           </View>
         }
-        <MapView
+        <ClusteredMapView
           style={styles.map_view}
           initialRegion={this.state.region}
           ref={ref => (this.map = ref)}
@@ -1052,7 +1053,7 @@ class Map extends React.Component {
                 null
             ))
           }
-        </MapView>
+        </ClusteredMapView>
         <TimerModal />
         <FooterNavigation />
       </View >
