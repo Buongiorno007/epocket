@@ -67,6 +67,7 @@ export const passGameResult = (mission_id, api_status, token, status, insta_data
 }
 export const getGameInfo = (token, latt, long) => async dispatch => {
     dispatch(loaderState(true));
+    //urls.game_get + "?coords=" + '50.45466' + "%2C" + '30.5238', KIEV
     let received_promise = httpGet(
         urls.game_get + "?coords=" + latt + "%2C" + long,
         token

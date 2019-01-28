@@ -9,6 +9,7 @@ import { setTempTime } from "../../../reducers/tempTime"
 import { setFixedTime } from "../../../reducers/fixedTime"
 import { setGameStatus } from "../../../reducers/game-status"
 import { setAppState } from "../../../reducers/app-state"
+import { loaderState } from "../../../reducers/loader";
 import { passGameResult } from "../../../reducers/game-info";
 import { playClock, stopClock, playQuestComplete } from "../../../reducers/sounds";
 import { editGame, clearGame } from "../../../reducers/game-controller"
@@ -104,6 +105,7 @@ class Game extends React.Component {
 		this.props.setAppState(nextAppState)
 	}
 	componentDidMount() {
+		this.props.loaderState(false)
 		AppState.addEventListener('change', this._handleAppStateChange);
 		this.props.clearGame();
 		if (this.props.tempTime >= 1) {
@@ -202,6 +204,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
 	setAppState,
 	passGameResult,
 	editGame,
+	loaderState,
 	clearGame,
 	playClock,
 	stopClock,

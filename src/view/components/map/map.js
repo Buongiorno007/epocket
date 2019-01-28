@@ -418,8 +418,10 @@ class Map extends React.Component {
       }
     })
     let nearestMall = geolib.findNearest(my_location, newArr, 0);
-    let selectedTRC = mall_array.find(x => x.id === Number(nearestMall.key))
-    try { this.selectMark(selectedTRC, ANIMATE_MAP, "task"); } catch (e) { }
+    if (nearestMall) {
+      let selectedTRC = mall_array.find(x => x.id === Number(nearestMall.key))
+      try { this.selectMark(selectedTRC, ANIMATE_MAP, "task"); } catch (e) { }
+    }
   };
 
   _renderItem = item => (

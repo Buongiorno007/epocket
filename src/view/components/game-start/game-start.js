@@ -40,6 +40,7 @@ import "../../../services/correcting-interval";
 class GameStart extends React.Component {
     state = {
         errorVisible: false,
+        loader: true,
         errorText: "",
     };
     componentWillMount() {
@@ -47,6 +48,9 @@ class GameStart extends React.Component {
     }
     componentDidMount() {
         this.loadTRC();
+        setTimeout(() => {
+            this.setState({ loader: false })
+        }, 1000);
     }
     componentWillReceiveProps = (nextProps) => {
         if (this.props.game_status == "initial" && nextProps.game_status == "start") {
@@ -138,7 +142,7 @@ class GameStart extends React.Component {
     render() {
         return (
             <View style={styles.main_view}>
-                {this.props.loader && <ActivityIndicator />}
+                {this.props.loader || this.state.loader && <ActivityIndicator />}
                 <CustomAlert
                     title={this.state.errorText}
                     first_btn_title={RU.REPEAT}
@@ -230,6 +234,7 @@ class GameStart extends React.Component {
                                 title={RU.GAME.START.toUpperCase()}
                                 color={this.props.userColor.white}
                                 handler={() => {
+                                    this.props.loaderState(true)
                                     this.props.setGameStatus("game")
                                 }}
                             />
