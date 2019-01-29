@@ -9,7 +9,9 @@ import { setTempTime } from "../../../reducers/tempTime"
 import { setFixedTime } from "../../../reducers/fixedTime"
 import { setGameStatus } from "../../../reducers/game-status"
 import { setAppState } from "../../../reducers/app-state"
+import { loaderState } from "../../../reducers/loader";
 import { passGameResult } from "../../../reducers/game-info";
+import { playClock, stopClock, playQuestComplete } from "../../../reducers/sounds";
 import { editGame, clearGame } from "../../../reducers/game-controller"
 //constants
 import styles from './styles';
@@ -31,6 +33,7 @@ class Game extends React.Component {
 	state = {
 		interval: null,
 		progress: 1,
+		buttonActive: true,
 		progressGradient: {
 			colors: [this.props.userColor.second_gradient_color, this.props.userColor.first_gradient_color],
 			start: { x: 0.0, y: 1.0 },
@@ -56,7 +59,10 @@ class Game extends React.Component {
 		this.setState({
 			interval:
 				setCorrectingInterval(() => {
-					if (this.props.tempTime <= 1) {
+					if (this.props.tempTime === 5) {
+						this.props.playClock(this.props.sounds[0])
+					}
+					else if (this.props.tempTime <= 1) {
 						clearCorrectingInterval(this.state.interval);
 						this.submitGame(true)
 					}
@@ -65,6 +71,8 @@ class Game extends React.Component {
 		})
 	}
 	submitGame = (timer_expired) => {
+		this.setState({ buttonActive: false })
+		this.props.stopClock(this.props.sounds[0])
 		let pressedArray = [];
 		let pressedIndexArray = [];
 		this.props.game_images.forEach((item) => {
@@ -76,6 +84,7 @@ class Game extends React.Component {
 			pressedIndexArray.push(pressedItem.id)
 		});
 		if (pressedArray.length >= 1 && JSON.stringify(pressedIndexArray) === JSON.stringify(this.props.game_info.true_answer)) { //compare JSONs to compare arrays
+			this.props.playQuestComplete(this.props.sounds[1])
 			this.goToResult("success")
 		}
 		else {
@@ -96,6 +105,7 @@ class Game extends React.Component {
 		this.props.setAppState(nextAppState)
 	}
 	componentDidMount() {
+		this.props.loaderState(false)
 		AppState.addEventListener('change', this._handleAppStateChange);
 		this.props.clearGame();
 		if (this.props.tempTime >= 1) {
@@ -157,7 +167,7 @@ class Game extends React.Component {
 				</View>
 				<View style={styles.btn_container}>
 					<CustomButton
-						active
+						active={this.state.buttonActive ? true : false}
 						short
 						gradient
 						title={RU.GAME.CONFIRM.toUpperCase()}
@@ -182,7 +192,8 @@ const mapStateToProps = (state) => {
 		fixedTime: state.fixedTime,
 		userColor: state.userColor,
 		appState: state.appState,
-		game_images: state.game_controller.game_images
+		game_images: state.game_controller.game_images,
+		sounds: state.sounds
 	};
 };
 
@@ -193,7 +204,11 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
 	setAppState,
 	passGameResult,
 	editGame,
-	clearGame
+	loaderState,
+	clearGame,
+	playClock,
+	stopClock,
+	playQuestComplete
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

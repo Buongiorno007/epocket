@@ -92,4 +92,14 @@ export default StyleSheet.create({
     zIndex: 1,
     backgroundColor: colors.black_50
   },
+  timer_modal_container: {
+    zIndex: 2000,
+    position: "absolute",
+    width: width,
+    height: height,
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0
+  }
 });

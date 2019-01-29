@@ -13,6 +13,7 @@ import { setAppState } from "../../../reducers/app-state"
 import { getGameInfo } from "../../../reducers/game-info";
 import { setGameExpiredTimer, resetGameExpiredTimer, shutDownExpiredTimer } from "../../../reducers/game-expired-timer"
 import { errorState } from "../../../reducers/game-error"
+import { checkForPostStatus } from "../../../reducers/post-status";
 //constants
 import styles from './styles';
 import { colors } from './../../../constants/colors';
@@ -40,6 +41,7 @@ class GameStart extends React.Component {
         interval: null,
         modalVisible: false,
         errorVisible: false,
+        buttonActive: true,
         userCount: 0,
     };
     setModalVisible = visible => {
@@ -84,11 +86,15 @@ class GameStart extends React.Component {
         AppState.removeEventListener('change', this._handleAppStateChange);
     }
     goInst = () => {
+        this.setState({ buttonActive: false })
         if (!this.props.insta_token) {
             this.refs.instagramLogin.show()
         } else {
             this.shareToInsta();
         }
+        setTimeout(() => {
+            this.setState({ buttonActive: true })
+        }, 5000);
     };
     connectInsta = (instagram_token) => {
         this.props.loaderState(true);
@@ -132,11 +138,13 @@ class GameStart extends React.Component {
     }
     confirmPost = () => {
         if (this.props.game_expired_img.id) {
-            this.props.shutDownExpiredTimer(this.props.token, this.props.game_expired_img.id, this.props.location.lat, this.props.location.lng);
+            this.props.checkForPostStatus(this.props.game_expired_img.id, this.props.token, this.props.location.lat, this.props.location.lng, this.props.game_expired_timer)
+            if (this.props.postStatus)
+                this.props.shutDownExpiredTimer(this.props.token, this.props.game_expired_img.id, this.props.location.lat, this.props.location.lng);
         }
     }
     shareToInsta = () => {
-        postToSocial(this.props.game_expired_img.base64, 'https://www.instagram.com/epocketapp/', this.confirmPost);
+        postToSocial(this.props.game_expired_img, 'https://www.instagram.com/epocketapp/', this.confirmPost);
     }
     render() {
         return (
@@ -220,7 +228,7 @@ class GameStart extends React.Component {
                 </View>
                 <View style={styles.btn_container}>
                     <CustomButton
-                        active={this.props.game_error.error_text === "" && this.props.game_expired_img.id ? true : false}
+                        active={this.props.game_error.error_text === "" && this.props.game_expired_img.id && this.state.buttonActive ? true : false}
                         gradient
                         instaLogo={true}
                         title={RU.GAME.RESULT.PUBLISH_AND_CONTINUE.toUpperCase()}
@@ -247,7 +255,8 @@ const mapStateToProps = (state) => {
         location: state.location,
         insta_token: state.insta_token,
         game_error: state.game_error,
-        game_expired_img: state.game_expired_img
+        game_expired_img: state.game_expired_img,
+        postStatus: state.postStatus
     };
 };
 
@@ -260,7 +269,8 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     loaderState,
     errorState,
     setInstaToken,
-    getGameInfo
+    getGameInfo,
+    checkForPostStatus
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameStart);

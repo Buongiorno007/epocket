@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Platform, StatusBar, FlatList, Animated, Easing } from "react-native";
+import { View, Platform, StatusBar, FlatList, Animated, Easing, Dimensions } from "react-native";
 import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
@@ -61,8 +61,11 @@ import { orderBy } from 'lodash';
 import moment from "moment-timezone";
 import "../../../services/correcting-interval";
 
+const { width, height } = Dimensions.get('window');
+
 class Map extends React.Component {
   state = {
+    mapKey: 0,
     modalVisible: false,
     userCount: 0,
     location_loader: false,
@@ -157,6 +160,7 @@ class Map extends React.Component {
     }
   }
   toggleTab = (tab) => {
+    this.setState({ mapKey: Math.random() })
     if (tab == "shop") {
       if (this.map)
         this.map.animateToRegion(
@@ -347,6 +351,7 @@ class Map extends React.Component {
     }), this.props.token);
     promise.then(
       result => {
+        console.log(result)
         this.setModalVisible(false);
         this.props.loaderState(false);
         this.props.setOutlets(result.body.outlets)
@@ -360,6 +365,18 @@ class Map extends React.Component {
             },
             result.body.outlets, true
           );
+        }
+        else if (this.props.isLocation && this.props.distance >= 0) {
+          let latD = 0.00003212 * this.props.distance;
+          let lngD = 0.00003381 * this.props.distance;
+          if (latD > 0.04323 && lngD > 0.04028) {
+            this.moveMapTo(
+              Number(this.props.location.lat),
+              Number(this.props.location.lng),
+              latD,
+              lngD
+            );
+          }
         }
       },
       error => {
@@ -394,8 +411,10 @@ class Map extends React.Component {
       }
     })
     let nearestMall = geolib.findNearest(my_location, newArr, 0);
-    let selectedTRC = mall_array.find(x => x.id === Number(nearestMall.key))
-    try { this.selectMark(selectedTRC, ANIMATE_MAP, "task"); } catch (e) { }
+    if (nearestMall) {
+      let selectedTRC = mall_array.find(x => x.id === Number(nearestMall.key))
+      try { this.selectMark(selectedTRC, ANIMATE_MAP, "task"); } catch (e) { }
+    }
   };
 
   _renderItem = item => (
@@ -497,6 +516,7 @@ class Map extends React.Component {
       result => {
         this.setErrorVisible(false);
         if (result.status == 200) {
+          console.log(result)
           this.setState({ posts: result.body.posts })
           let cards = this.getActiveMissions(result.body.missions);
           if (!this.props.insta_token) { //check for instagramm !this.props.insta_token
@@ -899,7 +919,8 @@ class Map extends React.Component {
             }
           ]
         }]}>
-          <Button style={[styles.state_change_block_btn, styles.state_change_block_btn_left, this.state.shopActive && styles.blue_bg]} transparent onPress={() => this.toggleTab("shop")}>
+          <Button style={[styles.state_change_block_btn, styles.state_change_block_btn_left]} transparent onPress={() => this.toggleTab("shop")}>
+            {this.state.shopActive && <View style={[styles.state_change_block_btn, styles.state_change_block_btn_left, styles.blue_bg]}></View>}
             <FastImage
               resizeMode={FastImage.resizeMode.contain}
               style={styles.state_change_block_geo}
@@ -914,7 +935,8 @@ class Map extends React.Component {
               {RU.MAP_TABS.SHOP.toUpperCase()}
             </LinearTextGradient>
           </Button>
-          <Button style={[styles.state_change_block_btn, this.state.taskActive && styles.pink_bg]} transparent onPress={() => this.toggleTab("task")}>
+          <Button style={styles.state_change_block_btn} transparent onPress={() => this.toggleTab("task")}>
+            {this.state.taskActive && <View style={[styles.state_change_block_btn, styles.pink_bg]}></View>}
             <FastImage
               resizeMode={FastImage.resizeMode.contain}
               style={styles.state_change_block_geo}
@@ -929,7 +951,8 @@ class Map extends React.Component {
               {RU.MAP_TABS.TASK.toUpperCase()}
             </LinearTextGradient>
           </Button>
-          <Button style={[styles.state_change_block_btn, styles.state_change_block_btn_right, this.state.discountActive && styles.violet_bg]} transparent onPress={() => this.toggleTab("discount")}>
+          <Button style={[styles.state_change_block_btn, styles.state_change_block_btn_right]} transparent onPress={() => this.toggleTab("discount")}>
+            {this.state.discountActive && <View style={[styles.state_change_block_btn, styles.state_change_block_btn_right, styles.violet_bg]}></View>}
             <FastImage
               resizeMode={FastImage.resizeMode.contain}
               style={styles.state_change_block_geo}
@@ -964,9 +987,10 @@ class Map extends React.Component {
         ) : null
         } */}
         {this.state.focusedOnMark &&
-          <View style={styles.cards_block}>
+          <View style={[styles.cards_block, this.state.cards.length === 1 && { width: width * 0.69, alignSelf: "flex-start" }]}>
             <FlatList
               listKey={"cards"}
+              scrollEnabled={this.state.cards.length != 1}
               contentContainerStyle={styles.horizontal_list_content}
               horizontal={true}
               showsHorizontalScrollIndicator={false}
@@ -978,6 +1002,7 @@ class Map extends React.Component {
           </View>
         }
         <MapView
+          key={this.state.mapKey}
           style={styles.map_view}
           initialRegion={this.state.region}
           ref={ref => (this.map = ref)}

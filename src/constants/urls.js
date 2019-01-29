@@ -27,6 +27,7 @@ export const urls = {
     insta_upload_photo:         devserver+ '/instagram/api/upload_photo',
     insta_is_logged:            devserver+ '/instagram/api/islogged',
     insta_getmedia:             devserver+ '/instagram/api/getmedia',
+    post_game:                  devserver+ '/instagram/api/post_game',
     facebook_login:             devserver+ '/facebook/api/authorization',
     facebook_logout:            devserver+ '/facebook/api/deleteuser',
     facebook_is_logged:         devserver+ '/facebook/api/islogged',
