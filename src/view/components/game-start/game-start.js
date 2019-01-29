@@ -44,7 +44,9 @@ class GameStart extends React.Component {
         errorText: "",
     };
     componentWillMount() {
-        this.props.setGameStatus("start")
+        if (this.props.game_status != "lock") {
+            this.props.setGameStatus("start")
+        }
     }
     componentDidMount() {
         this.loadTRC();
