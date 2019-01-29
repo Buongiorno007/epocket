@@ -505,7 +505,8 @@ class Map extends React.Component {
     this.setState({ cards: [], focusedOnMark: false });
     this.setModalVisible(false);
     let body = {
-      outletId: trc.id
+      outletId: trc.id,
+      notInMall: (this.props.distance <= 0 && this.props.isLocation) ? false : true
     };
     let promise = httpPost(
       urls.missions,
