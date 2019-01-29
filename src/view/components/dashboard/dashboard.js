@@ -1204,7 +1204,9 @@ class Dashboard extends React.Component {
           }
         </Animated.View>
         {this.state.load_missions && <ActivityIndicator />}
-        <TimerModal reward={this.state.mainMissionPrice} callTimer={() => { this.callTimer() }} />
+        <View style={styles.timer_modal_container}>
+          <TimerModal reward={this.state.mainMissionPrice} callTimer={() => { this.callTimer() }} />
+        </View>
       </View >
     );
   }

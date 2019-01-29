@@ -6,7 +6,6 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         alignItems: "center",
-        zIndex: 1090,
         justifyContent: "flex-start"
     },
     cashout_top: {
@@ -51,5 +50,15 @@ export default StyleSheet.create({
         zIndex: 2,
         alignItems: "center",
         justifyContent: "space-between"
+    },
+    timer_modal_container: {
+        zIndex: 2000,
+        position: "absolute",
+        width: width,
+        height: height,
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0
     }
 });

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Platform, StatusBar, FlatList, Animated, Easing } from "react-native";
+import { View, Platform, StatusBar, FlatList, Animated, Easing, Dimensions } from "react-native";
 import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
@@ -60,6 +60,8 @@ import FacebookLogin from '../../../services/Facebook'
 import { orderBy } from 'lodash';
 import moment from "moment-timezone";
 import "../../../services/correcting-interval";
+
+const { width, height } = Dimensions.get('window');
 
 class Map extends React.Component {
   state = {
@@ -996,9 +998,10 @@ class Map extends React.Component {
         ) : null
         } */}
         {this.state.focusedOnMark &&
-          <View style={styles.cards_block}>
+          <View style={[styles.cards_block, this.state.cards.length === 1 && { width: width * 0.69, alignSelf: "flex-start" }]}>
             <FlatList
               listKey={"cards"}
+              scrollEnabled={this.state.cards.length != 1}
               contentContainerStyle={styles.horizontal_list_content}
               horizontal={true}
               showsHorizontalScrollIndicator={false}

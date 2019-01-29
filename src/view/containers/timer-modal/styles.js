@@ -8,7 +8,7 @@ export default StyleSheet.create({
         height: height,
         alignItems: 'center',
         justifyContent: 'center',
-        zIndex: 1100,
+        zIndex: 2000,
         backgroundColor: colors.backgroundForAnimated
     },
     main_task: {

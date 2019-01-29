@@ -251,7 +251,9 @@ class Cashout extends React.Component {
           data={this.state.products}
           dataInit={this.props.navigation.state.params.cashout_data}
           activeIndex={this.state.activeIndex} />
-        <TimerModal />
+        <View style={styles.timer_modal_container}>
+          <TimerModal />
+        </View>
       </View>
     );
   };
