@@ -1,16 +1,17 @@
-import { Linking, Platform, CameraRoll } from "react-native";
+import { Linking, Platform, CameraRoll, Alert } from "react-native";
 import RNInstagramStoryShare from '../native_modules/react-native-instagram-story-share'
 import RNFetchBlob from 'rn-fetch-blob';
 import RNFS from 'react-native-fs';
 import { formatItem } from './format-hastags'
 import Share from 'react-native-share';
+import { RU } from "./../locales/ru";
 
 confirmFuction = () => { //this func will be overrided for iOS for callBack
     console.log("confirmFuction not overrided")
 }
 
 callCallback = (callback) => {
-    console.log("instagram sharing callback", callback)
+    console.log("instagram callback: ", callback)
     if (Platform.OS != "ios") {
         setTimeout(() => {
             let filePath = "/storage/emulated/0/DCIM/epc_game_img.jpg";
@@ -24,6 +25,16 @@ callCallback = (callback) => {
                     }
                 })
         }, 1000);
+    }
+    if (callback === "no_instagram") {
+        Alert.alert(
+            RU.UNABLE_TO_POST,
+            RU.NO_INST_INSTALLED,
+            [
+                { text: RU.OK.toUpperCase(), onPress: () => console.log('OK Pressed') },
+            ],
+            { cancelable: false },
+        );
     }
 }
 

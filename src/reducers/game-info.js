@@ -74,11 +74,14 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
     );
     received_promise.then(
         result => {
+            console.log(result)
             let game = result.body;
             if (game.ticker === false && !game.game_set) {
+                console.log("lock")
                 dispatch(setGameStatus("lock"));
                 dispatch(errorState(null));
                 dispatch(loaderState(false));
+                NavigationService.navigate("Main")
             }
             else if (game.game_set) {
                 let win_array = [];

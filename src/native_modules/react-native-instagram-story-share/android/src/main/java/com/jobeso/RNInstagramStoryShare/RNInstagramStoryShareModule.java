@@ -13,6 +13,8 @@ import android.content.Intent;
 import android.content.ActivityNotFoundException;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.content.pm.PackageManager;
+import android.content.Context;
 
 import java.io.File;
 import java.util.Map;
@@ -29,10 +31,13 @@ public class RNInstagramStoryShareModule extends ReactContextBaseJavaModule {
   private static final String MEDIA_TYPE_JPEG = "image/*";
 
   private final ReactApplicationContext reactContext;
+  
+  Context ctx;
 
   public RNInstagramStoryShareModule(ReactApplicationContext reactContext) {
     super(reactContext);
     this.reactContext = reactContext;
+    this.ctx = reactContext.getApplicationContext();
 
   }
 
@@ -49,6 +54,18 @@ public class RNInstagramStoryShareModule extends ReactContextBaseJavaModule {
     constants.put(NO_BASE64_IMAGE, NO_BASE64_IMAGE);
     constants.put(INVALID_PARAMETER, INVALID_PARAMETER);
     return constants;
+  }
+
+  public boolean isAppInstalled(String packageName) {
+    PackageManager pm = ctx.getPackageManager();
+    boolean installed = false;
+    try {
+      pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
+      installed = true;
+    } catch (PackageManager.NameNotFoundException e) {
+      installed = false;
+    }
+    return installed;
   }
 
   @ReactMethod
@@ -83,25 +100,31 @@ public class RNInstagramStoryShareModule extends ReactContextBaseJavaModule {
   public void shareToFeed(ReadableMap options, @Nullable Callback successCallback, @Nullable Callback failureCallback
   // @Nullable Callback confirmFuction
   ) {
-    try {
-      File media = new File("/storage/emulated/0/DCIM/epc_game_img.jpg");
-      Uri uri = FileProvider.getUriForFile(reactContext, "jobeso.RNInstagramStoryShare.FileProvider.provider", media);
-      // Create the new Intent using the 'Send' action.
-      Intent share = new Intent("com.instagram.share.ADD_TO_FEED");
-      share.setDataAndType(uri, MEDIA_TYPE_JPEG);
-      share.putExtra(Intent.EXTRA_STREAM, uri);
-      share.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-      // Broadcast the Intent.
-      Activity activity = this.getCurrentActivity();
-      if (activity.getPackageManager().resolveActivity(share, 0) != null) {
-        activity.startActivityForResult(share, 0);
+    if (isAppInstalled("com.instagram.android")) {
+      try {
+        File media = new File("/storage/emulated/0/DCIM/epc_game_img.jpg");
+        Uri uri = FileProvider.getUriForFile(reactContext, "jobeso.RNInstagramStoryShare.FileProvider.provider", media);
+        // Create the new Intent using the 'Send' action.
+        Intent share = new Intent("com.instagram.share.ADD_TO_FEED");
+        share.setDataAndType(uri, MEDIA_TYPE_JPEG);
+        share.putExtra(Intent.EXTRA_STREAM, uri);
+        share.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        // Broadcast the Intent.
+        Activity activity = this.getCurrentActivity();
+        if (activity.getPackageManager().resolveActivity(share, 0) != null) {
+          activity.startActivityForResult(share, 0);
+        }
+        successCallback.invoke("OK");
+        // confirmFuction.invoke("OK");
+      } catch (ActivityNotFoundException ex) {
+        System.out.println("ERROR");
+        System.out.println(ex.getMessage());
+        failureCallback.invoke(ex);
       }
-      successCallback.invoke("OK");
-      // confirmFuction.invoke("OK");
-    } catch (ActivityNotFoundException ex) {
+    } else {
       System.out.println("ERROR");
-      System.out.println(ex.getMessage());
-      failureCallback.invoke(ex);
+      failureCallback.invoke("no_instagram");
     }
+
   }
 }
