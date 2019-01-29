@@ -6,6 +6,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         alignItems: "center",
+        zIndex: 1090,
         justifyContent: "flex-start"
     },
     cashout_top: {

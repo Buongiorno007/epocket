@@ -8,6 +8,7 @@ export default StyleSheet.create({
   },
   main_view: {
     flex: 1,
+    zIndex: 1110,
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-between"
