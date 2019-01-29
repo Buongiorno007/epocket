@@ -63,6 +63,7 @@ import "../../../services/correcting-interval";
 
 class Map extends React.Component {
   state = {
+    mapKey: 0,
     modalVisible: false,
     userCount: 0,
     location_loader: false,
@@ -157,6 +158,7 @@ class Map extends React.Component {
     }
   }
   toggleTab = (tab) => {
+    this.setState({ mapKey: Math.random() })
     if (tab == "shop") {
       if (this.map)
         this.map.animateToRegion(
@@ -1008,6 +1010,7 @@ class Map extends React.Component {
           </View>
         }
         <MapView
+          key={this.state.mapKey}
           style={styles.map_view}
           initialRegion={this.state.region}
           ref={ref => (this.map = ref)}

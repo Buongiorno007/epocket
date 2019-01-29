@@ -123,7 +123,6 @@ class GameResult extends React.Component {
     }
     goWait = () => {
         NavigationService.navigate("Main")
-        console.log(this.props.game_info.id)
         if (this.props.game_info.id) {
             this.props.startExpiredTimer(this.props.token, this.props.game_info.id);
             setTimeout(() => {
@@ -190,11 +189,9 @@ class GameResult extends React.Component {
         postToSocial(this.props.navigation.state.params.insta_data, 'https://www.instagram.com/epocketapp/', this.confirmPost);
     }
     _handleAppStateChange = (nextAppState) => {
-        if ((this.props.appState.match(/active/) && (nextAppState === 'inactive')) || this.props.appState.match(/active/) && (nextAppState === 'background')) {
-            if (this.props.navigation.state.params.status != "success") {
-                console.log("user tried to abuse")
-                this.checkForGames("wait");
-            }
+        if (((this.props.appState.match(/active/) && (nextAppState === 'inactive')) || this.props.appState.match(/active/) && (nextAppState === 'background')) && this.props.navigation.state.params.status != "success") {
+            console.log("user tried to abuse")
+            this.checkForGames("wait");
         }
         this.props.setAppState(nextAppState)
     }
