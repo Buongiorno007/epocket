@@ -224,7 +224,7 @@ class GameStart extends React.Component {
                     <View style={styles.game_description}>
                         <Text style={this.props.game_info.no_more_games ? styles.game_description_text : styles.game_description_text_bold}>{this.props.game_status === "lock" ? RU.GAME.LOCK : this.props.game_info.no_more_games ? RU.GAME.GET_EPC : this.props.game_info.description}</Text>
                     </View>
-                    {this.props.game_info.no_more_games ?
+                    {this.props.game_info.no_more_games || this.props.game_status === "lock" ?
                         null :
                         <View style={styles.btn_container}>
                             < CustomButton
