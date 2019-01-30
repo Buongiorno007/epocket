@@ -159,6 +159,33 @@ class Map extends React.Component {
       );
     }
   }
+  showNearestOne = (my_location, mall_array) => {
+    let newArr = {};
+    mall_array.forEach(item => {
+      let newItem = {
+        latitude: item.lat,
+        longitude: item.lng
+      };
+      let name = item.id;
+      if (newItem.latitude != "None" && newItem.longitude != "None")
+        newArr[name] = newItem;
+    })
+    let nearestMall = geolib.findNearest(my_location, newArr, 1);
+    if (nearestMall) {
+      let latD = 0.00003212 * nearestMall.distance;
+      let lngD = 0.00003381 * nearestMall.distance;
+      if (latD > 0.04323 && lngD > 0.04028) {
+        setTimeout(() => {
+          this.moveMapTo(
+            Number(this.props.location.lat),
+            Number(this.props.location.lng),
+            latD,
+            lngD
+          );
+        }, 1000);
+      }
+    }
+  };
   toggleTab = (tab) => {
     this.setState({ mapKey: Math.random() })
     if (tab == "shop") {
@@ -175,6 +202,11 @@ class Map extends React.Component {
       this.setState({ shopActive: true, taskActive: false, discountActive: false, focusedOnMark: false })
       let allShops = [...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]
       this.props.setOutlets(allShops);
+      this.showNearestOne({
+        latitude: this.props.location.lat,
+        longitude: this.props.location.lng
+      },
+        allShops)
     }
     else if (tab == "task") {
       let newOutlets = [...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets];
@@ -186,6 +218,18 @@ class Map extends React.Component {
           },
           this.props.initial_outlets.outlets, true
         );
+      }
+      else if (this.props.isLocation && this.props.distance >= 0) {
+        let latD = 0.00003212 * this.props.distance;
+        let lngD = 0.00003381 * this.props.distance;
+        if (latD > 0.04323 && lngD > 0.04028) {
+          this.moveMapTo(
+            Number(this.props.location.lat),
+            Number(this.props.location.lng),
+            latD,
+            lngD
+          );
+        }
       }
       this.setState({ shopActive: false, taskActive: true, discountActive: false, focusedOnMark: false })
       this.props.setOutlets(newOutlets);
@@ -203,6 +247,11 @@ class Map extends React.Component {
         );
       this.setState({ shopActive: false, taskActive: false, discountActive: true, focusedOnMark: false })
       this.props.setOutlets(this.props.initial_outlets.discounts);
+      this.showNearestOne({
+        latitude: this.props.location.lat,
+        longitude: this.props.location.lng
+      },
+        this.props.initial_outlets.discounts)
     }
   }
   LoginFacebook = () => {
@@ -402,8 +451,8 @@ class Map extends React.Component {
     let newArr = {};
     mall_array.forEach(item => {
       let newItem = {
-        latitude: item.lng,
-        longitude: item.lat
+        latitude: item.lat,
+        longitude: item.lng
       };
       let name = item.id;
       if (item.price > 0) {
