@@ -34,7 +34,8 @@ export default StyleSheet.create({
     background_image: {
         position: "absolute",
         resizeMode: "cover",
-        height: height,
+        top: 0,
+        height: height * 0.4,
         width: width,
         zIndex: 1,
     },
