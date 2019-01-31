@@ -265,5 +265,9 @@ export const RU = {
     CART: "Корзина"
   },
   NO_INST_INSTALLED: "Необходимо установить приложение Instagram для публикации.",
-  UNABLE_TO_POST: "Невозможно опубликовать запись"
+  UNABLE_TO_POST: "Невозможно опубликовать запись",
+  PERMISSON: {
+    STORAGE_PERMISSON_TITLE: "EpocketCash необходим доступ к файлам",
+    STORAGE_PERMISSON_MESSAGE: "Доступ необходим для совершения поста в Instagram.",
+  }
 };

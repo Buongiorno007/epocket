@@ -191,10 +191,18 @@ class GameResult extends React.Component {
         postToSocial(this.props.navigation.state.params.insta_data, 'https://www.instagram.com/epocketapp/', this.confirmPost);
     }
     _handleAppStateChange = (nextAppState) => {
-        if (((this.props.appState.match(/active/) && (nextAppState === 'inactive')) || this.props.appState.match(/active/) && (nextAppState === 'background')) && this.props.navigation.state.params.status != "success") {
-            console.log("user tried to abuse")
-            this.checkForGames("wait");
+        if (Platform.OS === "ios") {
+            if (((this.props.appState.match(/active/) && (nextAppState === 'inactive')) || this.props.appState.match(/active/) && (nextAppState === 'background')) && this.props.navigation.state.params.status != "success") {
+                console.log("user tried to abuse ios")
+                this.checkForGames("wait");
+            }
+        } else {
+            if (this.props.appState.match(/active/) && (nextAppState === 'inactive') && this.props.navigation.state.params.status != "success") {
+                console.log("user tried to abuse android")
+                this.checkForGames("wait");
+            }
         }
+
         this.props.setAppState(nextAppState)
     }
     componentWillMount = () => {

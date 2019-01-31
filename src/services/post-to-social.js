@@ -1,4 +1,4 @@
-import { Linking, Platform, CameraRoll, Alert } from "react-native";
+import { Linking, Platform, CameraRoll, Alert, PermissionsAndroid } from "react-native";
 import RNInstagramStoryShare from '../native_modules/react-native-instagram-story-share'
 import RNFetchBlob from 'rn-fetch-blob';
 import RNFS from 'react-native-fs';
@@ -9,7 +9,6 @@ import { RU } from "./../locales/ru";
 confirmFuction = () => { //this func will be overrided for iOS for callBack
     console.log("confirmFuction not overrided")
 }
-
 callCallback = (callback) => {
     console.log("instagram callback: ", callback)
     if (Platform.OS != "ios") {
@@ -108,6 +107,38 @@ export function postToSocial(postData, deepLink, confirmFuction) {
             })
             .catch((err) => {
                 console.log("writeFile error", err)
+                requestStoragePermission(image_data, file_path, deepLink, confirmFuction);
             })
     }
 };
+async function requestStoragePermission(image_data, file_path, deepLink, confirmFuction) {
+    try {
+        const granted = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+            {
+                title: RU.PERMISSON.STORAGE_PERMISSON_TITLE,
+                message: RU.PERMISSON.STORAGE_PERMISSON_MESSAGE,
+                buttonNegative: RU.PROFILE_PAGE.DECLINE,
+                buttonPositive: RU.OK.toUpperCase(),
+            },
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+            console.log('You can use the WRITE_EXTERNAL_STORAGE');
+            RNFS.writeFile(file_path, image_data, 'base64')
+                .then(() => {
+                    RNInstagramStoryShare.shareToFeed({
+                        backgroundImage: file_path,
+                        deeplinkingUrl: deepLink
+                    }, this.callCallback, this.callCallback)
+                    this.confirmFuction = confirmFuction; //override this.confirmFuction to call confirmFunction in callback
+                })
+                .catch((err) => {
+                    console.log("writeFile error", err)
+                })
+        } else {
+            console.log('WRITE_EXTERNAL_STORAGE permission denied');
+        }
+    } catch (err) {
+        console.warn(err);
+    }
+}
