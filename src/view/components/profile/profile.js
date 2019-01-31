@@ -84,7 +84,7 @@ class Profile extends React.Component {
 		return (
 			<View style={styles.main_view}>
 				{this.state.modalVisible ? <Blur /> : null}
-				{this.state.animationVisible ? <Blur dark /> : null}
+				{this.state.animationVisible ? <Blur dark paddingBottom /> : null}
 				{this.state.animationVisible ?
 					<FastImage
 						style={styles.animation}

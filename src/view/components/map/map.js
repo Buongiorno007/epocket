@@ -170,7 +170,7 @@ class Map extends React.Component {
       if (newItem.latitude != "None" && newItem.longitude != "None")
         newArr[name] = newItem;
     })
-    let nearestMall = geolib.findNearest(my_location, newArr, 1);
+    let nearestMall = geolib.findNearest(my_location, newArr, 0);
     if (nearestMall) {
       let latD = 0.00003212 * nearestMall.distance;
       let lngD = 0.00003381 * nearestMall.distance;

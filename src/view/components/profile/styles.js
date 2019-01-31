@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet, Dimensions, Platform } from "react-native";
 
 const { width, height } = Dimensions.get("window");
 import { colors } from "../../../constants/colors";
@@ -106,6 +106,6 @@ export default StyleSheet.create({
     width: width,
     height: height,
     position: "absolute",
-    bottom: 0
+    bottom: Platform.OS === "ios" ? 60 : 0
   }
 });
