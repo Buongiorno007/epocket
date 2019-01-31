@@ -25,8 +25,9 @@ class TRCMarker extends React.Component {
 
   render() {
     return (
-      this.props.cashoutMarker && !this.props.marker.outlet ||
-        this.props.marker.price || this.props.marker.discount ?
+      ((!this.props.cashoutMarker && !this.props.discountMarker && this.props.marker.price > 0) //condition for outlets
+        || (this.props.cashoutMarker) //condition for cashouts
+        || (this.props.discountMarker && this.props.marker.discount > 0)) ? //condition for discounts
         <View style={styles.main_view}>
           <Marker
             style={[styles.marker, this.props.discountMarker && {
@@ -41,7 +42,7 @@ class TRCMarker extends React.Component {
               this.marker = marker;
             }}
             onPress={this.props.onPress}
-            coordinate={this.state.coordinate}
+            coordinate={this.props.marker.location}
             pinColor={this.props.userColor.blue}
 
           >

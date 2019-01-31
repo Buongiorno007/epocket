@@ -1,9 +1,9 @@
 import React from "react";
-import { View, Platform, StatusBar, FlatList, Animated, Easing, Dimensions } from "react-native";
+import { View, Platform, StatusBar, FlatList, Animated, Easing, Dimensions, Text } from "react-native";
 import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import ClusteredMapView from 'react-native-maps-super-cluster'
+import ClusteredMapView from '../../../native_modules/react-native-maps-super-cluster'
 import geolib from "geolib";
 import { LinearTextGradient } from "react-native-text-gradient";
 import LinearGradient from "react-native-linear-gradient";
@@ -191,10 +191,10 @@ class Map extends React.Component {
     this.setState({ mapKey: Math.random() })
     if (tab == "shop") {
       if (this.map)
-        this.map.animateToRegion(
+        this.map.getMapRef().animateToRegion(
           {
-            latitude: this.map.__lastRegion.latitude - 0.0008344042843,
-            longitude: this.map.__lastRegion.longitude,
+            latitude: this.map.getMapRef().__lastRegion.latitude - 0.0008344042843,
+            longitude: this.map.getMapRef().__lastRegion.longitude,
             latitudeDelta: 0.04323,
             longitudeDelta: 0.04028
           },
@@ -237,10 +237,10 @@ class Map extends React.Component {
     }
     else if (tab == "discount") {
       if (this.map)
-        this.map.animateToRegion(
+        this.map.getMapRef().animateToRegion(
           {
-            latitude: this.map.__lastRegion.latitude - 0.0008344042843,
-            longitude: this.map.__lastRegion.longitude,
+            latitude: this.map.getMapRef().__lastRegion.latitude - 0.0008344042843,
+            longitude: this.map.getMapRef().__lastRegion.longitude,
             latitudeDelta: 0.04323,
             longitudeDelta: 0.04028
           },
@@ -337,7 +337,7 @@ class Map extends React.Component {
   moveMapTo = (lat, lng, latD, lngD, animation_time, timeout) => {
     setTimeout(() => {
       if (this.map)
-        this.map.animateToRegion(
+        this.map.getMapRef().animateToRegion(
           {
             latitude: lat,
             longitude: lng,
@@ -401,7 +401,25 @@ class Map extends React.Component {
     }), this.props.token);
     promise.then(
       result => {
-        console.log(result)
+        result.body.outlets.forEach(elem => {
+          elem.location = {
+            latitude: elem.lat,
+            longitude: elem.lng
+          }
+        });
+        result.body.discounts.forEach(elem => {
+          elem.location = {
+            latitude: elem.lat,
+            longitude: elem.lng
+          }
+        });
+        result.body.cashouts.forEach(elem => {
+          elem.location = {
+            latitude: elem.lat,
+            longitude: elem.lng
+          }
+        });
+        console.log("loadTRC", result)
         this.setModalVisible(false);
         this.props.loaderState(false);
         this.props.setOutlets(result.body.outlets)
@@ -874,6 +892,72 @@ class Map extends React.Component {
     let key = item.id + "_" + item.name
     return key
   };
+  renderCluster = (cluster, onPress) => {
+    console.log("renderCluster", cluster)
+    const pointCount = cluster.pointCount,
+      coordinate = cluster.coordinate,
+      clusterId = cluster.clusterId
+
+    // use pointCount to calculate cluster size scaling
+    // and apply it to "style" prop below
+
+    // eventually get clustered points by using
+    // underlying SuperCluster instance
+    // Methods ref: https://github.com/mapbox/supercluster
+    const clusteringEngine = this.map.getClusteringEngine(),
+      clusteredPoints = clusteringEngine.getLeaves(clusterId, 100)
+
+    return (
+      <Marker coordinate={coordinate} onPress={onPress}>
+        <View style={styles.myClusterStyle}>
+          <Text style={styles.myClusterTextStyle}>
+            {pointCount}
+          </Text>
+        </View>
+        {
+          /*
+            Eventually use <Callout /> to
+            show clustered point thumbs, i.e.:
+            <Callout>
+              <ScrollView>
+                {
+                  clusteredPoints.map(p => (
+                    <Image source={p.image}>
+                  ))
+                }
+              </ScrollView>
+            </Callout>
+
+            IMPORTANT: be aware that Marker's onPress event isn't really consistent when using Callout.
+           */
+        }
+      </Marker>
+    )
+  }
+  renderMarker = (marker) => {
+    let markerComponent;
+    if (marker.lat != "None" && marker.lng != "None") {
+      markerComponent = <TRCMarker
+        marker={marker}
+        key={marker.id + "_" + marker.lat}
+        selected={this.props.selectedMall.id}
+        active={marker.active}
+        discountMarker={this.state.discountActive}
+        cashoutMarker={this.state.shopActive}
+        onPress={() => {
+          this.state.taskActive ?
+            this.selectMark(marker, true, "task")
+            :
+            this.state.shopActive ?
+              this.selectMark(marker, true, "shop") :
+              this.selectMark(marker, true, "discount")
+        }}
+      />
+    } else {
+      markerComponent = null
+    }
+    return markerComponent
+  }
   render() {
     return (
       <View style={styles.main_view}>
@@ -1052,7 +1136,37 @@ class Map extends React.Component {
             </FlatList>
           </View>
         }
-        <MapView
+        <ClusteredMapView
+          key={this.state.mapKey}
+          style={styles.map_view}
+          data={this.props.outlets}
+          initialRegion={this.state.region}
+          provider={Platform.OS == "ios" ? PROVIDER_GOOGLE : null}
+          ref={(r) => { this.map = r }}
+          customMapStyle={mapStyle}
+          showsCompass={false}
+          animateClusters={false}
+          showUserLocation
+          followUserLocation
+          loadingEnabled
+          onPress={
+            this.onRegionChange
+          }
+          onRegionChangeComplete={
+            this.onRegionChange
+          }
+          renderMarker={this.renderMarker}
+          renderCluster={this.renderCluster} >
+          <Marker
+            coordinate={{
+              latitude: this.props.location.lat,
+              longitude: this.props.location.lng
+            }}
+          >
+            <UserMarker />
+          </Marker>
+        </ClusteredMapView>
+        {/* <MapView
           key={this.state.mapKey}
           style={styles.map_view}
           initialRegion={this.state.region}
@@ -1100,7 +1214,7 @@ class Map extends React.Component {
                 null
             ))
           }
-        </MapView>
+        </MapView> */}
         <TimerModal />
         <FooterNavigation />
       </View >
