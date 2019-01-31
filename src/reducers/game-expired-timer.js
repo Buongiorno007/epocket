@@ -98,6 +98,7 @@ export const startExpiredTimer = (token, id) => async dispatch => {
     );
     received_promise.then(
         result => {
+            console.log(result)
             let time = result.body.time;
             dispatch(setGameExpiredTimer(time))
             dispatch(errorState(null));

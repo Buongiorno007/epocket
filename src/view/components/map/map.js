@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Platform, StatusBar, FlatList, Animated, Easing } from "react-native";
+import { View, Platform, StatusBar, FlatList, Animated, Easing, Dimensions } from "react-native";
 import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
@@ -62,8 +62,11 @@ import { orderBy } from 'lodash';
 import moment from "moment-timezone";
 import "../../../services/correcting-interval";
 
+const { width, height } = Dimensions.get('window');
+
 class Map extends React.Component {
   state = {
+    mapKey: 0,
     modalVisible: false,
     userCount: 0,
     location_loader: false,
@@ -157,7 +160,35 @@ class Map extends React.Component {
       );
     }
   }
+  showNearestOne = (my_location, mall_array) => {
+    let newArr = {};
+    mall_array.forEach(item => {
+      let newItem = {
+        latitude: item.lat,
+        longitude: item.lng
+      };
+      let name = item.id;
+      if (newItem.latitude != "None" && newItem.longitude != "None")
+        newArr[name] = newItem;
+    })
+    let nearestMall = geolib.findNearest(my_location, newArr, 0);
+    if (nearestMall) {
+      let latD = 0.00003212 * nearestMall.distance;
+      let lngD = 0.00003381 * nearestMall.distance;
+      if (latD > 0.04323 && lngD > 0.04028) {
+        setTimeout(() => {
+          this.moveMapTo(
+            Number(this.props.location.lat),
+            Number(this.props.location.lng),
+            latD,
+            lngD
+          );
+        }, 1000);
+      }
+    }
+  };
   toggleTab = (tab) => {
+    this.setState({ mapKey: Math.random() })
     if (tab == "shop") {
       if (this.map)
         this.map.animateToRegion(
@@ -172,6 +203,11 @@ class Map extends React.Component {
       this.setState({ shopActive: true, taskActive: false, discountActive: false, focusedOnMark: false })
       let allShops = [...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]
       this.props.setOutlets(allShops);
+      this.showNearestOne({
+        latitude: this.props.location.lat,
+        longitude: this.props.location.lng
+      },
+        allShops)
     }
     else if (tab == "task") {
       let newOutlets = [...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets];
@@ -183,6 +219,18 @@ class Map extends React.Component {
           },
           this.props.initial_outlets.outlets, true
         );
+      }
+      else if (this.props.isLocation && this.props.distance >= 0) {
+        let latD = 0.00003212 * this.props.distance;
+        let lngD = 0.00003381 * this.props.distance;
+        if (latD > 0.04323 && lngD > 0.04028) {
+          this.moveMapTo(
+            Number(this.props.location.lat),
+            Number(this.props.location.lng),
+            latD,
+            lngD
+          );
+        }
       }
       this.setState({ shopActive: false, taskActive: true, discountActive: false, focusedOnMark: false })
       this.props.setOutlets(newOutlets);
@@ -200,6 +248,11 @@ class Map extends React.Component {
         );
       this.setState({ shopActive: false, taskActive: false, discountActive: true, focusedOnMark: false })
       this.props.setOutlets(this.props.initial_outlets.discounts);
+      this.showNearestOne({
+        latitude: this.props.location.lat,
+        longitude: this.props.location.lng
+      },
+        this.props.initial_outlets.discounts)
     }
   }
   LoginFacebook = () => {
@@ -351,17 +404,6 @@ class Map extends React.Component {
         console.log(result)
         this.setModalVisible(false);
         this.props.loaderState(false);
-        result.body.outlets.forEach(outlet => {
-          let newPrice = 0;
-          if (outlet.mission_data) {
-            getActiveMissions(outlet.mission_data).forEach(mission => {
-              if (mission.active) {
-                newPrice = newPrice + price
-              }
-            });
-            outlet.price = newPrice
-          }
-        });
         this.props.setOutlets(result.body.outlets)
         this.props.setInitialOutlets(result.body)
         if (this.props.isLocation && this.props.distance < 0) {
@@ -410,8 +452,8 @@ class Map extends React.Component {
     let newArr = {};
     mall_array.forEach(item => {
       let newItem = {
-        latitude: item.lng,
-        longitude: item.lat
+        latitude: item.lat,
+        longitude: item.lng
       };
       let name = item.id;
       if (item.price > 0) {
@@ -419,8 +461,10 @@ class Map extends React.Component {
       }
     })
     let nearestMall = geolib.findNearest(my_location, newArr, 0);
-    let selectedTRC = mall_array.find(x => x.id === Number(nearestMall.key))
-    try { this.selectMark(selectedTRC, ANIMATE_MAP, "task"); } catch (e) { }
+    if (nearestMall) {
+      let selectedTRC = mall_array.find(x => x.id === Number(nearestMall.key))
+      try { this.selectMark(selectedTRC, ANIMATE_MAP, "task"); } catch (e) { }
+    }
   };
 
   _renderItem = item => (
@@ -511,7 +555,8 @@ class Map extends React.Component {
     this.setState({ cards: [], focusedOnMark: false });
     this.setModalVisible(false);
     let body = {
-      outletId: trc.id
+      outletId: trc.id,
+      notInMall: (this.props.distance <= 0 && this.props.isLocation) ? false : true
     };
     let promise = httpPost(
       urls.missions,
@@ -993,9 +1038,10 @@ class Map extends React.Component {
         ) : null
         } */}
         {this.state.focusedOnMark &&
-          <View style={styles.cards_block}>
+          <View style={[styles.cards_block, this.state.cards.length === 1 && { width: width * 0.69, alignSelf: "flex-start" }]}>
             <FlatList
               listKey={"cards"}
+              scrollEnabled={this.state.cards.length != 1}
               contentContainerStyle={styles.horizontal_list_content}
               horizontal={true}
               showsHorizontalScrollIndicator={false}
@@ -1006,7 +1052,8 @@ class Map extends React.Component {
             </FlatList>
           </View>
         }
-        <ClusteredMapView
+        <MapView
+          key={this.state.mapKey}
           style={styles.map_view}
           initialRegion={this.state.region}
           ref={ref => (this.map = ref)}
@@ -1053,7 +1100,7 @@ class Map extends React.Component {
                 null
             ))
           }
-        </ClusteredMapView>
+        </MapView>
         <TimerModal />
         <FooterNavigation />
       </View >

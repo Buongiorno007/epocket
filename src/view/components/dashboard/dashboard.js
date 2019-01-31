@@ -1204,7 +1204,12 @@ class Dashboard extends React.Component {
           }
         </Animated.View>
         {this.state.load_missions && <ActivityIndicator />}
-        <TimerModal reward={this.state.mainMissionPrice} callTimer={() => { this.callTimer() }} />
+        {this.props.doneNotification || this.props.failedNotification ?
+          <View style={styles.timer_modal_container}>
+            <TimerModal reward={this.state.mainMissionPrice} callTimer={() => { this.callTimer() }} />
+          </View>
+          : null
+        }
       </View >
     );
   }
@@ -1224,7 +1229,9 @@ const mapStateToProps = state => ({
   timer_interval: state.timer_interval,
   activeCard: state.activeCard,
   distance: state.distance,
-  socialCount: state.socialCount
+  socialCount: state.socialCount,
+  doneNotification: state.doneNotification,
+  failedNotification: state.failedNotification,
 });
 
 const mapDispatchToProps = dispatch =>

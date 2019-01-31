@@ -251,7 +251,12 @@ class Cashout extends React.Component {
           data={this.state.products}
           dataInit={this.props.navigation.state.params.cashout_data}
           activeIndex={this.state.activeIndex} />
-        <TimerModal />
+        {this.props.doneNotification || this.props.failedNotification ?
+          <View >
+            <TimerModal style={styles.timer_modal_container} />
+          </View>
+          : null
+        }
       </View>
     );
   };
@@ -260,7 +265,9 @@ const mapStateToProps = state => ({
   selectedMall: state.selectedMall,
   token: state.token,
   userColor: state.userColor,
-  loader: state.loader
+  loader: state.loader,
+  doneNotification: state.doneNotification,
+  failedNotification: state.failedNotification,
 });
 const mapDispatchToProps = dispatch =>
   bindActionCreators(

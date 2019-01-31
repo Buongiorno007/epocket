@@ -40,13 +40,19 @@ import "../../../services/correcting-interval";
 class GameStart extends React.Component {
     state = {
         errorVisible: false,
+        loader: true,
         errorText: "",
     };
     componentWillMount() {
-        this.props.setGameStatus("start")
+        if (this.props.game_status != "lock") {
+            this.props.setGameStatus("start")
+        }
     }
     componentDidMount() {
         this.loadTRC();
+        setTimeout(() => {
+            this.setState({ loader: false })
+        }, 1000);
     }
     componentWillReceiveProps = (nextProps) => {
         if (this.props.game_status == "initial" && nextProps.game_status == "start") {
@@ -138,7 +144,7 @@ class GameStart extends React.Component {
     render() {
         return (
             <View style={styles.main_view}>
-                {this.props.loader && <ActivityIndicator />}
+                {this.props.loader || this.state.loader && <ActivityIndicator />}
                 <CustomAlert
                     title={this.state.errorText}
                     first_btn_title={RU.REPEAT}
@@ -220,7 +226,7 @@ class GameStart extends React.Component {
                     <View style={styles.game_description}>
                         <Text style={this.props.game_info.no_more_games ? styles.game_description_text : styles.game_description_text_bold}>{this.props.game_status === "lock" ? RU.GAME.LOCK : this.props.game_info.no_more_games ? RU.GAME.GET_EPC : this.props.game_info.description}</Text>
                     </View>
-                    {this.props.game_info.no_more_games ?
+                    {this.props.game_info.no_more_games || this.props.game_status === "lock" ?
                         null :
                         <View style={styles.btn_container}>
                             < CustomButton
@@ -230,6 +236,7 @@ class GameStart extends React.Component {
                                 title={RU.GAME.START.toUpperCase()}
                                 color={this.props.userColor.white}
                                 handler={() => {
+                                    this.props.loaderState(true)
                                     this.props.setGameStatus("game")
                                 }}
                             />

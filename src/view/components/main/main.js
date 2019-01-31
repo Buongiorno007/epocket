@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StatusBar, BackHandler, AsyncStorage } from "react-native";
+import { View, StatusBar, BackHandler, AsyncStorage, Platform } from "react-native";
 //components
 import Map from "./../map/map";
 import Profile from "./../profile/profile";
@@ -75,7 +75,10 @@ class Main extends React.Component {
         {this.props.timerShow && this.props.timer_status && <ReturnToMall />}
         <GeolocationService />
         {this.props.loader && <ActivityIndicator />}
-        {!this.props.isLocation && <LocationDisabled />}
+        {Platform.OS === "ios" ?
+          !this.props.isLocation && (this.props.activeTab == 1 || this.props.activeTab == 0) && <LocationDisabled /> :
+          !this.props.isLocation && <LocationDisabled />
+        }
         <TimerModal />
       </View>
     );

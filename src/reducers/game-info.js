@@ -67,17 +67,21 @@ export const passGameResult = (mission_id, api_status, token, status, insta_data
 }
 export const getGameInfo = (token, latt, long) => async dispatch => {
     dispatch(loaderState(true));
+    //urls.game_get + "?coords=" + '50.45466' + "%2C" + '30.5238', KIEV
     let received_promise = httpGet(
         urls.game_get + "?coords=" + latt + "%2C" + long,
         token
     );
     received_promise.then(
         result => {
+            console.log(result)
             let game = result.body;
             if (game.ticker === false && !game.game_set) {
+                console.log("lock")
                 dispatch(setGameStatus("lock"));
                 dispatch(errorState(null));
                 dispatch(loaderState(false));
+                NavigationService.navigate("Main")
             }
             else if (game.game_set) {
                 let win_array = [];
