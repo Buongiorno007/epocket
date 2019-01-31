@@ -1,3 +1,4 @@
+import { AsyncStorage } from "react-native";
 import { urls } from "../constants/urls";
 export const RETURN_DATA = 'socket/RETURN_DATA';
 
@@ -30,7 +31,10 @@ export const getSocket = (token, orderId) => async dispatch => {
 		socket.send(JSON.stringify(msg));
 		dispatch(returnData());
 	};
-	socket.onclose = (event) => { if (event.wasClean) { } else { } };
+	socket.onclose = (event) => {
+		if (event.wasClean) { } else { }
+		AsyncStorage.multiSet([["cashout_cart", ""], ["cashout_cart_time", ""], ["cashout_cart_id", ""]], () => { });
+	};
 
 	socket.onmessage = (event) => {
 		let response = JSON.parse(event.data).data

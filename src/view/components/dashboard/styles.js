@@ -37,7 +37,10 @@ export default StyleSheet.create({
     backgroundColor: "#ded"
   },
   grad: {
+    top: 0,
     position: "absolute",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
     height: height,
     width: width
   },
@@ -80,8 +83,9 @@ export default StyleSheet.create({
   },
   background_image: {
     position: "absolute",
+    top: 0,
     resizeMode: "cover",
-    height: height,
+    height: height * 0.4,
     width: width,
     zIndex: 1,
   },

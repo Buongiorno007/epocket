@@ -58,15 +58,16 @@ class GameResult extends React.Component {
     checkForGames = (next_navigation) => {
         this.props.loaderState(true);
         let received_promise = httpGet(
-            urls.game_get,
+            urls.game_get + "?coords=" + this.props.location.lat + "%2C" + this.props.location.lng,
             this.props.token
         );
         received_promise.then(
             result => {
+                console.log(result)
                 let game = result.body;
                 if (game.ticker === false && !game.game_set) {
-                    this.goLock();
-                    this.props.loaderState(false);
+                    //this.goLock();
+                    this.props.getGameInfo(this.props.token, this.props.location.lat, this.props.location.lng)
                 }
                 else {
                     switch (next_navigation) {
@@ -78,6 +79,7 @@ class GameResult extends React.Component {
                 }
             },
             error => {
+                console.log(error)
                 if (error.code === 400) {
                     let info = {
                         description: "...",
@@ -189,10 +191,18 @@ class GameResult extends React.Component {
         postToSocial(this.props.navigation.state.params.insta_data, 'https://www.instagram.com/epocketapp/', this.confirmPost);
     }
     _handleAppStateChange = (nextAppState) => {
-        if (((this.props.appState.match(/active/) && (nextAppState === 'inactive')) || this.props.appState.match(/active/) && (nextAppState === 'background')) && this.props.navigation.state.params.status != "success") {
-            console.log("user tried to abuse")
-            this.checkForGames("wait");
+        if (Platform.OS === "ios") {
+            if (((this.props.appState.match(/active/) && (nextAppState === 'inactive')) || this.props.appState.match(/active/) && (nextAppState === 'background')) && this.props.navigation.state.params.status != "success") {
+                console.log("user tried to abuse ios")
+                this.checkForGames("wait");
+            }
+        } else {
+            if (this.props.appState.match(/active/) && (nextAppState === 'inactive') && this.props.navigation.state.params.status != "success") {
+                console.log("user tried to abuse android")
+                this.checkForGames("wait");
+            }
         }
+
         this.props.setAppState(nextAppState)
     }
     componentWillMount = () => {

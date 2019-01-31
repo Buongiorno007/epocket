@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet, Dimensions, Platform } from "react-native";
 
 import { colors } from "../../../constants/colors";
 
@@ -16,6 +16,9 @@ export default StyleSheet.create({
     backgroundColor: "rgba(242, 242, 242, 0.9)"
   },
   blur_container_dark: {
-    backgroundColor: "rgba(0, 0, 0, 0.9)"
+    backgroundColor: "rgba(0, 0, 0, 0.9)",
+  },
+  bottom_padding: {
+    bottom: Platform.OS === "ios" ? 60 : 0
   }
 });
