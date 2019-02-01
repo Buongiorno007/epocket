@@ -888,7 +888,6 @@ class Map extends React.Component {
     return key
   };
   renderCluster = (cluster, onPress) => {
-    console.log("renderCluster", cluster)
     const pointCount = cluster.pointCount,
       coordinate = cluster.coordinate,
       clusterId = cluster.clusterId
@@ -901,53 +900,80 @@ class Map extends React.Component {
     // Methods ref: https://github.com/mapbox/supercluster
     const clusteringEngine = this.map.getClusteringEngine(),
       clusteredPoints = clusteringEngine.getLeaves(clusterId, 100)
-
+    let clusterValue = 0;
+    if (this.state.discountActive) {
+      clusteredPoints.forEach(cluster => {
+        clusterValue = clusterValue + Number(cluster.properties.item.discount)
+      });
+    } else {
+      clusteredPoints.forEach(cluster => {
+        clusterValue = clusterValue + Number(cluster.properties.item.price)
+      });
+    }
+    let marker;
+    let markerData = {
+      adress: "",
+      city: "",
+      id: clusterId,
+      lat: coordinate.latitude,
+      lng: coordinate.longitude,
+      location: {
+        latitude: coordinate.latitude,
+        longitude: coordinate.longitude,
+      },
+      name: "",
+      photo: "",
+      price: clusterValue,
+      discount: clusterValue,
+      rad: 0,
+      time_weekdays: ""
+    }
+    if (clusterValue > 0 || this.state.shopActive) {
+      marker =
+        <TRCMarker
+          marker={markerData}
+          key={markerData.id + "_" + markerData.lat}
+          selected={this.props.selectedMall.id}
+          active={markerData.active}
+          discountMarker={this.state.discountActive}
+          cashoutMarker={this.state.shopActive}
+          onPress={() => {
+            this.moveMapTo(
+              Number(coordinate.latitude),
+              Number(coordinate.longitude),
+              0.40323,
+              0.40028
+            );
+          }}
+        />
+    }
+    else {
+      marker = null
+    }
     return (
-      <Marker coordinate={coordinate} onPress={onPress}>
-        <View style={styles.myClusterStyle}>
-          <Text style={styles.myClusterTextStyle}>
-            {pointCount}
-          </Text>
-        </View>
-        {
-          /*
-            Eventually use <Callout /> to
-            show clustered point thumbs, i.e.:
-            <Callout>
-              <ScrollView>
-                {
-                  clusteredPoints.map(p => (
-                    <Image source={p.image}>
-                  ))
-                }
-              </ScrollView>
-            </Callout>
-
-            IMPORTANT: be aware that Marker's onPress event isn't really consistent when using Callout.
-           */
-        }
-      </Marker>
+      marker
     )
   }
   renderMarker = (marker) => {
     let markerComponent;
     if (marker.lat != "None" && marker.lng != "None") {
-      markerComponent = <TRCMarker
-        marker={marker}
-        key={marker.id + "_" + marker.lat}
-        selected={this.props.selectedMall.id}
-        active={marker.active}
-        discountMarker={this.state.discountActive}
-        cashoutMarker={this.state.shopActive}
-        onPress={() => {
-          this.state.taskActive ?
-            this.selectMark(marker, true, "task")
-            :
-            this.state.shopActive ?
-              this.selectMark(marker, true, "shop") :
-              this.selectMark(marker, true, "discount")
-        }}
-      />
+      markerComponent =
+        <TRCMarker
+          marker={marker}
+          key={marker.id + "_" + marker.lat}
+          selected={this.props.selectedMall.id}
+          active={marker.active}
+          discountMarker={this.state.discountActive}
+          cashoutMarker={this.state.shopActive}
+          onPress={() => {
+            this.state.taskActive ?
+              this.selectMark(marker, true, "task")
+              :
+              this.state.shopActive ?
+                this.selectMark(marker, true, "shop") :
+                this.selectMark(marker, true, "discount")
+          }}
+        />
     } else {
       markerComponent = null
     }
