@@ -160,7 +160,7 @@ class Map extends React.Component {
       );
     }
   }
-  showNearestOne = (my_location, mall_array) => {
+  showNearestOne = (my_location, mall_array, outlets) => {
     let newArr = {};
     mall_array.forEach(item => {
       let newItem = {
@@ -168,14 +168,18 @@ class Map extends React.Component {
         longitude: item.lng
       };
       let name = item.id;
-      if (newItem.latitude != "None" && newItem.longitude != "None")
+      if (!outlets && newItem.latitude != "None" && newItem.longitude != "None") {
         newArr[name] = newItem;
+      }
+      else if (outlets && newItem.latitude != "None" && newItem.longitude != "None" && item.price > 0) {
+        newArr[name] = newItem;
+      }
     })
     let nearestMall = geolib.findNearest(my_location, newArr, 0);
     if (nearestMall) {
       let latD = 0.00003212 * nearestMall.distance;
       let lngD = 0.00003381 * nearestMall.distance;
-      if (latD > 0.04323 && lngD > 0.04028) {
+      if (latD > this.state.region.latitudeDelta && lngD > this.state.region.longitudeDelta) {
         setTimeout(() => {
           this.moveMapTo(
             Number(this.props.location.lat),
@@ -220,17 +224,12 @@ class Map extends React.Component {
           this.props.initial_outlets.outlets, true
         );
       }
-      else if (this.props.isLocation && this.props.distance >= 0) {
-        let latD = 0.00003212 * this.props.distance;
-        let lngD = 0.00003381 * this.props.distance;
-        if (latD > 0.04323 && lngD > 0.04028) {
-          this.moveMapTo(
-            Number(this.props.location.lat),
-            Number(this.props.location.lng),
-            latD,
-            lngD
-          );
-        }
+      else if (this.props.isLocation) {
+        this.showNearestOne({
+          latitude: this.props.location.lat,
+          longitude: this.props.location.lng
+        },
+          this.props.initial_outlets.outlets, true)
       }
       this.setState({ shopActive: false, taskActive: true, discountActive: false, focusedOnMark: false })
       this.props.setOutlets(newOutlets);
@@ -434,17 +433,13 @@ class Map extends React.Component {
             result.body.outlets, true
           );
         }
-        else if (this.props.isLocation && this.props.distance >= 0) {
-          let latD = 0.00003212 * this.props.distance;
-          let lngD = 0.00003381 * this.props.distance;
-          if (latD > 0.04323 && lngD > 0.04028) {
-            this.moveMapTo(
-              Number(this.props.location.lat),
-              Number(this.props.location.lng),
-              latD,
-              lngD
-            );
-          }
+        else if (this.props.isLocation) {
+          console.log("move map")
+          this.showNearestOne({
+            latitude: this.props.location.lat,
+            longitude: this.props.location.lng
+          },
+            result.body.outlets, true)
         }
       },
       error => {
