@@ -67,7 +67,6 @@ export default class ClusteredMapView extends PureComponent {
       maxZoom: this.props.maxZoom,
       radius: this.props.radius || (this.dimensions[0] * .045), // 4.5% of screen width
     })
-
     // get formatted GeoPoints for cluster
     const rawData = dataset.map(itemToGeoJSONFeature)
 
@@ -94,7 +93,7 @@ export default class ClusteredMapView extends PureComponent {
 
   getClusters = (region) => {
     const bbox = regionToBoundingBox(region),
-          viewport = (region.longitudeDelta) >= 40 ? { zoom: this.props.minZoom } : GeoViewport.viewport(bbox, this.dimensions)
+      viewport = (region.longitudeDelta) >= 40 ? { zoom: this.props.minZoom } : GeoViewport.viewport(bbox, this.dimensions)
 
     return this.index.getClusters(bbox, viewport.zoom)
   }
@@ -112,7 +111,7 @@ export default class ClusteredMapView extends PureComponent {
     // //////////////////////////////////////////////////////////////////////////////////
     // get cluster children
     const children = this.index.getLeaves(cluster.properties.cluster_id, this.props.clusterPressMaxChildren),
-          markers = children.map(c => c.properties.item)
+      markers = children.map(c => c.properties.item)
 
     // fit right around them, considering edge padding
     this.mapview.fitToCoordinates(markers.map(m => m.location), { edgePadding: this.props.edgePadding })
@@ -123,7 +122,7 @@ export default class ClusteredMapView extends PureComponent {
   render() {
     return (
       <MapView
-        { ...this.props}
+        {...this.props}
         ref={this.mapRef}
         onRegionChangeComplete={this.onRegionChangeComplete}>
         {

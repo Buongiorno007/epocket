@@ -41,7 +41,6 @@ export const passGameResult = (mission_id, api_status, token, status, insta_data
         mission_id,
         status: api_status
     });
-    console.log(body)
     let promise = httpPost(
         urls.game_get,
         body,
@@ -95,7 +94,7 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
                     result => {
                         let info = {
                             description: game.description,
-                            cost: game.award + "",
+                            cost: Number(game.formated.amount).toFixed(2) + "",
                             title: game.title,
                             success_image: game.insta_image_url,
                             no_more_games: false,

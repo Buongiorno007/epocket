@@ -25,7 +25,7 @@ class TRCMarker extends React.Component {
 
   render() {
     return (
-      ((!this.props.cashoutMarker && !this.props.discountMarker && this.props.marker.price > 0) //condition for outlets
+      ((!this.props.cashoutMarker && !this.props.discountMarker && this.props.marker.formated.money > 0) //condition for outlets
         || (this.props.cashoutMarker) //condition for cashouts
         || (this.props.discountMarker && this.props.marker.discount > 0)) ? //condition for discounts
         <View style={styles.main_view}>
@@ -82,7 +82,7 @@ class TRCMarker extends React.Component {
             </ImageBackground>
             {(!this.props.discountMarker && !this.props.cashoutMarker) &&
               <View style={[!this.props.active ? styles.mall_price_view : styles.mall_price_view_fill]}>
-                <Text style={styles.mall_price}>{!this.props.active ? this.props.marker.price : "      "}</Text>
+                <Text style={styles.mall_price}>{!this.props.active ? Number(this.props.marker.formated.money).toFixed(2) : "      "}</Text>
                 <Text style={styles.mall_price_epc} >{!this.props.active ? RU.EPC : "      "}</Text>
               </View >
             }

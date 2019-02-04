@@ -171,7 +171,7 @@ class Map extends React.Component {
       if (!outlets && newItem.latitude != "None" && newItem.longitude != "None") {
         newArr[name] = newItem;
       }
-      else if (outlets && newItem.latitude != "None" && newItem.longitude != "None" && item.price > 0) {
+      else if (outlets && newItem.latitude != "None" && newItem.longitude != "None" && item.formated.money > 0) {
         newArr[name] = newItem;
       }
     })
@@ -418,6 +418,7 @@ class Map extends React.Component {
             longitude: elem.lng
           }
         });
+        console.log(result)
         this.setModalVisible(false);
         this.props.loaderState(false);
         this.props.setOutlets(result.body.outlets)
@@ -466,7 +467,7 @@ class Map extends React.Component {
         longitude: item.lng
       };
       let name = item.id;
-      if (item.price > 0) {
+      if (item.formated.money > 0) {
         newArr[name] = newItem;
       }
     })
@@ -584,14 +585,16 @@ class Map extends React.Component {
             cards.unshift({
               type: "instagram_connect",
               reward: result.body.networks.insta_reward,
-              price: 0
+              price: 0,
+              formated: { money: 0 }
             })
           }
           if (!this.props.facebook_token) { //check for facebook !this.props.facebook_token
             cards.unshift({
               type: "facebook_connect",
               reward: result.body.networks.fb_reward,
-              price: 0
+              price: 0,
+              formated: { money: 0 }
             })
           }
           cards.unshift(trc)
@@ -634,6 +637,7 @@ class Map extends React.Component {
     );
     promise.then(
       result => {
+        console.log(result)
         this.setModalVisible(false);
         this.props.loaderState(false);
         let cards = result.body.products;
@@ -740,11 +744,11 @@ class Map extends React.Component {
       result => {
         this.setErrorVisible(false);
         this.setState({ load_timer: false });
-        this.props.setMainMissionCost(result.body.price);
+        this.props.setMainMissionCost(result.body.formated.money ? result.body.formated.money : result.body.price);
         this.setState(
           {
             mainMissionId: result.body.id,
-            mainMissionPrice: result.body.price
+            mainMissionPrice: result.body.formated.money ? result.body.formated.money : result.body.price
           },
           () => {
             if (result.body.failed) {
@@ -904,7 +908,7 @@ class Map extends React.Component {
       });
     } else {
       clusteredPoints.forEach(cluster => {
-        clusterValue = clusterValue + Number(cluster.properties.item.price)
+        clusterValue = clusterValue + Number(cluster.properties.item.formated.money)
       });
     }
     let marker;
@@ -922,6 +926,7 @@ class Map extends React.Component {
       photo: "",
       price: clusterValue,
       discount: clusterValue,
+      formated: { money: clusterValue },
       rad: 0,
       time_weekdays: ""
     }
@@ -935,12 +940,22 @@ class Map extends React.Component {
           discountMarker={this.state.discountActive}
           cashoutMarker={this.state.shopActive}
           onPress={() => {
-            this.moveMapTo(
-              Number(coordinate.latitude),
-              Number(coordinate.longitude),
-              0.40323,
-              0.40028
-            );
+            if (this.map.getMapRef().__lastRegion.latitudeDelta > 0.40323 && this.map.getMapRef().__lastRegion.longitudeDelta > 0.40028) {
+              this.moveMapTo(
+                Number(coordinate.latitude),
+                Number(coordinate.longitude),
+                0.40323,
+                0.40028
+              );
+            }
+            else {
+              this.moveMapTo(
+                Number(coordinate.latitude),
+                Number(coordinate.longitude),
+                0.0158,
+                0.0158
+              );
+            }
           }}
         />
     }
