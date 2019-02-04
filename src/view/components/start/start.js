@@ -123,7 +123,7 @@ class Start extends React.Component {
             break;
           }
           case 'balance': {
-            value && this.props.setBalance(value);
+            value && this.props.setBalance(Number(value));
             break;
           }
           case 'geo_virgin': {

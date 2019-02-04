@@ -265,7 +265,7 @@ class SignIn extends React.Component {
         this.props.saveUser(user_info);
         this.props.setColor(user_info.sex)
         this.props.setToken(result.body.token);
-        this.props.setBalance(result.body.balance);
+        this.props.setBalance(result.body.balance.toFixed(2));
         this.props.setProfileVirgin(result.body.profile_virgin)
         this.props.setGeoVirgin(result.body.geo_virgin)
         this.isFblogged(result.body.token);

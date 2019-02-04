@@ -62,7 +62,7 @@ class CashoutBalance extends React.Component {
           <View style={[styles.item, styles.balance_value]}>
             <Text style={[styles.text, styles.title]}>{this.props.navigation ? RU.CASH.YOUR_TITLE : RU.CASH.TITLE}</Text>
             <Text style={[styles.text, styles.cash]}>
-              {this.props.balance} {RU.EPC} = {this.props.balance} {this.state.currency}
+              {this.props.balance.toFixed(2)} {RU.EPC} = {this.props.balance.toFixed(2)} {this.state.currency}
             </Text>
           </View>
         </View>
