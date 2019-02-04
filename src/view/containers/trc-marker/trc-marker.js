@@ -42,7 +42,12 @@ class TRCMarker extends React.Component {
               this.marker = marker;
             }}
             onPress={this.props.onPress}
-            coordinate={this.props.marker.location}
+            coordinate={
+              {
+                latitude: parseFloat(this.props.marker.location.latitude),
+                longitude: parseFloat(this.props.marker.location.longitude),
+              }
+            }
             pinColor={this.props.userColor.blue}
 
           >
