@@ -194,16 +194,6 @@ class Map extends React.Component {
   toggleTab = (tab) => {
     this.setState({ mapKey: Math.random() })
     if (tab == "shop") {
-      if (this.map)
-        this.map.getMapRef().animateToRegion(
-          {
-            latitude: this.map.getMapRef().__lastRegion.latitude - 0.0008344042843,
-            longitude: this.map.getMapRef().__lastRegion.longitude,
-            latitudeDelta: 0.04323,
-            longitudeDelta: 0.04028
-          },
-          450
-        );
       this.setState({ shopActive: true, taskActive: false, discountActive: false, focusedOnMark: false })
       let allShops = [...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]
       this.props.setOutlets(allShops);
@@ -235,16 +225,6 @@ class Map extends React.Component {
       this.props.setOutlets(newOutlets);
     }
     else if (tab == "discount") {
-      if (this.map)
-        this.map.getMapRef().animateToRegion(
-          {
-            latitude: this.map.getMapRef().__lastRegion.latitude - 0.0008344042843,
-            longitude: this.map.getMapRef().__lastRegion.longitude,
-            latitudeDelta: 0.04323,
-            longitudeDelta: 0.04028
-          },
-          450
-        );
       this.setState({ shopActive: false, taskActive: false, discountActive: true, focusedOnMark: false })
       this.props.setOutlets(this.props.initial_outlets.discounts);
       this.showNearestOne({
@@ -338,10 +318,10 @@ class Map extends React.Component {
       if (this.map)
         this.map.getMapRef().animateToRegion(
           {
-            latitude: lat,
-            longitude: lng,
-            latitudeDelta: latD || 0.04323,
-            longitudeDelta: lngD || 0.04028
+            latitude: parseFloat(lat),
+            longitude: parseFloat(lng),
+            latitudeDelta: parseFloat(latD) || 0.04323,
+            longitudeDelta: parseFloat(lngD) || 0.04028
           },
           animation_time || 450
         );
@@ -637,7 +617,6 @@ class Map extends React.Component {
     );
     promise.then(
       result => {
-        console.log(result)
         this.setModalVisible(false);
         this.props.loaderState(false);
         let cards = result.body.products;
@@ -794,7 +773,7 @@ class Map extends React.Component {
         this.setState({ load_timer: false });
         let error_respons = handleError(error, this.constructor.name, "callTimer");
         this.setState({ errorText: error_respons.error_text, errorCode: error_respons.error_code });
-        if (error.code != 416) {
+        if (error.code != 416 && error.code != 418) {
           this.setErrorVisible(error_respons.error_modal);
         }
       }
@@ -1192,62 +1171,13 @@ class Map extends React.Component {
           renderCluster={this.renderCluster} >
           <Marker
             coordinate={{
-              latitude: this.props.location.lat,
-              longitude: this.props.location.lng
+              latitude: parseFloat(this.props.location.lat),
+              longitude: parseFloat(this.props.location.lng)
             }}
           >
             <UserMarker />
           </Marker>
         </ClusteredMapView>
-        {/* <MapView
-          key={this.state.mapKey}
-          style={styles.map_view}
-          initialRegion={this.state.region}
-          ref={ref => (this.map = ref)}
-          provider={Platform.OS == "ios" ? PROVIDER_GOOGLE : null}
-          customMapStyle={mapStyle}
-          showsCompass={false}
-          showUserLocation
-          followUserLocation
-          loadingEnabled
-          onPress={
-            this.onRegionChange
-          }
-          onRegionChangeComplete={
-            this.onRegionChange
-          }
-        >
-          <Marker
-            coordinate={{
-              latitude: this.props.location.lat,
-              longitude: this.props.location.lng
-            }}
-          >
-            <UserMarker />
-          </Marker>
-          {
-            this.props.outlets.map(marker => (
-              marker.lat != "None" && marker.lng != "None" ?
-                <TRCMarker
-                  marker={marker}
-                  key={marker.id + "_" + marker.lat}
-                  selected={this.props.selectedMall.id}
-                  active={marker.active}
-                  discountMarker={this.state.discountActive}
-                  cashoutMarker={this.state.shopActive}
-                  onPress={() => {
-                    this.state.taskActive ?
-                      this.selectMark(marker, true, "task")
-                      :
-                      this.state.shopActive ?
-                        this.selectMark(marker, true, "shop") :
-                        this.selectMark(marker, true, "discount")
-                  }}
-                /> :
-                null
-            ))
-          }
-        </MapView> */}
         <TimerModal />
         <FooterNavigation />
       </View >

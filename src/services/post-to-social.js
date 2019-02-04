@@ -62,6 +62,7 @@ export function postToSocialStory(postData, deepLink, confirmFuction) {
     }
 }
 export function postToSocial(postData, deepLink, confirmFuction) {
+    console.log(postData, deepLink, confirmFuction)
     if (Platform.OS === "ios") {
         // CameraRoll.saveToCameraRoll(postData.success_image)
         //     .then((data) => {
