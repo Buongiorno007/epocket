@@ -113,7 +113,7 @@ class GameStart extends React.Component {
                 longitude: item.lng
             };
             let name = item.id;
-            if (item.price > 0) {
+            if (item.formated.money > 0) {
                 newArr[name] = newItem;
             }
         })

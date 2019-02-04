@@ -60,7 +60,7 @@ class Card extends React.Component {
               : [styles.price, { color: this.props.item.color ? this.props.item.color : this.props.userColor.black }]
           ]}
         >
-          {this.props.item.price} {RU.EPC}
+          {this.props.item.formated.amount} {RU.EPC}
         </Text>
         <Text style={[styles.owner, { color: this.props.item.color ? this.props.item.color : this.props.userColor.black }]}>
           {this.props.item.trade}

@@ -39,7 +39,7 @@ class CardTask extends React.Component {
           <Text style={styles.price}
             numberOfLines={1}
           >
-            {this.props.item.price} {RU.EPC}
+            {this.props.item.formated.amount} {RU.EPC}
           </Text>
           <View style={styles.bottom_container}>
             <Text
