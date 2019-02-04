@@ -42,7 +42,7 @@ class CartCard extends React.Component {
                         <Text numberOfLines={1} style={styles.count_text}>Description in progress</Text>
                     </View>
                     <View style={styles.right_info}>
-                        <Text numberOfLines={1} style={styles.price_text}>{this.cardInfo.price} {RU.EPC}</Text>
+                        <Text numberOfLines={1} style={styles.price_text}>{this.cardInfo.formated_price.amount} {RU.EPC}</Text>
                         <Button
                             rounded
                             block

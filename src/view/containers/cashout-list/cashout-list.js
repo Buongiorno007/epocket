@@ -116,7 +116,7 @@ class CashoutList extends React.Component {
         ОНА НУЖНА ПОТОМУ ЧТО БЕКЕНД ПРИНИМАЕТ ПОЛЕ amount 
       */
       item.amount = item.count;
-      total_price += item.count * item.price;
+      total_price += item.count * item.formated_price.amount;
     });
     if (total_price) {
       this.setModalVisible(false);
