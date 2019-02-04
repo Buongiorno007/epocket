@@ -113,6 +113,24 @@ class GameStart extends React.Component {
         let promise = httpPost(urls.outlets, JSON.stringify({}), this.props.token);
         promise.then(
             result => {
+                result.body.outlets.forEach(elem => {
+                    elem.location = {
+                        latitude: elem.lat,
+                        longitude: elem.lng
+                    }
+                });
+                result.body.discounts.forEach(elem => {
+                    elem.location = {
+                        latitude: elem.lat,
+                        longitude: elem.lng
+                    }
+                });
+                result.body.cashouts.forEach(elem => {
+                    elem.location = {
+                        latitude: elem.lat,
+                        longitude: elem.lng
+                    }
+                });
                 this.setModalVisible(false);
                 this.props.setOutlets(result.body.outlets)
                 this.props.setInitialOutlets(result.body)

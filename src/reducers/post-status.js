@@ -43,6 +43,7 @@ export const checkForPostStatus = (game_id, token, lat, lng, game_expired_timer)
     promise.then(
         result => {
             dispatch(changePostStatus(true));
+            console.log(urls.game_get + "?coords=" + lat + "%2C" + lng)
             let received_promise = httpGet(
                 urls.game_get + "?coords=" + lat + "%2C" + lng,
                 token

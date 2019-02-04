@@ -57,6 +57,7 @@ class GameResult extends React.Component {
     };
     checkForGames = (next_navigation) => {
         this.props.loaderState(true);
+        console.log(urls.game_get + "?coords=" + this.props.location.lat + "%2C" + this.props.location.lng)
         let received_promise = httpGet(
             urls.game_get + "?coords=" + this.props.location.lat + "%2C" + this.props.location.lng,
             this.props.token
