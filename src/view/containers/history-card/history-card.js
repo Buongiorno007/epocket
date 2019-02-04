@@ -62,7 +62,7 @@ class HistoryCard extends React.Component {
                 <View style={styles.received_card}>
                   <View style={styles.cost}>
                     <Text style={styles.price_text}>
-                      {this.props.info.price} {RU.EPC}
+                      {Number(this.props.info.price)} {RU.EPC}
                     </Text>
                   </View>
                   <View style={styles.name}>
@@ -102,8 +102,8 @@ class HistoryCard extends React.Component {
                         {this.props.info.product_name}
                       </LinearTextGradient>
                       <Text style={styles.amount}>
-                        {this.props.info.price} x {this.props.info.amount} ={" "}
-                        {this.props.info.price * this.props.info.amount} {RU.EPC}
+                        {Number(this.props.info.price)} x {this.props.info.amount} ={" "}
+                        {Number(this.props.info.price * this.props.info.amount)} {RU.EPC}
                       </Text>
                     </View>
                     <View style={styles.date}>

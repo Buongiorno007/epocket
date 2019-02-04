@@ -94,7 +94,7 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
                     result => {
                         let info = {
                             description: game.description,
-                            cost: Number(game.formated.amount).toFixed(2) + "",
+                            cost: Number(Number(game.formated.amount).toFixed(2)) + "",
                             title: game.title,
                             success_image: game.insta_image_url,
                             no_more_games: false,

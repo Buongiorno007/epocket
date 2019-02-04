@@ -723,11 +723,11 @@ class Map extends React.Component {
       result => {
         this.setErrorVisible(false);
         this.setState({ load_timer: false });
-        this.props.setMainMissionCost(result.body.formated.money ? result.body.formated.money : result.body.price);
+        this.props.setMainMissionCost(result.body.formated.amount);
         this.setState(
           {
             mainMissionId: result.body.id,
-            mainMissionPrice: result.body.formated.money ? result.body.formated.money : result.body.price
+            mainMissionPrice: result.body.formated.amount
           },
           () => {
             if (result.body.failed) {

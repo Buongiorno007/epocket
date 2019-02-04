@@ -87,7 +87,7 @@ class TRCMarker extends React.Component {
             </ImageBackground>
             {(!this.props.discountMarker && !this.props.cashoutMarker) &&
               <View style={[!this.props.active ? styles.mall_price_view : styles.mall_price_view_fill]}>
-                <Text style={styles.mall_price}>{!this.props.active ? Number(this.props.marker.formated.money).toFixed(2) : "      "}</Text>
+                <Text style={styles.mall_price}>{!this.props.active ? Number(Number(this.props.marker.formated.money).toFixed(2)) : "      "}</Text>
                 <Text style={styles.mall_price_epc} >{!this.props.active ? RU.EPC : "      "}</Text>
               </View >
             }

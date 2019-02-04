@@ -12,7 +12,7 @@ export default (state = false, action) => {
 }
 
 export const setBalance = (balance) => {
-	balance = Number(balance).toFixed(2)
+	balance = Number(Number(balance).toFixed(2))
 	AsyncStorage.setItem("balance", String(balance));
 	return { type: BALANCE_CHANGE, balance }
 }
