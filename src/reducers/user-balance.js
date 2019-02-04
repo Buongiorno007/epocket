@@ -1,4 +1,4 @@
-import {AsyncStorage} from 'react-native'
+import { AsyncStorage } from 'react-native'
 
 export const BALANCE_CHANGE = 'user-balance/BALANCE_CHANGE';
 
@@ -13,6 +13,7 @@ export default (state = false, action) => {
 }
 
 export const setBalance = (balance) => {
+	console.log("balance", balance)
 	AsyncStorage.setItem("balance", String(balance));
 	return { type: BALANCE_CHANGE, balance }
 }

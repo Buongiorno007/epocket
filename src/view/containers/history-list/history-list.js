@@ -45,7 +45,7 @@ class HistoryList extends React.Component {
                   {RU.HISTORY_PAGE.ALL_BONUSES_RECEIVED}
                 </Text>
                 <Text style={styles.summary_bold}>
-                  {this.props.receivedBonusesJSX.sum} {RU.EPC}
+                  {this.props.receivedBonusesJSX.sum.toFixed(2)} {RU.EPC}
                 </Text>
               </View>
             ) : null}
@@ -80,8 +80,8 @@ class HistoryList extends React.Component {
                     {RU.HISTORY_PAGE.ALL_BONUSES_SPENT}
                   </Text>
                   <Text style={styles.summary_bold}>
-                    {this.props.spentBonusesJSX.sum} {RU.EPC}
-                </Text>
+                    {this.props.spentBonusesJSX.sum.toFixed(2)} {RU.EPC}
+                  </Text>
                 </View>
               ) : null}
               <View>
