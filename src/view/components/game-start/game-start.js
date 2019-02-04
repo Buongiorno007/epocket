@@ -36,6 +36,7 @@ import { httpPost } from "../../../services/http";
 import { handleError } from "../../../services/http-error-handler";
 import NavigationService from "./../../../services/route";
 import "../../../services/correcting-interval";
+import moment from "moment-timezone";
 
 class GameStart extends React.Component {
     state = {
@@ -105,12 +106,32 @@ class GameStart extends React.Component {
         this.props.setDistance(distance);
     };
     selectNearestMall = (my_location, mall_array, ANIMATE_MAP) => {
-        let nearestMall = geolib.findNearest(my_location, mall_array, 0);
-        try { this.selectMark(mall_array[Number(nearestMall.key)]); } catch (e) { }
+        let newArr = {};
+        mall_array.forEach(item => {
+            let newItem = {
+                latitude: item.lat,
+                longitude: item.lng
+            };
+            let name = item.id;
+            if (item.price > 0) {
+                newArr[name] = newItem;
+            }
+        })
+        let nearestMall = geolib.findNearest(my_location, newArr, 0);
+        if (nearestMall) {
+            let selectedTRC = mall_array.find(x => x.id === Number(nearestMall.key))
+            try { this.selectMark(selectedTRC, ANIMATE_MAP, "task"); } catch (e) { }
+        }
     };
     loadTRC = () => {
         this.setModalVisible(false);
-        let promise = httpPost(urls.outlets, JSON.stringify({}), this.props.token);
+        let promise = httpPost(urls.outlets, JSON.stringify({
+            geolocation_status: true,
+            tzone: {
+                timezone: moment.tz.guess(),
+                timedelta: moment().format('Z')
+            }
+        }), this.props.token);
         promise.then(
             result => {
                 result.body.outlets.forEach(elem => {

@@ -418,13 +418,11 @@ class Map extends React.Component {
             longitude: elem.lng
           }
         });
-        console.log("loadTRC", result)
         this.setModalVisible(false);
         this.props.loaderState(false);
         this.props.setOutlets(result.body.outlets)
         this.props.setInitialOutlets(result.body)
         if (this.props.isLocation && this.props.distance < 0) {
-          console.log("select nearest")
           this.selectNearestMall(
             {
               latitude: this.props.location.lat,
@@ -434,7 +432,6 @@ class Map extends React.Component {
           );
         }
         else if (this.props.isLocation) {
-          console.log("move map")
           this.showNearestOne({
             latitude: this.props.location.lat,
             longitude: this.props.location.lng
