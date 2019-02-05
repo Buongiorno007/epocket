@@ -372,7 +372,7 @@ class Map extends React.Component {
     this.setModalVisible(false);
     this.props.loaderState(true);
     let promise = httpPost(urls.outlets, JSON.stringify({
-      geolocation_status: this.props.location.lat != 0 && this.props.location.lng != 0,,
+      geolocation_status: this.props.location.lat != 0 && this.props.location.lng != 0,
       tzone: {
         timezone: moment.tz.guess(),
         timedelta: moment().format('Z')
@@ -536,8 +536,8 @@ class Map extends React.Component {
   getActiveMissions = (missions) => {
     missions.forEach((item) => {
       let currentTime = moment().format("HH:mm:ss");
-      let startTime = moment(item.date_start).subtract(3, "hours").format("HH:mm:ss");
-      let endTime = moment(item.date_end).subtract(3, "hours").format("HH:mm:ss")
+      let startTime = moment(item.date_start).format("HH:mm:ss");
+      let endTime = moment(item.date_end).format("HH:mm:ss")
       item.active = (currentTime > startTime && currentTime < endTime)
     });
     return orderBy(orderBy(missions, ['price'], ['desc']), ['active'], ['desc']);
