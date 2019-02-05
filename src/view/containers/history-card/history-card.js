@@ -21,15 +21,15 @@ class HistoryCard extends React.Component {
     super(props);
   }
   state = {
-    errorVisible: true,
+    errorVisible: false,
     errorText: "",
     timeZome: parseInt(moment().format('Z'))
   };
   componentDidMount() {
-    console.log(moment(this.props.info.date).add('hours', this.state.timeZome).format().split("T")[1]
-      .split("+")[0])
-    let error_respons = handleError({ code: this.props.info.error }, this.constructor.name, "componentDidMount");
-    this.setState({ errorText: error_respons.error_text });
+    if (this.props.info.error && this.props.info.error != 401) {
+      let error_respons = handleError({ code: this.props.info.error }, this.constructor.name, "componentDidMount");
+      this.setState({ errorText: error_respons.error_text, errorVisible: true });
+    }
   }
   setModalVisible = visible => {
     this.setState({ errorVisible: visible });

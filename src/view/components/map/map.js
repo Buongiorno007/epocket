@@ -561,6 +561,7 @@ class Map extends React.Component {
           console.log(result)
           this.setState({ posts: result.body.posts })
           let cards = this.getActiveMissions(result.body.missions);
+          console.log(cards)
           if (!this.props.insta_token) { //check for instagramm !this.props.insta_token
             cards.unshift({
               type: "instagram_connect",
