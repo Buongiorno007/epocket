@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Dimensions } from "react-native";
-import QRCode from "react-native-qrcode";
+import QRCode from 'react-native-qrcode-svg';
 //constants
 import styles from "./styles";
 import { colors } from "../../../constants/colors";
@@ -20,8 +20,8 @@ class CashoutCode extends React.Component {
         <QRCode
           value={this.props.link}
           size={width * 0.65}
-          bgColor={this.props.userColor.black}
-          fgColor={this.props.userColor.white}
+          color={this.props.userColor.black}
+          backgroundColor={this.props.userColor.white}
         />
       </View>
     );

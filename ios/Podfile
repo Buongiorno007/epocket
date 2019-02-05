@@ -60,6 +60,8 @@ target 'EpocketCash' do
   pod 'RNFS', :path => '../node_modules/react-native-fs'
   pod 'RNSound', :path => '../node_modules/react-native-sound'
 
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
+
 end
   post_install do |installer|
     installer.pods_project.targets.each do |target|

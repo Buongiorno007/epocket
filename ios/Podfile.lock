@@ -210,6 +210,8 @@ PODS:
     - RNSound/Core (= 0.10.9)
   - RNSound/Core (0.10.9):
     - React/Core
+  - RNSVG (9.2.3):
+    - React
   - RNVectorIcons (4.6.0):
     - React
   - SDWebImage/Core (4.4.2)
@@ -256,6 +258,7 @@ DEPENDENCIES:
   - RNFS (from `../node_modules/react-native-fs`)
   - RNInstagramStoryShare (from `../node_modules/react-native-instagram-story-share/ios`)
   - RNSound (from `../node_modules/react-native-sound`)
+  - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/yoga.podspec`)
 
@@ -322,6 +325,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-instagram-story-share/ios"
   RNSound:
     :path: "../node_modules/react-native-sound"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
   yoga:
@@ -367,10 +372,11 @@ SPEC CHECKSUMS:
   RNFS: bbb1a64eb245763daf34aea86f97c97c4e85f74c
   RNInstagramStoryShare: eca347b80831872ffa40e80111cb7f32d567c299
   RNSound: b360b3862d3118ed1c74bb9825696b5957686ac4
+  RNSVG: 4834be1d644eb77f0e3f6de851881b83758a3124
   RNVectorIcons: c0dbfbf6068fefa240c37b0f71bd03b45dddac44
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
-PODFILE CHECKSUM: b386aa529a75ef9b691895384650f40d198e4947
+PODFILE CHECKSUM: b7db1199615e7f844f4b6b3baa0fafd6489b1fdf
 
 COCOAPODS: 1.5.3
