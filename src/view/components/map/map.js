@@ -372,7 +372,7 @@ class Map extends React.Component {
     this.setModalVisible(false);
     this.props.loaderState(true);
     let promise = httpPost(urls.outlets, JSON.stringify({
-      geolocation_status: true,
+      geolocation_status: this.props.location.lat != 0 && this.props.location.lng != 0,,
       tzone: {
         timezone: moment.tz.guess(),
         timedelta: moment().format('Z')
