@@ -20,6 +20,12 @@ export default StyleSheet.create({
         height: 165,
         width: width,
     },
+    image_background: {
+        position: "absolute",
+        top: 0,
+        height: height,
+        width: width,
+    },
     success: {
         zIndex: 1,
         flex: 1,
