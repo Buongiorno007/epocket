@@ -30,7 +30,7 @@ class GeolocationService extends React.Component {
 
   startMissionRequest = () => {
     let body = {
-      outletId: this.props.selectedMall.id
+      outlet_id: this.props.selectedMall.id
     };
     let promise = httpPost(
       urls.start_mission,
@@ -71,8 +71,8 @@ class GeolocationService extends React.Component {
 
   finishMainTask() {
     let body = {
-      outletId: this.props.selectedMall.id,
-      missionId: this.props.mainTaskId
+      outlet_id: this.props.selectedMall.id,
+      mission_id: this.props.mainTaskId
     };
     let promise = httpPost(
       urls.finish_mission,

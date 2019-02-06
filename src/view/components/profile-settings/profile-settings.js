@@ -10,6 +10,7 @@ import { Button } from "native-base";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 import CookieManager from 'react-native-cookies';
 import Blur from '../../containers/blur/blur';
+import { LoginButton, AccessToken } from 'react-native-fbsdk';
 //redux
 import { connect } from "react-redux";
 import { setGameStatus } from "../../../reducers/game-status"
@@ -160,7 +161,6 @@ class ProfileSettings extends React.Component {
                 if (result.status === 200) {
                     this.props.setInstaToken(String(instagram_token))
                     this.props.loaderState(false);
-
                 }
                 else if (result.status == 201) {
                     CookieManager.clearAll()
@@ -279,15 +279,25 @@ class ProfileSettings extends React.Component {
                 </View>
                 <View style={[styles.image_block_button,
                 styles.top_facebook]}>
-                    <CustomButton
-                        active
-                        short
-                        extra_short
-                        gradient
-                        title={this.props.facebook_token ? RU.PROFILE_SETTINGS.REMOVE : RU.PROFILE_SETTINGS.ADD}
-                        color={this.props.userColor.white}
-                        handler={() => { !this.props.facebook_token ? this.LoginFacebook() : this.disConnectFacebook() }}
-                    />
+                    <View>
+                        <LoginButton
+                            onLoginFinished={
+                                (error, result) => {
+                                    if (error) {
+                                        console.log("login has error: " + result.error);
+                                    } else if (result.isCancelled) {
+                                        console.log("login is cancelled.");
+                                    } else {
+                                        AccessToken.getCurrentAccessToken().then(
+                                            (data) => {
+                                                console.log(data.accessToken.toString())
+                                            }
+                                        )
+                                    }
+                                }
+                            }
+                            onLogoutFinished={() => console.log("logout.")} />
+                    </View>
                 </View>
                 <View style={styles.header}>
                     <Text style={[styles.header_text, styles.image_block_text_big]}>{RU.PROFILE_SETTINGS.SETTINGS}</Text>
@@ -336,7 +346,7 @@ class ProfileSettings extends React.Component {
                             source={require('../../../assets/img/facebook.png')} >
                         </FastImage>
                         <View style={styles.image_block_text}>
-                            <Text style={styles.image_block_text_big}>Facebook</Text>
+                            <Text style={styles.image_block_text_big}></Text>
                         </View>
                     </View>
                     <View style={[styles.image_block_with_button, styles.image_block_with_top_border]}>

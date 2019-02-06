@@ -34,7 +34,7 @@ class ReturnToMall extends React.Component {
   closeTimerTask = () => {
     this.setModalVisible(false);
     let body = {
-      outletId: this.props.selectedMall.id
+      outlet_id: this.props.selectedMall.id
     };
     let promise = httpPost(
       urls.close_mission,

@@ -39,6 +39,7 @@ class PhotoCamera extends React.Component {
     this.props.loaderState(false);
     let body = JSON.stringify({
       outlet_id: this.props.selectedMall.id,
+      mission_id: this.props.selectedMission.id
     });
     let promise = httpPost(
       urls.insta_outlet_template,
@@ -47,6 +48,7 @@ class PhotoCamera extends React.Component {
     );
     promise.then(
       result => {
+        console.log(result)
         this.setState({
           template_info: {
             media: result.body.media,
@@ -153,6 +155,7 @@ class PhotoCamera extends React.Component {
 const mapStateToProps = state => ({
   loader: state.loader,
   userColor: state.userColor,
+  selectedMission: state.selectedMission,
   selectedMall: state.selectedMall,
   token: state.token,
 });

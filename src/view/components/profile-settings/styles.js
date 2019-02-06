@@ -152,7 +152,7 @@ export default StyleSheet.create({
     right: 10
   },
   top_facebook: {
-    top: height * 0.365,
+    top: height * 0.375,
     right: 10
   },
   white_text_container: {
