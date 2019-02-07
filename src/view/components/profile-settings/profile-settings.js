@@ -58,9 +58,10 @@ class ProfileSettings extends React.Component {
             CookieManager.clearAll();
         });
     };
-    LoginFacebook = () => {
+    LoginFacebook = (token) => {
         this.props.loaderState(true);
         let body = JSON.stringify({
+            access_token: token
         });
         let promise = httpPost(
             urls.facebook_login,
@@ -70,8 +71,10 @@ class ProfileSettings extends React.Component {
         promise.then(
             result => {
                 console.log(result)
+                if (result.body.url) {
+                    this.refs.facebookLogin.show(result.body.url)
+                }
                 this.props.loaderState(false);
-                this.refs.facebookLogin.show(result.body.url)
             },
             error => {
                 CookieManager.clearAll()
@@ -290,13 +293,13 @@ class ProfileSettings extends React.Component {
                                     } else {
                                         AccessToken.getCurrentAccessToken().then(
                                             (data) => {
-                                                console.log(data.accessToken.toString())
+                                                this.LoginFacebook(data.accessToken.toString())
                                             }
                                         )
                                     }
                                 }
                             }
-                            onLogoutFinished={() => console.log("logout.")} />
+                            onLogoutFinished={() => this.disConnectFacebook()} />
                     </View>
                 </View>
                 <View style={styles.header}>

@@ -32,6 +32,7 @@ export const changePostStatus = status => {
 };
 export const checkForPostStatus = (game_id, token, lat, lng, game_expired_timer) => async dispatch => {
     dispatch(loaderState(true));
+    console.log(game_id)
     let body = JSON.stringify({
         game_id
     });
@@ -43,7 +44,6 @@ export const checkForPostStatus = (game_id, token, lat, lng, game_expired_timer)
     promise.then(
         result => {
             dispatch(changePostStatus(true));
-            console.log(urls.game_get + "?coords=" + lat + "%2C" + lng)
             let received_promise = httpGet(
                 urls.game_get + "?coords=" + lat + "%2C" + lng,
                 token
@@ -76,6 +76,7 @@ export const checkForPostStatus = (game_id, token, lat, lng, game_expired_timer)
                                     game_array: game.game_set,
                                     available_game_len: game.available_game_len,
                                     total_game_len: game.games_count,
+                                    id: game.id,
                                     insta_data: {
                                         base64: 'data:image/jpg;base64,' + result,
                                         id: game.id,
