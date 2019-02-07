@@ -62,7 +62,6 @@ export function postToSocialStory(postData, deepLink, confirmFuction) {
     }
 }
 export function postToSocial(postData, deepLink, confirmFuction) {
-    console.log(postData, deepLink, confirmFuction)
     if (Platform.OS === "ios") {
         // CameraRoll.saveToCameraRoll(postData.success_image)
         //     .then((data) => {
@@ -76,11 +75,10 @@ export function postToSocial(postData, deepLink, confirmFuction) {
         //         }, 1000);
         //     })
         //     .catch(err => console.log('err:', err))
-
         let base64Prefix = 'data:image/jpg;base64,'
         let shareImageBase64 = {
             title: "",
-            url: postData.base64.includes(base64Prefix) ? postData.base64 : postData.base64 + base64Prefix, //check for base64 prefix
+            url: postData.base64.includes(base64Prefix) ? postData.base64 : base64Prefix + postData.base64, //check for base64 prefix
             social: Share.Social.INSTAGRAM
         };
         console.log(shareImageBase64)

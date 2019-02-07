@@ -38,8 +38,8 @@ class CardCashout extends React.Component {
             {this.props.item.name.toUpperCase()}
           </Text>
           <Text numberOfLines={1} style={[styles.price]}>
-            {this.props.item.formated_price.amount ? this.props.item.formated_price.amount : this.props.item.price} {RU.EPC}
-        </Text>
+            {this.props.item.formated_price.amount} {RU.EPC}
+          </Text>
         </View>
       </Button>
     );
