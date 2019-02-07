@@ -117,15 +117,15 @@ class SignIn extends React.Component {
     r = r.replace(/^0/, "");
     if (r.length > 8) {
       // 11+ digits.
-      r = r.replace(/^(\d{2})(\d{3})(\d{0,3})(\d{0,4}).*/, "$1 ($2) $3 $4");
+      r = r.replace(/^(\d{2})(\d{3})(\d{0,3})(\d{0,4}).*/, "$1 $2 $3 $4");
     }
     else if (r.length > 5) {
       // 6..10 digits. Format as 4+4
-      r = r.replace(/^(\d{2})(\d{0,3})(\d{0,5}).*/, "$1 ($2) $3");
+      r = r.replace(/^(\d{2})(\d{0,3})(\d{0,5}).*/, "$1 $2 $3");
     }
     else if (r.length > 2) {
       // 3..5 digits.
-      r = r.replace(/^(\d{2})(\d{0,3})/, "$1 ($2");
+      r = r.replace(/^(\d{2})(\d{0,3})/, "$1 $2");
     }
     else {
       // 0..2 digits.
