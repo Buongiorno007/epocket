@@ -47,8 +47,9 @@ class PhotoView extends React.Component {
     let body = {
       outlet_id: this.props.selectedMall.id,
       photo: this.props.navigation.state.params.image,
-      missionId: this.props.selectedMission.id
+      mission_id: this.props.selectedMission.id
     };
+    console.log(body)
     let promise = httpPost(
       urls.insta_upload_photo,
       serializeJSON(body),
@@ -80,8 +81,8 @@ class PhotoView extends React.Component {
   finishMission(insta_data) {
     this.setErrorMissionVisible(false);
     let body = {
-      outletId: this.props.selectedMall.id,
-      missionId: this.props.selectedMission.id
+      outlet_id: this.props.selectedMall.id,
+      mission_id: this.props.selectedMission.id
     };
     let promise = httpPost(
       urls.finish_mission,

@@ -42,7 +42,7 @@ class ScannerCamera extends React.Component {
       this.props.loaderState(true);
       this.props.setShowQR(false)
       let body = {
-        missionId: this.props.selectedMission.id,
+        mission_id: this.props.selectedMission.id,
         qrCode: qrcode.data
       };
       let promise = httpPost(

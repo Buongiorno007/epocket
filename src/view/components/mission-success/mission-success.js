@@ -35,16 +35,16 @@ class MissionSuccess extends React.Component {
           backgroundColor={"transparent"}
           translucent={true}
         />
+         <FastImage
+          resizeMode={FastImage.resizeMode.contain}
+          style={styles.image_background}
+          source={require('../../../assets/img/ANIMATED_EARN_MORE.gif')}
+        />
         <LinearGradient
           colors={this.props.userColor.earn_more}
           start={{ x: 0.0, y: 1.4 }}
           end={{ x: 1.0, y: 0.0 }}
           style={styles.grad}
-        />
-        <FastImage
-          resizeMode={FastImage.resizeMode.contain}
-          style={styles.image}
-          source={require('../../../assets/img/START_TOP_BACKGROUND.png')}
         />
         <View style={styles.success}>
           <Text style={styles.congratulation}>{RU.MISSION.SUCCESS}</Text>

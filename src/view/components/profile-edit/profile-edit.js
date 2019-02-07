@@ -19,6 +19,7 @@ import styles from "./styles";
 import { RU } from "../../../locales/ru";
 import { colors } from "../../../constants/colors_men";
 //redux
+import { setBalance } from "../../../reducers/user-balance";
 import { setColor } from "../../../reducers/user-color";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -101,6 +102,7 @@ class ProfileEdit extends React.Component {
       );
       promise.then(
         result => {
+          this.props.setBalance(result.body.balance.amount)
           this.props.setProfileVirgin(false)
           this.setRejectVisible(false);
           let user = {
@@ -399,7 +401,8 @@ const mapDispatchToProps = dispatch =>
       saveUser,
       loaderState,
       setColor,
-      setProfileVirgin
+      setProfileVirgin,
+      setBalance
     },
     dispatch
   );

@@ -53,6 +53,8 @@ import cl.json.ShareApplication;
 import java.util.Arrays;
 import java.util.List;
 
+import android.webkit.WebView;
+
 public class MainApplication extends Application implements ShareApplication, ReactApplication {
 
     private static CallbackManager mCallbackManager = CallbackManager.Factory.create();
@@ -126,6 +128,7 @@ public class MainApplication extends Application implements ShareApplication, Re
         Fabric.with(this, new Crashlytics());
         SoLoader.init(this, /* native exopackage */ false);
         Fresco.initialize(this);
+        WebView.setWebContentsDebuggingEnabled(true);
     }
 
 

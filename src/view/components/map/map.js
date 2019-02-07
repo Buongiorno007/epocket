@@ -135,8 +135,8 @@ class Map extends React.Component {
       this.setErrorVisible(false);
       this.setState({ load_missions: true });
       let body = {
-        outletId: this.props.selectedMall.id,
-        missionId: this.state.mainMissionId
+        outlet_id: this.props.selectedMall.id,
+        mission_id: this.state.mainMissionId
       };
       let promise = httpPost(
         urls.finish_mission,
@@ -399,6 +399,7 @@ class Map extends React.Component {
           }
         });
         console.log(result)
+        this.props.setBalance(result.body.balance.amount)
         this.setModalVisible(false);
         this.props.loaderState(false);
         this.props.setOutlets(result.body.outlets)
@@ -546,7 +547,7 @@ class Map extends React.Component {
     this.setState({ cards: [], focusedOnMark: false });
     this.setModalVisible(false);
     let body = {
-      outletId: trc.id,
+      outlet_id: trc.id,
       notInMall: (this.props.distance <= 0 && this.props.isLocation) ? false : true
     };
     let promise = httpPost(
@@ -603,12 +604,12 @@ class Map extends React.Component {
     let body;
     if (trc.outlet) {
       body = {
-        cashoutId: trc.id // clicked marked = cashout
+        cashout_id: trc.id // clicked marked = cashout
       };
     }
     else {
       body = {
-        outletId: trc.id // clicked marker = outlet
+        outlet_id: trc.id // clicked marker = outlet
       };
     }
     let promise = httpPost(
@@ -643,7 +644,7 @@ class Map extends React.Component {
   loadDiscountItems = (trc) => {
     this.props.loaderState(true);
     let body = {
-      cashoutId: trc.id
+      cashout_id: trc.id
     };
     let promise = httpPost(
       urls.get_outlet_products,
@@ -710,7 +711,7 @@ class Map extends React.Component {
     this.props.updateTimer(curr_time);
     this.setErrorVisible(false);
     let body = {
-      outletId: id ? id : this.props.selectedMall.id,
+      outlet_id: id ? id : this.props.selectedMall.id,
       notInMall: distance ? (distance <= 0 && this.props.isLocation) ? false : true
         :
         (this.props.distance <= 0 && this.props.isLocation) ? false : true

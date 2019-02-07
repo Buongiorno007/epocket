@@ -122,7 +122,7 @@ class CashoutList extends React.Component {
       this.setModalVisible(false);
       this.props.loaderState(true);
       let body = {
-        outletId: this.props.selectedMall.id,
+        outlet_id: this.props.selectedMall.id,
         products: copyForCategoryClean
       };
       console.log(body)

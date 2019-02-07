@@ -89,7 +89,7 @@ class Dashboard extends React.Component {
     mainMissionId: 0,
     mainMissionPrice: 0,
     body: {
-      outletId: this.props.selectedMall.id,
+      outlet_id: this.props.selectedMall.id,
       notInMall: (this.props.distance <= 0 && this.props.isLocation) ? false : true
     },
     errorText: "",
@@ -671,8 +671,8 @@ class Dashboard extends React.Component {
       this.setFinishMissionErrorVisible(false);
       this.setState({ load_missions: true });
       let body = {
-        outletId: this.props.selectedMall.id,
-        missionId: this.state.mainMissionId
+        outlet_id: this.props.selectedMall.id,
+        mission_id: this.state.mainMissionId
       };
       let promise = httpPost(
         urls.finish_mission,

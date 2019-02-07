@@ -13,7 +13,7 @@ import qs from 'qs'
 import { Button } from 'native-base'
 import Icon from "react-native-vector-icons/EvilIcons";
 const { width, height } = Dimensions.get('window')
-
+const yourAlert = `(${String(function () {})})();`
 const patchPostMessageJsCode = `(${String(function () {
   var originalPostMessage = window.postMessage
   var patchedPostMessage = function (message, targetOrigin, transfer) {
@@ -94,13 +94,13 @@ export default class Instagram extends Component {
             style={[styles.webView, this.props.styles.webView]}
             source={{ uri: `https://api.instagram.com/oauth/authorize/?client_id=${clientId}&redirect_uri=${redirectUrl}&response_type=token&scope=${scopes.join('+')}` }}
             scalesPageToFit
+            mixedContentMode={'compatibility'}
             startInLoadingState
             onNavigationStateChange={this._onNavigationStateChange.bind(this)}
             onError={this._onNavigationStateChange.bind(this)}
             // onLoadEnd={this._onLoadEnd.bind(this)}
-            onMessage={this._onMessage.bind(this)}
             ref={(webView) => { this.webView = webView }}
-            injectedJavaScript={patchPostMessageJsCode}
+            injectedJavaScript={patchPostMessageJsCode + yourAlert}
           />
           {!hideCloseButton ? (
             <Button
