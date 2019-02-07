@@ -372,7 +372,7 @@ class Map extends React.Component {
     this.setModalVisible(false);
     this.props.loaderState(true);
     let promise = httpPost(urls.outlets, JSON.stringify({
-      geolocation_status: true,
+      geolocation_status: this.props.location.lat != 0 && this.props.location.lng != 0,
       tzone: {
         timezone: moment.tz.guess(),
         timedelta: moment().format('Z')
@@ -536,8 +536,8 @@ class Map extends React.Component {
   getActiveMissions = (missions) => {
     missions.forEach((item) => {
       let currentTime = moment().format("HH:mm:ss");
-      let startTime = moment(item.date_start).subtract(3, "hours").format("HH:mm:ss");
-      let endTime = moment(item.date_end).subtract(3, "hours").format("HH:mm:ss")
+      let startTime = moment(item.date_start).format("HH:mm:ss");
+      let endTime = moment(item.date_end).format("HH:mm:ss")
       item.active = (currentTime > startTime && currentTime < endTime)
     });
     return orderBy(orderBy(missions, ['price'], ['desc']), ['active'], ['desc']);
@@ -561,6 +561,7 @@ class Map extends React.Component {
           console.log(result)
           this.setState({ posts: result.body.posts })
           let cards = this.getActiveMissions(result.body.missions);
+          console.log(cards)
           if (!this.props.insta_token) { //check for instagramm !this.props.insta_token
             cards.unshift({
               type: "instagram_connect",
@@ -723,11 +724,11 @@ class Map extends React.Component {
       result => {
         this.setErrorVisible(false);
         this.setState({ load_timer: false });
-        this.props.setMainMissionCost(result.body.formated.money ? result.body.formated.money : result.body.price);
+        this.props.setMainMissionCost(result.body.formated.amount);
         this.setState(
           {
             mainMissionId: result.body.id,
-            mainMissionPrice: result.body.formated.money ? result.body.formated.money : result.body.price
+            mainMissionPrice: result.body.formated.amount
           },
           () => {
             if (result.body.failed) {

@@ -21,15 +21,15 @@ class HistoryCard extends React.Component {
     super(props);
   }
   state = {
-    errorVisible: true,
+    errorVisible: false,
     errorText: "",
     timeZome: parseInt(moment().format('Z'))
   };
   componentDidMount() {
-    console.log(moment(this.props.info.date).add('hours', this.state.timeZome).format().split("T")[1]
-      .split("+")[0])
-    let error_respons = handleError({ code: this.props.info.error }, this.constructor.name, "componentDidMount");
-    this.setState({ errorText: error_respons.error_text });
+    if (this.props.info.error && this.props.info.error != 401) {
+      let error_respons = handleError({ code: this.props.info.error }, this.constructor.name, "componentDidMount");
+      this.setState({ errorText: error_respons.error_text, errorVisible: true });
+    }
   }
   setModalVisible = visible => {
     this.setState({ errorVisible: visible });
@@ -62,7 +62,7 @@ class HistoryCard extends React.Component {
                 <View style={styles.received_card}>
                   <View style={styles.cost}>
                     <Text style={styles.price_text}>
-                      {this.props.info.price} {RU.EPC}
+                      {Number(this.props.info.price)} {RU.EPC}
                     </Text>
                   </View>
                   <View style={styles.name}>
@@ -102,8 +102,8 @@ class HistoryCard extends React.Component {
                         {this.props.info.product_name}
                       </LinearTextGradient>
                       <Text style={styles.amount}>
-                        {this.props.info.price} x {this.props.info.amount} ={" "}
-                        {this.props.info.price * this.props.info.amount} {RU.EPC}
+                        {Number(this.props.info.price)} x {this.props.info.amount} ={" "}
+                        {Number(this.props.info.price * this.props.info.amount)} {RU.EPC}
                       </Text>
                     </View>
                     <View style={styles.date}>

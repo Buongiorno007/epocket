@@ -62,6 +62,7 @@ export function postToSocialStory(postData, deepLink, confirmFuction) {
     }
 }
 export function postToSocial(postData, deepLink, confirmFuction) {
+    let base64Prefix = 'data:image/jpg;base64,'
     if (Platform.OS === "ios") {
         // CameraRoll.saveToCameraRoll(postData.success_image)
         //     .then((data) => {
@@ -75,7 +76,6 @@ export function postToSocial(postData, deepLink, confirmFuction) {
         //         }, 1000);
         //     })
         //     .catch(err => console.log('err:', err))
-        let base64Prefix = 'data:image/jpg;base64,'
         let shareImageBase64 = {
             title: "",
             url: postData.base64.includes(base64Prefix) ? postData.base64 : base64Prefix + postData.base64, //check for base64 prefix
@@ -93,7 +93,14 @@ export function postToSocial(postData, deepLink, confirmFuction) {
         }, 2000);
     }
     else {
-        let image_data = postData.base64.split('data:image/jpg;base64,')[1];
+        let image_data
+        if (postData.base64.includes(base64Prefix)) {
+            image_data = postData.base64.split('data:image/jpg;base64,')[1];
+        }
+        else {
+            image_data = postData.base64
+        }
+        console.log(image_data)
         const dirs = RNFetchBlob.fs.dirs
         const file_path = dirs.DCIMDir + "/epc_game_img.jpg"
         RNFS.writeFile(file_path, image_data, 'base64')

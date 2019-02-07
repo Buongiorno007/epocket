@@ -74,10 +74,9 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
     );
     received_promise.then(
         result => {
-            console.log(result)
+            console.log("getGameInfo", result)
             let game = result.body;
             if (game.ticker === false && !game.game_set) {
-                console.log("lock")
                 dispatch(setGameStatus("lock"));
                 dispatch(errorState(null));
                 dispatch(loaderState(false));
@@ -94,7 +93,7 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
                     result => {
                         let info = {
                             description: game.description,
-                            cost: Number(game.formated.amount).toFixed(2) + "",
+                            cost: Number(Number(game.formated.amount).toFixed(2)) + "",
                             title: game.title,
                             success_image: game.insta_image_url,
                             no_more_games: false,
@@ -139,7 +138,6 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
                 dispatch(loaderState(false));
             }
             else {
-                console.log("4")
                 let error_response = handleError(error, "game-info", "getGameInfo")
                 dispatch(errorState(error_response))
                 dispatch(loaderState(false));

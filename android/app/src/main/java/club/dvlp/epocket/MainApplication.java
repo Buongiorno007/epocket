@@ -8,6 +8,7 @@ import com.facebook.appevents.AppEventsLogger;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.ReactApplication;
+import com.horcrux.svg.SvgPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.rnfs.RNFSPackage;
 import com.jobeso.RNInstagramStoryShare.RNInstagramStorySharePackage;
@@ -70,6 +71,7 @@ public class MainApplication extends Application implements ShareApplication, Re
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new SvgPackage(),
             new RNSoundPackage(),
                     new RNFSPackage(),
                     new RNInstagramStorySharePackage(),

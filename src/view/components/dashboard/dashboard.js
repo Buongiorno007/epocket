@@ -598,8 +598,8 @@ class Dashboard extends React.Component {
   getActiveMissions = (missions) => {
     missions.forEach((item) => {
       let currentTime = moment().format("HH:mm:ss");
-      let startTime = moment(item.date_start).subtract(3, "hours").format("HH:mm:ss");
-      let endTime = moment(item.date_end).subtract(3, "hours").format("HH:mm:ss")
+      let startTime = moment(item.date_start).format("HH:mm:ss");
+      let endTime = moment(item.date_end).format("HH:mm:ss")
       item.active = (item.type != "instagram_connect" && item.type != "facebook_connect")
         ? (currentTime > startTime && currentTime < endTime) : true;
     });
