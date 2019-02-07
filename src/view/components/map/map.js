@@ -399,6 +399,7 @@ class Map extends React.Component {
           }
         });
         console.log(result)
+        this.props.setBalance(result.body.balance.amount)
         this.setModalVisible(false);
         this.props.loaderState(false);
         this.props.setOutlets(result.body.outlets)

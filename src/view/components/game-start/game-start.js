@@ -5,6 +5,7 @@ import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
 import geolib from "geolib";
 //redux
+import { setBalance } from "../../../reducers/user-balance";
 import { connect } from 'react-redux';
 import { setTabState } from "../../../reducers/tabs";
 import { setNavigateToMall } from "../../../reducers/navigate-to-mall"
@@ -155,6 +156,7 @@ class GameStart extends React.Component {
                 this.setModalVisible(false);
                 this.props.setOutlets(result.body.outlets)
                 this.props.setInitialOutlets(result.body)
+                this.props.setBalance(result.body.balance.amount)
                 if (this.props.selectedMall.id) {
                     //this.selectMark(this.props.selectedMall, false, "task");
                 } else {
@@ -318,7 +320,8 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     loaderState,
     setTabState,
     resetGameExpiredTimer,
-    setNavigateToMall
+    setNavigateToMall,
+    setBalance
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameStart);
