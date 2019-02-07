@@ -18,13 +18,13 @@ class TemplateInstagramPhoto extends React.Component {
           {
             this.props.template_url ?
               <FastImage
-                resizeMode={FastImage.resizeMode.contain}
+                resizeMode={FastImage.resizeMode.cover}
                 style={styles.template_image}
                 source={{ uri: this.props.template_url }}
               />
               :
               <FastImage
-                resizeMode={FastImage.resizeMode.contain}
+                resizeMode={FastImage.resizeMode.cover}
                 style={styles.template_image}
                 source={require('../../../assets/img/preloader_nobg.gif')}
               />

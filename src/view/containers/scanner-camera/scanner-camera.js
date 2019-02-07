@@ -2,7 +2,7 @@ import React from "react";
 import { Alert } from "react-native";
 import FastImage from 'react-native-fast-image'
 import { View } from "react-native";
-import QRCodeScanner from "react-native-qrcode-scanner";
+import { RNCamera } from "react-native-camera";
 //containers
 import CustomAlert from "../../containers/custom-alert/custom-alert";
 //constants
@@ -69,7 +69,7 @@ class ScannerCamera extends React.Component {
     this.props.setShowQR(true)
     this.setModalVisible(!this.state.errorVisible);
   }
-  
+
   render = () => {
     return (
       <View style={styles.container}>
@@ -81,14 +81,13 @@ class ScannerCamera extends React.Component {
           decline_btn_handler={() => this.reopenQRScanner()}
         />
         <View style={styles.frame}>
-          <QRCodeScanner
-            containerStyle={styles.container}
-            cameraStyle={styles.camera}
-            onRead={e => { if (this.props.showQR) this.sendQRCode(e) }}
-            fadeIn={true}
-            reactivate={true}
-            checkAndroid6Permissions={true}
-            reactivateTimeout={3000}
+          <RNCamera
+            captureAudio={false}
+            ratio={"1:1"}
+            ref={ref => (this.camera = ref)}
+            style={styles.camera}
+            onBarCodeRead={e => { if (this.props.showQR) this.sendQRCode(e) }}
+            barCodeTypes={[RNCamera.Constants.BarCodeType.qr]}
             permissionDialogTitle={RU.TITLE}
             permissionDialogMessage={RU.CAMERA_PERMISSION}
           />

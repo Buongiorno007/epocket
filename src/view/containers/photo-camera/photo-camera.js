@@ -65,7 +65,7 @@ class PhotoCamera extends React.Component {
   takePicture = async () => {
     if (this.camera) {
       this.props.loaderState(true);
-      const options = { quality: 0.5, base64: true, fixOrientation: true, forceUpOrientation: true };
+      const options = { quality: 0.5, base64: true, fixOrientation: true, forceUpOrientation: true, width: 500, height: 500 };
       const data = await this.camera.takePictureAsync(options);
 
       NavigationService.navigate("Photo", {
@@ -84,6 +84,8 @@ class PhotoCamera extends React.Component {
         </View>
         <View style={[styles.camera, styles.size]}>
           <RNCamera
+            captureAudio={false}
+            ratio={"1:1"}
             ref={ref => (this.camera = ref)}
             style={styles.preview}
             type={

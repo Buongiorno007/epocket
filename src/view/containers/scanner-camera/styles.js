@@ -17,9 +17,10 @@ export default StyleSheet.create({
     justifyContent: "center"
   },
   frame: {
-    flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    width: width * 0.6,
+    height: width * 0.6
   },
   camera: {
     width: width * 0.6,

@@ -9,21 +9,24 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    zIndex:20
+    zIndex: 20
   },
   size: {
-    width: width * 0.7
+    width: width * 0.7,
+    height: width * 0.7,
   },
   preview: {
-    flex: 2,
+    flex: 1,
+    width: width * 0.7,
     justifyContent: "flex-end",
     alignItems: "center",
-    zIndex : 0
+    zIndex: 0
   },
   camera: {
     backgroundColor: "#fff",
     marginTop: width * 0.1,
-    flex: 2,
+    width: width * 0.7,
+    height: width * 0.7,
     borderWidth: 1,
     borderColor: "rgba(143, 163, 191, 1)",
     elevation: 15,
@@ -36,12 +39,12 @@ export default StyleSheet.create({
     shadowOpacity: 5,
   },
 
-  template_photo : {
-      position : 'absolute',
-      top : 10,
-      left : 10,
-      zIndex : 1,
-      elevation: 16,
+  template_photo: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    zIndex: 1,
+    elevation: 16,
   },
 
   settings: {

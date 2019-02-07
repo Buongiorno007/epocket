@@ -105,7 +105,7 @@ class SignUp extends React.Component {
     let phonePattern = /^.+$/;
     if (phonePattern.test(text)) {
       newText = text;
-      this.setState({ phoneCorrect: text.length >= 16 });
+      this.setState({ phoneCorrect: text.length >= 14 });
     } else {
       newText = text.substring(0, text.length - 1);
     }

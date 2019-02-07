@@ -16,7 +16,7 @@ export default StyleSheet.create({
     block: {
         backgroundColor: '#fff',
         marginTop: width * 0.1,
-        flex: 2,
+        flex: 1.5,
         borderWidth: 1,
         borderColor: 'rgba(143, 163, 191, 1)',
         elevation: 15,
