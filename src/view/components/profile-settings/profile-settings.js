@@ -59,6 +59,7 @@ class ProfileSettings extends React.Component {
         });
     };
     LoginFacebook = (token) => {
+        console.log(token)
         this.props.loaderState(true);
         let body = JSON.stringify({
             access_token: token
@@ -77,6 +78,7 @@ class ProfileSettings extends React.Component {
                 this.props.loaderState(false);
             },
             error => {
+                console.log(error)
                 CookieManager.clearAll()
                     .then((res) => {
                         this.props.loaderState(false);
