@@ -889,7 +889,11 @@ class Map extends React.Component {
       });
     } else {
       clusteredPoints.forEach(cluster => {
-        clusterValue = clusterValue + Number(cluster.properties.item.formated.money)
+        if (isNaN(Number(cluster.properties.item.formated.money))) {
+          clusterValue = clusterValue + Number(cluster.properties.item.formated.amount)
+        } else {
+          clusterValue = clusterValue + Number(cluster.properties.item.formated.money)
+        }
       });
     }
     let marker;

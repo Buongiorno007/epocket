@@ -59,11 +59,11 @@ class ProfileSettings extends React.Component {
         });
     };
     LoginFacebook = (token) => {
-        console.log(token)
         this.props.loaderState(true);
         let body = JSON.stringify({
             access_token: token
         });
+        console.log(urls.facebook_login, body, this.props.token)
         let promise = httpPost(
             urls.facebook_login,
             body,
@@ -74,6 +74,14 @@ class ProfileSettings extends React.Component {
                 console.log(result)
                 if (result.body.url) {
                     this.refs.facebookLogin.show(result.body.url)
+                }
+                else if (result.status == 201) {
+                    CookieManager.clearAll()
+                        .then((res) => {
+                            this.setModalVisible(true);
+                            this.setState({ userCount: result.body.subsc_needed })
+                            this.props.loaderState(false);
+                        });
                 }
                 this.props.loaderState(false);
             },

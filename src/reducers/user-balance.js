@@ -13,11 +13,9 @@ export default (state = false, action) => {
 }
 
 export const setBalance = (balance) => async dispatch => {
-	let token
 	AsyncStorage.getItem('token').then((value) => {
-		token = value;
+		dispatch(getBonuses(value, 10, 10))
 	});
-	dispatch(getBonuses(token, 10, 10))
 	balance = Number(Number(balance).toFixed(2))
 	AsyncStorage.setItem("balance", String(balance));
 	dispatch(changeBalance(balance))
