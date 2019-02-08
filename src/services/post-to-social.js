@@ -100,7 +100,6 @@ export function postToSocial(postData, deepLink, confirmFuction) {
         else {
             image_data = postData.base64
         }
-        console.log(image_data)
         const dirs = RNFetchBlob.fs.dirs
         const file_path = dirs.DCIMDir + "/epc_game_img.jpg"
         RNFS.writeFile(file_path, image_data, 'base64')

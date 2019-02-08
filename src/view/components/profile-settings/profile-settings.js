@@ -10,7 +10,7 @@ import { Button } from "native-base";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 import CookieManager from 'react-native-cookies';
 import Blur from '../../containers/blur/blur';
-import { LoginButton, AccessToken } from 'react-native-fbsdk';
+import { LoginButton, AccessToken, LoginManager } from 'react-native-fbsdk';
 //redux
 import { connect } from "react-redux";
 import { setGameStatus } from "../../../reducers/game-status"
@@ -45,6 +45,9 @@ class ProfileSettings extends React.Component {
         animationState: !this.props.facebook_token && !this.props.insta_token
     };
     componentDidMount() {
+        if (this.props.facebook_token) {
+            AccessToken.setCurrentAccessToken(this.props.facebook_token)
+        }
         setTimeout(() => {
             this.setState({ animationState: false })
         }, 5000);
@@ -63,7 +66,6 @@ class ProfileSettings extends React.Component {
         let body = JSON.stringify({
             access_token: token
         });
-        console.log(urls.facebook_login, body, this.props.token)
         let promise = httpPost(
             urls.facebook_login,
             body,
@@ -71,7 +73,6 @@ class ProfileSettings extends React.Component {
         );
         promise.then(
             result => {
-                console.log(result)
                 if (result.body.url) {
                     this.refs.facebookLogin.show(result.body.url)
                 }
@@ -81,15 +82,16 @@ class ProfileSettings extends React.Component {
                             this.setModalVisible(true);
                             this.setState({ userCount: result.body.subsc_needed })
                             this.props.loaderState(false);
+                            LoginManager.logOut()
                         });
                 }
                 this.props.loaderState(false);
             },
             error => {
-                console.log(error)
                 CookieManager.clearAll()
                     .then((res) => {
                         this.props.loaderState(false);
+                        LoginManager.logOut()
                     });
             }
         );
@@ -160,6 +162,7 @@ class ProfileSettings extends React.Component {
         this.props.setFacebookToken(String(token));
     }
     connectInsta = (instagram_token) => {
+        console.log(instagram_token)
         this.props.loaderState(true);
         let body = JSON.stringify({
             instagram_token
@@ -171,6 +174,7 @@ class ProfileSettings extends React.Component {
         );
         promise.then(
             result => {
+                console.log(result)
                 if (result.status === 200) {
                     this.props.setInstaToken(String(instagram_token))
                     this.props.loaderState(false);
@@ -192,6 +196,7 @@ class ProfileSettings extends React.Component {
                 }
             },
             error => {
+                console.log(error)
                 CookieManager.clearAll()
                     .then((res) => {
                         this.props.loaderState(false);

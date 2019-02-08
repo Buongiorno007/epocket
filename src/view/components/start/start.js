@@ -11,6 +11,7 @@ import {
 import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
 import LinearGradient from "react-native-linear-gradient";
+import { AccessToken } from 'react-native-fbsdk';
 //containers
 import CustomButton from "../../containers/custom-button/custom-button";
 import NoInternet from "../../containers/no-internet/no-internet";
@@ -96,6 +97,7 @@ class Start extends React.Component {
           }
           case 'facebook_token': {
             value && this.props.setFacebookToken(value);
+            value && AccessToken.setCurrentAccessToken(value)
             break;
           }
           case 'token': {

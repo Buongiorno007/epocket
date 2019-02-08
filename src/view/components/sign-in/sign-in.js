@@ -12,6 +12,7 @@ import {
 import FastImage from 'react-native-fast-image'
 import { TextField } from "react-native-material-textfield";
 import LinearGradient from "react-native-linear-gradient";
+import { AccessToken } from 'react-native-fbsdk';
 //containers
 import BackButton from "../../containers/back/back";
 import CustomButton from "../../containers/custom-button/custom-button";
@@ -206,6 +207,7 @@ class SignIn extends React.Component {
         console.log(result)
         if (result.body.logged && result.body.active && result.body.token) {
           this.props.setFacebookToken(result.body.token);
+          AccessToken.setCurrentAccessToken(result.body.token)
         }
         this.props.loaderState(false);
 

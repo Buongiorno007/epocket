@@ -32,7 +32,6 @@ export const changePostStatus = status => {
 };
 export const checkForPostStatus = (game_id, token, lat, lng, game_expired_timer) => async dispatch => {
     dispatch(loaderState(true));
-    console.log(game_id)
     let body = JSON.stringify({
         game_id
     });
