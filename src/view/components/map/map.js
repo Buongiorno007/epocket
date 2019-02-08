@@ -941,7 +941,13 @@ class Map extends React.Component {
                 0.0158
               );
             }
-          }}
+            clusteredPoints.forEach(cluster => {
+              if (this.state.taskActive && cluster.properties.item.formated && ((clusterValue === Number(cluster.properties.item.formated.money)) || (clusterValue === Number(cluster.properties.item.formated.amount)))) {
+                this.selectMark(cluster.properties.item, true, "task")
+              }
+            });
+          }
+          }
         />
     }
     else {
