@@ -1167,6 +1167,7 @@ class Map extends React.Component {
           showUserLocation
           followUserLocation
           loadingEnabled
+          clusteringEnabled={this.state.discountActive ? false : true}
           onPress={
             this.onRegionChange
           }
