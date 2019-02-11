@@ -19,6 +19,7 @@ let defaultMission = {
 export default (state = defaultMission, action) => {
     switch (action.type) {
         case SELECT_MISSION:
+            console.log(Object.assign({}, { ...state, ...action.selectedMission }))
             return Object.assign({}, { ...state, ...action.selectedMission })
         default:
             return state;

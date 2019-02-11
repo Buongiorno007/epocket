@@ -105,7 +105,7 @@ export default StyleSheet.create({
     width: width * 0.85
   },
   task_line: {
-    width: width * 0.85,
+    width: width * 0.8,
     paddingBottom: 10,
     flexDirection: "row"
   },
