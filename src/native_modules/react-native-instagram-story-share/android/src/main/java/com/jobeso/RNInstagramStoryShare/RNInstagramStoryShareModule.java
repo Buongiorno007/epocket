@@ -29,9 +29,10 @@ public class RNInstagramStoryShareModule extends ReactContextBaseJavaModule {
   public static final String NO_BASE64_IMAGE = "No base64 image";
   public static final String INVALID_PARAMETER = "Invalid parameter";
   private static final String MEDIA_TYPE_JPEG = "image/*";
+  private static final String MEDIA_TYPE_VIDEO = "video/*";
 
   private final ReactApplicationContext reactContext;
-  
+
   Context ctx;
 
   public RNInstagramStoryShareModule(ReactApplicationContext reactContext) {
@@ -97,29 +98,39 @@ public class RNInstagramStoryShareModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void shareToFeed(ReadableMap options, @Nullable Callback successCallback, @Nullable Callback failureCallback
-  // @Nullable Callback confirmFuction
-  ) {
+  public void shareToFeed(ReadableMap options, Boolean videoStatus, @Nullable Callback successCallback,
+      @Nullable Callback failureCallback) {
     if (isAppInstalled("com.instagram.android")) {
-      try {
-        File media = new File("/storage/emulated/0/DCIM/epc_game_img.jpg");
-        Uri uri = FileProvider.getUriForFile(reactContext, "jobeso.RNInstagramStoryShare.FileProvider.provider", media);
-        // Create the new Intent using the 'Send' action.
-        Intent share = new Intent("com.instagram.share.ADD_TO_FEED");
+      File media;
+      Intent share = new Intent("com.instagram.share.ADD_TO_FEED");
+      Uri uri;
+      if (videoStatus) {
+        media = new File("/storage/emulated/0/DCIM/epc_game_video.mp4");
+        uri = FileProvider.getUriForFile(reactContext, "jobeso.RNInstagramStoryShare.FileProvider.provider", media);
+        share.setDataAndType(uri, MEDIA_TYPE_VIDEO);
+      } else {
+        media = new File("/storage/emulated/0/DCIM/epc_game_img.jpg");
+        uri = FileProvider.getUriForFile(reactContext, "jobeso.RNInstagramStoryShare.FileProvider.provider", media);
         share.setDataAndType(uri, MEDIA_TYPE_JPEG);
+      }
+      try {
         share.putExtra(Intent.EXTRA_STREAM, uri);
         share.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        // Broadcast the Intent.
         Activity activity = this.getCurrentActivity();
         if (activity.getPackageManager().resolveActivity(share, 0) != null) {
           activity.startActivityForResult(share, 0);
         }
-        successCallback.invoke("OK");
-        // confirmFuction.invoke("OK");
+        if (videoStatus) {
+          successCallback.invoke("success_video");
+        } else {
+          successCallback.invoke("OK");
+        }
       } catch (ActivityNotFoundException ex) {
-        System.out.println("ERROR");
-        System.out.println(ex.getMessage());
-        failureCallback.invoke(ex);
+        if (videoStatus) {
+          failureCallback.invoke("exception_video");
+        } else {
+          failureCallback.invoke(ex);
+        }
       }
     } else {
       System.out.println("ERROR");
