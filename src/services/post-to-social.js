@@ -1,9 +1,9 @@
-import { Linking, Platform, CameraRoll, Alert, PermissionsAndroid, Share } from "react-native";
+import { Linking, Platform, CameraRoll, Alert, PermissionsAndroid } from "react-native";
 import RNInstagramStoryShare from '../native_modules/react-native-instagram-story-share'
 import RNFetchBlob from 'rn-fetch-blob';
 import RNFS from 'react-native-fs';
 import { formatItem } from './format-hastags'
-//import Share from 'react-native-share';
+import Share from 'react-native-share';
 import { RU } from "./../locales/ru";
 
 confirmFuction = () => { //this func will be overrided for iOS for callBack
@@ -76,32 +76,65 @@ export function postToSocialStory(postData, deepLink, confirmFuction) { //deprec
     }
 }
 export function postToSocial(postData, deepLink, confirmFuction, video_status) {
-    let base64Prefix = 'data:image/jpg;base64,'
+    let base64Prefix;
     const dirs = RNFetchBlob.fs.dirs
     let file_path
     let type
     if (Platform.OS === "ios") {
-        let shareImageBase64 = {
-            url: "https://giphy.com/gifs/ejxn6FsqZ1Phe", //postData.base64.includes(base64Prefix) ? postData.base64 : base64Prefix + postData.base64, //check for base64 prefix
-        };
-        console.log(shareImageBase64)
-        setTimeout(() => {
-            // Share.open(shareImageBase64).then(
-            //     result => {
-            //         confirmFuction()
-            //     },
-            //     error => {
-            //     }
-            // )
-            Share.share(shareImageBase64).then(
-                result => {
-                    console.log(result)
-                    //confirmFuction()
-                },
-                error => {
-                }
-            )
-        }, 2000);
+        if (video_status) {
+            base64Prefix = 'data:video/mp4;base64,'
+            postData.base64 = ""
+            RNFetchBlob
+                .config({
+                    fileCache: true,
+                    appendExt: 'mp4'
+                })
+                .fetch('GET', "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4") //postData
+                .then((res) => {
+                    let shareImageBase64 = {
+                        url: res.path()
+                    };
+                    setTimeout(() => {
+                        Share.open(shareImageBase64).then(
+                            result => {
+                                confirmFuction()
+                                RNFS.exists(res.path())
+                                    .then((result) => {
+                                        if (result) {
+                                            RNFS.unlink(res.path())
+                                                .then(() => {
+                                                    console.log("unlink success")
+                                                })
+                                                .catch((err) => {
+                                                    console.log("unlink error", err)
+                                                })
+                                        }
+                                    })
+                                    .catch((err) => {
+                                        console.log("filePath exists error", err)
+                                    })
+                            },
+                            error => {
+                            }
+                        )
+                    }, 2000);
+                })
+        } else {
+            base64Prefix = 'data:image/jpg;base64,'
+            let shareImageBase64 = {
+                url: postData.base64.includes(base64Prefix) ? postData.base64 : base64Prefix + postData.base64,//check for base64 prefix
+            };
+            console.log(shareImageBase64)
+            setTimeout(() => {
+                Share.open(shareImageBase64).then(
+                    result => {
+                        confirmFuction()
+                    },
+                    error => {
+                    }
+                )
+            }, 2000);
+        }
     }
     else {
         let post_data
