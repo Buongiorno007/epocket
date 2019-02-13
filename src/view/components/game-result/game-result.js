@@ -194,12 +194,12 @@ class GameResult extends React.Component {
         if (Platform.OS === "ios") {
             if (((this.props.appState.match(/active/) && (nextAppState === 'inactive')) || this.props.appState.match(/active/) && (nextAppState === 'background')) && this.props.navigation.state.params.status != "success") {
                 console.log("user tried to abuse ios")
-                this.checkForGames("wait");
+                this.goWait(); 
             }
         } else {
             if (this.props.appState.match(/active/) && (nextAppState === 'inactive') && this.props.navigation.state.params.status != "success") {
                 console.log("user tried to abuse android")
-                this.checkForGames("wait");
+                this.goWait(); 
             }
         }
 
