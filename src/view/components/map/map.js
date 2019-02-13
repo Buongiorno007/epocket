@@ -204,7 +204,6 @@ class Map extends React.Component {
         allShops)
     }
     else if (tab == "task") {
-      let newOutlets = [...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets];
       if (this.props.isLocation && this.props.distance < 0) {
         this.selectNearestMall(
           {
@@ -222,7 +221,7 @@ class Map extends React.Component {
           this.props.initial_outlets.outlets, true)
       }
       this.setState({ shopActive: false, taskActive: true, discountActive: false, focusedOnMark: false })
-      this.props.setOutlets(newOutlets);
+      this.props.setOutlets(this.props.initial_outlets.outlets);
     }
     else if (tab == "discount") {
       this.setState({ shopActive: false, taskActive: false, discountActive: true, focusedOnMark: false })
@@ -1154,7 +1153,7 @@ class Map extends React.Component {
               showsHorizontalScrollIndicator={false}
               style={styles.horizontal_list}
               data={this.state.cards}
-              keyExtractor={this._keyExtractor}
+              keyExtractor={(item, index) => item.id + "_" + index}
               renderItem={this._renderItem}>
             </FlatList>
           </View>
