@@ -586,6 +586,13 @@ class Dashboard extends React.Component {
         this.setState({ load_timer: false });
         let error_respons = handleError(error, this.constructor.name, "callTimer");
         this.setState({ errorText: error_respons.error_text, errorCode: error_respons.error_code });
+        let notInMallTimer = {
+          hours: 0,
+          minutes: 0,
+          seconds: 0
+        };
+        this.setState({ notInMallTimer })
+        this.props.updateTimer(notInMallTimer);
         if (error.code != 416 && error.code != 418) {
           this.setStartMissionErrorVisible(error_respons.error_modal);
         }
@@ -1069,6 +1076,7 @@ class Dashboard extends React.Component {
                 </LinearGradient>
                 <Button
                   transparent
+                  disabled
                   style={styles_top.small_head}
                   onPress={() => { this.props.setDashboardState(1); }} >
                   <View
