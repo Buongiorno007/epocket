@@ -49,6 +49,27 @@ class GameStart extends React.Component {
         if (this.props.game_status != "lock") {
             this.props.setGameStatus("start")
         }
+        if (this.props.game_status === "lock" && this.props.distance <= 0) {
+            this.props.loaderState(true);
+            let body = {
+                outlet_id: this.props.selectedMall.id,
+                notInMall: (this.props.distance <= 0 && this.props.isLocation) ? false : true
+            };
+            let promise = httpPost(
+                urls.missions,
+                JSON.stringify(body),
+                this.props.token
+            );
+            promise.then(
+                result => {
+                    this.props.loaderState(false);
+                },
+                error => {
+                    let error_respons = handleError(error, this.constructor.name, "componentWillMount getMissions");
+                    this.props.loaderState(false);
+                }
+            );
+        }
     }
     componentDidMount() {
         this.loadTRC();
