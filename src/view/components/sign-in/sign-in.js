@@ -207,7 +207,7 @@ class SignIn extends React.Component {
         console.log(result)
         if (result.body.logged && result.body.active && result.body.token) {
           this.props.setFacebookToken(result.body.token);
-          AccessToken.setCurrentAccessToken(result.body.token)
+          Platform.OS === "ios" && AccessToken.setCurrentAccessToken({ accessToken: result.body.token })
         }
         this.props.loaderState(false);
 

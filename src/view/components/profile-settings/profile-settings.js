@@ -45,9 +45,6 @@ class ProfileSettings extends React.Component {
         animationState: !this.props.facebook_token && !this.props.insta_token
     };
     componentDidMount() {
-        if (this.props.facebook_token) {
-            AccessToken.setCurrentAccessToken(this.props.facebook_token)
-        }
         setTimeout(() => {
             this.setState({ animationState: false })
         }, 5000);

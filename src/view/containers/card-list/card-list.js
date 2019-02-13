@@ -24,6 +24,12 @@ class CardList extends React.Component {
       <LongCard item={item.item} onPressItem={this.props.connectSocial} />
   );
   _submissionOrder = (mission) => {
+    let flag = true;
+    mission.subMissions.forEach(sub_mission => {
+      if (sub_mission.type === 2) {
+        flag = false;
+      }
+    });
     let insta_sub_mission = {
       desc: RU.MISSION.SUBMISSION_3,
       id: 1,
@@ -32,7 +38,8 @@ class CardList extends React.Component {
       flatlistData: [],
     }
     mission.subMissions.length && (mission.subMissions = orderBy(mission.subMissions, ['type'], ['desc']))
-    mission.subMissions.push(insta_sub_mission)
+    if (flag) 
+      mission.subMissions.push(insta_sub_mission)
     return mission
   }
   _showSelectedCard = selectedCard => {

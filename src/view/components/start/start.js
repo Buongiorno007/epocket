@@ -97,7 +97,7 @@ class Start extends React.Component {
           }
           case 'facebook_token': {
             value && this.props.setFacebookToken(value);
-            value && AccessToken.setCurrentAccessToken(value)
+            value && Platform.OS === "ios" && AccessToken.setCurrentAccessToken({ accessToken: value })
             break;
           }
           case 'token': {
