@@ -774,7 +774,7 @@ class Map extends React.Component {
         this.setState({ load_timer: false });
         let error_respons = handleError(error, this.constructor.name, "callTimer");
         this.setState({ errorText: error_respons.error_text, errorCode: error_respons.error_code });
-        if (error.code != 416 && error.code != 418) {
+        if (error.code != 416 && error.code != 418 && error.code != 415) {
           this.setErrorVisible(error_respons.error_modal);
         }
       }
