@@ -111,7 +111,8 @@ class Dashboard extends React.Component {
       hours: 0,
       minutes: 0,
       seconds: 0
-    }
+    },
+    forceCloseHeader: false
   };
   constructor(props) {
     super(props)
@@ -123,7 +124,7 @@ class Dashboard extends React.Component {
       onPanResponderMove: (evt, gestureState) => {
         const draggedDown = gestureState.dy > 30;
         const draggedUp = gestureState.dy < -30;
-        if (gestureState.moveY < 233) {
+        if (gestureState.moveY < 233 && !this.state.forceCloseHeader) {
           if (this.state.body.notInMall || this.state.finishMissionCalled) {
             if (draggedDown) {
               if (this.props.activeCard) {
@@ -586,7 +587,43 @@ class Dashboard extends React.Component {
         this.setState({ load_timer: false });
         let error_respons = handleError(error, this.constructor.name, "callTimer");
         this.setState({ errorText: error_respons.error_text, errorCode: error_respons.error_code });
-        if (error.code != 416 && error.code != 418) {
+        let notInMallTimer = {
+          hours: 0,
+          minutes: 0,
+          seconds: 0
+        };
+        this.setState({ notInMallTimer })
+        this.props.updateTimer(notInMallTimer);
+        if (error.code == 415) {
+          this.setState({ forceCloseHeader: true })
+          Animated.parallel([
+            Animated.timing(this.state.topHeight,
+              {
+                toValue: height * 0.15, //0.2
+                duration: 1,
+                easing: Easing.linear
+              }),
+            Animated.timing(this.state.topImageOpacity,
+              {
+                toValue: 0,
+                duration: 1,
+                easing: Easing.linear
+              }),
+            Animated.timing(this.state.listHeight,
+              {
+                toValue: height * 0.85,
+                duration: 1,
+                easing: Easing.linear
+              }),
+            Animated.timing(this.state.allScaleY,
+              {
+                toValue: Platform.OS == "ios" ? 0 : 0.00001,
+                duration: 1,
+                easing: Easing.linear
+              }),
+          ]).start();
+        }
+        if (error.code != 416 && error.code != 418 && error.code != 415) {
           this.setStartMissionErrorVisible(error_respons.error_modal);
         }
         else {
@@ -1069,6 +1106,7 @@ class Dashboard extends React.Component {
                 </LinearGradient>
                 <Button
                   transparent
+                  disabled
                   style={styles_top.small_head}
                   onPress={() => { this.props.setDashboardState(1); }} >
                   <View

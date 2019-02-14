@@ -65,8 +65,6 @@ class GeolocationService extends React.Component {
     },
       interval);
     //rest of code will be performing for iOS on background too
-
-
   };
 
   finishMainTask() {

@@ -204,7 +204,6 @@ class Map extends React.Component {
         allShops)
     }
     else if (tab == "task") {
-      let newOutlets = [...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets];
       if (this.props.isLocation && this.props.distance < 0) {
         this.selectNearestMall(
           {
@@ -222,7 +221,7 @@ class Map extends React.Component {
           this.props.initial_outlets.outlets, true)
       }
       this.setState({ shopActive: false, taskActive: true, discountActive: false, focusedOnMark: false })
-      this.props.setOutlets(newOutlets);
+      this.props.setOutlets(this.props.initial_outlets.outlets);
     }
     else if (tab == "discount") {
       this.setState({ shopActive: false, taskActive: false, discountActive: true, focusedOnMark: false })
@@ -559,10 +558,8 @@ class Map extends React.Component {
       result => {
         this.setErrorVisible(false);
         if (result.status == 200) {
-          console.log(result)
           this.setState({ posts: result.body.posts })
           let cards = this.getActiveMissions(result.body.missions);
-          console.log(cards)
           if (!this.props.insta_token) { //check for instagramm !this.props.insta_token
             cards.unshift({
               type: "instagram_connect",
@@ -580,6 +577,7 @@ class Map extends React.Component {
             })
           }
           cards.unshift(trc)
+          console.log(cards)
           this.setState({ cards, focusedOnMark: true })
           Animated.timing(this.state.topNavigationTranslateY,
             {
@@ -775,7 +773,7 @@ class Map extends React.Component {
         this.setState({ load_timer: false });
         let error_respons = handleError(error, this.constructor.name, "callTimer");
         this.setState({ errorText: error_respons.error_text, errorCode: error_respons.error_code });
-        if (error.code != 416 && error.code != 418) {
+        if (error.code != 416 && error.code != 418 && error.code != 415) {
           this.setErrorVisible(error_respons.error_modal);
         }
       }
@@ -1155,7 +1153,7 @@ class Map extends React.Component {
               showsHorizontalScrollIndicator={false}
               style={styles.horizontal_list}
               data={this.state.cards}
-              keyExtractor={this._keyExtractor}
+              keyExtractor={(item, index) => item.id + "_" + index}
               renderItem={this._renderItem}>
             </FlatList>
           </View>
