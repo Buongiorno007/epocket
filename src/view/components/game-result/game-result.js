@@ -91,6 +91,7 @@ class GameResult extends React.Component {
                         available_game_len: 0,
                         total_game_len: 0,
                         true_answer: [],
+                        video: false,
                         insta_data: {}
                     }
                     this.props.setGameInfo(info);
@@ -188,18 +189,18 @@ class GameResult extends React.Component {
         this.setState({ buttonActive: true })
     }
     shareToInsta = () => {
-        postToSocial(this.props.navigation.state.params.insta_data, 'https://www.instagram.com/epocketapp/', this.confirmPost, true);
+        postToSocial(this.props.navigation.state.params.insta_data, 'https://www.instagram.com/epocketapp/', this.confirmPost, this.props.navigation.state.params.insta_data.video);
     }
     _handleAppStateChange = (nextAppState) => {
         if (Platform.OS === "ios") {
             if (((this.props.appState.match(/active/) && (nextAppState === 'inactive')) || this.props.appState.match(/active/) && (nextAppState === 'background')) && this.props.navigation.state.params.status != "success") {
                 console.log("user tried to abuse ios")
-                this.goWait(); 
+                this.goWait();
             }
         } else {
             if (this.props.appState.match(/active/) && (nextAppState === 'inactive') && this.props.navigation.state.params.status != "success") {
                 console.log("user tried to abuse android")
-                this.goWait(); 
+                this.goWait();
             }
         }
 

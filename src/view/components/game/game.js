@@ -49,6 +49,7 @@ class Game extends React.Component {
 			success_image: this.props.game_info.success_image,
 			base64: this.props.game_info.insta_data.base64,
 			hash_tag: this.props.game_info.insta_data.hash_tag,
+			video: this.props.game_info.video
 		}
 		this.props.passGameResult(this.props.game_info.insta_data.id, status_for_api, this.props.token, status, instadata);
 		clearCorrectingInterval(this.state.interval);

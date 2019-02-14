@@ -102,6 +102,7 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
                             available_game_len: game.available_game_len,
                             total_game_len: game.games_count,
                             id: game.id,
+                            video: game.video,
                             insta_data: {
                                 base64: 'data:image/jpg;base64,' + result,
                                 id: game.id,

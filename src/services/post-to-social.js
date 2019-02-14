@@ -89,7 +89,7 @@ export function postToSocial(postData, deepLink, confirmFuction, video_status) {
                     fileCache: true,
                     appendExt: 'mp4'
                 })
-                .fetch('GET', "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4") //postData
+                .fetch('GET', postData.video) //postData
                 .then((res) => {
                     let shareImageBase64 = {
                         url: res.path()
@@ -141,7 +141,7 @@ export function postToSocial(postData, deepLink, confirmFuction, video_status) {
         if (video_status) {
             requestStoragePermission(post_data, file_path, deepLink, confirmFuction, type, video_status);
             type = 'mp4'
-            post_data = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" //postData
+            post_data = postData.video //postData
             file_path = dirs.DCIMDir + "/epc_game_video.mp4"
             RNFetchBlob
                 .config({
