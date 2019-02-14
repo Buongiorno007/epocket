@@ -1,5 +1,4 @@
 import React from "react";
-import { Alert } from "react-native";
 import FastImage from 'react-native-fast-image'
 import { View } from "react-native";
 import { RNCamera } from "react-native-camera";

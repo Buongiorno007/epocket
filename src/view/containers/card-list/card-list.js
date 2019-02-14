@@ -66,6 +66,7 @@ class CardList extends React.Component {
                     keyExtractor={this.keyExtractor}
                     data={this.props.missions}
                     renderItem={this._renderItem}
+                    removeClippedSubviews={true}
                     /*
                     это функция для обновления списка миссий по принципу pool to refresh
                     сделать свайп сверху вниз

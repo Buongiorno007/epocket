@@ -17,7 +17,6 @@ import { bindActionCreators } from "redux";
 //services
 import NavigationService from "../../../services/route";
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
-import colors_men from "../../../constants/colors_men";
 
 
 class OpenedCard extends React.Component {

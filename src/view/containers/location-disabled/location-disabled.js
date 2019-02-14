@@ -13,7 +13,6 @@ import LinearGradient from "react-native-linear-gradient";
 //constants
 import styles from "./styles";
 import { RU } from "../../../locales/ru";
-import { ICONS } from "../../../constants/icons";
 import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 //redux
 import { connect } from "react-redux";
@@ -31,7 +30,6 @@ import { setGeoVirgin } from "../../../reducers/geo-virgin"
 import Blur from "../blur/blur";
 //services
 import geo_config from "./geolocation-config";
-import NavigationService from "../../../services/route";
 import BackgroundGeolocationModule from "../../../services/background-geolocation-picker"
 
 

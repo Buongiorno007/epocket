@@ -397,7 +397,6 @@ class Map extends React.Component {
             longitude: elem.lng
           }
         });
-        console.log(result)
         this.props.setBalance(result.body.balance.amount)
         this.setModalVisible(false);
         this.props.loaderState(false);
@@ -577,7 +576,6 @@ class Map extends React.Component {
             })
           }
           cards.unshift(trc)
-          console.log(cards)
           this.setState({ cards, focusedOnMark: true })
           Animated.timing(this.state.topNavigationTranslateY,
             {
@@ -682,7 +680,6 @@ class Map extends React.Component {
       (region.nativeEvent && Number(region.nativeEvent.coordinate.latitude).toFixed(3) == this.state.pickedMark.latitude && Number(region.nativeEvent.coordinate.longitude).toFixed(5) == this.state.pickedMark.longitude)) {
     }
     else {
-      console.log("focusedOnMark setted to false")
       this.setState({ focusedOnMark: false, cards: [] })
       Animated.timing(this.state.topNavigationTranslateY,
         {
@@ -780,7 +777,6 @@ class Map extends React.Component {
     );
   }
   selectMark = (trc, ANIMATE_MAP, mark_type) => {
-    console.log("SELECTED TRC", trc)
     ANIMATE_MAP &&
       this.moveMapTo(
         Number(trc.lat),
@@ -1146,6 +1142,7 @@ class Map extends React.Component {
               showsHorizontalScrollIndicator={false}
               style={styles.horizontal_list}
               data={this.state.cards}
+              removeClippedSubviews={true}
               keyExtractor={(item, index) => item.id + "_" + index}
               renderItem={this._renderItem}>
             </FlatList>

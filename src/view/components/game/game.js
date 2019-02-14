@@ -15,18 +15,14 @@ import { playClock, stopClock, playQuestComplete } from "../../../reducers/sound
 import { editGame, clearGame } from "../../../reducers/game-controller"
 //constants
 import styles from './styles';
-import { colors } from './../../../constants/colors';
 import { RU } from '../../../locales/ru';
-import { ICONS } from "../../../constants/icons";
 //containers
 import CustomButton from '../../containers/custom-button/custom-button';
 import CustomProgressBar from '../../containers/custom-progress-bar/custom-progress-bar';
-import FooterNavigation from '../../containers/footer-navigator/footer-navigator';
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 //services
 import "../../../services/correcting-interval";
 import { toHHMMSS } from "./../../../services/convert-time"
-import NavigationService from "./../../../services/route";
 const { width } = Dimensions.get("window");
 
 class Game extends React.Component {

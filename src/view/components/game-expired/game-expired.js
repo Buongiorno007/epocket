@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, AsyncStorage, AppState, Image } from 'react-native';
+import { View, Text, AppState, Image } from 'react-native';
 import FastImage from 'react-native-fast-image'
 import LinearGradient from "react-native-linear-gradient";
 import CookieManager from 'react-native-cookies';
@@ -16,9 +16,7 @@ import { errorState } from "../../../reducers/game-error"
 import { checkForPostStatus } from "../../../reducers/post-status";
 //constants
 import styles from './styles';
-import { colors } from './../../../constants/colors';
 import { RU } from '../../../locales/ru';
-import { ICONS } from "../../../constants/icons";
 import { urls } from "../../../constants/urls";
 //containers
 import GameTimer from "../../containers/game-timer/game-timer"
@@ -30,9 +28,7 @@ import ActivityIndicator from "../../containers/activity-indicator/activity-indi
 //services
 import "../../../services/correcting-interval";
 import { toHHMMSS } from "./../../../services/convert-time"
-import NavigationService from "./../../../services/route";
 import InstagramLogin from '../../../services/Instagram';
-import { formatItem } from '../../../services/format-hastags'
 import { httpPost } from "../../../services/http";
 import { postToSocial } from "../../../services/post-to-social"
 
