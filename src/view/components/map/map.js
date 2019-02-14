@@ -871,13 +871,6 @@ class Map extends React.Component {
     const pointCount = cluster.pointCount,
       coordinate = cluster.coordinate,
       clusterId = cluster.clusterId
-
-    // use pointCount to calculate cluster size scaling
-    // and apply it to "style" prop below
-
-    // eventually get clustered points by using
-    // underlying SuperCluster instance
-    // Methods ref: https://github.com/mapbox/supercluster
     const clusteringEngine = this.map.getClusteringEngine(),
       clusteredPoints = clusteringEngine.getLeaves(clusterId, 100)
     let clusterValue = 0;
