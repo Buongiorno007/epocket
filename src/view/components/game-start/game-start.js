@@ -13,7 +13,7 @@ import { bindActionCreators } from 'redux';
 import { setGameStatus } from "../../../reducers/game-status"
 import { loaderState } from "../../../reducers/loader";
 import { getGameInfo } from "../../../reducers/game-info";
-import { resetGameExpiredTimer } from "../../../reducers/game-expired-timer"
+import { launchGameExpiredTimer } from "../../../reducers/game-expired-timer"
 import { errorState } from "../../../reducers/game-error"
 import { setLocation } from "../../../reducers/geolocation-coords";
 import { setDistance } from "../../../reducers/distance";
@@ -340,7 +340,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     updateMall,
     loaderState,
     setTabState,
-    resetGameExpiredTimer,
+    launchGameExpiredTimer,
     setNavigateToMall,
     setBalance
 }, dispatch);

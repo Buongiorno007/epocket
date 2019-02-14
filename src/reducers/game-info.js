@@ -11,7 +11,7 @@ import { setTempTime } from "./tempTime";
 import { setGameStatus } from "./game-status"
 import { setBalance } from "./user-balance"
 import { loaderState } from "./loader";
-import { resetGameExpiredTimer } from "./game-expired-timer";
+import { launchGameExpiredTimer } from "./game-expired-timer";
 //constants
 import { ICONS } from "../constants/icons";
 import { urls } from "../constants/urls";
@@ -114,7 +114,7 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
                         dispatch(setTempTime(game.time))
                         dispatch(errorState(null));
                         //dispatch(loaderState(false));
-                        dispatch(resetGameExpiredTimer(token))
+                        dispatch(launchGameExpiredTimer(token))
                     }
                 )
             }

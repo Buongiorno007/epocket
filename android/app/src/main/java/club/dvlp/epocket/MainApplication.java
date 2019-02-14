@@ -73,8 +73,9 @@ public class MainApplication extends Application implements ShareApplication, Re
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new SvgPackage(),
-            new RNSoundPackage(),
+                    new LinearGradientPackage(),
+                    new SvgPackage(),
+                    new RNSoundPackage(),
                     new RNFSPackage(),
                     new RNInstagramStorySharePackage(),
                     new FBSDKPackage(mCallbackManager),
@@ -97,7 +98,6 @@ public class MainApplication extends Application implements ShareApplication, Re
                     new RNRadialGradientPackage(),
                     new RNBackgroundFetchPackage(),
                     new RNBackgroundGeolocation(),
-                    new LinearGradientPackage(),
                     new MapsPackage()
 
             );

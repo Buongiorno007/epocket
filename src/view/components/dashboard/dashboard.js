@@ -924,7 +924,7 @@ class Dashboard extends React.Component {
                     ]
                   },
                   { height: this.state.topHeight }]}>
-                    <View style={styles_top.finishMission_text_container}>
+                    <View style={[styles_top.finishMission_text_container, this.state.forceCloseHeader && { display: "none" }]}>
                       <Text style={styles_top.finishMission_text} >{RU.GOT_EPC}</Text>
                       <LinearTextGradient
                         locations={[0, 1]}
@@ -937,7 +937,7 @@ class Dashboard extends React.Component {
                       </LinearTextGradient>
                       <Text style={styles_top.finishMission_text} >{RU.FOR_TRC}</Text>
                     </View>
-                    <Text style={styles_top.text_small}>{RU.COME_TOMMOROW}</Text>
+                    <Text style={[styles_top.text_small, this.state.forceCloseHeader && { display: "none" }]}>{RU.COME_TOMMOROW}</Text>
                   </Animated.View>
                   :
                   <Animated.View style={[styles_top.content, {

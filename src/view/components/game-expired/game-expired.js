@@ -11,7 +11,7 @@ import { setInstaToken } from "../../../reducers/insta-token";
 import { loaderState } from "../../../reducers/loader";
 import { setAppState } from "../../../reducers/app-state"
 import { getGameInfo } from "../../../reducers/game-info";
-import { setGameExpiredTimer, resetGameExpiredTimer, shutDownExpiredTimer } from "../../../reducers/game-expired-timer"
+import { setGameExpiredTimer, launchGameExpiredTimer, shutDownExpiredTimer } from "../../../reducers/game-expired-timer"
 import { errorState } from "../../../reducers/game-error"
 import { checkForPostStatus } from "../../../reducers/post-status";
 //constants
@@ -66,7 +66,7 @@ class GameStart extends React.Component {
     _handleAppStateChange = (nextAppState) => {
         if (this.props.appState.match(/background|inactive/) && (nextAppState === 'active')) {
             clearCorrectingInterval(this.state.interval);
-            this.props.resetGameExpiredTimer(this.props.token)
+            this.props.launchGameExpiredTimer(this.props.token)
             this.startTimer()
         }
         this.props.setAppState(nextAppState)
@@ -74,7 +74,7 @@ class GameStart extends React.Component {
     componentDidMount = () => {
         AppState.addEventListener('change', this._handleAppStateChange);
         clearCorrectingInterval(this.state.interval);
-        this.props.resetGameExpiredTimer(this.props.token)
+        this.props.launchGameExpiredTimer(this.props.token)
         this.startTimer()
     }
     componentWillUnmount = () => {
@@ -140,7 +140,7 @@ class GameStart extends React.Component {
         }
     }
     shareToInsta = () => {
-        postToSocial(this.props.game_expired_img, 'https://www.instagram.com/epocketapp/', this.confirmPost, false);
+        postToSocial(this.props.game_expired_img, 'https://www.instagram.com/epocketapp/', this.confirmPost, this.props.game_expired_img.video);
     }
     render() {
         return (
@@ -174,7 +174,7 @@ class GameStart extends React.Component {
                     first_btn_title={RU.REPEAT}
                     visible={this.props.game_error.error_modal}
                     first_btn_handler={() => {
-                        this.props.resetGameExpiredTimer(this.props.token)
+                        this.props.launchGameExpiredTimer(this.props.token)
                         this.props.errorState({
                             error_text: this.props.game_error.error_text,
                             error_modal: !this.props.game_error.error_modal
@@ -194,7 +194,10 @@ class GameStart extends React.Component {
                     redirectUrl='https://epocket.dev.splinestudio.com'
                     scopes={['basic', 'public_content', 'likes', 'follower_list', 'comments', 'relationships']}
                     onLoginSuccess={(token) => this.connectInsta(token)}
-                    onLoginFailure={(data) => console.log(data)}
+                    onLoginFailure={(data) => {
+                        let token = data.next.split("#access_token=")[1]
+                        this.connectInsta(token)
+                    }}
                 />
                 <View style={styles.container}>
                     <Text style={styles.zifi_text}>{RU.GAME.ZIFI.WAIT}</Text>
@@ -259,7 +262,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => bindActionCreators({
     setGameStatus,
     setGameExpiredTimer,
-    resetGameExpiredTimer,
+    launchGameExpiredTimer,
     setAppState,
     shutDownExpiredTimer,
     loaderState,

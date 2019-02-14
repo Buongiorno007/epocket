@@ -13,7 +13,7 @@ import { setTabState } from "../../../reducers/tabs";
 import { loaderState } from "../../../reducers/loader";
 import { setInstaToken } from "../../../reducers/insta-token";
 import { setAppState } from "../../../reducers/app-state"
-import { startExpiredTimer } from "../../../reducers/game-expired-timer"
+import { launchGameExpiredTimer } from "../../../reducers/game-expired-timer"
 import { errorState } from "../../../reducers/game-error"
 import { setFixedTime } from "../../../reducers/fixedTime";
 import { setTempTime } from "../../../reducers/tempTime";
@@ -127,7 +127,7 @@ class GameResult extends React.Component {
     goWait = () => {
         NavigationService.navigate("Main")
         if (this.props.game_info.id) {
-            this.props.startExpiredTimer(this.props.token, this.props.game_info.id);
+            this.props.launchGameExpiredTimer(this.props.token, this.props.game_info.id);
             setTimeout(() => {
                 this.props.setGameStatus("expired")
             }, 0)
@@ -344,7 +344,7 @@ class GameResult extends React.Component {
                     first_btn_title={RU.REPEAT}
                     visible={this.props.game_error.error_modal}
                     first_btn_handler={() => {
-                        this.props.startExpiredTimer(this.props.token, this.props.game_info.id);
+                        this.props.launchGameExpiredTimer(this.props.token, this.props.game_info.id);
                         this.props.errorState({
                             error_text: this.props.game_error.error_text,
                             error_modal: !this.props.game_error.error_modal
@@ -363,7 +363,10 @@ class GameResult extends React.Component {
                     redirectUrl='https://epocket.dev.splinestudio.com'
                     scopes={['basic', 'public_content', 'likes', 'follower_list', 'comments', 'relationships']}
                     onLoginSuccess={(token) => this.connectInsta(token)}
-                    onLoginFailure={(data) => console.log(data)}
+                    onLoginFailure={(data) => {
+                        let token = data.next.split("#access_token=")[1]
+                        this.connectInsta(token)
+                    }}
                 />
                 <FastImage
                     resizeMode={FastImage.resizeMode.contain}
@@ -446,7 +449,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => bindActionCreators({
     setGameStatus,
     setTabState,
-    startExpiredTimer,
+    launchGameExpiredTimer,
     loaderState,
     setFixedTime,
     setGameInfo,
