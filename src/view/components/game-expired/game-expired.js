@@ -196,6 +196,7 @@ class GameStart extends React.Component {
                     onLoginSuccess={(token) => this.connectInsta(token)}
                     onLoginFailure={(data) => {
                         let token = data.next.split("#access_token=")[1]
+                        console.log(data, token)
                         this.connectInsta(token)
                     }}
                 />

@@ -177,6 +177,7 @@ class GameResult extends React.Component {
                 }
             },
             error => {
+                console.log(error)
                 CookieManager.clearAll()
                     .then((res) => {
                         this.props.loaderState(false);
@@ -362,9 +363,13 @@ class GameResult extends React.Component {
                     clientId='7df789fc907d4ffbbad30b7e25ba3933'
                     redirectUrl='https://epocket.dev.splinestudio.com'
                     scopes={['basic', 'public_content', 'likes', 'follower_list', 'comments', 'relationships']}
-                    onLoginSuccess={(token) => this.connectInsta(token)}
+                    onLoginSuccess={(token) => {
+                        console.log(token)
+                        this.connectInsta(token)
+                    }}
                     onLoginFailure={(data) => {
                         let token = data.next.split("#access_token=")[1]
+                        console.log(data, token)
                         this.connectInsta(token)
                     }}
                 />
