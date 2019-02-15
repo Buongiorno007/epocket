@@ -86,6 +86,7 @@ class GameStart extends React.Component {
             (nextProps.location.lng.toFixed(3) != this.props.location.lng.toFixed(3))
         ) {
             this.props.getGameInfo(this.props.token, nextProps.location.lat, nextProps.location.lng)
+            this.loadTRC();
         }
     }
     setModalVisible = visible => {
