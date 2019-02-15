@@ -71,7 +71,7 @@ export const launchGameExpiredTimer = (token, id) => async dispatch => {
             let oldresult = result;
             if (oldresult.body.video) {
                 let id = oldresult.body.image.split('_correct')[0].split('id')[1];
-                dispatch(setGameExpiredImage({ id: id, img: oldresult.body.image, video: oldresult.body.video }))
+                dispatch(setGameExpiredImage({ id: id, img: oldresult.body.image, video: oldresult.body.video_status ? oldresult.body.video : false }))
                 dispatch(setGameExpiredTimer(time))
                 if (time === 0) {
                     dispatch(setGameStatus("start"))

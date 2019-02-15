@@ -45,30 +45,36 @@ class GameStart extends React.Component {
         loader: true,
         errorText: "",
     };
+    updateGames = (id) => {
+        this.props.loaderState(true);
+        let body = {
+            outlet_id: id,
+            notInMall: (this.props.distance <= 0 && this.props.isLocation) ? false : true
+        };
+        console.log(id)
+        let promise = httpPost(
+            urls.missions,
+            JSON.stringify(body),
+            this.props.token
+        );
+        promise.then(
+            result => {
+                console.log(result)
+                this.props.loaderState(false);
+                this.props.getGameInfo(this.props.token, this.props.location.lat, this.props.location.lng)
+            },
+            error => {
+                let error_respons = handleError(error, this.constructor.name, "updateGames");
+                this.props.loaderState(false);
+            }
+        );
+    }
     componentWillMount() {
         if (this.props.game_status != "lock") {
             this.props.setGameStatus("start")
         }
         if (this.props.game_status === "lock" && this.props.distance <= 0) {
-            this.props.loaderState(true);
-            let body = {
-                outlet_id: this.props.selectedMall.id,
-                notInMall: (this.props.distance <= 0 && this.props.isLocation) ? false : true
-            };
-            let promise = httpPost(
-                urls.missions,
-                JSON.stringify(body),
-                this.props.token
-            );
-            promise.then(
-                result => {
-                    this.props.loaderState(false);
-                },
-                error => {
-                    let error_respons = handleError(error, this.constructor.name, "componentWillMount getMissions");
-                    this.props.loaderState(false);
-                }
-            );
+            this.updateGames(this.props.selectedMall.id);
         }
     }
     componentDidMount() {
@@ -126,6 +132,7 @@ class GameStart extends React.Component {
             rad: trc.rad
         };
         this.props.updateMall(curr_trc);
+        this.updateGames(curr_trc.id);
         this.props.setDistance(distance);
     };
     selectNearestMall = (my_location, mall_array, ANIMATE_MAP) => {
