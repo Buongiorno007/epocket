@@ -122,7 +122,7 @@ export function postToSocial(postData, deepLink, confirmFuction, video_status) {
         } else {
             base64Prefix = 'data:image/jpg;base64,'
             let shareImageBase64 = {
-                url: postData.base64.includes(base64Prefix) ? postData.base64 : base64Prefix + postData.base64,//check for base64 prefix
+                url: postData.base64 && postData.base64.includes(base64Prefix) ? postData.base64 : base64Prefix + postData.base64,//check for base64 prefix
             };
             console.log(shareImageBase64)
             setTimeout(() => {
@@ -168,7 +168,7 @@ export function postToSocial(postData, deepLink, confirmFuction, video_status) {
 
         } else {
             type = 'base64'
-            if (postData.base64.includes(base64Prefix)) {
+            if (postData.base64 && postData.base64.includes(base64Prefix)) {
                 post_data = postData.base64.split('data:image/jpg;base64,')[1];
             }
             else {
