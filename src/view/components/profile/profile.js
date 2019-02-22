@@ -12,6 +12,7 @@ import FooterNavigation from '../../containers/footer-navigator/footer-navigator
 import CustomButton from '../../containers/custom-button/custom-button';
 import CustomPhoto from '../../containers/custom-photo/custom-photo';
 import Blur from '../../containers/blur/blur';
+import RefLink from '../../containers/ref-link/ref-link';
 //redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -175,6 +176,7 @@ class Profile extends React.Component {
 							) : null}
 						</TouchableOpacity>}
 				</View>
+				<RefLink />
 				<FooterNavigation />
 			</View>
 		);
