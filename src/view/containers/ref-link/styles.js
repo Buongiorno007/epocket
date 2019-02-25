@@ -74,6 +74,7 @@ export default StyleSheet.create({
         zIndex: 1003,
     },
     button_close: {
+        zIndex: 1003,
         alignSelf: 'flex-end',
         alignItems: 'center',
         justifyContent: 'center',
