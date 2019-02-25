@@ -1,4 +1,4 @@
-import { Linking, Platform, CameraRoll, Alert, PermissionsAndroid } from "react-native";
+import { Linking, Platform, CameraRoll, PermissionsAndroid } from "react-native";
 import RNInstagramStoryShare from '../native_modules/react-native-instagram-story-share'
 import RNFetchBlob from 'rn-fetch-blob';
 import RNFS from 'react-native-fs';
@@ -40,14 +40,7 @@ callCallback = (callback) => {
         }, 1000);
     }
     if (callback === "no_instagram") {
-        Alert.alert(
-            RU.UNABLE_TO_POST,
-            RU.NO_INST_INSTALLED,
-            [
-                { text: RU.OK.toUpperCase(), onPress: () => console.log('OK Pressed') },
-            ],
-            { cancelable: false },
-        );
+        Linking.openURL("market://details?id=" + app_id);
     }
 }
 

@@ -274,9 +274,13 @@ export const RU = {
     GET_EPC: EPC.toUpperCase() + " за друга",
     FOR_YOU_AND_YOUR_FRIEND: EPC.toUpperCase() + " тебе и другу за приглашение",
     COPY: "Копировать ссылку",
+    FACEBOOK: "Facebook",
+    FACEBOOK_MESSENGER: "Facebook Messenger",
+    WHATSAPP: "Whatsapp",
+    INSTAGRAM: "Instagram",
     VIBER: "Viber",
     TELEGRAM: "Telegram",
-    FACEBOOK: "Facebook Messanger",
     MORE: "Еще",
+    COPY_MESSAGE: 'Ссылка скопирована в буфер обмена, вставьте ее в Вашу публикацию',
   }
 };

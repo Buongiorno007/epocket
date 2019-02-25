@@ -60,7 +60,6 @@ const EpocketCash = createStackNavigator(
     }
   }
 );
-BackgroundGeolocationModule.on('location', (location) => console.log(location)); //sendToTelegramm('epc location : ' + JSON.stringify(location))
 
 const App = () => (
   <Root>

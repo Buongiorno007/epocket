@@ -10,52 +10,53 @@ import { RU } from "./../../../locales/ru";
 import { ICONS } from '../../../constants/icons';
 import { colors } from "./../../../constants/colors";
 //services
-import { shareToAllSocial } from "./../../../services/share-ref-link"
+import { shareToAllSocial, shareToOneSocial } from "./../../../services/share-ref-link"
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-
+const link = "http://google.com"
 class RefLink extends React.Component {
     state = {
-        shareMenuOpen: true,
+        shareMenuOpen: false,
+        share_link: link,
         social: [
             {
                 title: RU.REF_LINK.COPY,
-                subTitle: "http://google.com",
-                iconUrl: ICONS.REF_LINK.COPY_ICON
+                subTitle: link,
+                iconUrl: ICONS.REF_LINK.COPY_ICON,
+                type: "copy"
             },
             {
                 title: RU.REF_LINK.VIBER,
-                iconUrl: ICONS.REF_LINK.VIBER_ICON
+                iconUrl: ICONS.REF_LINK.VIBER_ICON,
+                type: "viber"
             },
             {
                 title: RU.REF_LINK.TELEGRAM,
-                iconUrl: ICONS.REF_LINK.TELEGRAM_ICON
+                iconUrl: ICONS.REF_LINK.TELEGRAM_ICON,
+                type: "telegram"
             },
             {
                 title: RU.REF_LINK.FACEBOOK,
-                iconUrl: ICONS.REF_LINK.FACEBOOK_ICON
+                iconUrl: ICONS.REF_LINK.FACEBOOK_ICON,
+                type: "facebook"
             },
             {
                 title: RU.REF_LINK.MORE,
                 iconUrl: ICONS.REF_LINK.MORE_ICON,
-                lastOne: true
+                lastOne: true,
+                type: "all"
             }
         ]
     }
     openShareMenu = (sharingLink) => {
-        if (Platform.OS === "ios") {
-            shareToAllSocial(sharingLink);
-        }
-        else {
-            this.setState({ shareMenuOpen: !this.state.shareMenuOpen })
-        }
+        this.setState({ shareMenuOpen: !this.state.shareMenuOpen })
     }
     _renderItem = item => (
         <Button
             transparent
             style={[styles.list_item, item.item.lastOne && styles.last_list_item]}
-            onPress={() => { }}
+            onPress={() => { shareToOneSocial(this.state.share_link, item.item.type) }}
         >
             <FastImage
                 style={styles.list_item_image}
@@ -75,7 +76,7 @@ class RefLink extends React.Component {
                     transparent
                     style={[styles.container, styles.gradient_background]}
                     onPress={() => {
-                        this.openShareMenu("http://google.com");
+                        this.openShareMenu(this.state.share_link);
                     }}
                 >
                     <LinearGradient

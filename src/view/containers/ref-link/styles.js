@@ -6,6 +6,7 @@ const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
     container: {
+        zIndex: 1002,
         justifyContent: 'space-between',
         alignItems: 'center',
         position: "absolute",
@@ -22,6 +23,7 @@ export default StyleSheet.create({
     add_friend_image: {
         height: 17,
         width: 19,
+        zIndex: 1002,
     },
     navigate_forward: {
         width: 17,
@@ -29,14 +31,17 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignSelf: "center",
         alignItems: 'center',
+        zIndex: 1002,
     },
     ref_link_text: {
         color: colors.white,
         fontSize: 13,
-        fontFamily: "Rubik-Medium"
+        fontFamily: "Rubik-Medium",
+        zIndex: 1002,
     },
     //opened card
     opened_share_menu: {
+        zIndex: 1003,
         width: width,
         height: height,
         position: "absolute",
@@ -53,7 +58,8 @@ export default StyleSheet.create({
         width: width,
         height: height * 0.2,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        zIndex: 1003,
     },
     top_container_gradient_background: {
         width: width,
@@ -65,6 +71,7 @@ export default StyleSheet.create({
         color: colors.white,
         fontSize: 25,
         fontWeight: 'bold',
+        zIndex: 1003,
     },
     button_close: {
         alignSelf: 'flex-end',
