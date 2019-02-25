@@ -132,10 +132,10 @@ export function postToSocial(postData, deepLink, confirmFuction, video_status) {
     else {
         let post_data
         if (video_status) {
-            requestStoragePermission(post_data, file_path, deepLink, confirmFuction, type, video_status);
             type = 'mp4'
             post_data = postData.video //postData
             file_path = dirs.DCIMDir + "/epc_game_video.mp4"
+            console.log(post_data, file_path, type)
             RNFetchBlob
                 .config({
                     addAndroidDownloads: {
@@ -152,7 +152,7 @@ export function postToSocial(postData, deepLink, confirmFuction, video_status) {
                     RNInstagramStoryShare.shareToFeed({
                         backgroundImage: file_path,
                         deeplinkingUrl: deepLink
-                    }, video_status, this.callCallback, this.callCallback)
+                    }, Boolean(video_status), this.callCallback, this.callCallback)
                     this.confirmFuction = confirmFuction; //override this.confirmFuction to call confirmFunction in callback
                 })
                 .catch((err) => {
@@ -197,19 +197,17 @@ async function requestStoragePermission(post_data, file_path, deepLink, confirmF
         );
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             console.log('You can use the WRITE_EXTERNAL_STORAGE');
-            if (!video_status) {
-                RNFS.writeFile(file_path, post_data, type)
-                    .then(() => {
-                        RNInstagramStoryShare.shareToFeed({
-                            backgroundImage: file_path,
-                            deeplinkingUrl: deepLink
-                        }, video_status, this.callCallback, this.callCallback)
-                        this.confirmFuction = confirmFuction; //override this.confirmFuction to call confirmFunction in callback
-                    })
-                    .catch((err) => {
-                        console.log("writeFile error", err)
-                    })
-            }
+            RNFS.writeFile(file_path, post_data, type)
+                .then(() => {
+                    RNInstagramStoryShare.shareToFeed({
+                        backgroundImage: file_path,
+                        deeplinkingUrl: deepLink
+                    }, Boolean(video_status), this.callCallback, this.callCallback)
+                    this.confirmFuction = confirmFuction; //override this.confirmFuction to call confirmFunction in callback
+                })
+                .catch((err) => {
+                    console.log("writeFile error", err)
+                })
         } else {
             console.log('WRITE_EXTERNAL_STORAGE permission denied');
         }
