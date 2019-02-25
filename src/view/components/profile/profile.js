@@ -4,9 +4,8 @@ import FastImage from 'react-native-fast-image';
 import { Button } from 'native-base';
 //constants
 import styles from './styles';
-import { ICONS } from '../../../constants/icons';
 import { RU } from '../../../locales/ru';
-import { colors } from '../../../constants/colors';
+import { urls } from "../../../constants/urls";
 //containers
 import FooterNavigation from '../../containers/footer-navigator/footer-navigator';
 import CustomButton from '../../containers/custom-button/custom-button';
@@ -17,8 +16,10 @@ import RefLink from '../../containers/ref-link/ref-link';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setBirthDay } from "../../../reducers/birthday";
+import { loaderState } from "../../../reducers/loader";
 //service
 import NavigationService from '../../../services/route';
+import { httpPost } from "../../../services/http";
 
 class Profile extends React.Component {
 	constructor(props) {
@@ -30,10 +31,12 @@ class Profile extends React.Component {
 			photo: this.props.user.user_photo_url,
 			phone: this.props.user.user_phone
 		},
+		refferal_link: urls.blank,
 		modalVisible: false,
 		animationVisible: this.props.profileIsVirgin && this.props.profileIsVirgin != "false"
 	};
 	componentDidMount() {
+		this.props.loaderState(true);
 		AsyncStorage.getItem('user_info').then((value) => {
 			let object = JSON.parse(value);
 			this.setState({
@@ -50,6 +53,22 @@ class Profile extends React.Component {
 		setTimeout(() => {
 			this.setState({ animationVisible: false })
 		}, 5000);
+		let promise = httpPost(
+			urls.get_referral_link,
+			JSON.stringify({}),
+			this.props.token,
+		);
+		promise.then(
+			result => {
+				console.log(result)
+				this.setState({ refferal_link: result.body.link })
+				this.props.loaderState(false);
+			},
+			error => {
+				console.log(error)
+				this.props.loaderState(false);
+			}
+		);
 	}
 
 	ToEdit = () => {
@@ -176,7 +195,7 @@ class Profile extends React.Component {
 							) : null}
 						</TouchableOpacity>}
 				</View>
-				<RefLink />
+				<RefLink link={this.state.refferal_link} />
 				<FooterNavigation />
 			</View>
 		);
@@ -187,12 +206,14 @@ const mapStateToProps = (state) => {
 		user: state.profileState,
 		userColor: state.userColor,
 		userColor: state.userColor,
-		profileIsVirgin: state.profileIsVirgin
+		profileIsVirgin: state.profileIsVirgin,
+		token: state.token
 	};
 };
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-	setBirthDay
+	setBirthDay,
+	loaderState
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

@@ -14,47 +14,52 @@ import { shareToAllSocial, shareToOneSocial } from "./../../../services/share-re
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-const link = "http://google.com"
 class RefLink extends React.Component {
     state = {
         shareMenuOpen: false,
-        share_link: link,
-        social: [
-            {
-                title: RU.REF_LINK.COPY,
-                subTitle: link,
-                iconUrl: ICONS.REF_LINK.COPY_ICON,
-                type: "copy"
-            },
-            {
-                title: RU.REF_LINK.VIBER,
-                iconUrl: ICONS.REF_LINK.VIBER_ICON,
-                type: "viber"
-            },
-            {
-                title: RU.REF_LINK.TELEGRAM,
-                iconUrl: ICONS.REF_LINK.TELEGRAM_ICON,
-                type: "telegram"
-            },
-            Platform.OS === "ios" ? null : {
-                title: RU.REF_LINK.INSTAGRAM,
-                iconUrl: ICONS.REF_LINK.INSTAGRAM_ICON,
-                type: "instagram",
-            },
-            {
-                title: RU.REF_LINK.FACEBOOK_MESSENGER,
-                iconUrl: ICONS.REF_LINK.FACEBOOK_ICON,
-                type: "facebook-messenger"
-            },
-            {
-                title: RU.REF_LINK.MORE,
-                iconUrl: ICONS.REF_LINK.MORE_ICON,
-                lastOne: true,
-                type: "all"
-            }
-        ]
+        share_link: "",
+        social: []
     }
-    openShareMenu = (sharingLink) => {
+    componentWillReceiveProps = (nextProps) => {
+        this.setState({
+            share_link: nextProps.link,
+            social: [
+                {
+                    title: RU.REF_LINK.COPY,
+                    subTitle: nextProps.link,
+                    iconUrl: ICONS.REF_LINK.COPY_ICON,
+                    type: "copy"
+                },
+                {
+                    title: RU.REF_LINK.VIBER,
+                    iconUrl: ICONS.REF_LINK.VIBER_ICON,
+                    type: "viber"
+                },
+                {
+                    title: RU.REF_LINK.TELEGRAM,
+                    iconUrl: ICONS.REF_LINK.TELEGRAM_ICON,
+                    type: "telegram"
+                },
+                Platform.OS === "ios" ? null : {
+                    title: RU.REF_LINK.INSTAGRAM,
+                    iconUrl: ICONS.REF_LINK.INSTAGRAM_ICON,
+                    type: "instagram",
+                },
+                {
+                    title: RU.REF_LINK.FACEBOOK_MESSENGER,
+                    iconUrl: ICONS.REF_LINK.FACEBOOK_ICON,
+                    type: "facebook-messenger"
+                },
+                {
+                    title: RU.REF_LINK.MORE,
+                    iconUrl: ICONS.REF_LINK.MORE_ICON,
+                    lastOne: true,
+                    type: "all"
+                }
+            ]
+        })
+    }
+    openShareMenu = () => {
         this.setState({ shareMenuOpen: !this.state.shareMenuOpen })
     }
     _renderItem = item => (
@@ -83,7 +88,7 @@ class RefLink extends React.Component {
                     transparent
                     style={[styles.container, styles.gradient_background]}
                     onPress={() => {
-                        this.openShareMenu(this.state.share_link);
+                        this.openShareMenu();
                     }}
                 >
                     <LinearGradient

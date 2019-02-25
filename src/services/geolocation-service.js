@@ -121,6 +121,7 @@ class GeolocationService extends React.Component {
   // };
   _handleAppStateChange = (nextAppState) => {
     if (this.props.appState.match(/inactive|background/) && nextAppState === 'active') {
+      console.log("getCurrentGeolocation status")
       getCurrentGeolocation().then((location) => {
         this.calculateDistance({
           latitude: this.props.selectedMall.lat,
@@ -153,6 +154,7 @@ class GeolocationService extends React.Component {
         longitude: nextLocation.longitude
       }
     ) - this.props.selectedMall.rad;
+    console.log(distance, nextProps.isLocation && this.props.isLocation, this.props.dashboard)
     if (distance <= 0 && nextProps.isLocation && this.props.isLocation) {
       this.props.showDashboard(true);
       this.props.showTimer(false);
@@ -168,11 +170,13 @@ class GeolocationService extends React.Component {
   }
 
   componentWillReceiveProps = nextProps => {
+    console.log(nextProps.location.lat.toFixed(4) != this.props.location.lat.toFixed(4) &&
+      nextProps.location.lng.toFixed(4) != this.props.location.lng.toFixed(4))
     if (
       this.props.selectedMall.lat &&
       this.props.selectedMall.lng &&
-      nextProps.location.lat.toFixed(3) != this.props.location.lat.toFixed(3)  &&
-      nextProps.location.lng.toFixed(3)  != this.props.location.lng.toFixed(3) 
+      nextProps.location.lat.toFixed(4) != this.props.location.lat.toFixed(4) &&
+      nextProps.location.lng.toFixed(4) != this.props.location.lng.toFixed(4)
     ) {
       this.calculateDistance({
         latitude: this.props.selectedMall.lat,
