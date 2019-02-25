@@ -36,10 +36,15 @@ class RefLink extends React.Component {
                 iconUrl: ICONS.REF_LINK.TELEGRAM_ICON,
                 type: "telegram"
             },
+            Platform.OS === "ios" ? null : {
+                title: RU.REF_LINK.INSTAGRAM,
+                iconUrl: ICONS.REF_LINK.INSTAGRAM_ICON,
+                type: "instagram",
+            },
             {
-                title: RU.REF_LINK.FACEBOOK,
+                title: RU.REF_LINK.FACEBOOK_MESSENGER,
                 iconUrl: ICONS.REF_LINK.FACEBOOK_ICON,
-                type: "facebook"
+                type: "facebook-messenger"
             },
             {
                 title: RU.REF_LINK.MORE,
@@ -53,21 +58,23 @@ class RefLink extends React.Component {
         this.setState({ shareMenuOpen: !this.state.shareMenuOpen })
     }
     _renderItem = item => (
-        <Button
-            transparent
-            style={[styles.list_item, item.item.lastOne && styles.last_list_item]}
-            onPress={() => { shareToOneSocial(this.state.share_link, item.item.type) }}
-        >
-            <FastImage
-                style={styles.list_item_image}
-                resizeMode={FastImage.resizeMode.contain}
-                source={{ uri: item.item.iconUrl }}
-            />
-            <View style={styles.list_item_text}>
-                <Text style={styles.list_item_title}>{item.item.title}</Text>
-                {item.item.subTitle ? <Text style={styles.list_item_subtitle}>{item.item.subTitle}</Text> : null}
-            </View>
-        </Button>
+        item.item ?
+            <Button
+                transparent
+                style={[styles.list_item, item.item.lastOne && styles.last_list_item]}
+                onPress={() => { shareToOneSocial(this.state.share_link, item.item.type) }}
+            >
+                <FastImage
+                    style={styles.list_item_image}
+                    resizeMode={FastImage.resizeMode.contain}
+                    source={{ uri: item.item.iconUrl }}
+                />
+                <View style={styles.list_item_text}>
+                    <Text style={styles.list_item_title}>{item.item.title}</Text>
+                    {item.item.subTitle ? <Text style={styles.list_item_subtitle}>{item.item.subTitle}</Text> : null}
+                </View>
+            </Button>
+            : null
     );
     render = () => {
         return (
@@ -127,7 +134,7 @@ class RefLink extends React.Component {
                                 style={styles.list}
                                 data={this.state.social}
                                 removeClippedSubviews={true}
-                                keyExtractor={(item, index) => item.id + "_" + index}
+                                keyExtractor={(item, index) => "_" + index}
                                 renderItem={this._renderItem}>
                             </FlatList>
                         </View>

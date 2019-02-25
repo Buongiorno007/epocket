@@ -277,7 +277,7 @@ export const RU = {
     FACEBOOK: "Facebook",
     FACEBOOK_MESSENGER: "Facebook Messenger",
     WHATSAPP: "Whatsapp",
-    INSTAGRAM: "Instagram",
+    INSTAGRAM: "Instagram Direct",
     VIBER: "Viber",
     TELEGRAM: "Telegram",
     MORE: "Еще",

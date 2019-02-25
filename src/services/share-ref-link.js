@@ -15,7 +15,12 @@ export function shareToAllSocial(shareLink) {
 shareSingleThroughtLinking = (app_link, app_share_link, app_market_id) => {
     Linking.canOpenURL(app_link).then(supported => {
         if (!supported) {
-            Linking.openURL("market://details?id=" + app_market_id);
+            if (Platform.OS === "ios") {
+                Linking.openURL('itms-apps://itunes.apple.com/app' + app_market_id)
+            }
+            else {
+                Linking.openURL("market://details?id=" + app_market_id);
+            }
         } else {
             Linking.openURL(app_share_link);
         }
@@ -26,6 +31,7 @@ export function shareToOneSocial(shareLink, socialType) {
         title: "EpocketCash",
         message: shareLink,
     };
+    let market_link = ""
     switch (socialType) {
         case "copy":
             Clipboard.setString(shareLink);
@@ -44,13 +50,16 @@ export function shareToOneSocial(shareLink, socialType) {
             Share.shareSingle({ ...defaultOptions, social: Share.Social.FACEBOOK });
             break;
         case "facebook-messenger":
-            this.shareSingleThroughtLinking('fb-messenger://', "fb-messenger://share/?link=" + shareLink + "&app_id=2150067405259447", "com.facebook.orca")
+            Platform.OS === "ios" ? market_link = "/messenger/id454638411?mt=8" : market_link = "com.facebook.orca"
+            this.shareSingleThroughtLinking('fb-messenger://', "fb-messenger://share/?link=" + shareLink + "&app_id=2150067405259447", market_link)
             break;
         case "telegram":
-            this.shareSingleThroughtLinking('tg://', "tg://msg?text=" + shareLink, "org.telegram.messenger")
+            Platform.OS === "ios" ? market_link = "/telegram-messenger/id686449807?mt=8" : market_link = "org.telegram.messenger"
+            this.shareSingleThroughtLinking('tg://', "tg://msg?text=" + shareLink, market_link)
             break;
         case "viber":
-            this.shareSingleThroughtLinking('viber://', "viber://forward?text" + shareLink, "com.viber.voip")
+            Platform.OS === "ios" ? market_link = "/viber-messenger-chats-calls/id382617920?mt=8" : market_link = "com.viber.voip"
+            this.shareSingleThroughtLinking('viber://', "viber://forward?text=" + shareLink, market_link)
             break;
         case "whatsapp":
             Share.shareSingle({ ...defaultOptions, social: Share.Social.WHATSAPP });
