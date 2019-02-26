@@ -5,6 +5,7 @@ export const CHANGE_LOCATION_STATUS = 'geolocation-status/CHANGE_LOCATION_STATUS
 export default (state = false, action) => {
     switch (action.type) {
         case CHANGE_LOCATION_STATUS:
+            console.log(action.isLocation)
             return action.isLocation
         default:
             return state;
@@ -12,13 +13,13 @@ export default (state = false, action) => {
 }
 
 export const locationStateListener = () => async dispatch => {
-    if (Platform.OS==="ios"){
-        BackgroundGeolocationModule.on('providerchange', (location) => dispatch(locationState(location.enabled)));      
-    }else{
+    if (Platform.OS === "ios") {
+        BackgroundGeolocationModule.on('providerchange', (location) => dispatch(locationState(location.enabled)));
+    } else {
         BackgroundGeolocationModule.on('authorization', (authorization) => {
             BackgroundGeolocationModule.checkStatus(status => {
-                dispatch(locationState(status.locationServicesEnabled))
-              });
+                dispatch(locationState(status.isRunning && status.hasPermissions))
+            });
         });
     }
 }

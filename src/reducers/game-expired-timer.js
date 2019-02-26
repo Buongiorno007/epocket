@@ -62,8 +62,6 @@ export const launchGameExpiredTimer = (token, id) => async dispatch => {
         JSON.stringify(body),
         token
     );
-    console.log(urls.game_expired_timer, body,
-        token)
     received_promise.then(
         result => {
             console.log(result)
