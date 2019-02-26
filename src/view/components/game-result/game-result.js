@@ -13,7 +13,7 @@ import { setTabState } from "../../../reducers/tabs";
 import { loaderState } from "../../../reducers/loader";
 import { setInstaToken } from "../../../reducers/insta-token";
 import { setAppState } from "../../../reducers/app-state"
-import { startExpiredTimer } from "../../../reducers/game-expired-timer"
+import { launchGameExpiredTimer } from "../../../reducers/game-expired-timer"
 import { errorState } from "../../../reducers/game-error"
 import { setFixedTime } from "../../../reducers/fixedTime";
 import { setTempTime } from "../../../reducers/tempTime";
@@ -91,6 +91,7 @@ class GameResult extends React.Component {
                         available_game_len: 0,
                         total_game_len: 0,
                         true_answer: [],
+                        video: false,
                         insta_data: {}
                     }
                     this.props.setGameInfo(info);
@@ -126,7 +127,7 @@ class GameResult extends React.Component {
     goWait = () => {
         NavigationService.navigate("Main")
         if (this.props.game_info.id) {
-            this.props.startExpiredTimer(this.props.token, this.props.game_info.id);
+            this.props.launchGameExpiredTimer(this.props.token, this.props.game_info.id);
             setTimeout(() => {
                 this.props.setGameStatus("expired")
             }, 0)
@@ -176,6 +177,7 @@ class GameResult extends React.Component {
                 }
             },
             error => {
+                console.log(error)
                 CookieManager.clearAll()
                     .then((res) => {
                         this.props.loaderState(false);
@@ -188,18 +190,18 @@ class GameResult extends React.Component {
         this.setState({ buttonActive: true })
     }
     shareToInsta = () => {
-        postToSocial(this.props.navigation.state.params.insta_data, 'https://www.instagram.com/epocketapp/', this.confirmPost);
+        postToSocial(this.props.navigation.state.params.insta_data, 'https://www.instagram.com/epocketapp/', this.confirmPost, this.props.navigation.state.params.insta_data.video);
     }
     _handleAppStateChange = (nextAppState) => {
         if (Platform.OS === "ios") {
             if (((this.props.appState.match(/active/) && (nextAppState === 'inactive')) || this.props.appState.match(/active/) && (nextAppState === 'background')) && this.props.navigation.state.params.status != "success") {
                 console.log("user tried to abuse ios")
-                this.checkForGames("wait");
+                this.goWait();
             }
         } else {
             if (this.props.appState.match(/active/) && (nextAppState === 'inactive') && this.props.navigation.state.params.status != "success") {
                 console.log("user tried to abuse android")
-                this.checkForGames("wait");
+                this.goWait();
             }
         }
 
@@ -343,7 +345,7 @@ class GameResult extends React.Component {
                     first_btn_title={RU.REPEAT}
                     visible={this.props.game_error.error_modal}
                     first_btn_handler={() => {
-                        this.props.startExpiredTimer(this.props.token, this.props.game_info.id);
+                        this.props.launchGameExpiredTimer(this.props.token, this.props.game_info.id);
                         this.props.errorState({
                             error_text: this.props.game_error.error_text,
                             error_modal: !this.props.game_error.error_modal
@@ -361,8 +363,15 @@ class GameResult extends React.Component {
                     clientId='7df789fc907d4ffbbad30b7e25ba3933'
                     redirectUrl='https://epocket.dev.splinestudio.com'
                     scopes={['basic', 'public_content', 'likes', 'follower_list', 'comments', 'relationships']}
-                    onLoginSuccess={(token) => this.connectInsta(token)}
-                    onLoginFailure={(data) => console.log(data)}
+                    onLoginSuccess={(token) => {
+                        console.log(token)
+                        this.connectInsta(token)
+                    }}
+                    onLoginFailure={(data) => {
+                        let token = data.next.split("#access_token=")[1]
+                        console.log(data, token)
+                        this.connectInsta(token)
+                    }}
                 />
                 <FastImage
                     resizeMode={FastImage.resizeMode.contain}
@@ -445,7 +454,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => bindActionCreators({
     setGameStatus,
     setTabState,
-    startExpiredTimer,
+    launchGameExpiredTimer,
     loaderState,
     setFixedTime,
     setGameInfo,

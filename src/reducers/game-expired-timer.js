@@ -48,69 +48,63 @@ export const shutDownExpiredTimer = (token, id, lat, ln) => async dispatch => {
         }
     );
 }
-export const resetGameExpiredTimer = (token) => async dispatch => {
+export const launchGameExpiredTimer = (token, id) => async dispatch => {
     dispatch(loaderState(true));
-    let body = {
+    let body = {}
+    if (id) {
+        body = {
+            is_played: "False",
+            id
+        }
     }
     let received_promise = httpPost(
         urls.game_expired_timer,
         JSON.stringify(body),
         token
     );
+    console.log(urls.game_expired_timer, body,
+        token)
     received_promise.then(
         result => {
             console.log(result)
             let time = result.body.time;
             let oldresult = result;
-            convertToBase64(oldresult.body.image).then(
-                result => {
-                    let id = oldresult.body.image.split('_correct')[0].split('id')[1];
-                    dispatch(setGameExpiredImage({ id: id, img: oldresult.body.image, base64: 'data:image/jpg;base64,' + result }))
-                    dispatch(setGameExpiredTimer(time))
-                    if (time === 0) {
-                        dispatch(setGameStatus("start"))
-                    }
-                    else {
-                        dispatch(setGameStatus("expired"))
-                    }
-                    dispatch(errorState(null));
-                    dispatch(loaderState(false));
-                },
-                error => { });
+            if (oldresult.body.video) {
+                let id = oldresult.body.image.split('_correct')[0].split('id')[1];
+                dispatch(setGameExpiredImage({ id: id, img: oldresult.body.image, video: oldresult.body.video }))
+                dispatch(setGameExpiredTimer(time))
+                if (time === 0) {
+                    dispatch(setGameStatus("start"))
+                }
+                else {
+                    dispatch(setGameStatus("expired"))
+                }
+                dispatch(errorState(null));
+                dispatch(loaderState(false));
+            } else {
+                convertToBase64(oldresult.body.image).then(
+                    result => {
+                        let id = oldresult.body.image.split('_correct')[0].split('id')[1];
+                        dispatch(setGameExpiredImage({ id: id, img: oldresult.body.image, base64: 'data:image/jpg;base64,' + result, video: false }))
+                        dispatch(setGameExpiredTimer(time))
+                        if (time === 0) {
+                            dispatch(setGameStatus("start"))
+                        }
+                        else {
+                            dispatch(setGameStatus("expired"))
+                        }
+                        dispatch(errorState(null));
+                        dispatch(loaderState(false));
+                    },
+                    error => { });
+            }
         },
         error => {
-            let error_response = handleError(error, "game-expired-time", "resetGameExpiredTimer")
+            let error_response = handleError(error, "game-expired-time", "launchGameExpiredTimer")
             dispatch(errorState(error_response))
             dispatch(loaderState(false));
         }
     );
-}
-export const startExpiredTimer = (token, id) => async dispatch => {
-    dispatch(loaderState(true));
-    let body = {
-        is_played: "False",
-        id
-    }
-    let received_promise = httpPost(
-        urls.game_expired_timer,
-        JSON.stringify(body),
-        token
-    );
-    received_promise.then(
-        result => {
-            console.log(result)
-            let time = result.body.time;
-            dispatch(setGameExpiredTimer(time))
-            dispatch(errorState(null));
-            dispatch(loaderState(false));
-        },
-        error => {
-            let error_response = handleError(error, "game-expired-time", "startExpiredTimer")
-            dispatch(errorState(error_response))
-            dispatch(loaderState(false));
-        }
-    );
-
 }
 export const setGameExpiredTimer = (time) => ({
     type: WAIT_TIMER, time

@@ -12,12 +12,10 @@ import InstaHashTags from "../insta-hashtags/insta-hashtags";
 import styles from "./styles";
 import { RU } from "./../../../locales/ru";
 import { urls } from "../../../constants/urls";
-import { colors } from "./../../../constants/colors";
 import { ICONS } from "./../../../constants/icons";
 //services
 import NavigationService from "./../../../services/route";
 import { httpPost } from "../../../services/http";
-import { serializeJSON } from "../../../services/serialize-json";
 //redux
 import { loaderState } from "../../../reducers/loader";
 import { connect } from "react-redux";

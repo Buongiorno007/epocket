@@ -4,7 +4,8 @@ import { ICONS } from "../constants/icons";
 const initState = {
     id: 0,
     img: ICONS.FILLER,
-    base64: ICONS.FILLER
+    base64: ICONS.FILLER,
+    video: false
 }
 export default (state = initState, action) => {
     switch (action.type) {

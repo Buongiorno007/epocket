@@ -29,6 +29,7 @@ class CardPostsList extends React.Component {
                         style={styles.list_view}
                         horizontal={false}
                         numColumns={1}
+                        removeClippedSubviews={true}
                         keyExtractor={this.keyExtractor}
                         data={this.props.posts}
                         renderItem={this._renderItem}

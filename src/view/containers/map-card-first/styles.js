@@ -8,6 +8,7 @@ export default StyleSheet.create({
   card: {
     height: width * 0.65,
     width: firstCardWidth,
+    backgroundColor: colors.white,
     borderRadius: 12,
     marginLeft: width * 0.01,
     flexDirection: "column",

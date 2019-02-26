@@ -22,12 +22,12 @@ export default class ProgressBar extends Component {
     style: PropTypes.any,
     unfilledColor: PropTypes.string,
     width: PropTypes.number,
-    gradient: PropTypes.shape({
-      start: LinearGradient.propTypes.start,
-      end: LinearGradient.propTypes.end,
-      colors: LinearGradient.propTypes.colors,
-      locations: LinearGradient.propTypes.locatios,
-    }),
+    // gradient: PropTypes.shape({
+    //   start: LinearGradient.propTypes.start,
+    //   end: LinearGradient.propTypes.end,
+    //   colors: LinearGradient.propTypes.colors,
+    //   locations: LinearGradient.propTypes.locatios,
+    // }),
     useNativeDriver: PropTypes.bool,
     // eslint-disable-next-line react/forbid-prop-types
     animationConfig: PropTypes.object.isRequired,

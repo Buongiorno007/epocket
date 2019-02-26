@@ -13,7 +13,6 @@ import LinearGradient from "react-native-linear-gradient";
 //constants
 import styles from "./styles";
 import { RU } from "../../../locales/ru";
-import { ICONS } from "../../../constants/icons";
 import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 //redux
 import { connect } from "react-redux";
@@ -31,7 +30,6 @@ import { setGeoVirgin } from "../../../reducers/geo-virgin"
 import Blur from "../blur/blur";
 //services
 import geo_config from "./geolocation-config";
-import NavigationService from "../../../services/route";
 import BackgroundGeolocationModule from "../../../services/background-geolocation-picker"
 
 
@@ -74,27 +72,16 @@ class LocationDisabled extends React.Component {
   };
 
   connectGeolocation = () => {
-    if (Platform.OS === "ios") {
-      BackgroundGeolocationModule.ready(geo_config(), state => {
-        if (!state.enabled) {
-          BackgroundGeolocationModule.start(function () { });
-          this._getLocation();
-        }
-      });
-    } else {
-      BackgroundGeolocationModule.configure(geo_config())
-      BackgroundGeolocationModule.checkStatus(status => {
-        if (!status.isRunning) {
-          BackgroundGeolocationModule.start();
-          this._getLocation();
-        }
-      });
-    }
-    this.props.setGeoVirgin(false)
-  }
-  _requestLocation = () => {
-    switch (Platform.OS) {
-      case "android": {
+    try {
+      console.log("connectGeolocation")
+      if (Platform.OS === "ios") {
+        BackgroundGeolocationModule.ready(geo_config(), state => {
+          if (!state.enabled) {
+            BackgroundGeolocationModule.start(function () { });
+            this._getLocation();
+          }
+        });
+      } else {
         BackgroundGeolocationModule.configure(geo_config())
         BackgroundGeolocationModule.checkStatus(status => {
           if (!status.isRunning) {
@@ -102,18 +89,44 @@ class LocationDisabled extends React.Component {
             this._getLocation();
           }
         });
-        this.checkIsLocation();
-        break;
       }
-      case "ios": {
-        BackgroundGeolocationModule.ready(geo_config(), state => {
-          if (!state.enabled) {
-            BackgroundGeolocationModule.start(function () { });
-            this._getLocation();
-          }
-        });
-        break;
+      this.props.setGeoVirgin(false)
+    }
+    catch (err) {
+      console.log("error connectGeolocation", err)
+    }
+
+  }
+  _requestLocation = () => {
+    try {
+      switch (Platform.OS) {
+        case "android": {
+          BackgroundGeolocationModule.configure(geo_config())
+          BackgroundGeolocationModule.checkStatus(status => {
+            if (!status.isRunning) {
+              BackgroundGeolocationModule.start();
+              this._getLocation();
+            }
+          });
+          this.checkIsLocation();
+          break;
+        }
+        case "ios": {
+          BackgroundGeolocationModule.ready(geo_config(), state => {
+            if (!state.enabled) {
+              BackgroundGeolocationModule.start(function () { });
+            }
+            else {
+              Permissions.openSettings();
+              this._getLocation();
+            }
+          });
+          break;
+        }
       }
+    }
+    catch (err) {
+      console.log("error _requestLocation", err)
     }
   };
   render() {
