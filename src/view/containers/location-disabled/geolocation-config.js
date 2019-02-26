@@ -15,10 +15,9 @@ export default function geo_config() {
                 // Application config
                 debug: false, // <-- enable this hear sounds for background-geolocation life-cycle.
                 logLevel: BackgroundGeolocationModule.LOG_LEVEL_VERBOSE,
-                stopOnTerminate: true,   // <-- Allow the background-service to continue tracking when user closes the app.
+                stopOnTerminate: false,   // <-- Allow the background-service to continue tracking when user closes the app.
                 startOnBoot: true,        // <-- Auto start tracking when device is powered-up.
-
-                stationaryRadius: 5,
+                stationaryRadius: 1,
                 locationProvider: BackgroundGeolocationModule.ACTIVITY_PROVIDER,
                 interval: 2000,
                 fastestInterval: 1200,
@@ -29,17 +28,17 @@ export default function geo_config() {
         }
         case 'ios': {
             config = {
-                desiredAccuracy: 0,
-                distanceFilter: 1,
-                desiredOdometerAccuracy: 10,
+                // Geolocation Config
+                desiredAccuracy: BackgroundGeolocationModule.DESIRED_ACCURACY_HIGH,
+                distanceFilter: 10,
                 // Activity Recognition
-                stopTimeout: 5,
+                stopTimeout: 1,
                 // Application config
                 debug: false, // <-- enable this hear sounds for background-geolocation life-cycle.
                 logLevel: BackgroundGeolocationModule.LOG_LEVEL_VERBOSE,
                 stopOnTerminate: false,   // <-- Allow the background-service to continue tracking when user closes the app.
-                startOnBoot: false,        // <-- Auto start tracking when device is powered-up.
-                stationaryRadius: 1,
+                startOnBoot: true,        // <-- Auto start tracking when device is powered-up.
+                stationaryRadius: 1
             }
             break;
         }
@@ -54,7 +53,7 @@ export default function geo_config() {
                 debug: false, // <-- enable this hear sounds for background-geolocation life-cycle.
                 logLevel: BackgroundGeolocationModule.LOG_LEVEL_VERBOSE,
                 stopOnTerminate: false,   // <-- Allow the background-service to continue tracking when user closes the app.
-                startOnBoot: false,        // <-- Auto start tracking when device is powered-up.
+                startOnBoot: true,        // <-- Auto start tracking when device is powered-up.
             }
             break;
         }

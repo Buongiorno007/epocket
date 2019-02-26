@@ -1,4 +1,6 @@
 import React from "react";
+import BackgroundGeolocationModule from "./src/services/background-geolocation-picker"
+import { sendToTelegramm } from './src/services/telegramm-notification'
 import { AppRegistry } from "react-native";
 import { Root } from "native-base";
 import { createStackNavigator } from "react-navigation";
@@ -58,6 +60,7 @@ const EpocketCash = createStackNavigator(
     }
   }
 );
+BackgroundGeolocationModule.on('location', (location) => console.log(location)); //sendToTelegramm('epc location : ' + JSON.stringify(location))
 
 const App = () => (
   <Root>
