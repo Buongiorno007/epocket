@@ -870,12 +870,27 @@ class Map extends React.Component {
     const clusteringEngine = this.map.getClusteringEngine(),
       clusteredPoints = clusteringEngine.getLeaves(clusterId, 100)
     let clusterValue = 0;
+    let maxDistance = 0;
     if (this.state.discountActive) {
       clusteredPoints.forEach(cluster => {
+        let distanceToCenter = geolib.getDistance(
+          cluster.properties.item.location,
+          coordinate
+        );
+        if (distanceToCenter > maxDistance && cluster.properties.item.price != 0) {
+          maxDistance = distanceToCenter
+        }
         clusterValue = clusterValue + Number(cluster.properties.item.discount)
       });
     } else {
       clusteredPoints.forEach(cluster => {
+        let distanceToCenter = geolib.getDistance(
+          cluster.properties.item.location,
+          coordinate
+        );
+        if (distanceToCenter > maxDistance && cluster.properties.item.price != 0) {
+          maxDistance = distanceToCenter
+        }
         if (isNaN(Number(cluster.properties.item.formated.money))) {
           clusterValue = clusterValue + Number(cluster.properties.item.formated.amount)
         } else {
@@ -912,22 +927,12 @@ class Map extends React.Component {
           discountMarker={this.state.discountActive}
           cashoutMarker={this.state.shopActive}
           onPress={() => {
-            if (this.map.getMapRef().__lastRegion.latitudeDelta > 0.40323 && this.map.getMapRef().__lastRegion.longitudeDelta > 0.40028) {
-              this.moveMapTo(
-                Number(coordinate.latitude),
-                Number(coordinate.longitude),
-                0.40323,
-                0.40028
-              );
-            }
-            else {
-              this.moveMapTo(
-                Number(coordinate.latitude),
-                Number(coordinate.longitude),
-                0.0158,
-                0.0158
-              );
-            }
+            this.moveMapTo(
+              Number(coordinate.latitude),
+              Number(coordinate.longitude),
+              maxDistance * 0.00001167,
+              maxDistance * 0.00005
+            );
             clusteredPoints.forEach(cluster => {
               if (this.state.taskActive && cluster.properties.item.formated && ((clusterValue === Number(cluster.properties.item.formated.money)) || (clusterValue === Number(cluster.properties.item.formated.amount)))) {
                 this.selectMark(cluster.properties.item, true, "task")
