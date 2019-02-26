@@ -16,6 +16,7 @@
     "dependencies": {
         "bundle": "^2.1.0",
         "eslint": "^5.1.0",
+        "fingerprintjs2": "^2.0.6",
         "geolib": "^2.0.24",
         "intl": "^1.2.5",
         "lodash": "^4.17.11",
@@ -64,7 +65,8 @@
         "redux-logger": "^3.0.6",
         "redux-thunk": "^2.3.0",
         "remote-redux-devtools": "^0.5.12",
-        "rn-fetch-blob": "^0.10.13"
+        "rn-fetch-blob": "^0.10.13",
+        "ua-parser-js": "^0.7.19"
     },
     "devDependencies": {
         "babel-plugin-transform-remove-console": "^6.9.4",
