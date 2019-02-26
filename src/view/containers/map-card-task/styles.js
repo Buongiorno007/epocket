@@ -34,6 +34,7 @@ export default StyleSheet.create({
   name: {
     fontFamily: "Rubik-Bold",
     fontSize: 15,
+    textAlign: "center",
     color: colors.map_dark_blue
   },
   price: {
