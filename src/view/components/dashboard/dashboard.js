@@ -1112,7 +1112,8 @@ class Dashboard extends React.Component {
                   <View
                     style={[
                       styles_top.small_head,
-                      this.state.pickedCashout && styles_top.disabled
+                      this.state.pickedCashout && styles_top.disabled,
+                      this.state.forceCloseHeader && { display: "none" }
                     ]}
                   >
                     <View style={styles_top.small_epc_counter_container}>
