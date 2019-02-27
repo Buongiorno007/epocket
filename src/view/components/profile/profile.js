@@ -61,7 +61,7 @@ class Profile extends React.Component {
 		promise.then(
 			result => {
 				console.log(result)
-				this.setState({ refferal_link: result.body.link })
+				this.setState({ refferal_link: urls.ref_link + result.body.link })
 				this.props.loaderState(false);
 			},
 			error => {

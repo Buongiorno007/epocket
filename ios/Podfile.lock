@@ -108,13 +108,13 @@ PODS:
   - Protobuf (3.6.1)
   - React (0.57.5):
     - React/Core (= 0.57.5)
-  - react-native-camera (1.10.1):
+  - react-native-camera (1.12.0):
     - React
-    - react-native-camera/RCT (= 1.10.1)
-    - react-native-camera/RN (= 1.10.1)
-  - react-native-camera/RCT (1.10.1):
+    - react-native-camera/RCT (= 1.12.0)
+    - react-native-camera/RN (= 1.12.0)
+  - react-native-camera/RCT (1.12.0):
     - React
-  - react-native-camera/RN (1.10.1):
+  - react-native-camera/RN (1.12.0):
     - React
   - react-native-fast-image (5.1.1):
     - FLAnimatedImage
@@ -335,7 +335,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
-  BVLinearGradient: b0b70acf63ee888829b7c2ebbf6b50e227396e55
+  BVLinearGradient: 0d985ec461359c82bc254f26d11008bdae50d17a
   CocoaLumberjack: db7cc9e464771f12054c22ff6947c5a58d43a0fd
   Crashlytics: ccaac42660eb9351b9960c0d66106b0bcf99f4fa
   DoubleConversion: bb338842f62ab1d708ceb63ec3d999f0f3d98ecd
@@ -357,26 +357,26 @@ SPEC CHECKSUMS:
   GoogleUtilities: 6f681e27050c5e130325e89fa0316dfca826f954
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
-  React: 1fe0eb13d90b625d94c3b117c274dcfd2e760e11
-  react-native-camera: a8d04ef12749def72cae86b0b8d28c2de891a392
-  react-native-fast-image: cba3d9bf9c2cf8ddb643d887a686c53a5dd90a2c
-  react-native-fbsdk: d5f98cc5abecbcc463e3c35c04743d716d002d37
-  react-native-google-maps: b946d62e25dc66097921ed82520e45b0b081768a
-  react-native-image-picker: b303e31c3c4ada1d7cb1342423d328d2efb07fb3
-  react-native-maps: 066c2afcc89e18726377bcc685315f989ca22449
-  ReactNativeFabric: 01c1333f76fd4708a5833d71f0a4832a9266bf0f
-  ReactNativePermissions: 9f2d9c45c98800795e6c2ed330e25d11a66a8169
-  rn-fetch-blob: 76a8f798dae965bbcd146a2438f2e1d381c91ae3
-  RNBackgroundFetch: 8c4f77f83c398c659bce82af2f0a885079417b9e
-  RNBackgroundGeolocation: c9bbf69b9aa277f0b46754cc5f853bd26051a18f
-  RNFS: bbb1a64eb245763daf34aea86f97c97c4e85f74c
-  RNInstagramStoryShare: eca347b80831872ffa40e80111cb7f32d567c299
-  RNSound: b360b3862d3118ed1c74bb9825696b5957686ac4
-  RNSVG: 4834be1d644eb77f0e3f6de851881b83758a3124
-  RNVectorIcons: 8c52e1e8da1153613fdef44748e865c25556cb9c
+  React: 01aa04500b2957c2767e1dff9fe12e09444a467c
+  react-native-camera: 3540a93182182843c1f95e4e2f0f921387923d73
+  react-native-fast-image: 47487b71169aea34868e7b38bf870b6b3f2157c5
+  react-native-fbsdk: 5c3ff4dda057e17d3b4b5491033fc653d423e71d
+  react-native-google-maps: 06d7adbb45aafbad5fd151f9e6f6856f546d7f58
+  react-native-image-picker: 3693786b3d5958c8f71deed66ec068b323565e0d
+  react-native-maps: 5a3de82c153db99e5ac939cb2ed576f245514016
+  ReactNativeFabric: d05320ff347d5c72567c115b97edeead111ac4d2
+  ReactNativePermissions: 2e324bb3baf12702e3ec27f76c8ae1158fa69fc6
+  rn-fetch-blob: 766f85cabd2992300dfa1be2bc9e4e258abc6f04
+  RNBackgroundFetch: a69474a56716afcff6325f6f80d181abe084ec4d
+  RNBackgroundGeolocation: 8e1c54babe6c7ab4f940fc01229aa8b4ffa86f5e
+  RNFS: c9bbde46b0d59619f8e7b735991c60e0f73d22c1
+  RNInstagramStoryShare: 357c8df36c9152ba4626bd01dcd0a61010a416cb
+  RNSound: 53d2fc9c6589bd68daba530262b7560393def3ac
+  RNSVG: 5f9985c28d7a09445b3b464ed6c44e969493705c
+  RNVectorIcons: ac7bf6bfeafaf3ad34552cdc6eed6fb8c4b7c940
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
-  yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
+  yoga: a5c0ba30ebe82c13612b4c9301ad29708b8978dc
 
-PODFILE CHECKSUM: b7db1199615e7f844f4b6b3baa0fafd6489b1fdf
+PODFILE CHECKSUM: a2e22b229c7cc527d04ec930fac5aef574bdbacc
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.1
