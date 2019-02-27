@@ -102,12 +102,16 @@ class EarnMore extends React.Component {
 
   shareToInsta = () => {
     let new_insta_data = this.props.navigation.state.params.insta_data
-    convertToBase64(new_insta_data.img_url).then(
-      result => {
-        new_insta_data.base64 = 'data:image/jpg;base64,' + result
-        postToSocial(this.props.navigation.state.params.insta_data, 'https://www.instagram.com/epocketapp/', this.confirmPost);
-      }
-    )
+    if (new_insta_data.video) {
+      postToSocial(this.props.navigation.state.params.insta_data, 'https://www.instagram.com/epocketapp/', this.confirmPost, new_insta_data.video);
+    } else {
+      convertToBase64(new_insta_data.img_url).then(
+        result => {
+          new_insta_data.base64 = 'data:image/jpg;base64,' + result
+          postToSocial(this.props.navigation.state.params.insta_data, 'https://www.instagram.com/epocketapp/', this.confirmPost);
+        }
+      )
+    }
   }
 
   confirmPost = () => {

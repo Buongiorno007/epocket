@@ -1,18 +1,14 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text } from "react-native";
 import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
 import Close from "react-native-vector-icons/Feather";
 //constants
 import styles from "./styles";
-import { colors } from "../../../constants/colors_men";
 //services
-import NavigationService from "./../../../services/route";
 //redux
-import { loaderState } from "../../../reducers/loader";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { ICONS } from "./../../../constants/icons";
 import { RU } from "./../../../locales/ru";
 
 class CartCard extends React.Component {

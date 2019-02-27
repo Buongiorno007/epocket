@@ -10,7 +10,6 @@ import TemplateInstagramPhoto from "../template-insta-photo/template-insta-photo
 import InstaHashTags from "../insta-hashtags/insta-hashtags";
 //constants
 import styles from "./styles";
-import { colors } from "./../../../constants/colors";
 import { urls } from "../../../constants/urls";
 import { RU } from "./../../../locales/ru";
 //redux

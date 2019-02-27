@@ -10,7 +10,7 @@ import { ICONS } from "../constants/icons";
 //redux
 import { loaderState } from "./loader";
 import { setFixedTime } from "./fixedTime";
-import { startExpiredTimer, resetGameExpiredTimer } from "./game-expired-timer"
+import { launchGameExpiredTimer } from "./game-expired-timer"
 import { errorState } from "./game-error"
 import { setTempTime } from "./tempTime";
 import { setGameStatus } from "./game-status"
@@ -76,6 +76,7 @@ export const checkForPostStatus = (game_id, token, lat, lng, game_expired_timer)
                                     available_game_len: game.available_game_len,
                                     total_game_len: game.games_count,
                                     id: game.id,
+                                    video: game.video,
                                     insta_data: {
                                         base64: 'data:image/jpg;base64,' + result,
                                         id: game.id,
@@ -123,10 +124,10 @@ export const checkForPostStatus = (game_id, token, lat, lng, game_expired_timer)
             NavigationService.navigate("Main")
             dispatch(setGameStatus("expired"))
             if (game_expired_timer) {
-                dispatch(resetGameExpiredTimer(token))
+                dispatch(launchGameExpiredTimer(token))
             }
             else {
-                dispatch(startExpiredTimer(token, game_id))
+                dispatch(launchGameExpiredTimer(token, game_id))
 
             }
             handleError(error, "post-status", "checkForPostStatus")

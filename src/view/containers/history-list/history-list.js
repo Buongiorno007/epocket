@@ -25,7 +25,6 @@ class HistoryList extends React.Component {
     this.refreshList();
   };
   refreshList = () => {
-    console.log('refreshList');
     this.props.receivedBonusesJSX.loader = true;
     this.props.spentBonusesJSX.loader = true;
     this.props.getBonuses(

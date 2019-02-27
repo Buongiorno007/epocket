@@ -397,7 +397,6 @@ class Map extends React.Component {
             longitude: elem.lng
           }
         });
-        console.log(result)
         this.props.setBalance(result.body.balance.amount)
         this.setModalVisible(false);
         this.props.loaderState(false);
@@ -577,7 +576,6 @@ class Map extends React.Component {
             })
           }
           cards.unshift(trc)
-          console.log(cards)
           this.setState({ cards, focusedOnMark: true })
           Animated.timing(this.state.topNavigationTranslateY,
             {
@@ -682,7 +680,6 @@ class Map extends React.Component {
       (region.nativeEvent && Number(region.nativeEvent.coordinate.latitude).toFixed(3) == this.state.pickedMark.latitude && Number(region.nativeEvent.coordinate.longitude).toFixed(5) == this.state.pickedMark.longitude)) {
     }
     else {
-      console.log("focusedOnMark setted to false")
       this.setState({ focusedOnMark: false, cards: [] })
       Animated.timing(this.state.topNavigationTranslateY,
         {
@@ -773,14 +770,13 @@ class Map extends React.Component {
         this.setState({ load_timer: false });
         let error_respons = handleError(error, this.constructor.name, "callTimer");
         this.setState({ errorText: error_respons.error_text, errorCode: error_respons.error_code });
-        if (error.code != 416 && error.code != 418) {
+        if (error.code != 416 && error.code != 418 && error.code != 415) {
           this.setErrorVisible(error_respons.error_modal);
         }
       }
     );
   }
   selectMark = (trc, ANIMATE_MAP, mark_type) => {
-    console.log("SELECTED TRC", trc)
     ANIMATE_MAP &&
       this.moveMapTo(
         Number(trc.lat),
@@ -871,22 +867,30 @@ class Map extends React.Component {
     const pointCount = cluster.pointCount,
       coordinate = cluster.coordinate,
       clusterId = cluster.clusterId
-
-    // use pointCount to calculate cluster size scaling
-    // and apply it to "style" prop below
-
-    // eventually get clustered points by using
-    // underlying SuperCluster instance
-    // Methods ref: https://github.com/mapbox/supercluster
     const clusteringEngine = this.map.getClusteringEngine(),
       clusteredPoints = clusteringEngine.getLeaves(clusterId, 100)
     let clusterValue = 0;
+    let maxDistance = 0;
     if (this.state.discountActive) {
       clusteredPoints.forEach(cluster => {
+        let distanceToCenter = geolib.getDistance(
+          cluster.properties.item.location,
+          coordinate
+        );
+        if (distanceToCenter > maxDistance && cluster.properties.item.price != 0) {
+          maxDistance = distanceToCenter
+        }
         clusterValue = clusterValue + Number(cluster.properties.item.discount)
       });
     } else {
       clusteredPoints.forEach(cluster => {
+        let distanceToCenter = geolib.getDistance(
+          cluster.properties.item.location,
+          coordinate
+        );
+        if (distanceToCenter > maxDistance && cluster.properties.item.price != 0) {
+          maxDistance = distanceToCenter
+        }
         if (isNaN(Number(cluster.properties.item.formated.money))) {
           clusterValue = clusterValue + Number(cluster.properties.item.formated.amount)
         } else {
@@ -923,22 +927,12 @@ class Map extends React.Component {
           discountMarker={this.state.discountActive}
           cashoutMarker={this.state.shopActive}
           onPress={() => {
-            if (this.map.getMapRef().__lastRegion.latitudeDelta > 0.40323 && this.map.getMapRef().__lastRegion.longitudeDelta > 0.40028) {
-              this.moveMapTo(
-                Number(coordinate.latitude),
-                Number(coordinate.longitude),
-                0.40323,
-                0.40028
-              );
-            }
-            else {
-              this.moveMapTo(
-                Number(coordinate.latitude),
-                Number(coordinate.longitude),
-                0.0158,
-                0.0158
-              );
-            }
+            this.moveMapTo(
+              Number(coordinate.latitude),
+              Number(coordinate.longitude),
+              maxDistance * 0.00001167,
+              maxDistance * 0.00005
+            );
             clusteredPoints.forEach(cluster => {
               if (this.state.taskActive && cluster.properties.item.formated && ((clusterValue === Number(cluster.properties.item.formated.money)) || (clusterValue === Number(cluster.properties.item.formated.amount)))) {
                 this.selectMark(cluster.properties.item, true, "task")
@@ -1153,6 +1147,7 @@ class Map extends React.Component {
               showsHorizontalScrollIndicator={false}
               style={styles.horizontal_list}
               data={this.state.cards}
+              removeClippedSubviews={true}
               keyExtractor={(item, index) => item.id + "_" + index}
               renderItem={this._renderItem}>
             </FlatList>

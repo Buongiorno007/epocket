@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Dimensions, Platform, FlatList } from "react-native";
+import { View, Text, Platform } from "react-native";
 import { Button } from "native-base";
 //constants
 import styles from "./styles";
@@ -31,7 +31,7 @@ class CardTask extends React.Component {
         <View style={styles.inner_conainer}>
           <View style={styles.name_container}>
             <Text style={styles.name}
-              numberOfLines={1}
+              numberOfLines={3}
             >
               {this.props.item.trade}
             </Text>

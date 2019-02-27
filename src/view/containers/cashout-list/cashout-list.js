@@ -315,6 +315,7 @@ class CashoutList extends React.Component {
                     contentContainerStyle={{
                       alignItems: "center",
                     }}
+                    removeClippedSubviews={true}
                     keyExtractor={this.keyExtractor}
                     showsVerticalScrollIndicator={false}
                     style={[styles.scroll_fixed, this.props.draggedDown && { height: height * 0.55 }]}

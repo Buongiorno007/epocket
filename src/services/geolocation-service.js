@@ -121,6 +121,7 @@ class GeolocationService extends React.Component {
   // };
   _handleAppStateChange = (nextAppState) => {
     if (this.props.appState.match(/inactive|background/) && nextAppState === 'active') {
+
       getCurrentGeolocation().then((location) => {
         this.calculateDistance({
           latitude: this.props.selectedMall.lat,
@@ -153,17 +154,19 @@ class GeolocationService extends React.Component {
         longitude: nextLocation.longitude
       }
     ) - this.props.selectedMall.rad;
-    if (distance <= 0 && nextProps.isLocation && this.props.isLocation) {
-      this.props.showDashboard(true);
-      this.props.showTimer(false);
-      !this.props.dashboard && this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_4);
-    } else {
-      this.props.showDashboard(false);
-      this.props.showTimer(true);
-      this.props.dashboard && this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_5);
-    }
-    if (distance === 120) {
-      this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_3);
+    if (nextProps.isLocation && this.props.isLocation) {
+      if (distance <= 0 && !this.props.timer_status && nextProps.timer_status) {
+        this.props.showDashboard(true);
+        this.props.showTimer(false);
+        this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_4);
+      } else if (distance > 0 && this.props.timer_status) {
+        this.props.showDashboard(false);
+        this.props.showTimer(true);
+        this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_5);
+      }
+      if (distance === 120) {
+        this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_3);
+      }
     }
   }
 
@@ -171,8 +174,8 @@ class GeolocationService extends React.Component {
     if (
       this.props.selectedMall.lat &&
       this.props.selectedMall.lng &&
-      nextProps.location.lat.toFixed(3) != this.props.location.lat.toFixed(3)  &&
-      nextProps.location.lng.toFixed(3)  != this.props.location.lng.toFixed(3) 
+      nextProps.location.lat.toFixed(4) != this.props.location.lat.toFixed(4) &&
+      nextProps.location.lng.toFixed(4) != this.props.location.lng.toFixed(4)
     ) {
       this.calculateDistance({
         latitude: this.props.selectedMall.lat,

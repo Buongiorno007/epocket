@@ -3,7 +3,6 @@ import { View, Text } from "react-native";
 import { Button } from "native-base";
 import Close from "react-native-vector-icons/Feather";
 //constants
-import { colors } from "./../../../constants/colors";
 import { RU } from "../../../locales/ru";
 import styles from "./styles";
 //redux

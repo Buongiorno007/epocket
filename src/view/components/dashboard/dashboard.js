@@ -111,7 +111,8 @@ class Dashboard extends React.Component {
       hours: 0,
       minutes: 0,
       seconds: 0
-    }
+    },
+    forceCloseHeader: false
   };
   constructor(props) {
     super(props)
@@ -123,7 +124,7 @@ class Dashboard extends React.Component {
       onPanResponderMove: (evt, gestureState) => {
         const draggedDown = gestureState.dy > 30;
         const draggedUp = gestureState.dy < -30;
-        if (gestureState.moveY < 233) {
+        if (gestureState.moveY < 233 && !this.state.forceCloseHeader) {
           if (this.state.body.notInMall || this.state.finishMissionCalled) {
             if (draggedDown) {
               if (this.props.activeCard) {
@@ -593,7 +594,36 @@ class Dashboard extends React.Component {
         };
         this.setState({ notInMallTimer })
         this.props.updateTimer(notInMallTimer);
-        if (error.code != 416 && error.code != 418) {
+        if (error.code == 415) {
+          this.setState({ forceCloseHeader: true })
+          Animated.parallel([
+            Animated.timing(this.state.topHeight,
+              {
+                toValue: height * 0.15, //0.2
+                duration: 1,
+                easing: Easing.linear
+              }),
+            Animated.timing(this.state.topImageOpacity,
+              {
+                toValue: 0,
+                duration: 1,
+                easing: Easing.linear
+              }),
+            Animated.timing(this.state.listHeight,
+              {
+                toValue: height * 0.85,
+                duration: 1,
+                easing: Easing.linear
+              }),
+            Animated.timing(this.state.allScaleY,
+              {
+                toValue: Platform.OS == "ios" ? 0 : 0.00001,
+                duration: 1,
+                easing: Easing.linear
+              }),
+          ]).start();
+        }
+        if (error.code != 416 && error.code != 418 && error.code != 415) {
           this.setStartMissionErrorVisible(error_respons.error_modal);
         }
         else {
@@ -894,7 +924,7 @@ class Dashboard extends React.Component {
                     ]
                   },
                   { height: this.state.topHeight }]}>
-                    <View style={styles_top.finishMission_text_container}>
+                    <View style={[styles_top.finishMission_text_container, this.state.forceCloseHeader && { display: "none" }]}>
                       <Text style={styles_top.finishMission_text} >{RU.GOT_EPC}</Text>
                       <LinearTextGradient
                         locations={[0, 1]}
@@ -907,7 +937,7 @@ class Dashboard extends React.Component {
                       </LinearTextGradient>
                       <Text style={styles_top.finishMission_text} >{RU.FOR_TRC}</Text>
                     </View>
-                    <Text style={styles_top.text_small}>{RU.COME_TOMMOROW}</Text>
+                    <Text style={[styles_top.text_small, this.state.forceCloseHeader && { display: "none" }]}>{RU.COME_TOMMOROW}</Text>
                   </Animated.View>
                   :
                   <Animated.View style={[styles_top.content, {
@@ -1082,7 +1112,8 @@ class Dashboard extends React.Component {
                   <View
                     style={[
                       styles_top.small_head,
-                      this.state.pickedCashout && styles_top.disabled
+                      this.state.pickedCashout && styles_top.disabled,
+                      this.state.forceCloseHeader && { display: "none" }
                     ]}
                   >
                     <View style={styles_top.small_epc_counter_container}>

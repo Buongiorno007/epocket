@@ -269,5 +269,18 @@ export const RU = {
   PERMISSON: {
     STORAGE_PERMISSON_TITLE: "EpocketCash необходим доступ к файлам",
     STORAGE_PERMISSON_MESSAGE: "Доступ необходим для совершения поста в Instagram.",
+  },
+  REF_LINK: {
+    GET_EPC: EPC.toUpperCase() + " за друга",
+    FOR_YOU_AND_YOUR_FRIEND: EPC.toUpperCase() + " тебе и другу за приглашение",
+    COPY: "Копировать ссылку",
+    FACEBOOK: "Facebook",
+    FACEBOOK_MESSENGER: "Facebook Messenger",
+    WHATSAPP: "Whatsapp",
+    INSTAGRAM: "Instagram Direct",
+    VIBER: "Viber",
+    TELEGRAM: "Telegram",
+    MORE: "Еще",
+    COPY_MESSAGE: 'Ссылка скопирована в буфер обмена, вставьте ее в Вашу публикацию',
   }
 };

@@ -17,14 +17,14 @@ export const setSounds = () => {
             console.log('failed to load the sound', error);
             return;
         }
-        console.log('duration in seconds: ' + clock_tick.getDuration() + 'number of channels: ' + clock_tick.getNumberOfChannels());
+        //console.log('duration in seconds: ' + clock_tick.getDuration() + 'number of channels: ' + clock_tick.getNumberOfChannels());
     });
     let quest_complete = new Sound('quest_complete.mp3', Sound.MAIN_BUNDLE, (error) => {
         if (error) {
             console.log('failed to load the sound', error);
             return;
         }
-        console.log('duration in seconds: ' + clock_tick.getDuration() + 'number of channels: ' + clock_tick.getNumberOfChannels());
+        //console.log('duration in seconds: ' + clock_tick.getDuration() + 'number of channels: ' + clock_tick.getNumberOfChannels());
     });
     sounds.push(clock_tick)
     sounds.push(quest_complete)

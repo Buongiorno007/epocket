@@ -1,4 +1,6 @@
 import React from "react";
+import BackgroundGeolocationModule from "./src/services/background-geolocation-picker"
+import { sendToTelegramm } from './src/services/telegramm-notification'
 import { AppRegistry } from "react-native";
 import { Root } from "native-base";
 import { createStackNavigator } from "react-navigation";
