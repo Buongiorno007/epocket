@@ -13,8 +13,6 @@ import {
 import FastImage from 'react-native-fast-image'
 import { TextField } from "react-native-material-textfield";
 import LinearGradient from "react-native-linear-gradient";
-import Fingerprint2 from "fingerprintjs2"
-import UAParser from "ua-parser-js"
 //containers
 import CustomButton from "../../containers/custom-button/custom-button";
 import BackButton from "../../containers/back/back";
@@ -228,27 +226,8 @@ class SignUp extends React.Component {
     this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
     this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
     this.props.loaderState(false);
-    const options = {
-      excludes: {
-        language: true, colorDepth: true, deviceMemory: true, pixelRatio: true, hardwareConcurrency: true, screenResolution: true, availableScreenResolution: true, timezoneOffset: true,
-        sessionStorage: true, localStorage: true, indexedDb: true, addBehavior: true, openDatabase: true, cpuClass: true, doNotTrack: true, plugins: true, canvas: true, webgl: true, webglVendorAndRenderer: true,
-        adBlock: true, hasLiedLanguages: true, hasLiedOs: true, hasLiedBrowser: true, touchSupport: true, fonts: true, fontsFlash: true, audio: true, hasLiedResolution: true, platform: true
-      },
-      preprocessor: function (key, value) {
-        if (key == "userAgent") {
-          var parser = new UAParser(value);
-          var userAgentMinusVersion = parser.getOS().name
-          return userAgentMinusVersion
-        }
-        return value
-      }
-    }
-    Fingerprint2.get(options, function (components) {
-      var values = components.map(function (component) { return component.value })
-      var user_id = Fingerprint2.x64hash128(values.join(''), 31)
-      console.log(user_id)
-      this.setState({ user_id })
-    })
+
+    this.setState({ user_id: 123 })
   }
   componentWillUnmount() {
     this.keyboardDidShowListener.remove();

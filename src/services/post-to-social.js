@@ -173,7 +173,7 @@ export function postToSocial(postData, deepLink, confirmFuction, video_status) {
                     RNInstagramStoryShare.shareToFeed({
                         backgroundImage: file_path,
                         deeplinkingUrl: deepLink
-                    }, video_status, this.callCallback, this.callCallback)
+                    }, Boolean(video_status), this.callCallback, this.callCallback)
                     this.confirmFuction = confirmFuction; //override this.confirmFuction to call confirmFunction in callback
                 })
                 .catch((err) => {
