@@ -64,8 +64,7 @@
         "redux-logger": "^3.0.6",
         "redux-thunk": "^2.3.0",
         "remote-redux-devtools": "^0.5.12",
-        "rn-fetch-blob": "^0.10.13",
-        "ua-parser-js": "^0.7.19"
+        "rn-fetch-blob": "^0.10.13"
     },
     "devDependencies": {
         "babel-plugin-transform-remove-console": "^6.9.4",

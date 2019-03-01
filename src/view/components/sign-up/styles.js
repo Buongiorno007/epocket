@@ -18,6 +18,9 @@ export default StyleSheet.create({
         width: width * 0.85,
         //  marginBottom: 30
     },
+    webView:{
+        flex:1
+    },
     signUpBtn: {
         marginTop: 40
     },
