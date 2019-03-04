@@ -102,6 +102,7 @@ class EarnMore extends React.Component {
 
   shareToInsta = () => {
     let new_insta_data = this.props.navigation.state.params.insta_data
+    this.props.loaderState(true);
     if (new_insta_data.video) {
       postToSocial(this.props.navigation.state.params.insta_data, 'https://www.instagram.com/epocketapp/', this.confirmPost, new_insta_data.video);
     } else {

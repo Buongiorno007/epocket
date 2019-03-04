@@ -3,6 +3,7 @@ import RNInstagramStoryShare from '../native_modules/react-native-instagram-stor
 import RNFetchBlob from 'rn-fetch-blob';
 import RNFS from 'react-native-fs';
 import { formatItem } from './format-hastags'
+import { loaderState } from "../reducers/loader"
 import Share from 'react-native-share';
 import { RU } from "./../locales/ru";
 
@@ -136,29 +137,7 @@ export function postToSocial(postData, deepLink, confirmFuction, video_status) {
             post_data = postData.video //postData
             file_path = dirs.DCIMDir + "/epc_game_video.mp4"
             console.log(post_data, file_path, type)
-            RNFetchBlob
-                .config({
-                    addAndroidDownloads: {
-                        useDownloadManager: true,
-                        notification: false,
-                        path: file_path,
-                        mime: 'text/plain',
-                        description: 'File downloaded by download manager.'
-                    }
-                })
-                .fetch('GET', post_data)
-                .then((resp) => {
-                    console.log(resp)
-                    RNInstagramStoryShare.shareToFeed({
-                        backgroundImage: file_path,
-                        deeplinkingUrl: deepLink
-                    }, Boolean(video_status), this.callCallback, this.callCallback)
-                    this.confirmFuction = confirmFuction; //override this.confirmFuction to call confirmFunction in callback
-                })
-                .catch((err) => {
-                    console.log("writeFile error", err)
-                })
-
+            requestStoragePermission(post_data, file_path, deepLink, confirmFuction, type, video_status);
         } else {
             type = 'base64'
             if (postData.base64 && postData.base64.includes(base64Prefix)) {
@@ -197,17 +176,42 @@ async function requestStoragePermission(post_data, file_path, deepLink, confirmF
         );
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             console.log('You can use the WRITE_EXTERNAL_STORAGE');
-            RNFS.writeFile(file_path, post_data, type)
-                .then(() => {
-                    RNInstagramStoryShare.shareToFeed({
-                        backgroundImage: file_path,
-                        deeplinkingUrl: deepLink
-                    }, Boolean(video_status), this.callCallback, this.callCallback)
-                    this.confirmFuction = confirmFuction; //override this.confirmFuction to call confirmFunction in callback
-                })
-                .catch((err) => {
-                    console.log("writeFile error", err)
-                })
+            if (video_status) {
+                RNFetchBlob
+                    .config({
+                        addAndroidDownloads: {
+                            useDownloadManager: true,
+                            notification: false,
+                            path: file_path,
+                            mime: 'text/plain',
+                            description: 'File downloaded by download manager.'
+                        }
+                    })
+                    .fetch('GET', post_data)
+                    .then((resp) => {
+                        console.log(resp)
+                        RNInstagramStoryShare.shareToFeed({
+                            backgroundImage: file_path,
+                            deeplinkingUrl: deepLink
+                        }, Boolean(video_status), this.callCallback, this.callCallback)
+                        this.confirmFuction = confirmFuction; //override this.confirmFuction to call confirmFunction in callback
+                    })
+                    .catch((err) => {
+                        console.log("writeFile error", err)
+                    })
+            } else {
+                RNFS.writeFile(file_path, post_data, type)
+                    .then(() => {
+                        RNInstagramStoryShare.shareToFeed({
+                            backgroundImage: file_path,
+                            deeplinkingUrl: deepLink
+                        }, Boolean(video_status), this.callCallback, this.callCallback)
+                        this.confirmFuction = confirmFuction; //override this.confirmFuction to call confirmFunction in callback
+                    })
+                    .catch((err) => {
+                        console.log("writeFile error", err)
+                    })
+            }
         } else {
             console.log('WRITE_EXTERNAL_STORAGE permission denied');
         }

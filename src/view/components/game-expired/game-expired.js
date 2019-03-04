@@ -140,6 +140,7 @@ class GameStart extends React.Component {
         }
     }
     shareToInsta = () => {
+        this.props.loaderState(true);
         postToSocial(this.props.game_expired_img, 'https://www.instagram.com/epocketapp/', this.confirmPost, this.props.game_expired_img.video);
     }
     render() {
