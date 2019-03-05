@@ -238,7 +238,8 @@ class SignUp extends React.Component {
     this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
     this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
     this.props.loaderState(false);
-    this.setRef();
+    if (Platform.OS != "ios")
+      this.setRef();
   }
   componentWillUnmount() {
     this.keyboardDidShowListener.remove();

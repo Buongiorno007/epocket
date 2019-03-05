@@ -90,10 +90,20 @@ function sendRequest(url, OPTIONS) {
           });
         });
       } else {
-        reject({
-          body: [],
-          code: parseInt(`${response.status}`)
-        });
+        try {
+          response.json().then(body => {
+            reject({
+              body,
+              code: parseInt(`${response.status}`)
+            });
+          });
+        }
+        catch (err) {
+          reject({
+            err,
+            code: parseInt(`${response.status}`)
+          });
+        }
       }
     });
   });
