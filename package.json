@@ -52,6 +52,7 @@
         "react-native-qrcode-scanner": "^1.1.2",
         "react-native-qrcode-svg": "^5.1.2",
         "react-native-radial-gradient": "^1.0.4",
+        "react-native-referrer": "^0.1.4",
         "react-native-share": "^1.1.2",
         "react-native-sound": "^0.10.9",
         "react-native-svg": "^9.2.3",

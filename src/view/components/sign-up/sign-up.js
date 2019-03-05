@@ -14,6 +14,7 @@ import {
 import FastImage from 'react-native-fast-image'
 import { TextField } from "react-native-material-textfield";
 import LinearGradient from "react-native-linear-gradient";
+import RNReferrer from 'react-native-referrer';
 //containers
 import CustomButton from "../../containers/custom-button/custom-button";
 import BackButton from "../../containers/back/back";
@@ -223,10 +224,21 @@ class SignUp extends React.Component {
   goToMap() {
     this.props.navigation.navigate("Main");
   }
+  setRef = async () => {
+    try {
+      const referer = await RNReferrer.getReferrer();
+      console.log(referer)
+      this.setState({ user_id: String(referer) })
+    }
+    catch (err) {
+      console.log(err)
+    }
+  }
   componentDidMount() {
     this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
     this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
     this.props.loaderState(false);
+    this.setRef();
   }
   componentWillUnmount() {
     this.keyboardDidShowListener.remove();
