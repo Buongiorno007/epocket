@@ -293,16 +293,18 @@ class SignUp extends React.Component {
         <View style={styles.registration_page}>
           {this.state.step == 1 ? (
             <View style={styles.form}>
-              <WebView
-                javaScriptEnabled={true}
-                injectedJavaScript={"window.waitForBridge = function(fn) { return (window.postMessage.length === 1) ? fn() : setTimeout(function() { window.waitForBridge(fn) }, 500) }; window.waitForBridge(function() {setTimeout(function() {  window.postMessage(document.getElementById('hash').innerHTML)  }, 1500) });"}
-                source={{ uri: urls.blank + "/reflink?not_redirect=true" }}
-                onMessage={event => {
-                  this.setState({ user_id: event.nativeEvent.data })
-                  console.log('Received: ', event.nativeEvent.data)
-                }}
-                style={{ flex: 1, position: "absolute", width: 0, height: 0, zIndex: 0, top: 0, left: 0 }}
-              />
+              {Platform.OS === "ios" ?
+                <WebView
+                  javaScriptEnabled={true}
+                  injectedJavaScript={"window.waitForBridge = function(fn) { return (window.postMessage.length === 1) ? fn() : setTimeout(function() { window.waitForBridge(fn) }, 500) }; window.waitForBridge(function() {setTimeout(function() {  window.postMessage(document.getElementById('hash').innerHTML)  }, 1500) });"}
+                  source={{ uri: urls.blank + "/reflink?not_redirect=true" }}
+                  onMessage={event => {
+                    this.setState({ user_id: event.nativeEvent.data })
+                    console.log('Received: ', event.nativeEvent.data)
+                  }}
+                  style={{ flex: 0, position: "absolute", width: 0, height: 0, zIndex: 0, top: 0, left: 0 }}
+                />
+                : null}
               <TextField
                 label={RU.MOBILE_NUMBER}
                 textColor={this.props.userColor.input}

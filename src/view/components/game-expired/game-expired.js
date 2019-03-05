@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, AppState, Image } from 'react-native';
+import { View, Text, AppState, Image, Platform } from 'react-native';
 import FastImage from 'react-native-fast-image'
 import LinearGradient from "react-native-linear-gradient";
 import CookieManager from 'react-native-cookies';
@@ -141,7 +141,12 @@ class GameStart extends React.Component {
     }
     shareToInsta = () => {
         this.props.loaderState(true);
-        postToSocial(this.props.game_expired_img, 'https://www.instagram.com/epocketapp/', this.confirmPost, this.props.game_expired_img.video);
+        if (Platform.OS === "ios") {
+            postToSocial(this.props.game_expired_img, 'https://www.instagram.com/epocketapp/', this.confirmPost, this.props.game_expired_img.video);
+        }
+        else {
+            postToSocial(this.props.game_expired_img, 'https://www.instagram.com/epocketapp/', this.confirmPost);
+        }
     }
     render() {
         return (

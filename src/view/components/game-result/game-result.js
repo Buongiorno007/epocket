@@ -191,7 +191,12 @@ class GameResult extends React.Component {
     }
     shareToInsta = () => {
         this.props.loaderState(true);
-        postToSocial(this.props.navigation.state.params.insta_data, 'https://www.instagram.com/epocketapp/', this.confirmPost, this.props.navigation.state.params.insta_data.video);
+        if (Platform.OS === "ios") {
+            postToSocial(this.props.navigation.state.params.insta_data, 'https://www.instagram.com/epocketapp/', this.confirmPost, this.props.navigation.state.params.insta_data.video);
+        }
+        else {
+            postToSocial(this.props.navigation.state.params.insta_data, 'https://www.instagram.com/epocketapp/', this.confirmPost);
+        }
     }
     _handleAppStateChange = (nextAppState) => {
         if (Platform.OS === "ios") {
