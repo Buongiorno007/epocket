@@ -1,9 +1,10 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { Button } from "native-base";
-import Close from "react-native-vector-icons/Feather";
+import FastImage from 'react-native-fast-image'
 //constants
 import { RU } from "../../../locales/ru";
+import { ICONS } from '../../../constants/icons';
 import styles from "./styles";
 //redux
 import { connect } from "react-redux";
@@ -42,7 +43,10 @@ class ScannerMission extends React.Component {
             style={styles.button}
             androidRippleColor={this.props.userColor.card_shadow}
           >
-            <Close name="x" style={styles.icon} />
+            <FastImage style={styles.icon}
+              resizeMode={FastImage.resizeMode.contain}
+              source={{ uri: ICONS.COMMON.CLOSE }} >
+            </FastImage>
           </Button>
         </View>
       </View>

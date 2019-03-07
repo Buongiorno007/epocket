@@ -3,7 +3,6 @@ import { View, Text, Platform, FlatList } from "react-native";
 import FastImage from 'react-native-fast-image';
 import { Button } from 'native-base';
 import LinearGradient from "react-native-linear-gradient";
-import Close from "react-native-vector-icons/Feather";
 //constants
 import styles from "./styles";
 import { RU } from "./../../../locales/ru";
@@ -126,7 +125,10 @@ class RefLink extends React.Component {
                                 style={styles.button_close}
                                 onPress={() => { this.setState({ shareMenuOpen: false }) }}
                             >
-                                <Close name="x" style={styles.icon_close} />
+                                <FastImage style={styles.icon_close}
+                                    resizeMode={FastImage.resizeMode.contain}
+                                    source={{ uri: ICONS.COMMON.CLOSE_WHITE }} >
+                                </FastImage>
                             </Button>
                             <Text style={styles.opened_share_title}>
                                 + 10 {RU.REF_LINK.FOR_YOU_AND_YOUR_FRIEND}

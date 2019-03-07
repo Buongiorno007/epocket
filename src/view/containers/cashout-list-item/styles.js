@@ -80,5 +80,9 @@ export default StyleSheet.create({
   value: {
     fontSize: 16,
     color: colors.black
+  },
+  icon: {
+    width: 10,
+    height: 10
   }
 });

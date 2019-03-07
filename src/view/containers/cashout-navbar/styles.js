@@ -17,8 +17,7 @@ export default StyleSheet.create({
         height: 40,
     },
     icon: {
-        color: '#000',
-        fontSize: 25,
-        fontWeight: 'bold',
+        width: 15,
+        height: 15
     },
 });

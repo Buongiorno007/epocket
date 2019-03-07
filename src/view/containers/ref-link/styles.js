@@ -68,10 +68,9 @@ export default StyleSheet.create({
         top: 0,
     },
     icon_close: {
-        color: colors.white,
-        fontSize: 25,
-        fontWeight: 'bold',
         zIndex: 1003,
+        width: 15,
+        height: 15,
     },
     button_close: {
         zIndex: 1003,

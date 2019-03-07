@@ -6,6 +6,7 @@ import Icon from "react-native-vector-icons/Feather";
 //constants
 import styles from "./styles";
 import { colors } from "../../../constants/colors_men";
+import { ICONS } from '../../../constants/icons';
 //services
 import NavigationService from "./../../../services/route";
 //redux
@@ -74,7 +75,10 @@ class CashoutList extends React.Component {
             style={styles.calculate_button}
             onPress={() => this.setItemCount(--this.state.count)}
           >
-            <Icon name="minus" style={styles.icon} />
+            <FastImage style={styles.icon}
+              resizeMode={FastImage.resizeMode.contain}
+              source={{ uri: ICONS.COMMON.MINUS }} >
+            </FastImage>
           </Button>
           <Text style={styles.text_count}>{this.props.item.count ? this.props.item.count : 0}</Text>
           <Button
@@ -86,7 +90,10 @@ class CashoutList extends React.Component {
             style={styles.calculate_button}
             onPress={() => this.setItemCount(++this.state.count)}
           >
-            <Icon name="plus" style={styles.icon} />
+            <FastImage style={styles.icon}
+              resizeMode={FastImage.resizeMode.contain}
+              source={{ uri: ICONS.COMMON.PLUS }} >
+            </FastImage>
           </Button>
         </View>
       </View>

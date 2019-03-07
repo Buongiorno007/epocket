@@ -2,7 +2,6 @@ import React from "react";
 import { View, Text } from "react-native";
 import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
-import Close from "react-native-vector-icons/Feather";
 //constants
 import styles from "./styles";
 //services
@@ -10,6 +9,7 @@ import styles from "./styles";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { RU } from "./../../../locales/ru";
+import { ICONS } from '../../../constants/icons';
 
 class CartCard extends React.Component {
     state = {
@@ -47,7 +47,10 @@ class CartCard extends React.Component {
                             style={styles.button_close}
                             onPress={() => this.deleteElement()}
                         >
-                            <Close name="x" style={styles.icon} />
+                            <FastImage style={styles.icon}
+                                resizeMode={FastImage.resizeMode.contain}
+                                source={{ uri: ICONS.COMMON.CLOSE }} >
+                            </FastImage>
                         </Button>
                     </View>
                 </View>

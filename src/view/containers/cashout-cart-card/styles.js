@@ -92,8 +92,7 @@ export default StyleSheet.create({
         height: 30,
     },
     icon: {
-        color: '#000',
-        fontSize: 20,
-        fontWeight: 'bold',
+        width: 10,
+        height: 10,
     },
 });

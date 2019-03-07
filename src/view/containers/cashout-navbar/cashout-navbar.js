@@ -1,10 +1,11 @@
 import React from "react";
 import { View } from "react-native";
-import Close from "react-native-vector-icons/Feather";
+import FastImage from 'react-native-fast-image'
 //constants
 import styles from "./styles";
 import { Button } from "native-base";
 import { colors } from "./../../../constants/colors";
+import { ICONS } from '../../../constants/icons';
 //services
 import NavigationService from "./../../../services/route";
 //redux
@@ -23,7 +24,10 @@ class CashoutNavbar extends React.Component {
           style={styles.button}
           onPress={() => NavigationService.navigate("Cashout", { cashout_data: this.props.copyOfCards, general_info: this.props.general_info })}
         >
-          <Close name="x" style={styles.icon} />
+          <FastImage style={styles.icon}
+            resizeMode={FastImage.resizeMode.contain}
+            source={{ uri: ICONS.COMMON.CLOSE }} >
+          </FastImage>
         </Button>
       </View>
     );
