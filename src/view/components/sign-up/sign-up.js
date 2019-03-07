@@ -86,7 +86,7 @@ class SignUp extends React.Component {
     r = r.replace(/^0/, "");
     if (r.length > 8) {
       // 11+ digits.
-      r = r.replace(/^(\d{2})(\d{3})(\d{0,3})(\d{0,4}).*/, "$1 $2 $3 $4");
+      r = r.replace(/^(\d{2})(\d{3})(\d{0,3})(\d{0,5}).*/, "$1 $2 $3 $4");
     }
     else if (r.length > 5) {
       // 6..10 digits. Format as 4+4
@@ -329,7 +329,7 @@ class SignUp extends React.Component {
                 inputContainerPadding={16}
                 onChangeText={text => this.onChangedPhone(text)}
                 value={this.state.phone}
-                maxLength={17}
+                maxLength={18}
                 keyboardType="numeric"
                 prefix="+"
               />
