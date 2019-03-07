@@ -79,6 +79,9 @@ project.ext.react = [
 
 apply from: "../../node_modules/react-native/react.gradle"
 
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+
+
 /**
  * Set this to true to create two separate APKs instead of one:
  *   - An APK that only works on ARM devices
@@ -101,8 +104,8 @@ android {
         applicationId "club.dvlp.epocket"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 29
-        versionName "2.3"
+        versionCode 30
+        versionName "2.4"
         multiDexEnabled true
         ndk {
             abiFilters "armeabi-v7a", "x86"
@@ -163,6 +166,7 @@ subprojects {
     }
 }
 dependencies {
+    compile project(':react-native-referrer')
     implementation project(':react-native-linear-gradient')
     implementation project(':react-native-svg')
     implementation project(':react-native-sound')

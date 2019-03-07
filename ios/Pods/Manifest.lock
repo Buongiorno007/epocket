@@ -109,6 +109,7 @@ PODS:
   - React (0.57.5):
     - React/Core (= 0.57.5)
 <<<<<<< HEAD
+<<<<<<< HEAD
   - react-native-camera (1.12.0):
     - React
     - react-native-camera/RCT (= 1.12.0)
@@ -118,13 +119,20 @@ PODS:
   - react-native-camera/RN (1.12.0):
 =======
   - react-native-camera (1.10.1):
+=======
+  - react-native-camera (1.12.0):
+>>>>>>> 355_ref_link
     - React
-    - react-native-camera/RCT (= 1.10.1)
-    - react-native-camera/RN (= 1.10.1)
-  - react-native-camera/RCT (1.10.1):
+    - react-native-camera/RCT (= 1.12.0)
+    - react-native-camera/RN (= 1.12.0)
+  - react-native-camera/RCT (1.12.0):
     - React
+<<<<<<< HEAD
   - react-native-camera/RN (1.10.1):
 >>>>>>> 102742d336b41878b783306296a9acb2461a256a
+=======
+  - react-native-camera/RN (1.12.0):
+>>>>>>> 355_ref_link
     - React
   - react-native-fast-image (5.1.1):
     - FLAnimatedImage
@@ -346,10 +354,14 @@ SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
 <<<<<<< HEAD
+<<<<<<< HEAD
   BVLinearGradient: e236616ba0f39c52a9d38d2349385ca2b8cfab0b
 =======
   BVLinearGradient: b0b70acf63ee888829b7c2ebbf6b50e227396e55
 >>>>>>> 102742d336b41878b783306296a9acb2461a256a
+=======
+  BVLinearGradient: 0d985ec461359c82bc254f26d11008bdae50d17a
+>>>>>>> 355_ref_link
   CocoaLumberjack: db7cc9e464771f12054c22ff6947c5a58d43a0fd
   Crashlytics: ccaac42660eb9351b9960c0d66106b0bcf99f4fa
   DoubleConversion: bb338842f62ab1d708ceb63ec3d999f0f3d98ecd
@@ -372,6 +384,9 @@ SPEC CHECKSUMS:
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 355_ref_link
   React: 01aa04500b2957c2767e1dff9fe12e09444a467c
   react-native-camera: 3540a93182182843c1f95e4e2f0f921387923d73
   react-native-fast-image: 47487b71169aea34868e7b38bf870b6b3f2157c5
@@ -388,6 +403,7 @@ SPEC CHECKSUMS:
   RNInstagramStoryShare: 357c8df36c9152ba4626bd01dcd0a61010a416cb
   RNSound: 53d2fc9c6589bd68daba530262b7560393def3ac
   RNSVG: 5f9985c28d7a09445b3b464ed6c44e969493705c
+<<<<<<< HEAD
   RNVectorIcons: a3c395829c56e2cb054a0730126298bf805a2dca
 =======
   React: 1fe0eb13d90b625d94c3b117c274dcfd2e760e11
@@ -408,9 +424,12 @@ SPEC CHECKSUMS:
   RNSVG: 4834be1d644eb77f0e3f6de851881b83758a3124
   RNVectorIcons: 8c52e1e8da1153613fdef44748e865c25556cb9c
 >>>>>>> 102742d336b41878b783306296a9acb2461a256a
+=======
+  RNVectorIcons: ac7bf6bfeafaf3ad34552cdc6eed6fb8c4b7c940
+>>>>>>> 355_ref_link
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   yoga: a5c0ba30ebe82c13612b4c9301ad29708b8978dc
 
-PODFILE CHECKSUM: b7db1199615e7f844f4b6b3baa0fafd6489b1fdf
+PODFILE CHECKSUM: a2e22b229c7cc527d04ec930fac5aef574bdbacc
 
 COCOAPODS: 1.6.1

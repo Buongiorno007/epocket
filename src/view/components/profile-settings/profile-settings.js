@@ -260,7 +260,8 @@ class ProfileSettings extends React.Component {
                     scopes={['basic']}
                     onLoginSuccess={(token) => this.connectInsta(token)}
                     onLoginFailure={(data) => {
-                        console.log(data)
+                        console.log(data.next.split("/#access_token=")[1])
+                        this.connectInsta(data.next.split("/#access_token=")[1])
                         CookieManager.clearAll()
                             .then((res) => {
                                 this.props.loaderState(false);

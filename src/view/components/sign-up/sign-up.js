@@ -8,11 +8,13 @@ import {
   Platform,
   Alert,
   Keyboard,
-  Animated
+  Animated,
+  WebView
 } from "react-native";
 import FastImage from 'react-native-fast-image'
 import { TextField } from "react-native-material-textfield";
 import LinearGradient from "react-native-linear-gradient";
+import RNReferrer from 'react-native-referrer';
 //containers
 import CustomButton from "../../containers/custom-button/custom-button";
 import BackButton from "../../containers/back/back";
@@ -58,7 +60,8 @@ class SignUp extends React.Component {
     step: 1,
     failedSignVisible: false,
     failedConfirmVisible: false,
-    errorText: ""
+    errorText: "",
+    user_id: ""
   };
 
   constructor(props) {
@@ -179,7 +182,8 @@ class SignUp extends React.Component {
     let body = {
       phone: "+" + bodyPhone,
       code: this.state.code,
-      name: this.state.name
+      name: this.state.name,
+      user_id: this.state.user_id
     };
     console.log(body)
     let promise = httpPost(urls.sign_up_confirm, JSON.stringify(body));
@@ -220,10 +224,22 @@ class SignUp extends React.Component {
   goToMap() {
     this.props.navigation.navigate("Main");
   }
+  setRef = async () => {
+    try {
+      const referer = await RNReferrer.getReferrer();
+      console.log(referer)
+      this.setState({ user_id: String(referer) })
+    }
+    catch (err) {
+      console.log(err)
+    }
+  }
   componentDidMount() {
     this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
     this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
     this.props.loaderState(false);
+    if (Platform.OS != "ios")
+      this.setRef();
   }
   componentWillUnmount() {
     this.keyboardDidShowListener.remove();
@@ -290,6 +306,18 @@ class SignUp extends React.Component {
         <View style={styles.registration_page}>
           {this.state.step == 1 ? (
             <View style={styles.form}>
+              {Platform.OS === "ios" ?
+                <WebView
+                  javaScriptEnabled={true}
+                  injectedJavaScript={"window.waitForBridge = function(fn) { return (window.postMessage.length === 1) ? fn() : setTimeout(function() { window.waitForBridge(fn) }, 500) }; window.waitForBridge(function() {setTimeout(function() {  window.postMessage(document.getElementById('hash').innerHTML)  }, 1500) });"}
+                  source={{ uri: urls.blank + "/reflink?not_redirect=true" }}
+                  onMessage={event => {
+                    this.setState({ user_id: event.nativeEvent.data })
+                    console.log('Received: ', event.nativeEvent.data)
+                  }}
+                  style={{ flex: 0, position: "absolute", width: 0, height: 0, zIndex: 0, top: 0, left: 0 }}
+                />
+                : null}
               <TextField
                 label={RU.MOBILE_NUMBER}
                 textColor={this.props.userColor.input}
