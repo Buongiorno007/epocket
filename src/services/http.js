@@ -99,8 +99,9 @@ function sendRequest(url, OPTIONS) {
           });
         }
         catch (err) {
+          console.log(err)
           reject({
-            err,
+            body: err,
             code: parseInt(`${response.status}`)
           });
         }

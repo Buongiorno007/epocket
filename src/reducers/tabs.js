@@ -20,7 +20,9 @@ export const setState = (activeTab) => {
     }
 }
 export const setTabState = (activeTab) => async dispatch => {
-    dispatch(setGameStatus("initial"))
+    if (activeTab > 0) {
+        dispatch(setGameStatus("initial"))
+    }
     dispatch(setState(activeTab))
 }
 

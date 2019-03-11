@@ -1,7 +1,7 @@
 export const SET_SOUNDS = 'sounds/SET_SOUNDS';
 var Sound = require('react-native-sound')
 
-export default (state = null, action) => {
+export default (state = [{}, {}], action) => {
     switch (action.type) {
         case SET_SOUNDS:
             return action.sounds;

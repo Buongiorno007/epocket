@@ -282,5 +282,6 @@ export const RU = {
     TELEGRAM: "Telegram",
     MORE: "Еще",
     COPY_MESSAGE: 'Ссылка скопирована в буфер обмена, вставьте ее в Вашу публикацию',
+    ADDITIONAL_SHARING_TEXT: "Давай вместе зарабатывать в Epocketcash. Активируй аккаунт по ссылке и мы сразу получим по "
   }
 };

@@ -57,6 +57,7 @@ class GameStart extends React.Component {
                     if (this.props.game_expired_timer <= 1) {
                         clearCorrectingInterval(this.state.interval);
                         this.props.getGameInfo(this.props.token, this.props.location.lat, this.props.location.lng)
+                        console.log("start timer")
                         this.props.setGameStatus("start");
                     }
                     this.props.setGameExpiredTimer(this.props.game_expired_timer - 1)

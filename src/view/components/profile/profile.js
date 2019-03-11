@@ -32,6 +32,7 @@ class Profile extends React.Component {
 			phone: this.props.user.user_phone
 		},
 		refferal_link: urls.blank,
+		refferal_price: 0,
 		modalVisible: false,
 		animationVisible: this.props.profileIsVirgin && this.props.profileIsVirgin != "false"
 	};
@@ -61,7 +62,10 @@ class Profile extends React.Component {
 		promise.then(
 			result => {
 				console.log(result)
-				this.setState({ refferal_link: urls.ref_link + result.body.link })
+				this.setState({
+					refferal_link: urls.ref_link + result.body.link,
+					refferal_price: Number(Number(result.body.ref_reward).toFixed(2))
+				})
 				this.props.loaderState(false);
 			},
 			error => {
@@ -195,7 +199,7 @@ class Profile extends React.Component {
 							) : null}
 						</TouchableOpacity>}
 				</View>
-				<RefLink link={this.state.refferal_link} />
+				<RefLink link={this.state.refferal_link} price={this.state.refferal_price} />
 				<FooterNavigation />
 			</View>
 		);

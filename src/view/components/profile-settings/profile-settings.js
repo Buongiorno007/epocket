@@ -50,7 +50,7 @@ class ProfileSettings extends React.Component {
         }, 5000);
     }
     LogOut = () => {
-        AsyncStorage.multiSet([["user_info", ""], ["balance", ""], ["token", ""], ["insta_token", ""], ["facebook_token", ""], ["cashout_cart", ""], ["cashout_cart_time", ""], ["cashout_cart_id", ""]], () => {
+        AsyncStorage.multiSet([["user_info", ""], ["balance", ""], ["token", ""], ["insta_token", ""], ["facebook_token", ""], ["cashout_cart", ""], ["cashout_cart_time", ""], ["cashout_cart_id", ""], ["game_status", "start"]], () => {
             NavigationService.navigate("Start");
             this.props.setGameStatus("start");
             this.props.setInstaToken("");

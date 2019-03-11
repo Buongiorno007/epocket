@@ -23,6 +23,7 @@ import { RU } from "../../../locales/ru";
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { setGameStatus } from "../../../reducers/game-status"
 import { setBalance } from "../../../reducers/user-balance";
 import { getConnection } from "../../../reducers/net-info";
 import { setTabState } from "../../../reducers/tabs";
@@ -76,15 +77,15 @@ class Start extends React.Component {
   };
   componentDidMount = () => {
     this.props.setTabState(0);
+    this.props.setSounds()
     this.props.getConnection();
     this.props.locationStateListener();
     this.props.locationCoordsListener();
     this._initialConfig();
-    this.props.setSounds()
   };
 
   _initialConfig = () => {
-    AsyncStorage.multiGet(["insta_token", "token", "balance", "facebook_token", "geo_virgin", "profile_virgin"], (err, stores) => {
+    AsyncStorage.multiGet(["insta_token", "token", "balance", "facebook_token", "geo_virgin", "profile_virgin", "game_status"], (err, stores) => {
       stores.map((result, i, store) => {
         this.props.loaderState(false);
         // get at each store's key/value so you can work with it
@@ -134,6 +135,10 @@ class Start extends React.Component {
           }
           case 'profile_virgin': {
             value && this.props.setProfileVirgin(value);
+            break;
+          }
+          case 'game_status': {
+            value && this.props.setGameStatus(value);
             break;
           }
         }
@@ -229,7 +234,8 @@ const mapDispatchToProps = dispatch =>
       loaderState,
       getPush,
       setProfileVirgin,
-      setSounds
+      setSounds,
+      setGameStatus
     },
     dispatch
   );

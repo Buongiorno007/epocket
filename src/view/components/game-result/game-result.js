@@ -97,6 +97,7 @@ class GameResult extends React.Component {
                     this.props.setGameInfo(info);
                     this.props.loaderState(false);
                     NavigationService.navigate("Main")
+                    console.log("check for games error")
                     this.props.setGameStatus("start");
                 }
                 else {
@@ -140,6 +141,7 @@ class GameResult extends React.Component {
         this.props.getGameInfo(this.props.token, this.props.location.lat, this.props.location.lng)
         setTimeout(() => {
             NavigationService.navigate("Main")
+            console.log("go home")
             this.props.setGameStatus("start")
         }, 500)
     }
@@ -199,18 +201,10 @@ class GameResult extends React.Component {
         }
     }
     _handleAppStateChange = (nextAppState) => {
-        if (Platform.OS === "ios") {
-            if (((this.props.appState.match(/active/) && (nextAppState === 'inactive')) || this.props.appState.match(/active/) && (nextAppState === 'background')) && this.props.navigation.state.params.status != "success") {
-                console.log("user tried to abuse ios")
-                this.goWait();
-            }
-        } else {
-            if (this.props.appState.match(/active/) && (nextAppState === 'inactive') && this.props.navigation.state.params.status != "success") {
-                console.log("user tried to abuse android")
-                this.goWait();
-            }
+        if (((this.props.appState.match(/active/) && (nextAppState === 'inactive')) || this.props.appState.match(/active/) && (nextAppState === 'background')) && this.props.navigation.state.params.status != "success") {
+            console.log("user tried to abuse")
+            this.goWait();
         }
-
         this.props.setAppState(nextAppState)
     }
     componentWillMount = () => {

@@ -26,15 +26,16 @@ shareSingleThroughtLinking = (app_link, app_share_link, app_market_id) => {
         }
     }).catch(err => console.log(err));
 }
-export function shareToOneSocial(shareLink, socialType) {
+export function shareToOneSocial(shareLink, link_reward, socialType) {
+    let extendedShareLink = RU.REF_LINK.ADDITIONAL_SHARING_TEXT + link_reward + " " + RU.EPC.toUpperCase() + "\n" + shareLink
     const defaultOptions = {
         title: "EpocketCash",
-        message: shareLink,
+        message: extendedShareLink,
     };
     let market_link = ""
     switch (socialType) {
         case "copy":
-            Clipboard.setString(shareLink);
+            Clipboard.setString(extendedShareLink);
             Toast.show({
                 text: RU.REF_LINK.COPY_MESSAGE,
                 buttonText: "",
@@ -51,15 +52,15 @@ export function shareToOneSocial(shareLink, socialType) {
             break;
         case "facebook-messenger":
             Platform.OS === "ios" ? market_link = "/messenger/id454638411?mt=8" : market_link = "com.facebook.orca"
-            this.shareSingleThroughtLinking('fb-messenger://', "fb-messenger://share/?link=" + shareLink + "&app_id=2150067405259447", market_link)
+            this.shareSingleThroughtLinking('fb-messenger://', "fb-messenger://share/?link=" + extendedShareLink + "&app_id=2150067405259447", market_link)
             break;
         case "telegram":
             Platform.OS === "ios" ? market_link = "/telegram-messenger/id686449807?mt=8" : market_link = "org.telegram.messenger"
-            this.shareSingleThroughtLinking('tg://', "tg://msg?text=" + shareLink, market_link)
+            this.shareSingleThroughtLinking('tg://', "tg://msg?text=" + extendedShareLink, market_link)
             break;
         case "viber":
             Platform.OS === "ios" ? market_link = "/viber-messenger-chats-calls/id382617920?mt=8" : market_link = "com.viber.voip"
-            this.shareSingleThroughtLinking('viber://', "viber://forward?text=" + shareLink, market_link)
+            this.shareSingleThroughtLinking('viber://', "viber://forward?text=" + extendedShareLink, market_link)
             break;
         case "whatsapp":
             Share.shareSingle({ ...defaultOptions, social: Share.Social.WHATSAPP });
@@ -68,10 +69,10 @@ export function shareToOneSocial(shareLink, socialType) {
             Share.shareSingle({ ...defaultOptions, social: Share.Social.INSTAGRAM });
             break;
         case "more":
-            shareToAllSocial(shareLink)
+            shareToAllSocial(extendedShareLink)
             break;
         default:
-            shareToAllSocial(shareLink)
+            shareToAllSocial(extendedShareLink)
             break;
     }
 }

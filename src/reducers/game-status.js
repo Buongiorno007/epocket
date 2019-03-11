@@ -1,3 +1,4 @@
+import { AsyncStorage } from "react-native";
 export const GAME_STATUS = 'game-status/GAME_STATUS';
 
 export default (state = "initial", action) => {
@@ -15,9 +16,13 @@ export default (state = "initial", action) => {
 //   failed (game finished and failed)
 //   expired (game finished and expired, expired page will be rendered on 4-th tab)
 //   lock (user have passed 100 games, so now he have to check in)
-export const setGameStatus = (status) => ({
-    type: GAME_STATUS, status
-})
+export const setGameStatus = (status) => {
+    AsyncStorage.setItem('game_status', status);
+    console.log("setGameStatus " + status)
+    return {
+        type: GAME_STATUS, status
+    }
+}
 
 
 

@@ -66,7 +66,7 @@ class RefLink extends React.Component {
             <Button
                 transparent
                 style={[styles.list_item, item.item.lastOne && styles.last_list_item]}
-                onPress={() => { shareToOneSocial(this.state.share_link, item.item.type) }}
+                onPress={() => { shareToOneSocial(this.state.share_link, this.props.price, item.item.type) }}
             >
                 <FastImage
                     style={styles.list_item_image}
@@ -101,7 +101,7 @@ class RefLink extends React.Component {
                         resizeMode={FastImage.resizeMode.contain}
                         source={{ uri: ICONS.REF_LINK.ADD_FRIEND }}
                     />
-                    <Text style={styles.ref_link_text}>+ 10 {RU.REF_LINK.GET_EPC}</Text>
+                    <Text style={styles.ref_link_text}>+ {this.props.price} {RU.REF_LINK.GET_EPC}</Text>
                     <FastImage
                         style={styles.navigate_forward}
                         resizeMode={FastImage.resizeMode.contain}
@@ -131,7 +131,7 @@ class RefLink extends React.Component {
                                 </FastImage>
                             </Button>
                             <Text style={styles.opened_share_title}>
-                                + 10 {RU.REF_LINK.FOR_YOU_AND_YOUR_FRIEND}
+                                + {this.props.price} {RU.REF_LINK.FOR_YOU_AND_YOUR_FRIEND}
                             </Text>
                         </View>
                         <View style={styles.share_list}>
