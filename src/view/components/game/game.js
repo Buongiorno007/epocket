@@ -11,7 +11,7 @@ import { setGameStatus } from "../../../reducers/game-status"
 import { setAppState } from "../../../reducers/app-state"
 import { loaderState } from "../../../reducers/loader";
 import { passGameResult } from "../../../reducers/game-info";
-import { playClock, stopClock, playQuestComplete } from "../../../reducers/sounds";
+import { playClock, stopClock, playQuestComplete, playQuestFail } from "../../../reducers/sounds";
 import { editGame, clearGame } from "../../../reducers/game-controller"
 //constants
 import styles from './styles';
@@ -85,6 +85,7 @@ class Game extends React.Component {
 			this.goToResult("success")
 		}
 		else {
+			this.props.playQuestFail(this.props.sounds[2])
 			if (timer_expired) {
 				this.goToResult("expired");
 			}
@@ -205,7 +206,8 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
 	clearGame,
 	playClock,
 	stopClock,
-	playQuestComplete
+	playQuestComplete,
+	playQuestFail
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

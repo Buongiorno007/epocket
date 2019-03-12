@@ -26,8 +26,16 @@ export const setSounds = () => {
         }
         //console.log('duration in seconds: ' + clock_tick.getDuration() + 'number of channels: ' + clock_tick.getNumberOfChannels());
     });
+    let quest_fail = new Sound('quest_fail.wav', Sound.MAIN_BUNDLE, (error) => {
+        if (error) {
+            console.log('failed to load the sound', error);
+            return;
+        }
+        //console.log('duration in seconds: ' + clock_tick.getDuration() + 'number of channels: ' + clock_tick.getNumberOfChannels());
+    });
     sounds.push(clock_tick)
     sounds.push(quest_complete)
+    sounds.push(quest_fail)
     return {
         type: SET_SOUNDS,
         sounds
@@ -54,6 +62,16 @@ export const playQuestComplete = (quest_complete) => async dispatch => {
             // reset the player to its uninitialized state (android only)
             // this is the only option to recover after an error occured and use the player again
             quest_complete.reset();
+        }
+    });
+}
+export const playQuestFail = (quest_fail) => async dispatch => {
+    quest_fail.play((success) => {
+        if (success) {
+            console.log('successfully finished playing');
+        } else {
+            console.log('playback failed due to audio decoding errors');
+            quest_fail.reset();
         }
     });
 }

@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -41,13 +42,14 @@
 		67D70D34036643328D880D4A /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3120522DDF2C45489C57F56E /* Roboto.ttf */; };
 		6C38A1BD21F992EA00D4E7C5 /* libRCTCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C38A19421F992D400D4E7C5 /* libRCTCameraRoll.a */; };
 		6C5C9D9D21F72F31009AAEB6 /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C5C9D9A21F72F21009AAEB6 /* libART.a */; };
-		6C6B144B21F857AD00B44EFA /* clock_tick.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6C6B141A21F857AD00B44EFA /* clock_tick.wav */; };
-		6C6B144C21F857AD00B44EFA /* quest_complete.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6C6B144A21F857AD00B44EFA /* quest_complete.mp3 */; };
 		6C9F29CD21AD3D3600167317 /* libRNShare.a in Sources */ = {isa = PBXBuildFile; fileRef = 6CD127E021A56AB9007BC7FD /* libRNShare.a */; };
 		6CABB0A821CB781E000D3408 /* libRNShare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CABB0A421CB780D000D3408 /* libRNShare.a */; };
 		7747F44ED10349ABAF72FF9D /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 980D170C751B492D8F80F736 /* MaterialIcons.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8B21EE2BCF8E487CB6E0E75D /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E491EBD0C6894115A34FC58D /* EvilIcons.ttf */; };
+		A5A389192237DF5600F9C812 /* quest_fail.wav in Resources */ = {isa = PBXBuildFile; fileRef = A5A389162237DF5500F9C812 /* quest_fail.wav */; };
+		A5A3891A2237DF5600F9C812 /* clock_tick.wav in Resources */ = {isa = PBXBuildFile; fileRef = A5A389172237DF5500F9C812 /* clock_tick.wav */; };
+		A5A3891B2237DF5600F9C812 /* quest_complete.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A5A389182237DF5500F9C812 /* quest_complete.mp3 */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		ADBFF13315CE4A06BFD3F0CF /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE96AE24F2BF49D5BCC51106 /* MaterialCommunityIcons.ttf */; };
 		B492E2CA7AA8454B9321BB7D /* Rubik-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B15CEB4AB522451A8CD8BB46 /* Rubik-BlackItalic.ttf */; };
@@ -451,8 +453,6 @@
 		6B29C7C30ECF4E7393F0998E /* RNTextGradient.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNTextGradient.xcodeproj; path = "../node_modules/react-native-text-gradient/ios/RNTextGradient.xcodeproj"; sourceTree = "<group>"; };
 		6C38A18821F992D400D4E7C5 /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "../node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<group>"; };
 		6C5C9D9421F72F21009AAEB6 /* ART.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ART.xcodeproj; path = "../node_modules/react-native/Libraries/ART/ART.xcodeproj"; sourceTree = "<group>"; };
-		6C6B141A21F857AD00B44EFA /* clock_tick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = clock_tick.wav; path = ../../../../Downloads/clock_tick.wav; sourceTree = "<group>"; };
-		6C6B144A21F857AD00B44EFA /* quest_complete.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = quest_complete.mp3; path = ../../../../Downloads/quest_complete.mp3; sourceTree = "<group>"; };
 		6CABB07621CB780D000D3408 /* RNShare.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNShare.xcodeproj; path = "../node_modules/react-native-share/ios/RNShare.xcodeproj"; sourceTree = "<group>"; };
 		6CD127E021A56AB9007BC7FD /* libRNShare.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNShare.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		768D2276C20D6756B8936D88 /* Pods-EpocketCash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EpocketCash.release.xcconfig"; path = "Pods/Target Support Files/Pods-EpocketCash/Pods-EpocketCash.release.xcconfig"; sourceTree = "<group>"; };
@@ -463,6 +463,9 @@
 		92AC22B1058643A69DADC1FF /* libRNFirebase.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFirebase.a; sourceTree = "<group>"; };
 		980D170C751B492D8F80F736 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		A0FEAF16BB0F46A2857876ED /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/native-base/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
+		A5A389162237DF5500F9C812 /* quest_fail.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = quest_fail.wav; path = ../android/app/src/main/res/raw/quest_fail.wav; sourceTree = "<group>"; };
+		A5A389172237DF5500F9C812 /* clock_tick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = clock_tick.wav; path = ../android/app/src/main/res/raw/clock_tick.wav; sourceTree = "<group>"; };
+		A5A389182237DF5500F9C812 /* quest_complete.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = quest_complete.mp3; path = ../android/app/src/main/res/raw/quest_complete.mp3; sourceTree = "<group>"; };
 		ACEE521E1A6643DE97B15C10 /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; };
 		AD648120A4414AF5B0B325A1 /* libRNCookieManagerIOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCookieManagerIOS.a; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
@@ -820,8 +823,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				6C6B141A21F857AD00B44EFA /* clock_tick.wav */,
-				6C6B144A21F857AD00B44EFA /* quest_complete.mp3 */,
+				A5A389172237DF5500F9C812 /* clock_tick.wav */,
+				A5A389182237DF5500F9C812 /* quest_complete.mp3 */,
+				A5A389162237DF5500F9C812 /* quest_fail.wav */,
 				13B07FAE1A68108700A75B9A /* EpocketCash */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* EpocketCashTests */,
@@ -1345,10 +1349,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C6B144B21F857AD00B44EFA /* clock_tick.wav in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				C04B1BD456B44B069A334A9D /* Rubik-Black.ttf in Resources */,
-				6C6B144C21F857AD00B44EFA /* quest_complete.mp3 in Resources */,
 				B492E2CA7AA8454B9321BB7D /* Rubik-BlackItalic.ttf in Resources */,
 				F7CDE7A7791C48F590CB09A3 /* Rubik-Bold.ttf in Resources */,
 				F631691D8B4F45E294C20079 /* Rubik-BoldItalic.ttf in Resources */,
@@ -1357,6 +1359,7 @@
 				461014632EC84CB6827E3933 /* Rubik-LightItalic.ttf in Resources */,
 				F93875B93B074B6A8E129D06 /* Rubik-Medium.ttf in Resources */,
 				4AB58759998A4713A6227782 /* Rubik-MediumItalic.ttf in Resources */,
+				A5A3891A2237DF5600F9C812 /* clock_tick.wav in Resources */,
 				42F60399E8384E599979D1F5 /* Rubik-Regular.ttf in Resources */,
 				55914A7329C04672BEE60F2A /* Entypo.ttf in Resources */,
 				8B21EE2BCF8E487CB6E0E75D /* EvilIcons.ttf in Resources */,
@@ -1366,7 +1369,9 @@
 				158329A421AC3DF800AB3794 /* InfoPlist.strings in Resources */,
 				46A93BD644D247FBAAD3BEB7 /* Foundation.ttf in Resources */,
 				C5C3990C69A946568D2E53CC /* Ionicons.ttf in Resources */,
+				A5A389192237DF5600F9C812 /* quest_fail.wav in Resources */,
 				ADBFF13315CE4A06BFD3F0CF /* MaterialCommunityIcons.ttf in Resources */,
+				A5A3891B2237DF5600F9C812 /* quest_complete.mp3 in Resources */,
 				7747F44ED10349ABAF72FF9D /* MaterialIcons.ttf in Resources */,
 				3396C63851854659A5B29DDB /* Octicons.ttf in Resources */,
 				5745E982AA794FEDBC46D090 /* Roboto_medium.ttf in Resources */,
