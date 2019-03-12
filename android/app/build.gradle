@@ -104,7 +104,7 @@ android {
         applicationId "club.dvlp.epocket"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 33
+        versionCode 33  
         versionName "2.4"
         multiDexEnabled true
         ndk {
@@ -166,6 +166,7 @@ subprojects {
     }
 }
 dependencies {
+    compile project(':react-native-android-open-settings')
     compile project(':jail-monkey')
     implementation project(':react-native-referrer')
     implementation project(':react-native-linear-gradient')

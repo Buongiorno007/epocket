@@ -8,6 +8,7 @@ import com.facebook.appevents.AppEventsLogger;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.ReactApplication;
+import com.levelasquez.androidopensettings.AndroidOpenSettingsPackage;
 import com.gantix.JailMonkey.JailMonkeyPackage;
 import com.jdc.reactlibrary.RNReferrerPackage;
 import com.horcrux.svg.SvgPackage;
@@ -75,6 +76,7 @@ public class MainApplication extends Application implements ShareApplication, Re
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new AndroidOpenSettingsPackage(),
             new JailMonkeyPackage(),
             new RNReferrerPackage(),
                     new LinearGradientPackage(),
