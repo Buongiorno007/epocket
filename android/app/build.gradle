@@ -104,7 +104,7 @@ android {
         applicationId "club.dvlp.epocket"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 32
+        versionCode 33
         versionName "2.4"
         multiDexEnabled true
         ndk {

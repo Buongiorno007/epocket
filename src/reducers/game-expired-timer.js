@@ -37,7 +37,6 @@ export const shutDownExpiredTimer = (token, id, lat, ln) => async dispatch => {
         result => {
             let time = result.body.time;
             dispatch(setGameExpiredTimer(time))
-            console.log("shut down timer")
             dispatch(setGameStatus("start"))
             dispatch(getGameInfo(token, lat, ln));
             dispatch(errorState(null));
@@ -73,7 +72,6 @@ export const launchGameExpiredTimer = (token, id) => async dispatch => {
                 dispatch(setGameExpiredImage({ id: id, img: oldresult.body.image, video: oldresult.body.video_status ? oldresult.body.video : false }))
                 dispatch(setGameExpiredTimer(time))
                 if (time === 0) {
-                    console.log("launch timer")
                     dispatch(setGameStatus("start"))
                 }
                 else {
@@ -88,7 +86,6 @@ export const launchGameExpiredTimer = (token, id) => async dispatch => {
                         dispatch(setGameExpiredImage({ id: id, img: oldresult.body.image, base64: 'data:image/jpg;base64,' + result, video: false }))
                         dispatch(setGameExpiredTimer(time))
                         if (time === 0) {
-                            console.log("launch timer 2")
                             dispatch(setGameStatus("start"))
                         }
                         else {

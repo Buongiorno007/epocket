@@ -88,7 +88,6 @@ export const checkForPostStatus = (game_id, token, lat, lng, game_expired_timer)
                                 dispatch(setTempTime(game.time))
                                 dispatch(loaderState(false))
                                 NavigationService.navigate("Main")
-                                console.log("check for post status")
                                 dispatch(setGameStatus("start"))
                             }
                         );
@@ -111,7 +110,6 @@ export const checkForPostStatus = (game_id, token, lat, lng, game_expired_timer)
                         dispatch(setGameInfo(info));
                         dispatch(loaderState(false));
                         NavigationService.navigate("Main")
-                        console.log("check for post status error")
                         dispatch(setGameStatus("start"))
                     }
                     else {

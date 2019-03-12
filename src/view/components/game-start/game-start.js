@@ -72,7 +72,6 @@ class GameStart extends React.Component {
     componentWillMount() {
         console.log(this.props.game_status)
         if (this.props.game_status != "lock" && this.props.game_status != "expired" && this.props.game_status != "failed" && this.props.game_status != "start") {
-            console.log("component will mount !lock")
             this.props.setGameStatus("start")
         }
         if (this.props.game_status === "lock" && this.props.distance <= 0) {

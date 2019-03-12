@@ -18,7 +18,6 @@ export default (state = "initial", action) => {
 //   lock (user have passed 100 games, so now he have to check in)
 export const setGameStatus = (status) => {
     AsyncStorage.setItem('game_status', status);
-    console.log("setGameStatus " + status)
     return {
         type: GAME_STATUS, status
     }
