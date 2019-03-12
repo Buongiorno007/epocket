@@ -18,6 +18,7 @@
         "eslint": "^5.1.0",
         "geolib": "^2.0.24",
         "intl": "^1.2.5",
+        "jail-monkey": "^2.1.1",
         "lodash": "^4.17.11",
         "moment": "^2.22.2",
         "moment-timezone": "^0.5.23",

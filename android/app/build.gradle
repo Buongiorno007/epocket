@@ -166,6 +166,7 @@ subprojects {
     }
 }
 dependencies {
+    compile project(':jail-monkey')
     implementation project(':react-native-referrer')
     implementation project(':react-native-linear-gradient')
     implementation project(':react-native-svg')
