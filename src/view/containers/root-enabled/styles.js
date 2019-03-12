@@ -14,6 +14,17 @@ export default StyleSheet.create({
         bottom: Platform.OS === "ios" ? 60 : 0,
         zIndex: 998
     },
+    grad: {
+        position: "absolute",
+        height: height,
+        width: width,
+    },
+    image_background: {
+        position: "absolute",
+        top: 0,
+        height: height,
+        width: width,
+    },
     circle_container: {
         zIndex: 1001,
         width: width * 0.85,
@@ -22,44 +33,41 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    virgin_container: {
-        bottom: 60,
-    },
-    virgin_btn_container: {
-        bottom: 10,
-    },
     btnContainer: {
         zIndex: 1001,
         bottom: Platform.OS === "ios" ? -60 : 0,
     },
-    enable_location: {
+    open_settings: {
         width: width * 0.6,
         borderRadius: 40,
         height: 60,
+        backgroundColor: colors.white,
         alignItems: 'center',
         justifyContent: 'center',
         alignSelf: 'center',
         overflow: 'hidden'
     },
-    location_disable_text: {
+    attention: {
         textAlign: 'center',
         alignSelf: 'center',
-        color: colors.black,
+        color: colors.white,
+        fontFamily: "Rubik-Medium",
+        fontSize: 18,
+        marginBottom: 28
+    },
+    root_text: {
+        textAlign: 'center',
+        alignSelf: 'center',
+        color: colors.white,
         fontFamily: "Rubik-Regular",
         fontSize: 12
     },
-    location_disable_text_white: {
+    settings_text: {
         textAlign: 'center',
         alignSelf: 'center',
-        color: colors.white,
-        fontFamily: "Rubik-Bold",
-        fontSize: 20
-    },
-    location_enable_text: {
-        textAlign: 'center',
-        alignSelf: 'center',
-        color: colors.white,
-        position: 'absolute'
+        position: 'absolute',
+        fontFamily: "Rubik-Medium",
+        fontSize: 12
     },
     bottom_image: {
         position: "absolute",

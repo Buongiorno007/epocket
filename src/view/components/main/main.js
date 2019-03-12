@@ -32,7 +32,9 @@ import { getGameInfo } from "../../../reducers/game-info";
 import GeolocationService from "../../../services/geolocation-service";
 
 class Main extends React.Component {
-
+  state = {
+    develop: false
+  }
   componentDidMount() {
     this.backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
       this.props.setActiveCard(false);
@@ -42,6 +44,9 @@ class Main extends React.Component {
       let object = JSON.parse(value);
       this.props.setColor(object.sex);
     });
+    if (__DEV__) {
+      this.setState({ develop: true })
+    }
     //this.props.getGameInfo(this.props.token, this.props.location.lat, this.props.location.lng)
   }
   renderLastTab = () => {
@@ -80,9 +85,14 @@ class Main extends React.Component {
           !this.props.isLocation && (this.props.activeTab == 1 || this.props.activeTab == 0) && <LocationDisabled /> :
           !this.props.isLocation && <LocationDisabled />
         }
-        {Platform.OS === "ios" ?
-          this.props.rootStatus && this.props.isLocation && (this.props.activeTab == 1 || this.props.activeTab == 0) && <RootEnabled /> :
-          this.props.rootStatus && this.props.isLocation && <RootEnabled />
+        {
+          !this.state.develop &&
+          (
+            Platform.OS === "ios" ?
+              this.props.rootStatus && this.props.isLocation && (this.props.activeTab == 1 || this.props.activeTab == 0) && <RootEnabled /> :
+              this.props.rootStatus && this.props.isLocation && <RootEnabled />
+          )
+
         }
         <TimerModal />
       </View>

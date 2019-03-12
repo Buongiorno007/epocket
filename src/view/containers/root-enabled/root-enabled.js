@@ -5,6 +5,7 @@ import {
     Platform,
     Linking
 } from "react-native";
+import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
 import LinearGradient from "react-native-linear-gradient";
 import Permissions from "react-native-permissions";
@@ -37,28 +38,35 @@ class LocationDisabled extends React.Component {
     }
     render() {
         return (
-            <View style={styles.main_view}>
-                <Blur strong />
+            <View style={[styles.main_view, { backgroundColor: this.props.userColor.pink_blue }]}>
+                <FastImage
+                    resizeMode={FastImage.resizeMode.contain}
+                    style={styles.image_background}
+                    source={require('../../../assets/img/ANIMATED_EARN_MORE.gif')}
+                />
+                <LinearGradient
+                    colors={this.props.userColor.earn_more}
+                    start={{ x: 0.0, y: 1.4 }}
+                    end={{ x: 1.0, y: 0.0 }}
+                    style={styles.grad}
+                />
                 <View style={styles.circle_container}>
-                    <Text style={styles.location_disable_text}>
+                    <Text style={styles.attention}>
+                        {RU.ATTENTION}
+                    </Text>
+                    <Text style={styles.root_text}>
                         {RU.DEVELOPER_ENABLED} {Platform.OS === "ios" ? RU.ROOT_ENABLED_IOS : RU.ROOT_ENABLED_ANDROID}
                     </Text>
                 </View>
-                <View style={[styles.enable_location, styles.btnContainer]}>
+                <View style={[styles.open_settings, styles.btnContainer]}>
                     <Button
                         transparent
-                        style={styles.enable_location}
+                        style={styles.open_settings}
                         onPress={() => {
                             this.openSettings();
                         }}
                     >
-                        <LinearGradient
-                            colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
-                            start={{ x: 0.0, y: 1.0 }}
-                            end={{ x: 1.0, y: 1.0 }}
-                            style={styles.enable_location}
-                        />
-                        <Text style={styles.location_enable_text}>
+                        <Text style={[styles.settings_text, { color: this.props.userColor.pink_blue }]}>
                             {RU.DEVICE_SETTINGS.toUpperCase()}
                         </Text>
                     </Button>
