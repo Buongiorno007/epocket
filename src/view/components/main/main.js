@@ -16,6 +16,7 @@ import ReturnToMall from "../../containers/return-to-mall-timer/return-to-mall-t
 import NoInternet from "../../containers/no-internet/no-internet";
 import TimerModal from "../../containers/timer-modal/timer-modal";
 import LocationDisabled from "../../containers/location-disabled/location-disabled";
+import RootEnabled from "../../containers/root-enabled/root-enabled"
 //constants
 import styles from "./styles";
 //redux
@@ -79,6 +80,10 @@ class Main extends React.Component {
           !this.props.isLocation && (this.props.activeTab == 1 || this.props.activeTab == 0) && <LocationDisabled /> :
           !this.props.isLocation && <LocationDisabled />
         }
+        {Platform.OS === "ios" ?
+          this.props.rootStatus && this.props.isLocation && (this.props.activeTab == 1 || this.props.activeTab == 0) && <RootEnabled /> :
+          this.props.rootStatus && this.props.isLocation && <RootEnabled />
+        }
         <TimerModal />
       </View>
     );
@@ -99,6 +104,7 @@ const mapStateToProps = state => ({
   timerShow: state.timerShow,
   token: state.token,
   location: state.location,
+  rootStatus: state.rootStatus
 });
 
 const mapDispatchToProps = dispatch =>

@@ -49,6 +49,7 @@ import geolocationIsVirgin from "./geo-virgin"
 import timerShow from "./show-dashboard-timer"
 import sounds from "./sounds"
 import postStatus from "./post-status"
+import rootStatus from "./root-status"
 
 export default combineReducers({
   isConnected,
@@ -100,5 +101,6 @@ export default combineReducers({
   timerShow,
   doneMissionCost,
   sounds,
-  postStatus
+  postStatus,
+  rootStatus
 });

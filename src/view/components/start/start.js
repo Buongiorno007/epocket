@@ -33,6 +33,7 @@ import { setGeoVirgin } from "../../../reducers/geo-virgin"
 import { getPush } from "../../../reducers/push";
 import { setFacebookToken } from "../../../reducers/facebook-token"
 import { setProfileVirgin } from "../../../reducers/profile-virgin"
+import { updateRootStatus } from "../../../reducers/root-status"
 import {
   locationStateListener,
   locationState
@@ -82,6 +83,7 @@ class Start extends React.Component {
     this.props.locationStateListener();
     this.props.locationCoordsListener();
     this._initialConfig();
+    this.props.updateRootStatus();
   };
 
   _initialConfig = () => {
@@ -215,6 +217,7 @@ const mapStateToProps = state => ({
   isConnected: state.isConnected,
   loader: state.loader,
   token: state.token,
+  isLocation: state.isLocation
 });
 
 const mapDispatchToProps = dispatch =>
@@ -235,6 +238,7 @@ const mapDispatchToProps = dispatch =>
       getPush,
       setProfileVirgin,
       setSounds,
+      updateRootStatus,
       setGameStatus
     },
     dispatch
