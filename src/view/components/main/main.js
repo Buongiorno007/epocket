@@ -45,7 +45,7 @@ class Main extends React.Component {
       this.props.setColor(object.sex);
     });
     if (__DEV__) {
-      this.setState({ develop: true })
+      this.setState({ develop: false })
     }
     //this.props.getGameInfo(this.props.token, this.props.location.lat, this.props.location.lng)
   }

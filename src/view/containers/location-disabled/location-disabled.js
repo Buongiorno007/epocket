@@ -26,6 +26,7 @@ import {
   setLocation
 } from "../../../reducers/geolocation-coords";
 import { setGeoVirgin } from "../../../reducers/geo-virgin"
+import { updateRootStatus } from "../../../reducers/root-status"
 //components
 import Blur from "../blur/blur";
 //services
@@ -44,6 +45,7 @@ class LocationDisabled extends React.Component {
               lng: position.coords.longitude,
               lat: position.coords.latitude
             });
+            this.props.updateRootStatus();
           },
           error => {
             console.log('position', error)
@@ -64,6 +66,7 @@ class LocationDisabled extends React.Component {
           lng: position.coords.longitude,
           lat: position.coords.latitude
         });
+        this.props.updateRootStatus();
       },
       error => {
         this.props.locationState(false);
@@ -209,7 +212,8 @@ const mapDispatchToProps = dispatch =>
       setLocation,
       locationStateListener,
       locationCoordsListener,
-      setGeoVirgin
+      setGeoVirgin,
+      updateRootStatus
     },
     dispatch
   );
