@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StatusBar, BackHandler, AsyncStorage, Platform } from "react-native";
+import { View, StatusBar, BackHandler, AsyncStorage, Platform, AppState } from "react-native";
 //components
 import Map from "./../map/map";
 import Profile from "./../profile/profile";
@@ -27,13 +27,34 @@ import { showFailedNotification } from "../../../reducers/main-task-failed-notif
 import { setActiveCard } from "../../../reducers/set-active-card";
 import { setColor } from "../../../reducers/user-color"
 import { getGameInfo } from "../../../reducers/game-info";
+import { loaderState } from "../../../reducers/loader";
+import { updateRootStatus } from "../../../reducers/root-status"
+import { setAppState } from "../../../reducers/app-state"
 
 //services
 import GeolocationService from "../../../services/geolocation-service";
 
 class Main extends React.Component {
   state = {
-    develop: false
+    develop: false,
+    appState: AppState.currentState
+  }
+  _handleAppStateChange = (nextAppState) => {
+    console.log(this.state.appState, nextAppState)
+    if ((this.state.appState.match(/inactive|background|active/) && nextAppState.match(/active/)) || (this.state.appState.match(/active/) && nextAppState.match(/inactive|background/))) {
+      this.props.loaderState(true)
+      setTimeout(() => {
+        console.log("change state app")
+        this.props.updateRootStatus();
+      }, 5000);
+    }
+    this.props.setAppState(nextAppState)
+  }
+  componentWillMount = () => {
+    AppState.addEventListener('change', this._handleAppStateChange);
+  }
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this._handleAppStateChange);
   }
   componentDidMount() {
     this.backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
@@ -45,7 +66,7 @@ class Main extends React.Component {
       this.props.setColor(object.sex);
     });
     if (__DEV__) {
-      this.setState({ develop: false })
+      this.setState({ develop: true })
     }
     //this.props.getGameInfo(this.props.token, this.props.location.lat, this.props.location.lng)
   }
@@ -124,7 +145,10 @@ const mapDispatchToProps = dispatch =>
       showFailedNotification,
       setActiveCard,
       setColor,
-      getGameInfo
+      updateRootStatus,
+      getGameInfo,
+      loaderState,
+      setAppState
     },
     dispatch
   );
