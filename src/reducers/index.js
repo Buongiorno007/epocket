@@ -50,6 +50,7 @@ import timerShow from "./show-dashboard-timer"
 import sounds from "./sounds"
 import postStatus from "./post-status"
 import rootStatus from "./root-status"
+import dateAbuseStatus from "./date-abuse-status"
 
 export default combineReducers({
   isConnected,
@@ -102,5 +103,6 @@ export default combineReducers({
   doneMissionCost,
   sounds,
   postStatus,
-  rootStatus
+  rootStatus,
+  dateAbuseStatus
 });

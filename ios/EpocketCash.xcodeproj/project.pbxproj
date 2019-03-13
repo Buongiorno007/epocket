@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -56,6 +57,7 @@
 		B679F1DF7BCA268599DEF228 /* libPods-EpocketCash.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6000166D502203CE5942E9FB /* libPods-EpocketCash.a */; };
 		B8C5F4817CF14EC487ACCA20 /* libSRSRadialGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1BBFF974D5A4052988871E8 /* libSRSRadialGradient.a */; };
 		C04B1BD456B44B069A334A9D /* Rubik-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1D6C6FE612DB45F8B98D4BD1 /* Rubik-Black.ttf */; };
+		C214D908912B46688298F87A /* libUdpSockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F88ADA8B8C7445597C37C1B /* libUdpSockets.a */; };
 		C5C3990C69A946568D2E53CC /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA5772EDC44846D79BA3590D /* Ionicons.ttf */; };
 		C9868F9F9C5C4526844BEDE8 /* libRNCookieManagerIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD648120A4414AF5B0B325A1 /* libRNCookieManagerIOS.a */; };
 		D186B0D9E0CA4FDEB28209C5 /* Rubik-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 332A185408DB465EBFE63613 /* Rubik-Italic.ttf */; };
@@ -403,6 +405,13 @@
 			remoteGlobalIDString = 38C138441D3FC3F600A8162D;
 			remoteInfo = JailMonkey;
 		};
+		A5EE0D6222395117000A8251 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F43EC7D03F6348288CF09713 /* UdpSockets.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = UdpSockets;
+		};
 		ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */;
@@ -451,6 +460,7 @@
 		36AA07AC67674B16849DBD34 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		3AFA52E8249C4D02BF040A96 /* Rubik-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-BoldItalic.ttf"; path = "../src/assets/fonts/Rubik/Rubik-BoldItalic.ttf"; sourceTree = "<group>"; };
 		4DE00973334F4E50B322019E /* Roboto_medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto_medium.ttf; path = "../node_modules/native-base/Fonts/Roboto_medium.ttf"; sourceTree = "<group>"; };
+		4F88ADA8B8C7445597C37C1B /* libUdpSockets.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libUdpSockets.a; sourceTree = "<group>"; };
 		50FB5C25F8CC4361A2F610B8 /* Rubik-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Light.ttf"; path = "../src/assets/fonts/Rubik/Rubik-Light.ttf"; sourceTree = "<group>"; };
 		511814A1532F4C6BA4A83A76 /* Rubik-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-LightItalic.ttf"; path = "../src/assets/fonts/Rubik/Rubik-LightItalic.ttf"; sourceTree = "<group>"; };
 		553D09AD218793A7FC1FAF03 /* Pods-EpocketCash.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EpocketCash.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EpocketCash/Pods-EpocketCash.debug.xcconfig"; sourceTree = "<group>"; };
@@ -486,6 +496,7 @@
 		D96D77508BC148399D51CF35 /* Rubik-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Bold.ttf"; path = "../src/assets/fonts/Rubik/Rubik-Bold.ttf"; sourceTree = "<group>"; };
 		E1A77E8646384AD1A321422F /* libRNTextGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNTextGradient.a; sourceTree = "<group>"; };
 		E491EBD0C6894115A34FC58D /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/native-base/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		F43EC7D03F6348288CF09713 /* UdpSockets.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = UdpSockets.xcodeproj; path = "../node_modules/react-native-udp/ios/UdpSockets.xcodeproj"; sourceTree = "<group>"; };
 		FE96AE24F2BF49D5BCC51106 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -519,6 +530,7 @@
 				B679F1DF7BCA268599DEF228 /* libPods-EpocketCash.a in Frameworks */,
 				EA2A6BC7519E4783AAC05559 /* libRNFirebase.a in Frameworks */,
 				C9868F9F9C5C4526844BEDE8 /* libRNCookieManagerIOS.a in Frameworks */,
+				C214D908912B46688298F87A /* libUdpSockets.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -682,6 +694,7 @@
 				E1A77E8646384AD1A321422F /* libRNTextGradient.a */,
 				92AC22B1058643A69DADC1FF /* libRNFirebase.a */,
 				AD648120A4414AF5B0B325A1 /* libRNCookieManagerIOS.a */,
+				4F88ADA8B8C7445597C37C1B /* libUdpSockets.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -817,6 +830,7 @@
 				6B29C7C30ECF4E7393F0998E /* RNTextGradient.xcodeproj */,
 				910D9C4B81854FF59D837898 /* RNFirebase.xcodeproj */,
 				19A42D0FCEB34D1EA90DEBC4 /* RNCookieManagerIOS.xcodeproj */,
+				F43EC7D03F6348288CF09713 /* UdpSockets.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -862,6 +876,14 @@
 			isa = PBXGroup;
 			children = (
 				A587E32C2237EC6E006E162B /* libJailMonkey.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A5EE0D5F22395117000A8251 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A5EE0D6322395117000A8251 /* libUdpSockets.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1018,6 +1040,10 @@
 				{
 					ProductGroup = 32DE99CB21005FFA00EF1FE9 /* Products */;
 					ProjectRef = B87D12CB96984C74A140AC1C /* SRSRadialGradient.xcodeproj */;
+				},
+				{
+					ProductGroup = A5EE0D5F22395117000A8251 /* Products */;
+					ProjectRef = F43EC7D03F6348288CF09713 /* UdpSockets.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1364,6 +1390,13 @@
 			remoteRef = A587E32B2237EC6E006E162B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		A5EE0D6322395117000A8251 /* libUdpSockets.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libUdpSockets.a;
+			remoteRef = A5EE0D6222395117000A8251 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1562,11 +1595,15 @@
 					"$(SRCROOT)/../node_modules/react-native-text-gradient/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-cookies/ios/RNCookieManagerIOS",
+					"$(SRCROOT)/../node_modules/react-native-udp/ios/**",
 				);
 				INFOPLIST_FILE = EpocketCash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/EpocketCash\"",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1597,11 +1634,15 @@
 					"$(SRCROOT)/../node_modules/react-native-text-gradient/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-cookies/ios/RNCookieManagerIOS",
+					"$(SRCROOT)/../node_modules/react-native-udp/ios/**",
 				);
 				INFOPLIST_FILE = EpocketCash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/EpocketCash\"",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

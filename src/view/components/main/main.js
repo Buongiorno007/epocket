@@ -17,6 +17,7 @@ import NoInternet from "../../containers/no-internet/no-internet";
 import TimerModal from "../../containers/timer-modal/timer-modal";
 import LocationDisabled from "../../containers/location-disabled/location-disabled";
 import RootEnabled from "../../containers/root-enabled/root-enabled"
+import DateAbuseEnabled from "../../containers/date-abuse-enabled/date-abuse-enabled"
 //constants
 import styles from "./styles";
 //redux
@@ -29,6 +30,7 @@ import { setColor } from "../../../reducers/user-color"
 import { getGameInfo } from "../../../reducers/game-info";
 import { loaderState } from "../../../reducers/loader";
 import { updateRootStatus } from "../../../reducers/root-status"
+import { loadNTPDate } from "../../../reducers/date-abuse-status"
 import { setAppState } from "../../../reducers/app-state"
 
 //services
@@ -45,6 +47,7 @@ class Main extends React.Component {
       setTimeout(() => {
         console.log("change state app")
         this.props.updateRootStatus();
+        this.props.loadNTPDate();
       }, 5000);
     }
     this.props.setAppState(nextAppState)
@@ -114,6 +117,9 @@ class Main extends React.Component {
           )
 
         }
+        {
+          this.props.dateAbuseStatus && <DateAbuseEnabled />
+        }
         <TimerModal />
       </View>
     );
@@ -134,7 +140,8 @@ const mapStateToProps = state => ({
   timerShow: state.timerShow,
   token: state.token,
   location: state.location,
-  rootStatus: state.rootStatus
+  rootStatus: state.rootStatus,
+  dateAbuseStatus: state.dateAbuseStatus
 });
 
 const mapDispatchToProps = dispatch =>
@@ -146,6 +153,7 @@ const mapDispatchToProps = dispatch =>
       setColor,
       updateRootStatus,
       getGameInfo,
+      loadNTPDate,
       loaderState,
       setAppState
     },
