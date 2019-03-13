@@ -40,7 +40,6 @@ class Main extends React.Component {
     appState: AppState.currentState
   }
   _handleAppStateChange = (nextAppState) => {
-    console.log(this.state.appState, nextAppState)
     if ((this.state.appState.match(/inactive|background|active/) && nextAppState.match(/active/)) || (this.state.appState.match(/active/) && nextAppState.match(/inactive|background/))) {
       this.props.loaderState(true)
       setTimeout(() => {

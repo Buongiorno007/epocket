@@ -25,7 +25,8 @@ import firebase from 'react-native-firebase';
 class GeolocationService extends React.Component {
 
   state = {
-    sheduleRequest: null
+    sheduleRequest: null,
+    pushSended: false
   };
 
   startMissionRequest = () => {
@@ -120,8 +121,8 @@ class GeolocationService extends React.Component {
   //   });
   // };
   _handleAppStateChange = (nextAppState) => {
+    console.log(this.props.appState, nextAppState)
     if (this.props.appState.match(/inactive|background/) && nextAppState === 'active') {
-
       getCurrentGeolocation().then((location) => {
         this.calculateDistance({
           latitude: this.props.selectedMall.lat,
@@ -144,38 +145,58 @@ class GeolocationService extends React.Component {
   };
 
   calculateDistance = (currentLocation, nextLocation, nextProps) => {
-    let distance = geolib.getDistance(
-      {
-        latitude: currentLocation.latitude,
-        longitude: currentLocation.longitude
-      },
-      {
-        latitude: nextLocation.latitude,
-        longitude: nextLocation.longitude
-      }
-    ) - this.props.selectedMall.rad;
-    if (nextProps.isLocation && this.props.isLocation) {
-      if (distance <= 0 && !this.props.timer_status && nextProps.timer_status) {
-        this.props.showDashboard(true);
-        this.props.showTimer(false);
-        this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_4);
-      } else if (distance > 0 && this.props.timer_status) {
-        this.props.showDashboard(false);
-        this.props.showTimer(true);
-        this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_5);
-      }
-      if (distance === 120) {
-        this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_3);
+    if (
+      currentLocation.latitude !== 0 && currentLocation.longitude !== 0 &&
+      nextLocation.latitude !== 0 && nextLocation.longitude !== 0
+    ) {
+      let distance = geolib.getDistance(
+        {
+          latitude: currentLocation.latitude,
+          longitude: currentLocation.longitude
+        },
+        {
+          latitude: nextLocation.latitude,
+          longitude: nextLocation.longitude
+        }
+      ) - this.props.selectedMall.rad;
+      if (nextProps.isLocation && this.props.isLocation) {
+        if (distance > 100) {
+          this.setState({ pushSended: false }) //allow to push message #3
+        }
+        if (distance <= 100 && !this.state.pushSended) {
+          this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_3);
+          this.setState({ pushSended: true }) //block push message #3
+        }
+        if (distance <= 0 && !this.props.timer_status && nextProps.timer_status) {
+          this.props.showDashboard(true);
+          this.props.showTimer(false);
+          this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_4);
+        }
+        if (distance > 0 && this.props.timer_status) {
+          this.props.showDashboard(false);
+          this.props.showTimer(true);
+          this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_5);
+        }
       }
     }
   }
 
   componentWillReceiveProps = nextProps => {
     if (
-      this.props.selectedMall.lat &&
-      this.props.selectedMall.lng &&
-      nextProps.location.lat.toFixed(4) != this.props.location.lat.toFixed(4) &&
-      nextProps.location.lng.toFixed(4) != this.props.location.lng.toFixed(4)
+      (
+        this.props.selectedMall.lat &&
+        this.props.selectedMall.lng &&
+        nextProps.location.lat.toFixed(4) != this.props.location.lat.toFixed(4) &&
+        nextProps.location.lng.toFixed(4) != this.props.location.lng.toFixed(4)
+      )
+      ||
+      (
+        this.props.selectedMall.lat &&
+        this.props.selectedMall.lng &&
+        !this.state.sendDistancePush &&
+        nextProps.location.lat.toFixed(4) === this.props.location.lat.toFixed(4) &&
+        nextProps.location.lng.toFixed(4) === this.props.location.lng.toFixed(4)
+      )
     ) {
       this.calculateDistance({
         latitude: this.props.selectedMall.lat,

@@ -51,7 +51,6 @@ class GameStart extends React.Component {
             outlet_id: id,
             notInMall: (this.props.distance <= 0 && this.props.isLocation) ? false : true
         };
-        console.log(id)
         let promise = httpPost(
             urls.missions,
             JSON.stringify(body),
@@ -132,6 +131,7 @@ class GameStart extends React.Component {
             id: trc.id,
             rad: trc.rad
         };
+        console.log("curr_trc", curr_trc)
         this.props.updateMall(curr_trc);
         this.updateGames(curr_trc.id);
         this.props.setDistance(distance);
