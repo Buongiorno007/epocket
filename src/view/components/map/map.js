@@ -359,7 +359,8 @@ class Map extends React.Component {
     }
   };
   componentDidMount = () => {
-    this.loadTRC();
+    if (this.props.dateAbuseStatus)
+      this.loadTRC();
     if (this.props.location.lat === 0 && this.props.location.lng === 0) {
       this.setState({ location_loader: true });
     } else {
@@ -1005,7 +1006,8 @@ class Map extends React.Component {
           first_btn_title={RU.REPEAT}
           visible={this.state.errorVisible}
           first_btn_handler={() => {
-            this.loadTRC();
+            if (this.props.dateAbuseStatus)
+              this.loadTRC();
           }}
           decline_btn_handler={() => {
             this.setErrorVisible(!this.state.errorVisible);
@@ -1016,7 +1018,8 @@ class Map extends React.Component {
           first_btn_title={RU.REPEAT}
           visible={this.state.errorVisible}
           first_btn_handler={() => {
-            this.loadTRC();
+            if (this.props.dateAbuseStatus)
+              this.loadTRC();
           }}
           decline_btn_handler={() => {
             this.setErrorVisible(!this.state.errorVisible);
@@ -1208,7 +1211,8 @@ const mapStateToProps = state => {
     initial_outlets: state.initial_outlets,
     insta_token: state.insta_token,
     facebook_token: state.facebook_token,
-    timer_interval: state.timer_interval
+    timer_interval: state.timer_interval,
+    dateAbuseStatus: state.dateAbuseStatus
   };
 };
 

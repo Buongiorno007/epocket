@@ -16,26 +16,38 @@ export default (state = true, action) => {
     }
 }
 export const setDateAbuseStatus = (status) => {
+    console.log("setDateAbuseStatus", status)
     return {
         type: UPDATE_DATE_ABUSE_STATUS,
         status
     }
 }
 export const loadNTPDate = () => async dispatch => {
+    let deviceDate = moment().format('ddd MMM D YYYY');
+    let deviceHours = moment().format('HH');
+    let deviceMinutes = moment().format('mm');
     ntpClient.getNetworkTime("pool.ntp.org", 123, function (err, date) {
         if (err) {
             console.log(err);
+            dispatch(setDateAbuseStatus(false))
             return;
         }
         else {
-            console.log(moment().format('ddd MMM D YYYY H:mm'))
-            console.log("Current time : ");
-            console.log(String(date).split(" GMT")[0].slice(0, -3)); // Mon Jul 08 2013 21:31:31 GMT+0200 (Paris, Madrid (heure d’été))
-            if (String(moment().format('ddd MMM D YYYY H:mm')) === String(String(date).split(" GMT")[0].slice(0, -3))) {
-                dispatch(setDateAbuseStatus(false))
+            let serverFullTime = String(date).split(" GMT")[0].slice(0, -3)
+            let serverDate = String(date).split(" GMT")[0].slice(0, -9)
+            let serverHours = String(serverFullTime).slice(-5, -3)
+            let serverMinutes = String(serverFullTime).slice(-2)
+            if (
+                String(deviceDate) === String(serverDate) &&
+                Number(deviceHours) === Number(serverHours) &&
+                (Math.abs(Number(deviceMinutes) - Number(serverMinutes)) <= 10)
+            ) {
+                console.log("date time ok")
+                dispatch(setDateAbuseStatus(true))
             }
             else {
-                dispatch(setDateAbuseStatus(true))
+                console.log("date time failed")
+                dispatch(setDateAbuseStatus(false))
             }
         }
     });

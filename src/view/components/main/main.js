@@ -38,17 +38,18 @@ import GeolocationService from "../../../services/geolocation-service";
 
 class Main extends React.Component {
   state = {
-    develop: false,
-    appState: AppState.currentState
+    develop: false
   }
   _handleAppStateChange = (nextAppState) => {
-    if ((this.state.appState.match(/inactive|background|active/) && nextAppState.match(/active/)) || (this.state.appState.match(/active/) && nextAppState.match(/inactive|background/))) {
+    console.log(this.props.appState, nextAppState)
+    if ((this.props.appState.match(/inactive|background/) && nextAppState.match(/active/)) || (this.props.appState.match(/active/) && nextAppState.match(/inactive|background/))) {
       this.props.loaderState(true)
       setTimeout(() => {
-        console.log("change state app")
         this.props.updateRootStatus();
-        this.props.loadNTPDate();
       }, 5000);
+    }
+    if (this.props.appState.match(/inactive|background/) && nextAppState.match(/active/)) {
+      this.props.loadNTPDate();
     }
     this.props.setAppState(nextAppState)
   }
@@ -118,7 +119,7 @@ class Main extends React.Component {
 
         }
         {
-          this.props.dateAbuseStatus && <DateAbuseEnabled />
+          !this.props.dateAbuseStatus ? <DateAbuseEnabled /> : null
         }
         <TimerModal />
       </View>
@@ -141,7 +142,8 @@ const mapStateToProps = state => ({
   token: state.token,
   location: state.location,
   rootStatus: state.rootStatus,
-  dateAbuseStatus: state.dateAbuseStatus
+  dateAbuseStatus: state.dateAbuseStatus,
+  appState: state.appState
 });
 
 const mapDispatchToProps = dispatch =>
