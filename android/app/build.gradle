@@ -166,6 +166,7 @@ subprojects {
     }
 }
 dependencies {
+    compile project(':react-native-udp')
     compile project(':react-native-mock-location-detector')
     compile project(':react-native-android-open-settings')
     compile project(':jail-monkey')

@@ -23,14 +23,12 @@ export const setRootStatus = (status) => {
 }
 export const additionalCheckMock = () => async dispatch => {
     RNMockLocationDetector.checkMockLocationProvider(function mockCallBack(status) {
-        console.log("RNMockLocationDetector", status)
         dispatch(setRootStatus(status))
         dispatch(loaderState(false))
     })
 }
 export const updateRootStatus = () => async dispatch => {
     let status = JailMonkey.trustFall()
-    console.log("jail monkey status ('false' means everything is ok, no root): " + status)
     if (!status && Platform.OS !== "ios") { // run additional check if jail monkey failed
         dispatch(additionalCheckMock())
     }

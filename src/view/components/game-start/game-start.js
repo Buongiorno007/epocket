@@ -51,7 +51,6 @@ class GameStart extends React.Component {
             outlet_id: id,
             notInMall: (this.props.distance <= 0 && this.props.isLocation) ? false : true
         };
-        console.log(id)
         let promise = httpPost(
             urls.missions,
             JSON.stringify(body),
@@ -79,7 +78,8 @@ class GameStart extends React.Component {
         }
     }
     componentDidMount() {
-        this.loadTRC();
+        if (this.props.dateAbuseStatus)
+            this.loadTRC();
         setTimeout(() => {
             this.setState({ loader: false })
         }, 1000);
@@ -93,7 +93,8 @@ class GameStart extends React.Component {
             (nextProps.location.lng.toFixed(3) != this.props.location.lng.toFixed(3))
         ) {
             this.props.getGameInfo(this.props.token, nextProps.location.lat, nextProps.location.lng)
-            this.loadTRC();
+            if (this.props.dateAbuseStatus)
+                this.loadTRC();
         }
     }
     setModalVisible = visible => {
@@ -132,6 +133,7 @@ class GameStart extends React.Component {
             id: trc.id,
             rad: trc.rad
         };
+        console.log("curr_trc", curr_trc)
         this.props.updateMall(curr_trc);
         this.updateGames(curr_trc.id);
         this.props.setDistance(distance);
@@ -221,7 +223,8 @@ class GameStart extends React.Component {
                     first_btn_title={RU.REPEAT}
                     visible={this.state.errorVisible}
                     first_btn_handler={() => {
-                        this.loadTRC();
+                        if (this.props.dateAbuseStatus)
+                            this.loadTRC();
                     }}
                     decline_btn_handler={() => {
                         this.setModalVisible(!this.state.errorVisible);
@@ -334,6 +337,7 @@ const mapStateToProps = (state) => {
         selectedMall: state.selectedMall,
         distance: state.distance,
         activeTab: state.activeTab,
+        dateAbuseStatus: state.dateAbuseStatus
     };
 };
 

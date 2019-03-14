@@ -17,6 +17,7 @@ import NoInternet from "../../containers/no-internet/no-internet";
 import TimerModal from "../../containers/timer-modal/timer-modal";
 import LocationDisabled from "../../containers/location-disabled/location-disabled";
 import RootEnabled from "../../containers/root-enabled/root-enabled"
+import DateAbuseEnabled from "../../containers/date-abuse-enabled/date-abuse-enabled"
 //constants
 import styles from "./styles";
 //redux
@@ -29,6 +30,7 @@ import { setColor } from "../../../reducers/user-color"
 import { getGameInfo } from "../../../reducers/game-info";
 import { loaderState } from "../../../reducers/loader";
 import { updateRootStatus } from "../../../reducers/root-status"
+import { loadNTPDate } from "../../../reducers/date-abuse-status"
 import { setAppState } from "../../../reducers/app-state"
 
 //services
@@ -36,17 +38,18 @@ import GeolocationService from "../../../services/geolocation-service";
 
 class Main extends React.Component {
   state = {
-    develop: false,
-    appState: AppState.currentState
+    develop: false
   }
   _handleAppStateChange = (nextAppState) => {
-    console.log(this.state.appState, nextAppState)
-    if ((this.state.appState.match(/inactive|background|active/) && nextAppState.match(/active/)) || (this.state.appState.match(/active/) && nextAppState.match(/inactive|background/))) {
+    console.log(this.props.appState, nextAppState)
+    if ((this.props.appState.match(/inactive|background/) && nextAppState.match(/active/)) || (this.props.appState.match(/active/) && nextAppState.match(/inactive|background/))) {
       this.props.loaderState(true)
       setTimeout(() => {
-        console.log("change state app")
         this.props.updateRootStatus();
       }, 5000);
+    }
+    if (this.props.appState.match(/inactive|background/) && nextAppState.match(/active/)) {
+      this.props.loadNTPDate();
     }
     this.props.setAppState(nextAppState)
   }
@@ -115,6 +118,9 @@ class Main extends React.Component {
           )
 
         }
+        {
+          !this.props.dateAbuseStatus ? <DateAbuseEnabled /> : null
+        }
         <TimerModal />
       </View>
     );
@@ -135,7 +141,9 @@ const mapStateToProps = state => ({
   timerShow: state.timerShow,
   token: state.token,
   location: state.location,
-  rootStatus: state.rootStatus
+  rootStatus: state.rootStatus,
+  dateAbuseStatus: state.dateAbuseStatus,
+  appState: state.appState
 });
 
 const mapDispatchToProps = dispatch =>
@@ -147,6 +155,7 @@ const mapDispatchToProps = dispatch =>
       setColor,
       updateRootStatus,
       getGameInfo,
+      loadNTPDate,
       loaderState,
       setAppState
     },

@@ -34,6 +34,7 @@ import { getPush } from "../../../reducers/push";
 import { setFacebookToken } from "../../../reducers/facebook-token"
 import { setProfileVirgin } from "../../../reducers/profile-virgin"
 import { updateRootStatus } from "../../../reducers/root-status"
+import { loadNTPDate } from "../../../reducers/date-abuse-status"
 import {
   locationStateListener,
   locationState
@@ -84,6 +85,7 @@ class Start extends React.Component {
     this.props.locationCoordsListener();
     this._initialConfig();
     this.props.updateRootStatus();
+    this.props.loadNTPDate();
   };
 
   _initialConfig = () => {
@@ -239,6 +241,7 @@ const mapDispatchToProps = dispatch =>
       setProfileVirgin,
       setSounds,
       updateRootStatus,
+      loadNTPDate,
       setGameStatus
     },
     dispatch

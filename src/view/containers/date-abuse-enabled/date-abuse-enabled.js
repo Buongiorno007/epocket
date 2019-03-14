@@ -16,7 +16,6 @@ import { RU } from "../../../locales/ru";
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { updateRootStatus } from "../../../reducers/root-status"
 
 
 class LocationDisabled extends React.Component {
@@ -53,7 +52,7 @@ class LocationDisabled extends React.Component {
                         {RU.ATTENTION}
                     </Text>
                     <Text style={styles.root_text}>
-                        {RU.DEVELOPER_ENABLED} {Platform.OS === "ios" ? RU.ROOT_ENABLED_IOS : RU.ROOT_ENABLED_ANDROID}
+                        {RU.DATE_ABUSED}
                     </Text>
                 </View>
                 <View style={[styles.open_settings, styles.btnContainer]}>
@@ -81,7 +80,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
     bindActionCreators(
         {
-            updateRootStatus
         },
         dispatch
     );
