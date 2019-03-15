@@ -51,6 +51,7 @@ import sounds from "./sounds"
 import postStatus from "./post-status"
 import rootStatus from "./root-status"
 import dateAbuseStatus from "./date-abuse-status"
+import pushSendStaus from "./push-send-status"
 
 export default combineReducers({
   isConnected,
@@ -104,5 +105,6 @@ export default combineReducers({
   sounds,
   postStatus,
   rootStatus,
-  dateAbuseStatus
+  dateAbuseStatus,
+  pushSendStaus
 });

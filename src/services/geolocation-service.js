@@ -18,6 +18,7 @@ import { setMainTaskId } from "../reducers/main-task-id"
 import { setSheduleRequestStart } from "../reducers/set-shedule-request-start"
 import { showDoneNotification } from "../reducers/main-task-done-notification";
 import { showTimer } from "../reducers/show-dashboard-timer"
+import { setPushStatus } from "../reducers/push-send-status"
 //constants
 import { urls } from "../constants/urls";
 import firebase from 'react-native-firebase';
@@ -25,8 +26,7 @@ import firebase from 'react-native-firebase';
 class GeolocationService extends React.Component {
 
   state = {
-    sheduleRequest: null,
-    pushSended: false
+    sheduleRequest: null
   };
 
   startMissionRequest = () => {
@@ -160,11 +160,11 @@ class GeolocationService extends React.Component {
       ) - this.props.selectedMall.rad;
       if (nextProps.isLocation && this.props.isLocation) {
         if (distance > 100) {
-          this.setState({ pushSended: false }) //allow to push message #3
+          this.props.setPushStatus(false)
         }
-        if (distance <= 100 && !this.state.pushSended) {
+        if (distance <= 100 && !this.props.pushSendStaus) {
           this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_3);
-          this.setState({ pushSended: true }) //block push message #3
+          this.props.setPushStatus(true)
         }
         if (distance <= 0 && !this.props.timer_status && nextProps.timer_status) {
           this.props.showDashboard(true);
@@ -237,6 +237,7 @@ const mapStateToProps = state => {
     appState: state.appState,
     mainTaskId: state.mainTaskId,
     game_status: state.game_status,
+    pushSendStaus: state.pushSendStaus
   };
 };
 
@@ -250,7 +251,8 @@ const mapDispatchToProps = dispatch =>
       setAppState,
       setMainTaskId,
       setGameStatus,
-      showTimer
+      showTimer,
+      setPushStatus
     },
     dispatch
   );
