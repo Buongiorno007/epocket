@@ -76,5 +76,20 @@ export default StyleSheet.create({
         borderRadius: 12,
         width: width * 0.85,
         height: width * 0.6
+    },
+    shop_link: {
+        alignSelf: "center",
+        width: width * 0.6,
+        height: 50,
+        borderRadius: 25,
+        marginTop: 70,
+        backgroundColor: colors.white_o25,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    shop_link_text: {
+        fontFamily: "Rubik-Regular",
+        fontSize: 14,
+        color: colors.white
     }
 });

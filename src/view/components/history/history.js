@@ -7,7 +7,6 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 //constants
 import styles from "./styles";
-import { colors } from "./../../../constants/colors";
 import { RU } from "../../../locales/ru";
 import { ICONS } from "../../../constants/icons";
 //containers
@@ -16,7 +15,6 @@ import Balance from "./../../containers/cashout-balance/cashout-balance";
 import HistoryNavButton from "./../../containers/history-nav-button/history-nav-button";
 import HistoryList from "./../../containers/history-list/history-list";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
-import Barcode from "../../containers/barcode/barcode"
 
 
 class History extends React.Component {
@@ -26,25 +24,14 @@ class History extends React.Component {
   state = {
     pickedBonuses: true,
     balance: 0,
-    showBarcode: false,
-    phone: "0000000000000"
   };
   toggleBonuses = () => {
     this.setState({ pickedBonuses: !this.state.pickedBonuses });
   };
-  componentWillMount = () => {
-    AsyncStorage.getItem('user_info').then((value) => {
-      let object = JSON.parse(value);
-      this.setState({
-        phone: object.phone.replace(/\D/g, '')
-      });
-    });
-  }
 
   render() {
     return (
       <View style={styles.main_view}>
-        {this.state.showBarcode && <Barcode phone={this.state.phone} closeBarcode={() => { this.setState({ showBarcode: !this.state.showBarcode }) }} />}
         <LinearGradient
           colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
           start={{ x: 0.0, y: 1.0 }}
