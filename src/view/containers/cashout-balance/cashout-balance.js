@@ -103,7 +103,7 @@ class CashoutBalance extends React.Component {
                 <FastImage
                   resizeMode={FastImage.resizeMode.contain}
                   style={styles.barcode_icon}
-                  source={{ uri: ICONS.COMMON.BARCODE }}
+                  source={{ uri: ICONS.COMMON.PARTNERS }}
                 />
               </Button>
             </View>
