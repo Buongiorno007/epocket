@@ -121,7 +121,6 @@ class GeolocationService extends React.Component {
   //   });
   // };
   _handleAppStateChange = (nextAppState) => {
-    console.log(this.props.appState, nextAppState)
     if (this.props.appState.match(/inactive|background/) && nextAppState === 'active') {
       getCurrentGeolocation().then((location) => {
         this.calculateDistance({

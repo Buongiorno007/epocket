@@ -359,7 +359,6 @@ class Map extends React.Component {
     }
   };
   componentDidMount = () => {
-    if (this.props.dateAbuseStatus)
       this.loadTRC();
     if (this.props.location.lat === 0 && this.props.location.lng === 0) {
       this.setState({ location_loader: true });
@@ -1006,7 +1005,6 @@ class Map extends React.Component {
           first_btn_title={RU.REPEAT}
           visible={this.state.errorVisible}
           first_btn_handler={() => {
-            if (this.props.dateAbuseStatus)
               this.loadTRC();
           }}
           decline_btn_handler={() => {
@@ -1018,7 +1016,6 @@ class Map extends React.Component {
           first_btn_title={RU.REPEAT}
           visible={this.state.errorVisible}
           first_btn_handler={() => {
-            if (this.props.dateAbuseStatus)
               this.loadTRC();
           }}
           decline_btn_handler={() => {
