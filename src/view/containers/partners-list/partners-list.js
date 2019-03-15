@@ -8,12 +8,12 @@ import { RU } from "../../../locales/ru";
 import { colors } from "./../../../constants/colors";
 import { ICONS } from "../../../constants/icons";
 //containers
-import HistoryCard from "./../../containers/history-card/history-card";
+import PartnerCard from "./../../containers/partner-card/partner-card"
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-class HistoryList extends React.Component {
+class PartnersList extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -37,27 +37,7 @@ class HistoryList extends React.Component {
     }
     _renderItem = ({ item }) => {
         return (
-            <Button
-                rounded
-                block
-                onPress={() => {
-                    if (!this.props.picked_shops) {
-                        this.props.openBarcode(item.link)
-                    }
-                    else {
-                        this.openLink(item.link)
-                    }
-                }}
-                style={styles.partner_card}
-            >
-                <FastImage
-                    resizeMode={FastImage.resizeMode.contain}
-                    style={styles.icon}
-                    source={{ uri: item.icom ? item.icon : ICONS.COMMON.PARTNERS }}
-                />
-                <View style={styles.border} />
-                <Text numberOfLines={1} style={styles.partner_title}>{item.name.toUpperCase()}</Text>
-            </Button>
+            <PartnerCard item={item} openBarcode={this.props.openBarcode} openLink={this.openLink} />
         )
     };
     _keyExtractor = (item, index) => index;
@@ -82,7 +62,6 @@ class HistoryList extends React.Component {
                                         this.refreshList();
                                     }}
                                 >
-                                    {/* render cards here (use flatlist) */}
                                     <View style={styles.filler} />
                                 </FlatList>
                             ) : (
@@ -113,7 +92,6 @@ class HistoryList extends React.Component {
                                             }
                                         }}
                                     >
-                                        {/* render cards here (use flatlist) */}
                                         <View style={styles.filler} />
                                     </FlatList>
                                 ) : (
@@ -142,4 +120,4 @@ const mapDispatchToProps = dispatch =>
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(HistoryList);
+)(PartnersList);
