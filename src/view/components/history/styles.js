@@ -19,7 +19,7 @@ export default StyleSheet.create({
     backgroundColor: colors.drag_panel_color,
     borderTopRightRadius: 12,
     borderTopLeftRadius: 12,
-    height: height * 0.9,
+    height: height * 0.85,
     width: width,
     alignItems: "center",
     justifyContent: "flex-start",
@@ -37,6 +37,6 @@ export default StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-between",
-    height: height * 0.12
+    height: height * 0.15
   }
 });

@@ -120,7 +120,7 @@ class Main extends React.Component {
 
         }
         {
-          !this.props.dateAbuseStatus ? <DateAbuseEnabled /> : null
+          !this.state.develop && !this.props.dateAbuseStatus ? <DateAbuseEnabled /> : null
         }
         <TimerModal />
       </View>

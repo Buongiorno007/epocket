@@ -57,7 +57,7 @@ class History extends React.Component {
           style={styles.grad}
         >
           <View style={styles.history_nav}>
-            <Balance barcode openBarcode={() => { this.state.phone ? this.setState({ showBarcode: !this.state.showBarcode }) : console.log("phone is not ready") }} />
+            <Balance showCurrency openBarcode={() => { this.state.phone ? this.setState({ showBarcode: !this.state.showBarcode }) : console.log("phone is not ready") }} />
           </View>
           <View style={styles.list_container}>
             <View style={styles.nav_buttons}>

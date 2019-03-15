@@ -29,7 +29,7 @@ export const additionalCheckMock = () => async dispatch => {
 }
 export const updateRootStatus = () => async dispatch => {
     let status = JailMonkey.trustFall()
-    if (!status && Platform.OS !== "ios") { // run additional check if jail monkey failed
+    if (!status && Platform.OS != "ios") { // run additional check if jail monkey failed
         dispatch(additionalCheckMock())
     }
     else {
