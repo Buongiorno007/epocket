@@ -129,6 +129,12 @@ export const RU = {
     NO_CASH_SMILE: "¯\\_(ツ)_/¯",
     PARTNERS: "Наши партнеры: "
   },
+  PARTNERS: {
+    HERE_YOU_CAN_BUY_BY_EPC: "Тут вы можете приобрести товары за EPC",
+    ONLINE_SHOPS: "Online магазины",
+    SHOPS: "магазины",
+    NO_SHOPS: "В вашем регионе нет доступных партнеров"
+  },
   QRCODE: {
     TITLE: "QR код сформирован. \nСумма вашей покупки - ",
     SELLER: "Покажите его продавцу и получите свои покупки",

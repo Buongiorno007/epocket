@@ -22,6 +22,9 @@ class CashoutBalance extends React.Component {
       :
       console.log("Fail. No navigation prop")
   }
+  navigateToPartners = () => {
+    NavigationService.navigate("Partners")
+  }
   componentDidMount = () => {
     AsyncStorage.getItem('user_info').then((value) => {
       let object = JSON.parse(value);
@@ -94,7 +97,7 @@ class CashoutBalance extends React.Component {
                 rounded
                 block
                 transparent
-                onPress={() => this.props.openBarcode()}
+                onPress={() => this.navigateToPartners()}
                 style={styles.barcode_btn}
               >
                 <FastImage

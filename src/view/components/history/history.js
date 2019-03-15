@@ -29,13 +29,8 @@ class History extends React.Component {
     showBarcode: false,
     phone: "0000000000000"
   };
-  pickSpentBonuses = () => {
-    let pick = this.state.pickedBonuses;
-    this.setState({ pickedBonuses: !pick });
-  };
-  pickReceivedBonuses = () => {
-    let pick = this.state.pickedBonuses;
-    this.setState({ pickedBonuses: !pick });
+  toggleBonuses = () => {
+    this.setState({ pickedBonuses: !this.state.pickedBonuses });
   };
   componentWillMount = () => {
     AsyncStorage.getItem('user_info').then((value) => {
@@ -64,7 +59,7 @@ class History extends React.Component {
               <HistoryNavButton
                 handler={
                   !this.state.pickedBonuses
-                    ? () => this.pickReceivedBonuses()
+                    ? () => this.toggleBonuses()
                     : null
                 }
                 title={RU.HISTORY_PAGE.GETTED}
@@ -73,7 +68,7 @@ class History extends React.Component {
               <HistoryNavButton
                 handler={
                   this.state.pickedBonuses
-                    ? () => this.pickSpentBonuses()
+                    ? () => this.toggleBonuses()
                     : null
                 }
                 title={RU.HISTORY_PAGE.LOST}

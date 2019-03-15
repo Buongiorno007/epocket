@@ -12,6 +12,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         bottom: 0,
+        backgroundColor: colors.backgroundForAnimated,
         zIndex: 998
     },
     grad: {

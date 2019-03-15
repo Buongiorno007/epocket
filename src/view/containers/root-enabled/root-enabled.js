@@ -36,7 +36,7 @@ class LocationDisabled extends React.Component {
     }
     render() {
         return (
-            <View style={[styles.main_view, { backgroundColor: this.props.userColor.pink_blue }]}>
+            <View style={[styles.main_view]}>
                 <FastImage
                     resizeMode={FastImage.resizeMode.contain}
                     style={styles.image_background}
