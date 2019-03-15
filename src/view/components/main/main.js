@@ -41,17 +41,18 @@ class Main extends React.Component {
     develop: false
   }
   _handleAppStateChange = (nextAppState) => {
-    console.log(this.props.appState, nextAppState)
-    if ((this.props.appState.match(/inactive|background/) && nextAppState.match(/active/)) || (this.props.appState.match(/active/) && nextAppState.match(/inactive|background/))) {
-      this.props.loaderState(true)
-      setTimeout(() => {
-        this.props.updateRootStatus();
-      }, 5000);
-    }
-    if (this.props.appState.match(/inactive|background/) && nextAppState.match(/active/)) {
+    if (nextAppState === "active") {
+      console.log("run loadNTP")
       this.props.loadNTPDate();
     }
-    this.props.setAppState(nextAppState)
+    if (Platform.OS === "ios")
+      if ((this.props.appState.match(/inactive|background/) && nextAppState.match(/active/)) || (this.props.appState.match(/active/) && nextAppState.match(/inactive|background/))) {
+        this.props.loaderState(true)
+        setTimeout(() => {
+          this.props.updateRootStatus();
+        }, 5000);
+      }
+    //this.props.setAppState(nextAppState)
   }
   componentWillMount = () => {
     AppState.addEventListener('change', this._handleAppStateChange);

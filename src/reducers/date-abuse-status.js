@@ -10,6 +10,7 @@ import moment from "moment";
 export default (state = true, action) => {
     switch (action.type) {
         case UPDATE_DATE_ABUSE_STATUS:
+            console.log("UPDATE_DATE_ABUSE_STATUS", action.status)
             return action.status
         default:
             return state;

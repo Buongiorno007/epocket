@@ -78,7 +78,6 @@ class GameStart extends React.Component {
         }
     }
     componentDidMount() {
-        if (this.props.dateAbuseStatus)
             this.loadTRC();
         setTimeout(() => {
             this.setState({ loader: false })
@@ -93,7 +92,6 @@ class GameStart extends React.Component {
             (nextProps.location.lng.toFixed(3) != this.props.location.lng.toFixed(3))
         ) {
             this.props.getGameInfo(this.props.token, nextProps.location.lat, nextProps.location.lng)
-            if (this.props.dateAbuseStatus)
                 this.loadTRC();
         }
     }
