@@ -48,11 +48,8 @@ class Main extends React.Component {
     if (Platform.OS === "ios")
       if ((this.props.appState.match(/inactive|background/) && nextAppState.match(/active/)) || (this.props.appState.match(/active/) && nextAppState.match(/inactive|background/))) {
         this.props.loaderState(true)
-        setTimeout(() => {
-          this.props.updateRootStatus();
-        }, 5000);
+        this.props.updateRootStatus();
       }
-    //this.props.setAppState(nextAppState)
   }
   componentWillMount = () => {
     AppState.addEventListener('change', this._handleAppStateChange);

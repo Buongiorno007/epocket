@@ -25,7 +25,9 @@ const initialState = {
     time: 0,
     available_game_len: 0,
     total_game_len: 0,
-    true_answer: []
+    true_answer: [],
+    wait_timer: 0,
+    website_link: ""  //game.link
 }
 export default (state = initialState, action) => {
     switch (action.type) {
@@ -103,6 +105,8 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
                             total_game_len: game.games_count,
                             id: game.id,
                             video: game.video,
+                            wait_timer: ((5000) / 60).toFixed(),
+                            website_link: "",  //game.link
                             insta_data: {
                                 base64: 'data:image/jpg;base64,' + result,
                                 id: game.id,
@@ -131,6 +135,7 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
                     available_game_len: 0,
                     total_game_len: 0,
                     true_answer: [],
+                    wait_timer: 0,
                     insta_data: {}
                 }
                 dispatch(setGameInfo(info))

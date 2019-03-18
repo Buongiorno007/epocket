@@ -10,7 +10,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
-    grad: {
+    image_background: {
         position: "absolute",
         height: height,
         width: width,
@@ -33,7 +33,7 @@ export default StyleSheet.create({
     zifi: {
         width: width * 0.35,
         height: width * 0.35,
-        marginBottom: height * 0.05
+        marginBottom: height * 0.03
     },
     zifi_text: {
         textAlign: "center",
@@ -49,6 +49,15 @@ export default StyleSheet.create({
         height: height * 0.5,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    background_grey: {
+        position: "absolute",
+        height: height * 0.65 + 60,
+        borderTopLeftRadius: 12,
+        borderTopRightRadius: 12,
+        backgroundColor: colors.drag_panel_color,
+        width: width,
+        bottom: 0
     },
     failed: {
         zIndex: 1,
@@ -66,18 +75,14 @@ export default StyleSheet.create({
         textAlign: "center"
     },
     fail: {
-        fontSize: 12,
+        fontSize: 10,
         width: width * 0.75,
-        fontFamily: "Rubik-Regular",
-        color: colors.white,
+        fontFamily: "Rubik-Medium",
+        color: colors.dark_grey,
         textAlign: "center"
     },
     fail_text: {
-        fontSize: 15,
-        width: width * 0.75,
-        fontFamily: "Rubik-Bold",
-        color: colors.white,
-        textAlign: "center"
+        display: "none"
     },
     cash: {
         fontSize: 20,
@@ -93,8 +98,9 @@ export default StyleSheet.create({
         width: width * 0.55,
     },
     button: {
-        backgroundColor: colors.white,
         marginTop: width * 0.05,
+        marginBottom: 10,
+        height: 40,
         paddingLeft: 10,
         paddingRight: 10,
         alignSelf: 'center',
@@ -104,11 +110,15 @@ export default StyleSheet.create({
         width: width * 0.75,
     },
     wait_button: {
+        height: 40,
         alignSelf: 'center',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
+        flexDirection: "row",
         width: width * 0.75,
-        backgroundColor: "transparent",
+        marginTop: 10,
+        borderColor: colors.dark_grey,
+        borderWidth: 1
     },
     text: {
         fontSize: 12,
@@ -119,11 +129,24 @@ export default StyleSheet.create({
         height: 25,
     },
     zifi_cloud_failed: {
-        position: "absolute",
-        top: -10,
-        left: 15,
-        width: 70,
-        height: 70
+        display: "none"
+    },
+    image_to_post_container: {
+        width: width * 0.75,
+        height: width * 0.75,
+        marginBottom: 30,
+        elevation: 2,
+        shadowColor: colors.card_shadow,
+        shadowOffset: {
+            width: 0,
+            height: 3
+        },
+        shadowRadius: 5,
+        shadowOpacity: 1,
+    },
+    image_to_post: {
+        width: width * 0.75,
+        height: width * 0.75,
     },
     zifi_cloud_success: {
         position: "absolute",
@@ -131,5 +154,10 @@ export default StyleSheet.create({
         left: 30,
         width: 70,
         height: 70
+    },
+    grad: {
+        position: "absolute",
+        height: height,
+        width: width,
     },
 });

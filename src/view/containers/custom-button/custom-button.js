@@ -38,6 +38,7 @@ class CustomButton extends React.Component {
           this.props.short && { width: width * 0.5 },
           this.props.semi_short && { width: width * 0.4 },
           this.props.extra_short && { width: width * 0.3 },
+          this.props.long_75 && { width: width * 0.75 }
         ]}
         onPress={() => {
           this.props.active && this.props.handler();
@@ -53,6 +54,7 @@ class CustomButton extends React.Component {
               this.props.short && { width: width * 0.5 },
               this.props.extra_short && { width: width * 0.3 },
               this.props.semi_short && { width: width * 0.4 },
+              this.props.long_75 && { width: width * 0.75 },
               styles.gradient,
               this.props.instaLogo && styles.insta_button
             ]}
@@ -65,6 +67,7 @@ class CustomButton extends React.Component {
               this.props.short && { width: width * 0.5 },
               this.props.extra_short && { width: width * 0.3 },
               this.props.semi_short && { width: width * 0.4 },
+              this.props.long_75 && { width: width * 0.75 },
               { backgroundColor: this.props.userColor.pink_blue },
               styles.border_btn
             ]}
@@ -76,6 +79,7 @@ class CustomButton extends React.Component {
                 this.props.short && { width: width * 0.5 - 2 },
                 this.props.extra_short && { width: width * 0.3 - 2 },
                 this.props.semi_short && { width: width * 0.4 - 2 },
+                this.props.long_75 && { width: width * 0.75 - 2 },
                 styles.background_btn
               ]}
             />
@@ -96,7 +100,8 @@ class CustomButton extends React.Component {
                 ? { color: this.props.userColor.pink_blue }
                 : { color: this.props.userColor.white },
             this.props.mapCard && { fontSize: 9 },
-            this.props.instaLogo && { fontSize: 12 }
+            this.props.instaLogo && { fontSize: 12 },
+            this.props.long_75 && { fontSize: 10 }
           ]}
         >
           {this.props.title ? this.props.title : "OK"}

@@ -34,6 +34,7 @@ import { handleError } from "../../../services/http-error-handler";
 import { postToSocial } from "../../../services/post-to-social"
 //containers
 import CustomAlert from "../../containers/custom-alert/custom-alert";
+import CustomButton from '../../containers/custom-button/custom-button';
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 
 
@@ -92,6 +93,7 @@ class GameResult extends React.Component {
                         total_game_len: 0,
                         true_answer: [],
                         video: false,
+                        wait_timer: 0,
                         insta_data: {}
                     }
                     this.props.setGameInfo(info);
@@ -273,7 +275,7 @@ class GameResult extends React.Component {
             style = styles.congratulation
         }
         else if (status === "failed" || status === "expired") {
-            text = RU.GAME.RESULT.SEND_TO_INST
+            text = ""
             style = styles.fail_text
         }
         else {
@@ -374,8 +376,8 @@ class GameResult extends React.Component {
                 />
                 <FastImage
                     resizeMode={FastImage.resizeMode.contain}
-                    style={this.chooseBackground(this.props.navigation.state.params.status).style}
-                    source={this.chooseBackground(this.props.navigation.state.params.status).img}
+                    style={styles.image_background}
+                    source={require('../../../assets/img/ANIMATED_EARN_MORE.gif')}
                 />
                 <LinearGradient
                     colors={this.props.userColor.earn_more}
@@ -383,6 +385,9 @@ class GameResult extends React.Component {
                     end={{ x: 1.0, y: 0.0 }}
                     style={styles.grad}
                 />
+                {this.props.navigation.state.params.status !== "success" ?
+                    <View style={styles.background_grey} />
+                    : null}
                 <View style={this.props.navigation.state.params.status === "success" ? styles.success : styles.failed}>
                     <FastImage
                         resizeMode={FastImage.resizeMode.contain}
@@ -396,39 +401,69 @@ class GameResult extends React.Component {
                         source={this.chooseZifi(this.props.navigation.state.params.status)}
                     />
                     <Text style={this.chooseResultText(this.props.navigation.state.params.status).style}>{this.chooseResultText(this.props.navigation.state.params.status).text}</Text>
-                    <Button
-                        rounded
-                        transparent
-                        block
-                        style={[this.props.navigation.state.params.status === "success" ? styles.button_short : styles.button]}
-                        androidRippleColor={this.props.userColor.card_shadow}
-                        onPress={() => {
-                            if (this.state.buttonActive)
-                                this.props.navigation.state.params.status === "success" ? this.checkForGames("home") : this.checkForGames("insta")
-                        }}
-                    >
-                        {this.props.navigation.state.params.status != "success" &&
+                    {this.props.navigation.state.params.status !== "success" ?
+                        <View style={styles.image_to_post_container}>
                             <FastImage
-                                style={styles.insta_logo}
+                                style={styles.image_to_post}
                                 resizeMode={FastImage.resizeMode.contain}
-                                source={{ uri: ICONS.INSTAGRAM_COLOR_FILLED }}
+                                source={{
+                                    uri: this.props.navigation.state.params.insta_data.success_image
+                                }}
                             />
-                        }
-                        <Text style={[styles.text,
-                        { color: this.props.userColor.pink_blue }]}>{this.chooseButtonText(this.props.navigation.state.params.status)}</Text>
-                    </Button>
+                        </View>
+                        : null}
+                    {this.props.navigation.state.params.status !== "success" ?
+                        <CustomButton
+                            gradient
+                            instaLogo={true}
+                            long_75
+                            title={this.chooseButtonText(this.props.navigation.state.params.status)}
+                            color={this.props.userColor.white}
+                            style={[this.props.navigation.state.params.status === "success" ? styles.button_short : styles.button]}
+                            handler={() => {
+                                if (this.state.buttonActive)
+                                    this.props.navigation.state.params.status === "success" ? this.checkForGames("home") : this.checkForGames("insta")
+                            }}
+                        />
+                        :
+                        <Button
+                            rounded
+                            transparent
+                            block
+                            style={[this.props.navigation.state.params.status === "success" ? styles.button_short : styles.button]}
+                            androidRippleColor={this.props.userColor.card_shadow}
+                            onPress={() => {
+                                if (this.state.buttonActive)
+                                    this.props.navigation.state.params.status === "success" ? this.checkForGames("home") : this.checkForGames("insta")
+                            }}
+                        >
+                            {this.props.navigation.state.params.status != "success" &&
+                                <FastImage
+                                    style={styles.insta_logo}
+                                    resizeMode={FastImage.resizeMode.contain}
+                                    source={{ uri: ICONS.INSTAGRAM_COLOR_FILLED }}
+                                />
+                            }
+                            <Text style={[styles.text,
+                            { color: this.props.navigation.state.params.status != "success" ? this.props.userColor.white : this.props.userColor.pink_blue }]}>{this.chooseButtonText(this.props.navigation.state.params.status)}</Text>
+                        </Button>
+                    }
                     <Button
                         rounded
                         transparent
                         block
+                        androidRippleColor={this.props.userColor.card_shadow}
                         style={[styles.wait_button, this.props.navigation.state.params.status == "success" && {
                             display: "none"
                         }]}
                         onPress={() => {
-                            this.checkForGames("wait")
+                            this.props.game_info.website_link ?
+                                this.checkForGames("visit_website")
+                                :
+                                this.checkForGames("wait")
                         }}
                     >
-                        <Text style={styles.fail}>{RU.GAME.RESULT.WAIT_30}</Text>
+                        <Text style={styles.fail}>{this.props.game_info.website_link ? RU.GAME.RESULT.VISIT_WEBSITE.toUpperCase() : RU.GAME.RESULT.WAIT_.toUpperCase() + this.props.game_info.wait_timer + RU.GAME.RESULT.MIN.toUpperCase()}</Text>
                     </Button>
                 </View>
             </View >

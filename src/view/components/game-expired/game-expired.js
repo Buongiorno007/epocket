@@ -232,8 +232,7 @@ class GameStart extends React.Component {
                         style={styles.image_to_post}
                         resizeMode={FastImage.resizeMode.contain}
                         source={{
-                            uri: this.props.game_expired_img.img,
-                            priority: FastImage.priority.high
+                            uri: this.props.game_expired_img.img
                         }}
                     />
                 </View>

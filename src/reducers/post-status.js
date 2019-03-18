@@ -77,6 +77,8 @@ export const checkForPostStatus = (game_id, token, lat, lng, game_expired_timer)
                                     total_game_len: game.games_count,
                                     id: game.id,
                                     video: game.video,
+                                    wait_timer: ((5000) / 60).toFixed(),
+                                    website_link: "http://google.com",  //game.link
                                     insta_data: {
                                         base64: 'data:image/jpg;base64,' + result,
                                         id: game.id,
@@ -105,6 +107,7 @@ export const checkForPostStatus = (game_id, token, lat, lng, game_expired_timer)
                             available_game_len: 0,
                             total_game_len: 0,
                             true_answer: [],
+                            wait_timer: 0,
                             insta_data: {}
                         }
                         dispatch(setGameInfo(info));
