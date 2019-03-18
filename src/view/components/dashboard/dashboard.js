@@ -541,7 +541,7 @@ class Dashboard extends React.Component {
         this.setState(
           {
             mainMissionId: result.body.id,
-            mainMissionPrice: result.body.price
+            mainMissionPrice: result.body.formated.amount
           },
           () => {
             if (result.body.failed) {
@@ -965,7 +965,7 @@ class Dashboard extends React.Component {
                           }
                           ]}
                         >
-                          {this.state.mainMissionPrice}
+                          {Number(this.state.mainMissionPrice).toFixed()}
                         </LinearTextGradient>
                         <Animated.Text style={[styles_top.epc_counter_currency,
                         {
