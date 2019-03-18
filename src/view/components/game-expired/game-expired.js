@@ -206,6 +206,18 @@ class GameStart extends React.Component {
                         this.connectInsta(token)
                     }}
                 />
+                <FastImage
+                    resizeMode={FastImage.resizeMode.contain}
+                    style={styles.image_background}
+                    source={require('../../../assets/img/ANIMATED_EARN_MORE.gif')}
+                />
+                <LinearGradient
+                    colors={this.props.userColor.earn_more}
+                    start={{ x: 0.0, y: 1.4 }}
+                    end={{ x: 1.0, y: 0.0 }}
+                    style={styles.grad}
+                />
+                <View style={styles.background_grey} />
                 <View style={styles.container}>
                     <Text style={styles.zifi_text}>{RU.GAME.ZIFI.WAIT}</Text>
                     <Image
@@ -223,13 +235,6 @@ class GameStart extends React.Component {
                             uri: this.props.game_expired_img.img,
                             priority: FastImage.priority.high
                         }}
-
-                    />
-                    <LinearGradient
-                        colors={[this.props.userColor.transparent, this.props.userColor.drag_panel_color]}
-                        start={{ x: 0.0, y: 0.0 }}
-                        end={{ x: 0.0, y: 0.8 }}
-                        style={styles.gradient}
                     />
                 </View>
                 <View style={styles.btn_container}>
