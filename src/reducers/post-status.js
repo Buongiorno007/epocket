@@ -78,6 +78,7 @@ export const checkForPostStatus = (game_id, token, lat, lng, game_expired_timer)
                                     id: game.id,
                                     video: game.video,
                                     wait_timer: ((5000) / 60).toFixed(),
+                                    brand_title: "zdasd",
                                     website_link: "http://google.com",  //game.link
                                     insta_data: {
                                         base64: 'data:image/jpg;base64,' + result,

@@ -90,7 +90,7 @@ class GameResult extends React.Component {
                     switch (next_navigation) {
                         case "insta": this.goInst(); this.props.loaderState(false); break;
                         case "home": this.goHome(); this.props.loaderState(false); break;
-                        case "visit_website": this.openWebSite(); this.props.loaderState(false); break;
+                        case "visit_website": this.openWebSiteInfo(); this.props.loaderState(false); break;
                         case "wait": this.goWait(); this.props.loaderState(false); break;
                         default: this.props.loaderState(false); break;
                     }
@@ -111,6 +111,7 @@ class GameResult extends React.Component {
                         true_answer: [],
                         video: false,
                         wait_timer: 0,
+                        brand_title: "",
                         insta_data: {}
                     }
                     this.props.setGameInfo(info);
@@ -143,8 +144,10 @@ class GameResult extends React.Component {
             this.props.setGameStatus("lock")
         }, 0)
     }
-    openWebSite = () => {
+    openWebSiteInfo = () => {
         this.setState({ website_visible: true })
+    }
+    openWebSite = () => {
         this.startTimer();
     }
     closeBrandWebSite = () => {
@@ -345,7 +348,9 @@ class GameResult extends React.Component {
                 />
                 <BrandWebsite
                     visible={this.state.website_visible}
+                    brand_title={this.props.game_info.brand_title}
                     closeBrandWebSite={() => this.closeBrandWebSite()}
+                    startTimer={() => this.openWebSite()}
                     continue={() => {
                         this.closeBrandWebSite()
                         this.checkForGames("home")

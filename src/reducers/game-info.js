@@ -27,6 +27,7 @@ const initialState = {
     total_game_len: 0,
     true_answer: [],
     wait_timer: 0,
+    brand_title: "",
     website_link: ""  //game.link
 }
 export default (state = initialState, action) => {
@@ -106,6 +107,7 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
                             id: game.id,
                             video: game.video,
                             wait_timer: ((5000) / 60).toFixed(),
+                            brand_title: "bla-bla",
                             website_link: "http://google.com",  //game.link
                             insta_data: {
                                 base64: 'data:image/jpg;base64,' + result,
@@ -136,6 +138,7 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
                     total_game_len: 0,
                     true_answer: [],
                     wait_timer: 0,
+                    brand_title: "",
                     insta_data: {}
                 }
                 dispatch(setGameInfo(info))

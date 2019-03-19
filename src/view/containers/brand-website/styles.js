@@ -67,5 +67,78 @@ export default StyleSheet.create({
         fontSize: 12,
         fontFamily: "Rubik-Medium",
         textAlign: "center"
+    },
+    continue_to_website: {
+        height: 40,
+        width: width * 0.65,
+        backgroundColor: colors.white,
+        marginTop: 25,
+        alignItems: "center",
+        alignSelf: "center",
+        justifyContent: "center"
+    },
+    info_page: {
+        backgroundColor: colors.backgroundForAnimated,
+        width: width,
+        height: height,
+        position: "absolute",
+        zIndex: 100,
+        flex: 1,
+        alignItems: "center",
+        alignSelf: "center",
+        justifyContent: "center"
+    },
+    grad: {
+        position: "absolute",
+        height: height,
+        width: width,
+    },
+    image_background: {
+        position: "absolute",
+        height: height,
+        width: width,
+    },
+    navigation_item: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    icon_back: {
+        width: 10,
+        height: 20,
+        marginRight: width * 0.02,
+    },
+    title: {
+        fontSize: 12,
+        fontFamily: "Rubik-Medium"
+    },
+    text: {
+        color: 'rgba(255, 255, 255, 1)',
+        fontSize: width * 0.04,
+    },
+    block: {
+        alignItems: 'flex-start',
+        position: "absolute",
+        width: width * 0.9,
+        top: 20,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    infoPage_title: {
+        fontSize: 18,
+        fontFamily: "Rubik-Medium",
+        color: colors.white,
+        textAlign: "center",
+        marginBottom: 5,
+        marginTop: 5,
+        width: width * 0.7,
+    },
+    infoPage_desc: {
+        fontSize: 12,
+        marginBottom: 5,
+        marginTop: 5,
+        width: width * 0.7,
+        color: colors.white_o75,
+        fontFamily: "Rubik-Regular",
+        textAlign: "center"
     }
 });
