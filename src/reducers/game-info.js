@@ -106,7 +106,7 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
                             id: game.id,
                             video: game.video,
                             wait_timer: ((5000) / 60).toFixed(),
-                            website_link: "",  //game.link
+                            website_link: "http://google.com",  //game.link
                             insta_data: {
                                 base64: 'data:image/jpg;base64,' + result,
                                 id: game.id,

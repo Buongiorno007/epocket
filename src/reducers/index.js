@@ -52,6 +52,7 @@ import postStatus from "./post-status"
 import rootStatus from "./root-status"
 import dateAbuseStatus from "./date-abuse-status"
 import pushSendStaus from "./push-send-status"
+import website_timer from "./website-timer"
 
 export default combineReducers({
   isConnected,
@@ -106,5 +107,6 @@ export default combineReducers({
   postStatus,
   rootStatus,
   dateAbuseStatus,
-  pushSendStaus
+  pushSendStaus,
+  website_timer
 });

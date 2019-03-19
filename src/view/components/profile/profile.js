@@ -63,7 +63,7 @@ class Profile extends React.Component {
 			result => {
 				console.log(result)
 				this.setState({
-					refferal_link: urls.ref_link + result.body.link,
+					refferal_link: result.body.new_link ? result.body.new_link : urls.ref_link + result.body.link,
 					refferal_price: Number(Number(result.body.ref_reward).toFixed(2))
 				})
 				this.props.loaderState(false);

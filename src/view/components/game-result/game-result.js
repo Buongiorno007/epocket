@@ -19,6 +19,7 @@ import { setFixedTime } from "../../../reducers/fixedTime";
 import { setTempTime } from "../../../reducers/tempTime";
 import { setGameInfo, getGameInfo } from "../../../reducers/game-info"
 import { checkForPostStatus } from "../../../reducers/post-status";
+import { setWebSiteTimer } from "../../../reducers/website-timer"
 //constants
 import styles from './styles';
 import { colors } from '../../../constants/colors';
@@ -26,6 +27,7 @@ import { RU } from '../../../locales/ru';
 import { ICONS } from "../../../constants/icons";
 import { urls } from "../../../constants/urls";
 //services
+import "../../../services/correcting-interval";
 import NavigationService from "./../../../services/route";
 import { convertToBase64 } from "./../../../services/convert-to-base64"
 import InstagramLogin from '../../../services/Instagram';
@@ -36,16 +38,30 @@ import { postToSocial } from "../../../services/post-to-social"
 import CustomAlert from "../../containers/custom-alert/custom-alert";
 import CustomButton from '../../containers/custom-button/custom-button';
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
+import BrandWebsite from "../../containers/brand-website/brand-website"
 
 
 class GameResult extends React.Component {
     state = {
         modalVisible: false,
         errorVisible: false,
+        website_visible: false,
         userCount: 0,
         buttonActive: true,
+        interval: null,
         filePath: ""
     };
+    startTimer = () => {
+        this.setState({
+            interval:
+                setCorrectingInterval(() => {
+                    if (this.props.website_timer <= 1) {
+                        clearCorrectingInterval(this.state.interval);
+                    }
+                    this.props.setWebSiteTimer(this.props.website_timer - 1)
+                }, 1000)
+        })
+    }
     setErrorVisible = visible => {
         this.setState({
             errorVisible: visible
@@ -74,6 +90,7 @@ class GameResult extends React.Component {
                     switch (next_navigation) {
                         case "insta": this.goInst(); this.props.loaderState(false); break;
                         case "home": this.goHome(); this.props.loaderState(false); break;
+                        case "visit_website": this.openWebSite(); this.props.loaderState(false); break;
                         case "wait": this.goWait(); this.props.loaderState(false); break;
                         default: this.props.loaderState(false); break;
                     }
@@ -125,6 +142,15 @@ class GameResult extends React.Component {
         setTimeout(() => {
             this.props.setGameStatus("lock")
         }, 0)
+    }
+    openWebSite = () => {
+        this.setState({ website_visible: true })
+        this.startTimer();
+    }
+    closeBrandWebSite = () => {
+        this.setState({ website_visible: false })
+        clearCorrectingInterval(this.state.interval);
+        this.props.setWebSiteTimer(15)
     }
     goWait = () => {
         NavigationService.navigate("Main")
@@ -317,6 +343,13 @@ class GameResult extends React.Component {
                     backgroundColor={"transparent"}
                     translucent={true}
                 />
+                <BrandWebsite
+                    visible={this.state.website_visible}
+                    closeBrandWebSite={() => this.closeBrandWebSite()}
+                    continue={() => {
+                        this.closeBrandWebSite()
+                        this.checkForGames("home")
+                    }} />
                 {this.props.loader && <ActivityIndicator />}
                 <CustomAlert
                     title={RU.PROFILE_PAGE.ALREADY_ACCOUNT}
@@ -481,7 +514,8 @@ const mapStateToProps = (state) => {
         insta_token: state.insta_token,
         loader: state.loader,
         location: state.location,
-        postStatus: state.postStatus
+        postStatus: state.postStatus,
+        website_timer: state.website_timer
     };
 };
 
@@ -493,6 +527,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     setFixedTime,
     setGameInfo,
     setTempTime,
+    setWebSiteTimer,
     errorState,
     setAppState,
     setInstaToken,
