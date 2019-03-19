@@ -37,7 +37,7 @@ class PartnersList extends React.Component {
     }
     _renderItem = ({ item }) => {
         return (
-            <PartnerCard item={item} openBarcode={this.props.openBarcode} openLink={this.openLink} />
+            <PartnerCard picked_shops={this.props.picked_shops} item={item} openBarcode={this.props.openBarcode} openLink={this.openLink} />
         )
     };
     _keyExtractor = (item, index) => index;
@@ -56,6 +56,8 @@ class PartnersList extends React.Component {
                                     contentContainerStyle={styles.contentContainerStyle}
                                     keyExtractor={this._keyExtractor}
                                     renderItem={this._renderItem}
+                                    columnWrapperStyle={{ flexWrap: 'wrap' }}
+                                    removeClippedSubviews={true}
                                     onScrollBeginDrag={() => {
                                         let old_limitShops = this.state.limitShops;
                                         this.setState({ limitShops: old_limitShops + 10 });
@@ -84,6 +86,8 @@ class PartnersList extends React.Component {
                                         numColumns={2}
                                         contentContainerStyle={styles.contentContainerStyle}
                                         renderItem={this._renderItem}
+                                        columnWrapperStyle={{ flexWrap: 'wrap' }}
+                                        removeClippedSubviews={true}
                                         onScrollBeginDrag={() => {
                                             if (!this.props.receivedBonusesJSX.loader || !this.props.spentBonusesJSX.loader) {
                                                 let old_limitOnlineShops = this.state.limitOnlineShops;

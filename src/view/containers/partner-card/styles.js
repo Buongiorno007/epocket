@@ -70,5 +70,10 @@ export default StyleSheet.create({
         fontSize: 15,
         color: colors.black,
         fontFamily: "Rubik-Bold"
+    },
+    invisible: {
+        width: width * 0.4,
+        height: width * 0.3,
+        backgroundColor: "transparent"
     }
 });

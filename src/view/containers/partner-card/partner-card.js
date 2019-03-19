@@ -18,27 +18,30 @@ class PartnerCard extends React.Component {
     render() {
         let item = this.props.item
         return (
-            <Button
-                rounded
-                block
-                onPress={() => {
-                    if (!this.props.picked_shops) {
-                        this.props.openBarcode(item.link)
-                    }
-                    else {
-                        this.prosp.openLink(item.link)
-                    }
-                }}
-                style={styles.partner_card}
-            >
-                <FastImage
-                    resizeMode={FastImage.resizeMode.contain}
-                    style={styles.icon}
-                    source={{ uri: item.icom ? item.icon : ICONS.COMMON.PARTNERS }}
-                />
-                <View style={styles.border} />
-                <Text numberOfLines={1} style={styles.partner_title}>{item.name.toUpperCase()}</Text>
-            </Button>
+            !item.invisible ?
+                <Button
+                    rounded
+                    block
+                    onPress={() => {
+                        if (!this.props.picked_shops) {
+                            this.props.openBarcode(item.link)
+                        }
+                        else {
+                            this.props.openLink(item.link)
+                        }
+                    }}
+                    style={styles.partner_card}
+                >
+                    <FastImage
+                        resizeMode={FastImage.resizeMode.contain}
+                        style={styles.icon}
+                        source={{ uri: item.image ? item.image : ICONS.COMMON.PARTNERS }}
+                    />
+                    <View style={styles.border} />
+                    <Text numberOfLines={1} style={styles.partner_title}>{item.name.toUpperCase()}</Text>
+                </Button>
+                :
+                <View style={styles.invisible} />
         );
     }
 }

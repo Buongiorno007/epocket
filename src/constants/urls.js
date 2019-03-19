@@ -16,6 +16,7 @@ export const urls = {
     send_photo :                devserver+ '/mission/send-photo/',
     get_received_bonuses :      devserver+ '/history/wallet-in/',
     get_spent_bonuses :         devserver+ '/history/wallet-out/',
+    get_partners :              devserver+ '/history/partners',
     get_outlet_products :       devserver+ '/order/get-outlet-products/',
     create_order :              devserver+ '/order/create-order/',
     add_device :                devserver+ '/push-notification/add-device/',
