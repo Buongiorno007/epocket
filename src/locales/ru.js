@@ -237,6 +237,7 @@ export const RU = {
   },
   GAME: {
     ZIFI: {
+      MORE_GAMES: "Открой больше игр!",
       PLAYFUL: "Zifi хочет играть!",
       BORING: "Zifi скучно",
       TOO_LONG: "Долго. Zifi стало скучно",
@@ -253,6 +254,8 @@ export const RU = {
     START: "Старт",
     COST_TEXT: "задание на",
     GET_EPC: "Можете получить " + EPC.toUpperCase() + " посетив ближайший ТРЦ",
+    VISIT_PARTNERS: "Посети сайт партнеров",
+    VISIT_NEAREST_ONE: "Или посети ближайший ТРЦ",
     RESULT: {
       CONGRATS: "Поздравляем!",
       YOU_WON: "Вы выиграли",

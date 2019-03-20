@@ -78,7 +78,7 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
         result => {
             console.log("getGameInfo", result)
             let game = result.body;
-            if (game.ticker === false && !game.game_set) {
+            if (true) { // game.ticker === false && !game.game_set
                 dispatch(setGameStatus("lock"));
                 dispatch(errorState(null));
                 dispatch(loaderState(false));

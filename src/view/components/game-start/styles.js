@@ -70,6 +70,9 @@ export default StyleSheet.create({
 		fontSize: 17,
 		fontFamily: 'Rubik-BoldItalic',
 	},
+	white_text: {
+		color: colors.white
+	},
 	game_title_text: {
 		textAlign: "center",
 		width: (width * 0.85),
@@ -87,5 +90,58 @@ export default StyleSheet.create({
 		left: 30,
 		width: 70,
 		height: 70
+	},
+	lock_container: {
+		flexDirection: 'column',
+		flexWrap: 'wrap',
+		backgroundColor: colors.backgroundForAnimated,
+		width: width,
+		paddingHorizontal: (width * 0.1) / 2,
+		alignItems: "center",
+		position: "absolute",
+		top: 0,
+		paddingTop: height * 0.05,
+		paddingBottom: 60,
+		height: height,
+		justifyContent: "space-between",
+	},
+	image_background: {
+		position: "absolute",
+		height: height,
+		width: width,
+	},
+	grad: {
+		position: "absolute",
+		height: height,
+		width: width,
+	},
+	contentContainerStyle: {
+		justifyContent: "space-between",
+		alignItems: "flex-start",
+	},
+	visit_website_partners: {
+		height: height * 0.42,
+		borderTopWidth: 1,
+		paddingVertical: 10,
+		borderTopColor: colors.white_o70,
+		borderBottomWidth: 1,
+		borderBottomColor: colors.white_o70,
+	},
+	lock_visit_text: {
+		textAlign: "center",
+		color: colors.white,
+		fontSize: 16,
+		fontFamily: 'Rubik-Medium'
+	},
+	go_to_map: {
+		flexDirection: "row",
+		justifyContent: "center",
+		alignItems: "center",
+	},
+	icon_arrow: {
+		width: 15,
+		height: 15,
+		marginLeft: 5,
+		transform: [{ rotate: '180deg' }]
 	}
 });

@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, FlatList } from 'react-native';
 import { LinearTextGradient } from "react-native-text-gradient";
+import LinearGradient from "react-native-linear-gradient";
 import FastImage from 'react-native-fast-image'
 import { Button } from "native-base";
 import geolib from "geolib";
@@ -32,6 +33,7 @@ import FooterNavigation from '../../containers/footer-navigator/footer-navigator
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 import CustomAlert from "../../containers/custom-alert/custom-alert";
 import TrcInformation from "../../containers/trc-information/trc-information";
+import PartnerCard from "./../../containers/partner-card/partner-card"
 //services
 import { httpPost } from "../../../services/http";
 import { handleError } from "../../../services/http-error-handler";
@@ -78,7 +80,7 @@ class GameStart extends React.Component {
         }
     }
     componentDidMount() {
-            this.loadTRC();
+        this.loadTRC();
         setTimeout(() => {
             this.setState({ loader: false })
         }, 1000);
@@ -92,7 +94,7 @@ class GameStart extends React.Component {
             (nextProps.location.lng.toFixed(3) != this.props.location.lng.toFixed(3))
         ) {
             this.props.getGameInfo(this.props.token, nextProps.location.lat, nextProps.location.lng)
-                this.loadTRC();
+            this.loadTRC();
         }
     }
     setModalVisible = visible => {
@@ -212,6 +214,14 @@ class GameStart extends React.Component {
         this.props.setNavigateToMall(true)
         this.props.setTabState(1)
     }
+    _renderPartnerCard = ({ item }) => {
+        return (
+            <PartnerCard picked_shops={true} item={item} openBarcode={() => { }} openLink={() => { console.log("magic with brand website") }} />
+        )
+    };
+    keyExtractor = item => {
+        return item.id + item.type + ""
+    };
     render() {
         return (
             <View style={styles.main_view}>
@@ -253,35 +263,104 @@ class GameStart extends React.Component {
                             <Text style={styles.game_title_text}>{this.props.game_info.available_game_len}/{this.props.game_info.total_game_len} {RU.GAME.GAMES_FOR_TODAY}</Text>
                         </View>
                 }
-
-                <View style={styles.container}>
-                    <FastImage
-                        resizeMode={FastImage.resizeMode.contain}
-                        style={styles.zifi_cloud}
-                        source={{ uri: this.props.game_info.no_more_games ? ICONS.ZIFI.CLOUD_1 : ICONS.ZIFI.CLOUD_2 }}
-                    />
-                    <Text style={styles.zifi_text}>{this.props.game_info.no_more_games ? RU.GAME.ZIFI.BORING : RU.GAME.ZIFI.PLAYFUL}</Text>
-                    <Image
-                        //resizeMode={FastImage.resizeMode.contain}
-                        style={styles.zifi}
-                        source={this.props.game_info.no_more_games ? require('../../../assets/img/zifi/bored.gif') : require('../../../assets/img/zifi/playful.gif')}
-                    // source={{ uri: this.props.game_info.no_more_games ? ICONS.ZIFI.BORED : ICONS.ZIFI.PLAYFUL }}
-                    />
-                    {this.props.game_status === "lock" ?
-                        this.props.selectedMall.active ? (
-                            <Button
-                                rounded
-                                block
-                                transparent
-                                style={styles.go_to_signin}
-                                onPress={() => this.goToMap()}>
-                                <TrcInformation
-                                    info={this.props.selectedMall}
-                                    distance={this.props.distance}
-                                />
-                            </Button>
-                        ) : null
-                        :
+                {this.props.game_status === "lock" ?
+                    <View style={styles.lock_container}>
+                        <FastImage
+                            resizeMode={FastImage.resizeMode.contain}
+                            style={styles.image_background}
+                            source={require('../../../assets/img/ANIMATED_EARN_MORE.gif')}
+                        />
+                        <LinearGradient
+                            colors={this.props.userColor.earn_more}
+                            start={{ x: 0.0, y: 1.4 }}
+                            end={{ x: 1.0, y: 0.0 }}
+                            style={styles.grad}
+                        />
+                        <Text style={[styles.zifi_text, styles.white_text]}>{RU.GAME.ZIFI.MORE_GAMES}</Text>
+                        <Image
+                            style={styles.zifi}
+                            source={require('../../../assets/img/zifi/playful.gif')}
+                        />
+                        <Button
+                            rounded
+                            active={false}
+                            block
+                            transparent
+                            style={styles.go_to_signin}
+                            onPress={() => { }}>
+                            <Text style={styles.lock_visit_text}>{RU.GAME.VISIT_PARTNERS}</Text>
+                        </Button>
+                        <FlatList
+                            contentContainerStyle={styles.contentContainerStyle}
+                            style={styles.visit_website_partners}
+                            horizontal={false}
+                            numColumns={2}
+                            columnWrapperStyle={{ flexWrap: 'wrap' }}
+                            removeClippedSubviews={true}
+                            keyExtractor={this.keyExtractor}
+                            data={[
+                                {
+                                    name: "rozetka",
+                                    icon: null,
+                                    link: "http://google.com"
+                                },
+                                {
+                                    name: "rozetka",
+                                    icon: null,
+                                    link: "http://google.com"
+                                },
+                                {
+                                    name: "rozetka",
+                                    icon: null,
+                                    link: "http://google.com"
+                                },
+                                {
+                                    name: "rozetka",
+                                    icon: null,
+                                    link: "http://google.com"
+                                },
+                                {
+                                    name: "rozetka",
+                                    icon: null,
+                                    link: "http://google.com"
+                                },
+                                {
+                                    invisible: true
+                                }
+                            ]}
+                            renderItem={this._renderPartnerCard}
+                            removeClippedSubviews={true}
+                        />
+                        {
+                            this.props.selectedMall.active ? (
+                                <Button
+                                    rounded
+                                    block
+                                    transparent
+                                    style={styles.go_to_map}
+                                    onPress={() => this.goToMap()}>
+                                    <Text style={styles.lock_visit_text}>{RU.GAME.VISIT_NEAREST_ONE}</Text>
+                                    <FastImage
+                                        resizeMode={FastImage.resizeMode.contain}
+                                        style={styles.icon_arrow}
+                                        source={{ uri: ICONS.COMMON.NAVIGATE_BACK }}
+                                    />
+                                </Button>
+                            ) : null
+                        }
+                    </View>
+                    :
+                    <View style={styles.container}>
+                        <FastImage
+                            resizeMode={FastImage.resizeMode.contain}
+                            style={styles.zifi_cloud}
+                            source={{ uri: this.props.game_info.no_more_games ? ICONS.ZIFI.CLOUD_1 : ICONS.ZIFI.CLOUD_2 }}
+                        />
+                        <Text style={styles.zifi_text}>{this.props.game_info.no_more_games ? RU.GAME.ZIFI.BORING : RU.GAME.ZIFI.PLAYFUL}</Text>
+                        <Image
+                            style={styles.zifi}
+                            source={this.props.game_info.no_more_games ? require('../../../assets/img/zifi/bored.gif') : require('../../../assets/img/zifi/playful.gif')}
+                        />
                         <View style={styles.text_container}>
                             <Text style={styles.game_cost_text}>{this.props.game_info.no_more_games ? RU.GAME.SORRY_TODAY.toLocaleUpperCase() : ""} </Text>
                             <LinearTextGradient
@@ -294,28 +373,28 @@ class GameStart extends React.Component {
                                 {this.props.game_info.no_more_games == true ? RU.GAME.NO_GAMES.toLocaleUpperCase() : RU.GAME.COST_TEXT.toLocaleUpperCase() + " " + this.props.game_info.cost.toLocaleUpperCase() + " " + RU.EPC.toLocaleUpperCase()}
                             </LinearTextGradient>
                         </View>
-                    }
-                    <View style={styles.game_description}>
-                        <Text style={this.props.game_info.no_more_games ? styles.game_description_text : styles.game_description_text_bold}>{this.props.game_status === "lock" ? RU.GAME.LOCK : this.props.game_info.no_more_games ? RU.GAME.GET_EPC : ""}</Text>
-                        {/* this.props.game_info.description */}
-                    </View>
-                    {this.props.game_info.no_more_games || this.props.game_status === "lock" ?
-                        null :
-                        <View style={styles.btn_container}>
-                            < CustomButton
-                                active={this.props.game_error.error_text === "" ? true : false}
-                                short
-                                gradient
-                                title={RU.GAME.START.toUpperCase()}
-                                color={this.props.userColor.white}
-                                handler={() => {
-                                    this.props.loaderState(true)
-                                    this.props.setGameStatus("game")
-                                }}
-                            />
+                        <View style={styles.game_description}>
+                            <Text style={this.props.game_info.no_more_games ? styles.game_description_text : styles.game_description_text_bold}>{this.props.game_info.no_more_games ? RU.GAME.GET_EPC : ""}</Text>
+                            {/* this.props.game_info.description */}
                         </View>
-                    }
-                </View>
+                        {this.props.game_info.no_more_games ?
+                            null :
+                            <View style={styles.btn_container}>
+                                < CustomButton
+                                    active={this.props.game_error.error_text === "" ? true : false}
+                                    short
+                                    gradient
+                                    title={RU.GAME.START.toUpperCase()}
+                                    color={this.props.userColor.white}
+                                    handler={() => {
+                                        this.props.loaderState(true)
+                                        this.props.setGameStatus("game")
+                                    }}
+                                />
+                            </View>
+                        }
+                    </View>
+                }
                 <FooterNavigation />
             </View>
         );
