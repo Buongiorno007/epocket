@@ -33,7 +33,7 @@ class BrandWebsite extends React.Component {
                     <View style={this.props.visible ? styles.main_view : styles.hidden}>
                         <WebView
                             javaScriptEnabled={true}
-                            source={{ uri: this.props.game_info.website_link }}
+                            source={{ uri: this.props.brand_link ? this.props.brand_link : this.props.game_info.website_link }}
                             style={styles.webview}
                         />
                         <View style={styles.timer_header}>

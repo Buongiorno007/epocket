@@ -23,7 +23,6 @@ export default (state = 10, action) => {
     }
 }
 export const shutDownExpiredTimer = (token, id, lat, ln) => async dispatch => {
-    console.log(token, id, lat, ln)
     let body = {
         is_played: "True",
         id
@@ -69,7 +68,14 @@ export const launchGameExpiredTimer = (token, id) => async dispatch => {
             let oldresult = result;
             if (oldresult.body.video_status) {
                 let id = oldresult.body.image.split('_correct')[0].split('id')[1];
-                dispatch(setGameExpiredImage({ id: id, img: oldresult.body.image, video: oldresult.body.video_status ? oldresult.body.video : false }))
+                dispatch(setGameExpiredImage({
+                    id: id,
+                    img: oldresult.body.image,
+                    video: oldresult.body.video_status ? oldresult.body.video : false,
+                    brand_name: oldresult.body.brand_name,
+                    game_link: oldresult.body.game_link,
+                    brand_link: oldresult.body.brand_link,
+                }))
                 dispatch(setGameExpiredTimer(time))
                 if (time === 0) {
                     dispatch(setGameStatus("start"))
@@ -83,7 +89,15 @@ export const launchGameExpiredTimer = (token, id) => async dispatch => {
                 convertToBase64(oldresult.body.image).then(
                     result => {
                         let id = oldresult.body.image.split('_correct')[0].split('id')[1];
-                        dispatch(setGameExpiredImage({ id: id, img: oldresult.body.image, base64: 'data:image/jpg;base64,' + result, video: false }))
+                        dispatch(setGameExpiredImage({
+                            id: id,
+                            img: oldresult.body.image,
+                            base64: 'data:image/jpg;base64,' + result,
+                            video: false,
+                            brand_name: oldresult.body.brand_name,
+                            game_link: oldresult.body.game_link,
+                            brand_link: oldresult.body.brand_link,
+                        }))
                         dispatch(setGameExpiredTimer(time))
                         if (time === 0) {
                             dispatch(setGameStatus("start"))

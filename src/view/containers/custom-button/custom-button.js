@@ -32,13 +32,16 @@ class CustomButton extends React.Component {
         transparent
         block
         rounded
+        color={this.props.color ? this.props.color : "transparent"}
         style={[
           styles.button_container,
           this.props.active ? styles.enabled_button : styles.disabled_button,
           this.props.short && { width: width * 0.5 },
           this.props.semi_short && { width: width * 0.4 },
           this.props.extra_short && { width: width * 0.3 },
-          this.props.long_75 && { width: width * 0.75 }
+          this.props.long_75 && { width: width * 0.75 },
+          this.props.border && { borderWidth: 1, borderColor: this.props.color },
+          this.props.transparent && { backgroundColor: "transparent" }
         ]}
         onPress={() => {
           this.props.active && this.props.handler();

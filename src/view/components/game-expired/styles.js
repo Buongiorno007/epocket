@@ -5,13 +5,23 @@ import { colors } from '../../../constants/colors';
 
 export default StyleSheet.create({
 	main_view: {
-		flex: 1,
+		position: "absolute",
 		flexDirection: 'column',
 		alignItems: 'center',
 		justifyContent: 'space-between',
 		paddingBottom: 70,
 		paddingTop: 40,
 		backgroundColor: colors.backgroundForAnimated,
+		width: width,
+		height: height
+	},
+	main_view_secondary: {
+		position: "absolute",
+		flexDirection: 'column',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+		paddingBottom: 70,
+		paddingTop: 40,
 		width: width,
 		height: height
 	},

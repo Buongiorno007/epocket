@@ -78,7 +78,7 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
         result => {
             console.log("getGameInfo", result)
             let game = result.body;
-            if (true) { // game.ticker === false && !game.game_set
+            if (game.ticker === false && !game.game_set) { // game.ticker === false && !game.game_set
                 dispatch(setGameStatus("lock"));
                 dispatch(errorState(null));
                 dispatch(loaderState(false));
@@ -108,7 +108,7 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
                             video: game.video,
                             wait_timer: ((Number(game.future_timer)) / 60).toFixed(),
                             brand_title: game.brand_name,
-                            website_link: game.link ? game.link : null,
+                            website_link: game.brand_link, //game.brand_link
                             insta_data: {
                                 base64: 'data:image/jpg;base64,' + result,
                                 id: game.id,

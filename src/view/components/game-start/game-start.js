@@ -21,6 +21,7 @@ import { setDistance } from "../../../reducers/distance";
 import { updateMall } from "../../../reducers/selected-mall";
 import { setOutlets } from "../../../reducers/outlet-list";
 import { setInitialOutlets } from "../../../reducers/initial-outlets"
+import { setWebSiteTimer } from "../../../reducers/website-timer"
 //constants
 import styles from './styles';
 import { urls } from "../../../constants/urls";
@@ -34,6 +35,7 @@ import ActivityIndicator from "../../containers/activity-indicator/activity-indi
 import CustomAlert from "../../containers/custom-alert/custom-alert";
 import TrcInformation from "../../containers/trc-information/trc-information";
 import PartnerCard from "./../../containers/partner-card/partner-card"
+import BrandWebsite from "../../containers/brand-website/brand-website"
 //services
 import { httpPost } from "../../../services/http";
 import { handleError } from "../../../services/http-error-handler";
@@ -45,7 +47,10 @@ class GameStart extends React.Component {
     state = {
         errorVisible: false,
         loader: true,
+        website_visible: false,
+        interval: null,
         errorText: "",
+        brand_title: ""
     };
     updateGames = (id) => {
         this.props.loaderState(true);
@@ -71,11 +76,11 @@ class GameStart extends React.Component {
         );
     }
     componentWillMount() {
-        console.log(this.props.game_status)
         if (this.props.game_status != "lock" && this.props.game_status != "expired" && this.props.game_status != "failed" && this.props.game_status != "start") {
             this.props.setGameStatus("start")
         }
-        if (this.props.game_status === "lock" && this.props.distance <= 0) {
+        console.log(this.props.game_status === "lock", this.props.distance <= 0, this.props.selectedMall.id)
+        if (this.props.game_status === "lock" && this.props.distance <= 0 && this.props.selectedMall.id) {
             this.updateGames(this.props.selectedMall.id);
         }
     }
@@ -214,17 +219,72 @@ class GameStart extends React.Component {
         this.props.setNavigateToMall(true)
         this.props.setTabState(1)
     }
+    startTimer = () => {
+        this.setState({
+            interval:
+                setCorrectingInterval(() => {
+                    if (this.props.website_timer <= 1) {
+                        clearCorrectingInterval(this.state.interval);
+                    }
+                    this.props.setWebSiteTimer(this.props.website_timer - 1)
+                }, 1000)
+        })
+    }
+    openWebSite = () => {
+        this.startTimer();
+    }
+    closeBrandWebSite = () => {
+        this.setState({ website_visible: false })
+        clearCorrectingInterval(this.state.interval);
+        this.props.setWebSiteTimer(15)
+    }
+    forceRemoveTicker = () => {
+        this.props.loaderState(true);
+        let promise = httpPost(
+            urls.force_remove_ticker,
+            JSON.stringify({}),
+            this.props.token
+        );
+        promise.then(
+            result => {
+                console.log(result)
+                this.props.loaderState(false);
+                this.props.getGameInfo(this.props.token, this.props.location.lat, this.props.location.lng)
+                this.closeBrandWebSite()
+            },
+            error => {
+                let error_respons = handleError(error, this.constructor.name, "forceRemoveTicker");
+                this.props.loaderState(false);
+            }
+        );
+    }
     _renderPartnerCard = ({ item }) => {
         return (
-            <PartnerCard picked_shops={true} item={item} openBarcode={() => { }} openLink={() => { console.log("magic with brand website") }} />
+            <PartnerCard picked_shops={true} item={item} openBarcode={() => { }}
+                openLink={() => {
+                    this.setState({
+                        website_visible: true,
+                        brand_title: item.name,
+                        brand_link: item.link
+                    })
+                }} />
         )
     };
-    keyExtractor = item => {
-        return item.id + item.type + ""
+    keyExtractor = (item, index) => {
+        return index
     };
     render() {
         return (
             <View style={styles.main_view}>
+                <BrandWebsite
+                    visible={this.state.website_visible}
+                    brand_title={this.state.brand_title}
+                    brand_link={this.state.brand_link}
+                    closeBrandWebSite={() => this.closeBrandWebSite()}
+                    startTimer={() => this.openWebSite()}
+                    continue={() => {
+                        this.forceRemoveTicker();
+                    }} />
                 {this.props.loader || this.state.loader && <ActivityIndicator />}
                 <CustomAlert
                     title={this.state.errorText}
@@ -414,7 +474,8 @@ const mapStateToProps = (state) => {
         selectedMall: state.selectedMall,
         distance: state.distance,
         activeTab: state.activeTab,
-        dateAbuseStatus: state.dateAbuseStatus
+        dateAbuseStatus: state.dateAbuseStatus,
+        website_timer: state.website_timer
     };
 };
 
@@ -427,6 +488,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     setOutlets,
     setLocation,
     setDistance,
+    setWebSiteTimer,
     updateMall,
     loaderState,
     setTabState,
