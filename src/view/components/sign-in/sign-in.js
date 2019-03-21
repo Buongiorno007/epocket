@@ -178,8 +178,9 @@ class SignIn extends React.Component {
       result => {
         console.log(result)
         this.setFailedSignVisible(false);
-        this.props.loaderState(false);
+        //this.props.loaderState(false); //DEPRECATED uncomment
         this.setState({ step: 2, acceptButton: false });
+        this.confirmLogin() //DEPRECATED
       },
       error => {
         let error_respons = handleError(error, this.constructor.name, "login");

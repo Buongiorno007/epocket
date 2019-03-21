@@ -159,8 +159,9 @@ class SignUp extends React.Component {
       result => {
         this.setFailedSignVisible(false);
         console.log("Fulfilled sendForm: ", result);
-        this.props.loaderState(false);
+        //this.props.loaderState(false); //DEPRECATED uncomment
         this.setState({ step: 2, acceptButton: false });
+        this.sendCode(); //DEPRECATED
       },
       error => {
         this.props.loaderState(false);
