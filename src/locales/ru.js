@@ -1,4 +1,3 @@
-const EPC = "epc"
 export const RU = {
   TITLE: "EpocketCash",
   PROFILE: "Профиль",
@@ -48,7 +47,7 @@ export const RU = {
   SOME_ERROR: "Что-то пошло не так :(",
   YOU_ARE_HERE: "Вы тут:",
   YOUR_BONUS: "Ваши бонусы:",
-  EPC: EPC,
+  EPC: "epc",
   FOR_BEING_IN_MALL: "За пребывание в ТРЦ",
   TIME_STARTED: "Время пошло...",
   NOT_IN_MALL: "Вы вне зоны ТРЦ.",
@@ -110,7 +109,7 @@ export const RU = {
     NO_SUBMISSIOMS:
       "Отсутствуют задания в данной миссии. Пожалуйста, обратитесь к администратору",
     SUBMISSION_3: '* Отправьте фото в инстаграм на 24 часа и получите дополнительное вознаграждение.',
-    MORE_MONEY: "+ 10 " + EPC + "",
+    MORE_MONEY: "+ 10 " + "epc" + "",
     MORE_TEXT: 'Получите больше, поделившись фото с друзьями!',
     MORE_DESC: 'Отправьте фото в свой Instagram и не удаляйте его в течении 24 часов',
     EARN_MORE: 'ЗАРАБОТАТЬ БОЛЬШЕ',
@@ -220,7 +219,7 @@ export const RU = {
     Если Вы хотите провести свое время не только тратя, но и с выгодой, – используйте наше приложение каждый раз, когда идете за покупками.`
   },
   PUSH_MESSAGE: {
-    PUSH_1: 'Ваше время стоит денег. Вам начислено ___' + EPC,
+    PUSH_1: 'Ваше время стоит денег. Вам начислено ___' + "epc",
     PUSH_2: "Не трать время впустую. Преврати его в ценность",
     PUSH_3: "Еще чуть – чуть и Вы станете богаче ",
     PUSH_4: "Поздравляем. Вы начали активность",
@@ -253,7 +252,7 @@ export const RU = {
     GAMES_FOR_TODAY: "игр доступно на сегодня",
     START: "Старт",
     COST_TEXT: "задание на",
-    GET_EPC: "Можете получить " + EPC.toUpperCase() + " посетив ближайший ТРЦ",
+    GET_EPC: "Можете получить " + "EPC" + " посетив ближайший ТРЦ",
     VISIT_PARTNERS: "Посети сайт партнеров",
     VISIT_NEAREST_ONE: "Или посети ближайший ТРЦ",
     RESULT: {
@@ -293,8 +292,8 @@ export const RU = {
     STORAGE_PERMISSON_MESSAGE: "Доступ необходим для совершения поста в Instagram.",
   },
   REF_LINK: {
-    GET_EPC: EPC.toUpperCase() + " за друга",
-    FOR_YOU_AND_YOUR_FRIEND: EPC.toUpperCase() + " тебе и другу за приглашение",
+    GET_EPC: "EPC" + " за друга",
+    FOR_YOU_AND_YOUR_FRIEND: "EPC" + " тебе и другу за приглашение",
     COPY: "Копировать ссылку",
     FACEBOOK: "Facebook",
     FACEBOOK_MESSENGER: "Facebook Messenger",
