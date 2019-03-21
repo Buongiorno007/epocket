@@ -26,7 +26,7 @@ class HistoryNavButton extends React.Component {
           </View>
         }
         <Text
-          style={[styles.button_text]}
+          style={[!this.props.disabled ? styles.disabled_text : styles.button_text]}
         >
           {this.props.title.toUpperCase()}
         </Text>

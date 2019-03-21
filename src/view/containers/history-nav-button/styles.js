@@ -21,11 +21,19 @@ export default StyleSheet.create({
     textAlignVertical: "center",
     textAlign: "center"
   },
+  disabled_text: {
+    color: colors.black_50,
+    width: (width * 0.85) / 2,
+    fontFamily: "Rubik-Regular",
+    fontSize: 10,
+    textAlignVertical: "center",
+    textAlign: "center"
+  },
   dot: {
     position: "absolute",
     bottom: 5,
-    height: 5,
-    width: 5,
+    height: 3,
+    width: 40,
     borderRadius: 5
   },
   number: {
