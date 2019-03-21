@@ -19,6 +19,7 @@ import { setFixedTime } from "../../../reducers/fixedTime";
 import { setTempTime } from "../../../reducers/tempTime";
 import { setGameInfo, getGameInfo } from "../../../reducers/game-info"
 import { checkForPostStatus } from "../../../reducers/post-status";
+import { setWebSiteTimer } from "../../../reducers/website-timer"
 //constants
 import styles from './styles';
 import { colors } from '../../../constants/colors';
@@ -26,6 +27,7 @@ import { RU } from '../../../locales/ru';
 import { ICONS } from "../../../constants/icons";
 import { urls } from "../../../constants/urls";
 //services
+import "../../../services/correcting-interval";
 import NavigationService from "./../../../services/route";
 import { convertToBase64 } from "./../../../services/convert-to-base64"
 import InstagramLogin from '../../../services/Instagram';
@@ -34,17 +36,32 @@ import { handleError } from "../../../services/http-error-handler";
 import { postToSocial } from "../../../services/post-to-social"
 //containers
 import CustomAlert from "../../containers/custom-alert/custom-alert";
+import CustomButton from '../../containers/custom-button/custom-button';
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
+import BrandWebsite from "../../containers/brand-website/brand-website"
 
 
 class GameResult extends React.Component {
     state = {
         modalVisible: false,
         errorVisible: false,
+        website_visible: false,
         userCount: 0,
         buttonActive: true,
+        interval: null,
         filePath: ""
     };
+    startTimer = () => {
+        this.setState({
+            interval:
+                setCorrectingInterval(() => {
+                    if (this.props.website_timer <= 1) {
+                        clearCorrectingInterval(this.state.interval);
+                    }
+                    this.props.setWebSiteTimer(this.props.website_timer - 1)
+                }, 1000)
+        })
+    }
     setErrorVisible = visible => {
         this.setState({
             errorVisible: visible
@@ -73,6 +90,7 @@ class GameResult extends React.Component {
                     switch (next_navigation) {
                         case "insta": this.goInst(); this.props.loaderState(false); break;
                         case "home": this.goHome(); this.props.loaderState(false); break;
+                        case "visit_website": this.openWebSiteInfo(); this.props.loaderState(false); break;
                         case "wait": this.goWait(); this.props.loaderState(false); break;
                         default: this.props.loaderState(false); break;
                     }
@@ -92,6 +110,8 @@ class GameResult extends React.Component {
                         total_game_len: 0,
                         true_answer: [],
                         video: false,
+                        wait_timer: 0,
+                        brand_title: "",
                         insta_data: {}
                     }
                     this.props.setGameInfo(info);
@@ -123,6 +143,17 @@ class GameResult extends React.Component {
         setTimeout(() => {
             this.props.setGameStatus("lock")
         }, 0)
+    }
+    openWebSiteInfo = () => {
+        this.setState({ website_visible: true })
+    }
+    openWebSite = () => {
+        this.startTimer();
+    }
+    closeBrandWebSite = () => {
+        this.setState({ website_visible: false })
+        clearCorrectingInterval(this.state.interval);
+        this.props.setWebSiteTimer(15)
     }
     goWait = () => {
         NavigationService.navigate("Main")
@@ -273,7 +304,7 @@ class GameResult extends React.Component {
             style = styles.congratulation
         }
         else if (status === "failed" || status === "expired") {
-            text = RU.GAME.RESULT.SEND_TO_INST
+            text = ""
             style = styles.fail_text
         }
         else {
@@ -315,6 +346,15 @@ class GameResult extends React.Component {
                     backgroundColor={"transparent"}
                     translucent={true}
                 />
+                <BrandWebsite
+                    visible={this.state.website_visible}
+                    brand_title={this.props.game_info.brand_title}
+                    closeBrandWebSite={() => this.closeBrandWebSite()}
+                    startTimer={() => this.openWebSite()}
+                    continue={() => {
+                        this.closeBrandWebSite()
+                        this.checkForGames("home")
+                    }} />
                 {this.props.loader && <ActivityIndicator />}
                 <CustomAlert
                     title={RU.PROFILE_PAGE.ALREADY_ACCOUNT}
@@ -374,8 +414,8 @@ class GameResult extends React.Component {
                 />
                 <FastImage
                     resizeMode={FastImage.resizeMode.contain}
-                    style={this.chooseBackground(this.props.navigation.state.params.status).style}
-                    source={this.chooseBackground(this.props.navigation.state.params.status).img}
+                    style={styles.image_background}
+                    source={require('../../../assets/img/ANIMATED_EARN_MORE.gif')}
                 />
                 <LinearGradient
                     colors={this.props.userColor.earn_more}
@@ -383,6 +423,9 @@ class GameResult extends React.Component {
                     end={{ x: 1.0, y: 0.0 }}
                     style={styles.grad}
                 />
+                {this.props.navigation.state.params.status !== "success" ?
+                    <View style={styles.background_grey} />
+                    : null}
                 <View style={this.props.navigation.state.params.status === "success" ? styles.success : styles.failed}>
                     <FastImage
                         resizeMode={FastImage.resizeMode.contain}
@@ -396,39 +439,69 @@ class GameResult extends React.Component {
                         source={this.chooseZifi(this.props.navigation.state.params.status)}
                     />
                     <Text style={this.chooseResultText(this.props.navigation.state.params.status).style}>{this.chooseResultText(this.props.navigation.state.params.status).text}</Text>
-                    <Button
-                        rounded
-                        transparent
-                        block
-                        style={[this.props.navigation.state.params.status === "success" ? styles.button_short : styles.button]}
-                        androidRippleColor={this.props.userColor.card_shadow}
-                        onPress={() => {
-                            if (this.state.buttonActive)
-                                this.props.navigation.state.params.status === "success" ? this.checkForGames("home") : this.checkForGames("insta")
-                        }}
-                    >
-                        {this.props.navigation.state.params.status != "success" &&
+                    {this.props.navigation.state.params.status !== "success" ?
+                        <View style={styles.image_to_post_container}>
                             <FastImage
-                                style={styles.insta_logo}
+                                style={styles.image_to_post}
                                 resizeMode={FastImage.resizeMode.contain}
-                                source={{ uri: ICONS.INSTAGRAM_COLOR_FILLED }}
+                                source={{
+                                    uri: this.props.navigation.state.params.insta_data.success_image
+                                }}
                             />
-                        }
-                        <Text style={[styles.text,
-                        { color: this.props.userColor.pink_blue }]}>{this.chooseButtonText(this.props.navigation.state.params.status)}</Text>
-                    </Button>
+                        </View>
+                        : null}
+                    {this.props.navigation.state.params.status !== "success" ?
+                        <CustomButton
+                            gradient
+                            instaLogo={true}
+                            long_75
+                            title={this.chooseButtonText(this.props.navigation.state.params.status)}
+                            color={this.props.userColor.white}
+                            style={[this.props.navigation.state.params.status === "success" ? styles.button_short : styles.button]}
+                            handler={() => {
+                                if (this.state.buttonActive)
+                                    this.props.navigation.state.params.status === "success" ? this.checkForGames("home") : this.checkForGames("insta")
+                            }}
+                        />
+                        :
+                        <Button
+                            rounded
+                            transparent
+                            block
+                            style={[this.props.navigation.state.params.status === "success" ? styles.button_short : styles.button]}
+                            androidRippleColor={this.props.userColor.card_shadow}
+                            onPress={() => {
+                                if (this.state.buttonActive)
+                                    this.props.navigation.state.params.status === "success" ? this.checkForGames("home") : this.checkForGames("insta")
+                            }}
+                        >
+                            {this.props.navigation.state.params.status != "success" &&
+                                <FastImage
+                                    style={styles.insta_logo}
+                                    resizeMode={FastImage.resizeMode.contain}
+                                    source={{ uri: ICONS.INSTAGRAM_COLOR_FILLED }}
+                                />
+                            }
+                            <Text style={[styles.text,
+                            { color: this.props.navigation.state.params.status != "success" ? this.props.userColor.white : this.props.userColor.pink_blue }]}>{this.chooseButtonText(this.props.navigation.state.params.status)}</Text>
+                        </Button>
+                    }
                     <Button
                         rounded
                         transparent
                         block
+                        androidRippleColor={this.props.userColor.card_shadow}
                         style={[styles.wait_button, this.props.navigation.state.params.status == "success" && {
                             display: "none"
                         }]}
                         onPress={() => {
-                            this.checkForGames("wait")
+                            this.props.game_info.website_link ?
+                                this.checkForGames("visit_website")
+                                :
+                                this.checkForGames("wait")
                         }}
                     >
-                        <Text style={styles.fail}>{RU.GAME.RESULT.WAIT_30}</Text>
+                        <Text style={styles.fail}>{this.props.game_info.website_link ? RU.GAME.RESULT.VISIT_WEBSITE.toUpperCase() : RU.GAME.RESULT.WAIT_.toUpperCase() + this.props.game_info.wait_timer + RU.GAME.RESULT.MIN.toUpperCase()}</Text>
                     </Button>
                 </View>
             </View >
@@ -446,7 +519,8 @@ const mapStateToProps = (state) => {
         insta_token: state.insta_token,
         loader: state.loader,
         location: state.location,
-        postStatus: state.postStatus
+        postStatus: state.postStatus,
+        website_timer: state.website_timer
     };
 };
 
@@ -458,6 +532,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     setFixedTime,
     setGameInfo,
     setTempTime,
+    setWebSiteTimer,
     errorState,
     setAppState,
     setInstaToken,

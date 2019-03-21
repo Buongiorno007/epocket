@@ -10,10 +10,12 @@ export default StyleSheet.create({
     list: {
         paddingTop: 10,
         height: height * 0.75,
-        flexDirection: "column",
+        overflow: "hidden",
     },
     contentContainerStyle: {
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        alignItems: "center",
+        width: width
     },
     empty: {
         height: height * 0.75,

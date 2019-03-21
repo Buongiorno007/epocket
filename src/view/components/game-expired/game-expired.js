@@ -14,6 +14,7 @@ import { getGameInfo } from "../../../reducers/game-info";
 import { setGameExpiredTimer, launchGameExpiredTimer, shutDownExpiredTimer } from "../../../reducers/game-expired-timer"
 import { errorState } from "../../../reducers/game-error"
 import { checkForPostStatus } from "../../../reducers/post-status";
+import { setWebSiteTimer } from "../../../reducers/website-timer"
 //constants
 import styles from './styles';
 import { RU } from '../../../locales/ru';
@@ -24,7 +25,7 @@ import CustomButton from '../../containers/custom-button/custom-button';
 import FooterNavigation from '../../containers/footer-navigator/footer-navigator';
 import CustomAlert from "../../containers/custom-alert/custom-alert";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
-
+import BrandWebsite from "../../containers/brand-website/brand-website"
 //services
 import "../../../services/correcting-interval";
 import { toHHMMSS } from "./../../../services/convert-time"
@@ -39,6 +40,9 @@ class GameStart extends React.Component {
         errorVisible: false,
         buttonActive: true,
         userCount: 0,
+        website_visible: false,
+        intervalWebsite: null,
+        brand_title: " "
     };
     setModalVisible = visible => {
         this.setState({
@@ -65,17 +69,24 @@ class GameStart extends React.Component {
     }
     _handleAppStateChange = (nextAppState) => {
         if (this.props.appState.match(/background|inactive/) && (nextAppState === 'active')) {
-            clearCorrectingInterval(this.state.interval);
-            this.props.launchGameExpiredTimer(this.props.token)
-            this.startTimer()
+            if (!this.props.game_expired_img.game_link) {
+                clearCorrectingInterval(this.state.interval);
+                this.props.launchGameExpiredTimer(this.props.token)
+                this.startTimer()
+            }
+            else {
+                this.closeBrandWebSite();
+            }
         }
         this.props.setAppState(nextAppState)
     }
     componentDidMount = () => {
         AppState.addEventListener('change', this._handleAppStateChange);
-        clearCorrectingInterval(this.state.interval);
-        this.props.launchGameExpiredTimer(this.props.token)
-        this.startTimer()
+        if (!this.props.game_expired_img.game_link) {
+            clearCorrectingInterval(this.state.interval);
+            this.props.launchGameExpiredTimer(this.props.token)
+            this.startTimer()
+        }
     }
     componentWillUnmount = () => {
         clearCorrectingInterval(this.state.interval);
@@ -148,10 +159,50 @@ class GameStart extends React.Component {
             postToSocial(this.props.game_expired_img, 'https://www.instagram.com/epocketapp/', this.confirmPost);
         }
     }
+    startTimerWebsite = () => {
+        this.setState({
+            intervalWebsite:
+                setCorrectingInterval(() => {
+                    if (this.props.website_timer <= 1) {
+                        clearCorrectingInterval(this.state.intervalWebsite);
+                    }
+                    this.props.setWebSiteTimer(this.props.website_timer - 1)
+                }, 1000)
+        })
+    }
+    openWebSite = () => {
+        this.startTimerWebsite();
+    }
+    closeBrandWebSite = () => {
+        this.setState({ website_visible: false })
+        clearCorrectingInterval(this.state.intervalWebsite);
+        this.props.setWebSiteTimer(15)
+    }
+    loadNextGame = () => {
+        this.closeBrandWebSite()
+        this.props.shutDownExpiredTimer(this.props.token, this.props.game_expired_img.id, this.props.location.lat, this.props.location.lng);
+    }
+    openPartnersInfoPage = () => {
+        console.log(this.props.game_expired_img)
+        this.setState({
+            website_visible: true,
+            brand_title: this.props.game_expired_img.brand_name ? this.props.game_expired_img.brand_name : "",
+            brand_link: this.props.game_expired_img.game_link ? this.props.game_expired_img.game_link : "http://epocket.dev.splinestudio.com/"
+        })
+    }
     render() {
         return (
             <View style={styles.main_view}>
                 {this.props.loader && <ActivityIndicator />}
+                <BrandWebsite
+                    visible={this.state.website_visible}
+                    brand_title={this.state.brand_title}
+                    brand_link={this.state.brand_link}
+                    closeBrandWebSite={() => this.closeBrandWebSite()}
+                    startTimer={() => this.openWebSite()}
+                    continue={() => {
+                        this.loadNextGame();
+                    }} />
                 <CustomAlert
                     title={RU.PROFILE_PAGE.ALREADY_ACCOUNT}
                     first_btn_title={RU.OK}
@@ -206,44 +257,94 @@ class GameStart extends React.Component {
                         this.connectInsta(token)
                     }}
                 />
-                <View style={styles.container}>
-                    <Text style={styles.zifi_text}>{RU.GAME.ZIFI.WAIT}</Text>
-                    <Image
-                        //resizeMode={FastImage.resizeMode.contain}
-                        style={styles.zifi}
-                        source={require('../../../assets/img/zifi/surprised.gif')}
-                    />
-                </View>
-                <GameTimer minutes={toHHMMSS(this.props.game_expired_timer).split(":")[0]} seconds={toHHMMSS(this.props.game_expired_timer).split(":")[1]} />
-                <View style={styles.image_to_post_container}>
-                    <FastImage
-                        style={styles.image_to_post}
-                        resizeMode={FastImage.resizeMode.contain}
-                        source={{
-                            uri: this.props.game_expired_img.img,
-                            priority: FastImage.priority.high
-                        }}
-
-                    />
-                    <LinearGradient
-                        colors={[this.props.userColor.transparent, this.props.userColor.drag_panel_color]}
-                        start={{ x: 0.0, y: 0.0 }}
-                        end={{ x: 0.0, y: 0.8 }}
-                        style={styles.gradient}
-                    />
-                </View>
-                <View style={styles.btn_container}>
-                    <CustomButton
-                        active={this.props.game_error.error_text === "" && this.props.game_expired_img.id && this.state.buttonActive ? true : false}
-                        gradient
-                        instaLogo={true}
-                        title={RU.GAME.RESULT.PUBLISH_AND_CONTINUE.toUpperCase()}
-                        color={this.props.userColor.white}
-                        handler={() => {
-                            this.goInst();
-                        }}
-                    />
-                </View>
+                <FastImage
+                    resizeMode={FastImage.resizeMode.contain}
+                    style={styles.image_background}
+                    source={require('../../../assets/img/ANIMATED_EARN_MORE.gif')}
+                />
+                <LinearGradient
+                    colors={this.props.userColor.earn_more}
+                    start={{ x: 0.0, y: 1.4 }}
+                    end={{ x: 1.0, y: 0.0 }}
+                    style={styles.grad}
+                />
+                {this.props.game_expired_img.game_link ?
+                    <View style={[styles.main_view_secondary, { paddingBottom: 80 }]}>
+                        <View style={styles.background_grey} />
+                        <View style={styles.container_zifi_lock}>
+                            <Text style={styles.zifi_text}>{RU.GAME.ZIFI.FAILED}</Text>
+                            <Image
+                                style={styles.zifi}
+                                source={require('../../../assets/img/zifi/grimaces.gif')}
+                            />
+                        </View>
+                        <View style={styles.image_to_post_container}>
+                            <FastImage
+                                style={styles.image_to_post}
+                                resizeMode={FastImage.resizeMode.contain}
+                                source={{
+                                    uri: this.props.game_expired_img.img
+                                }}
+                            />
+                        </View>
+                        <View style={styles.button_container}>
+                            <CustomButton
+                                active={this.props.game_error.error_text === "" && this.props.game_expired_img.id && this.state.buttonActive ? true : false}
+                                gradient
+                                instaLogo={true}
+                                title={RU.GAME.RESULT.PUBLISH_AND_CONTINUE.toUpperCase()}
+                                color={this.props.userColor.white}
+                                handler={() => {
+                                    this.goInst();
+                                }}
+                            />
+                            <CustomButton
+                                style={styles.visit_site_btn}
+                                active={this.props.game_error.error_text === "" && this.props.game_expired_img.id && this.state.buttonActive ? true : false}
+                                title={RU.GAME.RESULT.VISIT_WEBSITE.toUpperCase()}
+                                color={this.props.userColor.black}
+                                border
+                                transparent
+                                handler={() => {
+                                    this.openPartnersInfoPage();
+                                }}
+                            />
+                        </View>
+                    </View>
+                    :
+                    <View style={styles.main_view_secondary}>
+                        <View style={styles.background_grey} />
+                        <View style={styles.container_zifi_lock}>
+                            <Text style={styles.zifi_text}>{RU.GAME.ZIFI.WAIT}</Text>
+                            <Image
+                                style={styles.zifi}
+                                source={require('../../../assets/img/zifi/surprised.gif')}
+                            />
+                        </View>
+                        <GameTimer minutes={toHHMMSS(this.props.game_expired_timer).split(":")[0]} seconds={toHHMMSS(this.props.game_expired_timer).split(":")[1]} />
+                        <View style={styles.image_to_post_container}>
+                            <FastImage
+                                style={styles.image_to_post}
+                                resizeMode={FastImage.resizeMode.contain}
+                                source={{
+                                    uri: this.props.game_expired_img.img
+                                }}
+                            />
+                        </View>
+                        <View style={styles.btn_container}>
+                            <CustomButton
+                                active={this.props.game_error.error_text === "" && this.props.game_expired_img.id && this.state.buttonActive ? true : false}
+                                gradient
+                                instaLogo={true}
+                                title={RU.GAME.RESULT.PUBLISH_AND_CONTINUE.toUpperCase()}
+                                color={this.props.userColor.white}
+                                handler={() => {
+                                    this.goInst();
+                                }}
+                            />
+                        </View>
+                    </View>
+                }
                 <FooterNavigation />
             </View>
         );
@@ -262,7 +363,8 @@ const mapStateToProps = (state) => {
         insta_token: state.insta_token,
         game_error: state.game_error,
         game_expired_img: state.game_expired_img,
-        postStatus: state.postStatus
+        postStatus: state.postStatus,
+        website_timer: state.website_timer
     };
 };
 
@@ -271,6 +373,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     setGameExpiredTimer,
     launchGameExpiredTimer,
     setAppState,
+    setWebSiteTimer,
     shutDownExpiredTimer,
     loaderState,
     errorState,

@@ -5,31 +5,70 @@ import { colors } from '../../../constants/colors';
 
 export default StyleSheet.create({
 	main_view: {
-		flex: 1,
+		position: "absolute",
 		flexDirection: 'column',
 		alignItems: 'center',
-		justifyContent: 'center',
-		backgroundColor: '#F5F9FE',
+		justifyContent: 'space-between',
+		paddingBottom: 70,
+		paddingTop: height * 0.01,
+		backgroundColor: colors.backgroundForAnimated,
 		width: width,
 		height: height
 	},
+	main_view_secondary: {
+		position: "absolute",
+		flexDirection: 'column',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+		paddingBottom: 70,
+		paddingTop: 40,
+		width: width,
+		height: height
+	},
+	container_zifi_lock: {
+		paddingTop: height * 0.05,
+		alignItems: "center",
+		justifyContent: "center"
+	},
 	btn_container: {
-		flex: 1,
+		width: width * 0.85,
+		height: 40,
+	},
+	grad: {
+		position: "absolute",
+		height: height,
+		width: width,
+	},
+	image_background: {
+		position: "absolute",
+		top: 0,
+		height: height,
+		width: width,
+	},
+	background_grey: {
+		position: "absolute",
+		height: height * 0.65,
+		borderTopLeftRadius: 12,
+		borderTopRightRadius: 12,
+		backgroundColor: colors.drag_panel_color,
+		width: width,
+		bottom: 60
 	},
 	image_to_post_container: {
-		flex: 1,
 		width: width * 0.6,
 		height: width * 0.6,
-		marginVertical: height * 0.05,
+		elevation: 2,
+		shadowColor: colors.card_shadow,
+		shadowOffset: {
+			width: 0,
+			height: 3
+		},
+		shadowRadius: 5,
+		shadowOpacity: 1,
 	},
 	image_to_post: {
 		width: width * 0.6,
-		height: width * 0.6
-	},
-	gradient: {
-		width: width * 0.6,
 		height: width * 0.6,
-		marginTop: -width * 0.6
 	},
 	container: {
 		flexDirection: 'column',
@@ -37,7 +76,6 @@ export default StyleSheet.create({
 		width: width * 0.85,
 		alignItems: "center",
 		justifyContent: "center",
-		marginTop: height * 0.05
 	},
 	text_container: {
 		flexDirection: 'row',
@@ -49,14 +87,12 @@ export default StyleSheet.create({
 	game_title: {
 		alignItems: "center",
 		justifyContent: "center",
-		marginTop: 30,
 		width: width * 0.85
 	},
 	game_description: {
 		width: width * 0.8,
 		alignItems: "center",
 		justifyContent: "center",
-		flex: 0.5
 	},
 	game_cost_text: {
 		color: colors.black41,
@@ -72,15 +108,13 @@ export default StyleSheet.create({
 	zifi: {
 		width: width * 0.35,
 		height: width * 0.35,
-		marginBottom: height * 0.05
 	},
 	zifi_text: {
 		textAlign: "center",
 		width: (width * 0.85),
-		color: colors.zifi_text,
+		color: colors.white,
 		fontSize: 15,
 		fontFamily: 'Rubik-BoldItalic',
-		marginTop: height * 0.05
 	},
 	game_title_text: {
 		textAlign: "center",
@@ -92,5 +126,10 @@ export default StyleSheet.create({
 	TextStyle: {
 		color: '#fff',
 		textAlign: 'center'
-	}
+	},
+	button_container: {
+		justifyContent: "space-between",
+		alignItems: "center",
+		height: 90
+	},
 });

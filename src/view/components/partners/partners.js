@@ -6,6 +6,7 @@ import FastImage from 'react-native-fast-image'
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { loaderState } from "../../../reducers/loader"
 //constants
 import styles from "./styles";
 import { RU } from "../../../locales/ru";
@@ -14,8 +15,12 @@ import { ICONS } from "../../../constants/icons";
 import HistoryNavButton from "./../../containers/history-nav-button/history-nav-button";
 import PartnersList from "./../../containers/partners-list/partners-list";
 import Barcode from "../../containers/barcode/barcode"
+import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 //services
 import NavigationService from "./../../../services/route";
+import { httpPost } from "../../../services/http";
+import { urls } from "../../../constants/urls";
+import { handleError } from "../../../services/http-error-handler";
 
 
 class Partners extends React.Component {
@@ -26,7 +31,9 @@ class Partners extends React.Component {
         pickedShops: true,
         showBarcode: false,
         phone: "0000000000000",
-        shopLink: ""
+        shopLink: "",
+        shops: [],
+        onlineShops: []
     }
     navigateBack = () => {
         NavigationService.navigate("Main")
@@ -39,12 +46,65 @@ class Partners extends React.Component {
             });
         });
     }
+    componentDidMount = () => {
+        this.props.loaderState(true);
+        let body = JSON.stringify({
+            latt: this.props.location.lat,
+            long: this.props.location.lng
+        });
+        let promise = httpPost(
+            urls.get_partners,
+            body,
+            this.props.token
+        );
+        promise.then(
+            result => {
+                console.log(result)
+                let shops = [];
+                let onlineShops = [];
+                result.body.forEach(element => {
+                    if (element.online) {
+                        onlineShops.push(element)
+                    }
+                    else {
+                        shops.push(element)
+                    }
+                });
+                if (onlineShops.length % 2 !== 0) {
+                    onlineShops.push({ invisible: true })
+                }
+                if (shops.length % 2 !== 0) {
+                    shops.push({ invisible: true })
+                }
+                let sortedShops = this.sortShops(shops);
+                let sortedOnlineShops = this.sortShops(onlineShops)
+                this.setState({ shops: sortedShops, onlineShops: sortedOnlineShops })
+                this.props.loaderState(false);
+            },
+            error => {
+                this.props.loaderState(false);
+                let error_respons = handleError(error, this.constructor.name, "componentDidMount");
+            }
+        );
+    }
+    sortShops = (shops) => {
+        return shops.sort(function (a, b) {
+            if (!a.invisible && b.invisible) {
+                return -1;
+            }
+            if (a.invisible && !b.invisible) {
+                return 1;
+            }
+            return 0;
+        });
+    }
     toggleShops = () => {
         this.setState({ pickedShops: !this.state.pickedShops });
     };
     render() {
         return (
             <View style={styles.container}>
+                {this.props.loader && <ActivityIndicator />}
                 {this.state.showBarcode &&
                     <Barcode
                         shopLink={this.state.shopLink}
@@ -101,35 +161,8 @@ class Partners extends React.Component {
                             openBarcode={(shopLink) => {
                                 this.setState({ shopLink, showBarcode: !this.state.showBarcode })
                             }}
-                            shops={[
-                                {
-                                    name: "varus",
-                                    icon: null,
-                                    link: "http://varus.com"
-                                },
-                                {
-                                    name: "silpo",
-                                    icon: null,
-                                    link: "http://silpo.com"
-                                },
-                                {
-                                    name: "title looooooooooooong",
-                                    icon: null,
-                                    link: "http://title.com"
-                                },
-                            ]}
-                            onlineShops={[
-                                {
-                                    name: "allo",
-                                    icon: null,
-                                    link: "http://google.com"
-                                },
-                                {
-                                    name: "rozetka",
-                                    icon: null,
-                                    link: "http://google.com"
-                                },
-                            ]} />
+                            shops={this.state.shops}
+                            onlineShops={this.state.onlineShops} />
                     </View>
                 </LinearGradient>
             </View>
@@ -140,10 +173,14 @@ class Partners extends React.Component {
 const mapStateToProps = state => {
     return {
         userColor: state.userColor,
+        token: state.token,
+        location: state.location,
     };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({
+    loaderState
+}, dispatch);
 
 export default connect(
     mapStateToProps,

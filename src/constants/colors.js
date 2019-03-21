@@ -33,6 +33,7 @@ export const colors =
   black_38: "rgba(0,0,0, 0.38)",
   black_90: "rgba(0,0,0, 0.9)",
   black_50: "rgba(0,0,0, 0.5)",
+  dark_grey: "#575757",
   drag_panel_color: "#F5F9FE",
   card_shadow: "#8FA3BF",
   orange: "#FF8D50",
@@ -56,5 +57,10 @@ export const colors =
   map_pink_02: "rgba(245,90,142,0.2)",
   dark_purple: "#9A4BE4",
   map_dark_blue: "#308BF8",
+  earn_more: ["#F7BB42",
+    "#FF8D50",
+    "#F55890",
+    "rgba(214, 41, 197, 0.88)",
+    "rgba(119, 12, 225, 0.69)"],
   map_dark_blue_02: "rgba(48,139,248, 0.2)" //#308BF8 opacity 0.2
 };

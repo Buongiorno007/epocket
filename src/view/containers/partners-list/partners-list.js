@@ -37,7 +37,7 @@ class PartnersList extends React.Component {
     }
     _renderItem = ({ item }) => {
         return (
-            <PartnerCard item={item} openBarcode={this.props.openBarcode} openLink={this.openLink} />
+            <PartnerCard picked_shops={this.props.picked_shops} item={item} openBarcode={this.props.openBarcode} openLink={this.openLink} />
         )
     };
     _keyExtractor = (item, index) => index;
@@ -53,6 +53,7 @@ class PartnersList extends React.Component {
                                     data={this.props.shops}
                                     horizontal={false}
                                     numColumns={2}
+                                    removeClippedSubviews={true}
                                     contentContainerStyle={styles.contentContainerStyle}
                                     keyExtractor={this._keyExtractor}
                                     renderItem={this._renderItem}
@@ -84,12 +85,11 @@ class PartnersList extends React.Component {
                                         numColumns={2}
                                         contentContainerStyle={styles.contentContainerStyle}
                                         renderItem={this._renderItem}
+                                        removeClippedSubviews={true}
                                         onScrollBeginDrag={() => {
-                                            if (!this.props.receivedBonusesJSX.loader || !this.props.spentBonusesJSX.loader) {
-                                                let old_limitOnlineShops = this.state.limitOnlineShops;
-                                                this.setState({ limitOnlineShops: old_limitOnlineShops + 10 });
-                                                this.refreshList();
-                                            }
+                                            let old_limitOnlineShops = this.state.limitOnlineShops;
+                                            this.setState({ limitOnlineShops: old_limitOnlineShops + 10 });
+                                            this.refreshList();
                                         }}
                                     >
                                         <View style={styles.filler} />

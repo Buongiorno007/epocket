@@ -237,6 +237,7 @@ export const RU = {
   },
   GAME: {
     ZIFI: {
+      MORE_GAMES: "Открой больше игр!",
       PLAYFUL: "Zifi хочет играть!",
       BORING: "Zifi скучно",
       TOO_LONG: "Долго. Zifi стало скучно",
@@ -253,13 +254,18 @@ export const RU = {
     START: "Старт",
     COST_TEXT: "задание на",
     GET_EPC: "Можете получить " + EPC.toUpperCase() + " посетив ближайший ТРЦ",
+    VISIT_PARTNERS: "Посети сайт партнеров",
+    VISIT_NEAREST_ONE: "Или посети ближайший ТРЦ",
     RESULT: {
       CONGRATS: "Поздравляем!",
       YOU_WON: "Вы выиграли",
       CONTINUE: "Продолжить",
+      CONTINUE_PLAY: "Продолжить игру",
       SEND_TO_INST: "Отправьте фото с правильными ответами в свой инстаграм и не удаляйте его в течении 3-х дней",
       PUBLISH_AND_CONTINUE: "Опубликовать и продолжить",
-      WAIT_30: "Подождать 30 мин",
+      WAIT_: "Подождать ",
+      MIN: " мин",
+      VISIT_WEBSITE: "Посетить сайт и продолжить",
       MORE_MONEY: '+ 1 LIFE',
       MORE_TEXT: 'Получите еще 1 возможность пройти игру, поделившись фото с друзьями!',
       MORE_DESC: 'Отправьте фото в свой Instagram и не удаляйте его в течении 24 часов',
@@ -269,6 +275,8 @@ export const RU = {
       POST_ERROR_MESSAGE: 'Ошибка! Нет возможности проверить публикацию',
       POST_SUCCESS_MESSAGE: 'Ваш пост успешно опубликован',
       POST_NO_PUBLISH_MESSAGE: 'Ваш пост не был опубликован',
+      STAY_ON_WEBSITE_FOR_3_MIN: "Проведи на сайте 3 мин.",
+      LOOK_WHAT_TO_BUY: "Посмотри какие товары ты cможешь приобрести за EPC"
     }
   },
   CASHOUT_LIST: {

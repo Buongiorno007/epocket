@@ -91,11 +91,8 @@ function sendRequest(url, OPTIONS) {
         });
       } else {
         try {
-          response.json().then(body => {
-            reject({
-              body,
-              code: parseInt(`${response.status}`)
-            });
+          reject({
+            code: parseInt(`${response.status}`)
           });
         }
         catch (err) {

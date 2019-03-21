@@ -175,7 +175,6 @@ class Game extends React.Component {
 						}}
 					/>
 				</View>
-				{/* <FooterNavigation /> */}
 			</View>
 		);
 	}

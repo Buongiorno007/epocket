@@ -11,6 +11,7 @@ import { setTempTime } from "./tempTime";
 import { setGameStatus } from "./game-status"
 import { setBalance } from "./user-balance"
 import { loaderState } from "./loader";
+import { setGameTickerData } from "./game-ticker-data"
 import { launchGameExpiredTimer } from "./game-expired-timer";
 //constants
 import { ICONS } from "../constants/icons";
@@ -25,7 +26,10 @@ const initialState = {
     time: 0,
     available_game_len: 0,
     total_game_len: 0,
-    true_answer: []
+    true_answer: [],
+    wait_timer: 0,
+    brand_title: "",
+    website_link: ""  //game.link
 }
 export default (state = initialState, action) => {
     switch (action.type) {
@@ -75,11 +79,14 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
         result => {
             console.log("getGameInfo", result)
             let game = result.body;
-            if (game.ticker === false && !game.game_set) {
+            if (game.ticker === false && !game.game_set) { // game.ticker === false && !game.game_set
                 dispatch(setGameStatus("lock"));
                 dispatch(errorState(null));
                 dispatch(loaderState(false));
                 NavigationService.navigate("Main")
+                if (game.base_partners.lenght % 2 != 0)
+                    game.base_partners.push({ invisible: true })
+                dispatch(setGameTickerData(game))
             }
             else if (game.game_set) {
                 let win_array = [];
@@ -103,6 +110,9 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
                             total_game_len: game.games_count,
                             id: game.id,
                             video: game.video,
+                            wait_timer: ((Number(game.future_timer)) / 60).toFixed(),
+                            brand_title: game.brand_name,
+                            website_link: game.brand_link, //game.brand_link
                             insta_data: {
                                 base64: 'data:image/jpg;base64,' + result,
                                 id: game.id,
@@ -131,6 +141,8 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
                     available_game_len: 0,
                     total_game_len: 0,
                     true_answer: [],
+                    wait_timer: 0,
+                    brand_title: "",
                     insta_data: {}
                 }
                 dispatch(setGameInfo(info))

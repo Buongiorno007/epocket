@@ -53,6 +53,14 @@ export default StyleSheet.create({
         shadowRadius: 5,
         shadowOpacity: 5
     },
+    partner_card_inner: {
+        width: width * 0.4,
+        height: width * 0.3,
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+        borderRadius: 12,
+    },
     icon: {
         width: width * 0.2,
         height: width * 0.15,
@@ -70,5 +78,10 @@ export default StyleSheet.create({
         fontSize: 15,
         color: colors.black,
         fontFamily: "Rubik-Bold"
+    },
+    invisible: {
+        width: width * 0.4,
+        height: width * 0.3,
+        backgroundColor: "transparent"
     }
 });
