@@ -22,6 +22,9 @@ class CashoutBalance extends React.Component {
       :
       console.log("Fail. No navigation prop")
   }
+  navigateToPartners = () => {
+    NavigationService.navigate("Partners")
+  }
   componentDidMount = () => {
     AsyncStorage.getItem('user_info').then((value) => {
       let object = JSON.parse(value);
@@ -51,36 +54,59 @@ class CashoutBalance extends React.Component {
             </Button>
           </View>
         }
-        <View style={styles.block}>
-          <View style={[styles.item, styles.balance_title]}>
-            <FastImage
-              resizeMode={FastImage.resizeMode.contain}
-              style={styles.epc_icon}
-              source={{ uri: ICONS.COMMON.CASH_EPC_WHITE }}
-            />
-          </View>
-          <View style={[styles.item, styles.balance_value]}>
-            <Text style={[styles.text, styles.title]}>{this.props.navigation ? RU.CASH.YOUR_TITLE : RU.CASH.TITLE}</Text>
-            <Text style={[styles.text, styles.cash]}>
-              {Number(this.props.balance.toFixed(2))} {RU.EPC} = {Number(this.props.balance.toFixed(2))} {this.state.currency}
-            </Text>
-          </View>
-        </View>
-        {this.props.barcode &&
-          <View style={[styles.block]}>
-            <Button
-              rounded
-              block
-              transparent
-              onPress={() => this.props.openBarcode()}
-              style={styles.barcode_btn}
-            >
+        {this.props.showCurrency ?
+          <View style={[styles.block, styles.vertical_block]}>
+            <View style={[styles.balance_title]}>
               <FastImage
                 resizeMode={FastImage.resizeMode.contain}
-                style={styles.barcode_icon}
-                source={{ uri: ICONS.COMMON.BARCODE }}
+                style={[styles.epc_icon]}
+                source={{ uri: ICONS.COMMON.CASH_EPC_WHITE }}
               />
-            </Button>
+              <Text style={[styles.text, styles.title]}>{this.props.navigation ? RU.CASH.YOUR_TITLE : RU.CASH.TITLE} {Number(this.props.balance.toFixed(2))} {RU.EPC}</Text>
+            </View>
+            <View style={styles.small_border}></View>
+            <View style={[styles.balance_value]}>
+              <Text style={[styles.text, styles.cash]}>
+                {this.state.currency} {Number(this.props.balance.toFixed(2))}
+              </Text>
+            </View>
+          </View>
+          :
+          <View style={styles.block}>
+            <View style={[styles.item, styles.balance_title]}>
+              <FastImage
+                resizeMode={FastImage.resizeMode.contain}
+                style={styles.epc_icon}
+                source={{ uri: ICONS.COMMON.CASH_EPC_WHITE }}
+              />
+            </View>
+            <View style={[styles.item, styles.balance_value]}>
+              <Text style={[styles.text, styles.title]}>{this.props.navigation ? RU.CASH.YOUR_TITLE : RU.CASH.TITLE} {Number(this.props.balance.toFixed(2))} {RU.EPC}</Text>
+            </View>
+          </View>
+        }
+        {this.props.showCurrency &&
+          <View style={[styles.block, styles.vertical_block_center]}>
+            <View style={[styles.balance_title]}>
+              <View style={styles.epc_icon_filler}></View>
+              <Text style={[styles.text, styles.title]}>{RU.CASH.PARTNERS}</Text>
+            </View>
+            <View style={[styles.small_border, { display: "none" }]}></View>
+            <View>
+              <Button
+                rounded
+                block
+                transparent
+                onPress={() => this.navigateToPartners()}
+                style={styles.barcode_btn}
+              >
+                <FastImage
+                  resizeMode={FastImage.resizeMode.contain}
+                  style={styles.barcode_icon}
+                  source={{ uri: ICONS.COMMON.PARTNERS }}
+                />
+              </Button>
+            </View>
           </View>
         }
       </View>

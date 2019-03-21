@@ -3,21 +3,19 @@ import {
     Platform
 } from "react-native";
 import { loaderState } from "./loader";
-export const UPDATE_DATE_ABUSE_STATUS = 'root-status/UPDATE_ROOT_STATUS';
+export const UPDATE_DATE_ABUSE_STATUS = 'date-abuse-status/UPDATE_DATE_ABUSE_STATUS';
 import ntpClient from "react-native-ntp-client";
 import moment from "moment";
 
 export default (state = true, action) => {
     switch (action.type) {
         case UPDATE_DATE_ABUSE_STATUS:
-            console.log("UPDATE_DATE_ABUSE_STATUS", action.status)
             return action.status
         default:
             return state;
     }
 }
 export const setDateAbuseStatus = (status) => {
-    console.log("setDateAbuseStatus", status)
     return {
         type: UPDATE_DATE_ABUSE_STATUS,
         status
@@ -43,11 +41,9 @@ export const loadNTPDate = () => async dispatch => {
                 Number(deviceHours) === Number(serverHours) &&
                 (Math.abs(Number(deviceMinutes) - Number(serverMinutes)) <= 10)
             ) {
-                console.log("date time ok")
                 dispatch(setDateAbuseStatus(true))
             }
             else {
-                console.log("date time failed")
                 dispatch(setDateAbuseStatus(false))
             }
         }

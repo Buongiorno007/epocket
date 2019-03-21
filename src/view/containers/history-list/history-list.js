@@ -38,7 +38,7 @@ class HistoryList extends React.Component {
       <View style={styles.container}>
         {this.props.picked_bonuses ? (
           <View>
-            {this.props.receivedBonusesJSX.body.length > 0 ? (
+            {/* {this.props.receivedBonusesJSX.body.length > 0 ? (
               <View style={styles.summary}>
                 <Text style={styles.summary_light}>
                   {RU.HISTORY_PAGE.ALL_BONUSES_RECEIVED}
@@ -47,7 +47,7 @@ class HistoryList extends React.Component {
                   {Number(this.props.receivedBonusesJSX.sum.toFixed(2))} {RU.EPC}
                 </Text>
               </View>
-            ) : null}
+            ) : null} */}
             <View>
               {this.props.receivedBonusesJSX.body.length > 0 ? (
                 <ScrollView
@@ -73,7 +73,7 @@ class HistoryList extends React.Component {
           </View>
         ) : (
             <View>
-              {this.props.spentBonusesJSX.body.length > 0 ? (
+              {/* {this.props.spentBonusesJSX.body.length > 0 ? (
                 <View style={styles.summary}>
                   <Text style={styles.summary_light}>
                     {RU.HISTORY_PAGE.ALL_BONUSES_SPENT}
@@ -82,7 +82,7 @@ class HistoryList extends React.Component {
                     {Number(this.props.spentBonusesJSX.sum.toFixed(2))} {RU.EPC}
                   </Text>
                 </View>
-              ) : null}
+              ) : null} */}
               <View>
                 {this.props.spentBonusesJSX.body.length > 0 ? (
                   <ScrollView

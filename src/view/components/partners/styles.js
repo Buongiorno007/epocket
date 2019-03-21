@@ -52,44 +52,36 @@ export default StyleSheet.create({
         color: 'rgba(255, 255, 255, 1)',
         fontSize: width * 0.04,
     },
-    barcode_container: {
+    list_container: {
+        backgroundColor: colors.drag_panel_color,
+        borderTopRightRadius: 12,
+        borderTopLeftRadius: 12,
+        height: height * 0.8,
+        width: width,
+        alignItems: "center",
         justifyContent: "flex-start",
-        alignItems: "center",
-        height: width * 0.8
+        paddingBottom: 50,
     },
-    barcode_text_container: {
-        width: width * 0.7,
-        alignItems: "center",
-        justifyContent: "center",
-        paddingBottom: 20
-    },
-    barcode_text: {
-        textAlign: "center",
-        color: colors.white,
-        fontFamily: "Rubik-Medium",
-        fontSize: 18
-    },
-    barcode: {
-        backgroundColor: colors.white,
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: 12,
+    nav_buttons: {
         width: width * 0.85,
-        height: width * 0.6
-    },
-    shop_link: {
-        alignSelf: "center",
-        width: width * 0.6,
-        height: 50,
-        borderRadius: 25,
-        marginTop: 70,
-        backgroundColor: colors.white_o25,
+        height: 45,
+        flexDirection: "row",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "space-between",
+        zIndex: 1
     },
-    shop_link_text: {
-        fontFamily: "Rubik-Regular",
-        fontSize: 14,
-        color: colors.white
+    history_nav: {
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "flex-end",
+        paddingBottom: 10,
+        height: height * 0.2
+    },
+    partners_text: {
+        color: colors.white,
+        textAlign: "center",
+        width: 0.75 * width,
+        fontSize: 15,
+        fontFamily: "Rubik-Bold"
     }
 });

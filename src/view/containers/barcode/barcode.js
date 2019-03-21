@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Dimensions } from "react-native";
+import { View, Text, Dimensions, Linking } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { Button } from "native-base";
 import FastImage from 'react-native-fast-image'
@@ -18,6 +18,15 @@ const { width, height } = Dimensions.get('window');
 class BarcodeView extends React.Component {
     constructor(props) {
         super(props);
+    }
+    openLink = (link) => {
+        Linking.canOpenURL(link).then(supported => {
+            if (!supported) {
+                console.log("Not supported")
+            } else {
+                Linking.openURL(link);
+            }
+        }).catch(err => console.log(err));
     }
     render() {
         return (
@@ -46,7 +55,7 @@ class BarcodeView extends React.Component {
                             style={styles.icon}
                             source={{ uri: ICONS.COMMON.NAVIGATE_BACK }}
                         />
-                        <Text style={[styles.text, styles.title]}>{RU.HISTORY}</Text>
+                        <Text style={[styles.text, styles.title]}>{RU.BACK}</Text>
                     </Button>
                 </View>
                 <View style={styles.barcode_container}>
@@ -58,6 +67,16 @@ class BarcodeView extends React.Component {
                             <Barcode width={2.5} value={this.props.phone} format="EAN13" text={this.props.phone} flat onError={(e) => { console.log("barcode error", e) }} />
                         }
                     </View>
+                    <Button
+                        rounded
+                        block
+                        onPress={() => {
+                            this.openLink(this.props.shopLink)
+                        }}
+                        style={styles.shop_link}
+                    >
+                        <Text numberOfLines={1} style={styles.shop_link_text}>{this.props.shopLink}</Text>
+                    </Button>
                 </View>
             </View>
         );

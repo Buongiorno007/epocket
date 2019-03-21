@@ -19,6 +19,21 @@ export default StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
+    vertical_block: {
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        height: height * 0.1,
+    },
+    vertical_block_center: {
+        flexDirection: 'column',
+        alignItems: 'center',
+        height: height * 0.1,
+    },
+    small_border: {
+        backgroundColor: colors.white_o70,
+        height: 1,
+        width: 20,
+    },
     balance_title: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -43,6 +58,9 @@ export default StyleSheet.create({
         height: 20,
         marginRight: width * 0.02,
     },
+    epc_icon_filler: {
+        height: 30,
+    },
     epc_icon: {
         width: 20,
         height: 30,
@@ -50,8 +68,9 @@ export default StyleSheet.create({
     },
     cash: {
         textAlign: 'left',
-        fontSize: 12,
-        fontFamily: "Rubik-Regular"
+        fontSize: 18,
+        paddingLeft: -width * 0.04,
+        fontFamily: "Rubik-Bold"
     },
     title: {
         fontSize: 12,
@@ -61,7 +80,7 @@ export default StyleSheet.create({
         backgroundColor: colors.white,
         justifyContent: "center",
         alignItems: "center",
-        width: 50,
+        width: width * 0.25,
         height: 30
     },
     barcode_icon: {

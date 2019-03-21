@@ -22,6 +22,7 @@ import ProfileEdit from "./src/view/components/profile-edit/profile-edit"
 import Game from "./src/view/components/game/game"
 import GameResult from "./src/view/components/game-result/game-result"
 import Cashout from "./src/view/components/cashout/cashout"
+import Partners from "./src/view/components/partners/partners"
 
 import { Provider } from "react-redux";
 import store from "./src/store";
@@ -50,7 +51,8 @@ const EpocketCash = createStackNavigator(
     ProfileSettings: { screen: ProfileSettings },
     Game: { screen: Game },
     GameResult: { screen: GameResult },
-    Cashout: { screen: Cashout }
+    Cashout: { screen: Cashout },
+    Partners: { screen: Partners }
   },
   {
     initialRouteName: "Start",
