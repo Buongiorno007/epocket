@@ -53,7 +53,6 @@ class PartnersList extends React.Component {
                                     data={this.props.shops}
                                     horizontal={false}
                                     numColumns={2}
-                                    columnWrapperStyle={{ flexWrap: 'wrap' }}
                                     removeClippedSubviews={true}
                                     contentContainerStyle={styles.contentContainerStyle}
                                     keyExtractor={this._keyExtractor}
@@ -86,14 +85,11 @@ class PartnersList extends React.Component {
                                         numColumns={2}
                                         contentContainerStyle={styles.contentContainerStyle}
                                         renderItem={this._renderItem}
-                                        columnWrapperStyle={{ flexWrap: 'wrap' }}
                                         removeClippedSubviews={true}
                                         onScrollBeginDrag={() => {
-                                            if (!this.props.receivedBonusesJSX.loader || !this.props.spentBonusesJSX.loader) {
-                                                let old_limitOnlineShops = this.state.limitOnlineShops;
-                                                this.setState({ limitOnlineShops: old_limitOnlineShops + 10 });
-                                                this.refreshList();
-                                            }
+                                            let old_limitOnlineShops = this.state.limitOnlineShops;
+                                            this.setState({ limitOnlineShops: old_limitOnlineShops + 10 });
+                                            this.refreshList();
                                         }}
                                     >
                                         <View style={styles.filler} />

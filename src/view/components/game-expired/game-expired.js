@@ -271,7 +271,7 @@ class GameStart extends React.Component {
                 {this.props.game_expired_img.game_link ?
                     <View style={[styles.main_view_secondary, { paddingBottom: 80 }]}>
                         <View style={styles.background_grey} />
-                        <View style={styles.container}>
+                        <View style={styles.container_zifi_lock}>
                             <Text style={styles.zifi_text}>{RU.GAME.ZIFI.FAILED}</Text>
                             <Image
                                 style={styles.zifi}
@@ -287,31 +287,34 @@ class GameStart extends React.Component {
                                 }}
                             />
                         </View>
-                        <CustomButton
-                            active={this.props.game_error.error_text === "" && this.props.game_expired_img.id && this.state.buttonActive ? true : false}
-                            gradient
-                            instaLogo={true}
-                            title={RU.GAME.RESULT.PUBLISH_AND_CONTINUE.toUpperCase()}
-                            color={this.props.userColor.white}
-                            handler={() => {
-                                this.goInst();
-                            }}
-                        />
-                        <CustomButton
-                            active={this.props.game_error.error_text === "" && this.props.game_expired_img.id && this.state.buttonActive ? true : false}
-                            title={RU.GAME.RESULT.VISIT_WEBSITE.toUpperCase()}
-                            color={this.props.userColor.black}
-                            border
-                            transparent
-                            handler={() => {
-                                this.openPartnersInfoPage();
-                            }}
-                        />
+                        <View style={styles.button_container}>
+                            <CustomButton
+                                active={this.props.game_error.error_text === "" && this.props.game_expired_img.id && this.state.buttonActive ? true : false}
+                                gradient
+                                instaLogo={true}
+                                title={RU.GAME.RESULT.PUBLISH_AND_CONTINUE.toUpperCase()}
+                                color={this.props.userColor.white}
+                                handler={() => {
+                                    this.goInst();
+                                }}
+                            />
+                            <CustomButton
+                                style={styles.visit_site_btn}
+                                active={this.props.game_error.error_text === "" && this.props.game_expired_img.id && this.state.buttonActive ? true : false}
+                                title={RU.GAME.RESULT.VISIT_WEBSITE.toUpperCase()}
+                                color={this.props.userColor.black}
+                                border
+                                transparent
+                                handler={() => {
+                                    this.openPartnersInfoPage();
+                                }}
+                            />
+                        </View>
                     </View>
                     :
                     <View style={styles.main_view_secondary}>
                         <View style={styles.background_grey} />
-                        <View style={styles.container}>
+                        <View style={styles.container_zifi_lock}>
                             <Text style={styles.zifi_text}>{RU.GAME.ZIFI.WAIT}</Text>
                             <Image
                                 style={styles.zifi}

@@ -14,7 +14,8 @@ export default StyleSheet.create({
     },
     contentContainerStyle: {
         justifyContent: "space-between",
-        alignItems: "flex-start",
+        alignItems: "center",
+        width: width
     },
     empty: {
         height: height * 0.75,

@@ -10,7 +10,7 @@ export default StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'space-between',
 		paddingBottom: 70,
-		paddingTop: 40,
+		paddingTop: height * 0.01,
 		backgroundColor: colors.backgroundForAnimated,
 		width: width,
 		height: height
@@ -24,6 +24,11 @@ export default StyleSheet.create({
 		paddingTop: 40,
 		width: width,
 		height: height
+	},
+	container_zifi_lock: {
+		paddingTop: height * 0.05,
+		alignItems: "center",
+		justifyContent: "center"
 	},
 	btn_container: {
 		width: width * 0.85,
@@ -121,5 +126,10 @@ export default StyleSheet.create({
 	TextStyle: {
 		color: '#fff',
 		textAlign: 'center'
+	},
+	button_container: {
+		justifyContent: "space-between",
+		alignItems: "center",
+		height: 90
 	},
 });

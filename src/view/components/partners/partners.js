@@ -70,9 +70,15 @@ class Partners extends React.Component {
                         shops.push(element)
                     }
                 });
-                onlineShops.push({ invisible: true })
-                shops.push({ invisible: true })
-                this.setState({ shops, onlineShops })
+                if (onlineShops.length % 2 !== 0) {
+                    onlineShops.push({ invisible: true })
+                }
+                if (shops.length % 2 !== 0) {
+                    shops.push({ invisible: true })
+                }
+                let sortedShops = this.sortShops(shops);
+                let sortedOnlineShops = this.sortShops(onlineShops)
+                this.setState({ shops: sortedShops, onlineShops: sortedOnlineShops })
                 this.props.loaderState(false);
             },
             error => {
@@ -80,6 +86,17 @@ class Partners extends React.Component {
                 let error_respons = handleError(error, this.constructor.name, "componentDidMount");
             }
         );
+    }
+    sortShops = (shops) => {
+        return shops.sort(function (a, b) {
+            if (!a.invisible && b.invisible) {
+                return -1;
+            }
+            if (a.invisible && !b.invisible) {
+                return 1;
+            }
+            return 0;
+        });
     }
     toggleShops = () => {
         this.setState({ pickedShops: !this.state.pickedShops });
