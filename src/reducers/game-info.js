@@ -11,6 +11,7 @@ import { setTempTime } from "./tempTime";
 import { setGameStatus } from "./game-status"
 import { setBalance } from "./user-balance"
 import { loaderState } from "./loader";
+import { setGameTickerData } from "./game-ticker-data"
 import { launchGameExpiredTimer } from "./game-expired-timer";
 //constants
 import { ICONS } from "../constants/icons";
@@ -83,6 +84,9 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
                 dispatch(errorState(null));
                 dispatch(loaderState(false));
                 NavigationService.navigate("Main")
+                if (game.base_partners.lenght % 2 != 0)
+                    game.base_partners.push({ invisible: true })
+                dispatch(setGameTickerData(game))
             }
             else if (game.game_set) {
                 let win_array = [];

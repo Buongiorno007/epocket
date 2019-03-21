@@ -8,6 +8,7 @@ export default StyleSheet.create({
         height: height,
         position: "absolute",
         zIndex: 99,
+        elevation: 3,
         flex: 1
     },
     hidden: {

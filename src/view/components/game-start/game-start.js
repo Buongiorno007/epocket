@@ -358,36 +358,7 @@ class GameStart extends React.Component {
                             columnWrapperStyle={{ flexWrap: 'wrap' }}
                             removeClippedSubviews={true}
                             keyExtractor={this.keyExtractor}
-                            data={[
-                                {
-                                    name: "rozetka",
-                                    icon: null,
-                                    link: "http://google.com"
-                                },
-                                {
-                                    name: "rozetka",
-                                    icon: null,
-                                    link: "http://google.com"
-                                },
-                                {
-                                    name: "rozetka",
-                                    icon: null,
-                                    link: "http://google.com"
-                                },
-                                {
-                                    name: "rozetka",
-                                    icon: null,
-                                    link: "http://google.com"
-                                },
-                                {
-                                    name: "rozetka",
-                                    icon: null,
-                                    link: "http://google.com"
-                                },
-                                {
-                                    invisible: true
-                                }
-                            ]}
+                            data={this.props.game_ticker_data.base_partners}
                             renderItem={this._renderPartnerCard}
                             removeClippedSubviews={true}
                         />
@@ -475,7 +446,8 @@ const mapStateToProps = (state) => {
         distance: state.distance,
         activeTab: state.activeTab,
         dateAbuseStatus: state.dateAbuseStatus,
-        website_timer: state.website_timer
+        website_timer: state.website_timer,
+        game_ticker_data: state.game_ticker_data
     };
 };
 

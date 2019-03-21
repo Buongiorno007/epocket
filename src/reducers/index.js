@@ -53,6 +53,7 @@ import rootStatus from "./root-status"
 import dateAbuseStatus from "./date-abuse-status"
 import pushSendStaus from "./push-send-status"
 import website_timer from "./website-timer"
+import game_ticker_data from "./game-ticker-data"
 
 export default combineReducers({
   isConnected,
@@ -108,5 +109,6 @@ export default combineReducers({
   rootStatus,
   dateAbuseStatus,
   pushSendStaus,
-  website_timer
+  website_timer,
+  game_ticker_data
 });

@@ -32,13 +32,15 @@ class PartnerCard extends React.Component {
                     }}
                     style={styles.partner_card}
                 >
-                    <FastImage
-                        resizeMode={FastImage.resizeMode.contain}
-                        style={styles.icon}
-                        source={{ uri: item.image ? item.image : ICONS.COMMON.PARTNERS }}
-                    />
-                    <View style={styles.border} />
-                    <Text numberOfLines={1} style={styles.partner_title}>{item.name.toUpperCase()}</Text>
+                    <View style={styles.partner_card_inner}>
+                        <FastImage
+                            resizeMode={FastImage.resizeMode.contain}
+                            style={styles.icon}
+                            source={{ uri: item.image ? item.image : ICONS.COMMON.PARTNERS }}
+                        />
+                        <View style={styles.border} />
+                        <Text numberOfLines={1} style={styles.partner_title}>{item.name.toUpperCase()}</Text>
+                    </View>
                 </Button>
                 :
                 <View style={styles.invisible} />
