@@ -164,7 +164,7 @@ class SignUp extends React.Component {
       },
       error => {
         this.props.loaderState(false);
-        let error_respons = handleError(error, this.constructor.name, "sendForm");
+        let error_respons = handleError(error, body, urls.sign_up, "", this.constructor.name, "sendForm");
         this.setState({ errorText: error_respons.error_text });
         if (error_respons.error_code === 400) this.setState({ invalidCode: true });
         else if (error_respons.error_code === 409) this.setState({ numberExists: true });
@@ -210,7 +210,7 @@ class SignUp extends React.Component {
       },
       error => {
         this.props.loaderState(false);
-        let error_respons = handleError(error, this.constructor.name, "sendCode");
+        let error_respons = handleError(error, body, urls.sign_up_confirm, "", this.constructor.name, "sendCode");
         this.setState({ errorText: error_respons.error_text });
         if (error_respons.error_code === 400) {
           this.setState({ invalidCode: true });

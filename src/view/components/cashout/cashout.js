@@ -18,9 +18,6 @@ import { setBalance } from "../../../reducers/user-balance";
 import { loaderState } from "../../../reducers/loader";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-//services
-import { httpPost } from "../../../services/http";
-import { handleError } from "../../../services/http-error-handler";
 
 const { width, height } = Dimensions.get('window');
 

@@ -70,7 +70,7 @@ class GameStart extends React.Component {
                 this.props.getGameInfo(this.props.token, this.props.location.lat, this.props.location.lng)
             },
             error => {
-                let error_respons = handleError(error, this.constructor.name, "updateGames");
+                let error_respons = handleError(error, body, urls.missions, this.props.token, this.constructor.name, "updateGames");
                 this.props.loaderState(false);
             }
         );
@@ -208,7 +208,13 @@ class GameStart extends React.Component {
                 }
             },
             error => {
-                let error_respons = handleError(error, this.constructor.name, "loadTRC");
+                let error_respons = handleError(error, {
+                    geolocation_status: this.props.location.lat != 0 && this.props.location.lng != 0,
+                    tzone: {
+                        timezone: moment.tz.guess(),
+                        timedelta: moment().format('Z')
+                    }
+                }, urls.outlets, this.props.token, this.constructor.name, "loadTRC");
                 this.setState({ errorText: error_respons.error_text });
                 this.setModalVisible(error_respons.error_modal);
             }
@@ -253,7 +259,7 @@ class GameStart extends React.Component {
                 this.closeBrandWebSite()
             },
             error => {
-                let error_respons = handleError(error, this.constructor.name, "forceRemoveTicker");
+                let error_respons = handleError(error, {}, urls.force_remove_ticker, this.props.token, this.constructor.name, "forceRemoveTicker");
                 this.props.loaderState(false);
             }
         );

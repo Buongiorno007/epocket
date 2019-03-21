@@ -144,7 +144,7 @@ class CashoutList extends React.Component {
           });
         },
         error => {
-          let error_respons = handleError(error, this.constructor.name, "sendOrder");
+          let error_respons = handleError(error, body, urls.create_order, this.props.token, this.constructor.name, "sendOrder");
           this.setState({ errorText: error_respons.error_text });
           this.setModalVisible(error_respons.error_modal);
           this.props.loaderState(false);

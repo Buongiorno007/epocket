@@ -27,7 +27,7 @@ class HistoryCard extends React.Component {
   };
   componentDidMount() {
     if (this.props.info.error && this.props.info.error != 401) {
-      let error_respons = handleError({ code: this.props.info.error }, this.constructor.name, "componentDidMount");
+      let error_respons = handleError({ code: this.props.info.error }, {}, "", this.props.token, this.constructor.name, "componentDidMount");
       this.setState({ errorText: error_respons.error_text, errorVisible: true });
     }
   }

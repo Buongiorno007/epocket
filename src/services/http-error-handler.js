@@ -27,7 +27,7 @@ setErrorData = (error_text, error_modal, error_code) => ({
   error_modal,
   error_code
 });
-export const handleError = (errorAll, constructor_name, function_name) => {
+export const handleError = (errorAll, request_body, request_url, request_token, constructor_name, function_name) => {
   let error = this.setErrorData(defaultError, false, errorAll.code)
   switch (errorAll.code) {
     case 503: error = this.setErrorData(RU.HTTP_ERRORS.SERVER_ERROR, true, errorAll.code); break;
@@ -38,10 +38,24 @@ export const handleError = (errorAll, constructor_name, function_name) => {
     case 418: error = this.setErrorData(RU.HTTP_ERRORS.PERSONAL_LIMIT, true, errorAll.code); break;
     default: error = this.setErrorData(RU.HTTP_ERRORS.SERVER_ERROR, true, errorAll.code); break
   }
-  console.log("Rejected request at " + constructor_name + " (function name: " + function_name + ")", errorAll, "/// Generated error: ", error)
+  console.log(
+    "Rejected request at " + constructor_name,
+    "/// Function name: ", function_name,
+    "/// Error all: ", errorAll,
+    "/// Generated error: ", error,
+    "/// Request body: ", request_body,
+    "/// Request url: ", request_url,
+    "/// Request token: ", request_token
+  )
   if (!__DEV__) {
     sendToEpcErrorBot(
-      "Rejected request at " + constructor_name + " (function name: " + function_name + ")" + errorAll, "/// Generated error: ", error
+      "Rejected request at " + constructor_name + " \n " +
+      "/// Function name: " + function_name + " \n " +
+      "/// Error all: " + errorAll + " \n " +
+      "/// Generated error: " + error + " \n " +
+      "/// Request body: " + request_body + " \n " +
+      "/// Request url: " + request_url + " \n " +
+      "/// Request token: " + request_token + " \n "
     )
   }
   return error

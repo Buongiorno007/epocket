@@ -69,7 +69,7 @@ class PhotoView extends React.Component {
         }
       },
       error => {
-        let error_respons = handleError(error, this.constructor.name, "sendPhoto");
+        let error_respons = handleError(error, body, urls.insta_upload_photo, this.props.token, this.constructor.name, "sendPhoto");
         this.setState({ errorText: error_respons.error_text });
         this.setErrorPhotoVisible(error_respons.error_modal);
         this.props.loaderState(false);
@@ -101,7 +101,7 @@ class PhotoView extends React.Component {
         });
       },
       error => {
-        let error_respons = handleError(error, this.constructor.name, "finishMission");
+        let error_respons = handleError(error, body, urls.finish_mission, this.props.token, this.constructor.name, "finishMission");
         this.setState({ errorText: error_respons.error_text });
         this.setErrorMissionVisible(error_respons.error_modal);
         this.props.loaderState(false);

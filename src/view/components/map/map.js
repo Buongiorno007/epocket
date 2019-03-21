@@ -152,7 +152,7 @@ class Map extends React.Component {
           this.setState({ load_missions: false });
         },
         error => {
-          let error_respons = handleError(error, this.constructor.name, "finishMainMission");
+          let error_respons = handleError(error, body, urls.finish_mission, this.props.token, this.constructor.name, "finishMainMission");
           this.setState({ errorText: error_respons.error_text, errorCode: error_respons.error_code });
           this.setErrorVisible(error_respons.error_modal);
           this.setState({ load_missions: false });
@@ -420,7 +420,13 @@ class Map extends React.Component {
         }
       },
       error => {
-        let error_respons = handleError(error, this.constructor.name, "loadTRC");
+        let error_respons = handleError(error, {
+          geolocation_status: this.props.location.lat != 0 && this.props.location.lng != 0,
+          tzone: {
+            timezone: moment.tz.guess(),
+            timedelta: moment().format('Z')
+          }
+        }, urls.finish_mission, this.props.token, this.constructor.name, "loadTRC");
         this.setState({ errorText: error_respons.error_text });
         this.setModalVisible(error_respons.error_modal);
         this.props.loaderState(false);
@@ -588,7 +594,7 @@ class Map extends React.Component {
         this.props.loaderState(false);
       },
       error => {
-        let error_respons = handleError(error, this.constructor.name, "getMissions");
+        let error_respons = handleError(error, body, urls.missions, this.props.token, this.constructor.name, "getMissions");
         this.setState({ errorText: error_respons.error_text, errorCode: error_respons.error_code });
         this.setErrorVisible(error_respons.error_modal);
         this.props.loaderState(false);
@@ -631,7 +637,7 @@ class Map extends React.Component {
       },
       error => {
         this.props.loaderState(false);
-        let error_respons = handleError(error, this.constructor.name, "loadData");
+        let error_respons = handleError(error, body, urls.get_outlet_products, this.props.token, this.constructor.name, "loadData");
         this.setState({ errorText: error_respons.error_text });
         this.setModalVisible(error_respons.error_modal);
       }
@@ -666,7 +672,7 @@ class Map extends React.Component {
       },
       error => {
         this.props.loaderState(false);
-        let error_respons = handleError(error, this.constructor.name, "loadData");
+        let error_respons = handleError(error, body, urls.get_outlet_products, this.props.token, this.constructor.name, "loadData");
         this.setState({ errorText: error_respons.error_text });
         this.setModalVisible(error_respons.error_modal);
       }
@@ -768,7 +774,7 @@ class Map extends React.Component {
       },
       error => {
         this.setState({ load_timer: false });
-        let error_respons = handleError(error, this.constructor.name, "callTimer");
+        let error_respons = handleError(error, body, urls.start_mission, this.props.token, this.constructor.name, "callTimer");
         this.setState({ errorText: error_respons.error_text, errorCode: error_respons.error_code });
         if (error.code != 416 && error.code != 418 && error.code != 415) {
           this.setErrorVisible(error_respons.error_modal);

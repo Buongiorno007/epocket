@@ -120,7 +120,7 @@ class GameResult extends React.Component {
                     this.props.setGameStatus("start");
                 }
                 else {
-                    let error_response = handleError(error, this.component.name, "checkForGames")
+                    let error_response = handleError(error, {}, urls.game_get + "?coords=" + this.props.location.lat + "%2C" + this.props.location.lng, this.props.token, this.component.name, "checkForGames")
                     this.props.errorState(error_response)
                     this.props.loaderState(false);
                 }

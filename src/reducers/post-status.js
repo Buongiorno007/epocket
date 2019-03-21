@@ -117,7 +117,7 @@ export const checkForPostStatus = (game_id, token, lat, lng, game_expired_timer)
                         dispatch(setGameStatus("start"))
                     }
                     else {
-                        let error_response = handleError(error, this.component.name, "confirmPost")
+                        let error_response = handleError(error, body, urls.post_game, token, this.component.name, "confirmPost")
                         dispatch(errorState(error_response))
                         dispatch(loaderState(false));
                     }
@@ -134,7 +134,7 @@ export const checkForPostStatus = (game_id, token, lat, lng, game_expired_timer)
                 dispatch(launchGameExpiredTimer(token, game_id))
 
             }
-            handleError(error, "post-status", "checkForPostStatus")
+            handleError(error, body, urls.post_game, token, "post-status", "checkForPostStatus")
             dispatch(changePostStatus(false));
             dispatch(loaderState(false));
         }

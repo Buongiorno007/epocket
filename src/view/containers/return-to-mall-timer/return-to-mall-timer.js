@@ -46,7 +46,7 @@ class ReturnToMall extends React.Component {
         this.setModalVisible(false);
       },
       error => {
-        let error_respons = handleError(error, this.constructor.name, "closeTimerTask");
+        let error_respons = handleError(error, body, urls.close_mission, this.props.token, this.constructor.name, "closeTimerTask");
         this.setState({ errorText: error_respons.error_text });
         this.setModalVisible(error_respons.error_modal);
       }

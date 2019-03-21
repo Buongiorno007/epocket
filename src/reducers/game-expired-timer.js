@@ -41,7 +41,7 @@ export const shutDownExpiredTimer = (token, id, lat, ln) => async dispatch => {
             dispatch(errorState(null));
         },
         error => {
-            let error_response = handleError(error, "game-expired-time", "shutDownExpiredTimer")
+            let error_response = handleError(error, body, urls.game_expired_timer, token, "game-expired-time", "shutDownExpiredTimer")
             dispatch(errorState(error_response))
             dispatch(loaderState(false));
         }
@@ -112,7 +112,7 @@ export const launchGameExpiredTimer = (token, id) => async dispatch => {
             }
         },
         error => {
-            let error_response = handleError(error, "game-expired-time", "launchGameExpiredTimer")
+            let error_response = handleError(error, body, urls.game_expired_timer, token, "game-expired-time", "launchGameExpiredTimer")
             dispatch(errorState(error_response))
             dispatch(loaderState(false));
         }

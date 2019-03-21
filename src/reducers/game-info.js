@@ -60,7 +60,7 @@ export const passGameResult = (mission_id, api_status, token, status, insta_data
             dispatch(loaderState(false));
         },
         error => {
-            let error_response = handleError(error, "game-info", "passGameResult")
+            let error_response = handleError(error, body, urls.game_get, token, "game-info", "passGameResult")
             NavigationService.navigate("GameResult", { status: "failed", insta_data });
             dispatch(errorState(error_response))
             dispatch(loaderState(false));
@@ -150,7 +150,7 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
                 dispatch(loaderState(false));
             }
             else {
-                let error_response = handleError(error, "game-info", "getGameInfo")
+                let error_response = handleError(error, body, urls.game_get + "?coords=" + latt + "%2C" + long, token, "game-info", "getGameInfo")
                 dispatch(errorState(error_response))
                 dispatch(loaderState(false));
             }

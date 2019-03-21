@@ -83,7 +83,7 @@ class Partners extends React.Component {
             },
             error => {
                 this.props.loaderState(false);
-                let error_respons = handleError(error, this.constructor.name, "componentDidMount");
+                let error_respons = handleError(error, body, urls.get_partners, this.props.token, this.constructor.name, "componentDidMount");
             }
         );
     }

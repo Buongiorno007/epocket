@@ -124,7 +124,7 @@ class ProfileEdit extends React.Component {
           NavigationService.navigate("Main");
         },
         error => {
-          let error_respons = handleError(error, this.constructor.name, "SubmitEdit");
+          let error_respons = handleError(error, body, urls.edit_profile_data, this.props.token, this.constructor.name, "SubmitEdit");
           this.setState({ errorText: error_respons.error_text });
           this.setRejectVisible(error_respons.error_modal);
           this.props.loaderState(false);

@@ -182,7 +182,7 @@ class SignIn extends React.Component {
         this.setState({ step: 2, acceptButton: false });
       },
       error => {
-        let error_respons = handleError(error, this.constructor.name, "login");
+        let error_respons = handleError(error, body, urls.sign_in, "", this.constructor.name, "login");
         this.setState({ errorText: error_respons.error_text });
         if (error_respons.error_code == 400) {
           this.setState({ numberNotExists: true });
@@ -276,7 +276,7 @@ class SignIn extends React.Component {
       },
       error => {
         this.props.loaderState(false);
-        let error_respons = handleError(error, this.constructor.name, "confirmLogin");
+        let error_respons = handleError(error, body, urls.sing_in_confirm, "", this.constructor.name, "confirmLogin");
         this.setState({ errorText: error_respons.error_text });
         this.setFailedConfirmVisible(error_respons.error_modal);
         if (error_respons.error_code === 400) this.setState({ invalidCode: true });

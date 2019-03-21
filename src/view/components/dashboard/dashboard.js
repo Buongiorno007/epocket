@@ -585,7 +585,7 @@ class Dashboard extends React.Component {
       },
       error => {
         this.setState({ load_timer: false });
-        let error_respons = handleError(error, this.constructor.name, "callTimer");
+        let error_respons = handleError(error, this.state.body, urls.start_mission, this.props.token, this.constructor.name, "callTimer");
         this.setState({ errorText: error_respons.error_text, errorCode: error_respons.error_code });
         let notInMallTimer = {
           hours: 0,
@@ -659,7 +659,7 @@ class Dashboard extends React.Component {
         }
       },
       error => {
-        let error_respons = handleError(error, this.constructor.name, "getMissions");
+        let error_respons = handleError(error, this.state.body, urls.missions, this.props.token, this.constructor.name, "getMissions");
         this.setState({ errorText: error_respons.error_text, errorCode: error_respons.error_code });
         this.setMissionsErrorVisible(error_respons.error_modal);
         this.setState({ load_missions: false });
@@ -725,7 +725,7 @@ class Dashboard extends React.Component {
           this.setState({ load_missions: false });
         },
         error => {
-          let error_respons = handleError(error, this.constructor.name, "finishMainMission");
+          let error_respons = handleError(error, body, urls.finish_mission, this.props.token, this.constructor.name, "finishMainMission");
           this.setState({ errorText: error_respons.error_text, errorCode: error_respons.error_code });
           this.setFinishMissionErrorVisible(error_respons.error_modal);
           this.setState({ load_missions: false });
