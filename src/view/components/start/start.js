@@ -35,6 +35,7 @@ import { setFacebookToken } from "../../../reducers/facebook-token"
 import { setProfileVirgin } from "../../../reducers/profile-virgin"
 import { updateRootStatus } from "../../../reducers/root-status"
 import { loadNTPDate } from "../../../reducers/date-abuse-status"
+import { handleLanguageChanged } from "../../../reducers/language-controller"
 import {
   locationStateListener,
   locationState
@@ -86,6 +87,7 @@ class Start extends React.Component {
     this._initialConfig();
     this.props.updateRootStatus();
     this.props.loadNTPDate();
+    this.props.handleLanguageChanged()
   };
 
   _initialConfig = () => {
@@ -242,7 +244,8 @@ const mapDispatchToProps = dispatch =>
       setSounds,
       updateRootStatus,
       loadNTPDate,
-      setGameStatus
+      setGameStatus,
+      handleLanguageChanged
     },
     dispatch
   );

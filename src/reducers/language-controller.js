@@ -26,8 +26,11 @@ export const handleLanguageChanged = () => async dispatch => {
         case "en":
             dispatch(changeLanguageController(EN))
             break;
-        default:
+        case "ru":
             dispatch(changeLanguageController(RU))
+            break;
+        default:
+            dispatch(changeLanguageController(EN))
             break;
     }
 }

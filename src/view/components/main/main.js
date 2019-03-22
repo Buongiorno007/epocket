@@ -42,7 +42,6 @@ class Main extends React.Component {
   }
   _handleAppStateChange = (nextAppState) => {
     if (nextAppState === "active") {
-      console.log("run loadNTP")
       this.props.loadNTPDate();
     }
     if (Platform.OS === "ios")
@@ -141,7 +140,8 @@ const mapStateToProps = state => ({
   location: state.location,
   rootStatus: state.rootStatus,
   dateAbuseStatus: state.dateAbuseStatus,
-  appState: state.appState
+  appState: state.appState,
+  localization: state.localization
 });
 
 const mapDispatchToProps = dispatch =>
