@@ -4,7 +4,7 @@ import FastImage from 'react-native-fast-image'
 //constants
 import styles from "./styles";
 import { ICONS } from "../../../constants/icons";
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 import { colors } from "./../../../constants/colors";
 
 import { connect } from "react-redux";
@@ -27,9 +27,9 @@ class DashTop extends React.Component {
               {this.props.mainMissionPrice}
             </Animated.Text>
             <View style={styles.epc_counter_info}>
-              <Text style={styles.epc}>{RU.EPC}</Text>
-              <Text style={styles.epc_info}>{RU.FOR_BEING_IN_MALL}</Text>
-              <Text style={styles.epc_info}>{RU.TIME_STARTED}</Text>
+              <Text style={styles.epc}>{PickedLanguage.EPC}</Text>
+              <Text style={styles.epc_info}>{PickedLanguage.FOR_BEING_IN_MALL}</Text>
+              <Text style={styles.epc_info}>{PickedLanguage.TIME_STARTED}</Text>
             </View>
           </View>
           <View style={styles.time_counter_container}>
@@ -66,7 +66,7 @@ class DashTop extends React.Component {
             }
           >
             {/* <Text style={styles.main_task_expired}>
-                {RU.MAIN_TASK_EXPIRED}
+                {PickedLanguage.MAIN_TASK_EXPIRED}
               </Text> */}
           </View>
         </View>
@@ -92,7 +92,7 @@ class DashTop extends React.Component {
                   end={{ x: 0.5, y: 0.2 }}
                   style={styles.up_text}
                 >
-                  {RU.YOU_ARE_HERE}
+                  {PickedLanguage.YOU_ARE_HERE}
                 </LinearTextGradient>
                 <LinearTextGradient
                   locations={[0, 1]}
@@ -121,7 +121,7 @@ class DashTop extends React.Component {
                   end={{ x: 0.5, y: 0.2 }}
                   style={styles.up_text}
                 >
-                  {RU.YOUR_BONUS}
+                  {PickedLanguage.YOUR_BONUS}
                 </LinearTextGradient>
                 <LinearTextGradient
                   locations={[0, 1]}
@@ -130,7 +130,7 @@ class DashTop extends React.Component {
                   end={{ x: 0.5, y: 0.2 }}
                   style={styles.down_text}
                 >
-                  {this.props.balance} {RU.EPC}
+                  {this.props.balance} {PickedLanguage.EPC}
                 </LinearTextGradient>
               </View>
             </View>
@@ -154,7 +154,7 @@ class DashTop extends React.Component {
                     start={{ x: 0.0, y: 1.0 }}
                     end={{ x: 0.5, y: 0.2 }}
                     style={styles.epc}>
-                    {RU.EPC}
+                    {PickedLanguage.EPC}
                   </LinearTextGradient>
                   <LinearTextGradient
                     locations={[0, 1]}
@@ -162,7 +162,7 @@ class DashTop extends React.Component {
                     start={{ x: 0.0, y: 1.0 }}
                     end={{ x: 0.5, y: 0.2 }}
                     style={styles.epc_info}>
-                    {RU.FOR_BEING_IN_MALL}
+                    {PickedLanguage.FOR_BEING_IN_MALL}
                   </LinearTextGradient>
                   <LinearTextGradient
                     locations={[0, 1]}
@@ -170,7 +170,7 @@ class DashTop extends React.Component {
                     start={{ x: 0.0, y: 1.0 }}
                     end={{ x: 0.5, y: 0.2 }}
                     style={styles.epc_info}>
-                    {RU.TIME_STARTED}
+                    {PickedLanguage.TIME_STARTED}
                   </LinearTextGradient>
                 </View>
               </View>
@@ -235,7 +235,7 @@ class DashTop extends React.Component {
                 start={{ x: 0.0, y: 1.0 }}
                 end={{ x: 0.5, y: 0.2 }}
                 style={styles.main_task_expired}>
-                {RU.MAIN_TASK_EXPIRED}
+                {PickedLanguage.MAIN_TASK_EXPIRED}
               </LinearTextGradient> */}
             </View>
           </View>
@@ -263,7 +263,7 @@ class DashTop extends React.Component {
                   start={{ x: 0.0, y: 1.0 }}
                   end={{ x: 0.5, y: 0.2 }}
                   style={styles.time_counter_text}>
-                  {RU.EPC}
+                  {PickedLanguage.EPC}
                 </LinearTextGradient>
               </View>
               <View style={styles.small_time_counter_container}>

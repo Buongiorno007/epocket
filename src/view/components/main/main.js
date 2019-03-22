@@ -20,6 +20,7 @@ import RootEnabled from "../../containers/root-enabled/root-enabled"
 import DateAbuseEnabled from "../../containers/date-abuse-enabled/date-abuse-enabled"
 //constants
 import styles from "./styles";
+import PickedLanguage from "../../../locales/language-picker"
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -32,7 +33,6 @@ import { loaderState } from "../../../reducers/loader";
 import { updateRootStatus } from "../../../reducers/root-status"
 import { loadNTPDate } from "../../../reducers/date-abuse-status"
 import { setAppState } from "../../../reducers/app-state"
-
 //services
 import GeolocationService from "../../../services/geolocation-service";
 
@@ -57,6 +57,7 @@ class Main extends React.Component {
     AppState.removeEventListener('change', this._handleAppStateChange);
   }
   componentDidMount() {
+    console.log(PickedLanguage)
     this.backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
       this.props.setActiveCard(false);
       return true;
@@ -140,8 +141,7 @@ const mapStateToProps = state => ({
   location: state.location,
   rootStatus: state.rootStatus,
   dateAbuseStatus: state.dateAbuseStatus,
-  appState: state.appState,
-  localization: state.localization
+  appState: state.appState
 });
 
 const mapDispatchToProps = dispatch =>

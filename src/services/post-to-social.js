@@ -5,7 +5,7 @@ import RNFS from 'react-native-fs';
 import { formatItem } from './format-hastags'
 import { loaderState } from "../reducers/loader"
 import Share from 'react-native-share';
-import { RU } from "./../locales/ru";
+import PickedLanguage from "./../locales/language-picker";
 
 confirmFuction = () => { //this func will be overrided for iOS for callBack
     console.log("confirmFuction not overrided")
@@ -168,10 +168,10 @@ async function requestStoragePermission(post_data, file_path, deepLink, confirmF
         const granted = await PermissionsAndroid.request(
             PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
             {
-                title: RU.PERMISSON.STORAGE_PERMISSON_TITLE,
-                message: RU.PERMISSON.STORAGE_PERMISSON_MESSAGE,
-                buttonNegative: RU.PROFILE_PAGE.DECLINE,
-                buttonPositive: RU.OK.toUpperCase(),
+                title: PickedLanguage.PERMISSON.STORAGE_PERMISSON_TITLE,
+                message: PickedLanguage.PERMISSON.STORAGE_PERMISSON_MESSAGE,
+                buttonNegative: PickedLanguage.PROFILE_PAGE.DECLINE,
+                buttonPositive: PickedLanguage.OK.toUpperCase(),
             },
         );
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {

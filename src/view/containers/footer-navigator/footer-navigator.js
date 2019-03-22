@@ -5,7 +5,7 @@ import { Label, Button } from "native-base";
 import LinearGradient from "react-native-linear-gradient";
 //constants
 import { ICONS } from "../../../constants/icons";
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 import styles from "./styles";
 //redux
 import { setTabState } from "../../../reducers/tabs";
@@ -44,7 +44,7 @@ class FooterNavigation extends React.Component {
             }
           />
           {this.props.activeTab === 0 ? (
-            <Label style={styles.footer_tab_text}> {RU.GAME.GAME_TITLE.toUpperCase()} </Label>
+            <Label style={styles.footer_tab_text}> {PickedLanguage.GAME.GAME_TITLE.toUpperCase()} </Label>
           ) : null}
         </Button>
         <Button
@@ -66,7 +66,7 @@ class FooterNavigation extends React.Component {
             }
           />
           {this.props.activeTab === 1 ? (
-            <Label style={styles.footer_tab_text}> {RU.SHOP.toUpperCase()} </Label>
+            <Label style={styles.footer_tab_text}> {PickedLanguage.SHOP.toUpperCase()} </Label>
           ) : null}
         </Button>
         <Button
@@ -88,7 +88,7 @@ class FooterNavigation extends React.Component {
             }
           />
           {this.props.activeTab === 2 ? (
-            <Label style={styles.footer_tab_text}> {RU.HISTORY.toUpperCase()} </Label>
+            <Label style={styles.footer_tab_text}> {PickedLanguage.HISTORY.toUpperCase()} </Label>
           ) : null}
         </Button>
         <Button
@@ -110,7 +110,7 @@ class FooterNavigation extends React.Component {
             }
           />
           {this.props.activeTab === 3 ? (
-            <Label style={styles.footer_tab_text}> {RU.PROFILE.toUpperCase()} </Label>
+            <Label style={styles.footer_tab_text}> {PickedLanguage.PROFILE.toUpperCase()} </Label>
           ) : null}
         </Button>
       </View>

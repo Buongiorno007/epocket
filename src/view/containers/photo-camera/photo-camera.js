@@ -10,7 +10,7 @@ import TemplateInstagramPhoto from "../template-insta-photo/template-insta-photo
 import InstaHashTags from "../insta-hashtags/insta-hashtags";
 //constants
 import styles from "./styles";
-import { RU } from "./../../../locales/ru";
+import PickedLanguage from "./../../../locales/language-picker";
 import { urls } from "../../../constants/urls";
 import { ICONS } from "./../../../constants/icons";
 //services
@@ -96,8 +96,8 @@ class PhotoCamera extends React.Component {
                 ? RNCamera.Constants.FlashMode.on
                 : RNCamera.Constants.FlashMode.off
             }
-            permissionDialogTitle={RU.TITLE}
-            permissionDialogMessage={RU.CAMERA_PERMISSION}
+            permissionDialogTitle={PickedLanguage.TITLE}
+            permissionDialogMessage={PickedLanguage.CAMERA_PERMISSION}
           />
         </View>
         <View style={styles.template_hashtags}>

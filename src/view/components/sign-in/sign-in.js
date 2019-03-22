@@ -50,12 +50,12 @@ import styles from "./styles";
 import { colors } from "../../../constants/colors";
 import { urls } from "../../../constants/urls";
 import { ICONS } from "../../../constants/icons";
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 const keyboardVerticalOffset = Platform.OS === "ios" ? -50 : -100;
 
 class SignIn extends React.Component {
   static navigationOptions = () => ({
-    header: <BackButton title={RU.SIGN_IN_TITLE} route="Start" />
+    header: <BackButton title={PickedLanguage.SIGN_IN_TITLE} route="Start" />
   });
 
   prefix = "+";
@@ -296,7 +296,7 @@ class SignIn extends React.Component {
         <View style={styles.main_view}>
           <CustomAlert
             title={this.state.errorText}
-            first_btn_title={RU.REPEAT}
+            first_btn_title={PickedLanguage.REPEAT}
             visible={this.state.failedSignVisible}
             first_btn_handler={() => {
               this.login();
@@ -307,7 +307,7 @@ class SignIn extends React.Component {
           />
           <CustomAlert
             title={this.state.errorText}
-            first_btn_title={RU.REPEAT}
+            first_btn_title={PickedLanguage.REPEAT}
             visible={this.state.failedConfirmVisible}
             first_btn_handler={() => {
               this.confirmLogin();
@@ -334,11 +334,11 @@ class SignIn extends React.Component {
           {this.state.step == 1 ? (
             <View style={styles.form}>
               <TextField
-                label={RU.MOBILE_NUMBER}
+                label={PickedLanguage.MOBILE_NUMBER}
                 textColor={this.props.userColor.input}
                 tintColor={this.props.userColor.input}
                 baseColor={this.props.userColor.input}
-                placeholder={RU.PHONE_MASK}
+                placeholder={PickedLanguage.PHONE_MASK}
                 placeholderTextColor={this.props.userColor.input_placeholder}
                 labelPadding={16}
                 inputContainerPadding={16}
@@ -357,7 +357,7 @@ class SignIn extends React.Component {
                     : styles.disabled
                 }
               >
-                {RU.NUMBER_NOT_EXISTS}
+                {PickedLanguage.NUMBER_NOT_EXISTS}
               </Text>
               <Animated.View style={[{ marginTop: this.state.signInMargin }]}>
                 <CustomButton
@@ -366,21 +366,21 @@ class SignIn extends React.Component {
                     this.login();
                   }}
                   active={this.state.acceptButton}
-                  title={RU.SIGN_IN.toUpperCase()}
+                  title={PickedLanguage.SIGN_IN.toUpperCase()}
                 />
               </Animated.View>
             </View>
           ) : this.state.step == 2 ? (
             <View style={styles.form}>
-              <Text style={styles.code_sent}>{RU.CODE_SENT}</Text>
-              <Text style={styles.enter_code}>{RU.ENTER_CODE_SIDN_IN}</Text>
+              <Text style={styles.code_sent}>{PickedLanguage.CODE_SENT}</Text>
+              <Text style={styles.enter_code}>{PickedLanguage.ENTER_CODE_SIDN_IN}</Text>
               <TextField
                 label={""}
                 style={styles.code_input}
                 textColor={this.props.userColor.input}
                 tintColor={this.props.userColor.input}
                 baseColor={this.props.userColor.input}
-                placeholder={RU.CODE_MASK}
+                placeholder={PickedLanguage.CODE_MASK}
                 placeholderTextColor={this.props.userColor.input_placeholder}
                 labelPadding={16}
                 inputContainerPadding={16}
@@ -389,7 +389,7 @@ class SignIn extends React.Component {
                 onChangeText={text => this.onChangedCode(text)}
               />
               {this.state.invalidCode ? (
-                <Text style={styles.check_code}>{RU.CHECK_CODE}</Text>
+                <Text style={styles.check_code}>{PickedLanguage.CHECK_CODE}</Text>
               ) : null}
               <Animated.View style={[{ marginTop: this.state.signInMargin }]}>
                 <CustomButton
@@ -398,7 +398,7 @@ class SignIn extends React.Component {
                     this.confirmLogin();
                   }}
                   active={this.state.acceptButton}
-                  title={RU.ACCEPT.toUpperCase()}
+                  title={PickedLanguage.ACCEPT.toUpperCase()}
                 />
               </Animated.View>
             </View>

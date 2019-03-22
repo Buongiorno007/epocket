@@ -5,7 +5,7 @@ import FastImage from 'react-native-fast-image'
 //constants
 import styles from "./styles";
 import { colors } from "../../../constants/colors";
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 import { ICONS } from "./../../../constants/icons";
 //redux
 import { connect } from "react-redux";
@@ -36,7 +36,7 @@ class PostCard extends React.Component {
                         {this.props.item.name}
                     </Text>
                     <Text style={[styles.social_text, styles.social_text_desc]}>
-                        {RU.DASHBOARD_LIST.WILL_GET + this.props.item.value && this.props.item.value != " NO DATA" ? this.props.item.value : 0 + " " + RU.EPC + RU.DASHBOARD_LIST.OVER}
+                        {PickedLanguage.DASHBOARD_LIST.WILL_GET + this.props.item.value && this.props.item.value != " NO DATA" ? this.props.item.value : 0 + " " + PickedLanguage.EPC + PickedLanguage.DASHBOARD_LIST.OVER}
                     </Text>
                     <View style={styles.timer_row}>
                         <View style={styles.timer_column}>
@@ -44,7 +44,7 @@ class PostCard extends React.Component {
                                 {toDDHHMM(this.props.item.timer).days < 10 ? "0" + toDDHHMM(this.props.item.timer).days : toDDHHMM(this.props.item.timer).days}
                             </Text>
                             <Text style={[styles.social_text, styles.social_text_ddmmss]}>
-                                {RU.DASHBOARD_LIST.DD}
+                                {PickedLanguage.DASHBOARD_LIST.DD}
                             </Text>
                         </View>
                         <View style={styles.timer_column}>
@@ -60,7 +60,7 @@ class PostCard extends React.Component {
                                 {toDDHHMM(this.props.item.timer).hours < 10 ? "0" + toDDHHMM(this.props.item.timer).hours : toDDHHMM(this.props.item.timer).hours}
                             </Text>
                             <Text style={[styles.social_text, styles.social_text_ddmmss]}>
-                                {RU.DASHBOARD_LIST.HH}
+                                {PickedLanguage.DASHBOARD_LIST.HH}
                             </Text>
                         </View>
                         <View style={styles.timer_column}>
@@ -76,7 +76,7 @@ class PostCard extends React.Component {
                                 {toDDHHMM(this.props.item.timer).minutes < 10 ? "0" + toDDHHMM(this.props.item.timer).minutes : toDDHHMM(this.props.item.timer).minutes}
                             </Text>
                             <Text style={[styles.social_text, styles.social_text_ddmmss]}>
-                                {RU.DASHBOARD_LIST.MM}
+                                {PickedLanguage.DASHBOARD_LIST.MM}
                             </Text>
                         </View>
                     </View>

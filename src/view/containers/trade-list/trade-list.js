@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text } from "react-native";
 //constants
 import styles from "./styles";
-import { RU } from "./../../../locales/ru";
+import PickedLanguage from "./../../../locales/language-picker";
 //services
 import { formatNumber } from "./../../../services/format-number";
 
@@ -53,7 +53,7 @@ class TradeList extends React.Component {
                   {(!item.approve || !item.amount )&& (
                     <View style={[styles.data, styles.align]}>
                       <Text style={[styles.text, styles.message]}>
-                        {RU.TRADE.CANCEL}
+                        {PickedLanguage.TRADE.CANCEL}
                       </Text>
                     </View>
                   )}

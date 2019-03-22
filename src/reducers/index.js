@@ -1,5 +1,4 @@
 import { combineReducers } from "redux";
-import localization from "./language-controller"
 import isConnected from "./net-info";
 import isLocation from "./geolocation-status";
 import location from "./geolocation-coords";
@@ -112,6 +111,5 @@ export default combineReducers({
   dateAbuseStatus,
   pushSendStaus,
   website_timer,
-  game_ticker_data,
-  localization
+  game_ticker_data
 });

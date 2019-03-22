@@ -11,7 +11,7 @@ import CustomAlert from "../../containers/custom-alert/custom-alert";
 import TimerModal from "../../containers/timer-modal/timer-modal";
 //constants
 import { urls } from "../../../constants/urls";
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 import { colors } from "../../../constants/colors_men";
 //redux
 import { setBalance } from "../../../reducers/user-balance";
@@ -190,7 +190,7 @@ class Cashout extends React.Component {
         />
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={RU.REPEAT}
+          first_btn_title={PickedLanguage.REPEAT}
           visible={this.state.errorVisible}
           first_btn_handler={() => {
             //this.loadData();

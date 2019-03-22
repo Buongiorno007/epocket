@@ -3,7 +3,7 @@ import { View, Text, ScrollView } from "react-native";
 import { Button } from "native-base";
 //constants
 import styles from "./styles";
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 import { colors } from "./../../../constants/colors";
 import { ICONS } from "../../../constants/icons";
 //containers
@@ -41,10 +41,10 @@ class HistoryList extends React.Component {
             {/* {this.props.receivedBonusesJSX.body.length > 0 ? (
               <View style={styles.summary}>
                 <Text style={styles.summary_light}>
-                  {RU.HISTORY_PAGE.ALL_BONUSES_RECEIVED}
+                  {PickedLanguage.HISTORY_PAGE.ALL_BONUSES_RECEIVED}
                 </Text>
                 <Text style={styles.summary_bold}>
-                  {Number(this.props.receivedBonusesJSX.sum.toFixed(2))} {RU.EPC}
+                  {Number(this.props.receivedBonusesJSX.sum.toFixed(2))} {PickedLanguage.EPC}
                 </Text>
               </View>
             ) : null} */}
@@ -65,7 +65,7 @@ class HistoryList extends React.Component {
                 </ScrollView>
               ) : (
                   <View style={styles.empty}>
-                    <Text>{RU.HISTORY_PAGE.NO_HISTORY}</Text>
+                    <Text>{PickedLanguage.HISTORY_PAGE.NO_HISTORY}</Text>
                     <View style={styles.filler} />
                   </View>
                 )}
@@ -76,10 +76,10 @@ class HistoryList extends React.Component {
               {/* {this.props.spentBonusesJSX.body.length > 0 ? (
                 <View style={styles.summary}>
                   <Text style={styles.summary_light}>
-                    {RU.HISTORY_PAGE.ALL_BONUSES_SPENT}
+                    {PickedLanguage.HISTORY_PAGE.ALL_BONUSES_SPENT}
                   </Text>
                   <Text style={styles.summary_bold}>
-                    {Number(this.props.spentBonusesJSX.sum.toFixed(2))} {RU.EPC}
+                    {Number(this.props.spentBonusesJSX.sum.toFixed(2))} {PickedLanguage.EPC}
                   </Text>
                 </View>
               ) : null} */}
@@ -100,7 +100,7 @@ class HistoryList extends React.Component {
                   </ScrollView>
                 ) : (
                     <View style={styles.empty}>
-                      <Text>{RU.HISTORY_PAGE.NO_HISTORY}</Text>
+                      <Text>{PickedLanguage.HISTORY_PAGE.NO_HISTORY}</Text>
                       <View style={styles.filler} />
                     </View>
                   )}

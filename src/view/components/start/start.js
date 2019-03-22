@@ -19,7 +19,7 @@ import ActivityIndicator from "../../containers/activity-indicator/activity-indi
 //constants
 import styles from "./styles";
 import { ICONS } from "../../../constants/icons";
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -35,7 +35,6 @@ import { setFacebookToken } from "../../../reducers/facebook-token"
 import { setProfileVirgin } from "../../../reducers/profile-virgin"
 import { updateRootStatus } from "../../../reducers/root-status"
 import { loadNTPDate } from "../../../reducers/date-abuse-status"
-import { handleLanguageChanged } from "../../../reducers/language-controller"
 import {
   locationStateListener,
   locationState
@@ -87,7 +86,6 @@ class Start extends React.Component {
     this._initialConfig();
     this.props.updateRootStatus();
     this.props.loadNTPDate();
-    this.props.handleLanguageChanged()
   };
 
   _initialConfig = () => {
@@ -188,13 +186,13 @@ class Start extends React.Component {
           style={styles.top_logo_image}
           source={{ uri: ICONS.COMMON.CASH_EPC_WHITE }}
         />
-        <Text style={styles.start_title}>{RU.START_TITLE}</Text>
+        <Text style={styles.start_title}>{PickedLanguage.START_TITLE}</Text>
         {this.state.enable_login && (
           <View style={styles.signup_signin_buttons}>
             <CustomButton
               style={styles.signup_button}
               active
-              title={RU.SIGN_UP_TITLE.toUpperCase()}
+              title={PickedLanguage.SIGN_UP_TITLE.toUpperCase()}
               color={"#F55890"}
               handler={() => this.goToSignUp()}
             />
@@ -205,7 +203,7 @@ class Start extends React.Component {
               style={styles.go_to_signin}
               onPress={() => this.goToSignIn()}
             >
-              <Text style={styles.go_to_signin_text}>{RU.GO_TO_SIGNIN}</Text>
+              <Text style={styles.go_to_signin_text}>{PickedLanguage.GO_TO_SIGNIN}</Text>
             </Button>
           </View>
         )}
@@ -244,8 +242,7 @@ const mapDispatchToProps = dispatch =>
       setSounds,
       updateRootStatus,
       loadNTPDate,
-      setGameStatus,
-      handleLanguageChanged
+      setGameStatus
     },
     dispatch
   );

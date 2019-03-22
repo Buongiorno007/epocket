@@ -4,7 +4,7 @@ import { Button } from "native-base";
 //constants
 import styles from "./styles";
 import { colors } from "../../../constants/colors";
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -60,7 +60,7 @@ class Card extends React.Component {
               : [styles.price, { color: this.props.item.color ? this.props.item.color : this.props.userColor.black }]
           ]}
         >
-          {this.props.item.formated.amount} {RU.EPC}
+          {this.props.item.formated.amount} {PickedLanguage.EPC}
         </Text>
         <Text style={[styles.owner, { color: this.props.item.color ? this.props.item.color : this.props.userColor.black }]}>
           {this.props.item.trade}

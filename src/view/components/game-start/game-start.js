@@ -27,7 +27,7 @@ import styles from './styles';
 import { urls } from "../../../constants/urls";
 import { colors } from './../../../constants/colors';
 import { ICONS } from "../../../constants/icons";
-import { RU } from '../../../locales/ru';
+import PickedLanguage from '../../../locales/language-picker';
 //containers
 import CustomButton from '../../containers/custom-button/custom-button';
 import FooterNavigation from '../../containers/footer-navigator/footer-navigator';
@@ -294,7 +294,7 @@ class GameStart extends React.Component {
                 {this.props.loader || this.state.loader && <ActivityIndicator />}
                 <CustomAlert
                     title={this.state.errorText}
-                    first_btn_title={RU.REPEAT}
+                    first_btn_title={PickedLanguage.REPEAT}
                     visible={this.state.errorVisible}
                     first_btn_handler={() => {
                         if (this.props.dateAbuseStatus)
@@ -306,7 +306,7 @@ class GameStart extends React.Component {
                 />
                 <CustomAlert
                     title={this.props.game_error.error_text}
-                    first_btn_title={RU.REPEAT}
+                    first_btn_title={PickedLanguage.REPEAT}
                     visible={this.props.game_error.error_modal}
                     first_btn_handler={() => {
                         this.props.getGameInfo(this.props.token, this.props.location.lat, this.props.location.lng);
@@ -326,7 +326,7 @@ class GameStart extends React.Component {
                     this.props.game_info.no_more_games ?
                         null :
                         <View style={styles.game_title}>
-                            <Text style={styles.game_title_text}>{this.props.game_info.available_game_len}/{this.props.game_info.total_game_len} {RU.GAME.GAMES_FOR_TODAY}</Text>
+                            <Text style={styles.game_title_text}>{this.props.game_info.available_game_len}/{this.props.game_info.total_game_len} {PickedLanguage.GAME.GAMES_FOR_TODAY}</Text>
                         </View>
                 }
                 {this.props.game_status === "lock" ?
@@ -342,7 +342,7 @@ class GameStart extends React.Component {
                             end={{ x: 1.0, y: 0.0 }}
                             style={styles.grad}
                         />
-                        <Text style={[styles.zifi_text, styles.white_text]}>{RU.GAME.ZIFI.MORE_GAMES}</Text>
+                        <Text style={[styles.zifi_text, styles.white_text]}>{PickedLanguage.GAME.ZIFI.MORE_GAMES}</Text>
                         <Image
                             style={styles.zifi}
                             source={require('../../../assets/img/zifi/playful.gif')}
@@ -354,7 +354,7 @@ class GameStart extends React.Component {
                             transparent
                             style={styles.go_to_signin}
                             onPress={() => { }}>
-                            <Text style={styles.lock_visit_text}>{RU.GAME.VISIT_PARTNERS}</Text>
+                            <Text style={styles.lock_visit_text}>{PickedLanguage.GAME.VISIT_PARTNERS}</Text>
                         </Button>
                         <FlatList
                             contentContainerStyle={styles.contentContainerStyle}
@@ -376,7 +376,7 @@ class GameStart extends React.Component {
                                     transparent
                                     style={styles.go_to_map}
                                     onPress={() => this.goToMap()}>
-                                    <Text style={styles.lock_visit_text}>{RU.GAME.VISIT_NEAREST_ONE}</Text>
+                                    <Text style={styles.lock_visit_text}>{PickedLanguage.GAME.VISIT_NEAREST_ONE}</Text>
                                     <FastImage
                                         resizeMode={FastImage.resizeMode.contain}
                                         style={styles.icon_arrow}
@@ -393,13 +393,13 @@ class GameStart extends React.Component {
                             style={styles.zifi_cloud}
                             source={{ uri: this.props.game_info.no_more_games ? ICONS.ZIFI.CLOUD_1 : ICONS.ZIFI.CLOUD_2 }}
                         />
-                        <Text style={styles.zifi_text}>{this.props.game_info.no_more_games ? RU.GAME.ZIFI.BORING : RU.GAME.ZIFI.PLAYFUL}</Text>
+                        <Text style={styles.zifi_text}>{this.props.game_info.no_more_games ? PickedLanguage.GAME.ZIFI.BORING : PickedLanguage.GAME.ZIFI.PLAYFUL}</Text>
                         <Image
                             style={styles.zifi}
                             source={this.props.game_info.no_more_games ? require('../../../assets/img/zifi/bored.gif') : require('../../../assets/img/zifi/playful.gif')}
                         />
                         <View style={styles.text_container}>
-                            <Text style={styles.game_cost_text}>{this.props.game_info.no_more_games ? RU.GAME.SORRY_TODAY.toLocaleUpperCase() : ""} </Text>
+                            <Text style={styles.game_cost_text}>{this.props.game_info.no_more_games ? PickedLanguage.GAME.SORRY_TODAY.toLocaleUpperCase() : ""} </Text>
                             <LinearTextGradient
                                 style={styles.game_cost_text}
                                 locations={[0, 1]}
@@ -407,11 +407,11 @@ class GameStart extends React.Component {
                                 start={{ x: 0, y: 0 }}
                                 end={{ x: 1, y: 0 }}
                             >
-                                {this.props.game_info.no_more_games == true ? RU.GAME.NO_GAMES.toLocaleUpperCase() : RU.GAME.COST_TEXT.toLocaleUpperCase() + " " + this.props.game_info.cost.toLocaleUpperCase() + " " + RU.EPC.toLocaleUpperCase()}
+                                {this.props.game_info.no_more_games == true ? PickedLanguage.GAME.NO_GAMES.toLocaleUpperCase() : PickedLanguage.GAME.COST_TEXT.toLocaleUpperCase() + " " + this.props.game_info.cost.toLocaleUpperCase() + " " + PickedLanguage.EPC.toLocaleUpperCase()}
                             </LinearTextGradient>
                         </View>
                         <View style={styles.game_description}>
-                            <Text style={this.props.game_info.no_more_games ? styles.game_description_text : styles.game_description_text_bold}>{this.props.game_info.no_more_games ? RU.GAME.GET_EPC : ""}</Text>
+                            <Text style={this.props.game_info.no_more_games ? styles.game_description_text : styles.game_description_text_bold}>{this.props.game_info.no_more_games ? PickedLanguage.GAME.GET_EPC : ""}</Text>
                             {/* this.props.game_info.description */}
                         </View>
                         {this.props.game_info.no_more_games ?
@@ -421,7 +421,7 @@ class GameStart extends React.Component {
                                     active={this.props.game_error.error_text === "" ? true : false}
                                     short
                                     gradient
-                                    title={RU.GAME.START.toUpperCase()}
+                                    title={PickedLanguage.GAME.START.toUpperCase()}
                                     color={this.props.userColor.white}
                                     handler={() => {
                                         this.props.loaderState(true)

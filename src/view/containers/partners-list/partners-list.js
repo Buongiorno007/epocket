@@ -4,7 +4,7 @@ import { Button } from "native-base";
 import FastImage from 'react-native-fast-image'
 //constants
 import styles from "./styles";
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 import { colors } from "./../../../constants/colors";
 import { ICONS } from "../../../constants/icons";
 //containers
@@ -67,7 +67,7 @@ class PartnersList extends React.Component {
                                 </FlatList>
                             ) : (
                                     <View style={styles.empty}>
-                                        <Text style={styles.no_shops}>{RU.PARTNERS.NO_SHOPS}</Text>
+                                        <Text style={styles.no_shops}>{PickedLanguage.PARTNERS.NO_SHOPS}</Text>
                                         <View style={styles.filler} />
                                     </View>
                                 )}
@@ -96,7 +96,7 @@ class PartnersList extends React.Component {
                                     </FlatList>
                                 ) : (
                                         <View style={styles.empty}>
-                                            <Text style={styles.no_shops}>{RU.PARTNERS.NO_SHOPS}</Text>
+                                            <Text style={styles.no_shops}>{PickedLanguage.PARTNERS.NO_SHOPS}</Text>
                                             <View style={styles.filler} />
                                         </View>
                                     )}

@@ -21,7 +21,7 @@ import TimerModal from "../../containers/timer-modal/timer-modal";
 import styles from "./styles";
 import styles_top from "./styles_top";
 import { ICONS } from "../../../constants/icons";
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 import { urls } from "../../../constants/urls";
 import { colors } from "../../../constants/colors";
 //redux
@@ -393,7 +393,7 @@ class Dashboard extends React.Component {
   }
   _submissionOrder = (mission) => {
     let insta_sub_mission = {
-      desc: RU.MISSION.SUBMISSION_3,
+      desc: PickedLanguage.MISSION.SUBMISSION_3,
       id: 1,
       name: "insta submission",
       type: 2,
@@ -759,8 +759,8 @@ class Dashboard extends React.Component {
           backgroundColor={"transparent"}
         />
         <CustomAlert
-          title={RU.PROFILE_PAGE.ALREADY_ACCOUNT}
-          first_btn_title={RU.OK}
+          title={PickedLanguage.PROFILE_PAGE.ALREADY_ACCOUNT}
+          first_btn_title={PickedLanguage.OK}
           visible={this.state.errorVisible}
           first_btn_handler={() =>
             this.setErrorVisible(!this.state.errorVisible)
@@ -770,9 +770,9 @@ class Dashboard extends React.Component {
           }
         />
         <CustomAlert
-          title={RU.PROFILE_PAGE.NOT_ENOUGHT_SUB}
-          subtitle={this.state.userCount + RU.PROFILE_PAGE.SUBS}
-          first_btn_title={RU.OK}
+          title={PickedLanguage.PROFILE_PAGE.NOT_ENOUGHT_SUB}
+          subtitle={this.state.userCount + PickedLanguage.PROFILE_PAGE.SUBS}
+          first_btn_title={PickedLanguage.OK}
           visible={this.state.modalVisible}
           first_btn_handler={() =>
             this.setModalVisible(!this.state.modalVisible)
@@ -783,7 +783,7 @@ class Dashboard extends React.Component {
         />
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={RU.REPEAT}
+          first_btn_title={PickedLanguage.REPEAT}
           visible={this.state.startMissionErrorVisible}
           first_btn_handler={() => {
             (this.state.errorCode != 416 && this.state.errorCode != 418) ? this.callTimer() : this.setStartMissionErrorVisible(
@@ -798,7 +798,7 @@ class Dashboard extends React.Component {
         />
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={RU.REPEAT}
+          first_btn_title={PickedLanguage.REPEAT}
           visible={this.state.missionsErrorVisible}
           first_btn_handler={() => {
             this.getMissions();
@@ -809,7 +809,7 @@ class Dashboard extends React.Component {
         />
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={RU.REPEAT}
+          first_btn_title={PickedLanguage.REPEAT}
           visible={this.state.finishMissionErrorVisible}
           first_btn_handler={() => {
             this.finishMainMission();
@@ -925,7 +925,7 @@ class Dashboard extends React.Component {
                   },
                   { height: this.state.topHeight }]}>
                     <View style={[styles_top.finishMission_text_container, this.state.forceCloseHeader && { display: "none" }]}>
-                      <Text style={styles_top.finishMission_text} >{RU.GOT_EPC}</Text>
+                      <Text style={styles_top.finishMission_text} >{PickedLanguage.GOT_EPC}</Text>
                       <LinearTextGradient
                         locations={[0, 1]}
                         colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
@@ -933,11 +933,11 @@ class Dashboard extends React.Component {
                         end={{ x: 0.5, y: 0.2 }}
                         style={styles_top.finishMission_text}
                       >
-                        {this.state.mainMissionPrice + " " + RU.EPC}
+                        {this.state.mainMissionPrice + " " + PickedLanguage.EPC}
                       </LinearTextGradient>
-                      <Text style={styles_top.finishMission_text} >{RU.FOR_TRC}</Text>
+                      <Text style={styles_top.finishMission_text} >{PickedLanguage.FOR_TRC}</Text>
                     </View>
-                    <Text style={[styles_top.text_small, this.state.forceCloseHeader && { display: "none" }]}>{RU.COME_TOMMOROW}</Text>
+                    <Text style={[styles_top.text_small, this.state.forceCloseHeader && { display: "none" }]}>{PickedLanguage.COME_TOMMOROW}</Text>
                   </Animated.View>
                   :
                   <Animated.View style={[styles_top.content, {
@@ -977,7 +977,7 @@ class Dashboard extends React.Component {
                           color: this.props.userColor.pink_blue
                         }
                         ]}>
-                          {" " + RU.EPC}
+                          {" " + PickedLanguage.EPC}
                         </Animated.Text>
                       </View>
                       <Animated.View style={[styles_top.epc_counter_info,
@@ -988,9 +988,9 @@ class Dashboard extends React.Component {
                           }
                         ]
                       }]}>
-                        <Text style={styles_top.epc}>{RU.EPC}</Text>
-                        <Text style={styles_top.epc_info}>{RU.FOR_BEING_IN_MALL}</Text>
-                        <Text style={this.state.notInMall ? styles_top.epc : styles_top.epc_info}>{this.state.notInMall ? RU.NOT_IN_MALL : RU.TIME_STARTED}</Text>
+                        <Text style={styles_top.epc}>{PickedLanguage.EPC}</Text>
+                        <Text style={styles_top.epc_info}>{PickedLanguage.FOR_BEING_IN_MALL}</Text>
+                        <Text style={this.state.notInMall ? styles_top.epc : styles_top.epc_info}>{this.state.notInMall ? PickedLanguage.NOT_IN_MALL : PickedLanguage.TIME_STARTED}</Text>
                       </Animated.View>
                     </Animated.View>
 
@@ -1035,7 +1035,7 @@ class Dashboard extends React.Component {
                       }
                     >
                       {/* <Text style={styles.main_task_expired}>
-                       {RU.MAIN_TASK_EXPIRED}
+                       {PickedLanguage.MAIN_TASK_EXPIRED}
                      </Text> */}
                     </View>
                   </Animated.View>
@@ -1061,7 +1061,7 @@ class Dashboard extends React.Component {
                         end={{ x: 0.5, y: 0.2 }}
                         style={styles_top.up_text}
                       >
-                        {RU.YOU_ARE_HERE}
+                        {PickedLanguage.YOU_ARE_HERE}
                       </LinearTextGradient>
                       <LinearTextGradient
                         locations={[0, 1]}
@@ -1090,7 +1090,7 @@ class Dashboard extends React.Component {
                         end={{ x: 0.5, y: 0.2 }}
                         style={styles_top.up_text}
                       >
-                        {RU.YOUR_BONUS}
+                        {PickedLanguage.YOUR_BONUS}
                       </LinearTextGradient>
                       <LinearTextGradient
                         locations={[0, 1]}
@@ -1099,7 +1099,7 @@ class Dashboard extends React.Component {
                         end={{ x: 0.5, y: 0.2 }}
                         style={styles_top.down_text}
                       >
-                        {this.props.balance} {RU.EPC}
+                        {this.props.balance} {PickedLanguage.EPC}
                       </LinearTextGradient>
                     </View>
                   </View>
@@ -1131,7 +1131,7 @@ class Dashboard extends React.Component {
                         start={{ x: 0.0, y: 1.0 }}
                         end={{ x: 0.5, y: 0.2 }}
                         style={styles_top.time_counter_text}>
-                        {RU.EPC}
+                        {PickedLanguage.EPC}
                       </LinearTextGradient>
                     </View>
                     <View style={styles_top.small_time_counter_container}>
@@ -1211,7 +1211,7 @@ class Dashboard extends React.Component {
                     ? () => this.pickTasks()
                     : null
                 }
-                title={RU.DASHBOARD_LIST.TASKS_TAB_TITLE}
+                title={PickedLanguage.DASHBOARD_LIST.TASKS_TAB_TITLE}
                 disabled={this.state.pickedTask}
               />
               <HistoryNavButton
@@ -1220,7 +1220,7 @@ class Dashboard extends React.Component {
                     ? () => this.pickPosts()
                     : null
                 }
-                title={RU.DASHBOARD_LIST.POSTS_TAB_TITLE}
+                title={PickedLanguage.DASHBOARD_LIST.POSTS_TAB_TITLE}
                 disabled={!this.state.pickedTask}
               />
             </View>

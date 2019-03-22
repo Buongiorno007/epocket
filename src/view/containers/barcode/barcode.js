@@ -10,7 +10,7 @@ import { bindActionCreators } from "redux";
 //constants
 import styles from "./styles";
 import { colors } from "./../../../constants/colors";
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 import { ICONS } from "../../../constants/icons";
 const { width, height } = Dimensions.get('window');
 
@@ -55,12 +55,12 @@ class BarcodeView extends React.Component {
                             style={styles.icon}
                             source={{ uri: ICONS.COMMON.NAVIGATE_BACK }}
                         />
-                        <Text style={[styles.text, styles.title]}>{RU.BACK}</Text>
+                        <Text style={[styles.text, styles.title]}>{PickedLanguage.BACK}</Text>
                     </Button>
                 </View>
                 <View style={styles.barcode_container}>
                     <View style={styles.barcode_text_container}>
-                        <Text style={styles.barcode_text}>{RU.HISTORY_PAGE.SHOW_THIS_BARCODE}</Text>
+                        <Text style={styles.barcode_text}>{PickedLanguage.HISTORY_PAGE.SHOW_THIS_BARCODE}</Text>
                     </View>
                     <View style={styles.barcode}>
                         {this.props.phone &&

@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 //constants
 import styles from "./styles";
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 import { ICONS } from "../../../constants/icons";
 //containers
 import FooterNavigation from "../../containers/footer-navigator/footer-navigator";
@@ -49,7 +49,7 @@ class History extends React.Component {
                     ? () => this.toggleBonuses()
                     : null
                 }
-                title={RU.HISTORY_PAGE.GETTED}
+                title={PickedLanguage.HISTORY_PAGE.GETTED}
                 disabled={this.state.pickedBonuses}
               />
               <HistoryNavButton
@@ -58,7 +58,7 @@ class History extends React.Component {
                     ? () => this.toggleBonuses()
                     : null
                 }
-                title={RU.HISTORY_PAGE.LOST}
+                title={PickedLanguage.HISTORY_PAGE.LOST}
                 disabled={!this.state.pickedBonuses}
               />
             </View>

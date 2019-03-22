@@ -21,7 +21,7 @@ import CustomAlert from "../../containers/custom-alert/custom-alert";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 //constants
 import styles from "./styles";
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 import { colors } from "../../../constants/colors";
 import { urls } from "../../../constants/urls";
 import { ICONS } from "../../../constants/icons";
@@ -44,7 +44,7 @@ const keyboardVerticalOffset = Platform.OS === "ios" ? -50 : -100;
 
 class SignUp extends React.Component {
   static navigationOptions = () => ({
-    header: <BackButton title={RU.SIGN_UP_TITLE} route="Start" />
+    header: <BackButton title={PickedLanguage.SIGN_UP_TITLE} route="Start" />
   });
 
   state = {
@@ -267,7 +267,7 @@ class SignUp extends React.Component {
         />
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={RU.REPEAT}
+          first_btn_title={PickedLanguage.REPEAT}
           visible={this.state.failedSignVisible}
           first_btn_handler={() => {
             this.sendForm();
@@ -278,7 +278,7 @@ class SignUp extends React.Component {
         />
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={RU.REPEAT}
+          first_btn_title={PickedLanguage.REPEAT}
           visible={this.state.failedConfirmVisible}
           first_btn_handler={() => {
             this.sendCode();
@@ -306,11 +306,11 @@ class SignUp extends React.Component {
           {this.state.step == 1 ? (
             <View style={styles.form}>
               <TextField
-                label={RU.MOBILE_NUMBER}
+                label={PickedLanguage.MOBILE_NUMBER}
                 textColor={this.props.userColor.input}
                 tintColor={this.props.userColor.input}
                 baseColor={this.props.userColor.input}
-                placeholder={RU.PHONE_MASK}
+                placeholder={PickedLanguage.PHONE_MASK}
                 placeholderTextColor={this.props.userColor.input_placeholder}
                 labelPadding={16}
                 inputContainerPadding={16}
@@ -327,14 +327,14 @@ class SignUp extends React.Component {
                     : styles.disabled
                 }
               >
-                {RU.NUMBER_EXISTS}
+                {PickedLanguage.NUMBER_EXISTS}
               </Text>
               <TextField
-                label={RU.FIRST_LAST_NAME}
+                label={PickedLanguage.FIRST_LAST_NAME}
                 textColor={this.props.userColor.input}
                 tintColor={this.props.userColor.input}
                 baseColor={this.props.userColor.input}
-                placeholder={RU.NAMES}
+                placeholder={PickedLanguage.NAMES}
                 placeholderTextColor={this.props.userColor.input_placeholder}
                 value={this.state.name}
                 labelPadding={16}
@@ -346,22 +346,22 @@ class SignUp extends React.Component {
                 <CustomButton
                   color={this.state.phoneCorrect && this.state.nameCorrect ? this.props.userColor.pink : this.props.userColor.white}
                   active={this.state.phoneCorrect && this.state.nameCorrect}
-                  title={RU.SIGN_UP.toUpperCase()}
+                  title={PickedLanguage.SIGN_UP.toUpperCase()}
                   handler={() => this.sendForm()}
                 />
               </Animated.View>
             </View>
           ) : this.state.step == 2 ? (
             <View style={styles.form}>
-              <Text style={styles.code_sent}>{RU.CODE_SENT}</Text>
-              <Text style={styles.enter_code}>{RU.ENTER_CODE}</Text>
+              <Text style={styles.code_sent}>{PickedLanguage.CODE_SENT}</Text>
+              <Text style={styles.enter_code}>{PickedLanguage.ENTER_CODE}</Text>
               <TextField
                 label=""
                 style={styles.code_input}
                 textColor={this.props.userColor.input}
                 tintColor={this.props.userColor.input}
                 baseColor={this.props.userColor.input}
-                placeholder={RU.CODE_MASK}
+                placeholder={PickedLanguage.CODE_MASK}
                 placeholderTextColor={this.props.userColor.input_placeholder}
                 labelPadding={16}
                 label=""
@@ -376,26 +376,26 @@ class SignUp extends React.Component {
                   this.state.invalidCode ? styles.check_code : styles.disabled
                 }
               >
-                {RU.CHECK_CODE}
+                {PickedLanguage.CHECK_CODE}
               </Text>
               <Animated.View style={[{ marginTop: this.state.signUpMargin }]}>
                 <CustomButton
                   color={this.state.codeCorrect ? this.props.userColor.pink : this.props.userColor.white}
                   active={this.state.codeCorrect}
-                  title={RU.ACCEPT.toUpperCase()}
+                  title={PickedLanguage.ACCEPT.toUpperCase()}
                   handler={() => this.sendCode()}
                 />
               </Animated.View>
             </View>
           ) : this.state.step == 3 ? (
             <View style={styles.form}>
-              <Text style={styles.code_sent}>{RU.SING_UP_SUCCESS}</Text>
-              <Text style={styles.enter_code}>{RU.USE_YOUR_PHONE}</Text>
+              <Text style={styles.code_sent}>{PickedLanguage.SING_UP_SUCCESS}</Text>
+              <Text style={styles.enter_code}>{PickedLanguage.USE_YOUR_PHONE}</Text>
               <Animated.View style={[{ marginTop: this.state.signUpMargin }]}>
                 <CustomButton
                   color={this.props.userColor.pink}
                   active
-                  title={RU.OK.toUpperCase()}
+                  title={PickedLanguage.OK.toUpperCase()}
                   handler={() => this.goToMap()}
                 />
               </Animated.View>

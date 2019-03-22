@@ -8,7 +8,7 @@ import Price from "./../../containers/trade-price/trade-price";
 import CustomButton from "./../../containers/custom-button/custom-button";
 //constants
 import styles from "./styles";
-import { RU } from "./../../../locales/ru";
+import PickedLanguage from "./../../../locales/language-picker";
 import { colors } from "../../../constants/colors";
 
 import { connect } from "react-redux";
@@ -47,7 +47,7 @@ class Trade extends React.Component {
             active
             gradient
             short
-            title={RU.OK.toUpperCase()}
+            title={PickedLanguage.OK.toUpperCase()}
             color={this.props.userColor.white}
             handler={() => { NavigationService.navigate("Main"); }}
           />

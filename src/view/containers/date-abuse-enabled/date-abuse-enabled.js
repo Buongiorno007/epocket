@@ -12,7 +12,7 @@ import Permissions from "react-native-permissions";
 import AndroidOpenSettings from 'react-native-android-open-settings'
 //constants
 import styles from "./styles";
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -49,10 +49,10 @@ class LocationDisabled extends React.Component {
                 />
                 <View style={styles.circle_container}>
                     <Text style={styles.attention}>
-                        {RU.ATTENTION}
+                        {PickedLanguage.ATTENTION}
                     </Text>
                     <Text style={styles.root_text}>
-                        {RU.DATE_ABUSED}
+                        {PickedLanguage.DATE_ABUSED}
                     </Text>
                 </View>
                 <View style={[styles.open_settings, styles.btnContainer]}>
@@ -64,7 +64,7 @@ class LocationDisabled extends React.Component {
                         }}
                     >
                         <Text style={[styles.settings_text, { color: this.props.userColor.pink_blue }]}>
-                            {RU.DEVICE_SETTINGS.toUpperCase()}
+                            {PickedLanguage.DEVICE_SETTINGS.toUpperCase()}
                         </Text>
                     </Button>
                 </View>

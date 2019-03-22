@@ -6,7 +6,7 @@ import OpenedCard from "../opened-card/opened-card";
 import LongCard from "../card-long/card-long"
 import FooterNavigation from "../../containers/footer-navigator/footer-navigator";
 //constants
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 import styles from "./styles";
 //redux
 import { connect } from "react-redux";
@@ -31,7 +31,7 @@ class CardList extends React.Component {
       }
     });
     let insta_sub_mission = {
-      desc: RU.MISSION.SUBMISSION_3,
+      desc: PickedLanguage.MISSION.SUBMISSION_3,
       id: 1,
       name: "insta submission",
       type: 2,
@@ -97,7 +97,7 @@ class CardList extends React.Component {
                 </View>
             ) : (
                 <View style={styles.no_tasks}>
-                  <Text style={styles.no_tasks_text}>{RU.NO_TASKS}</Text>
+                  <Text style={styles.no_tasks_text}>{PickedLanguage.NO_TASKS}</Text>
                 </View>
               )}
           </View>

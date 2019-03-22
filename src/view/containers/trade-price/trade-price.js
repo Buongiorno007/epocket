@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import { LinearTextGradient } from "react-native-text-gradient";
 //constants
 import styles from "./styles";
-import { RU } from "./../../../locales/ru";
+import PickedLanguage from "./../../../locales/language-picker";
 import { colors } from "./../../../constants/colors";
 //services
 import { formatNumber } from "./../../../services/format-number";
@@ -20,7 +20,7 @@ class TradePrice extends React.Component {
           <Text
             style={styles.text}
           >
-            {RU.TRADE.RESULT}
+            {PickedLanguage.TRADE.RESULT}
           </Text>
           <Text
             style={styles.text}

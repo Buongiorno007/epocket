@@ -13,7 +13,7 @@ import NavigationService from "./../../../services/route";
 import { loaderState } from "../../../reducers/loader";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { RU } from "./../../../locales/ru";
+import PickedLanguage from "./../../../locales/language-picker";
 
 class CashoutList extends React.Component {
   state = { count: this.props.item.count ? this.props.item.count : 0 };
@@ -62,7 +62,7 @@ class CashoutList extends React.Component {
           </Button>
           <View style={styles.title}>
             <Text numberOfLines={2} style={styles.text}>{this.props.item.name.toUpperCase()}</Text>
-            <Text style={styles.text_epc}>{this.props.item.formated_price.amount} {RU.EPC}</Text>
+            <Text style={styles.text_epc}>{this.props.item.formated_price.amount} {PickedLanguage.EPC}</Text>
           </View>
         </View>
         <View style={styles.calculate}>

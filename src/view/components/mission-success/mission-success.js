@@ -7,7 +7,7 @@ import { Button } from "native-base";
 import styles from "./styles";
 import { ICONS } from "../../../constants/icons";
 import { colors } from "./../../../constants/colors";
-import { RU } from "./../../../locales/ru";
+import PickedLanguage from "./../../../locales/language-picker";
 //services
 import NavigationService from "./../../../services/route";
 //redux
@@ -47,9 +47,9 @@ class MissionSuccess extends React.Component {
           style={styles.grad}
         />
         <View style={styles.success}>
-          <Text style={styles.congratulation}>{RU.MISSION.SUCCESS}</Text>
+          <Text style={styles.congratulation}>{PickedLanguage.MISSION.SUCCESS}</Text>
           <Text style={styles.cash}>
-            {RU.MISSION.CASH} {this.props.navigation.state.params.price} {RU.EPC}
+            {PickedLanguage.MISSION.CASH} {this.props.navigation.state.params.price} {PickedLanguage.EPC}
           </Text>
           <Button
             rounded
@@ -61,7 +61,7 @@ class MissionSuccess extends React.Component {
               this.earnMore()
             }}
           >
-            <Text style={styles.text}>{RU.OK}</Text>
+            <Text style={styles.text}>{PickedLanguage.OK}</Text>
           </Button>
         </View>
       </View >

@@ -2,17 +2,17 @@ import React from "react";
 import { View, Text } from "react-native";
 //constants
 import styles from "./styles";
-import { RU } from "./../../../locales/ru";
+import PickedLanguage from "./../../../locales/language-picker";
 
 class CashoutMessage extends React.Component {
   render = () => {
     return (
       <View style={styles.container}>
         <Text style={[styles.text, styles.title]}>
-          {RU.QRCODE.TITLE}
-          {this.props.total_price} {RU.EPC}
+          {PickedLanguage.QRCODE.TITLE}
+          {this.props.total_price} {PickedLanguage.EPC}
         </Text>
-        <Text style={[styles.text, styles.seller]}>{RU.QRCODE.SELLER}</Text>
+        <Text style={[styles.text, styles.seller]}>{PickedLanguage.QRCODE.SELLER}</Text>
       </View>
     );
   };

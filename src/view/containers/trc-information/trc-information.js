@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, Dimensions } from "react-native";
 //constants
 import styles from "./styles";
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 const { width } = Dimensions.get("window");
 
 class TrcInformation extends React.Component {
@@ -20,7 +20,7 @@ class TrcInformation extends React.Component {
         <View style={styles.trc_info_border} />
         <View style={[styles.right]}>
           <Text style={[styles.trc_info_text_tittle, {textAlign : 'center',}]}  numberOfLines={1}>{this.props.distance}</Text>
-          <Text style={styles.trc_info_text_info}>{RU.M}</Text>
+          <Text style={styles.trc_info_text_info}>{PickedLanguage.M}</Text>
         </View>
       </View>
     );

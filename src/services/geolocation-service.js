@@ -4,7 +4,7 @@ import geolib from "geolib";
 import BackgroundFetch from "react-native-background-fetch";
 import BackgroundTimer from 'react-native-background-timer';
 import { httpPost } from "./http";
-import { RU } from "../locales/ru";
+import PickedLanguage from "../locales/language-picker"
 //services
 import getCurrentGeolocation from "./get-location"
 //redux
@@ -163,18 +163,18 @@ class GeolocationService extends React.Component {
           this.props.setPushStatus(false)
         }
         if (distance <= 100 && !this.props.pushSendStaus) {
-          this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_3);
+          this.sendDistancePush(PickedLanguage.PUSH_MESSAGE.PUSH_3);
           this.props.setPushStatus(true)
         }
         if (distance <= 0 && !this.props.timer_status && nextProps.timer_status) {
           this.props.showDashboard(true);
           this.props.showTimer(false);
-          this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_4);
+          this.sendDistancePush(PickedLanguage.PUSH_MESSAGE.PUSH_4);
         }
         if (distance > 0 && this.props.timer_status) {
           this.props.showDashboard(false);
           this.props.showTimer(true);
-          this.sendDistancePush(RU.PUSH_MESSAGE.PUSH_5);
+          this.sendDistancePush(PickedLanguage.PUSH_MESSAGE.PUSH_5);
         }
       }
     }

@@ -3,7 +3,7 @@ import { View, Text, Platform } from "react-native";
 import { Button } from "native-base";
 //constants
 import styles from "./styles";
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 import { colors } from "../../../constants/colors";
 //redux
 import { connect } from "react-redux";
@@ -39,14 +39,14 @@ class CardTask extends React.Component {
           <Text style={styles.price}
             numberOfLines={1}
           >
-            {this.props.item.formated.amount} {RU.EPC}
+            {this.props.item.formated.amount} {PickedLanguage.EPC}
           </Text>
           <View style={styles.bottom_container}>
             <Text
               style={styles.time_text}
               numberOfLines={1}
             >
-              {RU.MAP.WILL_BE_ACTIVE}
+              {PickedLanguage.MAP.WILL_BE_ACTIVE}
             </Text>
             <Text
               style={styles.time_range}

@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import { Button } from "native-base";
 import FastImage from 'react-native-fast-image'
 //constants
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 import { ICONS } from '../../../constants/icons';
 import styles from "./styles";
 //redux
@@ -18,7 +18,7 @@ class ScannerMission extends React.Component {
       <View style={styles.container}>
         <View style={[styles.item, styles.cost]}>
           <Text style={[styles.text, styles.cost]}>
-            {this.props.selectedMission.price} {RU.EPC}
+            {this.props.selectedMission.price} {PickedLanguage.EPC}
           </Text>
           <Text />
         </View>

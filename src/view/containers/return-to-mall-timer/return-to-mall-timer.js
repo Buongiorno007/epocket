@@ -7,7 +7,7 @@ import CustomAlert from "../../containers/custom-alert/custom-alert";
 import { Button } from "native-base";
 //constants
 import styles from "./styles";
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 import { colors } from "../../../constants/colors";
 import { urls } from "../../../constants/urls";
 import { ICONS } from "../../../constants/icons";
@@ -110,7 +110,7 @@ class ReturnToMall extends React.Component {
         </View>
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={RU.REPEAT}
+          first_btn_title={PickedLanguage.REPEAT}
           visible={this.state.errorVisible}
           first_btn_handler={() => {
             this.closeTimerTask();
@@ -128,7 +128,7 @@ class ReturnToMall extends React.Component {
               {this.props.selectedMall.name}
             </Text>
             <Text style={[styles.top_title, styles.text_common]}>
-              {RU.RETURN_TO_MALL.TITLE_TOP}
+              {PickedLanguage.RETURN_TO_MALL.TITLE_TOP}
             </Text>
             <Text style={[styles.timer, styles.text_common]}>
               0{this.state.hours}:0{this.state.minutes}:{this.state.seconds < 10
@@ -139,7 +139,7 @@ class ReturnToMall extends React.Component {
           </View>
         ) : (
             <View style={[styles.close_view]}>
-              <Text style={[styles.top_title, styles.text_common]}>{RU.RETURN_TO_MALL.TIME_IS_UP}</Text>
+              <Text style={[styles.top_title, styles.text_common]}>{PickedLanguage.RETURN_TO_MALL.TIME_IS_UP}</Text>
               <CustomButton
                 active
                 gradient

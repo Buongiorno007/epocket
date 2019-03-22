@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text } from "react-native";
 //constants
 import styles from "./styles";
-import { RU } from "./../../../locales/ru";
+import PickedLanguage from "./../../../locales/language-picker";
 
 class TradeStatus extends React.Component {
   render = () => {
@@ -10,18 +10,18 @@ class TradeStatus extends React.Component {
       <View style={styles.container}>
         <Text style={styles.title}>
           {this.props.status == -1
-            ? RU.TRADE.FAIL
-            : RU.TRADE.SUCCESS}
+            ? PickedLanguage.TRADE.FAIL
+            : PickedLanguage.TRADE.SUCCESS}
         </Text>
         {this.props.status == -1 ? (
           <Text style={styles.message}>
-              {RU.TRADE.FAIL_MESSAGE}
+              {PickedLanguage.TRADE.FAIL_MESSAGE}
           </Text>
         ) : null}
         {this.props.status == 1 ? (
           <Text style={styles.message}>
             {!this.props.total_approve
-              ? RU.TRADE.SUCCESS_MESSAGE
+              ? PickedLanguage.TRADE.SUCCESS_MESSAGE
               : null}
           </Text>
         ) : null}

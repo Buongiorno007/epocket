@@ -11,7 +11,7 @@ import InstaHashTags from "../insta-hashtags/insta-hashtags";
 //constants
 import styles from "./styles";
 import { urls } from "../../../constants/urls";
-import { RU } from "./../../../locales/ru";
+import PickedLanguage from "./../../../locales/language-picker";
 //redux
 import { loaderState } from "../../../reducers/loader";
 import { connect } from "react-redux";
@@ -115,7 +115,7 @@ class PhotoView extends React.Component {
         {this.props.loader && <ActivityIndicator />}
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={RU.REPEAT}
+          first_btn_title={PickedLanguage.REPEAT}
           visible={this.state.errorPhotoVisible}
           first_btn_handler={() => {
             this.sendPhoto();
@@ -126,7 +126,7 @@ class PhotoView extends React.Component {
         />
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={RU.REPEAT}
+          first_btn_title={PickedLanguage.REPEAT}
           visible={this.state.errorMissionVisible}
           first_btn_handler={() => {
             this.finishMission();
@@ -162,7 +162,7 @@ class PhotoView extends React.Component {
                 uppercase={false}
                 style={[styles.button_text, styles.remove_text]}
               >
-                {RU.SCANNER.REMOVE}
+                {PickedLanguage.SCANNER.REMOVE}
               </Text>
             </Button>
             <Button
@@ -177,7 +177,7 @@ class PhotoView extends React.Component {
                 uppercase={false}
                 style={[styles.button_text, styles.send_text]}
               >
-                {RU.SCANNER.SEND}
+                {PickedLanguage.SCANNER.SEND}
               </Text>
             </Button>
           </View>

@@ -6,7 +6,7 @@ import { LinearTextGradient } from "react-native-text-gradient";
 import CustomAlert from "../custom-alert/custom-alert";
 //constants
 import styles from "./styles";
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 import { colors } from "./../../../constants/colors";
 //redux
 import { getBonuses } from "../../../reducers/history-bonuses";
@@ -47,7 +47,7 @@ class HistoryCard extends React.Component {
         {this.props.info.error ? (
           <CustomAlert
             title={this.state.errorText}
-            first_btn_title={RU.REPEAT}
+            first_btn_title={PickedLanguage.REPEAT}
             visible={this.state.errorVisible}
             first_btn_handler={() => {
               this.props.getBonuses(this.props.token, 10, 10);
@@ -62,7 +62,7 @@ class HistoryCard extends React.Component {
                 <View style={styles.received_card}>
                   <View style={styles.cost}>
                     <Text style={styles.price_text}>
-                      {Number(this.props.info.price)} {RU.EPC}
+                      {Number(this.props.info.price)} {PickedLanguage.EPC}
                     </Text>
                   </View>
                   <View style={styles.name}>
@@ -103,7 +103,7 @@ class HistoryCard extends React.Component {
                       </LinearTextGradient>
                       <Text style={styles.amount}>
                         {Number(this.props.info.price)} x {this.props.info.amount} ={" "}
-                        {Number(this.props.info.price * this.props.info.amount)} {RU.EPC}
+                        {Number(this.props.info.price * this.props.info.amount)} {PickedLanguage.EPC}
                       </Text>
                     </View>
                     <View style={styles.date}>

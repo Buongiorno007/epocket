@@ -10,7 +10,7 @@ import HistoryNavButton from "./../../containers/history-nav-button/history-nav-
 import CartCard from "./../../containers/cashout-cart-card/cashout-cart-card"
 //constants
 import styles from "./styles";
-import { RU } from "./../../../locales/ru";
+import PickedLanguage from "./../../../locales/language-picker";
 import { urls } from "../../../constants/urls";
 import { colors } from "../../../constants/colors_men";
 import { ICONS } from "./../../../constants/icons";
@@ -190,10 +190,10 @@ class CashoutList extends React.Component {
               <Text style={styles.header_name}>{section.name.toUpperCase()}</Text>
               <Text style={styles.positions}>{
                 section.products.length === 1 ?
-                  section.products.length + " " + RU.CASHOUT_LIST.POSITIONS_1 :
+                  section.products.length + " " + PickedLanguage.CASHOUT_LIST.POSITIONS_1 :
                   section.products.length > 1 && section.products.length <= 4 ?
-                    section.products.length + " " + RU.CASHOUT_LIST.POSITIONS_2 :
-                    section.products.length + " " + RU.CASHOUT_LIST.POSITIONS_3
+                    section.products.length + " " + PickedLanguage.CASHOUT_LIST.POSITIONS_2 :
+                    section.products.length + " " + PickedLanguage.CASHOUT_LIST.POSITIONS_3
               }</Text>
             </View>
           </View>
@@ -258,7 +258,7 @@ class CashoutList extends React.Component {
       <View style={styles.container}>
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={RU.REPEAT}
+          first_btn_title={PickedLanguage.REPEAT}
           visible={this.state.errorVisible}
           first_btn_handler={() => {
             this.sendOrder();
@@ -274,7 +274,7 @@ class CashoutList extends React.Component {
                 ? () => this.pickAll()
                 : null
             }
-            title={RU.CASHOUT_LIST.LIST_OF_PRODUCTS}
+            title={PickedLanguage.CASHOUT_LIST.LIST_OF_PRODUCTS}
             disabled={this.state.pickedCart}
           />
           <HistoryNavButton
@@ -283,7 +283,7 @@ class CashoutList extends React.Component {
                 ? () => this.pickCart()
                 : null
             }
-            title={RU.CASHOUT_LIST.CART}
+            title={PickedLanguage.CASHOUT_LIST.CART}
             disabled={!this.state.pickedCart}
             cartCount={this.state.orderCopy.length}
           />
@@ -324,7 +324,7 @@ class CashoutList extends React.Component {
                   </FlatList>
                   :
                   <View style={styles.empty_cart}>
-                    <Text>{RU.CASH.NO_CART}</Text>
+                    <Text>{PickedLanguage.CASH.NO_CART}</Text>
                   </View>
                 }
                 {this.state.orderCopy.length ?
@@ -333,7 +333,7 @@ class CashoutList extends React.Component {
                       active
                       gradient
                       short
-                      title={RU.CASH.BUTTON}
+                      title={PickedLanguage.CASH.BUTTON}
                       color={this.props.userColor.white}
                       handler={() => this.sendOrder()}
                     />
@@ -347,7 +347,7 @@ class CashoutList extends React.Component {
           </View>
         ) : (
             <View style={styles.empty}>
-              <Text>{RU.CASH.NO_CASH}</Text>
+              <Text>{PickedLanguage.CASH.NO_CASH}</Text>
             </View>
           )}
       </View>

@@ -7,7 +7,7 @@ import FooterNavigation from "../../containers/footer-navigator/footer-navigator
 //constants
 import styles from "./styles";
 import { ICONS } from "../../../constants/icons";
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 import { colors } from "../../../constants/colors";
 //redux
 import { connect } from "react-redux";
@@ -44,7 +44,7 @@ class Info extends React.Component {
               <FastImage resizeMode={FastImage.resizeMode.contain} style={styles.logo} source={{ uri: ICONS.WHITE_LOGO }} />
             </View>
             <Text style={styles.info_title}>
-              {RU.INFO_PAGE.INFO_TITLE}
+              {PickedLanguage.INFO_PAGE.INFO_TITLE}
             </Text>
           </LinearGradient>
 

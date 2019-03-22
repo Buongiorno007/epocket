@@ -5,7 +5,7 @@ import { RNCamera } from "react-native-camera";
 //containers
 import CustomAlert from "../../containers/custom-alert/custom-alert";
 //constants
-import { RU } from "./../../../locales/ru";
+import PickedLanguage from "./../../../locales/language-picker";
 import styles from "./styles";
 import { ICONS } from "./../../../constants/icons";
 import { urls } from "../../../constants/urls";
@@ -74,7 +74,7 @@ class ScannerCamera extends React.Component {
       <View style={styles.container}>
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={RU.REPEAT}
+          first_btn_title={PickedLanguage.REPEAT}
           visible={this.state.errorVisible}
           first_btn_handler={() => this.reopenQRScanner()}
           decline_btn_handler={() => this.reopenQRScanner()}
@@ -87,8 +87,8 @@ class ScannerCamera extends React.Component {
             style={styles.camera}
             onBarCodeRead={e => { if (this.props.showQR) this.sendQRCode(e) }}
             barCodeTypes={[RNCamera.Constants.BarCodeType.qr]}
-            permissionDialogTitle={RU.TITLE}
-            permissionDialogMessage={RU.CAMERA_PERMISSION}
+            permissionDialogTitle={PickedLanguage.TITLE}
+            permissionDialogMessage={PickedLanguage.CAMERA_PERMISSION}
           />
           <FastImage resizeMode={FastImage.resizeMode.contain} source={{ uri: ICONS.SCANNER.FRAME }} style={styles.image} />
         </View>

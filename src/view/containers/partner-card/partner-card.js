@@ -4,7 +4,7 @@ import { Button } from "native-base";
 import FastImage from 'react-native-fast-image'
 //constants
 import styles from "./styles";
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 import { colors } from "./../../../constants/colors";
 import { ICONS } from "../../../constants/icons";
 //redux

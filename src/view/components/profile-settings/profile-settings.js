@@ -22,7 +22,7 @@ import { setBirthDay } from "../../../reducers/birthday";
 //constants
 import styles from "./styles";
 import { ICONS } from "../../../constants/icons";
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 import { urls } from "../../../constants/urls";
 import { colors } from "../../../constants/colors";
 //containers
@@ -278,7 +278,7 @@ class ProfileSettings extends React.Component {
                 {this.state.animationState ?
                     <View style={styles.white_text_container}>
                         <Text style={styles.white_text}>
-                            {RU.CONNECT_SOCIAL}
+                            {PickedLanguage.CONNECT_SOCIAL}
                         </Text>
                     </View> : null}
                 <View style={[styles.image_block_button,
@@ -288,7 +288,7 @@ class ProfileSettings extends React.Component {
                         short
                         extra_short
                         gradient
-                        title={this.props.insta_token ? RU.PROFILE_SETTINGS.REMOVE : RU.PROFILE_SETTINGS.ADD}
+                        title={this.props.insta_token ? PickedLanguage.PROFILE_SETTINGS.REMOVE : PickedLanguage.PROFILE_SETTINGS.ADD}
                         color={this.props.userColor.white}
                         handler={() => { !this.props.insta_token ? this.refs.instagramLogin.show() : this.disConnectInsta() }}
                     />
@@ -316,7 +316,7 @@ class ProfileSettings extends React.Component {
                     </View>
                 </View>
                 <View style={styles.header}>
-                    <Text style={[styles.header_text, styles.image_block_text_big]}>{RU.PROFILE_SETTINGS.SETTINGS}</Text>
+                    <Text style={[styles.header_text, styles.image_block_text_big]}>{PickedLanguage.PROFILE_SETTINGS.SETTINGS}</Text>
                     <Button
                         transparent
                         rounded
@@ -341,7 +341,7 @@ class ProfileSettings extends React.Component {
                                 source={require('../../../assets/img/writing.png')} >
                             </FastImage>
                             <View style={styles.image_block_text_button}>
-                                <Text style={styles.image_block_text_big}>{RU.PROFILE_SETTINGS.EDIT_PROFILE}</Text>
+                                <Text style={styles.image_block_text_big}>{PickedLanguage.PROFILE_SETTINGS.EDIT_PROFILE}</Text>
                             </View>
                         </Button>
                     </View>
@@ -353,8 +353,8 @@ class ProfileSettings extends React.Component {
                             source={require('../../../assets/img/instagram-logo.png')} >
                         </FastImage>
                         <View style={styles.image_block_text}>
-                            <Text style={styles.image_block_text_big}>{RU.PROFILE_SETTINGS.INSTAGRAM}</Text>
-                            <Text style={styles.image_block_text_small}>{RU.PROFILE_SETTINGS.INSTAGRAM_ADDITIONAL}</Text>
+                            <Text style={styles.image_block_text_big}>{PickedLanguage.PROFILE_SETTINGS.INSTAGRAM}</Text>
+                            <Text style={styles.image_block_text_small}>{PickedLanguage.PROFILE_SETTINGS.INSTAGRAM_ADDITIONAL}</Text>
                         </View>
                     </View>
                     <View style={[styles.image_block, styles.image_block_with_border]}>
@@ -375,14 +375,14 @@ class ProfileSettings extends React.Component {
                                 source={require('../../../assets/img/logout.png')} >
                             </FastImage>
                             <View style={styles.image_block_text_button}>
-                                <Text style={styles.image_block_text_big}>{RU.PROFILE_SETTINGS.EXIT}</Text>
+                                <Text style={styles.image_block_text_big}>{PickedLanguage.PROFILE_SETTINGS.EXIT}</Text>
                             </View>
                         </Button>
                     </View>
                 </View>
                 <CustomAlert
-                    title={RU.PROFILE_PAGE.ALREADY_ACCOUNT}
-                    first_btn_title={RU.OK}
+                    title={PickedLanguage.PROFILE_PAGE.ALREADY_ACCOUNT}
+                    first_btn_title={PickedLanguage.OK}
                     visible={this.state.errorVisible}
                     first_btn_handler={() =>
                         this.setErrorVisible(!this.state.errorVisible)
@@ -392,9 +392,9 @@ class ProfileSettings extends React.Component {
                     }
                 />
                 <CustomAlert
-                    title={RU.PROFILE_PAGE.NOT_ENOUGHT_SUB}
-                    subtitle={this.state.userCount + RU.PROFILE_PAGE.SUBS}
-                    first_btn_title={RU.OK}
+                    title={PickedLanguage.PROFILE_PAGE.NOT_ENOUGHT_SUB}
+                    subtitle={this.state.userCount + PickedLanguage.PROFILE_PAGE.SUBS}
+                    first_btn_title={PickedLanguage.OK}
                     visible={this.state.modalVisible}
                     first_btn_handler={() =>
                         this.setModalVisible(!this.state.modalVisible)

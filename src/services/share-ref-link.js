@@ -1,7 +1,7 @@
 import { Linking, Platform, CameraRoll, Alert, PermissionsAndroid, Clipboard } from "react-native";
 import Share from 'react-native-share';
 import { Toast } from "native-base";
-import { RU } from "./../locales/ru";
+import PickedLanguage from "./../locales/language-picker";
 
 export function shareToAllSocial(shareLink) {
     let shareOptions = {
@@ -27,7 +27,7 @@ shareSingleThroughtLinking = (app_link, app_share_link, app_market_id) => {
     }).catch(err => console.log(err));
 }
 export function shareToOneSocial(shareLink, link_reward, socialType) {
-    let extendedShareLink = RU.REF_LINK.ADDITIONAL_SHARING_TEXT + link_reward + " " + RU.EPC.toUpperCase() + "\n" + shareLink
+    let extendedShareLink = PickedLanguage.REF_LINK.ADDITIONAL_SHARING_TEXT + link_reward + " " + PickedLanguage.EPC.toUpperCase() + "\n" + shareLink
     const defaultOptions = {
         title: "EpocketCash",
         message: extendedShareLink,
@@ -37,7 +37,7 @@ export function shareToOneSocial(shareLink, link_reward, socialType) {
         case "copy":
             Clipboard.setString(extendedShareLink);
             Toast.show({
-                text: RU.REF_LINK.COPY_MESSAGE,
+                text: PickedLanguage.REF_LINK.COPY_MESSAGE,
                 buttonText: "",
                 duration: 3000,
                 style: {

@@ -10,7 +10,7 @@ export const EN = {
     MALE_SEX: "",
     FEMALE_SEX: "",
     ATTENTION: "Внимание!",
-    BACK: "Назад",
+    BACK: "",
     CONNECT_SOCIAL: "Подключи соцсети и стань богаче!",
     LOCATION_VIRGIN: "Включи геолокацию и получи свои первые деньги",
     LOCATION_DISABLED: "Для дальнейших действий в приложении требуется включить геолокацию",
@@ -152,13 +152,13 @@ export const EN = {
         RESULT: "ИТОГ"
     },
     MAP_TABS: {
-        SHOP: "Точки\nвыдачи",
-        TASK: "Задания\nи бонусы",
-        DISCOUNT: "Дисконт\nцентры"
+        SHOP: "",
+        TASK: "",
+        DISCOUNT: ""
     },
     MAP: {
-        TASKS: "Задания",
-        CART: "Корзина",
+        TASKS: "",
+        CART: "",
         WILL_BE_ACTIVE: "Будет активно",
         MAKE_PREORDER: "Сделать предзаказ",
         LIST_PRODUCTS: "Список товаров",

@@ -8,7 +8,7 @@ import styles from "./styles";
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { RU } from "./../../../locales/ru";
+import PickedLanguage from "./../../../locales/language-picker";
 import { ICONS } from '../../../constants/icons';
 
 class CartCard extends React.Component {
@@ -38,7 +38,7 @@ class CartCard extends React.Component {
                         <Text numberOfLines={1} style={styles.count_text}>Description in progress</Text>
                     </View>
                     <View style={styles.right_info}>
-                        <Text numberOfLines={1} style={styles.price_text}>{this.cardInfo.formated_price.amount} {RU.EPC}</Text>
+                        <Text numberOfLines={1} style={styles.price_text}>{this.cardInfo.formated_price.amount} {PickedLanguage.EPC}</Text>
                         <Button
                             rounded
                             block

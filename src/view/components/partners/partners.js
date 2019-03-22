@@ -9,7 +9,7 @@ import { bindActionCreators } from "redux";
 import { loaderState } from "../../../reducers/loader"
 //constants
 import styles from "./styles";
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 import { ICONS } from "../../../constants/icons";
 //containers
 import HistoryNavButton from "./../../containers/history-nav-button/history-nav-button";
@@ -117,7 +117,7 @@ class Partners extends React.Component {
                     style={styles.grad}
                 >
                     <View style={styles.history_nav}>
-                        <Text style={styles.partners_text}>{RU.PARTNERS.HERE_YOU_CAN_BUY_BY_EPC}</Text>
+                        <Text style={styles.partners_text}>{PickedLanguage.PARTNERS.HERE_YOU_CAN_BUY_BY_EPC}</Text>
                         <View style={[styles.block]}>
                             <Button
                                 rounded
@@ -131,7 +131,7 @@ class Partners extends React.Component {
                                     style={styles.icon}
                                     source={{ uri: ICONS.COMMON.NAVIGATE_BACK }}
                                 />
-                                <Text style={[styles.text, styles.title]}>{RU.HISTORY}</Text>
+                                <Text style={[styles.text, styles.title]}>{PickedLanguage.HISTORY}</Text>
                             </Button>
                         </View>
                     </View>
@@ -143,7 +143,7 @@ class Partners extends React.Component {
                                         ? () => this.toggleShops()
                                         : null
                                 }
-                                title={RU.PARTNERS.ONLINE_SHOPS.toUpperCase()}
+                                title={PickedLanguage.PARTNERS.ONLINE_SHOPS.toUpperCase()}
                                 disabled={this.state.pickedShops}
                             />
                             <HistoryNavButton
@@ -152,7 +152,7 @@ class Partners extends React.Component {
                                         ? () => this.toggleShops()
                                         : null
                                 }
-                                title={RU.PARTNERS.SHOPS.toUpperCase()}
+                                title={PickedLanguage.PARTNERS.SHOPS.toUpperCase()}
                                 disabled={!this.state.pickedShops}
                             />
                         </View>

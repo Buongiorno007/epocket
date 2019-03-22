@@ -6,7 +6,7 @@ import FastImage from 'react-native-fast-image'
 import styles from "./styles";
 import { colors } from "../../../constants/colors";
 import { ICONS } from "../../../constants/icons";
-import { RU } from "./../../../locales/ru";
+import PickedLanguage from "./../../../locales/language-picker";
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -57,9 +57,9 @@ class CardDiscount extends React.Component {
             />
             <Text numberOfLines={3} style={styles.social_text}>{
               this.props.type === "instagram_connect" ?
-                RU.MAP.CONNECT_INSTA + "10" + RU.EPC
+                PickedLanguage.MAP.CONNECT_INSTA + "10" + PickedLanguage.EPC
                 :
-                RU.MAP.CONNECT_FACEBOOK + "10" + RU.EPC
+                PickedLanguage.MAP.CONNECT_FACEBOOK + "10" + PickedLanguage.EPC
             }</Text>
             <CustomButton
               mapCard
@@ -125,7 +125,7 @@ class CardDiscount extends React.Component {
                 gradient
                 cartCount={(!this.props.type && this.props.shopActive && this.state.cartNumber > 0) ? this.state.cartNumber : false}
                 color={this.props.userColor.white}
-                title={this.state.cartNumber > 0 ? RU.MAP.CART.toUpperCase() : this.props.btnText}
+                title={this.state.cartNumber > 0 ? PickedLanguage.MAP.CART.toUpperCase() : this.props.btnText}
                 handler={() => { this._onPress() }}
               />
             </View>

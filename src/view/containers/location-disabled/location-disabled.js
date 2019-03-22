@@ -12,7 +12,7 @@ import Permissions from "react-native-permissions";
 import LinearGradient from "react-native-linear-gradient";
 //constants
 import styles from "./styles";
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 //redux
 import { connect } from "react-redux";
@@ -144,7 +144,7 @@ class LocationDisabled extends React.Component {
           />
           <View style={[styles.circle_container, styles.virgin_container,]}>
             <Text style={styles.location_disable_text_white}>
-              {RU.LOCATION_VIRGIN.toUpperCase()}
+              {PickedLanguage.LOCATION_VIRGIN.toUpperCase()}
             </Text>
           </View>
           <View style={[styles.enable_location, styles.btnContainer, styles.virgin_btn_container]}>
@@ -162,7 +162,7 @@ class LocationDisabled extends React.Component {
                 style={styles.enable_location}
               />
               <Text style={styles.location_enable_text}>
-                {RU.LOCATION_ENABLE}
+                {PickedLanguage.LOCATION_ENABLE}
               </Text>
             </Button>
           </View>
@@ -172,7 +172,7 @@ class LocationDisabled extends React.Component {
           <Blur strong />
           <View style={styles.circle_container}>
             <Text style={styles.location_disable_text}>
-              {RU.LOCATION_DISABLED}
+              {PickedLanguage.LOCATION_DISABLED}
             </Text>
           </View>
           <View style={[styles.enable_location, styles.btnContainer]}>
@@ -190,7 +190,7 @@ class LocationDisabled extends React.Component {
                 style={styles.enable_location}
               />
               <Text style={styles.location_enable_text}>
-                {RU.LOCATION_ENABLE}
+                {PickedLanguage.LOCATION_ENABLE}
               </Text>
             </Button>
           </View>

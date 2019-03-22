@@ -9,7 +9,7 @@ import CustomAlert from "../custom-alert/custom-alert";
 //constants
 import styles from "./styles";
 import { ICONS } from "../../../constants/icons";
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 //redux
 import { setActiveCard } from "../../../reducers/set-active-card";
 import { connect } from "react-redux";
@@ -59,7 +59,7 @@ class OpenedCard extends React.Component {
           <View style={styles.image_content}>
             {/* <View style={styles.amount}>
               <Text style={styles.regular_font}>
-                {this.props.selectedMission.price} {RU.EPC}
+                {this.props.selectedMission.price} {PickedLanguage.EPC}
               </Text>
             </View>
             <View style={styles.logo_conainer}>1
@@ -122,7 +122,7 @@ class OpenedCard extends React.Component {
                         onPress={() => { }}
                       >
                         <Text style={styles.notInMall_text}>
-                          {RU.NOT_IN_ZONE.toUpperCase()}
+                          {PickedLanguage.NOT_IN_ZONE.toUpperCase()}
                         </Text>
                       </Button>
                       :
@@ -131,7 +131,7 @@ class OpenedCard extends React.Component {
                           this.executeTask();
                         }}
                         active
-                        title={RU.EXECUTE}
+                        title={PickedLanguage.EXECUTE}
                         color={this.props.selectedMission.color}
                       />
                     :
@@ -145,7 +145,7 @@ class OpenedCard extends React.Component {
                       onPress={() => { }}
                     >
                       <Text style={styles.notInMall_text}>
-                        {RU.MAP.WILL_BE_ACTIVE.toUpperCase() + " " + this.props.selectedMission.date_start.substring(10, 16)} -{" "}
+                        {PickedLanguage.MAP.WILL_BE_ACTIVE.toUpperCase() + " " + this.props.selectedMission.date_start.substring(10, 16)} -{" "}
                         {this.props.selectedMission.date_end.substring(10, 16)}
                       </Text>
                     </Button>
@@ -155,8 +155,8 @@ class OpenedCard extends React.Component {
             </View>
           ) : (
               <CustomAlert
-                title={RU.MISSION.NO_SUBMISSIOMS}
-                first_btn_title={RU.OK}
+                title={PickedLanguage.MISSION.NO_SUBMISSIOMS}
+                first_btn_title={PickedLanguage.OK}
                 visible={this.state.errorVisible}
                 first_btn_handler={() => {
                   this.setModalVisible(!this.state.errorVisible);

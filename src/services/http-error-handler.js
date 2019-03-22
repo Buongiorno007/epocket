@@ -1,5 +1,5 @@
 //constants
-import { RU } from "./../locales/ru";
+import PickedLanguage from "./../locales/language-picker";
 import { Platform } from "react-native"
 import { sendToEpcErrorBot } from "./telegramm-notification"
 const defaultError = "code : 500. Internal Server Error"
@@ -31,13 +31,13 @@ setErrorData = (error_text, error_modal, error_code) => ({
 export const handleError = (errorAll, request_body, request_url, request_token, constructor_name, function_name) => {
   let error = this.setErrorData(defaultError, false, errorAll.code)
   switch (errorAll.code) {
-    case 503: error = this.setErrorData(RU.HTTP_ERRORS.SERVER_ERROR, true, errorAll.code); break;
-    case 400: error = this.setErrorData(RU.HTTP_ERRORS.NOT_FOUND, true, errorAll.code); break;
-    case 403: error = this.setErrorData(RU.HTTP_ERRORS.SMTH_WENT_WRONG, true, errorAll.code); break;
-    case 408: error = this.setErrorData(RU.HTTP_ERRORS.RUNTIME, true, errorAll.code); break;
-    case 416: error = this.setErrorData(RU.HTTP_ERRORS.PEOPLE_LIMIT, true, errorAll.code); break;
-    case 418: error = this.setErrorData(RU.HTTP_ERRORS.PERSONAL_LIMIT, true, errorAll.code); break;
-    default: error = this.setErrorData(RU.HTTP_ERRORS.SERVER_ERROR, true, errorAll.code); break
+    case 503: error = this.setErrorData(PickedLanguage.HTTP_ERRORS.SERVER_ERROR, true, errorAll.code); break;
+    case 400: error = this.setErrorData(PickedLanguage.HTTP_ERRORS.NOT_FOUND, true, errorAll.code); break;
+    case 403: error = this.setErrorData(PickedLanguage.HTTP_ERRORS.SMTH_WENT_WRONG, true, errorAll.code); break;
+    case 408: error = this.setErrorData(PickedLanguage.HTTP_ERRORS.RUNTIME, true, errorAll.code); break;
+    case 416: error = this.setErrorData(PickedLanguage.HTTP_ERRORS.PEOPLE_LIMIT, true, errorAll.code); break;
+    case 418: error = this.setErrorData(PickedLanguage.HTTP_ERRORS.PERSONAL_LIMIT, true, errorAll.code); break;
+    default: error = this.setErrorData(PickedLanguage.HTTP_ERRORS.SERVER_ERROR, true, errorAll.code); break
   }
   console.log(
     "Rejected request at " + constructor_name,

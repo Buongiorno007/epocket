@@ -5,7 +5,7 @@ import FastImage from 'react-native-fast-image'
 //constants
 import styles from "./styles";
 import { colors } from "../../../constants/colors";
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 import { ICONS } from "./../../../constants/icons";
 //redux
 import { connect } from "react-redux";
@@ -37,14 +37,14 @@ class LongCard extends React.Component {
                 <View style={styles.social_text_container}>
                     <View style={styles.social_text_container_inner}>
                         <Text style={styles.social_text}>
-                            {RU.DASHBOARD_LIST.CONNECT}
+                            {PickedLanguage.DASHBOARD_LIST.CONNECT}
                         </Text>
                         <Text style={styles.social_text_big}>
-                            {this.props.item.type === "instagram_connect" ? RU.INSTAGRAM : RU.FACEBOOK}
+                            {this.props.item.type === "instagram_connect" ? PickedLanguage.INSTAGRAM : PickedLanguage.FACEBOOK}
                         </Text>
                     </View>
                     <Text style={styles.social_text}>
-                        {RU.DASHBOARD_LIST.ACCOUNT_AND_GET + " 10 " + RU.EPC}
+                        {PickedLanguage.DASHBOARD_LIST.ACCOUNT_AND_GET + " 10 " + PickedLanguage.EPC}
                     </Text>
                 </View>
                 <Button

@@ -4,7 +4,7 @@ import FastImage from 'react-native-fast-image'
 import * as Animatable from "react-native-animatable";
 //constants
 import styles from "./styles";
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 const git_url = "../../../assets/img/process.gif";
 class Process extends React.Component {
   render = () => {
@@ -15,7 +15,7 @@ class Process extends React.Component {
         style={styles.container}
       >
         <View style={styles.container}>
-          <Text style={styles.text}>{RU.QRCODE.PROCESS}</Text>
+          <Text style={styles.text}>{PickedLanguage.QRCODE.PROCESS}</Text>
           <FastImage resizeMode={FastImage.resizeMode.contain} source={require(git_url)} style={styles.image} />
         </View>
       </Animatable.View>

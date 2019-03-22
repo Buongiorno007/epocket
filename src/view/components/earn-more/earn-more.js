@@ -7,7 +7,7 @@ import CookieManager from 'react-native-cookies';
 //constants
 import styles from "./styles";
 import { colors } from "./../../../constants/colors";
-import { RU } from "./../../../locales/ru";
+import PickedLanguage from "./../../../locales/language-picker";
 import { urls } from "../../../constants/urls";
 //services
 import NavigationService from "./../../../services/route";
@@ -169,8 +169,8 @@ class EarnMore extends React.Component {
           translucent={true}
         />
         <CustomAlert
-          title={RU.PROFILE_PAGE.ALREADY_ACCOUNT}
-          first_btn_title={RU.OK}
+          title={PickedLanguage.PROFILE_PAGE.ALREADY_ACCOUNT}
+          first_btn_title={PickedLanguage.OK}
           visible={this.state.errorVisible}
           first_btn_handler={() =>
             this.setErrorVisible(!this.state.errorVisible)
@@ -180,9 +180,9 @@ class EarnMore extends React.Component {
           }
         />
         <CustomAlert
-          title={RU.PROFILE_PAGE.NOT_ENOUGHT_SUB}
-          subtitle={this.state.userCount + RU.PROFILE_PAGE.SUBS}
-          first_btn_title={RU.OK}
+          title={PickedLanguage.PROFILE_PAGE.NOT_ENOUGHT_SUB}
+          subtitle={this.state.userCount + PickedLanguage.PROFILE_PAGE.SUBS}
+          first_btn_title={PickedLanguage.OK}
           visible={this.state.modalVisible}
           first_btn_handler={() =>
             this.setModalVisible(!this.state.modalVisible)
@@ -216,14 +216,14 @@ class EarnMore extends React.Component {
           source={{ uri: this.props.navigation.state.params.insta_data.img_watermark }}
         />
         <View style={styles.success}>
-          <Text style={[styles.more_money, styles.text_common]}>{RU.MISSION.MORE_MONEY}</Text>
-          <Text style={[styles.more_text, styles.text_common]}>{RU.MISSION.MORE_TEXT}</Text>
-          <Text style={[styles.more_deck, styles.text_common]}>{RU.MISSION.MORE_DESC}</Text>
+          <Text style={[styles.more_money, styles.text_common]}>{PickedLanguage.MISSION.MORE_MONEY}</Text>
+          <Text style={[styles.more_text, styles.text_common]}>{PickedLanguage.MISSION.MORE_TEXT}</Text>
+          <Text style={[styles.more_deck, styles.text_common]}>{PickedLanguage.MISSION.MORE_DESC}</Text>
           <CustomButton
             style={styles.earn_more_btn}
             active
             short
-            title={RU.MISSION.EARN_MORE.toUpperCase()}
+            title={PickedLanguage.MISSION.EARN_MORE.toUpperCase()}
             color={this.props.userColor.pink_blue}
             handler={() => { this.earnMore() }}
           />
@@ -235,7 +235,7 @@ class EarnMore extends React.Component {
             androidRippleColor={this.props.userColor.card_shadow}
             onPress={() => { this.skip(); }}
           >
-            <Text style={styles.text}>{RU.MISSION.SKIP}</Text>
+            <Text style={styles.text}>{PickedLanguage.MISSION.SKIP}</Text>
           </Button>
 
         </View>

@@ -16,7 +16,7 @@ import CustomAlert from "../../containers/custom-alert/custom-alert";
 import Blur from "../../containers/blur/blur";
 //constants
 import styles from "./styles";
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 import { colors } from "../../../constants/colors_men";
 //redux
 import { setBalance } from "../../../reducers/user-balance";
@@ -159,7 +159,7 @@ class ProfileEdit extends React.Component {
   };
   PhotoEdit = () => {
     const options = {
-      title: RU.PROFILE_PAGE.CHOOSE_AVATAR,
+      title: PickedLanguage.PROFILE_PAGE.CHOOSE_AVATAR,
       mediaType: "photo",
       maxWidth: 1000,
       maxHeight: 1000,
@@ -208,7 +208,7 @@ class ProfileEdit extends React.Component {
         <View style={styles.user_edit_header_container}>
           <CustomAlert
             datepicker
-            first_btn_title={RU.PROFILE_PAGE.ACCEPT}
+            first_btn_title={PickedLanguage.PROFILE_PAGE.ACCEPT}
             visible={this.state.datePickerVisible}
             first_btn_handler={() =>
               this.setDatePickerVisible(!this.state.datePickerVisible)
@@ -218,9 +218,9 @@ class ProfileEdit extends React.Component {
             }
           />
           <CustomAlert
-            title={RU.PROFILE_PAGE.ALERT_NOT_SAVED_DATA}
-            first_btn_title={RU.PROFILE_PAGE.YES}
-            second_btn_title={RU.PROFILE_PAGE.NO}
+            title={PickedLanguage.PROFILE_PAGE.ALERT_NOT_SAVED_DATA}
+            first_btn_title={PickedLanguage.PROFILE_PAGE.YES}
+            second_btn_title={PickedLanguage.PROFILE_PAGE.NO}
             visible={this.state.exitVisible}
             second_btn_handler={() =>
               this.setExitVisible(!this.state.exitVisible)
@@ -253,8 +253,8 @@ class ProfileEdit extends React.Component {
             </View>
             <View style={styles.text_container}>
               <TextField
-                label={RU.NAMES}
-                placeholder={RU.ENTER_NAME}
+                label={PickedLanguage.NAMES}
+                placeholder={PickedLanguage.ENTER_NAME}
                 tintColor={this.props.userColor.black41_09}
                 baseColor={this.props.userColor.black41_09}
                 textColor={this.props.userColor.black}
@@ -271,15 +271,15 @@ class ProfileEdit extends React.Component {
                 onPress={() => { this.setDatePickerVisible(!this.state.datePickerVisible) }}
               >
                 <Text style={styles.datepicker_button_title}>
-                  {RU.PROFILE_PAGE.BIRTHDAY}
+                  {PickedLanguage.PROFILE_PAGE.BIRTHDAY}
                 </Text>
                 <Text style={styles.datepicker_button_label}>
-                  {this.props.birthday != "" ? this.props.birthday : RU.PROFILE_PAGE.ENTER_BIRTHDAY}
+                  {this.props.birthday != "" ? this.props.birthday : PickedLanguage.PROFILE_PAGE.ENTER_BIRTHDAY}
                 </Text>
               </Button>
               {/* <TextField
-                label={RU.PROFILE_PAGE.BIRTHDAY}
-                placeholder={RU.PROFILE_PAGE.ENTER_BIRTHDAY}
+                label={PickedLanguage.PROFILE_PAGE.BIRTHDAY}
+                placeholder={PickedLanguage.PROFILE_PAGE.ENTER_BIRTHDAY}
                 tintColor={colors.black41_09}
                 baseColor={colors.black41_09}
                 textColor={colors.black41_09}
@@ -290,7 +290,7 @@ class ProfileEdit extends React.Component {
                 onFocus={() => { }}
                 keyboardType="number-pad"
               /> */}
-              <Text style={styles.title} >{RU.PROFILE_PAGE.SEX}</Text>
+              <Text style={styles.title} >{PickedLanguage.PROFILE_PAGE.SEX}</Text>
               <View style={styles.sex_picker}>
                 <Button
                   transparent
@@ -306,7 +306,7 @@ class ProfileEdit extends React.Component {
                     end={{ x: 0.7, y: 1.0 }}
                     style={styles.title}
                   >
-                    {RU.MALE_SEX}
+                    {PickedLanguage.MALE_SEX}
                   </LinearTextGradient>
                 </Button>
                 <LinearTextGradient
@@ -332,7 +332,7 @@ class ProfileEdit extends React.Component {
                     end={{ x: 0.7, y: 1.0 }}
                     style={styles.title}
                   >
-                    {RU.FEMALE_SEX}
+                    {PickedLanguage.FEMALE_SEX}
                   </LinearTextGradient>
                 </Button>
               </View>
@@ -345,7 +345,7 @@ class ProfileEdit extends React.Component {
             active
             short
             gradient
-            title={RU.PROFILE_PAGE.ACCEPT.toUpperCase()}
+            title={PickedLanguage.PROFILE_PAGE.ACCEPT.toUpperCase()}
             color={this.props.userColor.white}
             handler={() => this.SubmitEdit()}
           />
@@ -354,14 +354,14 @@ class ProfileEdit extends React.Component {
             active
             short
             bordered
-            title={RU.PROFILE_PAGE.DECLINE_2.toUpperCase()}
+            title={PickedLanguage.PROFILE_PAGE.DECLINE_2.toUpperCase()}
             color={this.props.userColor.pink_blue}
             handler={() => this.state.changed ? this.Exit() : NavigationService.navigate("Main")}
           />
         </View>
         <CustomAlert
-          title={RU.PROFILE_PAGE.ALERT_EMPTY}
-          first_btn_title={RU.OK}
+          title={PickedLanguage.PROFILE_PAGE.ALERT_EMPTY}
+          first_btn_title={PickedLanguage.OK}
           visible={this.state.modalVisible}
           first_btn_handler={() =>
             this.setModalVisible(!this.state.modalVisible)
@@ -372,7 +372,7 @@ class ProfileEdit extends React.Component {
         />
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={RU.REPEAT}
+          first_btn_title={PickedLanguage.REPEAT}
           visible={this.state.rejectedRequestModal}
           first_btn_handler={() => {
             this.setRejectVisible(!this.state.rejectedRequestModal);

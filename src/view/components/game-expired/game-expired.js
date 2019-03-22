@@ -17,7 +17,7 @@ import { checkForPostStatus } from "../../../reducers/post-status";
 import { setWebSiteTimer } from "../../../reducers/website-timer"
 //constants
 import styles from './styles';
-import { RU } from '../../../locales/ru';
+import PickedLanguage from '../../../locales/language-picker';
 import { urls } from "../../../constants/urls";
 //containers
 import GameTimer from "../../containers/game-timer/game-timer"
@@ -204,8 +204,8 @@ class GameStart extends React.Component {
                         this.loadNextGame();
                     }} />
                 <CustomAlert
-                    title={RU.PROFILE_PAGE.ALREADY_ACCOUNT}
-                    first_btn_title={RU.OK}
+                    title={PickedLanguage.PROFILE_PAGE.ALREADY_ACCOUNT}
+                    first_btn_title={PickedLanguage.OK}
                     visible={this.state.errorVisible}
                     first_btn_handler={() =>
                         this.connectInsta(this.props.insta_token)
@@ -215,9 +215,9 @@ class GameStart extends React.Component {
                     }
                 />
                 <CustomAlert
-                    title={RU.PROFILE_PAGE.NOT_ENOUGHT_SUB}
-                    subtitle={this.state.userCount + RU.PROFILE_PAGE.SUBS}
-                    first_btn_title={RU.OK}
+                    title={PickedLanguage.PROFILE_PAGE.NOT_ENOUGHT_SUB}
+                    subtitle={this.state.userCount + PickedLanguage.PROFILE_PAGE.SUBS}
+                    first_btn_title={PickedLanguage.OK}
                     visible={this.state.modalVisible}
                     first_btn_handler={() =>
                         this.connectInsta(this.props.insta_token)
@@ -228,7 +228,7 @@ class GameStart extends React.Component {
                 />
                 <CustomAlert
                     title={this.props.game_error.error_text}
-                    first_btn_title={RU.REPEAT}
+                    first_btn_title={PickedLanguage.REPEAT}
                     visible={this.props.game_error.error_modal}
                     first_btn_handler={() => {
                         this.props.launchGameExpiredTimer(this.props.token)
@@ -272,7 +272,7 @@ class GameStart extends React.Component {
                     <View style={[styles.main_view_secondary, { paddingBottom: 80 }]}>
                         <View style={styles.background_grey} />
                         <View style={styles.container_zifi_lock}>
-                            <Text style={styles.zifi_text}>{RU.GAME.ZIFI.FAILED}</Text>
+                            <Text style={styles.zifi_text}>{PickedLanguage.GAME.ZIFI.FAILED}</Text>
                             <Image
                                 style={styles.zifi}
                                 source={require('../../../assets/img/zifi/grimaces.gif')}
@@ -292,7 +292,7 @@ class GameStart extends React.Component {
                                 active={this.props.game_error.error_text === "" && this.props.game_expired_img.id && this.state.buttonActive ? true : false}
                                 gradient
                                 instaLogo={true}
-                                title={RU.GAME.RESULT.PUBLISH_AND_CONTINUE.toUpperCase()}
+                                title={PickedLanguage.GAME.RESULT.PUBLISH_AND_CONTINUE.toUpperCase()}
                                 color={this.props.userColor.white}
                                 handler={() => {
                                     this.goInst();
@@ -301,7 +301,7 @@ class GameStart extends React.Component {
                             <CustomButton
                                 style={styles.visit_site_btn}
                                 active={this.props.game_error.error_text === "" && this.props.game_expired_img.id && this.state.buttonActive ? true : false}
-                                title={RU.GAME.RESULT.VISIT_WEBSITE.toUpperCase()}
+                                title={PickedLanguage.GAME.RESULT.VISIT_WEBSITE.toUpperCase()}
                                 color={this.props.userColor.black}
                                 border
                                 transparent
@@ -315,7 +315,7 @@ class GameStart extends React.Component {
                     <View style={styles.main_view_secondary}>
                         <View style={styles.background_grey} />
                         <View style={styles.container_zifi_lock}>
-                            <Text style={styles.zifi_text}>{RU.GAME.ZIFI.WAIT}</Text>
+                            <Text style={styles.zifi_text}>{PickedLanguage.GAME.ZIFI.WAIT}</Text>
                             <Image
                                 style={styles.zifi}
                                 source={require('../../../assets/img/zifi/surprised.gif')}
@@ -336,7 +336,7 @@ class GameStart extends React.Component {
                                 active={this.props.game_error.error_text === "" && this.props.game_expired_img.id && this.state.buttonActive ? true : false}
                                 gradient
                                 instaLogo={true}
-                                title={RU.GAME.RESULT.PUBLISH_AND_CONTINUE.toUpperCase()}
+                                title={PickedLanguage.GAME.RESULT.PUBLISH_AND_CONTINUE.toUpperCase()}
                                 color={this.props.userColor.white}
                                 handler={() => {
                                     this.goInst();

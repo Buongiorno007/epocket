@@ -23,7 +23,7 @@ import { setWebSiteTimer } from "../../../reducers/website-timer"
 //constants
 import styles from './styles';
 import { colors } from '../../../constants/colors';
-import { RU } from '../../../locales/ru';
+import PickedLanguage from '../../../locales/language-picker';
 import { ICONS } from "../../../constants/icons";
 import { urls } from "../../../constants/urls";
 //services
@@ -247,13 +247,13 @@ class GameResult extends React.Component {
     chooseZifiText = (status) => {
         let text;
         if (status === "success") {
-            text = RU.GAME.ZIFI.SHOCKED
+            text = PickedLanguage.GAME.ZIFI.SHOCKED
         }
         else if (status === "failed") {
-            text = RU.GAME.ZIFI.FAILED
+            text = PickedLanguage.GAME.ZIFI.FAILED
         }
         else if (status === "expired") {
-            text = RU.GAME.ZIFI.TOO_LONG
+            text = PickedLanguage.GAME.ZIFI.TOO_LONG
         }
         else {
             text = ""
@@ -300,7 +300,7 @@ class GameResult extends React.Component {
         let text;
         let style;
         if (status === "success") {
-            text = RU.GAME.RESULT.CONGRATS + "\n" + RU.GAME.RESULT.YOU_WON + " " + this.props.game_info.cost + " " + RU.EPC.toUpperCase()
+            text = PickedLanguage.GAME.RESULT.CONGRATS + "\n" + PickedLanguage.GAME.RESULT.YOU_WON + " " + this.props.game_info.cost + " " + PickedLanguage.EPC.toUpperCase()
             style = styles.congratulation
         }
         else if (status === "failed" || status === "expired") {
@@ -316,10 +316,10 @@ class GameResult extends React.Component {
     chooseButtonText = (status) => {
         let text;
         if (status === "success") {
-            text = RU.GAME.RESULT.CONTINUE.toLocaleUpperCase()
+            text = PickedLanguage.GAME.RESULT.CONTINUE.toLocaleUpperCase()
         }
         else if (status === "failed" || status === "expired") {
-            text = RU.GAME.RESULT.PUBLISH_AND_CONTINUE.toLocaleUpperCase()
+            text = PickedLanguage.GAME.RESULT.PUBLISH_AND_CONTINUE.toLocaleUpperCase()
         }
         else {
             text = ""
@@ -357,8 +357,8 @@ class GameResult extends React.Component {
                     }} />
                 {this.props.loader && <ActivityIndicator />}
                 <CustomAlert
-                    title={RU.PROFILE_PAGE.ALREADY_ACCOUNT}
-                    first_btn_title={RU.OK}
+                    title={PickedLanguage.PROFILE_PAGE.ALREADY_ACCOUNT}
+                    first_btn_title={PickedLanguage.OK}
                     visible={this.state.errorVisible}
                     first_btn_handler={() =>
                         this.setErrorVisible(!this.state.errorVisible)
@@ -368,9 +368,9 @@ class GameResult extends React.Component {
                     }
                 />
                 <CustomAlert
-                    title={RU.PROFILE_PAGE.NOT_ENOUGHT_SUB}
-                    subtitle={this.state.userCount + RU.PROFILE_PAGE.SUBS}
-                    first_btn_title={RU.OK}
+                    title={PickedLanguage.PROFILE_PAGE.NOT_ENOUGHT_SUB}
+                    subtitle={this.state.userCount + PickedLanguage.PROFILE_PAGE.SUBS}
+                    first_btn_title={PickedLanguage.OK}
                     visible={this.state.modalVisible}
                     first_btn_handler={() =>
                         this.setModalVisible(!this.state.modalVisible)
@@ -381,7 +381,7 @@ class GameResult extends React.Component {
                 />
                 <CustomAlert
                     title={this.props.game_error.error_text}
-                    first_btn_title={RU.REPEAT}
+                    first_btn_title={PickedLanguage.REPEAT}
                     visible={this.props.game_error.error_modal}
                     first_btn_handler={() => {
                         this.props.launchGameExpiredTimer(this.props.token, this.props.game_info.id);
@@ -501,7 +501,7 @@ class GameResult extends React.Component {
                                 this.checkForGames("wait")
                         }}
                     >
-                        <Text style={styles.fail}>{this.props.game_info.website_link ? RU.GAME.RESULT.VISIT_WEBSITE.toUpperCase() : RU.GAME.RESULT.WAIT_.toUpperCase() + this.props.game_info.wait_timer + RU.GAME.RESULT.MIN.toUpperCase()}</Text>
+                        <Text style={styles.fail}>{this.props.game_info.website_link ? PickedLanguage.GAME.RESULT.VISIT_WEBSITE.toUpperCase() : PickedLanguage.GAME.RESULT.WAIT_.toUpperCase() + this.props.game_info.wait_timer + PickedLanguage.GAME.RESULT.MIN.toUpperCase()}</Text>
                     </Button>
                 </View>
             </View >

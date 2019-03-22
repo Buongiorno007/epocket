@@ -4,7 +4,7 @@ import FastImage from 'react-native-fast-image'
 //constants
 import styles from "./styles";
 import { ICONS } from "./../../../constants/icons";
-import { RU } from "./../../../locales/ru";
+import PickedLanguage from "./../../../locales/language-picker";
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -62,7 +62,7 @@ class CashoutBalance extends React.Component {
                 style={[styles.epc_icon]}
                 source={{ uri: ICONS.COMMON.CASH_EPC_WHITE }}
               />
-              <Text style={[styles.text, styles.title]}>{this.props.navigation ? RU.CASH.YOUR_TITLE : RU.CASH.TITLE} {Number(this.props.balance.toFixed(2))} {RU.EPC}</Text>
+              <Text style={[styles.text, styles.title]}>{this.props.navigation ? PickedLanguage.CASH.YOUR_TITLE : PickedLanguage.CASH.TITLE} {Number(this.props.balance.toFixed(2))} {PickedLanguage.EPC}</Text>
             </View>
             <View style={styles.small_border}></View>
             <View style={[styles.balance_value]}>
@@ -81,7 +81,7 @@ class CashoutBalance extends React.Component {
               />
             </View>
             <View style={[styles.item, styles.balance_value]}>
-              <Text style={[styles.text, styles.title]}>{this.props.navigation ? RU.CASH.YOUR_TITLE : RU.CASH.TITLE} {Number(this.props.balance.toFixed(2))} {RU.EPC}</Text>
+              <Text style={[styles.text, styles.title]}>{this.props.navigation ? PickedLanguage.CASH.YOUR_TITLE : PickedLanguage.CASH.TITLE} {Number(this.props.balance.toFixed(2))} {PickedLanguage.EPC}</Text>
             </View>
           </View>
         }
@@ -89,7 +89,7 @@ class CashoutBalance extends React.Component {
           <View style={[styles.block, styles.vertical_block_center]}>
             <View style={[styles.balance_title]}>
               <View style={styles.epc_icon_filler}></View>
-              <Text style={[styles.text, styles.title]}>{RU.CASH.PARTNERS}</Text>
+              <Text style={[styles.text, styles.title]}>{PickedLanguage.CASH.PARTNERS}</Text>
             </View>
             <View style={[styles.small_border, { display: "none" }]}></View>
             <View>

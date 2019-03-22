@@ -10,7 +10,7 @@ import FastImage from 'react-native-fast-image'
 import LinearGradient from "react-native-linear-gradient";
 //constants
 import styles from "./styles";
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 import { colors } from "../../../constants/colors_men";
 import { ICONS } from "../../../constants/icons";
 //redux
@@ -68,7 +68,7 @@ class BrandWebsite extends React.Component {
                                     style={styles.continue}
                                     onPress={() => { this.props.continue() }}
                                 >
-                                    <Text style={[styles.continue_text, { color: this.props.userColor.pink_blue }]}>{RU.GAME.RESULT.CONTINUE_PLAY.toUpperCase()}</Text>
+                                    <Text style={[styles.continue_text, { color: this.props.userColor.pink_blue }]}>{PickedLanguage.GAME.RESULT.CONTINUE_PLAY.toUpperCase()}</Text>
                                 </Button>
                             }
                             <Button
@@ -127,12 +127,12 @@ class BrandWebsite extends React.Component {
                                     style={styles.icon_back}
                                     source={{ uri: ICONS.COMMON.NAVIGATE_BACK }}
                                 />
-                                <Text style={[styles.text, styles.title]}>{RU.BACK}</Text>
+                                <Text style={[styles.text, styles.title]}>{PickedLanguage.BACK}</Text>
                             </Button>
                         </View>
                         <Text style={styles.infoPage_title}>{this.props.brand_title.toUpperCase()}</Text>
-                        <Text style={styles.infoPage_title}>{RU.GAME.RESULT.STAY_ON_WEBSITE_FOR_3_MIN}</Text>
-                        <Text style={styles.infoPage_desc}>{RU.GAME.RESULT.LOOK_WHAT_TO_BUY}</Text>
+                        <Text style={styles.infoPage_title}>{PickedLanguage.GAME.RESULT.STAY_ON_WEBSITE_FOR_3_MIN}</Text>
+                        <Text style={styles.infoPage_desc}>{PickedLanguage.GAME.RESULT.LOOK_WHAT_TO_BUY}</Text>
                         <Button
                             rounded
                             transparent
@@ -143,7 +143,7 @@ class BrandWebsite extends React.Component {
                                 this.props.startTimer()
                             }}
                         >
-                            <Text style={[styles.continue_text, { color: this.props.userColor.pink_blue }]}>{RU.GAME.RESULT.CONTINUE.toUpperCase()}</Text>
+                            <Text style={[styles.continue_text, { color: this.props.userColor.pink_blue }]}>{PickedLanguage.GAME.RESULT.CONTINUE.toUpperCase()}</Text>
                         </Button>
                     </View>
                 }

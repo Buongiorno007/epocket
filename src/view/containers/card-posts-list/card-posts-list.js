@@ -4,7 +4,7 @@ import { View, Text, FlatList } from "react-native";
 import Card from "../card/card";
 import PostCard from "../card-post/card-post"
 //constants
-import { RU } from "../../../locales/ru";
+import PickedLanguage from "../../../locales/language-picker";
 import styles from "./styles";
 //redux
 import { connect } from "react-redux";
@@ -36,7 +36,7 @@ class CardPostsList extends React.Component {
                     />
                 ) : (
                         <View style={styles.no_tasks}>
-                            <Text style={styles.no_tasks_text}>{RU.NO_POSTS}</Text>
+                            <Text style={styles.no_tasks_text}>{PickedLanguage.NO_POSTS}</Text>
                         </View>
                     )}
             </View>

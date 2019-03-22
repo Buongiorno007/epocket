@@ -26,7 +26,7 @@ import { mapStyle } from "./mapCustomStyle";
 import styles from "./styles";
 import { ICONS } from "../../../constants/icons";
 import { urls } from "../../../constants/urls";
-import { RU } from "./../../../locales/ru";
+import PickedLanguage from "./../../../locales/language-picker";
 import { colors } from "./../../../constants/colors";
 //redux
 import { connect } from "react-redux";
@@ -471,9 +471,9 @@ class Map extends React.Component {
         taskActive={this.state.taskActive}
         shopActive={this.state.shopActive}
         btnText={
-          this.state.taskActive ? RU.MAP.TASKS.toUpperCase() :
-            this.state.shopActive ? RU.MAP.MAKE_PREORDER.toUpperCase() :
-              RU.MAP.LIST_PRODUCTS.toUpperCase()
+          this.state.taskActive ? PickedLanguage.MAP.TASKS.toUpperCase() :
+            this.state.shopActive ? PickedLanguage.MAP.MAKE_PREORDER.toUpperCase() :
+              PickedLanguage.MAP.LIST_PRODUCTS.toUpperCase()
         }
       />
       :
@@ -491,7 +491,7 @@ class Map extends React.Component {
             }
           }}
           btnText={
-            RU.EXECUTE.toUpperCase()
+            PickedLanguage.EXECUTE.toUpperCase()
           }
         />
         :
@@ -984,8 +984,8 @@ class Map extends React.Component {
     return (
       <View style={styles.main_view}>
         <CustomAlert
-          title={RU.PROFILE_PAGE.ALREADY_ACCOUNT}
-          first_btn_title={RU.OK}
+          title={PickedLanguage.PROFILE_PAGE.ALREADY_ACCOUNT}
+          first_btn_title={PickedLanguage.OK}
           visible={this.state.errorLoginVisible}
           first_btn_handler={() =>
             this.setLoginErrorVisible(!this.state.errorVisible)
@@ -995,9 +995,9 @@ class Map extends React.Component {
           }
         />
         <CustomAlert
-          title={RU.PROFILE_PAGE.NOT_ENOUGHT_SUB}
-          subtitle={this.state.userCount + RU.PROFILE_PAGE.SUBS}
-          first_btn_title={RU.OK}
+          title={PickedLanguage.PROFILE_PAGE.NOT_ENOUGHT_SUB}
+          subtitle={this.state.userCount + PickedLanguage.PROFILE_PAGE.SUBS}
+          first_btn_title={PickedLanguage.OK}
           visible={this.state.modalVisible}
           first_btn_handler={() =>
             this.setModalVisible(!this.state.modalVisible)
@@ -1008,7 +1008,7 @@ class Map extends React.Component {
         />
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={RU.REPEAT}
+          first_btn_title={PickedLanguage.REPEAT}
           visible={this.state.errorVisible}
           first_btn_handler={() => {
             this.loadTRC();
@@ -1019,7 +1019,7 @@ class Map extends React.Component {
         />
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={RU.REPEAT}
+          first_btn_title={PickedLanguage.REPEAT}
           visible={this.state.errorVisible}
           first_btn_handler={() => {
             this.loadTRC();
@@ -1089,7 +1089,7 @@ class Map extends React.Component {
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={styles.state_change_block_text}>
-              {RU.MAP_TABS.SHOP.toUpperCase()}
+              {PickedLanguage.MAP_TABS.SHOP.toUpperCase()}
             </LinearTextGradient>
           </Button>
           <Button style={styles.state_change_block_btn} transparent onPress={() => this.toggleTab("task")}>
@@ -1105,7 +1105,7 @@ class Map extends React.Component {
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={styles.state_change_block_text}>
-              {RU.MAP_TABS.TASK.toUpperCase()}
+              {PickedLanguage.MAP_TABS.TASK.toUpperCase()}
             </LinearTextGradient>
           </Button>
           <Button style={[styles.state_change_block_btn, styles.state_change_block_btn_right]} transparent onPress={() => this.toggleTab("discount")}>
@@ -1121,7 +1121,7 @@ class Map extends React.Component {
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={styles.state_change_block_text}>
-              {RU.MAP_TABS.DISCOUNT.toUpperCase()}
+              {PickedLanguage.MAP_TABS.DISCOUNT.toUpperCase()}
             </LinearTextGradient>
           </Button>
         </Animated.View>

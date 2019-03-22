@@ -15,7 +15,7 @@ import { playClock, stopClock, playQuestComplete, playQuestFail } from "../../..
 import { editGame, clearGame } from "../../../reducers/game-controller"
 //constants
 import styles from './styles';
-import { RU } from '../../../locales/ru';
+import PickedLanguage from '../../../locales/language-picker';
 //containers
 import CustomButton from '../../containers/custom-button/custom-button';
 import CustomProgressBar from '../../containers/custom-progress-bar/custom-progress-bar';
@@ -119,7 +119,7 @@ class Game extends React.Component {
 			<View style={styles.main_view}>
 				{this.props.loader && <ActivityIndicator />}
 				<View style={styles.game_title}>
-					<Text style={styles.game_cost_text}>{this.props.game_info.cost} {RU.EPC}</Text>
+					<Text style={styles.game_cost_text}>{this.props.game_info.cost} {PickedLanguage.EPC}</Text>
 					<Text style={styles.game_title_text}>{this.props.game_info.title}</Text>
 				</View>
 				<View style={styles.game_time}>
@@ -168,7 +168,7 @@ class Game extends React.Component {
 						active={this.state.buttonActive ? true : false}
 						short
 						gradient
-						title={RU.GAME.CONFIRM.toUpperCase()}
+						title={PickedLanguage.GAME.CONFIRM.toUpperCase()}
 						color={this.props.userColor.white}
 						handler={() => {
 							this.submitGame()
