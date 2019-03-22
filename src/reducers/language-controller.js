@@ -1,7 +1,7 @@
 import { NativeModules, Platform } from 'react-native'
 //locales
-import RU from "../locales/ru"
-import EN from "../locales/en"
+import { RU } from "../locales/ru"
+import { EN } from "../locales/en"
 export const CHANGE_LANGUAGE_CONTROLLER = 'language-controller/CHANGE_LANGUAGE_CONTROLLER';
 
 export default (state = RU, action) => {
