@@ -51,9 +51,11 @@ class Profile extends React.Component {
 				}
 			});
 		});
-		setTimeout(() => {
-			this.setState({ animationVisible: false })
-		}, 5000);
+		if (this.state.animationVisible) {
+			setTimeout(() => {
+				this.setState({ animationVisible: false })
+			}, 5000);
+		}
 		let promise = httpPost(
 			urls.get_referral_link,
 			JSON.stringify({}),
