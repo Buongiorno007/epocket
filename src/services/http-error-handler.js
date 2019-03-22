@@ -1,5 +1,6 @@
 //constants
 import { RU } from "./../locales/ru";
+import { Platform } from "react-native"
 import { sendToEpcErrorBot } from "./telegramm-notification"
 const defaultError = "code : 500. Internal Server Error"
 {
@@ -49,11 +50,14 @@ export const handleError = (errorAll, request_body, request_url, request_token, 
   )
   if (!__DEV__) {
     sendToEpcErrorBot(
-      "Rejected request at " + constructor_name + " \n " +
+      "---FRONT INFO---" + " \n " +
+      "/// Rejected request at Constructor: '" + constructor_name + "' \n " +
       "/// Function name: " + function_name + " \n " +
-      "/// Error all: " + errorAll + " \n " +
-      "/// Generated error: " + error + " \n " +
-      "/// Request body: " + request_body + " \n " +
+      "/// Generated error: " + JSON.stringify(error) + " \n " +
+      "/// Platform: " + Platform.OS + " \n " +
+      "---BACK INFO---" + " \n " +
+      "/// Error all: " + JSON.stringify(errorAll) + " \n " +
+      "/// Request body: " + JSON.stringify(request_body) + " \n " +
       "/// Request url: " + request_url + " \n " +
       "/// Request token: " + request_token + " \n "
     )

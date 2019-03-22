@@ -150,7 +150,7 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
                 dispatch(loaderState(false));
             }
             else {
-                let error_response = handleError(error, body, urls.game_get + "?coords=" + latt + "%2C" + long, token, "game-info", "getGameInfo")
+                let error_response = handleError(error, {}, urls.game_get + "?coords=" + latt + "%2C" + long, token, "game-info", "getGameInfo")
                 dispatch(errorState(error_response))
                 dispatch(loaderState(false));
             }
