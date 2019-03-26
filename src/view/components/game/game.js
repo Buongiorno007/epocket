@@ -14,6 +14,7 @@ import { passGameResult } from "../../../reducers/game-info";
 import { playClock, stopClock, playQuestComplete, playQuestFail } from "../../../reducers/sounds";
 import { editGame, clearGame } from "../../../reducers/game-controller"
 //constants
+import { ICONS } from '../../../constants/icons';
 import styles from './styles';
 import PickedLanguage from '../../../locales/language-picker';
 //containers
@@ -23,6 +24,7 @@ import ActivityIndicator from "../../containers/activity-indicator/activity-indi
 //services
 import "../../../services/correcting-interval";
 import { toHHMMSS } from "./../../../services/convert-time"
+
 const { width } = Dimensions.get("window");
 
 class Game extends React.Component {
@@ -157,7 +159,7 @@ class Game extends React.Component {
 								<FastImage
 									style={styles.image_in_square}
 									resizeMode={FastImage.resizeMode.contain}
-									source={{ uri: this.props.game_info.game_array[index].img, priority: FastImage.priority.high }}
+									source={{ uri: this.props.game_info.game_array[index].img ? this.props.game_info.game_array[index].img : ICONS.COMMON.CLOSE_WHITE, priority: FastImage.priority.high }}
 								/>
 							</Button>
 						);
