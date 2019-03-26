@@ -364,7 +364,7 @@ class GameStart extends React.Component {
                             columnWrapperStyle={{ flexWrap: 'wrap' }}
                             removeClippedSubviews={true}
                             keyExtractor={this.keyExtractor}
-                            data={this.props.game_ticker_data.base_partners}
+                            data={this.props.game_ticker_data.brand_partners}
                             renderItem={this._renderPartnerCard}
                             removeClippedSubviews={true}
                         />

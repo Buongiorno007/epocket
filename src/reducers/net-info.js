@@ -1,4 +1,6 @@
 import { NetInfo, AppState } from 'react-native';
+import { httpGet } from "../services/http"
+import { urls } from "../constants/urls"
 
 export const UPDATE_CONNECTION = 'net-info/UPDATE_CONNECTION';
 
@@ -19,6 +21,19 @@ export const checkForInternetReacheable = (connection) => async dispatch => {
             }
             else {
                 dispatch(getStatus(true))
+                let received_promise = httpGet(
+                    urls.echo
+                );
+                received_promise.then(
+                    result => {
+                        console.log(result)
+                        dispatch(getStatus(true))
+                    },
+                    error => {
+                        console.log(error)
+                        dispatch(getStatus(false))
+                    }
+                );
             }
         });
     }
