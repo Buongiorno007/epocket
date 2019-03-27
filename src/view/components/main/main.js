@@ -108,7 +108,7 @@ class Main extends React.Component {
           !this.props.isLocation && <LocationDisabled />
         }
         {
-          this.state.develop && //!this.state.develop && 
+          !this.state.develop && //!this.state.develop && 
           (
             Platform.OS === "ios" ?
               this.props.rootStatus && this.props.isLocation && (this.props.activeTab == 1 || this.props.activeTab == 0) && <RootEnabled /> :
