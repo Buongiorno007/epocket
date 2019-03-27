@@ -154,7 +154,8 @@ export const RU = {
   MAP_TABS: {
     SHOP: "Точки\nвыдачи",
     TASK: "Задания\nи бонусы",
-    DISCOUNT: "Дисконт\nцентры"
+    DISCOUNT: "Дисконт\nцентры",
+    OUR_PARTNERS: "Наши\nпартнеры"
   },
   MAP: {
     TASKS: "Задания",
@@ -164,6 +165,12 @@ export const RU = {
     LIST_PRODUCTS: "Список товаров",
     CONNECT_INSTA: "Подключите Instagram и получите ",
     CONNECT_FACEBOOK: "Подключите Facebook и получите "
+  },
+  PARTNER_SCREEN: {
+    SHOW_THIS_CODE: "Покажите этот код на кассе для оплаты EPC",
+    COMISSION_IS_PAYED_IN: "Комиссия оплачивается в ",
+    AND_IT_IS: " и составляет ",
+    PERCENT_FROM_TOTAL_PRICE: " % от суммы счета"
   },
   PROFILE_PAGE: {
     EXIT_TO_START: "Вы уверены что хотите выйти?",

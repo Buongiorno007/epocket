@@ -38,7 +38,7 @@ export default StyleSheet.create({
     },
     state_change_block_text: {
         textAlign: "left",
-        fontSize: 10,
+        fontSize: 9,
         paddingLeft: 5,
         fontFamily: "Rubik-Medium"
     },
