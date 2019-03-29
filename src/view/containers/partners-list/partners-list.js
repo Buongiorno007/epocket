@@ -35,9 +35,9 @@ class PartnersList extends React.Component {
             }
         }).catch(err => console.log(err));
     }
-    _renderItem = ({ item }) => {
+    _renderItem = ({ item, index }) => {
         return (
-            <PartnerCard picked_shops={this.props.picked_shops} item={item} openBarcode={this.props.openBarcode} openLink={this.openLink} />
+            <PartnerCard picked_shops={this.props.picked_shops} index={index} item={item} openBarcode={this.props.openBarcode} openLink={this.openLink} />
         )
     };
     _keyExtractor = (item, index) => index;

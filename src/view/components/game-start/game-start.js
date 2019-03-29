@@ -57,7 +57,7 @@ class GameStart extends React.Component {
         this.props.loaderState(true);
         let body = {
             outlet_id: id,
-            notInMall: (this.props.distance <= 0 && this.props.isLocation) ? false : true
+            notInMall: (this.props.distance != null && this.props.distance <= 0 && this.props.isLocation) ? false : true
         };
         let promise = httpPost(
             urls.missions,
@@ -273,9 +273,9 @@ class GameStart extends React.Component {
             }
         );
     }
-    _renderPartnerCard = ({ item }) => {
+    _renderPartnerCard = ({ item, index }) => {
         return (
-            <PartnerCard picked_shops={true} item={item} openBarcode={() => { }}
+            <PartnerCard picked_shops={true} index={index} item={item} openBarcode={() => { }}
                 openLink={() => {
                     this.setState({
                         website_visible: true,

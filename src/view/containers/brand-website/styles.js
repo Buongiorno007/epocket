@@ -28,8 +28,8 @@ export default StyleSheet.create({
     },
     icon: {
         zIndex: 101,
-        width: 20,
-        height: 20,
+        width: 27,
+        height: 27,
     },
     icon_close: {
         zIndex: 101,
@@ -38,8 +38,8 @@ export default StyleSheet.create({
     },
     zifi: {
         zIndex: 101,
-        width: 25,
-        height: 25,
+        width: 34,
+        height: 34,
     },
     button_close: {
         zIndex: 103,

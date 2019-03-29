@@ -33,6 +33,12 @@ export default StyleSheet.create({
     empty_text: {
         width: width * 0.85
     },
+    partner_card_left: {
+        marginRight: width * 0.025,
+    },
+    partner_card_right: {
+        marginLeft: width * 0.025,
+    },
     partner_card: {
         width: width * 0.4,
         height: width * 0.3,
@@ -40,8 +46,6 @@ export default StyleSheet.create({
         justifyContent: "center",
         flexDirection: "column",
         backgroundColor: colors.white,
-        marginLeft: width * 0.025,
-        marginRight: width * 0.025,
         marginBottom: width * 0.05,
         borderRadius: 12,
         elevation: 2,

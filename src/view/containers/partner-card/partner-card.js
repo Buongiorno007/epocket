@@ -17,6 +17,7 @@ class PartnerCard extends React.Component {
     }
     render() {
         let item = this.props.item
+        let index = this.props.index + 1
         return (
             !item.invisible ?
                 <Button
@@ -30,7 +31,7 @@ class PartnerCard extends React.Component {
                             this.props.openLink(item.link)
                         }
                     }}
-                    style={styles.partner_card}
+                    style={[styles.partner_card, index % 2 === 0 ? styles.partner_card_right : styles.partner_card_left]}
                 >
                     <View style={styles.partner_card_inner}>
                         <FastImage
