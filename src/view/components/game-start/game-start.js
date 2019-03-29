@@ -262,6 +262,7 @@ class GameStart extends React.Component {
         promise.then(
             result => {
                 console.log(result)
+                this.setState({ website_visible: false })
                 this.props.loaderState(false);
                 this.props.getGameInfo(this.props.token, this.props.location.lat, this.props.location.lng)
                 this.closeBrandWebSite()
@@ -290,15 +291,17 @@ class GameStart extends React.Component {
     render() {
         return (
             <View style={styles.main_view}>
-                <BrandWebsite
-                    visible={this.state.website_visible}
-                    brand_title={this.state.brand_title}
-                    brand_link={this.state.brand_link}
-                    closeBrandWebSite={() => this.closeBrandWebSite()}
-                    startTimer={() => this.openWebSite()}
-                    continue={() => {
-                        this.forceRemoveTicker();
-                    }} />
+                {this.state.website_visible ?
+                    <BrandWebsite
+                        visible={this.state.website_visible}
+                        brand_title={this.state.brand_title}
+                        brand_link={this.state.brand_link}
+                        closeBrandWebSite={() => this.closeBrandWebSite()}
+                        startTimer={() => this.openWebSite()}
+                        continue={() => {
+                            this.forceRemoveTicker();
+                        }} />
+                    : null}
                 {this.props.loader || this.state.loader && <ActivityIndicator />}
                 <CustomAlert
                     title={this.state.errorText}

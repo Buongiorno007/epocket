@@ -43,12 +43,12 @@ class Main extends React.Component {
   _handleAppStateChange = (nextAppState) => {
     if (nextAppState === "active") {
       this.props.loadNTPDate();
-    }
-    if (Platform.OS === "ios")
-      if ((this.props.appState.match(/inactive|background/) && nextAppState.match(/active/)) || (this.props.appState.match(/active/) && nextAppState.match(/inactive|background/))) {
-        this.props.loaderState(true)
+      this.props.loaderState(true)
+      this.props.updateRootStatus();
+      setTimeout(() => {
         this.props.updateRootStatus();
-      }
+      }, 5000);
+    }
   }
   componentWillMount = () => {
     AppState.addEventListener('change', this._handleAppStateChange);
@@ -57,7 +57,6 @@ class Main extends React.Component {
     AppState.removeEventListener('change', this._handleAppStateChange);
   }
   componentDidMount() {
-    console.log(PickedLanguage)
     this.backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
       this.props.setActiveCard(false);
       return true;
@@ -108,7 +107,7 @@ class Main extends React.Component {
           !this.props.isLocation && <LocationDisabled />
         }
         {
-          this.state.develop && //!this.state.develop && 
+          !this.state.develop && //!this.state.develop && 
           (
             Platform.OS === "ios" ?
               this.props.rootStatus && this.props.isLocation && (this.props.activeTab == 1 || this.props.activeTab == 0) && <RootEnabled /> :
