@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, AsyncStorage } from "react-native";
+import { View, Text, AsyncStorage, StatusBar } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { Button } from "native-base";
 import FastImage from 'react-native-fast-image'
@@ -104,6 +104,11 @@ class Partners extends React.Component {
     render() {
         return (
             <View style={styles.container}>
+                <StatusBar
+                    barStyle="light-content"
+                    backgroundColor={"transparent"}
+                    translucent={true}
+                />
                 {this.props.loader && <ActivityIndicator />}
                 {this.state.showBarcode &&
                     <Barcode
