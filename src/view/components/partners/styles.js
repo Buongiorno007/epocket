@@ -31,7 +31,7 @@ export default StyleSheet.create({
         alignItems: 'flex-start',
         position: "absolute",
         width: width * 0.9,
-        top: 20,
+        top: 15,
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
@@ -74,7 +74,7 @@ export default StyleSheet.create({
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "flex-end",
-        paddingBottom: 10,
+        paddingBottom: 15,
         height: height * 0.2
     },
     partners_text: {

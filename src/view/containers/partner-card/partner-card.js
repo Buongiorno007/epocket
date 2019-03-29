@@ -36,7 +36,7 @@ class PartnerCard extends React.Component {
                         <FastImage
                             resizeMode={FastImage.resizeMode.contain}
                             style={styles.icon}
-                            source={{ uri: item.image ? item.image : ICONS.COMMON.PARTNERS }}
+                            source={{ uri: item.image ? item.image : ICONS.COMMON.PARTNERS, priority: FastImage.priority.high }}
                         />
                         <View style={styles.border} />
                         <Text numberOfLines={1} style={styles.partner_title}>{item.name.toUpperCase()}</Text>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, FlatList } from 'react-native';
+import { View, Text, Image, FlatList, AppState } from 'react-native';
 import { LinearTextGradient } from "react-native-text-gradient";
 import LinearGradient from "react-native-linear-gradient";
 import FastImage from 'react-native-fast-image'
@@ -22,6 +22,7 @@ import { updateMall } from "../../../reducers/selected-mall";
 import { setOutlets } from "../../../reducers/outlet-list";
 import { setInitialOutlets } from "../../../reducers/initial-outlets"
 import { setWebSiteTimer } from "../../../reducers/website-timer"
+import { setAppState } from "../../../reducers/app-state"
 //constants
 import styles from './styles';
 import { urls } from "../../../constants/urls";
@@ -86,9 +87,13 @@ class GameStart extends React.Component {
     }
     componentDidMount() {
         this.loadTRC();
+        AppState.addEventListener('change', this._handleAppStateChange);
         setTimeout(() => {
             this.setState({ loader: false })
         }, 1000);
+    }
+    componentWillUnmount = () => {
+        AppState.removeEventListener('change', this._handleAppStateChange);
     }
     componentWillReceiveProps = (nextProps) => {
         if (this.props.game_status == "initial" && nextProps.game_status == "start") {
@@ -96,11 +101,14 @@ class GameStart extends React.Component {
         }
         else if (
             (nextProps.location.lat.toFixed(3) != this.props.location.lat.toFixed(3)) &&
-            (nextProps.location.lng.toFixed(3) != this.props.location.lng.toFixed(3))
+            (nextProps.location.lng.toFixed(3) != this.props.location.lng.toFixed(3)) && nextProps.appState === "active"
         ) {
             this.props.getGameInfo(this.props.token, nextProps.location.lat, nextProps.location.lng)
             this.loadTRC();
         }
+    }
+    _handleAppStateChange = (nextAppState) => {
+        this.props.setAppState(nextAppState)
     }
     setModalVisible = visible => {
         this.setState({ errorVisible: visible });
@@ -254,6 +262,7 @@ class GameStart extends React.Component {
         promise.then(
             result => {
                 console.log(result)
+                this.setState({ website_visible: false })
                 this.props.loaderState(false);
                 this.props.getGameInfo(this.props.token, this.props.location.lat, this.props.location.lng)
                 this.closeBrandWebSite()
@@ -282,15 +291,17 @@ class GameStart extends React.Component {
     render() {
         return (
             <View style={styles.main_view}>
-                <BrandWebsite
-                    visible={this.state.website_visible}
-                    brand_title={this.state.brand_title}
-                    brand_link={this.state.brand_link}
-                    closeBrandWebSite={() => this.closeBrandWebSite()}
-                    startTimer={() => this.openWebSite()}
-                    continue={() => {
-                        this.forceRemoveTicker();
-                    }} />
+                {this.state.website_visible ?
+                    <BrandWebsite
+                        visible={this.state.website_visible}
+                        brand_title={this.state.brand_title}
+                        brand_link={this.state.brand_link}
+                        closeBrandWebSite={() => this.closeBrandWebSite()}
+                        startTimer={() => this.openWebSite()}
+                        continue={() => {
+                            this.forceRemoveTicker();
+                        }} />
+                    : null}
                 {this.props.loader || this.state.loader && <ActivityIndicator />}
                 <CustomAlert
                     title={this.state.errorText}
@@ -364,7 +375,7 @@ class GameStart extends React.Component {
                             columnWrapperStyle={{ flexWrap: 'wrap' }}
                             removeClippedSubviews={true}
                             keyExtractor={this.keyExtractor}
-                            data={this.props.game_ticker_data.base_partners}
+                            data={this.props.game_ticker_data.brand_partners}
                             renderItem={this._renderPartnerCard}
                             removeClippedSubviews={true}
                         />
@@ -451,6 +462,7 @@ const mapStateToProps = (state) => {
         selectedMall: state.selectedMall,
         distance: state.distance,
         activeTab: state.activeTab,
+        appState: state.appState,
         dateAbuseStatus: state.dateAbuseStatus,
         website_timer: state.website_timer,
         game_ticker_data: state.game_ticker_data
@@ -462,6 +474,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     setGameStatus,
     errorState,
     setLocation,
+    setAppState,
     setInitialOutlets,
     setOutlets,
     setLocation,
