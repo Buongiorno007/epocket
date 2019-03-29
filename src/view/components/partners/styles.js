@@ -82,6 +82,7 @@ export default StyleSheet.create({
         textAlign: "center",
         width: 0.75 * width,
         fontSize: 15,
+        lineHeight: 24,
         fontFamily: "Rubik-Bold"
     }
 });

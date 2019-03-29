@@ -355,7 +355,7 @@ class GameStart extends React.Component {
                         />
                         <Text style={[styles.zifi_text, styles.white_text]}>{PickedLanguage.GAME.ZIFI.MORE_GAMES}</Text>
                         <Image
-                            style={styles.zifi}
+                            style={[styles.zifi, styles.open_more_game_zifi]}
                             source={require('../../../assets/img/zifi/playful.gif')}
                         />
                         <Button

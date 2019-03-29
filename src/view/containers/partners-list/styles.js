@@ -8,7 +8,7 @@ export default StyleSheet.create({
         height: height * 0.65,
     },
     list: {
-        paddingTop: 10,
+        paddingTop: 20,
         height: height * 0.75,
         overflow: "hidden",
     },

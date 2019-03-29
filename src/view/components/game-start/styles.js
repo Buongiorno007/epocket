@@ -63,6 +63,9 @@ export default StyleSheet.create({
 		height: width * 0.35,
 		marginBottom: width * 0.05
 	},
+	open_more_game_zifi: {
+		marginTop: height * 0.03
+	},
 	zifi_text: {
 		textAlign: "center",
 		width: (width * 0.85),
