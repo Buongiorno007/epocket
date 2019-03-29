@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, FlatList } from 'react-native';
+import { View, Text, Image, FlatList, AppState } from 'react-native';
 import { LinearTextGradient } from "react-native-text-gradient";
 import LinearGradient from "react-native-linear-gradient";
 import FastImage from 'react-native-fast-image'
@@ -22,6 +22,7 @@ import { updateMall } from "../../../reducers/selected-mall";
 import { setOutlets } from "../../../reducers/outlet-list";
 import { setInitialOutlets } from "../../../reducers/initial-outlets"
 import { setWebSiteTimer } from "../../../reducers/website-timer"
+import { setAppState } from "../../../reducers/app-state"
 //constants
 import styles from './styles';
 import { urls } from "../../../constants/urls";
@@ -86,9 +87,13 @@ class GameStart extends React.Component {
     }
     componentDidMount() {
         this.loadTRC();
+        AppState.addEventListener('change', this._handleAppStateChange);
         setTimeout(() => {
             this.setState({ loader: false })
         }, 1000);
+    }
+    componentWillUnmount = () => {
+        AppState.removeEventListener('change', this._handleAppStateChange);
     }
     componentWillReceiveProps = (nextProps) => {
         if (this.props.game_status == "initial" && nextProps.game_status == "start") {
@@ -96,11 +101,14 @@ class GameStart extends React.Component {
         }
         else if (
             (nextProps.location.lat.toFixed(3) != this.props.location.lat.toFixed(3)) &&
-            (nextProps.location.lng.toFixed(3) != this.props.location.lng.toFixed(3))
+            (nextProps.location.lng.toFixed(3) != this.props.location.lng.toFixed(3)) && nextProps.appState === "active"
         ) {
             this.props.getGameInfo(this.props.token, nextProps.location.lat, nextProps.location.lng)
             this.loadTRC();
         }
+    }
+    _handleAppStateChange = (nextAppState) => {
+        this.props.setAppState(nextAppState)
     }
     setModalVisible = visible => {
         this.setState({ errorVisible: visible });
@@ -451,6 +459,7 @@ const mapStateToProps = (state) => {
         selectedMall: state.selectedMall,
         distance: state.distance,
         activeTab: state.activeTab,
+        appState: state.appState,
         dateAbuseStatus: state.dateAbuseStatus,
         website_timer: state.website_timer,
         game_ticker_data: state.game_ticker_data
@@ -462,6 +471,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     setGameStatus,
     errorState,
     setLocation,
+    setAppState,
     setInitialOutlets,
     setOutlets,
     setLocation,
