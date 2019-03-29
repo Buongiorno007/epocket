@@ -38,4 +38,5 @@ export const urls = {
     force_remove_ticker :       devserver+ '/brand/reset',
     get_referral_link:          devserver+ '/link',
     ref_link:                   devserver+ '/reflink?code=',
+    echo:                       devserver+ '/echo'
 }

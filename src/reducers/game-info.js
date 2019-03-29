@@ -84,8 +84,8 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
                 dispatch(errorState(null));
                 dispatch(loaderState(false));
                 NavigationService.navigate("Main")
-                if (game.base_partners.lenght % 2 != 0)
-                    game.base_partners.push({ invisible: true })
+                if (game.brand_partners.lenght % 2 != 0)
+                    game.brand_partners.push({ invisible: true })
                 dispatch(setGameTickerData(game))
             }
             else if (game.game_set) {
