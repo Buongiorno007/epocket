@@ -96,6 +96,7 @@ class GameStart extends React.Component {
         AppState.removeEventListener('change', this._handleAppStateChange);
     }
     componentWillReceiveProps = (nextProps) => {
+        console.log(this.props.game_status, nextProps.game_status)
         if (this.props.game_status == "initial" && nextProps.game_status == "start") {
             this.props.getGameInfo(this.props.token, nextProps.location.lat, nextProps.location.lng)
         }

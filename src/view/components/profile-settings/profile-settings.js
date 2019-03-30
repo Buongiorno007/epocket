@@ -52,7 +52,7 @@ class ProfileSettings extends React.Component {
     LogOut = () => {
         AsyncStorage.multiSet([["user_info", ""], ["balance", ""], ["token", ""], ["insta_token", ""], ["facebook_token", ""], ["cashout_cart", ""], ["cashout_cart_time", ""], ["cashout_cart_id", ""], ["game_status", "initial"]], () => {
             NavigationService.navigate("Start");
-            this.props.setGameStatus("start");
+            this.props.setGameStatus("initial");
             this.props.setInstaToken("");
             this.props.setFacebookToken("");
             CookieManager.clearAll();
