@@ -21,12 +21,12 @@ import { bindActionCreators } from "redux";
 class LocationDisabled extends React.Component {
     openSettings = () => {
         if (Platform.OS === "ios") {
-            Linking.canOpenURL('app-settings:').then(supported => {
+            Linking.canOpenURL('App-prefs:').then(supported => {
                 if (!supported) {
                     console.log('Can\'t handle settings url');
                     Permissions.openSettings();
                 } else {
-                    return Linking.openURL('app-settings:');
+                    return Linking.openURL('App-prefs:');
                 }
             }).catch(err => console.error('An error occurred', err));
         } else {
