@@ -107,6 +107,7 @@ android {
         versionCode 35
         versionName "2.5"
         multiDexEnabled true
+        missingDimensionStrategy 'react-native-camera', 'general'
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
