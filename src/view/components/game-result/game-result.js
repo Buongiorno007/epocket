@@ -455,12 +455,12 @@ class GameResult extends React.Component {
                             gradient
                             instaLogo={true}
                             long_75
+                            active
                             title={this.chooseButtonText(this.props.navigation.state.params.status)}
                             color={this.props.userColor.white}
                             style={[this.props.navigation.state.params.status === "success" ? styles.button_short : styles.button]}
                             handler={() => {
-                                if (this.state.buttonActive)
-                                    this.props.navigation.state.params.status === "success" ? this.checkForGames("home") : this.checkForGames("insta")
+                                this.props.navigation.state.params.status === "success" ? this.checkForGames("home") : this.checkForGames("insta")
                             }}
                         />
                         :
@@ -471,8 +471,7 @@ class GameResult extends React.Component {
                             style={[this.props.navigation.state.params.status === "success" ? styles.button_short : styles.button]}
                             androidRippleColor={this.props.userColor.card_shadow}
                             onPress={() => {
-                                if (this.state.buttonActive)
-                                    this.props.navigation.state.params.status === "success" ? this.checkForGames("home") : this.checkForGames("insta")
+                                this.props.navigation.state.params.status === "success" ? this.checkForGames("home") : this.checkForGames("insta")
                             }}
                         >
                             {this.props.navigation.state.params.status != "success" &&

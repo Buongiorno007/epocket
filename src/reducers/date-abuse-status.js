@@ -42,7 +42,7 @@ export const loadNTPDate = () => async dispatch => {
             if (
                 String(deviceDate) === String(serverDate) &&
                 Number(deviceHours) === Number(serverHours) &&
-                (Math.abs(Number(deviceMinutes) - Number(serverMinutes)) <= 60)
+                (Math.abs(Number(deviceMinutes) - Number(serverMinutes)) <= 30)
             ) {
                 dispatch(setDateAbuseStatus(true))
             }

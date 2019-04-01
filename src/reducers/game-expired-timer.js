@@ -1,4 +1,5 @@
 export const WAIT_TIMER = 'game-expired-timer/WAIT_TIMER';
+import { Platform } from "react-native"
 //services
 import { httpPost } from '../services/http'
 import { handleError } from "../services/http-error-handler";
@@ -66,7 +67,7 @@ export const launchGameExpiredTimer = (token, id) => async dispatch => {
             console.log(result)
             let time = result.body.time;
             let oldresult = result;
-            if (oldresult.body.video_status) {
+            if (oldresult.body.video_status && Platform.OS === "ios") {
                 let id = oldresult.body.image.split('_correct')[0].split('id')[1];
                 dispatch(setGameExpiredImage({
                     id: id,
@@ -92,7 +93,7 @@ export const launchGameExpiredTimer = (token, id) => async dispatch => {
                         dispatch(setGameExpiredImage({
                             id: id,
                             img: oldresult.body.image,
-                            base64: 'data:image/jpg;base64,' + result,
+                            base64: 'data:image/jpeg;base64,' + result,
                             video: false,
                             brand_name: oldresult.body.brand_name,
                             game_link: oldresult.body.game_link,

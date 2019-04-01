@@ -41,7 +41,12 @@ callCallback = (callback) => {
         }, 1000);
     }
     if (callback === "no_instagram") {
-        Linking.openURL("market://details?id=" + app_id);
+        if (Platform.OS === "ios") {
+            Linking.openURL('itms-apps://itunes.apple.com/app/instagram/id389801252')
+        }
+        else {
+            Linking.openURL("market://details?id=com.instagram.android");
+        }
     }
 }
 
@@ -70,7 +75,7 @@ export function postToSocialStory(postData, deepLink, confirmFuction) { //deprec
     }
 }
 export function postToSocial(postData, deepLink, confirmFuction, video_status) {
-    let base64Prefix;
+    let base64Prefix = 'data:image/jpg;base64,';
     const dirs = RNFetchBlob.fs.dirs
     let file_path
     let type
@@ -136,7 +141,6 @@ export function postToSocial(postData, deepLink, confirmFuction, video_status) {
             type = 'mp4'
             post_data = postData.video //postData
             file_path = dirs.DCIMDir + "/epc_game_video.mp4"
-            console.log(post_data, file_path, type)
             requestStoragePermission(post_data, file_path, deepLink, confirmFuction, type, video_status);
         } else {
             type = 'base64'
