@@ -151,7 +151,6 @@ export function postToSocial(postData, deepLink, confirmFuction, video_status) {
                 post_data = postData.base64
             }
             file_path = dirs.DCIMDir + "/epc_game_img.jpg"
-            console.log(file_path, post_data, type)
             RNFS.writeFile(file_path, post_data, type)
                 .then(() => {
                     RNInstagramStoryShare.shareToFeed({
