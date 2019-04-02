@@ -1067,9 +1067,9 @@ class Dashboard extends React.Component {
                         }
                       ]}
                     >
-                      <Text>
+                      {/* <Text> */}
                         {Number(this.state.mainMissionPrice).toFixed()}
-                      </Text>
+                      {/* </Text> */}
                     </LinearTextGradient>
                     <Animated.Text
                       style={[
