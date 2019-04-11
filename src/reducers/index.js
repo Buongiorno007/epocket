@@ -4,6 +4,7 @@ import isLocation from "./geolocation-status";
 import location from "./geolocation-coords";
 import activeTab from "./tabs";
 import selectedMall from "./selected-mall";
+import closestMall from "./closestMall";
 import dashboard from "./show-dashboard";
 import doneNotification from "./main-task-done-notification";
 import failedNotification from "./main-task-failed-notification";
@@ -62,6 +63,7 @@ export default combineReducers({
   activeTab,
   location,
   selectedMall,
+  closestMall,
   dashboard,
   doneNotification,
   failedNotification,
