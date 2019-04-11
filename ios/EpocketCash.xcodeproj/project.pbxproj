@@ -47,7 +47,6 @@
 		7747F44ED10349ABAF72FF9D /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 980D170C751B492D8F80F736 /* MaterialIcons.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8B21EE2BCF8E487CB6E0E75D /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E491EBD0C6894115A34FC58D /* EvilIcons.ttf */; };
-		A587E35B2237EC9E006E162B /* libJailMonkey.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A587E32C2237EC6E006E162B /* libJailMonkey.a */; };
 		A5A389192237DF5600F9C812 /* quest_fail.wav in Resources */ = {isa = PBXBuildFile; fileRef = A5A389162237DF5500F9C812 /* quest_fail.wav */; };
 		A5A3891A2237DF5600F9C812 /* clock_tick.wav in Resources */ = {isa = PBXBuildFile; fileRef = A5A389172237DF5500F9C812 /* clock_tick.wav */; };
 		A5A3891B2237DF5600F9C812 /* quest_complete.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A5A389182237DF5500F9C812 /* quest_complete.mp3 */; };
@@ -398,13 +397,6 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
-		A587E32B2237EC6E006E162B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A587E3252237EC6D006E162B /* JailMonkey.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 38C138441D3FC3F600A8162D;
-			remoteInfo = JailMonkey;
-		};
 		A5EE0D6222395117000A8251 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F43EC7D03F6348288CF09713 /* UdpSockets.xcodeproj */;
@@ -480,7 +472,6 @@
 		92AC22B1058643A69DADC1FF /* libRNFirebase.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFirebase.a; sourceTree = "<group>"; };
 		980D170C751B492D8F80F736 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		A0FEAF16BB0F46A2857876ED /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/native-base/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
-		A587E3252237EC6D006E162B /* JailMonkey.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = JailMonkey.xcodeproj; path = "../node_modules/jail-monkey/JailMonkey.xcodeproj"; sourceTree = "<group>"; };
 		A5A389162237DF5500F9C812 /* quest_fail.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = quest_fail.wav; path = ../android/app/src/main/res/raw/quest_fail.wav; sourceTree = "<group>"; };
 		A5A389172237DF5500F9C812 /* clock_tick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = clock_tick.wav; path = ../android/app/src/main/res/raw/clock_tick.wav; sourceTree = "<group>"; };
 		A5A389182237DF5500F9C812 /* quest_complete.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = quest_complete.mp3; path = ../android/app/src/main/res/raw/quest_complete.mp3; sourceTree = "<group>"; };
@@ -505,7 +496,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A587E35B2237EC9E006E162B /* libJailMonkey.a in Frameworks */,
 				6C38A1BD21F992EA00D4E7C5 /* libRCTCameraRoll.a in Frameworks */,
 				6C5C9D9D21F72F31009AAEB6 /* libART.a in Frameworks */,
 				6CABB0A821CB781E000D3408 /* libRNShare.a in Frameworks */,
@@ -809,7 +799,6 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				A587E3252237EC6D006E162B /* JailMonkey.xcodeproj */,
 				6C38A18821F992D400D4E7C5 /* RCTCameraRoll.xcodeproj */,
 				6C5C9D9421F72F21009AAEB6 /* ART.xcodeproj */,
 				6CABB07621CB780D000D3408 /* RNShare.xcodeproj */,
@@ -868,14 +857,6 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* EpocketCash.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		A587E3262237EC6D006E162B /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				A587E32C2237EC6E006E162B /* libJailMonkey.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -960,10 +941,6 @@
 				{
 					ProductGroup = 6C5C9D9521F72F21009AAEB6 /* Products */;
 					ProjectRef = 6C5C9D9421F72F21009AAEB6 /* ART.xcodeproj */;
-				},
-				{
-					ProductGroup = A587E3262237EC6D006E162B /* Products */;
-					ProjectRef = A587E3252237EC6D006E162B /* JailMonkey.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
@@ -1381,13 +1358,6 @@
 			fileType = archive.ar;
 			path = libRCTText.a;
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		A587E32C2237EC6E006E162B /* libJailMonkey.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libJailMonkey.a;
-			remoteRef = A587E32B2237EC6E006E162B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		A5EE0D6322395117000A8251 /* libUdpSockets.a */ = {
