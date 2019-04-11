@@ -2,29 +2,28 @@ import React from "react";
 import { Platform, AppState } from "react-native";
 import geolib from "geolib";
 import BackgroundFetch from "react-native-background-fetch";
-import BackgroundTimer from 'react-native-background-timer';
+import BackgroundTimer from "react-native-background-timer";
 import { httpPost } from "./http";
-import PickedLanguage from "../locales/language-picker"
+import PickedLanguage from "../locales/language-picker";
 //services
-import getCurrentGeolocation from "./get-location"
+import getCurrentGeolocation from "./get-location";
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { showDashboard } from "../reducers/show-dashboard";
 import { setDistance } from "../reducers/distance";
-import { setAppState } from "../reducers/app-state"
-import { setGameStatus } from "../reducers/game-status"
-import { setMainTaskId } from "../reducers/main-task-id"
-import { setSheduleRequestStart } from "../reducers/set-shedule-request-start"
+import { setAppState } from "../reducers/app-state";
+import { setGameStatus } from "../reducers/game-status";
+import { setMainTaskId } from "../reducers/main-task-id";
+import { setSheduleRequestStart } from "../reducers/set-shedule-request-start";
 import { showDoneNotification } from "../reducers/main-task-done-notification";
-import { showTimer } from "../reducers/show-dashboard-timer"
-import { setPushStatus } from "../reducers/push-send-status"
+import { showTimer } from "../reducers/show-dashboard-timer";
+import { setPushStatus } from "../reducers/push-send-status";
 //constants
 import { urls } from "../constants/urls";
-import firebase from 'react-native-firebase';
+import firebase from "react-native-firebase";
 
 class GeolocationService extends React.Component {
-
   state = {
     sheduleRequest: null
   };
@@ -36,7 +35,7 @@ class GeolocationService extends React.Component {
     let promise = httpPost(
       urls.start_mission,
       JSON.stringify(body),
-      this.props.token,
+      this.props.token
     );
     promise.then(
       result => {
@@ -46,25 +45,26 @@ class GeolocationService extends React.Component {
         if (result.body.failed) {
           this.rejectMainTask();
         }
-        this.props.setMainTaskId(result.body.id)
+        this.props.setMainTaskId(result.body.id);
       },
-      error => { }
+      error => {}
     );
-
   };
 
   sendTimerRequest = () => {
-    let interval = 900000
-    BackgroundFetch.configure({
-      minimumFetchInterval: 15, // <-- minutes (15 is minimum allowed)
-    }, () => {
-      this.startMissionRequest();
-    }, (error) => {
-    });
+    let interval = 900000;
+    BackgroundFetch.configure(
+      {
+        minimumFetchInterval: 15 // <-- minutes (15 is minimum allowed)
+      },
+      () => {
+        this.startMissionRequest();
+      },
+      error => {}
+    );
     BackgroundTimer.runBackgroundTimer(() => {
       this.startMissionRequest();
-    },
-      interval);
+    }, interval);
     //rest of code will be performing for iOS on background too
   };
 
@@ -86,24 +86,23 @@ class GeolocationService extends React.Component {
           this.props.setBalance(result.balance);
         }
       },
-      error => {
-      }
+      error => {}
     );
   }
 
-  sendDistancePush = (message) => {
+  sendDistancePush = message => {
     const notification = new firebase.notifications.Notification()
-      .setNotificationId('notificationId')
-      .setTitle('EpocketCash')
+      .setNotificationId("notificationId")
+      .setTitle("EpocketCash")
       .setBody(message);
 
-    notification
-      .android.setChannelId('chanelId')
+    notification.android
+      .setChannelId("chanelId")
       .android.setColor(this.props.userColor.pink)
-      .android.setSmallIcon('@drawable/ic_notif');
+      .android.setSmallIcon("@drawable/ic_notif");
 
-    firebase.notifications().displayNotification(notification)
-  }
+    firebase.notifications().displayNotification(notification);
+  };
 
   // getCurrentGeolocation = () => {
   //   return new Promise((resolve, reject) => {
@@ -120,23 +119,31 @@ class GeolocationService extends React.Component {
   //     );
   //   });
   // };
-  _handleAppStateChange = (nextAppState) => {
-    if (this.props.appState.match(/inactive|background/) && nextAppState === 'active') {
-      getCurrentGeolocation().then((location) => {
-        this.calculateDistance({
-          latitude: this.props.selectedMall.lat,
-          longitude: this.props.selectedMall.lng
-        }, {
-            latitude: location.lat,
-            longitude: location.lng
-          });
-      },
-        (error) => { })
+  _handleAppStateChange = nextAppState => {
+    if (
+      this.props.appState.match(/inactive|background/) &&
+      nextAppState === "active"
+    ) {
+      getCurrentGeolocation().then(
+        location => {
+          this.calculateDistance(
+            {
+              latitude: this.props.closestMall.lat,
+              longitude: this.props.closestMall.lng
+            },
+            {
+              latitude: location.lat,
+              longitude: location.lng
+            }
+          );
+        },
+        error => {}
+      );
     }
-  }
+  };
 
   componentDidMount() {
-    AppState.addEventListener('change', this._handleAppStateChange);
+    AppState.addEventListener("change", this._handleAppStateChange);
   }
   closeMission = () => {
     this.props.showFailedNotification(true);
@@ -145,32 +152,40 @@ class GeolocationService extends React.Component {
 
   calculateDistance = (currentLocation, nextLocation, nextProps) => {
     if (
-      currentLocation.latitude !== 0 && currentLocation.longitude !== 0 &&
-      nextLocation.latitude !== 0 && nextLocation.longitude !== 0
+      currentLocation.latitude !== 0 &&
+      currentLocation.longitude !== 0 &&
+      nextLocation.latitude !== 0 &&
+      nextLocation.longitude !== 0
     ) {
-      let distance = geolib.getDistance(
-        {
-          latitude: currentLocation.latitude,
-          longitude: currentLocation.longitude
-        },
-        {
-          latitude: nextLocation.latitude,
-          longitude: nextLocation.longitude
-        }
-      ) - this.props.selectedMall.rad;
+      let distance =
+        geolib.getDistance(
+          {
+            latitude: currentLocation.latitude,
+            longitude: currentLocation.longitude
+          },
+          {
+            latitude: nextLocation.latitude,
+            longitude: nextLocation.longitude
+          }
+        ) - this.props.closestMall.rad;
       if (nextProps.isLocation && this.props.isLocation) {
         if (distance > 100) {
-          this.props.setPushStatus(false)
+          this.props.setPushStatus(false);
         }
         if (distance <= 100 && !this.props.pushSendStaus) {
           this.sendDistancePush(PickedLanguage.PUSH_MESSAGE.PUSH_3);
-          this.props.setPushStatus(true)
+          this.props.setPushStatus(true);
         }
-        if (distance <= 0 && !this.props.timer_status && nextProps.timer_status) {
+        if (
+          distance <= 0 &&
+          !this.props.timer_status &&
+          nextProps.timer_status
+        ) {
           this.props.showDashboard(true);
           this.props.showTimer(false);
           this.sendDistancePush(PickedLanguage.PUSH_MESSAGE.PUSH_4);
         }
+        console.log(distance, "DISTANCE GEOLOCATION");
         if (distance > 0 && this.props.timer_status) {
           this.props.showDashboard(false);
           this.props.showTimer(true);
@@ -178,33 +193,35 @@ class GeolocationService extends React.Component {
         }
       }
     }
-  }
+  };
 
   componentWillReceiveProps = nextProps => {
     if (
-      (
-        this.props.selectedMall.lat &&
+      (this.props.selectedMall.lat &&
         this.props.selectedMall.lng &&
-        nextProps.location.lat.toFixed(4) != this.props.location.lat.toFixed(4) &&
-        nextProps.location.lng.toFixed(4) != this.props.location.lng.toFixed(4)
-      )
-      ||
-      (
-        this.props.selectedMall.lat &&
+        nextProps.location.lat.toFixed(4) !=
+          this.props.location.lat.toFixed(4) &&
+        nextProps.location.lng.toFixed(4) !=
+          this.props.location.lng.toFixed(4)) ||
+      (this.props.selectedMall.lat &&
         this.props.selectedMall.lng &&
         !this.state.sendDistancePush &&
-        nextProps.location.lat.toFixed(4) === this.props.location.lat.toFixed(4) &&
-        nextProps.location.lng.toFixed(4) === this.props.location.lng.toFixed(4)
-      )
+        nextProps.location.lat.toFixed(4) ===
+          this.props.location.lat.toFixed(4) &&
+        nextProps.location.lng.toFixed(4) ===
+          this.props.location.lng.toFixed(4))
     ) {
-      this.calculateDistance({
-        latitude: this.props.selectedMall.lat,
-        longitude: this.props.selectedMall.lng
-      }, {
+      this.calculateDistance(
+        {
+          latitude: this.props.closestMall.lat,
+          longitude: this.props.closestMall.lng
+        },
+        {
           latitude: nextProps.location.lat,
           longitude: nextProps.location.lng
         },
-        nextProps);
+        nextProps
+      );
     }
     if (nextProps.timer_status && !nextProps.sheduleRequestStart) {
       this.props.setSheduleRequestStart(true);
@@ -215,7 +232,9 @@ class GeolocationService extends React.Component {
       BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
       BackgroundTimer.stopBackgroundTimer();
     }
-    if (!nextProps.isLocation && !this.props.isLocation) { this.props.showDashboard(false); }
+    if (!nextProps.isLocation && !this.props.isLocation) {
+      this.props.showDashboard(false);
+    }
   };
 
   render() {
@@ -237,7 +256,8 @@ const mapStateToProps = state => {
     appState: state.appState,
     mainTaskId: state.mainTaskId,
     game_status: state.game_status,
-    pushSendStaus: state.pushSendStaus
+    pushSendStaus: state.pushSendStaus,
+    closestMall: state.closestMall
   };
 };
 

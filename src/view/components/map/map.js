@@ -1,13 +1,22 @@
 import React from "react";
-import { View, Platform, StatusBar, FlatList, Animated, Easing, Dimensions, Text } from "react-native";
-import FastImage from 'react-native-fast-image'
+import {
+  View,
+  Platform,
+  StatusBar,
+  FlatList,
+  Animated,
+  Easing,
+  Dimensions,
+  Text
+} from "react-native";
+import FastImage from "react-native-fast-image";
 import { Button } from "native-base";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import ClusteredMapView from '../../../native_modules/react-native-maps-super-cluster'
+import ClusteredMapView from "../../../native_modules/react-native-maps-super-cluster";
 import geolib from "geolib";
 import { LinearTextGradient } from "react-native-text-gradient";
 import LinearGradient from "react-native-linear-gradient";
-import CookieManager from 'react-native-cookies';
+import CookieManager from "react-native-cookies";
 //containers
 import TrcInformation from "../../containers/trc-information/trc-information";
 import UserMarker from "../../containers/user-marker/user-marker";
@@ -17,9 +26,9 @@ import FooterNavigation from "../../containers/footer-navigator/footer-navigator
 import CurrentGeolocation from "../../containers/current-geolocation/current-geolocation";
 import CustomAlert from "../../containers/custom-alert/custom-alert";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
-import CardTask from "../../containers/map-card-task/map-card-task"
-import CardCashout from "../../containers/map-card-shop/map-card-shop"
-import CardFirst from "../../containers/map-card-first/map-card-first"
+import CardTask from "../../containers/map-card-task/map-card-task";
+import CardCashout from "../../containers/map-card-shop/map-card-shop";
+import CardFirst from "../../containers/map-card-first/map-card-first";
 import TimerModal from "../../containers/timer-modal/timer-modal";
 //constants
 import { mapStyle } from "./mapCustomStyle";
@@ -31,38 +40,38 @@ import { colors } from "./../../../constants/colors";
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { setNavigateToMall } from "../../../reducers/navigate-to-mall"
+import { setNavigateToMall } from "../../../reducers/navigate-to-mall";
 import { setLocation } from "../../../reducers/geolocation-coords";
 import { setDistance } from "../../../reducers/distance";
 import { updateMall } from "../../../reducers/selected-mall";
 import { showDashboard } from "../../../reducers/show-dashboard";
 import { loaderState } from "../../../reducers/loader";
 import { setOutlets } from "../../../reducers/outlet-list";
-import { setInitialOutlets } from "../../../reducers/initial-outlets"
-import { setInfo } from "../../../reducers/info"
+import { setInitialOutlets } from "../../../reducers/initial-outlets";
+import { setInfo } from "../../../reducers/info";
 import { setInstaToken } from "../../../reducers/insta-token";
-import { setFacebookToken } from "../../../reducers/facebook-token"
-import { showTimer } from "../../../reducers/show-dashboard-timer"
+import { setFacebookToken } from "../../../reducers/facebook-token";
+import { showTimer } from "../../../reducers/show-dashboard-timer";
 import { timerStatus } from "../../../reducers/timer-status";
 import { updateTimer } from "../../../reducers/timer";
 import { reloadTimer } from "../../../reducers/timer-interval";
 import { showDoneNotification } from "../../../reducers/main-task-done-notification";
 import { showFailedNotification } from "../../../reducers/main-task-failed-notification";
 import { setBalance } from "../../../reducers/user-balance";
-import { setMainMissionCost } from "../../../reducers/main-task-cost"
+import { setMainMissionCost } from "../../../reducers/main-task-cost";
 //services
 import { httpPost } from "../../../services/http";
 import { handleError } from "../../../services/http-error-handler";
 import NavigationService from "../../../services/route";
-import getCurrentGeolocation from "../../../services/get-location"
-import { sendToTelegramm } from '../../../services/telegramm-notification'
-import InstagramLogin from '../../../services/Instagram'
-import FacebookLogin from '../../../services/Facebook'
-import { orderBy } from 'lodash';
+import getCurrentGeolocation from "../../../services/get-location";
+import { sendToTelegramm } from "../../../services/telegramm-notification";
+import InstagramLogin from "../../../services/Instagram";
+import FacebookLogin from "../../../services/Facebook";
+import { orderBy } from "lodash";
 import moment from "moment-timezone";
 import "../../../services/correcting-interval";
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 
 class Map extends React.Component {
   state = {
@@ -123,14 +132,14 @@ class Map extends React.Component {
       if (distance <= 0) {
         clearCorrectingInterval(this.props.timer_interval);
         this.finishMainMission();
-        this.setState({ finishMissionCalled: true })
+        this.setState({ finishMissionCalled: true });
       }
     }, 1000);
     this.props.reloadTimer(x);
   }
   finishMainMission() {
     if (this.state.finishMissionCalled) {
-      console.log("finishMainMission called second time")
+      console.log("finishMainMission called second time");
     } else {
       this.setErrorVisible(false);
       this.setState({ load_missions: true });
@@ -152,8 +161,18 @@ class Map extends React.Component {
           this.setState({ load_missions: false });
         },
         error => {
-          let error_respons = handleError(error, body, urls.finish_mission, this.props.token, this.constructor.name, "finishMainMission");
-          this.setState({ errorText: error_respons.error_text, errorCode: error_respons.error_code });
+          let error_respons = handleError(
+            error,
+            body,
+            urls.finish_mission,
+            this.props.token,
+            this.constructor.name,
+            "finishMainMission"
+          );
+          this.setState({
+            errorText: error_respons.error_text,
+            errorCode: error_respons.error_code
+          });
           this.setErrorVisible(error_respons.error_modal);
           this.setState({ load_missions: false });
         }
@@ -168,18 +187,29 @@ class Map extends React.Component {
         longitude: item.lng
       };
       let name = item.id;
-      if (!outlets && newItem.latitude != "None" && newItem.longitude != "None") {
+      if (
+        !outlets &&
+        newItem.latitude != "None" &&
+        newItem.longitude != "None"
+      ) {
+        newArr[name] = newItem;
+      } else if (
+        outlets &&
+        newItem.latitude != "None" &&
+        newItem.longitude != "None" &&
+        item.formated.money > 0
+      ) {
         newArr[name] = newItem;
       }
-      else if (outlets && newItem.latitude != "None" && newItem.longitude != "None" && item.formated.money > 0) {
-        newArr[name] = newItem;
-      }
-    })
+    });
     let nearestMall = geolib.findNearest(my_location, newArr, 0);
     if (nearestMall) {
       let latD = 0.00003212 * nearestMall.distance;
       let lngD = 0.00003381 * nearestMall.distance;
-      if (latD > this.state.region.latitudeDelta && lngD > this.state.region.longitudeDelta) {
+      if (
+        latD > this.state.region.latitudeDelta &&
+        lngD > this.state.region.longitudeDelta
+      ) {
         setTimeout(() => {
           this.moveMapTo(
             Number(this.props.location.lat),
@@ -191,114 +221,121 @@ class Map extends React.Component {
       }
     }
   };
-  toggleTab = (tab) => {
-    this.setState({ mapKey: Math.random() })
+  toggleTab = tab => {
+    this.setState({ mapKey: Math.random() });
     if (tab == "shop") {
-      this.setState({ shopActive: true, taskActive: false, discountActive: false, focusedOnMark: false })
-      let allShops = [...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]
+      this.setState({
+        shopActive: true,
+        taskActive: false,
+        discountActive: false,
+        focusedOnMark: false
+      });
+      let allShops = [
+        ...this.props.initial_outlets.cashouts,
+        ...this.props.initial_outlets.outlets
+      ];
       this.props.setOutlets(allShops);
-      this.showNearestOne({
-        latitude: this.props.location.lat,
-        longitude: this.props.location.lng
-      },
-        allShops)
-    }
-    else if (tab == "task") {
+      this.showNearestOne(
+        {
+          latitude: this.props.location.lat,
+          longitude: this.props.location.lng
+        },
+        allShops
+      );
+    } else if (tab == "task") {
       if (this.props.isLocation && this.props.distance < 0) {
         this.selectNearestMall(
           {
             latitude: this.props.location.lat,
             longitude: this.props.location.lng
           },
-          this.props.initial_outlets.outlets, true
+          this.props.initial_outlets.outlets,
+          true
+        );
+      } else if (this.props.isLocation) {
+        this.showNearestOne(
+          {
+            latitude: this.props.location.lat,
+            longitude: this.props.location.lng
+          },
+          this.props.initial_outlets.outlets,
+          true
         );
       }
-      else if (this.props.isLocation) {
-        this.showNearestOne({
+      this.setState({
+        shopActive: false,
+        taskActive: true,
+        discountActive: false,
+        focusedOnMark: false
+      });
+      this.props.setOutlets(this.props.initial_outlets.outlets);
+    } else if (tab == "discount") {
+      this.setState({
+        shopActive: false,
+        taskActive: false,
+        discountActive: true,
+        focusedOnMark: false
+      });
+      this.props.setOutlets(this.props.initial_outlets.discounts);
+      this.showNearestOne(
+        {
           latitude: this.props.location.lat,
           longitude: this.props.location.lng
         },
-          this.props.initial_outlets.outlets, true)
-      }
-      this.setState({ shopActive: false, taskActive: true, discountActive: false, focusedOnMark: false })
-      this.props.setOutlets(this.props.initial_outlets.outlets);
+        this.props.initial_outlets.discounts
+      );
     }
-    else if (tab == "discount") {
-      this.setState({ shopActive: false, taskActive: false, discountActive: true, focusedOnMark: false })
-      this.props.setOutlets(this.props.initial_outlets.discounts);
-      this.showNearestOne({
-        latitude: this.props.location.lat,
-        longitude: this.props.location.lng
-      },
-        this.props.initial_outlets.discounts)
-    }
-  }
+  };
   LoginFacebook = () => {
     this.props.loaderState(true);
-    let body = JSON.stringify({
-    });
-    let promise = httpPost(
-      urls.facebook_login,
-      body,
-      this.props.token
-    );
+    let body = JSON.stringify({});
+    let promise = httpPost(urls.facebook_login, body, this.props.token);
     promise.then(
       result => {
         this.props.loaderState(false);
-        this.refs.facebookLogin.show(result.body.url)
+        this.refs.facebookLogin.show(result.body.url);
       },
       error => {
-        CookieManager.clearAll()
-          .then((res) => {
-            this.props.loaderState(false);
-          });
+        CookieManager.clearAll().then(res => {
+          this.props.loaderState(false);
+        });
       }
     );
-  }
-  connectFacebook = (token) => {
+  };
+  connectFacebook = token => {
     this.props.setFacebookToken(String(token));
-  }
-  connectInsta = (instagram_token) => {
+  };
+  connectInsta = instagram_token => {
     this.props.loaderState(true);
     let body = JSON.stringify({
       instagram_token
     });
-    let promise = httpPost(
-      urls.insta_login,
-      body,
-      this.props.token
-    );
+    let promise = httpPost(urls.insta_login, body, this.props.token);
     promise.then(
       result => {
         if (result.status === 200) {
-          this.props.setInstaToken(String(instagram_token))
+          this.props.setInstaToken(String(instagram_token));
           this.props.loaderState(false);
-
-        }
-        else if (result.status == 201) {
-          CookieManager.clearAll()
-            .then((res) => {
-              this.setModalVisible(true);
-              this.setState({ userCount: result.body.subsc_needed })
-              this.props.loaderState(false);
-            });
-        }
-        else {
-          CookieManager.clearAll()
-            .then((res) => {
-              this.setErrorVisible(true)
-              this.props.loaderState(false);
-            });
+        } else if (result.status == 201) {
+          CookieManager.clearAll().then(res => {
+            this.setModalVisible(true);
+            this.setState({ userCount: result.body.subsc_needed });
+            this.props.loaderState(false);
+          });
+        } else {
+          CookieManager.clearAll().then(res => {
+            this.setErrorVisible(true);
+            this.props.loaderState(false);
+          });
         }
       },
       error => {
-        CookieManager.clearAll()
-          .then((res) => {
-            this.props.loaderState(false);
-          });
+        CookieManager.clearAll().then(res => {
+          this.props.loaderState(false);
+        });
       }
     );
-  }
+  };
   setErrorVisible = visible => {
     this.setState({ errorVisible: visible });
   };
@@ -338,7 +375,8 @@ class Map extends React.Component {
     }
     if (nextProps.distance < 0 && nextProps.isLocation) {
       if (
-        this.props.location.lat.toFixed(3) !== nextProps.location.lat.toFixed(3) &&
+        this.props.location.lat.toFixed(3) !==
+          nextProps.location.lat.toFixed(3) &&
         this.props.location.lng.toFixed(3) !== nextProps.location.lng.toFixed(3)
       ) {
         this.selectNearestMall(
@@ -346,16 +384,21 @@ class Map extends React.Component {
             latitude: nextProps.location.lat,
             longitude: nextProps.location.lng
           },
-          nextProps.outlets, false
+          nextProps.outlets,
+          false
         );
       }
     }
     if (nextProps.navigateToMall) {
-      this.moveMapTo(nextProps.selectedMall.lat, nextProps.selectedMall.lng, 0.0058,
-        0.0058);
+      this.moveMapTo(
+        nextProps.selectedMall.lat,
+        nextProps.selectedMall.lng,
+        0.0058,
+        0.0058
+      );
       this.selectMark(this.props.selectedMall, false, "task");
       this.setState({ location_loader: false });
-      this.props.setNavigateToMall(false)
+      this.props.setNavigateToMall(false);
     }
   };
   componentDidMount = () => {
@@ -370,63 +413,79 @@ class Map extends React.Component {
   loadTRC = () => {
     this.setModalVisible(false);
     this.props.loaderState(true);
-    let promise = httpPost(urls.outlets, JSON.stringify({
-      geolocation_status: this.props.location.lat != 0 && this.props.location.lng != 0,
-      tzone: {
-        timezone: moment.tz.guess(),
-        timedelta: moment().format('Z')
-      }
-    }), this.props.token);
+    let promise = httpPost(
+      urls.outlets,
+      JSON.stringify({
+        geolocation_status:
+          this.props.location.lat != 0 && this.props.location.lng != 0,
+        tzone: {
+          timezone: moment.tz.guess(),
+          timedelta: moment().format("Z")
+        }
+      }),
+      this.props.token
+    );
     promise.then(
       result => {
         result.body.outlets.forEach(elem => {
           elem.location = {
             latitude: elem.lat,
             longitude: elem.lng
-          }
+          };
         });
         result.body.discounts.forEach(elem => {
           elem.location = {
             latitude: elem.lat,
             longitude: elem.lng
-          }
+          };
         });
         result.body.cashouts.forEach(elem => {
           elem.location = {
             latitude: elem.lat,
             longitude: elem.lng
-          }
+          };
         });
-        this.props.setBalance(result.body.balance.amount)
+        this.props.setBalance(result.body.balance.amount);
         this.setModalVisible(false);
         this.props.loaderState(false);
-        this.props.setOutlets(result.body.outlets)
-        this.props.setInitialOutlets(result.body)
+        this.props.setOutlets(result.body.outlets);
+        this.props.setInitialOutlets(result.body);
         if (this.props.isLocation && this.props.distance < 0) {
           this.selectNearestMall(
             {
               latitude: this.props.location.lat,
               longitude: this.props.location.lng
             },
-            result.body.outlets, true
+            result.body.outlets,
+            true
           );
-        }
-        else if (this.props.isLocation) {
-          this.showNearestOne({
-            latitude: this.props.location.lat,
-            longitude: this.props.location.lng
-          },
-            result.body.outlets, true)
+        } else if (this.props.isLocation) {
+          this.showNearestOne(
+            {
+              latitude: this.props.location.lat,
+              longitude: this.props.location.lng
+            },
+            result.body.outlets,
+            true
+          );
         }
       },
       error => {
-        let error_respons = handleError(error, {
-          geolocation_status: this.props.location.lat != 0 && this.props.location.lng != 0,
-          tzone: {
-            timezone: moment.tz.guess(),
-            timedelta: moment().format('Z')
-          }
-        }, urls.finish_mission, this.props.token, this.constructor.name, "loadTRC");
+        let error_respons = handleError(
+          error,
+          {
+            geolocation_status:
+              this.props.location.lat != 0 && this.props.location.lng != 0,
+            tzone: {
+              timezone: moment.tz.guess(),
+              timedelta: moment().format("Z")
+            }
+          },
+          urls.finish_mission,
+          this.props.token,
+          this.constructor.name,
+          "loadTRC"
+        );
         this.setState({ errorText: error_respons.error_text });
         this.setModalVisible(error_respons.error_modal);
         this.props.loaderState(false);
@@ -455,104 +514,114 @@ class Map extends React.Component {
       if (item.formated.money > 0) {
         newArr[name] = newItem;
       }
-    })
+    });
     let nearestMall = geolib.findNearest(my_location, newArr, 0);
     if (nearestMall) {
-      let selectedTRC = mall_array.find(x => x.id === Number(nearestMall.key))
-      try { this.selectMark(selectedTRC, ANIMATE_MAP, "task"); } catch (e) { }
+      let selectedTRC = mall_array.find(x => x.id === Number(nearestMall.key));
+      try {
+        this.selectMark(selectedTRC, ANIMATE_MAP, "task");
+      } catch (e) {}
     }
   };
 
-  _renderItem = item => (
-    item.item.adress ?
+  _renderItem = item =>
+    item.item.adress ? (
       <CardFirst
         item={item.item}
         onPressItem={this.openNext}
         taskActive={this.state.taskActive}
         shopActive={this.state.shopActive}
         btnText={
-          this.state.taskActive ? PickedLanguage.MAP.TASKS.toUpperCase() :
-            this.state.shopActive ? PickedLanguage.MAP.MAKE_PREORDER.toUpperCase() :
-              PickedLanguage.MAP.LIST_PRODUCTS.toUpperCase()
+          this.state.taskActive
+            ? PickedLanguage.MAP.TASKS.toUpperCase()
+            : this.state.shopActive
+            ? PickedLanguage.MAP.MAKE_PREORDER.toUpperCase()
+            : PickedLanguage.MAP.LIST_PRODUCTS.toUpperCase()
         }
       />
-      :
-      item.item.type === "instagram_connect" || item.item.type === "facebook_connect" ?
-        <CardFirst
-          type={item.item.type}
-          item={item.item}
-          taskActive={this.state.taskActive}
-          onPressItem={() => {
-            if (item.item.type === "facebook_connect") {
-              this.LoginFacebook()
-            }
-            else if (item.item.type === "instagram_connect") {
-              this.refs.instagramLogin.show()
-            }
-          }}
-          btnText={
-            PickedLanguage.EXECUTE.toUpperCase()
+    ) : item.item.type === "instagram_connect" ||
+      item.item.type === "facebook_connect" ? (
+      <CardFirst
+        type={item.item.type}
+        item={item.item}
+        taskActive={this.state.taskActive}
+        onPressItem={() => {
+          if (item.item.type === "facebook_connect") {
+            this.LoginFacebook();
+          } else if (item.item.type === "instagram_connect") {
+            this.refs.instagramLogin.show();
           }
-        />
-        :
-        this.state.taskActive ?
-          //item.item.active && //uncomment this to show only active cards at map
-          <CardTask
-            item={item.item}
-            onPressItem={this.openTaskDetails}
-          />
-          : this.state.shopActive ?
-            <CardCashout
-              item={item.item}
-              onPressItem={this.openAccordion}
-            />
-            :
-            <CardCashout
-              item={item.item}
-              onPressItem={this._showSelectedCard}
-            />
-  );
+        }}
+        btnText={PickedLanguage.EXECUTE.toUpperCase()}
+      />
+    ) : this.state.taskActive ? (
+      //item.item.active && //uncomment this to show only active cards at map
+      <CardTask item={item.item} onPressItem={this.openTaskDetails} />
+    ) : this.state.shopActive ? (
+      <CardCashout item={item.item} onPressItem={this.openAccordion} />
+    ) : (
+      <CardCashout item={item.item} onPressItem={this._showSelectedCard} />
+    );
   openNext = selectedCard => {
-    let copyOfCards = [...this.state.cards]
+    let copyOfCards = [...this.state.cards];
     copyOfCards.shift(); //remove card with outlet|cashout information
     if (this.state.taskActive) {
-      NavigationService.navigate("Dashboard", { dashboard_data: copyOfCards, general_info: selectedCard, posts: this.state.posts });
+      NavigationService.navigate("Dashboard", {
+        dashboard_data: copyOfCards,
+        general_info: selectedCard,
+        posts: this.state.posts
+      });
+    } else {
+      NavigationService.navigate("Cashout", {
+        cashout_data: copyOfCards,
+        general_info: selectedCard
+      });
     }
-    else {
-      NavigationService.navigate("Cashout", { cashout_data: copyOfCards, general_info: selectedCard });
-    }
-  }
-  _showSelectedCard = selectedCard => {
   };
+  _showSelectedCard = selectedCard => {};
   openTaskDetails = selectedCard => {
     let selectedOutlet = this.state.cards[0];
-    let copyOfCards = [...this.state.cards]
+    let copyOfCards = [...this.state.cards];
     copyOfCards.shift(); //remove card with outlet|cashout information
     if (this.state.taskActive) {
-      NavigationService.navigate("Dashboard", { dashboard_data: copyOfCards, general_info: selectedOutlet, posts: this.state.posts, cardToOpen: selectedCard });
+      NavigationService.navigate("Dashboard", {
+        dashboard_data: copyOfCards,
+        general_info: selectedOutlet,
+        posts: this.state.posts,
+        cardToOpen: selectedCard
+      });
     }
-  }
+  };
   openAccordion = selectedCard => {
     let selectedCashout = this.state.cards[0];
-    let copyOfCards = [...this.state.cards]
+    let copyOfCards = [...this.state.cards];
     copyOfCards.shift(); //remove card with outlet|cashout information
-    NavigationService.navigate("Cashout", { cashout_data: copyOfCards, general_info: selectedCashout, cardForAccordion: selectedCard });
-  }
-  getActiveMissions = (missions) => {
-    missions.forEach((item) => {
+    NavigationService.navigate("Cashout", {
+      cashout_data: copyOfCards,
+      general_info: selectedCashout,
+      cardForAccordion: selectedCard
+    });
+  };
+  getActiveMissions = missions => {
+    missions.forEach(item => {
       let currentTime = moment().format("HH:mm:ss");
       let startTime = moment(item.date_start).format("HH:mm:ss");
-      let endTime = moment(item.date_end).format("HH:mm:ss")
-      item.active = (currentTime > startTime && currentTime < endTime)
+      let endTime = moment(item.date_end).format("HH:mm:ss");
+      item.active = currentTime > startTime && currentTime < endTime;
     });
-    return orderBy(orderBy(missions, ['price'], ['desc']), ['active'], ['desc']);
-  }
-  loadTaskItems = (trc) => {
+    return orderBy(
+      orderBy(missions, ["price"], ["desc"]),
+      ["active"],
+      ["desc"]
+    );
+  };
+  loadTaskItems = trc => {
     this.setState({ cards: [], focusedOnMark: false });
     this.setModalVisible(false);
     let body = {
       outlet_id: trc.id,
-      notInMall: (this.props.distance <= 0 && this.props.isLocation) ? false : true
+      notInMall:
+        this.props.distance <= 0 && this.props.isLocation ? false : true
     };
     let promise = httpPost(
       urls.missions,
@@ -563,53 +632,63 @@ class Map extends React.Component {
       result => {
         this.setErrorVisible(false);
         if (result.status == 200) {
-          this.setState({ posts: result.body.posts })
+          this.setState({ posts: result.body.posts });
           let cards = this.getActiveMissions(result.body.missions);
-          if (!this.props.insta_token) { //check for instagramm !this.props.insta_token
+          if (!this.props.insta_token) {
+            //check for instagramm !this.props.insta_token
             cards.unshift({
               type: "instagram_connect",
               reward: result.body.networks.insta_reward,
               price: 0,
               formated: { money: 0 }
-            })
+            });
           }
-          if (!this.props.facebook_token) { //check for facebook !this.props.facebook_token
+          if (!this.props.facebook_token) {
+            //check for facebook !this.props.facebook_token
             cards.unshift({
               type: "facebook_connect",
               reward: result.body.networks.fb_reward,
               price: 0,
               formated: { money: 0 }
-            })
+            });
           }
-          cards.unshift(trc)
-          this.setState({ cards, focusedOnMark: true })
-          Animated.timing(this.state.topNavigationTranslateY,
-            {
-              toValue: -100,
-              duration: 300,
-              useNativeDriver: true,
-              easing: Easing.linear
-            }).start();
+          cards.unshift(trc);
+          this.setState({ cards, focusedOnMark: true });
+          Animated.timing(this.state.topNavigationTranslateY, {
+            toValue: -100,
+            duration: 300,
+            useNativeDriver: true,
+            easing: Easing.linear
+          }).start();
         }
         this.props.loaderState(false);
       },
       error => {
-        let error_respons = handleError(error, body, urls.missions, this.props.token, this.constructor.name, "getMissions");
-        this.setState({ errorText: error_respons.error_text, errorCode: error_respons.error_code });
+        let error_respons = handleError(
+          error,
+          body,
+          urls.missions,
+          this.props.token,
+          this.constructor.name,
+          "getMissions"
+        );
+        this.setState({
+          errorText: error_respons.error_text,
+          errorCode: error_respons.error_code
+        });
         this.setErrorVisible(error_respons.error_modal);
         this.props.loaderState(false);
       }
     );
-  }
-  loadCashoutItems = (trc) => {
+  };
+  loadCashoutItems = trc => {
     this.props.loaderState(true);
     let body;
     if (trc.outlet) {
       body = {
         cashout_id: trc.id // clicked marked = cashout
       };
-    }
-    else {
+    } else {
       body = {
         outlet_id: trc.id // clicked marker = outlet
       };
@@ -624,26 +703,32 @@ class Map extends React.Component {
         this.setModalVisible(false);
         this.props.loaderState(false);
         let cards = result.body.products;
-        cards.unshift(trc)
-        this.setState({ cards, focusedOnMark: true })
-        Animated.timing(this.state.topNavigationTranslateY,
-          {
-            toValue: -100,
-            duration: 300,
-            useNativeDriver: true,
-            easing: Easing.linear
-          }).start();
+        cards.unshift(trc);
+        this.setState({ cards, focusedOnMark: true });
+        Animated.timing(this.state.topNavigationTranslateY, {
+          toValue: -100,
+          duration: 300,
+          useNativeDriver: true,
+          easing: Easing.linear
+        }).start();
         //this.props.setBalance(result.body.balance);
       },
       error => {
         this.props.loaderState(false);
-        let error_respons = handleError(error, body, urls.get_outlet_products, this.props.token, this.constructor.name, "loadData");
+        let error_respons = handleError(
+          error,
+          body,
+          urls.get_outlet_products,
+          this.props.token,
+          this.constructor.name,
+          "loadData"
+        );
         this.setState({ errorText: error_respons.error_text });
         this.setModalVisible(error_respons.error_modal);
       }
     );
-  }
-  loadDiscountItems = (trc) => {
+  };
+  loadDiscountItems = trc => {
     this.props.loaderState(true);
     let body = {
       cashout_id: trc.id
@@ -658,51 +743,69 @@ class Map extends React.Component {
         this.setModalVisible(false);
         this.props.loaderState(false);
         let cards = result.body.products;
-        cards.unshift(trc)
-        this.setState({ cards, focusedOnMark: true })
-        Animated.timing(this.state.topNavigationTranslateY,
-          {
-            toValue: -100,
-            duration: 300,
-            useNativeDriver: true,
-            easing: Easing.linear
-          }).start();
+        cards.unshift(trc);
+        this.setState({ cards, focusedOnMark: true });
+        Animated.timing(this.state.topNavigationTranslateY, {
+          toValue: -100,
+          duration: 300,
+          useNativeDriver: true,
+          easing: Easing.linear
+        }).start();
         //this.props.setBalance(result.body.balance);
         //this.setState({ products: result.body.products });
       },
       error => {
         this.props.loaderState(false);
-        let error_respons = handleError(error, body, urls.get_outlet_products, this.props.token, this.constructor.name, "loadData");
+        let error_respons = handleError(
+          error,
+          body,
+          urls.get_outlet_products,
+          this.props.token,
+          this.constructor.name,
+          "loadData"
+        );
         this.setState({ errorText: error_respons.error_text });
         this.setModalVisible(error_respons.error_modal);
       }
     );
-  }
-  onRegionChange = (region) => {
-    if ((this.state.pickedMark.latitude == 0 && this.state.pickedMark.longitude == 0)
-      ||
-      (region.longitudeDelta && Number(region.latitude).toFixed(3) == this.state.pickedMark.latitude && Number(region.longitude).toFixed(5) == this.state.pickedMark.longitude)
-      ||
-      (region.nativeEvent && Number(region.nativeEvent.coordinate.latitude).toFixed(3) == this.state.pickedMark.latitude && Number(region.nativeEvent.coordinate.longitude).toFixed(5) == this.state.pickedMark.longitude)) {
-    }
-    else {
-      this.setState({ focusedOnMark: false, cards: [] })
-      Animated.timing(this.state.topNavigationTranslateY,
-        {
-          toValue: 0,
-          duration: 300,
-          useNativeDriver: true,
-          easing: Easing.linear
-        }).start();
+  };
+  onRegionChange = region => {
+    if (
+      (this.state.pickedMark.latitude == 0 &&
+        this.state.pickedMark.longitude == 0) ||
+      (region.longitudeDelta &&
+        Number(region.latitude).toFixed(3) == this.state.pickedMark.latitude &&
+        Number(region.longitude).toFixed(5) ==
+          this.state.pickedMark.longitude) ||
+      (region.nativeEvent &&
+        Number(region.nativeEvent.coordinate.latitude).toFixed(3) ==
+          this.state.pickedMark.latitude &&
+        Number(region.nativeEvent.coordinate.longitude).toFixed(5) ==
+          this.state.pickedMark.longitude)
+    ) {
+    } else {
+      this.setState({ focusedOnMark: false, cards: [] });
+      Animated.timing(this.state.topNavigationTranslateY, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+        easing: Easing.linear
+      }).start();
       if (this.state.shopActive) {
-        this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
+        this.props.setOutlets([
+          ...this.props.initial_outlets.cashouts,
+          ...this.props.initial_outlets.outlets
+        ]);
       } else if (this.state.taskActive) {
-        this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
+        this.props.setOutlets([
+          ...this.props.initial_outlets.cashouts,
+          ...this.props.initial_outlets.outlets
+        ]);
       } else {
         this.props.setOutlets(this.props.initial_outlets.discounts);
       }
     }
-  }
+  };
   callTimer(id, distance) {
     let curr_time = {
       hours: 0,
@@ -713,10 +816,14 @@ class Map extends React.Component {
     this.setErrorVisible(false);
     let body = {
       outlet_id: id ? id : this.props.selectedMall.id,
-      notInMall: distance ? (distance <= 0 && this.props.isLocation) ? false : true
-        :
-        (this.props.distance <= 0 && this.props.isLocation) ? false : true
-    }
+      notInMall: distance
+        ? distance <= 0 && this.props.isLocation
+          ? false
+          : true
+        : this.props.distance <= 0 && this.props.isLocation
+        ? false
+        : true
+    };
     let promise = httpPost(
       urls.start_mission,
       JSON.stringify(body),
@@ -734,10 +841,11 @@ class Map extends React.Component {
           },
           () => {
             if (result.body.failed) {
+              console.log(result, 'HELLO I"M HERE');
               this.props.showFailedNotification(true);
               this.props.timerStatus(false);
             } else {
-              this.setState({ notInMall: false })
+              this.setState({ notInMall: false });
               if (result.body.interval <= 0) {
                 this.props.timerStatus(false);
                 this.finishMainMission();
@@ -745,19 +853,20 @@ class Map extends React.Component {
                 //blocks second call on mount
                 if (this.props.distance <= 0 && this.props.isLocation) {
                   this.props.timerStatus(true);
-                  this.setState({ finishMissionCalled: false })
+                  this.setState({ finishMissionCalled: false });
                   clearCorrectingInterval(this.props.timer_interval);
                   this.timer(result.body.interval * 1000);
-                }
-                else {
+                } else {
                   clearCorrectingInterval(this.props.timer_interval);
                   this.props.timerStatus(false);
-                  this.setState({ notInMall: true })
-                  let time = result.body.interval * 1000
+                  this.setState({ notInMall: true });
+                  let time = result.body.interval * 1000;
                   let hours = Math.floor(
                     (time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
                   );
-                  let minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
+                  let minutes = Math.floor(
+                    (time % (1000 * 60 * 60)) / (1000 * 60)
+                  );
                   let seconds = Math.floor((time % (1000 * 60)) / 1000);
                   if (hours >= 0 && minutes >= 0 && seconds >= 0) {
                     let curr_time = {
@@ -774,8 +883,18 @@ class Map extends React.Component {
       },
       error => {
         this.setState({ load_timer: false });
-        let error_respons = handleError(error, body, urls.start_mission, this.props.token, this.constructor.name, "callTimer");
-        this.setState({ errorText: error_respons.error_text, errorCode: error_respons.error_code });
+        let error_respons = handleError(
+          error,
+          body,
+          urls.start_mission,
+          this.props.token,
+          this.constructor.name,
+          "callTimer"
+        );
+        this.setState({
+          errorText: error_respons.error_text,
+          errorCode: error_respons.error_code
+        });
         if (error.code != 416 && error.code != 418 && error.code != 415) {
           this.setErrorVisible(error_respons.error_modal);
         }
@@ -784,18 +903,13 @@ class Map extends React.Component {
   }
   selectMark = (trc, ANIMATE_MAP, mark_type) => {
     ANIMATE_MAP &&
-      this.moveMapTo(
-        Number(trc.lat),
-        Number(trc.lng),
-        0.0058,
-        0.0058,
-      );
+      this.moveMapTo(Number(trc.lat), Number(trc.lng), 0.0058, 0.0058);
     this.setState({
       pickedMark: {
         latitude: Number(trc.lat).toFixed(3),
         longitude: Number(trc.lng).toFixed(5)
       }
-    })
+    });
     let bounds = geolib.getBounds([
       { latitude: trc.lat, longitude: trc.lng },
       { latitude: this.props.location.lat, longitude: this.props.location.lng }
@@ -828,36 +942,54 @@ class Map extends React.Component {
     if (mark_type === "task") {
       this.props.loaderState(true);
       this.loadTaskItems(trc);
-      this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
-      let new_outlets = JSON.parse(JSON.stringify([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]));
+      this.props.setOutlets([
+        ...this.props.initial_outlets.cashouts,
+        ...this.props.initial_outlets.outlets
+      ]);
+      let new_outlets = JSON.parse(
+        JSON.stringify([
+          ...this.props.initial_outlets.cashouts,
+          ...this.props.initial_outlets.outlets
+        ])
+      );
       let id = this.props.outlets.indexOf(trc);
       if (new_outlets[id]) {
         new_outlets[id].active = true;
         this.props.setOutlets(new_outlets);
       }
-      if (distance <= 0 && this.props.isLocation) { //start timer 
+      console.log(this.props.isLocation, distance, "IS LOCATION, DISTANCE");
+      if (distance <= 0 && this.props.isLocation) {
+        //start timer
         this.props.showTimer(false);
         if (!this.props.selectedMall.outlet) {
-          this.callTimer(trc.id, distance)
+          this.callTimer(trc.id, distance);
         }
       }
-    }
-    else if (mark_type === "shop") {
+    } else if (mark_type === "shop") {
       this.props.loaderState(true);
-      this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]);
+      this.props.setOutlets([
+        ...this.props.initial_outlets.cashouts,
+        ...this.props.initial_outlets.outlets
+      ]);
       this.loadCashoutItems(trc);
-      let new_outlets = JSON.parse(JSON.stringify([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]));
+      let new_outlets = JSON.parse(
+        JSON.stringify([
+          ...this.props.initial_outlets.cashouts,
+          ...this.props.initial_outlets.outlets
+        ])
+      );
       let id = this.props.outlets.indexOf(trc);
       if (new_outlets[id]) {
         new_outlets[id].active = true;
         this.props.setOutlets(new_outlets);
       }
-    }
-    else {
+    } else {
       this.props.loaderState(true);
       this.props.setOutlets(this.props.initial_outlets.discounts);
       this.loadDiscountItems(trc);
-      let new_outlets = JSON.parse(JSON.stringify(this.props.initial_outlets.discounts));
+      let new_outlets = JSON.parse(
+        JSON.stringify(this.props.initial_outlets.discounts)
+      );
       let id = this.props.outlets.indexOf(trc);
       if (new_outlets[id]) {
         new_outlets[id].active = true;
@@ -866,15 +998,15 @@ class Map extends React.Component {
     }
   };
   _keyExtractor = (item, index) => {
-    let key = item.id + "_" + item.name
-    return key
+    let key = item.id + "_" + item.name;
+    return key;
   };
   renderCluster = (cluster, onPress) => {
     const pointCount = cluster.pointCount,
       coordinate = cluster.coordinate,
-      clusterId = cluster.clusterId
+      clusterId = cluster.clusterId;
     const clusteringEngine = this.map.getClusteringEngine(),
-      clusteredPoints = clusteringEngine.getLeaves(clusterId, 100)
+      clusteredPoints = clusteringEngine.getLeaves(clusterId, 100);
     let clusterValue = 0;
     let maxDistance = 0;
     if (this.state.discountActive) {
@@ -883,10 +1015,13 @@ class Map extends React.Component {
           cluster.properties.item.location,
           coordinate
         );
-        if (distanceToCenter > maxDistance && cluster.properties.item.price != 0) {
-          maxDistance = distanceToCenter
+        if (
+          distanceToCenter > maxDistance &&
+          cluster.properties.item.price != 0
+        ) {
+          maxDistance = distanceToCenter;
         }
-        clusterValue = clusterValue + Number(cluster.properties.item.discount)
+        clusterValue = clusterValue + Number(cluster.properties.item.discount);
       });
     } else {
       clusteredPoints.forEach(cluster => {
@@ -894,13 +1029,18 @@ class Map extends React.Component {
           cluster.properties.item.location,
           coordinate
         );
-        if (distanceToCenter > maxDistance && cluster.properties.item.price != 0) {
-          maxDistance = distanceToCenter
+        if (
+          distanceToCenter > maxDistance &&
+          cluster.properties.item.price != 0
+        ) {
+          maxDistance = distanceToCenter;
         }
         if (isNaN(Number(cluster.properties.item.formated.money))) {
-          clusterValue = clusterValue + Number(cluster.properties.item.formated.amount)
+          clusterValue =
+            clusterValue + Number(cluster.properties.item.formated.amount);
         } else {
-          clusterValue = clusterValue + Number(cluster.properties.item.formated.money)
+          clusterValue =
+            clusterValue + Number(cluster.properties.item.formated.money);
         }
       });
     }
@@ -913,7 +1053,7 @@ class Map extends React.Component {
       lng: coordinate.longitude,
       location: {
         latitude: coordinate.latitude,
-        longitude: coordinate.longitude,
+        longitude: coordinate.longitude
       },
       name: "",
       photo: "",
@@ -922,9 +1062,9 @@ class Map extends React.Component {
       formated: { money: clusterValue },
       rad: 0,
       time_weekdays: ""
-    }
+    };
     if (clusterValue > 0 || this.state.shopActive) {
-      marker =
+      marker = (
         <TRCMarker
           marker={markerData}
           key={markerData.id + "_" + markerData.lat}
@@ -940,25 +1080,29 @@ class Map extends React.Component {
               maxDistance * 0.00005
             );
             clusteredPoints.forEach(cluster => {
-              if (this.state.taskActive && cluster.properties.item.formated && ((clusterValue === Number(cluster.properties.item.formated.money)) || (clusterValue === Number(cluster.properties.item.formated.amount)))) {
-                this.selectMark(cluster.properties.item, true, "task")
+              if (
+                this.state.taskActive &&
+                cluster.properties.item.formated &&
+                (clusterValue ===
+                  Number(cluster.properties.item.formated.money) ||
+                  clusterValue ===
+                    Number(cluster.properties.item.formated.amount))
+              ) {
+                this.selectMark(cluster.properties.item, true, "task");
               }
             });
-          }
-          }
+          }}
         />
+      );
+    } else {
+      marker = null;
     }
-    else {
-      marker = null
-    }
-    return (
-      marker
-    )
-  }
-  renderMarker = (marker) => {
+    return marker;
+  };
+  renderMarker = marker => {
     let markerComponent;
     if (marker.lat != "None" && marker.lng != "None") {
-      markerComponent =
+      markerComponent = (
         <TRCMarker
           marker={marker}
           key={marker.id + "_" + marker.lat}
@@ -967,19 +1111,19 @@ class Map extends React.Component {
           discountMarker={this.state.discountActive}
           cashoutMarker={this.state.shopActive}
           onPress={() => {
-            this.state.taskActive ?
-              this.selectMark(marker, true, "task")
-              :
-              this.state.shopActive ?
-                this.selectMark(marker, true, "shop") :
-                this.selectMark(marker, true, "discount")
+            this.state.taskActive
+              ? this.selectMark(marker, true, "task")
+              : this.state.shopActive
+              ? this.selectMark(marker, true, "shop")
+              : this.selectMark(marker, true, "discount");
           }}
         />
+      );
     } else {
-      markerComponent = null
+      markerComponent = null;
     }
-    return markerComponent
-  }
+    return markerComponent;
+  };
   render() {
     return (
       <View style={styles.main_view}>
@@ -1029,35 +1173,32 @@ class Map extends React.Component {
           }}
         />
         <FacebookLogin
-          ref='facebookLogin'
-          scopes={['basic']}
-          onLoginSuccess={(json) => this.connectFacebook(json.token)}
-          onLoginFailure={(data) => {
-            CookieManager.clearAll()
-              .then((res) => {
-                this.props.loaderState(false);
-              });
+          ref="facebookLogin"
+          scopes={["basic"]}
+          onLoginSuccess={json => this.connectFacebook(json.token)}
+          onLoginFailure={data => {
+            CookieManager.clearAll().then(res => {
+              this.props.loaderState(false);
+            });
             if (data.msg === "Not enough friends") {
               if (data.subsc_needed) {
-                this.setState({ userCount: data.subsc_needed })
-                this.setModalVisible(true)
+                this.setState({ userCount: data.subsc_needed });
+                this.setModalVisible(true);
               }
             } else {
-              this.setErrorVisible(true)
+              this.setErrorVisible(true);
             }
-
           }}
         />
         <InstagramLogin
-          ref='instagramLogin'
-          clientId='7df789fc907d4ffbbad30b7e25ba3933'
-          scopes={['basic']}
-          onLoginSuccess={(token) => this.connectInsta(token)}
-          onLoginFailure={(data) => {
-            CookieManager.clearAll()
-              .then((res) => {
-                this.props.loaderState(false);
-              });
+          ref="instagramLogin"
+          clientId="7df789fc907d4ffbbad30b7e25ba3933"
+          scopes={["basic"]}
+          onLoginSuccess={token => this.connectInsta(token)}
+          onLoginFailure={data => {
+            CookieManager.clearAll().then(res => {
+              this.props.loaderState(false);
+            });
           }}
         />
         <StatusBar
@@ -1065,62 +1206,139 @@ class Map extends React.Component {
           translucent={true}
           backgroundColor={"transparent"}
         />
-        {Platform.OS == "ios" ?
-          this.state.location_loader && this.props.isLocation && <ActivityIndicator /> :
-          this.state.location_loader && <ActivityIndicator />
-        }
-        <Animated.View style={[styles.state_change_block, {
-          transform: [
+        {Platform.OS == "ios"
+          ? this.state.location_loader &&
+            this.props.isLocation && <ActivityIndicator />
+          : this.state.location_loader && <ActivityIndicator />}
+        <Animated.View
+          style={[
+            styles.state_change_block,
             {
-              translateY: this.state.topNavigationTranslateY
+              transform: [
+                {
+                  translateY: this.state.topNavigationTranslateY
+                }
+              ]
             }
-          ]
-        }]}>
-          <Button style={[styles.state_change_block_btn, styles.state_change_block_btn_left]} transparent onPress={() => this.toggleTab("shop")}>
-            {this.state.shopActive && <View style={[styles.state_change_block_btn, styles.state_change_block_btn_left, styles.blue_bg]}></View>}
+          ]}
+        >
+          <Button
+            style={[
+              styles.state_change_block_btn,
+              styles.state_change_block_btn_left
+            ]}
+            transparent
+            onPress={() => this.toggleTab("shop")}
+          >
+            {this.state.shopActive && (
+              <View
+                style={[
+                  styles.state_change_block_btn,
+                  styles.state_change_block_btn_left,
+                  styles.blue_bg
+                ]}
+              />
+            )}
             <FastImage
               resizeMode={FastImage.resizeMode.contain}
               style={styles.state_change_block_geo}
-              source={{ uri: this.state.shopActive ? ICONS.MAP_TABS.SHOP_ACTIVE : ICONS.MAP_TABS.SHOP_INACTIVE }}
+              source={{
+                uri: this.state.shopActive
+                  ? ICONS.MAP_TABS.SHOP_ACTIVE
+                  : ICONS.MAP_TABS.SHOP_INACTIVE
+              }}
             />
             <LinearTextGradient
               locations={[0, 1]}
-              colors={[this.state.shopActive ? this.props.userColor.map_blue : this.props.userColor.gray, this.state.shopActive ? this.props.userColor.map_blue : this.props.userColor.gray]}
+              colors={[
+                this.state.shopActive
+                  ? this.props.userColor.map_blue
+                  : this.props.userColor.gray,
+                this.state.shopActive
+                  ? this.props.userColor.map_blue
+                  : this.props.userColor.gray
+              ]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
-              style={styles.state_change_block_text}>
+              style={styles.state_change_block_text}
+            >
               {PickedLanguage.MAP_TABS.SHOP.toUpperCase()}
             </LinearTextGradient>
           </Button>
-          <Button style={styles.state_change_block_btn} transparent onPress={() => this.toggleTab("task")}>
-            {this.state.taskActive && <View style={[styles.state_change_block_btn, styles.pink_bg]}></View>}
+          <Button
+            style={styles.state_change_block_btn}
+            transparent
+            onPress={() => this.toggleTab("task")}
+          >
+            {this.state.taskActive && (
+              <View style={[styles.state_change_block_btn, styles.pink_bg]} />
+            )}
             <FastImage
               resizeMode={FastImage.resizeMode.contain}
               style={styles.state_change_block_geo}
-              source={{ uri: this.state.taskActive ? ICONS.MAP_TABS.TASK_ACTIVE : ICONS.MAP_TABS.TASK_INACTIVE }}
+              source={{
+                uri: this.state.taskActive
+                  ? ICONS.MAP_TABS.TASK_ACTIVE
+                  : ICONS.MAP_TABS.TASK_INACTIVE
+              }}
             />
             <LinearTextGradient
               locations={[0, 1]}
-              colors={[this.state.taskActive ? this.props.userColor.pink : this.props.userColor.gray, this.state.taskActive ? this.props.userColor.pink : this.props.userColor.gray]}
+              colors={[
+                this.state.taskActive
+                  ? this.props.userColor.pink
+                  : this.props.userColor.gray,
+                this.state.taskActive
+                  ? this.props.userColor.pink
+                  : this.props.userColor.gray
+              ]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
-              style={styles.state_change_block_text}>
+              style={styles.state_change_block_text}
+            >
               {PickedLanguage.MAP_TABS.TASK.toUpperCase()}
             </LinearTextGradient>
           </Button>
-          <Button style={[styles.state_change_block_btn, styles.state_change_block_btn_right]} transparent onPress={() => this.toggleTab("discount")}>
-            {this.state.discountActive && <View style={[styles.state_change_block_btn, styles.state_change_block_btn_right, styles.violet_bg]}></View>}
+          <Button
+            style={[
+              styles.state_change_block_btn,
+              styles.state_change_block_btn_right
+            ]}
+            transparent
+            onPress={() => this.toggleTab("discount")}
+          >
+            {this.state.discountActive && (
+              <View
+                style={[
+                  styles.state_change_block_btn,
+                  styles.state_change_block_btn_right,
+                  styles.violet_bg
+                ]}
+              />
+            )}
             <FastImage
               resizeMode={FastImage.resizeMode.contain}
               style={styles.state_change_block_geo}
-              source={{ uri: this.state.discountActive ? ICONS.MAP_TABS.DISCOUNT_ACTIVE : ICONS.MAP_TABS.DISCOUNT_INACTIVE }}
+              source={{
+                uri: this.state.discountActive
+                  ? ICONS.MAP_TABS.DISCOUNT_ACTIVE
+                  : ICONS.MAP_TABS.DISCOUNT_INACTIVE
+              }}
             />
             <LinearTextGradient
               locations={[0, 1]}
-              colors={[this.state.discountActive ? this.props.userColor.map_violet : this.props.userColor.gray, this.state.discountActive ? this.props.userColor.map_violet : this.props.userColor.gray]}
+              colors={[
+                this.state.discountActive
+                  ? this.props.userColor.map_violet
+                  : this.props.userColor.gray,
+                this.state.discountActive
+                  ? this.props.userColor.map_violet
+                  : this.props.userColor.gray
+              ]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
-              style={styles.state_change_block_text}>
+              style={styles.state_change_block_text}
+            >
               {PickedLanguage.MAP_TABS.DISCOUNT.toUpperCase()}
             </LinearTextGradient>
           </Button>
@@ -1143,8 +1361,16 @@ class Map extends React.Component {
           </View>
         ) : null
         } */}
-        {this.state.focusedOnMark &&
-          <View style={[styles.cards_block, this.state.cards.length === 1 && { width: width * 0.69, alignSelf: "flex-start" }]}>
+        {this.state.focusedOnMark && (
+          <View
+            style={[
+              styles.cards_block,
+              this.state.cards.length === 1 && {
+                width: width * 0.69,
+                alignSelf: "flex-start"
+              }
+            ]}
+          >
             <FlatList
               listKey={"cards"}
               scrollEnabled={this.state.cards.length != 1}
@@ -1155,17 +1381,19 @@ class Map extends React.Component {
               data={this.state.cards}
               removeClippedSubviews={true}
               keyExtractor={(item, index) => item.id + "_" + index}
-              renderItem={this._renderItem}>
-            </FlatList>
+              renderItem={this._renderItem}
+            />
           </View>
-        }
+        )}
         <ClusteredMapView
           key={this.state.mapKey}
           style={styles.map_view}
           data={this.props.outlets}
           initialRegion={this.state.region}
           provider={Platform.OS == "ios" ? PROVIDER_GOOGLE : null}
-          ref={(r) => { this.map = r }}
+          ref={r => {
+            this.map = r;
+          }}
           customMapStyle={mapStyle}
           showsCompass={false}
           animateClusters={false}
@@ -1173,14 +1401,11 @@ class Map extends React.Component {
           followUserLocation
           loadingEnabled
           clusteringEnabled={this.state.discountActive ? false : true}
-          onPress={
-            this.onRegionChange
-          }
-          onRegionChangeComplete={
-            this.onRegionChange
-          }
+          onPress={this.onRegionChange}
+          onRegionChangeComplete={this.onRegionChange}
           renderMarker={this.renderMarker}
-          renderCluster={this.renderCluster} >
+          renderCluster={this.renderCluster}
+        >
           <Marker
             coordinate={{
               latitude: parseFloat(this.props.location.lat),
@@ -1192,7 +1417,7 @@ class Map extends React.Component {
         </ClusteredMapView>
         <TimerModal />
         <FooterNavigation />
-      </View >
+      </View>
     );
   }
 }
@@ -1215,7 +1440,8 @@ const mapStateToProps = state => {
     insta_token: state.insta_token,
     facebook_token: state.facebook_token,
     timer_interval: state.timer_interval,
-    dateAbuseStatus: state.dateAbuseStatus
+    dateAbuseStatus: state.dateAbuseStatus,
+    closestMall: state.closestMall
   };
 };
 
