@@ -47,7 +47,7 @@ class GeolocationService extends React.Component {
         }
         this.props.setMainTaskId(result.body.id);
       },
-      error => {}
+      error => { }
     );
   };
 
@@ -60,7 +60,7 @@ class GeolocationService extends React.Component {
       () => {
         this.startMissionRequest();
       },
-      error => {}
+      error => { }
     );
     BackgroundTimer.runBackgroundTimer(() => {
       this.startMissionRequest();
@@ -86,7 +86,7 @@ class GeolocationService extends React.Component {
           this.props.setBalance(result.balance);
         }
       },
-      error => {}
+      error => { }
     );
   }
 
@@ -137,7 +137,7 @@ class GeolocationService extends React.Component {
             }
           );
         },
-        error => {}
+        error => { }
       );
     }
   };
@@ -200,16 +200,16 @@ class GeolocationService extends React.Component {
       (this.props.selectedMall.lat &&
         this.props.selectedMall.lng &&
         nextProps.location.lat.toFixed(4) !=
-          this.props.location.lat.toFixed(4) &&
+        this.props.location.lat.toFixed(4) &&
         nextProps.location.lng.toFixed(4) !=
-          this.props.location.lng.toFixed(4)) ||
+        this.props.location.lng.toFixed(4)) ||
       (this.props.selectedMall.lat &&
         this.props.selectedMall.lng &&
         !this.state.sendDistancePush &&
         nextProps.location.lat.toFixed(4) ===
-          this.props.location.lat.toFixed(4) &&
+        this.props.location.lat.toFixed(4) &&
         nextProps.location.lng.toFixed(4) ===
-          this.props.location.lng.toFixed(4))
+        this.props.location.lng.toFixed(4))
     ) {
       this.calculateDistance(
         {

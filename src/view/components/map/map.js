@@ -376,7 +376,7 @@ class Map extends React.Component {
     if (nextProps.distance < 0 && nextProps.isLocation) {
       if (
         this.props.location.lat.toFixed(3) !==
-          nextProps.location.lat.toFixed(3) &&
+        nextProps.location.lat.toFixed(3) &&
         this.props.location.lng.toFixed(3) !== nextProps.location.lng.toFixed(3)
       ) {
         this.selectNearestMall(
@@ -520,7 +520,7 @@ class Map extends React.Component {
       let selectedTRC = mall_array.find(x => x.id === Number(nearestMall.key));
       try {
         this.selectMark(selectedTRC, ANIMATE_MAP, "task");
-      } catch (e) {}
+      } catch (e) { }
     }
   };
 
@@ -535,33 +535,33 @@ class Map extends React.Component {
           this.state.taskActive
             ? PickedLanguage.MAP.TASKS.toUpperCase()
             : this.state.shopActive
-            ? PickedLanguage.MAP.MAKE_PREORDER.toUpperCase()
-            : PickedLanguage.MAP.LIST_PRODUCTS.toUpperCase()
+              ? PickedLanguage.MAP.MAKE_PREORDER.toUpperCase()
+              : PickedLanguage.MAP.LIST_PRODUCTS.toUpperCase()
         }
       />
     ) : item.item.type === "instagram_connect" ||
       item.item.type === "facebook_connect" ? (
-      <CardFirst
-        type={item.item.type}
-        item={item.item}
-        taskActive={this.state.taskActive}
-        onPressItem={() => {
-          if (item.item.type === "facebook_connect") {
-            this.LoginFacebook();
-          } else if (item.item.type === "instagram_connect") {
-            this.refs.instagramLogin.show();
-          }
-        }}
-        btnText={PickedLanguage.EXECUTE.toUpperCase()}
-      />
-    ) : this.state.taskActive ? (
-      //item.item.active && //uncomment this to show only active cards at map
-      <CardTask item={item.item} onPressItem={this.openTaskDetails} />
-    ) : this.state.shopActive ? (
-      <CardCashout item={item.item} onPressItem={this.openAccordion} />
-    ) : (
-      <CardCashout item={item.item} onPressItem={this._showSelectedCard} />
-    );
+          <CardFirst
+            type={item.item.type}
+            item={item.item}
+            taskActive={this.state.taskActive}
+            onPressItem={() => {
+              if (item.item.type === "facebook_connect") {
+                this.LoginFacebook();
+              } else if (item.item.type === "instagram_connect") {
+                this.refs.instagramLogin.show();
+              }
+            }}
+            btnText={PickedLanguage.EXECUTE.toUpperCase()}
+          />
+        ) : this.state.taskActive ? (
+          //item.item.active && //uncomment this to show only active cards at map
+          <CardTask item={item.item} onPressItem={this.openTaskDetails} />
+        ) : this.state.shopActive ? (
+          <CardCashout item={item.item} onPressItem={this.openAccordion} />
+        ) : (
+              <CardCashout item={item.item} onPressItem={this._showSelectedCard} />
+            );
   openNext = selectedCard => {
     let copyOfCards = [...this.state.cards];
     copyOfCards.shift(); //remove card with outlet|cashout information
@@ -578,7 +578,7 @@ class Map extends React.Component {
       });
     }
   };
-  _showSelectedCard = selectedCard => {};
+  _showSelectedCard = selectedCard => { };
   openTaskDetails = selectedCard => {
     let selectedOutlet = this.state.cards[0];
     let copyOfCards = [...this.state.cards];
@@ -776,12 +776,12 @@ class Map extends React.Component {
       (region.longitudeDelta &&
         Number(region.latitude).toFixed(3) == this.state.pickedMark.latitude &&
         Number(region.longitude).toFixed(5) ==
-          this.state.pickedMark.longitude) ||
+        this.state.pickedMark.longitude) ||
       (region.nativeEvent &&
         Number(region.nativeEvent.coordinate.latitude).toFixed(3) ==
-          this.state.pickedMark.latitude &&
+        this.state.pickedMark.latitude &&
         Number(region.nativeEvent.coordinate.longitude).toFixed(5) ==
-          this.state.pickedMark.longitude)
+        this.state.pickedMark.longitude)
     ) {
     } else {
       this.setState({ focusedOnMark: false, cards: [] });
@@ -821,8 +821,8 @@ class Map extends React.Component {
           ? false
           : true
         : this.props.distance <= 0 && this.props.isLocation
-        ? false
-        : true
+          ? false
+          : true
     };
     let promise = httpPost(
       urls.start_mission,
@@ -1086,7 +1086,7 @@ class Map extends React.Component {
                 (clusterValue ===
                   Number(cluster.properties.item.formated.money) ||
                   clusterValue ===
-                    Number(cluster.properties.item.formated.amount))
+                  Number(cluster.properties.item.formated.amount))
               ) {
                 this.selectMark(cluster.properties.item, true, "task");
               }
@@ -1114,8 +1114,8 @@ class Map extends React.Component {
             this.state.taskActive
               ? this.selectMark(marker, true, "task")
               : this.state.shopActive
-              ? this.selectMark(marker, true, "shop")
-              : this.selectMark(marker, true, "discount");
+                ? this.selectMark(marker, true, "shop")
+                : this.selectMark(marker, true, "discount");
           }}
         />
       );
@@ -1208,7 +1208,7 @@ class Map extends React.Component {
         />
         {Platform.OS == "ios"
           ? this.state.location_loader &&
-            this.props.isLocation && <ActivityIndicator />
+          this.props.isLocation && <ActivityIndicator />
           : this.state.location_loader && <ActivityIndicator />}
         <Animated.View
           style={[
