@@ -65,6 +65,8 @@ target 'EpocketCash' do
 
   pod 'jail-monkey', :path => '../node_modules/jail-monkey'
 
+  pod 'react-native-google-analytics-bridge', :path => '../node_modules/react-native-google-analytics-bridge'
+
 end
   post_install do |installer|
     installer.pods_project.targets.each do |target|
