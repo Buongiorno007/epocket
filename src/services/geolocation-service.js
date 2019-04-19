@@ -47,7 +47,7 @@ class GeolocationService extends React.Component {
         }
         this.props.setMainTaskId(result.body.id);
       },
-      error => { }
+      error => {}
     );
   };
 
@@ -60,7 +60,7 @@ class GeolocationService extends React.Component {
       () => {
         this.startMissionRequest();
       },
-      error => { }
+      error => {}
     );
     BackgroundTimer.runBackgroundTimer(() => {
       this.startMissionRequest();
@@ -86,7 +86,7 @@ class GeolocationService extends React.Component {
           this.props.setBalance(result.balance);
         }
       },
-      error => { }
+      error => {}
     );
   }
 
@@ -137,7 +137,7 @@ class GeolocationService extends React.Component {
             }
           );
         },
-        error => { }
+        error => {}
       );
     }
   };
@@ -170,9 +170,9 @@ class GeolocationService extends React.Component {
         ) - this.props.closestMall.rad;
       if (nextProps.isLocation && this.props.isLocation) {
         if (distance > 100) {
-          this.props.setPushStatus(false);
+          this.props.setPushStatus(true);
         }
-        if (distance <= 100 && !this.props.pushSendStaus) {
+        if (distance <= 100 && !nextProps.pushSendStaus) {
           this.sendDistancePush(PickedLanguage.PUSH_MESSAGE.PUSH_3);
           this.props.setPushStatus(true);
         }
@@ -185,7 +185,6 @@ class GeolocationService extends React.Component {
           this.props.showTimer(false);
           this.sendDistancePush(PickedLanguage.PUSH_MESSAGE.PUSH_4);
         }
-        console.log(distance, "DISTANCE GEOLOCATION");
         if (distance > 0 && this.props.timer_status) {
           this.props.showDashboard(false);
           this.props.showTimer(true);
@@ -200,16 +199,16 @@ class GeolocationService extends React.Component {
       (this.props.selectedMall.lat &&
         this.props.selectedMall.lng &&
         nextProps.location.lat.toFixed(4) !=
-        this.props.location.lat.toFixed(4) &&
+          this.props.location.lat.toFixed(4) &&
         nextProps.location.lng.toFixed(4) !=
-        this.props.location.lng.toFixed(4)) ||
+          this.props.location.lng.toFixed(4)) ||
       (this.props.selectedMall.lat &&
         this.props.selectedMall.lng &&
         !this.state.sendDistancePush &&
         nextProps.location.lat.toFixed(4) ===
-        this.props.location.lat.toFixed(4) &&
+          this.props.location.lat.toFixed(4) &&
         nextProps.location.lng.toFixed(4) ===
-        this.props.location.lng.toFixed(4))
+          this.props.location.lng.toFixed(4))
     ) {
       this.calculateDistance(
         {

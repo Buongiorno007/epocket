@@ -957,7 +957,6 @@ class Map extends React.Component {
         new_outlets[id].active = true;
         this.props.setOutlets(new_outlets);
       }
-      console.log(this.props.isLocation, distance, "IS LOCATION, DISTANCE");
       if (distance <= 0 && this.props.isLocation) {
         //start timer
         this.props.showTimer(false);

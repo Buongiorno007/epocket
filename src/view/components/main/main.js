@@ -96,13 +96,6 @@ class Main extends React.Component {
     return container;
   };
   render() {
-    console.log(
-      this.props.timerShow,
-      this.props.timer_status,
-      JSON.stringify(this.props.closestMall) !==
-        JSON.stringify(this.props.selectedMall),
-      "TIMERSHOW, TIMERSTATUS, EQUALS"
-    );
 
     return (
       <View style={styles.main_view}>
@@ -135,7 +128,8 @@ class Main extends React.Component {
             ? this.props.rootStatus &&
               this.props.isLocation &&
               (this.props.activeTab == 1 || this.props.activeTab == 0) && (
-                <RootEnabled />
+                // <RootEnabled />
+                null
               )
             : this.props.rootStatus &&
               this.props.isLocation && <RootEnabled />)}

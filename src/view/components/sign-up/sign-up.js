@@ -11,7 +11,7 @@ import {
   Animated,
   WebView
 } from "react-native";
-import FastImage from 'react-native-fast-image'
+import FastImage from "react-native-fast-image";
 import { TextField } from "react-native-material-textfield";
 import LinearGradient from "react-native-linear-gradient";
 //containers
@@ -31,8 +31,8 @@ import { bindActionCreators } from "redux";
 import { setToken } from "../../../reducers/token";
 import { loaderState } from "../../../reducers/loader";
 import { setBalance } from "../../../reducers/user-balance";
-import { setProfileVirgin } from "../../../reducers/profile-virgin"
-import { setGeoVirgin } from "../../../reducers/geo-virgin"
+import { setProfileVirgin } from "../../../reducers/profile-virgin";
+import { setGeoVirgin } from "../../../reducers/geo-virgin";
 import { getPush } from "../../../reducers/push";
 import { saveUser } from "../../../reducers/profile-state";
 //services
@@ -73,35 +73,32 @@ class SignUp extends React.Component {
   setFailedConfirmVisible = visible => {
     this.setState({ failedConfirmVisible: visible });
   };
-  mask = (text) => {
+  mask = text => {
     let phoneCopy = text;
     let maskedPhone = this.mphone(phoneCopy);
     if (phoneCopy != maskedPhone) {
-      this.setState({ phone: maskedPhone })
+      this.setState({ phone: maskedPhone });
     }
-  }
+  };
 
-  mphone = (v) => {
+  mphone = v => {
     let r = v.replace(/\D/g, "");
     r = r.replace(/^0/, "");
     if (r.length > 8) {
       // 11+ digits.
       r = r.replace(/^(\d{2})(\d{3})(\d{0,3})(\d{0,5}).*/, "$1 $2 $3 $4");
-    }
-    else if (r.length > 5) {
+    } else if (r.length > 5) {
       // 6..10 digits. Format as 4+4
       r = r.replace(/^(\d{2})(\d{0,3})(\d{0,5}).*/, "$1 $2 $3");
-    }
-    else if (r.length > 2) {
+    } else if (r.length > 2) {
       // 3..5 digits.
       r = r.replace(/^(\d{2})(\d{0,3})/, "$1 $2");
-    }
-    else {
+    } else {
       // 0..2 digits.
       r = r.replace(/^(\d*)/, "$1");
     }
     return r;
-  }
+  };
   onChangedPhone(text) {
     this.setState({ numberExists: false });
     let newText = "";
@@ -113,7 +110,7 @@ class SignUp extends React.Component {
       newText = text.substring(0, text.length - 1);
     }
     this.setState({ phone: newText });
-    this.mask(newText)
+    this.mask(newText);
   }
 
   onChangedName(text) {
@@ -122,7 +119,7 @@ class SignUp extends React.Component {
     // console.log("text", text, namePattern.test(text));
     if (namePattern.test(text)) {
       newText = text;
-      this.setState({ nameCorrect: text.length > 4 });
+      this.setState({ nameCorrect: text.length >= 2 });
     } else {
       newText = text.substring(0, text.length - 1);
     }
@@ -149,11 +146,11 @@ class SignUp extends React.Component {
     this.setFailedSignVisible(false);
     this.props.loaderState(true);
     Keyboard.dismiss();
-    let bodyPhone = this.state.phone.replace(/\D/g, '')
+    let bodyPhone = this.state.phone.replace(/\D/g, "");
     let body = {
       phone: "+" + bodyPhone
     };
-    console.log(body, this.state.phoneCorrect, this.state.nameCorrect)
+    console.log(body, this.state.phoneCorrect, this.state.nameCorrect);
     let promise = httpPost(urls.sign_up, JSON.stringify(body));
     promise.then(
       result => {
@@ -165,28 +162,36 @@ class SignUp extends React.Component {
       },
       error => {
         this.props.loaderState(false);
-        let error_respons = handleError(error, body, urls.sign_up, "", this.constructor.name, "sendForm");
+        let error_respons = handleError(
+          error,
+          body,
+          urls.sign_up,
+          "",
+          this.constructor.name,
+          "sendForm"
+        );
         this.setState({ errorText: error_respons.error_text });
-        if (error_respons.error_code === 400) this.setState({ invalidCode: true });
-        else if (error_respons.error_code === 409) this.setState({ numberExists: true });
+        if (error_respons.error_code === 400)
+          this.setState({ invalidCode: true });
+        else if (error_respons.error_code === 409)
+          this.setState({ numberExists: true });
         else this.setFailedSignVisible(error_respons.error_modal);
       }
     );
   }
 
-
   sendCode() {
     Keyboard.dismiss();
     this.setFailedConfirmVisible(false);
     this.props.loaderState(true);
-    let bodyPhone = this.state.phone.replace(/\D/g, '')
+    let bodyPhone = this.state.phone.replace(/\D/g, "");
     let body = {
       phone: "+" + bodyPhone,
       code: this.state.code,
       name: this.state.name,
       user_id: this.state.user_id
     };
-    console.log(body)
+    console.log(body);
     let promise = httpPost(urls.sign_up_confirm, JSON.stringify(body));
     promise.then(
       result => {
@@ -205,13 +210,20 @@ class SignUp extends React.Component {
         this.props.setToken(result.body.token);
         this.props.setBalance(0);
         this.setState({ step: 3, acceptButton: false });
-        this.props.getPush(result.body.token)
-        this.props.setGeoVirgin(true)
-        this.props.setProfileVirgin(true)
+        this.props.getPush(result.body.token);
+        this.props.setGeoVirgin(true);
+        this.props.setProfileVirgin(true);
       },
       error => {
         this.props.loaderState(false);
-        let error_respons = handleError(error, body, urls.sign_up_confirm, "", this.constructor.name, "sendCode");
+        let error_respons = handleError(
+          error,
+          body,
+          urls.sign_up_confirm,
+          "",
+          this.constructor.name,
+          "sendCode"
+        );
         this.setState({ errorText: error_respons.error_text });
         if (error_respons.error_code === 400) {
           this.setState({ invalidCode: true });
@@ -226,8 +238,14 @@ class SignUp extends React.Component {
     this.props.navigation.navigate("Main");
   }
   componentDidMount() {
-    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
-    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+    this.keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      this._keyboardDidShow
+    );
+    this.keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      this._keyboardDidHide
+    );
     this.props.loaderState(false);
   }
   componentWillUnmount() {
@@ -237,16 +255,16 @@ class SignUp extends React.Component {
   _keyboardDidShow = () => {
     Animated.timing(this.state.signUpMargin, {
       duration: 100,
-      toValue: 0,
+      toValue: 0
     }).start();
-  }
+  };
 
   _keyboardDidHide = () => {
     Animated.timing(this.state.signUpMargin, {
       duration: 100,
-      toValue: 40,
+      toValue: 40
     }).start();
-  }
+  };
   render() {
     return (
       <KeyboardAvoidingView
@@ -257,13 +275,23 @@ class SignUp extends React.Component {
       >
         <WebView
           javaScriptEnabled={true}
-          injectedJavaScript={"window.waitForBridge = function(fn) { return (window.postMessage.length === 1) ? fn() : setTimeout(function() { window.waitForBridge(fn) }, 500) }; window.waitForBridge(function() {setTimeout(function() {  window.postMessage(document.getElementById('hash').innerHTML)  }, 1500) });"}
+          injectedJavaScript={
+            "window.waitForBridge = function(fn) { return (window.postMessage.length === 1) ? fn() : setTimeout(function() { window.waitForBridge(fn) }, 500) }; window.waitForBridge(function() {setTimeout(function() {  window.postMessage(document.getElementById('hash').innerHTML)  }, 1500) });"
+          }
           source={{ uri: urls.blank + "/reflink?not_redirect=true" }}
           onMessage={event => {
-            this.setState({ user_id: event.nativeEvent.data })
-            console.log('Received: ', event.nativeEvent.data)
+            this.setState({ user_id: event.nativeEvent.data });
+            console.log("Received: ", event.nativeEvent.data);
           }}
-          style={{ flex: 0, position: "absolute", width: 0, height: 0, zIndex: 0, top: 1000, left: 0 }}
+          style={{
+            flex: 0,
+            position: "absolute",
+            width: 0,
+            height: 0,
+            zIndex: 0,
+            top: 1000,
+            left: 0
+          }}
         />
         <CustomAlert
           title={this.state.errorText}
@@ -316,7 +344,7 @@ class SignUp extends React.Component {
                 inputContainerPadding={16}
                 onChangeText={text => this.onChangedPhone(text)}
                 value={this.state.phone}
-                maxLength={18}
+                maxLength={15}
                 keyboardType="numeric"
                 prefix="+"
               />
@@ -344,7 +372,11 @@ class SignUp extends React.Component {
               />
               <Animated.View style={[{ marginTop: this.state.signUpMargin }]}>
                 <CustomButton
-                  color={this.state.phoneCorrect && this.state.nameCorrect ? this.props.userColor.pink : this.props.userColor.white}
+                  color={
+                    this.state.phoneCorrect && this.state.nameCorrect
+                      ? this.props.userColor.pink
+                      : this.props.userColor.white
+                  }
                   active={this.state.phoneCorrect && this.state.nameCorrect}
                   title={PickedLanguage.SIGN_UP.toUpperCase()}
                   handler={() => this.sendForm()}
@@ -380,7 +412,11 @@ class SignUp extends React.Component {
               </Text>
               <Animated.View style={[{ marginTop: this.state.signUpMargin }]}>
                 <CustomButton
-                  color={this.state.codeCorrect ? this.props.userColor.pink : this.props.userColor.white}
+                  color={
+                    this.state.codeCorrect
+                      ? this.props.userColor.pink
+                      : this.props.userColor.white
+                  }
                   active={this.state.codeCorrect}
                   title={PickedLanguage.ACCEPT.toUpperCase()}
                   handler={() => this.sendCode()}
@@ -389,8 +425,12 @@ class SignUp extends React.Component {
             </View>
           ) : this.state.step == 3 ? (
             <View style={styles.form}>
-              <Text style={styles.code_sent}>{PickedLanguage.SING_UP_SUCCESS}</Text>
-              <Text style={styles.enter_code}>{PickedLanguage.USE_YOUR_PHONE}</Text>
+              <Text style={styles.code_sent}>
+                {PickedLanguage.SING_UP_SUCCESS}
+              </Text>
+              <Text style={styles.enter_code}>
+                {PickedLanguage.USE_YOUR_PHONE}
+              </Text>
               <Animated.View style={[{ marginTop: this.state.signUpMargin }]}>
                 <CustomButton
                   color={this.props.userColor.pink}
