@@ -96,7 +96,6 @@ class Main extends React.Component {
     return container;
   };
   render() {
-
     return (
       <View style={styles.main_view}>
         <StatusBar
@@ -128,8 +127,8 @@ class Main extends React.Component {
             ? this.props.rootStatus &&
               this.props.isLocation &&
               (this.props.activeTab == 1 || this.props.activeTab == 0) && (
-                // <RootEnabled />
-                null
+                <RootEnabled />
+                // null
               )
             : this.props.rootStatus &&
               this.props.isLocation && <RootEnabled />)}
