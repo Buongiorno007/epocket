@@ -20,12 +20,16 @@ import { bindActionCreators } from "redux";
 import GameTimer from "../../containers/game-timer/game-timer"
 //services
 import { toHHMMSS } from "./../../../services/convert-time"
+// import console = require("console");
 
 
 class BrandWebsite extends React.Component {
     state = {
         infoPage: true
     }
+    componentDidMount = () => {
+        console.log(this.props.game_info ,"this.props.game_info")
+      };
     render() {
         return (
             <View style={this.props.visible ? styles.main_view : styles.hidden} >
@@ -58,8 +62,8 @@ class BrandWebsite extends React.Component {
                                     }}
                                 />
                             </Button>
-                            {this.props.website_timer >= 1 ?
-                                <GameTimer minutes={toHHMMSS(this.props.website_timer).split(":")[0]} seconds={toHHMMSS(this.props.website_timer).split(":")[1]} white_text />
+                            {this.props.game_info.wait_timer_in_sec >= 1 ?
+                                <GameTimer minutes={toHHMMSS(this.props.game_info.wait_timer_in_sec).split(":")[0]} seconds={toHHMMSS(this.props.game_info.wait_timer_in_sec).split(":")[1]} white_text />
                                 :
                                 <Button
                                     rounded
@@ -77,13 +81,13 @@ class BrandWebsite extends React.Component {
                                 block
                                 style={styles.button_close}
                                 onPress={() => {
-                                    if (this.props.website_timer >= 1) {
+                                    if (this.props.game_info.wait_timer_in_sec >= 1) {
                                         this.props.closeBrandWebSite()
                                         this.setState({ infoPage: true })
                                     }
                                 }}
                             >
-                                {this.props.website_timer >= 1 ?
+                                {this.props.game_info.wait_timer_in_sec >= 1 ?
                                     <FastImage style={styles.icon_close}
                                         resizeMode={FastImage.resizeMode.contain}
                                         source={{ uri: ICONS.COMMON.CLOSE_WHITE }} >
@@ -131,7 +135,7 @@ class BrandWebsite extends React.Component {
                             </Button>
                         </View>
                         <Text style={styles.infoPage_title}>{this.props.brand_title.toUpperCase()}</Text>
-                        <Text style={styles.infoPage_title}>{PickedLanguage.GAME.RESULT.STAY_ON_WEBSITE_FOR_3_MIN}</Text>
+                        <Text style={styles.infoPage_title}>{PickedLanguage.GAME.RESULT.STAY_ON_WEBSITE_FOR} {this.props.game_info.wait_timer} {PickedLanguage.GAME.RESULT.MIN}</Text>
                         <Text style={styles.infoPage_desc}>{PickedLanguage.GAME.RESULT.LOOK_WHAT_TO_BUY}</Text>
                         <Button
                             rounded

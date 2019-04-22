@@ -55,10 +55,10 @@ class GameResult extends React.Component {
         this.setState({
             interval:
                 setCorrectingInterval(() => {
-                    if (this.props.website_timer <= 1) {
+                    if (this.props.game_info.wait_timer_in_sec <= 1) {
                         clearCorrectingInterval(this.state.interval);
                     }
-                    this.props.setWebSiteTimer(this.props.website_timer - 1)
+                    this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec)
                 }, 1000)
         })
     }
@@ -153,7 +153,7 @@ class GameResult extends React.Component {
     closeBrandWebSite = () => {
         this.setState({ website_visible: false })
         clearCorrectingInterval(this.state.interval);
-        this.props.setWebSiteTimer(15)
+        this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec)
     }
     goWait = () => {
         NavigationService.navigate("Main")
@@ -350,6 +350,7 @@ class GameResult extends React.Component {
                     visible={this.state.website_visible}
                     brand_title={this.props.game_info.brand_title}
                     closeBrandWebSite={() => this.closeBrandWebSite()}
+                    interval={this.state.interval}
                     startTimer={() => this.openWebSite()}
                     continue={() => {
                         this.closeBrandWebSite()

@@ -163,10 +163,10 @@ class GameStart extends React.Component {
         this.setState({
             intervalWebsite:
                 setCorrectingInterval(() => {
-                    if (this.props.website_timer <= 1) {
+                    if (this.props.game_info.wait_timer_in_sec <= 1) {
                         clearCorrectingInterval(this.state.intervalWebsite);
                     }
-                    this.props.setWebSiteTimer(this.props.website_timer - 1)
+                    this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec)
                 }, 1000)
         })
     }
@@ -176,7 +176,7 @@ class GameStart extends React.Component {
     closeBrandWebSite = () => {
         this.setState({ website_visible: false })
         clearCorrectingInterval(this.state.intervalWebsite);
-        this.props.setWebSiteTimer(15)
+        this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec)
     }
     loadNextGame = () => {
         this.closeBrandWebSite()

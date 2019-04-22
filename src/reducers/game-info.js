@@ -28,6 +28,7 @@ const initialState = {
     total_game_len: 0,
     true_answer: [],
     wait_timer: 0,
+    wait_timer_in_sec: 0,
     brand_title: "",
     website_link: ""  //game.link
 }
@@ -111,6 +112,7 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
                             id: game.id,
                             video: game.video,
                             wait_timer: ((Number(game.future_timer)) / 60).toFixed(),
+                            wait_timer_in_sec: Number(game.future_timer),
                             brand_title: game.brand_name,
                             website_link: game.brand_link, //game.brand_link
                             insta_data: {
@@ -119,6 +121,7 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
                                 hash_tag: game.hash_tag,
                             }
                         }
+                        console.log(info.wait_timer_in_sec, "wait_timer_in_sec")
                         dispatch(setGameInfo(info))
                         dispatch(setFixedTime(game.time))
                         dispatch(setTempTime(game.time))
@@ -142,6 +145,7 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
                     total_game_len: 0,
                     true_answer: [],
                     wait_timer: 0,
+                    wait_timer_in_sec: 0,
                     brand_title: "",
                     insta_data: {}
                 }

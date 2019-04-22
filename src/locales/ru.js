@@ -281,7 +281,8 @@ export const RU = {
       POST_ERROR_MESSAGE: 'Ошибка! Нет возможности проверить публикацию',
       POST_SUCCESS_MESSAGE: 'Ваш пост успешно опубликован',
       POST_NO_PUBLISH_MESSAGE: 'Ваш пост не был опубликован',
-      STAY_ON_WEBSITE_FOR_3_MIN: "Проведи на сайте 3 мин.",
+      STAY_ON_WEBSITE_FOR: "Проведи на сайте",
+      MIN : "мин.",
       LOOK_WHAT_TO_BUY: "Посмотри какие товары ты cможешь приобрести за EPC"
     }
   },

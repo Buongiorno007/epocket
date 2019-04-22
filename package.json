@@ -9,8 +9,7 @@
         "android:install": "cd android && ./gradlew assembleRelease && ./gradlew installRelease",
         "watchman": "watchman waych-del-all && react-native start --reset-cache",
         "android": "react-native run-android",
-		"ios": "react-native run-ios"
-
+        "ios": "react-native run-ios"
     },
     "rnpm": {
         "assets": [
