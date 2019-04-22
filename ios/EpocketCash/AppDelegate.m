@@ -13,6 +13,9 @@
 @import GoogleMaps;
 @import Firebase;
 
+//@import YMMYandexMetrica;
+@import YandexMobileMetrica;
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -34,6 +37,10 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  YMMYandexMetricaConfiguration *configuration = [[YMMYandexMetricaConfiguration alloc] initWithApiKey:@"e455a5ed-4f92-4071-8b46-5822489758d5"];
+  [YMMYandexMetrica activateWithConfiguration:configuration];
   return YES;
+  
 }
+  
 @end

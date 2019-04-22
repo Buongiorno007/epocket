@@ -8,6 +8,7 @@ import com.facebook.appevents.AppEventsLogger;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.ReactApplication;
+import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.idehub.GoogleAnalyticsBridge.GoogleAnalyticsBridgePackage;
 import com.tradle.react.UdpSocketsModule;
 import com.mocklocation.reactnative.RNMockLocationDetectorPackage;
@@ -53,6 +54,8 @@ import com.airbnb.android.react.maps.MapsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.crashlytics.android.Crashlytics;
 import io.fabric.sdk.android.Fabric;
+import com.yandex.metrica.YandexMetrica;
+import com.yandex.metrica.YandexMetricaConfig;
 
 import cl.json.ShareApplication;
 
@@ -79,6 +82,7 @@ public class MainApplication extends Application implements ShareApplication, Re
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new FBSDKPackage(),
             new GoogleAnalyticsBridgePackage(),
             new UdpSocketsModule(),
             new RNMockLocationDetectorPackage(),
@@ -137,6 +141,11 @@ public class MainApplication extends Application implements ShareApplication, Re
     @Override
     public void onCreate() {
         super.onCreate();
+
+        YandexMetricaConfig config = YandexMetricaConfig.newConfigBuilder("e455a5ed-4f92-4071-8b46-5822489758d5").build();
+        YandexMetrica.activate(getApplicationContext(), config);
+        YandexMetrica.enableActivityAutoTracking(this);
+
         Fabric.with(this, new Crashlytics());
         SoLoader.init(this, /* native exopackage */ false);
         Fresco.initialize(this);
