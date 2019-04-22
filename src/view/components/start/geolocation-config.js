@@ -16,13 +16,13 @@ export default function geo_config() {
                 debug: false, // <-- enable this hear sounds for background-geolocation life-cycle.
                 logLevel: BackgroundGeolocationModule.LOG_LEVEL_VERBOSE,
                 stopOnTerminate: false,   // <-- Allow the background-service to continue tracking when user closes the app.
-                startOnBoot: true,        // <-- Auto start tracking when device is powered-up.
+                startOnBoot: false,        // <-- Auto start tracking when device is powered-up.   WAS EDDITED FROM TRUE
                 stationaryRadius: 1,
                 locationProvider: BackgroundGeolocationModule.ACTIVITY_PROVIDER,
                 interval: 2000,
                 fastestInterval: 1200,
                 activitiesInterval: 10000,
-                stopOnStillActivity: false,
+                stopOnStillActivity: false
             }
             break;
         }
@@ -37,7 +37,7 @@ export default function geo_config() {
                 debug: false, // <-- enable this hear sounds for background-geolocation life-cycle.
                 logLevel: BackgroundGeolocationModule.LOG_LEVEL_VERBOSE,
                 stopOnTerminate: false,   // <-- Allow the background-service to continue tracking when user closes the app.
-                startOnBoot: true,        // <-- Auto start tracking when device is powered-up.
+                startOnBoot: false,        // <-- Auto start tracking when device is powered-up. WAS EDDITED FROM TRUE
                 stationaryRadius: 1
             }
             break;

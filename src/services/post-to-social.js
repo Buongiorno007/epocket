@@ -1,11 +1,11 @@
 import { Linking, Platform, CameraRoll, PermissionsAndroid } from "react-native";
-import RNInstagramStoryShare from '../native_modules/react-native-instagram-story-share'
+import RNInstagramStoryShare from '../native_modules/react-native-instagram-story-share/src'
 import RNFetchBlob from 'rn-fetch-blob';
 import RNFS from 'react-native-fs';
 import { formatItem } from './format-hastags'
 import { loaderState } from "../reducers/loader"
 import Share from 'react-native-share';
-import PickedLanguage from "./../locales/language-picker";
+import PickedLanguage from "../locales/language-picker";
 
 confirmFuction = () => { //this func will be overrided for iOS for callBack
     console.log("confirmFuction not overrided")

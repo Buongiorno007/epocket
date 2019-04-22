@@ -9,10 +9,10 @@ import {
   Platform,
   KeyboardAvoidingView
 } from "react-native";
-import FastImage from 'react-native-fast-image'
+import FastImage from "react-native-fast-image";
 import { TextField } from "react-native-material-textfield";
 import LinearGradient from "react-native-linear-gradient";
-import { AccessToken } from 'react-native-fbsdk';
+import { AccessToken } from "react-native-fbsdk";
 //containers
 import BackButton from "../../containers/back/back";
 import CustomButton from "../../containers/custom-button/custom-button";
@@ -26,9 +26,9 @@ import { connect } from "react-redux";
 import { setColor } from "../../../reducers/user-color";
 import { bindActionCreators } from "redux";
 import { setInstaToken } from "../../../reducers/insta-token";
-import { setFacebookToken } from "../../../reducers/facebook-token"
-import { setProfileVirgin } from "../../../reducers/profile-virgin"
-import { setGeoVirgin } from "../../../reducers/geo-virgin"
+import { setFacebookToken } from "../../../reducers/facebook-token";
+import { setProfileVirgin } from "../../../reducers/profile-virgin";
+import { setGeoVirgin } from "../../../reducers/geo-virgin";
 import { getPush } from "../../../reducers/push";
 import { saveUser } from "../../../reducers/profile-state";
 import {
@@ -44,7 +44,7 @@ import NavigationService from "../../../services/route";
 import { httpPost } from "../../../services/http";
 import { handleError } from "../../../services/http-error-handler";
 import geo_config from "../start/geolocation-config";
-import BackgroundGeolocationModule from "../../../services/background-geolocation-picker"
+import BackgroundGeolocationModule from "../../../services/background-geolocation-picker";
 //constants
 import styles from "./styles";
 import { colors } from "../../../constants/colors";
@@ -69,7 +69,7 @@ class SignIn extends React.Component {
     step: 1,
     failedSignVisible: false,
     failedConfirmVisible: false,
-    errorText: "",
+    errorText: ""
   };
 
   constructor(props) {
@@ -78,8 +78,14 @@ class SignIn extends React.Component {
   }
 
   componentDidMount() {
-    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
-    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+    this.keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      this._keyboardDidShow
+    );
+    this.keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      this._keyboardDidHide
+    );
     this.props.loaderState(false);
   }
   componentWillUnmount() {
@@ -89,51 +95,48 @@ class SignIn extends React.Component {
   _keyboardDidShow = () => {
     Animated.timing(this.state.signInMargin, {
       duration: 100,
-      toValue: 0,
+      toValue: 0
     }).start();
-  }
+  };
 
   _keyboardDidHide = () => {
     Animated.timing(this.state.signInMargin, {
       duration: 100,
-      toValue: 40,
+      toValue: 40
     }).start();
-  }
+  };
   setFailedSignVisible = visible => {
     this.setState({ failedSignVisible: visible });
   };
   setFailedConfirmVisible = visible => {
     this.setState({ failedConfirmVisible: visible });
   };
-  mask = (text) => {
+  mask = text => {
     let phoneCopy = text;
     let maskedPhone = this.mphone(phoneCopy);
     if (phoneCopy != maskedPhone) {
-      this.setState({ phone: maskedPhone })
+      this.setState({ phone: maskedPhone });
     }
-  }
+  };
 
-  mphone = (v) => {
+  mphone = v => {
     let r = v.replace(/\D/g, "");
     r = r.replace(/^0/, "");
     if (r.length > 8) {
       // 11+ digits.
       r = r.replace(/^(\d{2})(\d{3})(\d{0,3})(\d{0,5}).*/, "$1 $2 $3 $4");
-    }
-    else if (r.length > 5) {
+    } else if (r.length > 5) {
       // 6..10 digits. Format as 4+4
       r = r.replace(/^(\d{2})(\d{0,3})(\d{0,5}).*/, "$1 $2 $3");
-    }
-    else if (r.length > 2) {
+    } else if (r.length > 2) {
       // 3..5 digits.
       r = r.replace(/^(\d{2})(\d{0,3})/, "$1 $2");
-    }
-    else {
+    } else {
       // 0..2 digits.
       r = r.replace(/^(\d*)/, "$1");
     }
     return r;
-  }
+  };
 
   onChangedPhone(text) {
     this.setState({ numberNotExists: false });
@@ -141,13 +144,13 @@ class SignIn extends React.Component {
     let phonePattern = /^.+$/;
     if (phonePattern.test(text)) {
       newText = text;
-      this.setState({ acceptButton: newText.length >= 14 });
+      this.setState({ acceptButton: newText.length >= 15 });
     } else {
       this.setState({ acceptButton: false });
       newText = text.substring(0, text.length - 1);
     }
-    this.setState({ phone: newText })
-    this.mask(newText)
+    this.setState({ phone: newText });
+    this.mask(newText);
   }
 
   onChangedCode(text) {
@@ -169,83 +172,83 @@ class SignIn extends React.Component {
     Keyboard.dismiss();
     this.setFailedSignVisible(false);
     this.props.loaderState(true);
-    let bodyPhone = this.state.phone.replace(/\D/g, '')
+    let bodyPhone = this.state.phone.replace(/\D/g, "");
     let body = {
       phone: "+" + bodyPhone
     };
     let promise = httpPost(urls.sing_in, JSON.stringify(body));
     promise.then(
       result => {
-        console.log(result)
+        console.log(result);
         this.setFailedSignVisible(false);
         //this.props.loaderState(false); //DEPRECATED uncomment
         this.setState({ step: 2, acceptButton: false });
-        this.confirmLogin() //DEPRECATED
+        this.confirmLogin(); //DEPRECATED
       },
       error => {
-        let error_respons = handleError(error, body, urls.sign_in, "", this.constructor.name, "login");
+        let error_respons = handleError(
+          error,
+          body,
+          urls.sign_in,
+          "",
+          this.constructor.name,
+          "login"
+        );
         this.setState({ errorText: error_respons.error_text });
         if (error_respons.error_code == 400) {
           this.setState({ numberNotExists: true });
-        }
-        else {
+        } else {
           this.setFailedSignVisible(error_respons.error_modal);
         }
         this.props.loaderState(false);
       }
     );
   };
-  isFblogged = (token) => {
+  isFblogged = token => {
     this.props.loaderState(true);
     let body = JSON.stringify({});
-    let promise = httpPost(
-      urls.facebook_is_logged,
-      body,
-      token
-    );
+    let promise = httpPost(urls.facebook_is_logged, body, token);
     promise.then(
       result => {
-        console.log(result)
+        console.log(result);
         if (result.body.logged && result.body.active && result.body.token) {
           this.props.setFacebookToken(result.body.token);
-          Platform.OS === "ios" && AccessToken.setCurrentAccessToken({ accessToken: result.body.token })
+          Platform.OS === "ios" &&
+            AccessToken.setCurrentAccessToken({
+              accessToken: result.body.token
+            });
         }
         this.props.loaderState(false);
-
       },
       error => {
-        console.log(error)
+        console.log(error);
         this.props.loaderState(false);
       }
     );
-  }
-  isInstalogged = (token) => {
+  };
+  isInstalogged = token => {
     this.props.loaderState(true);
     let body = JSON.stringify({});
-    let promise = httpPost(
-      urls.insta_is_logged,
-      body,
-      token
-    );
+    let promise = httpPost(urls.insta_is_logged, body, token);
     promise.then(
       result => {
-        console.log(result)
+        console.log(result);
         if (result.body.logged && result.body.active && result.body.token) {
           this.props.setInstaToken(result.body.token);
         }
         this.props.loaderState(false);
       },
       error => {
-        console.log(error)
+        console.log(error);
         this.props.loaderState(false);
       }
     );
-  }
+  };
   confirmLogin = () => {
     Keyboard.dismiss();
     this.setFailedConfirmVisible(false);
     this.props.loaderState(true);
-    let bodyPhone = this.state.phone.replace(/\D/g, '')
+    let bodyPhone = this.state.phone.replace(/\D/g, "");
     let body = {
       phone: "+" + bodyPhone,
       code: this.state.code
@@ -253,7 +256,7 @@ class SignIn extends React.Component {
     let promise = httpPost(urls.sing_in_confirm, JSON.stringify(body));
     promise.then(
       result => {
-        console.log('result', result)
+        console.log("result", result);
         this.setFailedConfirmVisible(false);
         this.props.loaderState(false);
         const user_info = {
@@ -264,23 +267,31 @@ class SignIn extends React.Component {
           birthDay: result.body.birthDay,
           currency: result.body.currency
         };
-        this.props.getPush(result.body.token)
+        this.props.getPush(result.body.token);
         this.props.saveUser(user_info);
-        this.props.setColor(user_info.sex)
+        this.props.setColor(user_info.sex);
         this.props.setToken(result.body.token);
         this.props.setBalance(result.body.balance.toFixed(2));
-        this.props.setProfileVirgin(result.body.profile_virgin)
-        this.props.setGeoVirgin(result.body.geo_virgin)
+        this.props.setProfileVirgin(result.body.profile_virgin);
+        this.props.setGeoVirgin(result.body.geo_virgin);
         this.isFblogged(result.body.token);
         this.isInstalogged(result.body.token);
         NavigationService.navigate("Main");
       },
       error => {
         this.props.loaderState(false);
-        let error_respons = handleError(error, body, urls.sing_in_confirm, "", this.constructor.name, "confirmLogin");
+        let error_respons = handleError(
+          error,
+          body,
+          urls.sing_in_confirm,
+          "",
+          this.constructor.name,
+          "confirmLogin"
+        );
         this.setState({ errorText: error_respons.error_text });
         this.setFailedConfirmVisible(error_respons.error_modal);
-        if (error_respons.error_code === 400) this.setState({ invalidCode: true });
+        if (error_respons.error_code === 400)
+          this.setState({ invalidCode: true });
       }
     );
   };
@@ -346,7 +357,7 @@ class SignIn extends React.Component {
                   this.onChangedPhone(text);
                 }}
                 value={this.state.phone}
-                maxLength={18}
+                maxLength={15}
                 keyboardType="numeric"
                 prefix={this.prefix}
               />
@@ -361,7 +372,11 @@ class SignIn extends React.Component {
               </Text>
               <Animated.View style={[{ marginTop: this.state.signInMargin }]}>
                 <CustomButton
-                  color={this.state.acceptButton ? this.props.userColor.pink : this.props.userColor.white}
+                  color={
+                    this.state.acceptButton
+                      ? this.props.userColor.pink
+                      : this.props.userColor.white
+                  }
                   handler={() => {
                     this.login();
                   }}
@@ -373,7 +388,9 @@ class SignIn extends React.Component {
           ) : this.state.step == 2 ? (
             <View style={styles.form}>
               <Text style={styles.code_sent}>{PickedLanguage.CODE_SENT}</Text>
-              <Text style={styles.enter_code}>{PickedLanguage.ENTER_CODE_SIDN_IN}</Text>
+              <Text style={styles.enter_code}>
+                {PickedLanguage.ENTER_CODE_SIDN_IN}
+              </Text>
               <TextField
                 label={""}
                 style={styles.code_input}
@@ -389,11 +406,17 @@ class SignIn extends React.Component {
                 onChangeText={text => this.onChangedCode(text)}
               />
               {this.state.invalidCode ? (
-                <Text style={styles.check_code}>{PickedLanguage.CHECK_CODE}</Text>
+                <Text style={styles.check_code}>
+                  {PickedLanguage.CHECK_CODE}
+                </Text>
               ) : null}
               <Animated.View style={[{ marginTop: this.state.signInMargin }]}>
                 <CustomButton
-                  color={this.state.acceptButton ? this.props.userColor.pink : this.props.userColor.white}
+                  color={
+                    this.state.acceptButton
+                      ? this.props.userColor.pink
+                      : this.props.userColor.white
+                  }
                   handler={() => {
                     this.confirmLogin();
                   }}
