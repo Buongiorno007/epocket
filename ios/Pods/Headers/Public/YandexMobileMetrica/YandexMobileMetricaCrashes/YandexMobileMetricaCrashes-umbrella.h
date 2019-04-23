@@ -1,0 +1,1 @@
+../../../../YandexMobileMetrica/static/YandexMobileMetricaCrashes.framework/Versions/A/Headers/YandexMobileMetricaCrashes-umbrella.h

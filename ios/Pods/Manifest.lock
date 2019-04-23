@@ -8,49 +8,51 @@ PODS:
   - boost-for-react-native (1.63.0)
   - BVLinearGradient (2.5.3):
     - React
-  - CocoaLumberjack (3.5.1):
-    - CocoaLumberjack/Core (= 3.5.1)
-  - CocoaLumberjack/Core (3.5.1)
+  - CocoaLumberjack (3.5.2):
+    - CocoaLumberjack/Core (= 3.5.2)
+  - CocoaLumberjack/Core (3.5.2)
   - Crashlytics (3.12.0):
     - Fabric (~> 1.9.0)
   - DoubleConversion (1.1.6)
   - Fabric (1.9.0)
-  - FBSDKCoreKit (4.40.0):
+  - FBSDKCoreKit (4.42.0):
     - Bolts (~> 1.9)
-  - FBSDKLoginKit (4.40.0):
+  - FBSDKLoginKit (4.42.0):
     - FBSDKCoreKit
-  - FBSDKShareKit (4.40.0):
+  - FBSDKShareKit (4.42.0):
     - FBSDKCoreKit
-  - Firebase/Core (5.17.0):
+  - Firebase/Core (5.20.2):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (= 5.6.0)
-  - Firebase/CoreOnly (5.17.0):
-    - FirebaseCore (= 5.3.0)
-  - Firebase/Messaging (5.17.0):
+    - FirebaseAnalytics (= 5.8.1)
+  - Firebase/CoreOnly (5.20.2):
+    - FirebaseCore (= 5.4.1)
+  - Firebase/Messaging (5.20.2):
     - Firebase/CoreOnly
-    - FirebaseMessaging (= 3.3.1)
-  - FirebaseAnalytics (5.6.0):
-    - FirebaseCore (~> 5.3)
-    - FirebaseInstanceID (~> 3.5)
-    - GoogleAppMeasurement (= 5.6.0)
+    - FirebaseMessaging (= 3.5.0)
+  - FirebaseAnalytics (5.8.1):
+    - FirebaseCore (~> 5.4)
+    - FirebaseInstanceID (~> 3.8)
+    - GoogleAppMeasurement (= 5.8.1)
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
     - GoogleUtilities/Network (~> 5.2)
     - "GoogleUtilities/NSData+zlib (~> 5.2)"
     - nanopb (~> 0.3)
   - FirebaseAnalyticsInterop (1.2.0)
-  - FirebaseCore (5.3.0):
+  - FirebaseCore (5.4.1):
+    - GoogleUtilities/Environment (~> 5.2)
     - GoogleUtilities/Logger (~> 5.2)
-  - FirebaseInstanceID (3.5.0):
-    - FirebaseCore (~> 5.3)
-    - GoogleUtilities/Environment (~> 5.3)
-    - GoogleUtilities/UserDefaults (~> 5.3)
-  - FirebaseMessaging (3.3.1):
+  - FirebaseInstanceID (3.8.1):
+    - FirebaseCore (~> 5.2)
+    - GoogleUtilities/Environment (~> 5.2)
+    - GoogleUtilities/UserDefaults (~> 5.2)
+  - FirebaseMessaging (3.5.0):
     - FirebaseAnalyticsInterop (~> 1.1)
     - FirebaseCore (~> 5.2)
-    - FirebaseInstanceID (~> 3.4)
-    - GoogleUtilities/Environment (~> 5.2)
-    - GoogleUtilities/Reachability (~> 5.2)
+    - FirebaseInstanceID (~> 3.6)
+    - GoogleUtilities/Environment (~> 5.3)
+    - GoogleUtilities/Reachability (~> 5.3)
+    - GoogleUtilities/UserDefaults (~> 5.3)
     - Protobuf (~> 3.1)
   - FLAnimatedImage (1.0.12)
   - Folly (2016.10.31.00):
@@ -74,7 +76,7 @@ PODS:
     - GoogleMaps
   - Google-Maps-iOS-Utils/QuadTree (2.1.0):
     - GoogleMaps
-  - GoogleAppMeasurement (5.6.0):
+  - GoogleAppMeasurement (5.8.1):
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
     - GoogleUtilities/Network (~> 5.2)
@@ -85,23 +87,23 @@ PODS:
   - GoogleMaps/Base (2.5.0)
   - GoogleMaps/Maps (2.5.0):
     - GoogleMaps/Base
-  - GoogleUtilities/AppDelegateSwizzler (5.3.7):
+  - GoogleUtilities/AppDelegateSwizzler (5.7.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (5.3.7)
-  - GoogleUtilities/Logger (5.3.7):
+  - GoogleUtilities/Environment (5.7.0)
+  - GoogleUtilities/Logger (5.7.0):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (5.3.7):
+  - GoogleUtilities/MethodSwizzler (5.7.0):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (5.3.7):
+  - GoogleUtilities/Network (5.7.0):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (5.3.7)"
-  - GoogleUtilities/Reachability (5.3.7):
+  - "GoogleUtilities/NSData+zlib (5.7.0)"
+  - GoogleUtilities/Reachability (5.7.0):
     - GoogleUtilities/Logger
-  - GoogleUtilities/UserDefaults (5.3.7):
+  - GoogleUtilities/UserDefaults (5.7.0):
     - GoogleUtilities/Logger
   - jail-monkey (2.1.1):
     - React
@@ -110,7 +112,7 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
-  - Protobuf (3.6.1)
+  - Protobuf (3.7.0)
   - React (0.57.5):
     - React/Core (= 0.57.5)
   - react-native-camera (2.6.0):
@@ -139,6 +141,10 @@ PODS:
     - React
   - react-native-fbsdk/Share (0.8.0):
     - FBSDKShareKit
+    - React
+  - react-native-google-analytics-bridge (7.1.0):
+    - react-native-google-analytics-bridge/Core (= 7.1.0)
+  - react-native-google-analytics-bridge/Core (7.1.0):
     - React
   - react-native-google-maps (0.22.1):
     - Google-Maps-iOS-Utils (= 2.1.0)
@@ -219,10 +225,18 @@ PODS:
     - React
   - RNVectorIcons (6.1.0):
     - React
-  - SDWebImage/Core (4.4.5)
-  - SDWebImage/GIF (4.4.5):
+  - SDWebImage/Core (4.4.6)
+  - SDWebImage/GIF (4.4.6):
     - FLAnimatedImage (~> 1.0)
     - SDWebImage/Core
+  - YandexMobileMetrica (3.6.0):
+    - YandexMobileMetrica/Static (= 3.6.0)
+  - YandexMobileMetrica/Static (3.6.0):
+    - YandexMobileMetrica/Static/Core (= 3.6.0)
+    - YandexMobileMetrica/Static/Crashes (= 3.6.0)
+  - YandexMobileMetrica/Static/Core (3.6.0)
+  - YandexMobileMetrica/Static/Crashes (3.6.0):
+    - YandexMobileMetrica/Static/Core
   - yoga (0.57.5.React)
 
 DEPENDENCIES:
@@ -230,6 +244,9 @@ DEPENDENCIES:
   - Crashlytics
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - Fabric
+  - FBSDKCoreKit (~> 4.42.0)
+  - FBSDKLoginKit (~> 4.42.0)
+  - FBSDKShareKit (~> 4.42.0)
   - Firebase/Core
   - Firebase/Messaging
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
@@ -240,6 +257,7 @@ DEPENDENCIES:
   - react-native-camera (from `../node_modules/react-native-camera`)
   - react-native-fast-image (from `../node_modules/react-native-fast-image`)
   - react-native-fbsdk (from `../node_modules/react-native-fbsdk`)
+  - react-native-google-analytics-bridge (from `../node_modules/react-native-google-analytics-bridge`)
   - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-maps (from `../node_modules/react-native-maps`)
@@ -266,6 +284,7 @@ DEPENDENCIES:
   - RNSound (from `../node_modules/react-native-sound`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
+  - YandexMobileMetrica (= 3.6.0)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/yoga.podspec`)
 
 SPEC REPOS:
@@ -292,6 +311,7 @@ SPEC REPOS:
     - nanopb
     - Protobuf
     - SDWebImage
+    - YandexMobileMetrica
 
 EXTERNAL SOURCES:
   BVLinearGradient:
@@ -312,6 +332,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-fast-image"
   react-native-fbsdk:
     :path: "../node_modules/react-native-fbsdk"
+  react-native-google-analytics-bridge:
+    :path: "../node_modules/react-native-google-analytics-bridge"
   react-native-google-maps:
     :path: "../node_modules/react-native-maps"
   react-native-image-picker:
@@ -345,33 +367,34 @@ SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   BVLinearGradient: b0b70acf63ee888829b7c2ebbf6b50e227396e55
-  CocoaLumberjack: 2101f8a5508197a305e737d16c5c2e9e2157628c
+  CocoaLumberjack: 118bf4a820efc641f79fa487b75ed928dccfae23
   Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
   DoubleConversion: bb338842f62ab1d708ceb63ec3d999f0f3d98ecd
   Fabric: f988e33c97f08930a413e08123064d2e5f68d655
-  FBSDKCoreKit: ae214474b25033399c131dc81d258e412582a2ba
-  FBSDKLoginKit: 7a1e411d46acc8834588eca437daf34de42e1d52
-  FBSDKShareKit: 0e45916f4150da485928ae2a17ca021950b194f5
-  Firebase: 59d557e064217fab6a03ff00baa73c06e73832e6
-  FirebaseAnalytics: 75e4bbc6417d190cc98ec1f17c41a4fad4c2c976
+  FBSDKCoreKit: aa42f1c384775f8b075f53a43080474278e9701d
+  FBSDKLoginKit: 373830c68aa48c9e8f0bfed93a3e32d2ca8963a0
+  FBSDKShareKit: 387749259d79e4070ebb304b3fd256e4b4bc4298
+  Firebase: 0c8cf33f266410c61ab3e2265cfa412200351d9c
+  FirebaseAnalytics: ece1aa57a4f43c64d53a648b5a5e05151aae947b
   FirebaseAnalyticsInterop: efbe45c8385ec626e29f9525e5ebd38520dfb6c1
-  FirebaseCore: c0c4befb82374d6aef64d800e569f47625352edc
-  FirebaseInstanceID: 4522aad88f69297622062c0e9ffccdee3dd9b151
-  FirebaseMessaging: 08289db05bdc71d91fe70916de95bb0c3c86ca9b
+  FirebaseCore: f1a9a8be1aee4bf71a2fc0f4096df6788bdfda61
+  FirebaseInstanceID: a122b0c258720cf250551bb2bedf48c699f80d90
+  FirebaseMessaging: 4235f949ce1c4e827aeb19705ba5c53f9b85aa10
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   Folly: c89ac2d5c6ab169cd7397ef27485c44f35f742c7
   glog: e8acf0ebbf99759d3ff18c86c292a5898282dcde
   Google-Maps-iOS-Utils: c32891ff472eaaa1fca032beedafa1a013af7875
-  GoogleAppMeasurement: 008e04ecd8efedd97a693aea8634aefe220bd26e
+  GoogleAppMeasurement: ffe513e90551844a739e7bcbb1d2aca1c28a4338
   GoogleMaps: c087b8e5dfe87ca6ebf59adb9b4894a4146bec4f
-  GoogleUtilities: 111a012f4c3a29c9e7c954c082fafd6ee3c999c0
+  GoogleUtilities: 273e67030e0de313e7304f6dcfa96fc5214f6c23
   jail-monkey: f62830045fe452550b248e3ecf788ef99b0b5ee1
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
-  Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
+  Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
   React: 1fe0eb13d90b625d94c3b117c274dcfd2e760e11
   react-native-camera: 9c50d7def800895e7991ccda6203929553ceec9c
   react-native-fast-image: cba3d9bf9c2cf8ddb643d887a686c53a5dd90a2c
   react-native-fbsdk: d5f98cc5abecbcc463e3c35c04743d716d002d37
+  react-native-google-analytics-bridge: 0a86be2860b81a3562fe60ac40c0ad732340046f
   react-native-google-maps: b946d62e25dc66097921ed82520e45b0b081768a
   react-native-image-picker: b303e31c3c4ada1d7cb1342423d328d2efb07fb3
   react-native-maps: 066c2afcc89e18726377bcc685315f989ca22449
@@ -385,9 +408,10 @@ SPEC CHECKSUMS:
   RNSound: b360b3862d3118ed1c74bb9825696b5957686ac4
   RNSVG: 4834be1d644eb77f0e3f6de851881b83758a3124
   RNVectorIcons: 8c52e1e8da1153613fdef44748e865c25556cb9c
-  SDWebImage: ecc03494e973b93b80213649d32175f8d2d17d4d
+  SDWebImage: 3f3f0c02f09798048c47a5ed0a13f17b063572d8
+  YandexMobileMetrica: 11eee6732831a44aea2d81e3ae8626b5b0e129c5
   yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
-PODFILE CHECKSUM: b855c1de207f7b6a150a4e01fb5d3f07ac62e089
+PODFILE CHECKSUM: c5b0034baa9b1bb42efac91c12650ebce662217c
 
 COCOAPODS: 1.5.3
