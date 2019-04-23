@@ -19,6 +19,7 @@ import { errorState } from "../../../reducers/game-error";
 import { setLocation } from "../../../reducers/geolocation-coords";
 import { setDistance } from "../../../reducers/distance";
 import { updateMall } from "../../../reducers/selected-mall";
+import { updateClosMall } from "../../../reducers/closestMall";
 import { setOutlets } from "../../../reducers/outlet-list";
 import { setInitialOutlets } from "../../../reducers/initial-outlets";
 import { setWebSiteTimer } from "../../../reducers/website-timer";
@@ -207,6 +208,25 @@ class GameStart extends React.Component {
     let nearestMall = geolib.findNearest(my_location, newArr, 0);
     if (nearestMall) {
       let selectedTRC = mall_array.find(x => x.id === Number(nearestMall.key));
+      let distance =
+        geolib.getDistance(
+          { latitude: selectedTRC.lat, longitude: selectedTRC.lng },
+          {
+            latitude: this.props.location.lat,
+            longitude: this.props.location.lng
+          }
+        ) - selectedTRC.rad;
+      let curr_trc = {
+        active: true,
+        name: selectedTRC.name,
+        adress: selectedTRC.adress,
+        lat: Number(selectedTRC.lat),
+        lng: Number(selectedTRC.lng),
+        distance: distance,
+        id: selectedTRC.id,
+        rad: selectedTRC.rad
+      };
+      this.props.updateClosMall(curr_trc);
       try {
         this.selectMark(selectedTRC, ANIMATE_MAP, "task");
       } catch (e) {}
@@ -280,50 +300,37 @@ class GameStart extends React.Component {
           this.constructor.name,
           "loadTRC"
         );
-        this.setState({ errorText: error_respons.error_text });
-        this.setModalVisible(error_respons.error_modal);
-      }
-    );
-  };
-  goToMap = () => {
-    NavigationService.navigate("Main");
-    this.props.setNavigateToMall(true);
-    this.props.setTabState(1);
-  };
-  startTimer = () => {
-    this.setState({
-      interval: setCorrectingInterval(() => {
-        if (this.props.game_info.wait_timer_in_sec <= 1) {
-          clearCorrectingInterval(this.state.interval);
-        }
-        this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec);
-      }, 1000)
     });
-  };
-  openWebSite = () => {
-    this.startTimer();
-  };
-  closeBrandWebSite = () => {
-    this.setState({ website_visible: false });
-    clearCorrectingInterval(this.state.interval);
-    this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec);
-  };
-  forceRemoveTicker = () => {
-    this.props.loaderState(true);
-    let promise = httpPost(
-      urls.force_remove_ticker,
-      JSON.stringify({}),
-      this.props.token
-    );
-    promise.then(
-      result => {
-        console.log(result);
-        this.setState({ website_visible: false });
-        this.props.loaderState(false);
-        this.props.getGameInfo(
-          this.props.token,
-          this.props.location.lat,
-          this.props.location.lng
+    goToMap = () => {
+        NavigationService.navigate("Main")
+        this.props.setNavigateToMall(true)
+        this.props.setTabState(1)
+    }
+    startTimer = () => {
+        this.setState({
+            interval:
+                setCorrectingInterval(() => {
+                    if (this.props.game_info.wait_timer_in_sec <= 1) {
+                        clearCorrectingInterval(this.state.interval);
+                    }
+                    this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec)
+                }, 1000)
+        })
+    }
+    openWebSite = () => {
+        this.startTimer();
+    }
+    closeBrandWebSite = () => {
+        this.setState({ website_visible: false })
+        clearCorrectingInterval(this.state.interval);
+        this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec)
+    }
+    forceRemoveTicker = () => {
+        this.props.loaderState(true);
+        let promise = httpPost(
+            urls.force_remove_ticker,
+            JSON.stringify({}),
+            this.props.token
         );
         this.closeBrandWebSite();
       },
@@ -338,7 +345,6 @@ class GameStart extends React.Component {
         );
         this.props.loaderState(false);
       }
-    );
   };
   _renderPartnerCard = ({ item, index }) => {
     return (
@@ -603,6 +609,7 @@ const mapDispatchToProps = dispatch =>
       setDistance,
       setWebSiteTimer,
       updateMall,
+      updateClosMall,
       loaderState,
       setTabState,
       launchGameExpiredTimer,
