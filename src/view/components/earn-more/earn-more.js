@@ -15,7 +15,7 @@ import InstagramLogin from '../../../services/Instagram'
 import { formatItem } from '../../../services/format-hastags'
 import { httpPost } from "../../../services/http";
 import { convertToBase64 } from "../../../services/convert-to-base64"
-import { postToSocial } from "../../../services/post-to-social"
+import { postToSocialStory } from "../../../services/post-to-social"
 
 //redux
 import { connect } from "react-redux";
@@ -104,12 +104,12 @@ class EarnMore extends React.Component {
     let new_insta_data = this.props.navigation.state.params.insta_data
     this.props.loaderState(true);
     if (new_insta_data.video && Platform.OS === "ios") {
-      postToSocial(this.props.navigation.state.params.insta_data, 'https://www.instagram.com/epocketapp/', this.confirmPost, new_insta_data.video);
+      postToSocialStory(this.props.navigation.state.params.insta_data, 'https://www.instagram.com/epocketapp/', this.confirmPost, new_insta_data.video);
     } else {
       convertToBase64(new_insta_data.img_url).then(
         result => {
           new_insta_data.base64 = 'data:image/jpg;base64,' + result
-          postToSocial(this.props.navigation.state.params.insta_data, 'https://www.instagram.com/epocketapp/', this.confirmPost);
+          postToSocialStory(this.props.navigation.state.params.insta_data, 'https://www.instagram.com/epocketapp/', this.confirmPost);
         }
       )
     }

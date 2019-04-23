@@ -31,7 +31,7 @@ import "../../../services/correcting-interval";
 import { toHHMMSS } from "./../../../services/convert-time"
 import InstagramLogin from '../../../services/Instagram';
 import { httpPost } from "../../../services/http";
-import { postToSocial } from "../../../services/post-to-social"
+import { postToSocialStory } from "../../../services/post-to-social"
 
 class GameStart extends React.Component {
     state = {
@@ -153,10 +153,10 @@ class GameStart extends React.Component {
     shareToInsta = () => {
         this.props.loaderState(true);
         if (Platform.OS === "ios") {
-            postToSocial(this.props.game_expired_img, 'https://www.instagram.com/epocketapp/', this.confirmPost, this.props.game_expired_img.video);
+            postToSocialStory(this.props.game_expired_img, 'https://www.instagram.com/epocketapp/', this.confirmPost, this.props.game_expired_img.video);
         }
         else {
-            postToSocial(this.props.game_expired_img, 'https://www.instagram.com/epocketapp/', this.confirmPost);
+            postToSocialStory(this.props.game_expired_img, 'https://www.instagram.com/epocketapp/', this.confirmPost);
         }
     }
     startTimerWebsite = () => {

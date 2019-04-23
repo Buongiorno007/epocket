@@ -33,7 +33,7 @@ import { convertToBase64 } from "./../../../services/convert-to-base64"
 import InstagramLogin from '../../../services/Instagram';
 import { httpPost, httpGet } from "../../../services/http";
 import { handleError } from "../../../services/http-error-handler";
-import { postToSocial } from "../../../services/post-to-social"
+import { postToSocialStory } from "../../../services/post-to-social"
 //containers
 import CustomAlert from "../../containers/custom-alert/custom-alert";
 import CustomButton from '../../containers/custom-button/custom-button';
@@ -223,10 +223,10 @@ class GameResult extends React.Component {
     shareToInsta = () => {
         this.props.loaderState(true);
         if (Platform.OS === "ios") {
-            postToSocial(this.props.navigation.state.params.insta_data, 'https://www.instagram.com/epocketapp/', this.confirmPost, this.props.navigation.state.params.insta_data.video);
+            postToSocialStory(this.props.navigation.state.params.insta_data, 'https://www.instagram.com/epocketapp/', this.confirmPost, this.props.navigation.state.params.insta_data.video);
         }
         else {
-            postToSocial(this.props.navigation.state.params.insta_data, 'https://www.instagram.com/epocketapp/', this.confirmPost);
+            postToSocialStory(this.props.navigation.state.params.insta_data, 'https://www.instagram.com/epocketapp/', this.confirmPost);
         }
     }
     _handleAppStateChange = (nextAppState) => {
