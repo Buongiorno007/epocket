@@ -22,6 +22,7 @@ import { setPushStatus } from "../reducers/push-send-status";
 //constants
 import { urls } from "../constants/urls";
 import firebase from "react-native-firebase";
+import I18n from "@locales/I18n";
 
 class GeolocationService extends React.Component {
   state = {
@@ -173,7 +174,7 @@ class GeolocationService extends React.Component {
           this.props.setPushStatus(true);
         }
         if (distance <= 100 && !nextProps.pushSendStaus) {
-          this.sendDistancePush(PickedLanguage.PUSH_MESSAGE.PUSH_3);
+          this.sendDistancePush(I18n.t("PUSH_MESSAGE.PUSH_3"));
           this.props.setPushStatus(true);
         }
         if (
@@ -183,12 +184,12 @@ class GeolocationService extends React.Component {
         ) {
           this.props.showDashboard(true);
           this.props.showTimer(false);
-          this.sendDistancePush(PickedLanguage.PUSH_MESSAGE.PUSH_4);
+          this.sendDistancePush(I18n.t("PUSH_MESSAGE.PUSH_4"));
         }
         if (distance > 0 && this.props.timer_status) {
           this.props.showDashboard(false);
           this.props.showTimer(true);
-          this.sendDistancePush(PickedLanguage.PUSH_MESSAGE.PUSH_5);
+          this.sendDistancePush(I18n.t("PUSH_MESSAGE.PUSH_5"));
         }
       }
     }
