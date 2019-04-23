@@ -166,7 +166,8 @@ subprojects {
     }
 }
 dependencies {
-    compile project(':react-native-fbsdk')
+    implementation project(':react-native-i18n')
+    implementation project(':react-native-fbsdk')
     implementation project(':react-native-google-analytics-bridge')
     implementation project(':react-native-udp')
     implementation project(':react-native-mock-location-detector')

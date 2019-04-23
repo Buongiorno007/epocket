@@ -71,6 +71,8 @@ target 'EpocketCash' do
   pod 'react-native-google-analytics-bridge', :path => '../node_modules/react-native-google-analytics-bridge'
   
   pod 'YandexMobileMetrica', '3.6.0'
+  pod 'RNI18n', :path => '../node_modules/react-native-i18n'
+
 end
   post_install do |installer|
     installer.pods_project.targets.each do |target|

@@ -214,6 +214,8 @@ PODS:
     - React
   - RNFS (2.13.3):
     - React
+  - RNI18n (2.0.15):
+    - React
   - RNInstagramStoryShare (0.1.0):
     - React
   - RNSound (0.10.9):
@@ -280,6 +282,7 @@ DEPENDENCIES:
   - RNBackgroundFetch (from `../node_modules/react-native-background-fetch`)
   - RNBackgroundGeolocation (from `../node_modules/react-native-background-geolocation`)
   - RNFS (from `../node_modules/react-native-fs`)
+  - RNI18n (from `../node_modules/react-native-i18n`)
   - RNInstagramStoryShare (from `../node_modules/react-native-instagram-story-share/ios`)
   - RNSound (from `../node_modules/react-native-sound`)
   - RNSVG (from `../node_modules/react-native-svg`)
@@ -352,6 +355,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-background-geolocation"
   RNFS:
     :path: "../node_modules/react-native-fs"
+  RNI18n:
+    :path: "../node_modules/react-native-i18n"
   RNInstagramStoryShare:
     :path: "../node_modules/react-native-instagram-story-share/ios"
   RNSound:
@@ -404,6 +409,7 @@ SPEC CHECKSUMS:
   RNBackgroundFetch: a69474a56716afcff6325f6f80d181abe084ec4d
   RNBackgroundGeolocation: 8e1c54babe6c7ab4f940fc01229aa8b4ffa86f5e
   RNFS: c9bbde46b0d59619f8e7b735991c60e0f73d22c1
+  RNI18n: e2f7e76389fcc6e84f2c8733ea89b92502351fd8
   RNInstagramStoryShare: 357c8df36c9152ba4626bd01dcd0a61010a416cb
   RNSound: 53d2fc9c6589bd68daba530262b7560393def3ac
   RNSVG: 5f9985c28d7a09445b3b464ed6c44e969493705c
@@ -412,6 +418,6 @@ SPEC CHECKSUMS:
   YandexMobileMetrica: 11eee6732831a44aea2d81e3ae8626b5b0e129c5
   yoga: a5c0ba30ebe82c13612b4c9301ad29708b8978dc
 
-PODFILE CHECKSUM: c5b0034baa9b1bb42efac91c12650ebce662217c
+PODFILE CHECKSUM: 6fb70e82787ccbb45adfb711ae3bc61d5c0f7725
 
 COCOAPODS: 1.7.0.beta.3

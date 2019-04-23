@@ -8,6 +8,7 @@ import com.facebook.appevents.AppEventsLogger;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.ReactApplication;
+import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.idehub.GoogleAnalyticsBridge.GoogleAnalyticsBridgePackage;
 import com.tradle.react.UdpSocketsModule;
@@ -82,7 +83,7 @@ public class MainApplication extends Application implements ShareApplication, Re
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new FBSDKPackage(),
+            new RNI18nPackage(),
             new GoogleAnalyticsBridgePackage(),
             new UdpSocketsModule(),
             new RNMockLocationDetectorPackage(),

@@ -6,10 +6,10 @@ import {
   Text,
   AppState,
   Platform,
-  TouchableHighlight,
+  TouchableHighlight
 } from "react-native";
 import { Button } from "native-base";
-import FastImage from 'react-native-fast-image'
+import FastImage from "react-native-fast-image";
 import LinearGradient from "react-native-linear-gradient";
 //constants
 import styles from "./styles";
@@ -24,13 +24,19 @@ import { showFailedNotification } from "../../../reducers/main-task-failed-notif
 class TimerModal extends React.Component {
   render() {
     return (
-      <View style={[styles.main_task,
-      Platform.OS === "ios" && !this.props.doneNotification && !this.props.failedNotification && { display: "none" }]}>
-        {this.props.doneNotification &&
+      <View
+        style={[
+          styles.main_task,
+          Platform.OS === "ios" &&
+            !this.props.doneNotification &&
+            !this.props.failedNotification && { display: "none" }
+        ]}
+      >
+        {this.props.doneNotification && (
           <View style={[styles.main_task_done]}>
             <FastImage
               resizeMode={FastImage.resizeMode.contain}
-              source={require('../../../assets/img/ANIMATED_EARN_MORE.gif')}
+              source={require("../../../assets/img/ANIMATED_EARN_MORE.gif")}
               style={styles.image}
             />
             <LinearGradient
@@ -41,27 +47,53 @@ class TimerModal extends React.Component {
             />
             <View style={styles.main_task_done_content}>
               <Text style={styles.text_big}>{PickedLanguage.CONGRAT}</Text>
-              <Text style={styles.text}>{PickedLanguage.GOT_EPC + this.props.doneMissionCost + " " + PickedLanguage.EPC + PickedLanguage.FOR_TRC}</Text>
-              <Text style={styles.text_small}>{PickedLanguage.COME_TOMMOROW}</Text>
+              <Text style={styles.text}>
+                {PickedLanguage.GOT_EPC +
+                  this.props.doneMissionCost +
+                  " " +
+                  PickedLanguage.EPC +
+                  PickedLanguage.FOR_TRC}
+              </Text>
+              <Text style={styles.text_small}>
+                {PickedLanguage.COME_TOMMOROW}
+              </Text>
 
               <Button
                 transparent
                 style={styles.confirm_button}
                 onPress={() => {
                   this.props.showDoneNotification(false);
-                  try { this.props.activeTab === 2 && this.props.callTimer() } catch (e) { }
+                  try {
+                    this.props.activeTab === 2 && this.props.callTimer();
+                  } catch (e) {}
                 }}
               >
-                <Text style={[styles.confirm_button_text, { color: this.props.userColor.second_gradient_color }]}>{PickedLanguage.OK}</Text>
+                <Text
+                  style={[
+                    styles.confirm_button_text,
+                    { color: this.props.userColor.second_gradient_color }
+                  ]}
+                >
+                  {PickedLanguage.OK}
+                </Text>
               </Button>
             </View>
           </View>
-        }
-        {this.props.failedNotification &&
+        )}
+        {this.props.failedNotification && (
           <View style={[styles.main_task_done, styles.backgroundColorWhite]}>
-            <View style={[styles.main_task_done_content, styles.backgroundColorWhite]}>
-              <Text style={[styles.text_big, styles.textBlack]}>{PickedLanguage.MAIN_TASK_FAILED}</Text>
-              <Text style={[styles.text, styles.textBlack]}>{PickedLanguage.MAIN_TASK_FAILURE_REASON}</Text>
+            <View
+              style={[
+                styles.main_task_done_content,
+                styles.backgroundColorWhite
+              ]}
+            >
+              <Text style={[styles.text_big, styles.textBlack]}>
+                {PickedLanguage.MAIN_TASK_FAILED}
+              </Text>
+              <Text style={[styles.text, styles.textBlack]}>
+                {PickedLanguage.MAIN_TASK_FAILURE_REASON}
+              </Text>
               <Button
                 transparent
                 style={styles.confirm_button}
@@ -70,17 +102,22 @@ class TimerModal extends React.Component {
                 }}
               >
                 <LinearGradient
-                  colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
+                  colors={[
+                    this.props.userColor.first_gradient_color,
+                    this.props.userColor.second_gradient_color
+                  ]}
                   start={{ x: 0.0, y: 1.0 }}
                   end={{ x: 1.0, y: 1.0 }}
                   style={styles.confirm_button}
                 />
-                <Text style={[styles.confirm_button_text, styles.textWhite]}>{PickedLanguage.OK}</Text>
+                <Text style={[styles.confirm_button_text, styles.textWhite]}>
+                  {PickedLanguage.OK}
+                </Text>
               </Button>
             </View>
           </View>
-        }
-      </View >
+        )}
+      </View>
     );
   }
 }

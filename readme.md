@@ -4,7 +4,7 @@
 4) if FBSDK     /pod 'FBSDKCoreKit', '~> 4.42.0'   /
                / pod 'FBSDKLoginKit', '~> 4.42.0' /
               /  pod 'FBSDKShareKit', '~> 4.42.0'/
-
+5) react-native-google-analytics 15.0.0
 
 #EpocketCash
 
