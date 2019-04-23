@@ -121,7 +121,6 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
                                 hash_tag: game.hash_tag,
                             }
                         }
-                        console.log(info.wait_timer_in_sec, "wait_timer_in_sec")
                         dispatch(setGameInfo(info))
                         dispatch(setFixedTime(game.time))
                         dispatch(setTempTime(game.time))
