@@ -16,7 +16,6 @@ import CustomAlert from "../../containers/custom-alert/custom-alert";
 import Blur from "../../containers/blur/blur";
 //constants
 import styles from "./styles";
-import PickedLanguage from "../../../locales/language-picker";
 import { colors } from "../../../constants/colors_men";
 //redux
 import { setBalance } from "../../../reducers/user-balance";
@@ -24,7 +23,7 @@ import { setColor } from "../../../reducers/user-color";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { saveUser } from "../../../reducers/profile-state";
-import { setProfileVirgin } from "../../../reducers/profile-virgin"
+import { setProfileVirgin } from "../../../reducers/profile-virgin";
 import { loaderState } from "../../../reducers/loader";
 //service
 import { httpPost } from "../../../services/http";
@@ -35,6 +34,7 @@ import NavigationService from "../../../services/route";
 import { TextField } from "react-native-material-textfield";
 import { LinearTextGradient } from "react-native-text-gradient";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
+import I18n from "@locales/I18n";
 
 const keyboardVerticalOffset = Platform.OS === "ios" ? -20 : -10;
 class ProfileEdit extends React.Component {
@@ -44,11 +44,14 @@ class ProfileEdit extends React.Component {
   state = {
     user: {
       username: this.props.navigation.state.params.async_storage_user.user_name,
-      photo: this.props.navigation.state.params.async_storage_user.user_photo_url,
+      photo: this.props.navigation.state.params.async_storage_user
+        .user_photo_url,
       phone: this.props.navigation.state.params.async_storage_user.user_phone,
-      birthDay: this.props.navigation.state.params.async_storage_user.user_birthDay,
+      birthDay: this.props.navigation.state.params.async_storage_user
+        .user_birthDay,
       sex: this.props.navigation.state.params.async_storage_user.user_sex,
-      currency: this.props.navigation.state.params.async_storage_user.user_currency,
+      currency: this.props.navigation.state.params.async_storage_user
+        .user_currency
     },
     modalVisible: false,
     exitVisible: false,
@@ -81,8 +84,11 @@ class ProfileEdit extends React.Component {
     this.setExitVisible(true);
   };
   SubmitEdit = () => {
-    if (!this.state.user.username ||
-      this.props.birthday === "" || !this.state.user.photo) {
+    if (
+      !this.state.user.username ||
+      this.props.birthday === "" ||
+      !this.state.user.photo
+    ) {
       this.setModalVisible(true);
     } else {
       this.props.loaderState(true);
@@ -93,7 +99,7 @@ class ProfileEdit extends React.Component {
         birthDay: this.props.birthday,
         photo: "data:image/jpeg;base64," + this.state.user.photo
       };
-      console.log(body)
+      console.log(body);
       let promise = httpPost(
         urls.edit_profile_data,
         serializeJSON(body),
@@ -102,8 +108,8 @@ class ProfileEdit extends React.Component {
       );
       promise.then(
         result => {
-          this.props.setBalance(result.body.balance.amount)
-          this.props.setProfileVirgin(false)
+          this.props.setBalance(result.body.balance.amount);
+          this.props.setProfileVirgin(false);
           this.setRejectVisible(false);
           let user = {
             name: this.state.user.username,
@@ -111,20 +117,26 @@ class ProfileEdit extends React.Component {
             sex: this.state.user.sex,
             birthDay: this.props.birthday,
             phone: this.state.user.phone,
-            currency: this.state.user.currency,
+            currency: this.state.user.currency
           };
           if (user.sex) {
-            this.props.setColor(true)
-          }
-          else {
-            this.props.setColor(false)
+            this.props.setColor(true);
+          } else {
+            this.props.setColor(false);
           }
           this.props.saveUser(user);
           this.props.loaderState(false);
           NavigationService.navigate("Main");
         },
         error => {
-          let error_respons = handleError(error, body, urls.edit_profile_data, this.props.token, this.constructor.name, "SubmitEdit");
+          let error_respons = handleError(
+            error,
+            body,
+            urls.edit_profile_data,
+            this.props.token,
+            this.constructor.name,
+            "SubmitEdit"
+          );
           this.setState({ errorText: error_respons.error_text });
           this.setRejectVisible(error_respons.error_modal);
           this.props.loaderState(false);
@@ -159,7 +171,7 @@ class ProfileEdit extends React.Component {
   };
   PhotoEdit = () => {
     const options = {
-      title: PickedLanguage.PROFILE_PAGE.CHOOSE_AVATAR,
+      title: I18n.t("PROFILE_PAGE.CHOOSE_AVATAR"),
       mediaType: "photo",
       maxWidth: 1000,
       maxHeight: 1000,
@@ -199,8 +211,7 @@ class ProfileEdit extends React.Component {
   render() {
     return (
       <View style={styles.main}>
-        <View style={styles.container}>
-        </View>
+        <View style={styles.container} />
         {this.props.loader && <ActivityIndicator />}
         {(this.state.modalVisible ||
           this.state.exitVisible ||
@@ -208,7 +219,7 @@ class ProfileEdit extends React.Component {
         <View style={styles.user_edit_header_container}>
           <CustomAlert
             datepicker
-            first_btn_title={PickedLanguage.PROFILE_PAGE.ACCEPT}
+            first_btn_title={I18n.t("PROFILE_PAGE.ACCEPT")}
             visible={this.state.datePickerVisible}
             first_btn_handler={() =>
               this.setDatePickerVisible(!this.state.datePickerVisible)
@@ -218,9 +229,9 @@ class ProfileEdit extends React.Component {
             }
           />
           <CustomAlert
-            title={PickedLanguage.PROFILE_PAGE.ALERT_NOT_SAVED_DATA}
-            first_btn_title={PickedLanguage.PROFILE_PAGE.YES}
-            second_btn_title={PickedLanguage.PROFILE_PAGE.NO}
+            title={I18n.t("PROFILE_PAGE.ALERT_NOT_SAVED_DATA")}
+            first_btn_title={I18n.t("PROFILE_PAGE.YES")}
+            second_btn_title={I18n.t("PROFILE_PAGE.NO")}
             visible={this.state.exitVisible}
             second_btn_handler={() =>
               this.setExitVisible(!this.state.exitVisible)
@@ -253,86 +264,110 @@ class ProfileEdit extends React.Component {
             </View>
             <View style={styles.text_container}>
               <TextField
-                label={PickedLanguage.NAMES}
-                placeholder={PickedLanguage.ENTER_NAME}
+                label={I18n.t("NAMES")}
+                placeholder={I18n.t("ENTER_NAME")}
                 tintColor={this.props.userColor.black41_09}
                 baseColor={this.props.userColor.black41_09}
                 textColor={this.props.userColor.black}
                 fontSize={20}
                 labelFontSize={12}
-                onChangeText={text => { this.ChangeUserName(text) }}
+                onChangeText={text => {
+                  this.ChangeUserName(text);
+                }}
                 value={this.state.user.username}
-                inputContainerStyle={{ borderBottomColor: 'transparent' }}
-                onFocus={() => { this.ClearName() }}
+                inputContainerStyle={{ borderBottomColor: "transparent" }}
+                onFocus={() => {
+                  this.ClearName();
+                }}
               />
               <Button
                 transparent
                 style={styles.datepicker_button}
-                onPress={() => { this.setDatePickerVisible(!this.state.datePickerVisible) }}
+                onPress={() => {
+                  this.setDatePickerVisible(!this.state.datePickerVisible);
+                }}
               >
                 <Text style={styles.datepicker_button_title}>
-                  {PickedLanguage.PROFILE_PAGE.BIRTHDAY}
+                  {I18n.t("PROFILE_PAGE.BIRTHDAY")}
                 </Text>
                 <Text style={styles.datepicker_button_label}>
-                  {this.props.birthday != "" ? this.props.birthday : PickedLanguage.PROFILE_PAGE.ENTER_BIRTHDAY}
+                  {this.props.birthday != ""
+                    ? this.props.birthday
+                    : I18n.t("PROFILE_PAGE.ENTER_BIRTHDAY")}
                 </Text>
               </Button>
-              {/* <TextField
-                label={PickedLanguage.PROFILE_PAGE.BIRTHDAY}
-                placeholder={PickedLanguage.PROFILE_PAGE.ENTER_BIRTHDAY}
-                tintColor={colors.black41_09}
-                baseColor={colors.black41_09}
-                textColor={colors.black41_09}
-                fontSize={12}
-                labelFontSize={12}
-                value={this.props.birthday}
-                inputContainerStyle={{ borderBottomColor: 'transparent' }}
-                onFocus={() => { }}
-                keyboardType="number-pad"
-              /> */}
-              <Text style={styles.title} >{PickedLanguage.PROFILE_PAGE.SEX}</Text>
+
+              <Text style={styles.title}>{I18n.t("PROFILE_PAGE.SEX")}</Text>
               <View style={styles.sex_picker}>
                 <Button
                   transparent
                   block
                   rounded
                   style={styles.sex_btn}
-                  onPress={() => { this.ChangeUserSex(1) }}
+                  onPress={() => {
+                    this.ChangeUserSex(1);
+                  }}
                 >
                   <LinearTextGradient
                     locations={[0, 1]}
-                    colors={this.state.user.sex == 1 ? [this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color] : [this.props.userColor.black41_09, this.props.userColor.black41_09]}
+                    colors={
+                      this.state.user.sex == 1
+                        ? [
+                            this.props.userColor.first_gradient_color,
+                            this.props.userColor.second_gradient_color
+                          ]
+                        : [
+                            this.props.userColor.black41_09,
+                            this.props.userColor.black41_09
+                          ]
+                    }
                     start={{ x: 0.0, y: 0.0 }}
                     end={{ x: 0.7, y: 1.0 }}
                     style={styles.title}
                   >
-                    {PickedLanguage.MALE_SEX}
+                    {I18n.t("MALE_SEX")}
                   </LinearTextGradient>
                 </Button>
                 <LinearTextGradient
                   locations={[0, 1]}
-                  colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
+                  colors={[
+                    this.props.userColor.first_gradient_color,
+                    this.props.userColor.second_gradient_color
+                  ]}
                   start={{ x: 0.0, y: 0.0 }}
                   end={{ x: 0.7, y: 1.0 }}
                   style={styles.title}
                 >
-                  {" "}/{" "}
+                  {" "}
+                  /{" "}
                 </LinearTextGradient>
                 <Button
                   transparent
                   block
                   rounded
                   style={styles.sex_btn}
-                  onPress={() => { this.ChangeUserSex(0) }}
+                  onPress={() => {
+                    this.ChangeUserSex(0);
+                  }}
                 >
                   <LinearTextGradient
                     locations={[0, 1]}
-                    colors={this.state.user.sex == 0 ? [this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color] : [this.props.userColor.black41_09, this.props.userColor.black41_09]}
+                    colors={
+                      this.state.user.sex == 0
+                        ? [
+                            this.props.userColor.first_gradient_color,
+                            this.props.userColor.second_gradient_color
+                          ]
+                        : [
+                            this.props.userColor.black41_09,
+                            this.props.userColor.black41_09
+                          ]
+                    }
                     start={{ x: 0.0, y: 0.0 }}
                     end={{ x: 0.7, y: 1.0 }}
                     style={styles.title}
                   >
-                    {PickedLanguage.FEMALE_SEX}
+                    {I18n.t("FEMALE_SEX")}
                   </LinearTextGradient>
                 </Button>
               </View>
@@ -345,7 +380,7 @@ class ProfileEdit extends React.Component {
             active
             short
             gradient
-            title={PickedLanguage.PROFILE_PAGE.ACCEPT.toUpperCase()}
+            title={I18n.t("PROFILE_PAGE.ACCEPT").toUpperCase()}
             color={this.props.userColor.white}
             handler={() => this.SubmitEdit()}
           />
@@ -354,14 +389,18 @@ class ProfileEdit extends React.Component {
             active
             short
             bordered
-            title={PickedLanguage.PROFILE_PAGE.DECLINE_2.toUpperCase()}
+            title={I18n.t("PROFILE_PAGE.DECLINE_2").toUpperCase()}
             color={this.props.userColor.pink_blue}
-            handler={() => this.state.changed ? this.Exit() : NavigationService.navigate("Main")}
+            handler={() =>
+              this.state.changed
+                ? this.Exit()
+                : NavigationService.navigate("Main")
+            }
           />
         </View>
         <CustomAlert
-          title={PickedLanguage.PROFILE_PAGE.ALERT_EMPTY}
-          first_btn_title={PickedLanguage.OK}
+          title={I18n.t("PROFILE_PAGE.ALERT_EMPTY")}
+          first_btn_title={I18n.t("OK")}
           visible={this.state.modalVisible}
           first_btn_handler={() =>
             this.setModalVisible(!this.state.modalVisible)
@@ -372,7 +411,7 @@ class ProfileEdit extends React.Component {
         />
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={PickedLanguage.REPEAT}
+          first_btn_title={I18n.t("REPEAT")}
           visible={this.state.rejectedRequestModal}
           first_btn_handler={() => {
             this.setRejectVisible(!this.state.rejectedRequestModal);
