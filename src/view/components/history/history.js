@@ -7,15 +7,13 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 //constants
 import styles from "./styles";
-import PickedLanguage from "../../../locales/language-picker";
 import { ICONS } from "../../../constants/icons";
 //containers
 import FooterNavigation from "../../containers/footer-navigator/footer-navigator";
 import Balance from "./../../containers/cashout-balance/cashout-balance";
 import HistoryNavButton from "./../../containers/history-nav-button/history-nav-button";
 import HistoryList from "./../../containers/history-list/history-list";
-import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
-
+import I18n from "@locales/I18n";
 
 class History extends React.Component {
   constructor(props) {
@@ -23,7 +21,7 @@ class History extends React.Component {
   }
   state = {
     pickedBonuses: true,
-    balance: 0,
+    balance: 0
   };
   toggleBonuses = () => {
     this.setState({ pickedBonuses: !this.state.pickedBonuses });
@@ -33,32 +31,38 @@ class History extends React.Component {
     return (
       <View style={styles.main_view}>
         <LinearGradient
-          colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
+          colors={[
+            this.props.userColor.first_gradient_color,
+            this.props.userColor.second_gradient_color
+          ]}
           start={{ x: 0.0, y: 1.0 }}
           end={{ x: 1.0, y: 1.0 }}
           style={styles.grad}
         >
           <View style={styles.history_nav}>
-            <Balance showCurrency openBarcode={() => { this.state.phone ? this.setState({ showBarcode: !this.state.showBarcode }) : console.log("phone is not ready") }} />
+            <Balance
+              showCurrency
+              openBarcode={() => {
+                this.state.phone
+                  ? this.setState({ showBarcode: !this.state.showBarcode })
+                  : console.log("phone is not ready");
+              }}
+            />
           </View>
           <View style={styles.list_container}>
             <View style={styles.nav_buttons}>
               <HistoryNavButton
                 handler={
-                  !this.state.pickedBonuses
-                    ? () => this.toggleBonuses()
-                    : null
+                  !this.state.pickedBonuses ? () => this.toggleBonuses() : null
                 }
-                title={PickedLanguage.HISTORY_PAGE.GETTED}
+                title={I18n.t("HISTORY_PAGE.GETTED")}
                 disabled={this.state.pickedBonuses}
               />
               <HistoryNavButton
                 handler={
-                  this.state.pickedBonuses
-                    ? () => this.toggleBonuses()
-                    : null
+                  this.state.pickedBonuses ? () => this.toggleBonuses() : null
                 }
-                title={PickedLanguage.HISTORY_PAGE.LOST}
+                title={I18n.t("HISTORY_PAGE.LOST")}
                 disabled={!this.state.pickedBonuses}
               />
             </View>
