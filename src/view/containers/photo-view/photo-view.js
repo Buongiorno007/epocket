@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import FastImage from 'react-native-fast-image'
+import FastImage from "react-native-fast-image";
 import { Button, Text } from "native-base";
 import NavigationService from "./../../../services/route";
 //containers
@@ -11,7 +11,6 @@ import InstaHashTags from "../insta-hashtags/insta-hashtags";
 //constants
 import styles from "./styles";
 import { urls } from "../../../constants/urls";
-import PickedLanguage from "./../../../locales/language-picker";
 //redux
 import { loaderState } from "../../../reducers/loader";
 import { connect } from "react-redux";
@@ -21,6 +20,7 @@ import { setBalance } from "../../../reducers/user-balance";
 import { httpPost } from "../../../services/http";
 import { serializeJSON } from "../../../services/serialize-json";
 import { handleError } from "../../../services/http-error-handler";
+import I18n from "@locales/I18n";
 
 class PhotoView extends React.Component {
   constructor(props) {
@@ -48,7 +48,7 @@ class PhotoView extends React.Component {
       photo: this.props.navigation.state.params.image,
       mission_id: this.props.selectedMission.id
     };
-    console.log(body)
+    console.log(body);
     let promise = httpPost(
       urls.insta_upload_photo,
       serializeJSON(body),
@@ -57,7 +57,7 @@ class PhotoView extends React.Component {
     );
     promise.then(
       result => {
-        console.log('result', result)
+        console.log("result", result);
         this.setErrorPhotoVisible(false);
         if (__DEV__) {
           NavigationService.navigate("MissionSuccess", {
@@ -69,7 +69,14 @@ class PhotoView extends React.Component {
         }
       },
       error => {
-        let error_respons = handleError(error, body, urls.insta_upload_photo, this.props.token, this.constructor.name, "sendPhoto");
+        let error_respons = handleError(
+          error,
+          body,
+          urls.insta_upload_photo,
+          this.props.token,
+          this.constructor.name,
+          "sendPhoto"
+        );
         this.setState({ errorText: error_respons.error_text });
         this.setErrorPhotoVisible(error_respons.error_modal);
         this.props.loaderState(false);
@@ -101,7 +108,14 @@ class PhotoView extends React.Component {
         });
       },
       error => {
-        let error_respons = handleError(error, body, urls.finish_mission, this.props.token, this.constructor.name, "finishMission");
+        let error_respons = handleError(
+          error,
+          body,
+          urls.finish_mission,
+          this.props.token,
+          this.constructor.name,
+          "finishMission"
+        );
         this.setState({ errorText: error_respons.error_text });
         this.setErrorMissionVisible(error_respons.error_modal);
         this.props.loaderState(false);
@@ -115,7 +129,7 @@ class PhotoView extends React.Component {
         {this.props.loader && <ActivityIndicator />}
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={PickedLanguage.REPEAT}
+          first_btn_title={I18n.t("REPEAT")}
           visible={this.state.errorPhotoVisible}
           first_btn_handler={() => {
             this.sendPhoto();
@@ -126,7 +140,7 @@ class PhotoView extends React.Component {
         />
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={PickedLanguage.REPEAT}
+          first_btn_title={I18n.t("REPEAT")}
           visible={this.state.errorMissionVisible}
           first_btn_handler={() => {
             this.finishMission();
@@ -136,7 +150,11 @@ class PhotoView extends React.Component {
           }}
         />
         <View style={styles.template_photo}>
-          <TemplateInstagramPhoto template_url={this.props.navigation.state.params.template_info.media} />
+          <TemplateInstagramPhoto
+            template_url={
+              this.props.navigation.state.params.template_info.media
+            }
+          />
         </View>
         <View style={[styles.block, styles.size]}>
           <FastImage
@@ -146,7 +164,9 @@ class PhotoView extends React.Component {
         </View>
 
         <View style={styles.template_hashtags}>
-          <InstaHashTags hashtags={this.props.navigation.state.params.template_info.hashtags} />
+          <InstaHashTags
+            hashtags={this.props.navigation.state.params.template_info.hashtags}
+          />
         </View>
         <View style={[styles.navigation, styles.size]}>
           <View style={[styles.button_container, styles.size]}>
@@ -162,7 +182,7 @@ class PhotoView extends React.Component {
                 uppercase={false}
                 style={[styles.button_text, styles.remove_text]}
               >
-                {PickedLanguage.SCANNER.REMOVE}
+                {I18n.t("SCANNER.REMOVE")}
               </Text>
             </Button>
             <Button
@@ -177,7 +197,7 @@ class PhotoView extends React.Component {
                 uppercase={false}
                 style={[styles.button_text, styles.send_text]}
               >
-                {PickedLanguage.SCANNER.SEND}
+                {I18n.t("SCANNER.SEND")}
               </Text>
             </Button>
           </View>

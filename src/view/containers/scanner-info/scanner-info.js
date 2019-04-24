@@ -2,14 +2,14 @@ import React from "react";
 import { View, Text } from "react-native";
 //constants
 import styles from "./styles";
-import PickedLanguage from "./../../../locales/language-picker";
+import I18n from "@locales/I18n";
 
 class ScannerInfo extends React.Component {
   render = () => {
     return (
       <View style={styles.container}>
-        <Text style={styles.please}>{PickedLanguage.SCANNER.PLEASE}</Text>
-        <Text style={styles.text}>{PickedLanguage.SCANNER.TEXT}</Text>
+        <Text style={styles.please}>{I18n.t("SCANNER.PLEASE")}</Text>
+        <Text style={styles.text}>{I18n.t("SCANNER.TEXT")}</Text>
       </View>
     );
   };

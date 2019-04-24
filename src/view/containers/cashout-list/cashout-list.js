@@ -1,16 +1,26 @@
 import React from "react";
-import { View, ScrollView, Text, TouchableOpacity, FlatList, Animated, Image, Easing, Dimensions, AsyncStorage } from "react-native";
-import Accordion from 'react-native-collapsible/Accordion';
-import FastImage from 'react-native-fast-image'
+import {
+  View,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  Animated,
+  Image,
+  Easing,
+  Dimensions,
+  AsyncStorage
+} from "react-native";
+import Accordion from "react-native-collapsible/Accordion";
+import FastImage from "react-native-fast-image";
 //containers
 import Item from "./../../containers/cashout-list-item/cashout-list-item";
 import CustomButton from "./../../containers/custom-button/custom-button";
 import CustomAlert from "../custom-alert/custom-alert";
 import HistoryNavButton from "./../../containers/history-nav-button/history-nav-button";
-import CartCard from "./../../containers/cashout-cart-card/cashout-cart-card"
+import CartCard from "./../../containers/cashout-cart-card/cashout-cart-card";
 //constants
 import styles from "./styles";
-import PickedLanguage from "./../../../locales/language-picker";
 import { urls } from "../../../constants/urls";
 import { colors } from "../../../constants/colors_men";
 import { ICONS } from "./../../../constants/icons";
@@ -24,6 +34,7 @@ import NavigationService from "./../../../services/route";
 import { httpPost } from "../../../services/http";
 import { handleError } from "../../../services/http-error-handler";
 import moment from "moment";
+import I18n from "@locales/I18n";
 
 const { width, height } = Dimensions.get("window");
 
@@ -38,32 +49,44 @@ class CashoutList extends React.Component {
     key: 0
   };
   order = [];
-  setCartData = (order) => {
-    let orderCopy = [...order]
+  setCartData = order => {
+    let orderCopy = [...order];
     let currentTime = moment().format();
-    let jsonOrder = JSON.stringify(orderCopy)
-    AsyncStorage.multiSet([["cashout_cart", jsonOrder], ["cashout_cart_time", currentTime], ["cashout_cart_id", String(this.props.general_info.id)],], () => {
-    });
-  }
+    let jsonOrder = JSON.stringify(orderCopy);
+    AsyncStorage.multiSet(
+      [
+        ["cashout_cart", jsonOrder],
+        ["cashout_cart_time", currentTime],
+        ["cashout_cart_id", String(this.props.general_info.id)]
+      ],
+      () => {}
+    );
+  };
   componentDidMount = () => {
-    AsyncStorage.multiGet(["cashout_cart", "cashout_cart_time", "cashout_cart_id"]).then(response => {
+    AsyncStorage.multiGet([
+      "cashout_cart",
+      "cashout_cart_time",
+      "cashout_cart_id"
+    ]).then(response => {
       responseOrder = JSON.parse(response[0][1]);
-      let diff = moment().diff(response[1][1], 'seconds')
-      if ((diff < 86400) && String(this.props.general_info.id) == response[2][1]) {
+      let diff = moment().diff(response[1][1], "seconds");
+      if (
+        diff < 86400 &&
+        String(this.props.general_info.id) == response[2][1]
+      ) {
         this.order = responseOrder;
-        this.setState({ orderCopy: responseOrder })
-      }
-      else {
+        this.setState({ orderCopy: responseOrder });
+      } else {
         this.order = [];
-        this.setState({ orderCopy: [] })
+        this.setState({ orderCopy: [] });
       }
-    })
-  }
-  componentWillReceiveProps = (nextProps) => {
+    });
+  };
+  componentWillReceiveProps = nextProps => {
     if (nextProps.activeIndex || nextProps.activeIndex == 0) {
-      this.setState({ activeSections: [nextProps.activeIndex] })
+      this.setState({ activeSections: [nextProps.activeIndex] });
     }
-  }
+  };
   pickCart = () => {
     let pick = this.state.pickedCart;
     this.setState({ pickedCart: !pick, activeSections: [] });
@@ -81,8 +104,8 @@ class CashoutList extends React.Component {
     });
     if (order_item.count) {
       this.order.push(order_item);
-      this.setState({ orderCopy: this.order })
-      this.setCartData(this.order)
+      this.setState({ orderCopy: this.order });
+      this.setCartData(this.order);
     }
   };
   deleteElem = order_item => {
@@ -99,8 +122,10 @@ class CashoutList extends React.Component {
     this.setState({
       orderCopy: copy
     });
-    this.setCartData(this.order)
-    let deletedCatIndex = this.props.data.findIndex(x => x.id === order_item_category);
+    this.setCartData(this.order);
+    let deletedCatIndex = this.props.data.findIndex(
+      x => x.id === order_item_category
+    );
     let deletedCat = this.props.data[deletedCatIndex];
     let pickedProduct = deletedCat.products.find(x => x.id === order_item.id);
     pickedProduct.count = 0;
@@ -125,7 +150,7 @@ class CashoutList extends React.Component {
         outlet_id: this.props.selectedMall.id,
         products: copyForCategoryClean
       };
-      console.log(body)
+      console.log(body);
       let promise = httpPost(
         urls.create_order,
         JSON.stringify(body),
@@ -144,7 +169,14 @@ class CashoutList extends React.Component {
           });
         },
         error => {
-          let error_respons = handleError(error, body, urls.create_order, this.props.token, this.constructor.name, "sendOrder");
+          let error_respons = handleError(
+            error,
+            body,
+            urls.create_order,
+            this.props.token,
+            this.constructor.name,
+            "sendOrder"
+          );
           this.setState({ errorText: error_respons.error_text });
           this.setModalVisible(error_respons.error_modal);
           this.props.loaderState(false);
@@ -156,30 +188,32 @@ class CashoutList extends React.Component {
     }
   };
   checkForActive = (section, isActive) => {
-    spin = '0deg';
+    spin = "0deg";
     if (isActive) {
-      Animated.timing(
-        this.state.rotateAngle,
-        {
-          toValue: 1,
-          duration: 100,
-          easing: Easing.linear,
-          useNativeDriver: true
-        }
-      ).start()
+      Animated.timing(this.state.rotateAngle, {
+        toValue: 1,
+        duration: 100,
+        easing: Easing.linear,
+        useNativeDriver: true
+      }).start();
       spin = this.state.rotateAngle.interpolate({
         inputRange: [0, 1],
-        outputRange: ['0deg', '180deg']
-      })
+        outputRange: ["0deg", "180deg"]
+      });
     }
     return spin;
-  }
+  };
   _renderHeader = (section, index, isActive, sections) => {
-    spin = '0deg';
-    spin = this.checkForActive(section, isActive)
+    spin = "0deg";
+    spin = this.checkForActive(section, isActive);
     return (
       <View style={styles.header}>
-        <View style={[styles.header_container, section.id != this.props.data[0].id && styles.borderTop]}>
+        <View
+          style={[
+            styles.header_container,
+            section.id != this.props.data[0].id && styles.borderTop
+          ]}
+        >
           <View style={styles.left_part}>
             <FastImage
               style={styles.round_image}
@@ -187,25 +221,36 @@ class CashoutList extends React.Component {
               source={require("../../../assets/img/settings.png")}
             />
             <View style={styles.header_text}>
-              <Text style={styles.header_name}>{section.name.toUpperCase()}</Text>
-              <Text style={styles.positions}>{
-                section.products.length === 1 ?
-                  section.products.length + " " + PickedLanguage.CASHOUT_LIST.POSITIONS_1 :
-                  section.products.length > 1 && section.products.length <= 4 ?
-                    section.products.length + " " + PickedLanguage.CASHOUT_LIST.POSITIONS_2 :
-                    section.products.length + " " + PickedLanguage.CASHOUT_LIST.POSITIONS_3
-              }</Text>
+              <Text style={styles.header_name}>
+                {section.name.toUpperCase()}
+              </Text>
+              <Text style={styles.positions}>
+                {section.products.length === 1
+                  ? section.products.length +
+                    " " +
+                    I18n.t("CASHOUT_LIST.POSITIONS_1")
+                  : section.products.length > 1 && section.products.length <= 4
+                  ? section.products.length +
+                    " " +
+                    I18n.t("CASHOUT_LIST.POSITIONS_2")
+                  : section.products.length +
+                    " " +
+                    I18n.t("CASHOUT_LIST.POSITIONS_3")}
+              </Text>
             </View>
           </View>
           <Animated.Image
-            style={[styles.arrow, {
-              transform: [
-                {
-                  rotate: spin
-                }
-              ]
-            }]}
-            source={require('../../../assets/img/arrow_down.png')}
+            style={[
+              styles.arrow,
+              {
+                transform: [
+                  {
+                    rotate: spin
+                  }
+                ]
+              }
+            ]}
+            source={require("../../../assets/img/arrow_down.png")}
           />
         </View>
       </View>
@@ -215,7 +260,7 @@ class CashoutList extends React.Component {
     this.state.orderCopy.forEach(item => {
       if (section.products.find(x => x.id === item.id))
         section.products.find(x => x.id === item.id).count = item.count;
-    })
+    });
     return (
       <View style={styles.content}>
         {section.products.map((item, i) => (
@@ -251,14 +296,14 @@ class CashoutList extends React.Component {
     />
   );
   keyExtractor = item => {
-    return item.id
+    return item.id;
   };
   render = () => {
     return (
       <View style={styles.container}>
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={PickedLanguage.REPEAT}
+          first_btn_title={I18n.t("REPEAT")}
           visible={this.state.errorVisible}
           first_btn_handler={() => {
             this.sendOrder();
@@ -269,30 +314,25 @@ class CashoutList extends React.Component {
         />
         <View style={styles.nav_buttons}>
           <HistoryNavButton
-            handler={
-              !this.state.pickedCart
-                ? () => this.pickAll()
-                : null
-            }
-            title={PickedLanguage.CASHOUT_LIST.LIST_OF_PRODUCTS}
+            handler={!this.state.pickedCart ? () => this.pickAll() : null}
+            title={I18n.t("CASHOUT_LIST.LIST_OF_PRODUCTS")}
             disabled={this.state.pickedCart}
           />
           <HistoryNavButton
-            handler={
-              this.state.pickedCart
-                ? () => this.pickCart()
-                : null
-            }
-            title={PickedLanguage.CASHOUT_LIST.CART}
+            handler={this.state.pickedCart ? () => this.pickCart() : null}
+            title={I18n.t("CASHOUT_LIST.CART")}
             disabled={!this.state.pickedCart}
             cartCount={this.state.orderCopy.length}
           />
         </View>
         {this.props.data.length > 0 ? (
           <View style={styles.container_for_scroll}>
-            {this.state.pickedCart ?
+            {this.state.pickedCart ? (
               <ScrollView
-                style={[styles.scroll, this.props.draggedDown && { height: height * 0.55 }]}
+                style={[
+                  styles.scroll,
+                  this.props.draggedDown && { height: height * 0.55 }
+                ]}
                 showsVerticalScrollIndicator={false}
               >
                 <Accordion
@@ -307,49 +347,54 @@ class CashoutList extends React.Component {
                 />
                 <View style={styles.filler} />
               </ScrollView>
-              :
-              <View style={[styles.cart_container, this.props.draggedDown && { height: height * 0.55 }]}>
-                {this.state.orderCopy.length ?
+            ) : (
+              <View
+                style={[
+                  styles.cart_container,
+                  this.props.draggedDown && { height: height * 0.55 }
+                ]}
+              >
+                {this.state.orderCopy.length ? (
                   <FlatList
                     listKey={"cart"}
                     contentContainerStyle={{
-                      alignItems: "center",
+                      alignItems: "center"
                     }}
                     removeClippedSubviews={true}
                     keyExtractor={this.keyExtractor}
                     showsVerticalScrollIndicator={false}
-                    style={[styles.scroll_fixed, this.props.draggedDown && { height: height * 0.55 }]}
+                    style={[
+                      styles.scroll_fixed,
+                      this.props.draggedDown && { height: height * 0.55 }
+                    ]}
                     data={this.state.orderCopy}
-                    renderItem={this._renderItem}>
-                  </FlatList>
-                  :
+                    renderItem={this._renderItem}
+                  />
+                ) : (
                   <View style={styles.empty_cart}>
-                    <Text>{PickedLanguage.CASH.NO_CART}</Text>
+                    <Text>{I18n.t("CASH.NO_CART")}</Text>
                   </View>
-                }
-                {this.state.orderCopy.length ?
+                )}
+                {this.state.orderCopy.length ? (
                   <View style={styles.button}>
                     <CustomButton
                       active
                       gradient
                       short
-                      title={PickedLanguage.CASH.BUTTON}
+                      title={I18n.t("CASH.BUTTON")}
                       color={this.props.userColor.white}
                       handler={() => this.sendOrder()}
                     />
                   </View>
-                  :
-                  null
-                }
+                ) : null}
               </View>
-            }
-
+            )}
           </View>
         ) : (
-            <View style={styles.empty}>
-              <Text>{PickedLanguage.CASH.NO_CASH}</Text>
-            </View>
-          )}
+          <View style={styles.empty}>
+            <Text>{I18n.t("CASH.NO_CASH")}</Text>
+          </View>
+        )}
       </View>
     );
   };

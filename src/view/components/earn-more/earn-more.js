@@ -7,7 +7,6 @@ import CookieManager from "react-native-cookies";
 //constants
 import styles from "./styles";
 import { colors } from "./../../../constants/colors";
-import PickedLanguage from "./../../../locales/language-picker";
 import { urls } from "../../../constants/urls";
 //services
 import NavigationService from "./../../../services/route";
@@ -20,15 +19,14 @@ import { postToSocial } from "../../../services/post-to-social";
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-
 import { loaderState } from "../../../reducers/loader";
 import { setInstaToken } from "../../../reducers/insta-token";
 import { setAppState } from "../../../reducers/app-state";
 import { setBalance } from "../../../reducers/user-balance";
-
 import CustomButton from "../../containers/custom-button/custom-button";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 import CustomAlert from "../../containers/custom-alert/custom-alert";
+import I18n from "@locales/I18n";
 
 class EarnMore extends React.Component {
   constructor(props) {
@@ -37,9 +35,21 @@ class EarnMore extends React.Component {
       appState: AppState.currentState,
       modalVisible: false,
       errorVisible: false,
-      userCount: 0
+      userCount: 0,
+      currency:""
     };
   }
+  componentDidMount = () => {
+    this.props.loaderState(false);
+    AppState.addEventListener("change", this._handleAppStateChange);
+    AsyncStorage.getItem("user_info").then(value => {
+      let object = JSON.parse(value);
+      this.setState({ currency: object.currency });
+    });
+  };
+  componentWillUnmount = () => {
+    AppState.removeEventListener("change", this._handleAppStateChange);
+  };
 
   skip = () => {
     this.props.loaderState(false);
@@ -145,13 +155,6 @@ class EarnMore extends React.Component {
     this.setState({ appState: nextAppState });
   };
 
-  componentDidMount = () => {
-    this.props.loaderState(false);
-    AppState.addEventListener("change", this._handleAppStateChange);
-  };
-  componentWillUnmount = () => {
-    AppState.removeEventListener("change", this._handleAppStateChange);
-  };
   render = () => {
     return (
       <View style={styles.container}>
@@ -162,8 +165,8 @@ class EarnMore extends React.Component {
           translucent={true}
         />
         <CustomAlert
-          title={PickedLanguage.PROFILE_PAGE.ALREADY_ACCOUNT}
-          first_btn_title={PickedLanguage.OK}
+          title={I18n.t("PROFILE_PAGE.ALREADY_ACCOUNT")}
+          first_btn_title={I18n.t("OK")}
           visible={this.state.errorVisible}
           first_btn_handler={() =>
             this.setErrorVisible(!this.state.errorVisible)
@@ -173,9 +176,9 @@ class EarnMore extends React.Component {
           }
         />
         <CustomAlert
-          title={PickedLanguage.PROFILE_PAGE.NOT_ENOUGHT_SUB}
-          subtitle={this.state.userCount + PickedLanguage.PROFILE_PAGE.SUBS}
-          first_btn_title={PickedLanguage.OK}
+          title={I18n.t("PROFILE_PAGE.NOT_ENOUGHT_SUB")}
+          subtitle={this.state.userCount + I18n.t("PROFILE_PAGE.SUBS")}
+          first_btn_title={I18n.t("OK")}
           visible={this.state.modalVisible}
           first_btn_handler={() =>
             this.setModalVisible(!this.state.modalVisible)
@@ -219,19 +222,19 @@ class EarnMore extends React.Component {
         />
         <View style={styles.success}>
           <Text style={[styles.more_money, styles.text_common]}>
-            {PickedLanguage.MISSION.MORE_MONEY}
+            {I18n.t("MISSION.MORE_MONEY", { currency: this.state.currency })}
           </Text>
           <Text style={[styles.more_text, styles.text_common]}>
-            {PickedLanguage.MISSION.MORE_TEXT}
+            {I18n.t("MISSION.MORE_TEXT")}
           </Text>
           <Text style={[styles.more_deck, styles.text_common]}>
-            {PickedLanguage.MISSION.MORE_DESC}
+            {I18n.t("MISSION.MORE_DESC")}
           </Text>
           <CustomButton
             style={styles.earn_more_btn}
             active
             short
-            title={PickedLanguage.MISSION.EARN_MORE.toUpperCase()}
+            title={I18n.t("MISSION.EARN_MORE").toUpperCase()}
             color={this.props.userColor.pink_blue}
             handler={() => {
               this.earnMore();
@@ -247,7 +250,7 @@ class EarnMore extends React.Component {
               this.skip();
             }}
           >
-            <Text style={styles.text}>{PickedLanguage.MISSION.SKIP}</Text>
+            <Text style={styles.text}>{I18n.t("MISSION.SKIP")}</Text>
           </Button>
         </View>
       </View>

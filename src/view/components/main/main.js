@@ -27,7 +27,6 @@ import RootEnabled from "../../containers/root-enabled/root-enabled";
 import DateAbuseEnabled from "../../containers/date-abuse-enabled/date-abuse-enabled";
 //constants
 import styles from "./styles";
-import PickedLanguage from "../../../locales/language-picker";
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";

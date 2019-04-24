@@ -28,8 +28,6 @@ class RefLink extends React.Component {
   componentDidMount() {
     AsyncStorage.getItem("user_info").then(value => {
       let object = JSON.parse(value);
-      console.log(object, "OBJECTOBJECTOBJECTOBJECT");
-
       this.setState({ currency: object.currency });
     });
   }

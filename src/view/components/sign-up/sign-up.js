@@ -21,7 +21,6 @@ import CustomAlert from "../../containers/custom-alert/custom-alert";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 //constants
 import styles from "./styles";
-import PickedLanguage from "../../../locales/language-picker";
 import { colors } from "../../../constants/colors";
 import { urls } from "../../../constants/urls";
 import { ICONS } from "../../../constants/icons";
@@ -39,12 +38,13 @@ import { saveUser } from "../../../reducers/profile-state";
 import { httpPost } from "../../../services/http";
 import { handleError } from "../../../services/http-error-handler";
 import { sendToTelegramm } from "../../../services/telegramm-notification";
+import I18n from "@locales/I18n";
 
 const keyboardVerticalOffset = Platform.OS === "ios" ? -50 : -100;
 
 class SignUp extends React.Component {
   static navigationOptions = () => ({
-    header: <BackButton title={PickedLanguage.SIGN_UP_TITLE} route="Start" />
+    header: <BackButton title={I18n.t("SIGN_UP_TITLE")} route="Start" />
   });
 
   state = {
@@ -295,7 +295,7 @@ class SignUp extends React.Component {
         />
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={PickedLanguage.REPEAT}
+          first_btn_title={I18n.t("REPEAT")}
           visible={this.state.failedSignVisible}
           first_btn_handler={() => {
             this.sendForm();
@@ -306,7 +306,7 @@ class SignUp extends React.Component {
         />
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={PickedLanguage.REPEAT}
+          first_btn_title={I18n.t("REPEAT")}
           visible={this.state.failedConfirmVisible}
           first_btn_handler={() => {
             this.sendCode();
@@ -334,11 +334,11 @@ class SignUp extends React.Component {
           {this.state.step == 1 ? (
             <View style={styles.form}>
               <TextField
-                label={PickedLanguage.MOBILE_NUMBER}
+                label={I18n.t("MOBILE_NUMBER")}
                 textColor={this.props.userColor.input}
                 tintColor={this.props.userColor.input}
                 baseColor={this.props.userColor.input}
-                placeholder={PickedLanguage.PHONE_MASK}
+                placeholder={I18n.t("PHONE_MASK")}
                 placeholderTextColor={this.props.userColor.input_placeholder}
                 labelPadding={16}
                 inputContainerPadding={16}
@@ -355,14 +355,14 @@ class SignUp extends React.Component {
                     : styles.disabled
                 }
               >
-                {PickedLanguage.NUMBER_EXISTS}
+                {I18n.t("NUMBER_EXISTS")}
               </Text>
               <TextField
-                label={PickedLanguage.FIRST_LAST_NAME}
+                label={I18n.t("FIRST_LAST_NAME")}
                 textColor={this.props.userColor.input}
                 tintColor={this.props.userColor.input}
                 baseColor={this.props.userColor.input}
-                placeholder={PickedLanguage.NAMES}
+                placeholder={I18n.t("NAMES")}
                 placeholderTextColor={this.props.userColor.input_placeholder}
                 value={this.state.name}
                 labelPadding={16}
@@ -378,22 +378,22 @@ class SignUp extends React.Component {
                       : this.props.userColor.white
                   }
                   active={this.state.phoneCorrect && this.state.nameCorrect}
-                  title={PickedLanguage.SIGN_UP.toUpperCase()}
+                  title={I18n.t("SIGN_UP").toUpperCase()}
                   handler={() => this.sendForm()}
                 />
               </Animated.View>
             </View>
           ) : this.state.step == 2 ? (
             <View style={styles.form}>
-              <Text style={styles.code_sent}>{PickedLanguage.CODE_SENT}</Text>
-              <Text style={styles.enter_code}>{PickedLanguage.ENTER_CODE}</Text>
+              <Text style={styles.code_sent}>{I18n.t("CODE_SENT")}</Text>
+              <Text style={styles.enter_code}>{I18n.t("ENTER_CODE")}</Text>
               <TextField
                 label=""
                 style={styles.code_input}
                 textColor={this.props.userColor.input}
                 tintColor={this.props.userColor.input}
                 baseColor={this.props.userColor.input}
-                placeholder={PickedLanguage.CODE_MASK}
+                placeholder={I18n.t("CODE_MASK")}
                 placeholderTextColor={this.props.userColor.input_placeholder}
                 labelPadding={16}
                 label=""
@@ -408,7 +408,7 @@ class SignUp extends React.Component {
                   this.state.invalidCode ? styles.check_code : styles.disabled
                 }
               >
-                {PickedLanguage.CHECK_CODE}
+                {I18n.t("CHECK_CODE")}
               </Text>
               <Animated.View style={[{ marginTop: this.state.signUpMargin }]}>
                 <CustomButton
@@ -418,24 +418,20 @@ class SignUp extends React.Component {
                       : this.props.userColor.white
                   }
                   active={this.state.codeCorrect}
-                  title={PickedLanguage.ACCEPT.toUpperCase()}
+                  title={I18n.t("ACCEPT").toUpperCase()}
                   handler={() => this.sendCode()}
                 />
               </Animated.View>
             </View>
           ) : this.state.step == 3 ? (
             <View style={styles.form}>
-              <Text style={styles.code_sent}>
-                {PickedLanguage.SING_UP_SUCCESS}
-              </Text>
-              <Text style={styles.enter_code}>
-                {PickedLanguage.USE_YOUR_PHONE}
-              </Text>
+              <Text style={styles.code_sent}>{I18n.t("SING_UP_SUCCESS")}</Text>
+              <Text style={styles.enter_code}>{I18n.t("USE_YOUR_PHONE")}</Text>
               <Animated.View style={[{ marginTop: this.state.signUpMargin }]}>
                 <CustomButton
                   color={this.props.userColor.pink}
                   active
-                  title={PickedLanguage.OK.toUpperCase()}
+                  title={I18n.t("OK").toUpperCase()}
                   handler={() => this.goToMap()}
                 />
               </Animated.View>

@@ -8,23 +8,22 @@ import Price from "./../../containers/trade-price/trade-price";
 import CustomButton from "./../../containers/custom-button/custom-button";
 //constants
 import styles from "./styles";
-import PickedLanguage from "./../../../locales/language-picker";
 import { colors } from "../../../constants/colors";
-
 import { connect } from "react-redux";
 //services
 import NavigationService from "./../../../services/route";
-class Trade extends React.Component {
+import I18n from "@locales/I18n";
 
-  totalApprove = (product_list) => {
+class Trade extends React.Component {
+  totalApprove = product_list => {
     let result = true;
-    product_list.forEach((item) => {
+    product_list.forEach(item => {
       if (item.approve === false || item.amount === 0) {
-        return result = false
+        return (result = false);
       }
     });
     return result;
-  }
+  };
 
   render = () => {
     return (
@@ -34,22 +33,29 @@ class Trade extends React.Component {
           translucent={true}
           backgroundColor={"transparent"}
         />
-        <Status status={this.props.socket.status} total_approve={this.totalApprove(this.props.socket.products)} />
+        <Status
+          status={this.props.socket.status}
+          total_approve={this.totalApprove(this.props.socket.products)}
+        />
         <View style={styles.scroll}>
           <Title date={this.props.socket.time} />
           <ScrollView>
             <List list={this.props.socket.products} />
           </ScrollView>
-          {this.props.socket.status !== -1 && <Price price={this.props.socket.total} />}
+          {this.props.socket.status !== -1 && (
+            <Price price={this.props.socket.total} />
+          )}
         </View>
         <View style={styles.button}>
           <CustomButton
             active
             gradient
             short
-            title={PickedLanguage.OK.toUpperCase()}
+            title={I18n.t("OK").toUpperCase()}
             color={this.props.userColor.white}
-            handler={() => { NavigationService.navigate("Main"); }}
+            handler={() => {
+              NavigationService.navigate("Main");
+            }}
           />
         </View>
       </View>
@@ -59,9 +65,7 @@ class Trade extends React.Component {
 
 const mapStateToProps = state => ({
   userColor: state.userColor,
-  socket: state.socket,
+  socket: state.socket
 });
 
-export default connect(
-  mapStateToProps,
-)(Trade);
+export default connect(mapStateToProps)(Trade);
