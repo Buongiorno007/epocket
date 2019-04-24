@@ -1,34 +1,39 @@
 import React from "react";
 import { View } from "react-native";
-import FastImage from 'react-native-fast-image'
+import FastImage from "react-native-fast-image";
 import { Label, Button } from "native-base";
 import LinearGradient from "react-native-linear-gradient";
 //constants
 import { ICONS } from "../../../constants/icons";
-import PickedLanguage from "../../../locales/language-picker";
 import styles from "./styles";
 //redux
 import { setTabState } from "../../../reducers/tabs";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { showDashboard } from "../../../reducers/show-dashboard";
+import I18n from "@locales/I18n";
 
 class FooterNavigation extends React.Component {
   render() {
     return (
       <View style={styles.footer_container}>
-        {this.props.activeTab === 2 &&
+        {this.props.activeTab === 2 && (
           <LinearGradient
-            colors={[this.props.userColor.transparent, this.props.userColor.drag_panel_color]}
+            colors={[
+              this.props.userColor.transparent,
+              this.props.userColor.drag_panel_color
+            ]}
             start={{ x: 0.0, y: 0.0 }}
             end={{ x: 0.0, y: 1.0 }}
             style={styles.grad}
           />
-        }
+        )}
         <Button
           transparent
           style={[styles.footer_tab]}
-          onPress={() => { this.props.setTabState(0) }}
+          onPress={() => {
+            this.props.setTabState(0);
+          }}
         >
           <FastImage
             resizeMode={FastImage.resizeMode.contain}
@@ -44,13 +49,18 @@ class FooterNavigation extends React.Component {
             }
           />
           {this.props.activeTab === 0 ? (
-            <Label style={styles.footer_tab_text}> {PickedLanguage.GAME.GAME_TITLE.toUpperCase()} </Label>
+            <Label style={styles.footer_tab_text}>
+              {" "}
+              {I18n.t("GAME.GAME_TITLE").toUpperCase()}{" "}
+            </Label>
           ) : null}
         </Button>
         <Button
           transparent
           style={[styles.footer_tab]}
-          onPress={() => { this.props.setTabState(1) }}
+          onPress={() => {
+            this.props.setTabState(1);
+          }}
         >
           <FastImage
             resizeMode={FastImage.resizeMode.contain}
@@ -66,13 +76,18 @@ class FooterNavigation extends React.Component {
             }
           />
           {this.props.activeTab === 1 ? (
-            <Label style={styles.footer_tab_text}> {PickedLanguage.SHOP.toUpperCase()} </Label>
+            <Label style={styles.footer_tab_text}>
+              {" "}
+              {I18n.t("SHOP").toUpperCase()}{" "}
+            </Label>
           ) : null}
         </Button>
         <Button
           transparent
           style={[styles.footer_tab]}
-          onPress={() => { this.props.setTabState(2) }}
+          onPress={() => {
+            this.props.setTabState(2);
+          }}
         >
           <FastImage
             resizeMode={FastImage.resizeMode.contain}
@@ -88,7 +103,10 @@ class FooterNavigation extends React.Component {
             }
           />
           {this.props.activeTab === 2 ? (
-            <Label style={styles.footer_tab_text}> {PickedLanguage.HISTORY.toUpperCase()} </Label>
+            <Label style={styles.footer_tab_text}>
+              {" "}
+              {I18n.t("HISTORY").toUpperCase()}{" "}
+            </Label>
           ) : null}
         </Button>
         <Button
@@ -110,7 +128,10 @@ class FooterNavigation extends React.Component {
             }
           />
           {this.props.activeTab === 3 ? (
-            <Label style={styles.footer_tab_text}> {PickedLanguage.PROFILE.toUpperCase()} </Label>
+            <Label style={styles.footer_tab_text}>
+              {" "}
+              {I18n.t("PROFILE").toUpperCase()}{" "}
+            </Label>
           ) : null}
         </Button>
       </View>
@@ -131,7 +152,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       setTabState,
-      showDashboard,
+      showDashboard
     },
     dispatch
   );
