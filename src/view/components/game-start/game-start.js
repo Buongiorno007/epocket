@@ -72,7 +72,6 @@ class GameStart extends React.Component {
     );
     promise.then(
       result => {
-        console.log(result);
         this.props.loaderState(false);
         this.props.getGameInfo(
           this.props.token,

@@ -179,7 +179,6 @@ class SignIn extends React.Component {
     let promise = httpPost(urls.sing_in, JSON.stringify(body));
     promise.then(
       result => {
-        console.log(result);
         this.setFailedSignVisible(false);
         //this.props.loaderState(false); //DEPRECATED uncomment
         this.setState({ step: 2, acceptButton: false });
@@ -210,7 +209,6 @@ class SignIn extends React.Component {
     let promise = httpPost(urls.facebook_is_logged, body, token);
     promise.then(
       result => {
-        console.log(result);
         if (result.body.logged && result.body.active && result.body.token) {
           this.props.setFacebookToken(result.body.token);
           Platform.OS === "ios" &&
@@ -232,7 +230,6 @@ class SignIn extends React.Component {
     let promise = httpPost(urls.insta_is_logged, body, token);
     promise.then(
       result => {
-        console.log(result);
         if (result.body.logged && result.body.active && result.body.token) {
           this.props.setInstaToken(result.body.token);
         }

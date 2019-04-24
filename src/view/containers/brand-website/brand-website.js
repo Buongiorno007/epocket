@@ -28,8 +28,7 @@ class BrandWebsite extends React.Component {
         infoPage: true
     }
     componentDidMount = () => {
-        console.log(this.props.game_info ,"this.props.game_info")
-      };
+    };
     render() {
         return (
             <View style={this.props.visible ? styles.main_view : styles.hidden} >
