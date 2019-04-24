@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import FastImage from 'react-native-fast-image'
+import FastImage from "react-native-fast-image";
 import { RNCamera } from "react-native-camera";
 import Refresh from "react-native-vector-icons/SimpleLineIcons";
 import Circle from "react-native-vector-icons/Entypo";
@@ -10,7 +10,6 @@ import TemplateInstagramPhoto from "../template-insta-photo/template-insta-photo
 import InstaHashTags from "../insta-hashtags/insta-hashtags";
 //constants
 import styles from "./styles";
-import PickedLanguage from "./../../../locales/language-picker";
 import { urls } from "../../../constants/urls";
 import { ICONS } from "./../../../constants/icons";
 //services
@@ -20,17 +19,16 @@ import { httpPost } from "../../../services/http";
 import { loaderState } from "../../../reducers/loader";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-
+import I18n from "@locales/I18n";
 
 class PhotoCamera extends React.Component {
   state = {
     type: false,
     flash: false,
     template_info: {
-      media: '',
-      hashtags: ''
+      media: "",
+      hashtags: ""
     }
-
   };
 
   componentDidMount = () => {
@@ -39,14 +37,10 @@ class PhotoCamera extends React.Component {
       outlet_id: this.props.selectedMall.id,
       mission_id: this.props.selectedMission.id
     });
-    let promise = httpPost(
-      urls.insta_outlet_template,
-      body,
-      this.props.token
-    );
+    let promise = httpPost(urls.insta_outlet_template, body, this.props.token);
     promise.then(
       result => {
-        console.log(result)
+        console.log(result);
         this.setState({
           template_info: {
             media: result.body.media,
@@ -58,12 +52,19 @@ class PhotoCamera extends React.Component {
         console.log("Rejected: ", error);
       }
     );
-  }
+  };
 
   takePicture = async () => {
     if (this.camera) {
       this.props.loaderState(true);
-      const options = { quality: 0.5, base64: true, fixOrientation: true, forceUpOrientation: true, width: 500, height: 500 };
+      const options = {
+        quality: 0.5,
+        base64: true,
+        fixOrientation: true,
+        forceUpOrientation: true,
+        width: 500,
+        height: 500
+      };
       const data = await this.camera.takePictureAsync(options);
 
       NavigationService.navigate("Photo", {
@@ -78,7 +79,9 @@ class PhotoCamera extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.template_photo}>
-          <TemplateInstagramPhoto template_url={this.state.template_info.media} />
+          <TemplateInstagramPhoto
+            template_url={this.state.template_info.media}
+          />
         </View>
         <View style={[styles.camera, styles.size]}>
           <RNCamera
@@ -96,8 +99,8 @@ class PhotoCamera extends React.Component {
                 ? RNCamera.Constants.FlashMode.on
                 : RNCamera.Constants.FlashMode.off
             }
-            permissionDialogTitle={PickedLanguage.TITLE}
-            permissionDialogMessage={PickedLanguage.CAMERA_PERMISSION}
+            permissionDialogTitle={I18n.t("TITLE")}
+            permissionDialogMessage={I18n.t("CAMERA_PERMISSION")}
           />
         </View>
         <View style={styles.template_hashtags}>
@@ -157,7 +160,7 @@ const mapStateToProps = state => ({
   userColor: state.userColor,
   selectedMission: state.selectedMission,
   selectedMall: state.selectedMall,
-  token: state.token,
+  token: state.token
 });
 const mapDispatchToProps = dispatch =>
   bindActionCreators(

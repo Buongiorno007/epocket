@@ -1,13 +1,12 @@
 import React from "react";
 import { View, Text } from "react-native";
-import FastImage from 'react-native-fast-image'
+import FastImage from "react-native-fast-image";
 //containers
 import CustomButton from "../../containers/custom-button/custom-button";
 import CustomAlert from "../../containers/custom-alert/custom-alert";
 import { Button } from "native-base";
 //constants
 import styles from "./styles";
-import PickedLanguage from "../../../locales/language-picker";
 import { colors } from "../../../constants/colors";
 import { urls } from "../../../constants/urls";
 import { ICONS } from "../../../constants/icons";
@@ -18,6 +17,7 @@ import { bindActionCreators } from "redux";
 //services
 import { httpPost } from "../../../services/http";
 import { handleError } from "../../../services/http-error-handler";
+import I18n from "@locales/I18n";
 
 class ReturnToMall extends React.Component {
   state = {
@@ -46,7 +46,14 @@ class ReturnToMall extends React.Component {
         this.setModalVisible(false);
       },
       error => {
-        let error_respons = handleError(error, body, urls.close_mission, this.props.token, this.constructor.name, "closeTimerTask");
+        let error_respons = handleError(
+          error,
+          body,
+          urls.close_mission,
+          this.props.token,
+          this.constructor.name,
+          "closeTimerTask"
+        );
         this.setState({ errorText: error_respons.error_text });
         this.setModalVisible(error_respons.error_modal);
       }
@@ -110,7 +117,7 @@ class ReturnToMall extends React.Component {
         </View>
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={PickedLanguage.REPEAT}
+          first_btn_title={I18n.t("REPEAT")}
           visible={this.state.errorVisible}
           first_btn_handler={() => {
             this.closeTimerTask();
@@ -128,29 +135,30 @@ class ReturnToMall extends React.Component {
               {this.props.selectedMall.name}
             </Text>
             <Text style={[styles.top_title, styles.text_common]}>
-              {PickedLanguage.RETURN_TO_MALL.TITLE_TOP}
+              {I18n.t("RETURN_TO_MALL.TITLE_TOP")}
             </Text>
             <Text style={[styles.timer, styles.text_common]}>
-              0{this.state.hours}:0{this.state.minutes}:{this.state.seconds < 10
-                ? "0"
-                : null}
+              0{this.state.hours}:0{this.state.minutes}:
+              {this.state.seconds < 10 ? "0" : null}
               {this.state.seconds}
             </Text>
           </View>
         ) : (
-            <View style={[styles.close_view]}>
-              <Text style={[styles.top_title, styles.text_common]}>{PickedLanguage.RETURN_TO_MALL.TIME_IS_UP}</Text>
-              <CustomButton
-                active
-                gradient
-                short
-                color={this.props.userColor.white}
-                handler={() => {
-                  this.closeModal();
-                }}
-              />
-            </View>
-          )}
+          <View style={[styles.close_view]}>
+            <Text style={[styles.top_title, styles.text_common]}>
+              {I18n.t("RETURN_TO_MALL.TIME_IS_UP")}
+            </Text>
+            <CustomButton
+              active
+              gradient
+              short
+              color={this.props.userColor.white}
+              handler={() => {
+                this.closeModal();
+              }}
+            />
+          </View>
+        )}
       </View>
     );
   }
