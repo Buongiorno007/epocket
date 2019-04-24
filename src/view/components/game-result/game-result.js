@@ -48,12 +48,14 @@ import CustomButton from '../../containers/custom-button/custom-button';
 import ActivityIndicator from '../../containers/activity-indicator/activity-indicator';
 import BrandWebsite from '../../containers/brand-website/brand-website';
 import { PermissionsAndroid } from 'react-native';
+import I18n from '@locales/I18n';
 
 class GameResult extends React.Component {
   state = {
     modalVisible: false,
     errorVisible: false,
     website_visible: false,
+    cantPostToInsta: false,
     userCount: 0,
     buttonActive: true,
     interval: null,
@@ -252,13 +254,13 @@ class GameResult extends React.Component {
     );
   };
   confirmPost = () => {
-    this.props.checkForPostStatus(
-      this.props.game_info.id,
-      this.props.token,
-      this.props.location.lat,
-      this.props.location.lng
-    );
-    this.setState({ buttonActive: true });
+      this.props.checkForPostStatus(
+        this.props.game_info.id,
+        this.props.token,
+        this.props.location.lat,
+        this.props.location.lng
+      );
+      this.setState({ buttonActive: true });
   };
 
   shareToInsta = () => {
@@ -279,7 +281,9 @@ class GameResult extends React.Component {
             this.confirmPost
           );
         } else {
-          console.log('post failed');
+          this.setState({
+            cantPostToInsta: true
+          });
         }
       });
     }
@@ -410,6 +414,17 @@ class GameResult extends React.Component {
           }}
         />
         {this.props.loader && <ActivityIndicator />}
+        <CustomAlert
+          title={I18n.t('GAME.RESULT.CANT_POST')}
+          first_btn_title={PickedLanguage.OK}
+          visible={this.state.cantPostToInsta}
+          first_btn_handler={() =>
+            this.setErrorVisible(!this.state.cantPostToInsta)
+          }
+          decline_btn_handler={() =>
+            this.setErrorVisible(!this.state.cantPostToInsta)
+          }
+        />
         <CustomAlert
           title={PickedLanguage.PROFILE_PAGE.ALREADY_ACCOUNT}
           first_btn_title={PickedLanguage.OK}
