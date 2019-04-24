@@ -1,15 +1,8 @@
-import {
-  Linking,
-  Platform,
-  PermissionsAndroid
-} from "react-native";
+import { Linking, Platform, PermissionsAndroid } from "react-native";
 import RNInstagramStoryShare from "../native_modules/react-native-instagram-story-share/src";
 import RNFetchBlob from "rn-fetch-blob";
 import RNFS from "react-native-fs";
-// import { formatItem } from "./format-hastags";
-// import { loaderState } from "../reducers/loader";
 import Share from "react-native-share";
-// import PickedLanguage from "../locales/language-picker";
 import I18n from "@locales/I18n";
 
 confirmFuction = () => {
@@ -207,13 +200,9 @@ async function requestStoragePermission(
     const granted = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
       {
-        // title: PickedLanguage.PERMISSON.STORAGE_PERMISSON_TITLE,
         title: I18n.t("PERMISSON.STORAGE_PERMISSON_TITLE"),
-        // message: PickedLanguage.PERMISSON.STORAGE_PERMISSON_MESSAGE,
         message: I18n.t("PERMISSON.STORAGE_PERMISSON_MESSAGE"),
-        // buttonNegative: PickedLanguage.PROFILE_PAGE.DECLINE,
         buttonNegative: I18n.t("PROFILE_PAGE.DECLINE"),
-        // buttonPositive: PickedLanguage.OK.toUpperCase()
         buttonPositive: I18n.t("OK").toUpperCase()
       }
     );

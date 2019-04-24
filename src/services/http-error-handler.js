@@ -1,5 +1,4 @@
 //constants
-import PickedLanguage from "./../locales/language-picker";
 import { Platform } from "react-native";
 import { sendToEpcErrorBot } from "./telegramm-notification";
 import I18n from "@locales/I18n";
@@ -41,7 +40,6 @@ export const handleError = (
   switch (errorAll.code) {
     case 503:
       error = this.setErrorData(
-        // PickedLanguage.HTTP_ERRORS.SERVER_ERROR,
         I18n.t("HTTP_ERRORS.SERVER_ERROR"),
         true,
         errorAll.code
@@ -50,14 +48,12 @@ export const handleError = (
     case 400:
       error = this.setErrorData(
         I18n.t("HTTP_ERRORS.NOT_FOUND"),
-        // PickedLanguage.HTTP_ERRORS.NOT_FOUND,
         true,
         errorAll.code
       );
       break;
     case 403:
       error = this.setErrorData(
-        // PickedLanguage.HTTP_ERRORS.SMTH_WENT_WRONG,
         I18n.t("HTTP_ERRORS.SMTH_WENT_WRONG"),
         true,
         errorAll.code
@@ -66,14 +62,12 @@ export const handleError = (
     case 408:
       error = this.setErrorData(
         I18n.t("HTTP_ERRORS.RUNTIME"),
-        // PickedLanguage.HTTP_ERRORS.RUNTIME,
         true,
         errorAll.code
       );
       break;
     case 416:
       error = this.setErrorData(
-        // PickedLanguage.HTTP_ERRORS.PEOPLE_LIMIT,
         I18n.t("HTTP_ERRORS.PEOPLE_LIMIT"),
         true,
         errorAll.code
@@ -81,7 +75,6 @@ export const handleError = (
       break;
     case 418:
       error = this.setErrorData(
-        // PickedLanguage.HTTP_ERRORS.PERSONAL_LIMIT,
         I18n.t("HTTP_ERRORS.PERSONAL_LIMIT"),
         true,
         errorAll.code
@@ -89,7 +82,6 @@ export const handleError = (
       break;
     default:
       error = this.setErrorData(
-        // PickedLanguage.HTTP_ERRORS.SERVER_ERROR,
         I18n.t("HTTP_ERRORS.SERVER_ERROR"),
         true,
         errorAll.code

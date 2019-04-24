@@ -4,7 +4,6 @@ import geolib from "geolib";
 import BackgroundFetch from "react-native-background-fetch";
 import BackgroundTimer from "react-native-background-timer";
 import { httpPost } from "./http";
-// import PickedLanguage from "../locales/language-picker";
 //services
 import getCurrentGeolocation from "./get-location";
 //redux
