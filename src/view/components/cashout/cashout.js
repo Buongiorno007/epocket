@@ -1,8 +1,17 @@
 import React from "react";
 import styles from "./styles";
-import { View, PanResponder, Animated, Dimensions, Easing, Text, StatusBar, Platform } from "react-native";
+import {
+  View,
+  PanResponder,
+  Animated,
+  Dimensions,
+  Easing,
+  Text,
+  StatusBar,
+  Platform
+} from "react-native";
 import LinearGradient from "react-native-linear-gradient";
-import FastImage from 'react-native-fast-image'
+import FastImage from "react-native-fast-image";
 //containers
 import List from "../../containers/cashout-list/cashout-list";
 import Balance from "../../containers/cashout-balance/cashout-balance";
@@ -11,15 +20,15 @@ import CustomAlert from "../../containers/custom-alert/custom-alert";
 import TimerModal from "../../containers/timer-modal/timer-modal";
 //constants
 import { urls } from "../../../constants/urls";
-import PickedLanguage from "../../../locales/language-picker";
 import { colors } from "../../../constants/colors_men";
 //redux
 import { setBalance } from "../../../reducers/user-balance";
 import { loaderState } from "../../../reducers/loader";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import I18n from "@locales/I18n";
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 
 class Cashout extends React.Component {
   state = {
@@ -35,25 +44,26 @@ class Cashout extends React.Component {
   setModalVisible = visible => {
     this.setState({ errorVisible: visible });
   };
-  separateProducts = (list_of_products) => {
+  separateProducts = list_of_products => {
     let categoryList = [];
     let addedIds = [];
     let separatedList = [];
     if (list_of_products.length > 0) {
-      addedIds.push(list_of_products[0].category.id)
+      addedIds.push(list_of_products[0].category.id);
       for (let i = 0; i < list_of_products.length; i++) {
         if (!addedIds.includes(list_of_products[i].category.id)) {
-          addedIds.push(list_of_products[i].category.id)
+          addedIds.push(list_of_products[i].category.id);
         }
       }
       addedIds.forEach(element => {
-        let category = list_of_products.find(x => x.category.id === element).category;
-        categoryList.push(category)
+        let category = list_of_products.find(x => x.category.id === element)
+          .category;
+        categoryList.push(category);
       });
       separatedList = [...categoryList];
-      separatedList.map(function (element) {
-        element.products = []
-      })
+      separatedList.map(function(element) {
+        element.products = [];
+      });
       categoryList.forEach(category => {
         list_of_products.forEach(product => {
           if (product.category.id === category.id) {
@@ -63,62 +73,69 @@ class Cashout extends React.Component {
             product.category = {
               id: id,
               name: name
-            }
-            categoryCopy.products.push(product)
+            };
+            categoryCopy.products.push(product);
           }
         });
       });
     }
     return separatedList;
-  }
+  };
   findActiveAccordion = (card, arrayForAccordion) => {
     let categoryIndex;
     arrayForAccordion.forEach(category => {
       category.products.forEach(product => {
         if (product === card) {
-          categoryIndex = arrayForAccordion.findIndex(x => x.id === category.id)
+          categoryIndex = arrayForAccordion.findIndex(
+            x => x.id === category.id
+          );
         }
       });
     });
     return categoryIndex;
-  }
-  componentDidMount = () => {
-    let data = this.separateProducts(this.props.navigation.state.params.cashout_data)
-    if (this.props.navigation.state.params.cardForAccordion) {
-      let activeIndex = this.findActiveAccordion(this.props.navigation.state.params.cardForAccordion, data)
-      this.setState({ activeIndex })
-    }
-    this.setState({ products: data })
   };
-  animateTop = (topScaleProps, topHeightProps, topImageOpacityProps, topBigHeightProps) => {
+  componentDidMount = () => {
+    let data = this.separateProducts(
+      this.props.navigation.state.params.cashout_data
+    );
+    if (this.props.navigation.state.params.cardForAccordion) {
+      let activeIndex = this.findActiveAccordion(
+        this.props.navigation.state.params.cardForAccordion,
+        data
+      );
+      this.setState({ activeIndex });
+    }
+    this.setState({ products: data });
+  };
+  animateTop = (
+    topScaleProps,
+    topHeightProps,
+    topImageOpacityProps,
+    topBigHeightProps
+  ) => {
     Animated.parallel([
-      Animated.timing(this.state.topScaleY,
-        {
-          toValue: topScaleProps.toValue,
-          duration: topScaleProps.duration,
-          easing: Easing.linear
-        }),
-      Animated.timing(this.state.topHeight,
-        {
-          toValue: topHeightProps.toValue,
-          duration: topHeightProps.duration,
-          easing: Easing.linear
-        }),
-      Animated.timing(this.state.topImageOpacity,
-        {
-          toValue: topImageOpacityProps.toValue,
-          duration: topImageOpacityProps.duration,
-          easing: Easing.linear
-        })
-      ,
-      Animated.timing(this.state.topBigHeight,
-        {
-          toValue: topBigHeightProps.toValue,
-          duration: topBigHeightProps.duration,
-          easing: Easing.linear
-        })
+      Animated.timing(this.state.topScaleY, {
+        toValue: topScaleProps.toValue,
+        duration: topScaleProps.duration,
+        easing: Easing.linear
+      }),
+      Animated.timing(this.state.topHeight, {
+        toValue: topHeightProps.toValue,
+        duration: topHeightProps.duration,
+        easing: Easing.linear
+      }),
+      Animated.timing(this.state.topImageOpacity, {
+        toValue: topImageOpacityProps.toValue,
+        duration: topImageOpacityProps.duration,
+        easing: Easing.linear
+      }),
+      Animated.timing(this.state.topBigHeight, {
+        toValue: topBigHeightProps.toValue,
+        duration: topBigHeightProps.duration,
+        easing: Easing.linear
+      })
     ]).start();
-  }
+  };
   getDirectionAndColor = (dy, moveY) => {
     const draggedDown = dy > 30;
     const draggedUp = dy < -30;
@@ -131,58 +148,55 @@ class Cashout extends React.Component {
           },
           {
             toValue: height * 0.15,
-            duration: 100,
+            duration: 100
           },
           {
             toValue: 1,
-            duration: 150,
+            duration: 150
           },
           {
             toValue: height * 0.35,
-            duration: 150,
+            duration: 150
           }
         );
-        this.setState({ draggedDown: true })
+        this.setState({ draggedDown: true });
       }
       if (draggedUp) {
         this.animateTop(
           {
             toValue: Platform.OS === "ios" ? 0 : 0.00001,
-            duration: 100,
+            duration: 100
           },
           {
             toValue: 0,
-            duration: 150,
+            duration: 150
           },
           {
             toValue: 0,
-            duration: 150,
+            duration: 150
           },
           {
             toValue: height * 0.12,
-            duration: 150,
+            duration: 150
           }
         );
-        this.setState({ draggedDown: false })
+        this.setState({ draggedDown: false });
       }
     }
-  }
+  };
   constructor(props) {
-    super(props)
+    super(props);
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: (evt, gestureState) => true,
       onPanResponderMove: (evt, gestureState) => {
         this.getDirectionAndColor(gestureState.dy, gestureState.moveY);
       },
-      onPanResponderRelease: (evt, gestureState) => {
-      }
-    })
+      onPanResponderRelease: (evt, gestureState) => {}
+    });
   }
   render = () => {
     return (
-      <View
-        style={styles.container}
-      >
+      <View style={styles.container}>
         <StatusBar
           barStyle="dark-content"
           translucent={true}
@@ -190,7 +204,7 @@ class Cashout extends React.Component {
         />
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={PickedLanguage.REPEAT}
+          first_btn_title={I18n.t("REPEAT")}
           visible={this.state.errorVisible}
           first_btn_handler={() => {
             //this.loadData();
@@ -201,9 +215,12 @@ class Cashout extends React.Component {
           }}
         />
         <Animated.View
-          style={[styles.top, {
-            height: this.state.topBigHeight,
-          }]}
+          style={[
+            styles.top,
+            {
+              height: this.state.topBigHeight
+            }
+          ]}
           {...this._panResponder.panHandlers}
         >
           <Balance
@@ -213,47 +230,66 @@ class Cashout extends React.Component {
             }}
           />
           <Animated.View
-            style={[styles.cashout_top,
-            {
-              height: this.state.topHeight,
-              transform: [
-                {
-                  scaleY: this.state.topScaleY
-                }
-              ]
-            }
-            ]}>
-            <Text numberOfLines={1} style={styles.general_text} >{this.props.navigation.state.params.general_info.adress}</Text>
-            <Text numberOfLines={1} style={styles.general_text_big}>{this.props.navigation.state.params.general_info.name}</Text>
+            style={[
+              styles.cashout_top,
+              {
+                height: this.state.topHeight,
+                transform: [
+                  {
+                    scaleY: this.state.topScaleY
+                  }
+                ]
+              }
+            ]}
+          >
+            <Text numberOfLines={1} style={styles.general_text}>
+              {this.props.navigation.state.params.general_info.adress}
+            </Text>
+            <Text numberOfLines={1} style={styles.general_text_big}>
+              {this.props.navigation.state.params.general_info.name}
+            </Text>
           </Animated.View>
         </Animated.View>
         <LinearGradient
-          colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
+          colors={[
+            this.props.userColor.first_gradient_color,
+            this.props.userColor.second_gradient_color
+          ]}
           start={{ x: 0.0, y: 5.0 }}
           end={{ x: 1.0, y: 5.0 }}
           style={styles.grad}
         />
         <Animated.Image
-          style={[styles.background_image, {
-            opacity: this.state.topImageOpacity
-          }]}
-          source={{ uri: this.props.navigation.state.params.general_info.photo }}
+          style={[
+            styles.background_image,
+            {
+              opacity: this.state.topImageOpacity
+            }
+          ]}
+          source={{
+            uri: this.props.navigation.state.params.general_info.photo
+          }}
         />
-        <Animated.View style={[styles.background_image_mask, {
-          opacity: this.state.topImageOpacity
-        }]} />
+        <Animated.View
+          style={[
+            styles.background_image_mask,
+            {
+              opacity: this.state.topImageOpacity
+            }
+          ]}
+        />
         <List
           general_info={this.props.navigation.state.params.general_info}
           draggedDown={this.state.draggedDown}
           data={this.state.products}
           dataInit={this.props.navigation.state.params.cashout_data}
-          activeIndex={this.state.activeIndex} />
-        {this.props.doneNotification || this.props.failedNotification ?
-          <View >
+          activeIndex={this.state.activeIndex}
+        />
+        {this.props.doneNotification || this.props.failedNotification ? (
+          <View>
             <TimerModal style={styles.timer_modal_container} />
           </View>
-          : null
-        }
+        ) : null}
       </View>
     );
   };
@@ -264,7 +300,7 @@ const mapStateToProps = state => ({
   userColor: state.userColor,
   loader: state.loader,
   doneNotification: state.doneNotification,
-  failedNotification: state.failedNotification,
+  failedNotification: state.failedNotification
 });
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
