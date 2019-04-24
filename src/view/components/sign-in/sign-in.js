@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   View,
   StatusBar,
@@ -8,68 +8,68 @@ import {
   Animated,
   Platform,
   KeyboardAvoidingView
-} from "react-native";
-import FastImage from "react-native-fast-image";
-import { TextField } from "react-native-material-textfield";
-import LinearGradient from "react-native-linear-gradient";
-import { AccessToken } from "react-native-fbsdk";
+} from 'react-native';
+import FastImage from 'react-native-fast-image';
+import { TextField } from 'react-native-material-textfield';
+import LinearGradient from 'react-native-linear-gradient';
+import { AccessToken } from 'react-native-fbsdk';
 //containers
-import BackButton from "../../containers/back/back";
-import CustomButton from "../../containers/custom-button/custom-button";
-import CustomAlert from "../../containers/custom-alert/custom-alert";
-import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
+import BackButton from '../../containers/back/back';
+import CustomButton from '../../containers/custom-button/custom-button';
+import CustomAlert from '../../containers/custom-alert/custom-alert';
+import ActivityIndicator from '../../containers/activity-indicator/activity-indicator';
 //redux
-import { setToken } from "../../../reducers/token";
-import { loaderState } from "../../../reducers/loader";
-import { setBalance } from "../../../reducers/user-balance";
-import { connect } from "react-redux";
-import { setColor } from "../../../reducers/user-color";
-import { bindActionCreators } from "redux";
-import { setInstaToken } from "../../../reducers/insta-token";
-import { setFacebookToken } from "../../../reducers/facebook-token";
-import { setProfileVirgin } from "../../../reducers/profile-virgin";
-import { setGeoVirgin } from "../../../reducers/geo-virgin";
-import { getPush } from "../../../reducers/push";
-import { saveUser } from "../../../reducers/profile-state";
+import { setToken } from '../../../reducers/token';
+import { loaderState } from '../../../reducers/loader';
+import { setBalance } from '../../../reducers/user-balance';
+import { connect } from 'react-redux';
+import { setColor } from '../../../reducers/user-color';
+import { bindActionCreators } from 'redux';
+import { setInstaToken } from '../../../reducers/insta-token';
+import { setFacebookToken } from '../../../reducers/facebook-token';
+import { setProfileVirgin } from '../../../reducers/profile-virgin';
+import { setGeoVirgin } from '../../../reducers/geo-virgin';
+import { getPush } from '../../../reducers/push';
+import { saveUser } from '../../../reducers/profile-state';
 import {
   locationStateListener,
   locationState
-} from "../../../reducers/geolocation-status";
+} from '../../../reducers/geolocation-status';
 import {
   locationCoordsListener,
   setLocation
-} from "../../../reducers/geolocation-coords";
+} from '../../../reducers/geolocation-coords';
 //services
-import NavigationService from "../../../services/route";
-import { httpPost } from "../../../services/http";
-import { handleError } from "../../../services/http-error-handler";
-import geo_config from "../start/geolocation-config";
-import BackgroundGeolocationModule from "../../../services/background-geolocation-picker";
+import NavigationService from '../../../services/route';
+import { httpPost } from '../../../services/http';
+import { handleError } from '../../../services/http-error-handler';
+import geo_config from '../start/geolocation-config';
+import BackgroundGeolocationModule from '../../../services/background-geolocation-picker';
 //constants
-import styles from "./styles";
-import { colors } from "../../../constants/colors";
-import { urls } from "../../../constants/urls";
-import { ICONS } from "../../../constants/icons";
-import PickedLanguage from "../../../locales/language-picker";
-const keyboardVerticalOffset = Platform.OS === "ios" ? -50 : -100;
+import styles from './styles';
+import { colors } from '../../../constants/colors';
+import { urls } from '../../../constants/urls';
+import { ICONS } from '../../../constants/icons';
+import PickedLanguage from '../../../locales/language-picker';
+const keyboardVerticalOffset = Platform.OS === 'ios' ? -50 : -100;
 
 class SignIn extends React.Component {
   static navigationOptions = () => ({
     header: <BackButton title={PickedLanguage.SIGN_IN_TITLE} route="Start" />
   });
 
-  prefix = "+";
+  prefix = '+';
   state = {
     signInMargin: new Animated.Value(40),
-    phone: "",
-    code: "",
+    phone: '',
+    code: '',
     invalidCode: false,
     numberNotExists: false,
     codeCorrect: false,
     step: 1,
     failedSignVisible: false,
     failedConfirmVisible: false,
-    errorText: ""
+    errorText: ''
   };
 
   constructor(props) {
@@ -79,11 +79,11 @@ class SignIn extends React.Component {
 
   componentDidMount() {
     this.keyboardDidShowListener = Keyboard.addListener(
-      "keyboardDidShow",
+      'keyboardDidShow',
       this._keyboardDidShow
     );
     this.keyboardDidHideListener = Keyboard.addListener(
-      "keyboardDidHide",
+      'keyboardDidHide',
       this._keyboardDidHide
     );
     this.props.loaderState(false);
@@ -120,27 +120,27 @@ class SignIn extends React.Component {
   };
 
   mphone = v => {
-    let r = v.replace(/\D/g, "");
-    r = r.replace(/^0/, "");
+    let r = v.replace(/\D/g, '');
+    r = r.replace(/^0/, '');
     if (r.length > 8) {
       // 11+ digits.
-      r = r.replace(/^(\d{2})(\d{3})(\d{0,3})(\d{0,5}).*/, "$1 $2 $3 $4");
+      r = r.replace(/^(\d{2})(\d{3})(\d{0,3})(\d{0,5}).*/, '$1 $2 $3 $4');
     } else if (r.length > 5) {
       // 6..10 digits. Format as 4+4
-      r = r.replace(/^(\d{2})(\d{0,3})(\d{0,5}).*/, "$1 $2 $3");
+      r = r.replace(/^(\d{2})(\d{0,3})(\d{0,5}).*/, '$1 $2 $3');
     } else if (r.length > 2) {
       // 3..5 digits.
-      r = r.replace(/^(\d{2})(\d{0,3})/, "$1 $2");
+      r = r.replace(/^(\d{2})(\d{0,3})/, '$1 $2');
     } else {
       // 0..2 digits.
-      r = r.replace(/^(\d*)/, "$1");
+      r = r.replace(/^(\d*)/, '$1');
     }
     return r;
   };
 
   onChangedPhone(text) {
     this.setState({ numberNotExists: false });
-    let newText = "";
+    let newText = '';
     let phonePattern = /^.+$/;
     if (phonePattern.test(text)) {
       newText = text;
@@ -154,7 +154,7 @@ class SignIn extends React.Component {
   }
 
   onChangedCode(text) {
-    let newText = "";
+    let newText = '';
     let codePattern = /^\d+$/;
     if (codePattern.test(text)) {
       newText = text;
@@ -172,26 +172,26 @@ class SignIn extends React.Component {
     Keyboard.dismiss();
     this.setFailedSignVisible(false);
     this.props.loaderState(true);
-    let bodyPhone = this.state.phone.replace(/\D/g, "");
+    let bodyPhone = this.state.phone.replace(/\D/g, '');
     let body = {
-      phone: "+" + bodyPhone
+      phone: '+' + bodyPhone
     };
     let promise = httpPost(urls.sing_in, JSON.stringify(body));
     promise.then(
       result => {
         this.setFailedSignVisible(false);
-        //this.props.loaderState(false); //DEPRECATED uncomment
+        this.props.loaderState(false); //DEPRECATED uncomment
         this.setState({ step: 2, acceptButton: false });
-        this.confirmLogin(); //DEPRECATED
+        // this.confirmLogin(); //DEPRECATED
       },
       error => {
         let error_respons = handleError(
           error,
           body,
           urls.sign_in,
-          "",
+          '',
           this.constructor.name,
-          "login"
+          'login'
         );
         this.setState({ errorText: error_respons.error_text });
         if (error_respons.error_code == 400) {
@@ -211,7 +211,7 @@ class SignIn extends React.Component {
       result => {
         if (result.body.logged && result.body.active && result.body.token) {
           this.props.setFacebookToken(result.body.token);
-          Platform.OS === "ios" &&
+          Platform.OS === 'ios' &&
             AccessToken.setCurrentAccessToken({
               accessToken: result.body.token
             });
@@ -245,35 +245,36 @@ class SignIn extends React.Component {
     Keyboard.dismiss();
     this.setFailedConfirmVisible(false);
     this.props.loaderState(true);
-    let bodyPhone = this.state.phone.replace(/\D/g, "");
+    let bodyPhone = this.state.phone.replace(/\D/g, '');
     let body = {
-      phone: "+" + bodyPhone,
+      phone: '+' + bodyPhone,
       code: this.state.code
     };
-    let promise = httpPost(urls.sing_in_confirm, JSON.stringify(body));
-    promise.then(
+    httpPost(urls.sing_in_confirm, JSON.stringify(body)).then(
       result => {
-        console.log("result", result);
-        this.setFailedConfirmVisible(false);
-        this.props.loaderState(false);
-        const user_info = {
-          name: result.body.user,
-          phone: this.state.phone,
-          photo: result.body.photo,
-          sex: result.body.sex ? 1 : 0,
-          birthDay: result.body.birthDay,
-          currency: result.body.currency
-        };
-        this.props.getPush(result.body.token);
-        this.props.saveUser(user_info);
-        this.props.setColor(user_info.sex);
-        this.props.setToken(result.body.token);
-        this.props.setBalance(result.body.balance.toFixed(2));
-        this.props.setProfileVirgin(result.body.profile_virgin);
-        this.props.setGeoVirgin(result.body.geo_virgin);
-        this.isFblogged(result.body.token);
-        this.isInstalogged(result.body.token);
-        NavigationService.navigate("Main");
+        console.log('result', result);
+        if (result.status === 200) {
+          this.setFailedConfirmVisible(false);
+          this.props.loaderState(false);
+          const user_info = {
+            name: result.body.user,
+            phone: this.state.phone,
+            photo: result.body.photo,
+            sex: result.body.sex ? 1 : 0,
+            birthDay: result.body.birthDay,
+            currency: result.body.currency
+          };
+          this.props.getPush(result.body.token);
+          this.props.saveUser(user_info);
+          this.props.setColor(user_info.sex);
+          this.props.setToken(result.body.token);
+          this.props.setBalance(result.body.balance);
+          this.props.setProfileVirgin(result.body.profile_virgin);
+          this.props.setGeoVirgin(result.body.geo_virgin);
+          this.isFblogged(result.body.token);
+          this.isInstalogged(result.body.token);
+          NavigationService.navigate('Main');
+        }
       },
       error => {
         this.props.loaderState(false);
@@ -281,9 +282,9 @@ class SignIn extends React.Component {
           error,
           body,
           urls.sing_in_confirm,
-          "",
+          '',
           this.constructor.name,
-          "confirmLogin"
+          'confirmLogin'
         );
         this.setState({ errorText: error_respons.error_text });
         this.setFailedConfirmVisible(error_respons.error_modal);
@@ -327,14 +328,14 @@ class SignIn extends React.Component {
           <StatusBar
             barStyle="dark-content"
             translucent={true}
-            backgroundColor={"transparent"}
+            backgroundColor={'transparent'}
           />
           <FastImage
             style={styles.bottom_image}
             source={{ uri: ICONS.COMMON.SIGN_IN_BACKGROUND }}
           />
           <LinearGradient
-            colors={["#FEBF54", "#FB7375", "rgba(246,34,183,0.48)"]}
+            colors={['#FEBF54', '#FB7375', 'rgba(246,34,183,0.48)']}
             start={{ x: 1.0, y: 0.0 }}
             end={{ x: 0.0, y: 1.0 }}
             style={styles.grad}
@@ -389,7 +390,7 @@ class SignIn extends React.Component {
                 {PickedLanguage.ENTER_CODE_SIDN_IN}
               </Text>
               <TextField
-                label={""}
+                label={''}
                 style={styles.code_input}
                 textColor={this.props.userColor.input}
                 tintColor={this.props.userColor.input}

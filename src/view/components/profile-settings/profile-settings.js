@@ -110,7 +110,6 @@ class ProfileSettings extends React.Component {
         promise.then(
             result => {
                 this.props.loaderState(false);
-                console.log(result)
                 CookieManager.clearAll()
                     .then((res) => {
                         this.props.loaderState(false);
@@ -171,7 +170,6 @@ class ProfileSettings extends React.Component {
         );
         promise.then(
             result => {
-                console.log(result)
                 if (result.status === 200) {
                     this.props.setInstaToken(String(instagram_token))
                     this.props.loaderState(false);

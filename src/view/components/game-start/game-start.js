@@ -125,7 +125,6 @@ class GameStart extends React.Component {
     AppState.removeEventListener("change", this._handleAppStateChange);
   };
   componentWillReceiveProps = nextProps => {
-    console.log(this.props.game_status, nextProps.game_status);
     if (
       this.props.game_status == "initial" &&
       nextProps.game_status == "start"
@@ -335,7 +334,7 @@ class GameStart extends React.Component {
       this.props.token
     ).then(
       result => {
-        console.log(result);
+        ;
         this.setState({ website_visible: false });
         this.props.loaderState(false);
         this.props.getGameInfo(

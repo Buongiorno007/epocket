@@ -26,7 +26,6 @@ export const checkForInternetReacheable = (connection) => async dispatch => {
                 );
                 received_promise.then(
                     result => {
-                        console.log(result)
                         dispatch(getStatus(true))
                     },
                     error => {
