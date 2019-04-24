@@ -8,7 +8,7 @@ const locale =
     ? NativeModules.SettingsManager.settings.AppleLocale.substring(0, 2)
     : NativeModules.I18nManager.localeIdentifier.substring(0, 2);
 
-I18n.defaultLocale = 'ru';
+I18n.defaultLocale = "ru";
 I18n.fallbacks = true;
 I18n.locale = locale;
 

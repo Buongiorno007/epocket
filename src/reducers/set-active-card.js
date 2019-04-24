@@ -1,16 +1,16 @@
-export const SHOW_CARD = 'set-active-card/SHOW_CARD';
+export const SHOW_CARD = "set-active-card/SHOW_CARD";
 
 export default (state = false, action) => {
-    // console.log('updatedashboard',action)
-	switch (action.type) {
-		case SHOW_CARD:
-			return action.activeCard;
-		default:
-			return state;
-	}
-}
+  // console.log('updatedashboard',action)
+  switch (action.type) {
+    case SHOW_CARD:
+      return action.activeCard;
+    default:
+      return state;
+  }
+};
 
-export const setActiveCard = (activeCard) => ({
-    type: SHOW_CARD,
-    activeCard
+export const setActiveCard = activeCard => ({
+  type: SHOW_CARD,
+  activeCard
 });
