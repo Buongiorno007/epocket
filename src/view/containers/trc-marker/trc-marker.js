@@ -10,6 +10,7 @@ import { ICONS } from "../../../constants/icons";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import I18n from "@locales/I18n";
+import { AsyncStorage } from "react-native";
 
 class TRCMarker extends React.Component {
   constructor(props) {

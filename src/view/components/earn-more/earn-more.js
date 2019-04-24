@@ -27,6 +27,7 @@ import CustomButton from "../../containers/custom-button/custom-button";
 import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 import CustomAlert from "../../containers/custom-alert/custom-alert";
 import I18n from "@locales/I18n";
+import { AsyncStorage } from "react-native";
 
 class EarnMore extends React.Component {
   constructor(props) {

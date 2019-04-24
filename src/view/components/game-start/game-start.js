@@ -521,34 +521,34 @@ class GameStart extends React.Component {
                   : require('../../../assets/img/zifi/playful.gif')
               }
             />
-
-            <View style={styles.text_container}>
-              {this.props.game_info.no_more_games ? null : (
+            {this.props.game_info.no_more_games ? (
+              <View style={styles.text_container}>
                 <Text style={styles.game_cost_text}>
                   {this.props.game_info.no_more_games
                     ? PickedLanguage.GAME.SORRY_TODAY.toLocaleUpperCase()
                     : ''}{' '}
                 </Text>
-              )}
-              <LinearTextGradient
-                style={styles.game_cost_text}
-                locations={[0, 1]}
-                colors={[
-                  this.props.userColor.first_gradient_color,
-                  this.props.userColor.second_gradient_color
-                ]}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-              >
-                {this.props.game_info.no_more_games == true
-                  ? PickedLanguage.GAME.NO_GAMES.toLocaleUpperCase()
-                  : PickedLanguage.GAME.COST_TEXT.toLocaleUpperCase() +
-                    ' ' +
-                    this.props.game_info.cost.toLocaleUpperCase() +
-                    ' ' +
-                    PickedLanguage.EPC.toLocaleUpperCase()}
-              </LinearTextGradient>
-            </View>
+                <LinearTextGradient
+                  style={styles.game_cost_text}
+                  locations={[0, 1]}
+                  colors={[
+                    this.props.userColor.first_gradient_color,
+                    this.props.userColor.second_gradient_color
+                  ]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 0 }}
+                >
+                  {this.props.game_info.no_more_games == true
+                    ? PickedLanguage.GAME.NO_GAMES.toLocaleUpperCase()
+                    : PickedLanguage.GAME.COST_TEXT.toLocaleUpperCase() +
+                      ' ' +
+                      this.props.game_info.cost.toLocaleUpperCase() +
+                      ' ' +
+                      PickedLanguage.EPC.toLocaleUpperCase()}
+                </LinearTextGradient>
+              </View>
+            ) : null}
+
             <View style={styles.game_description}>
               <Text
                 style={

@@ -22,7 +22,7 @@ const initialState = {
   cost: "0",
   title: "",
   success_image: ICONS.FILLER,
-  no_more_games: true,
+  no_more_games: false,
   time: 0,
   available_game_len: 0,
   total_game_len: 0,
