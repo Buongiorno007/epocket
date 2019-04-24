@@ -72,7 +72,6 @@ class Profile extends React.Component {
     );
     promise.then(
       result => {
-        console.log(result);
         this.setState({
           refferal_link: result.body.new_link
             ? result.body.new_link
@@ -97,7 +96,7 @@ class Profile extends React.Component {
       );
       promise.then(
         result => {
-          console.log(result);
+          
           this.setState({
             refferal_link: result.body.new_link
               ? result.body.new_link

@@ -466,7 +466,6 @@ class Dashboard extends React.Component {
     let promise = httpPost(urls.facebook_login, body, this.props.token);
     promise.then(
       result => {
-        console.log(result);
         this.props.loaderState(false);
         this.refs.facebookLogin.show(result.body.url);
       },

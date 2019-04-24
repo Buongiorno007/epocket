@@ -46,7 +46,6 @@ class PhotoCamera extends React.Component {
     );
     promise.then(
       result => {
-        console.log(result)
         this.setState({
           template_info: {
             media: result.body.media,
