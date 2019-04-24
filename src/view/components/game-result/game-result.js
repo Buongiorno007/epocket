@@ -254,13 +254,13 @@ class GameResult extends React.Component {
     );
   };
   confirmPost = () => {
-      this.props.checkForPostStatus(
-        this.props.game_info.id,
-        this.props.token,
-        this.props.location.lat,
-        this.props.location.lng
-      );
-      this.setState({ buttonActive: true });
+    this.props.checkForPostStatus(
+      this.props.game_info.id,
+      this.props.token,
+      this.props.location.lat,
+      this.props.location.lng
+    );
+    this.setState({ buttonActive: true });
   };
 
   shareToInsta = () => {
@@ -637,7 +637,13 @@ class GameResult extends React.Component {
             <Text style={styles.fail}>
               {this.props.game_info.website_link
                 ? PickedLanguage.GAME.RESULT.VISIT_WEBSITE.toUpperCase()
-                : PickedLanguage.GAME.RESULT.WAIT_.toUpperCase() +
+                : this.props.game_info.wait_timer_in_sec < 60
+                ? // show time in seconds
+                  PickedLanguage.GAME.RESULT.WAIT_.toUpperCase() +
+                  this.props.game_info.wait_timer_in_sec +
+                  PickedLanguage.GAME.RESULT.SEC.toUpperCase()
+                : // show time in minutes
+                  PickedLanguage.GAME.RESULT.WAIT_.toUpperCase() +
                   this.props.game_info.wait_timer +
                   PickedLanguage.GAME.RESULT.MIN.toUpperCase()}
             </Text>

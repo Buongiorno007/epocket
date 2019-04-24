@@ -283,6 +283,7 @@ export const RU = {
       POST_NO_PUBLISH_MESSAGE: 'Ваш пост не был опубликован',
       STAY_ON_WEBSITE_FOR: "Проведи на сайте",
       MIN : "мин.",
+      SEC : "сек.",
       LOOK_WHAT_TO_BUY: "Посмотри какие товары ты cможешь приобрести за EPC"
     }
   },
