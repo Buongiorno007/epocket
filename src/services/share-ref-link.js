@@ -1,7 +1,6 @@
 import { Linking, Platform, Clipboard } from "react-native";
 import Share from "react-native-share";
 import { Toast } from "native-base";
-// import PickedLanguage from "./../locales/language-picker";
 import I18n from "@locales/I18n";
 
 export function shareToAllSocial(shareLink) {
@@ -35,7 +34,6 @@ shareSingleThroughtLinking = (app_link, app_share_link, app_market_id) => {
 };
 
 export function shareToOneSocial(shareLink, link_reward, socialType, curr) {
-  // let extendedShareLink = PickedLanguage.REF_LINK.ADDITIONAL_SHARING_TEXT + link_reward + " " + PickedLanguage.EPC.toUpperCase() + "\n" + shareLink
   let extendedShareLink =
     I18n.t("REF_LINK.ADDITIONAL_SHARING_TEXT") +
     link_reward +
@@ -52,7 +50,6 @@ export function shareToOneSocial(shareLink, link_reward, socialType, curr) {
     case "copy":
       Clipboard.setString(extendedShareLink);
       Toast.show({
-        // text: PickedLanguage.REF_LINK.COPY_MESSAGE,
         text: I18n.t("REF_LINK.COPY_MESSAGE"),
         buttonText: "",
         duration: 3000,
