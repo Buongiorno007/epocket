@@ -42,14 +42,14 @@ export const handleError = (
     case 503:
       error = this.setErrorData(
         // PickedLanguage.HTTP_ERRORS.SERVER_ERROR,
-        I18n.t('HTTP_ERRORS.SERVER_ERROR'),
+        I18n.t("HTTP_ERRORS.SERVER_ERROR"),
         true,
         errorAll.code
       );
       break;
     case 400:
       error = this.setErrorData(
-        I18n.t('HTTP_ERRORS.NOT_FOUND'),
+        I18n.t("HTTP_ERRORS.NOT_FOUND"),
         // PickedLanguage.HTTP_ERRORS.NOT_FOUND,
         true,
         errorAll.code
@@ -58,14 +58,14 @@ export const handleError = (
     case 403:
       error = this.setErrorData(
         // PickedLanguage.HTTP_ERRORS.SMTH_WENT_WRONG,
-        I18n.t('HTTP_ERRORS.SMTH_WENT_WRONG'),
+        I18n.t("HTTP_ERRORS.SMTH_WENT_WRONG"),
         true,
         errorAll.code
       );
       break;
     case 408:
       error = this.setErrorData(
-        I18n.t('HTTP_ERRORS.RUNTIME'),
+        I18n.t("HTTP_ERRORS.RUNTIME"),
         // PickedLanguage.HTTP_ERRORS.RUNTIME,
         true,
         errorAll.code
@@ -74,7 +74,7 @@ export const handleError = (
     case 416:
       error = this.setErrorData(
         // PickedLanguage.HTTP_ERRORS.PEOPLE_LIMIT,
-        I18n.t('HTTP_ERRORS.PEOPLE_LIMIT'),
+        I18n.t("HTTP_ERRORS.PEOPLE_LIMIT"),
         true,
         errorAll.code
       );
@@ -82,7 +82,7 @@ export const handleError = (
     case 418:
       error = this.setErrorData(
         // PickedLanguage.HTTP_ERRORS.PERSONAL_LIMIT,
-        I18n.t('HTTP_ERRORS.PERSONAL_LIMIT'),
+        I18n.t("HTTP_ERRORS.PERSONAL_LIMIT"),
         true,
         errorAll.code
       );
@@ -90,7 +90,7 @@ export const handleError = (
     default:
       error = this.setErrorData(
         // PickedLanguage.HTTP_ERRORS.SERVER_ERROR,
-        I18n.t('HTTP_ERRORS.SERVER_ERROR'),
+        I18n.t("HTTP_ERRORS.SERVER_ERROR"),
         true,
         errorAll.code
       );

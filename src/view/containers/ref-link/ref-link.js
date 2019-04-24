@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Platform, FlatList } from "react-native";
+import { View, Text, Platform, FlatList, AsyncStorage } from "react-native";
 import FastImage from "react-native-fast-image";
 import { Button } from "native-base";
 import LinearGradient from "react-native-linear-gradient";
@@ -21,8 +21,19 @@ class RefLink extends React.Component {
   state = {
     shareMenuOpen: false,
     share_link: "",
-    social: []
+    social: [],
+    currency: ""
   };
+
+  componentDidMount() {
+    AsyncStorage.getItem("user_info").then(value => {
+      let object = JSON.parse(value);
+      console.log(object, "OBJECTOBJECTOBJECTOBJECT");
+
+      this.setState({ currency: object.currency });
+    });
+  }
+
   componentWillReceiveProps = nextProps => {
     this.setState({
       share_link: nextProps.link,
@@ -76,7 +87,8 @@ class RefLink extends React.Component {
           shareToOneSocial(
             this.state.share_link,
             this.props.price,
-            item.item.type
+            item.item.type,
+            this.state.currency
           );
         }}
       >
@@ -96,9 +108,7 @@ class RefLink extends React.Component {
   render = () => {
     return (
       <View
-        style={
-          this.props.toogle ? styles.opened_share_menu : styles.container
-        }
+        style={this.props.toogle ? styles.opened_share_menu : styles.container}
       >
         <Button
           transparent
@@ -149,9 +159,9 @@ class RefLink extends React.Component {
                 androidRippleColor={this.props.userColor.card_shadow}
                 style={styles.button_close}
                 onPress={() => {
-                  this.props.setToogle(false)
-                //   this.props.setTabState(0);
-                //   this.props.setTabState(3);
+                  this.props.setToogle(false);
+                  //   this.props.setTabState(0);
+                  //   this.props.setTabState(3);
                 }}
               >
                 <FastImage

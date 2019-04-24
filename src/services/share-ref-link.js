@@ -1,14 +1,7 @@
-import {
-  Linking,
-  Platform,
-  CameraRoll,
-  Alert,
-  PermissionsAndroid,
-  Clipboard
-} from "react-native";
+import { Linking, Platform, Clipboard } from "react-native";
 import Share from "react-native-share";
 import { Toast } from "native-base";
-import PickedLanguage from "./../locales/language-picker";
+// import PickedLanguage from "./../locales/language-picker";
 import I18n from "@locales/I18n";
 
 export function shareToAllSocial(shareLink) {
@@ -24,6 +17,7 @@ export function shareToAllSocial(shareLink) {
       err && console.log(err);
     });
 }
+
 shareSingleThroughtLinking = (app_link, app_share_link, app_market_id) => {
   Linking.canOpenURL(app_link)
     .then(supported => {
@@ -39,13 +33,14 @@ shareSingleThroughtLinking = (app_link, app_share_link, app_market_id) => {
     })
     .catch(err => console.log(err));
 };
-export function shareToOneSocial(shareLink, link_reward, socialType) {
+
+export function shareToOneSocial(shareLink, link_reward, socialType, curr) {
   // let extendedShareLink = PickedLanguage.REF_LINK.ADDITIONAL_SHARING_TEXT + link_reward + " " + PickedLanguage.EPC.toUpperCase() + "\n" + shareLink
   let extendedShareLink =
     I18n.t("REF_LINK.ADDITIONAL_SHARING_TEXT") +
     link_reward +
     " " +
-    I18n.t("EPC").toUpperCase() +
+    I18n.t("EPC", { currency: curr }).toUpperCase() +
     "\n" +
     shareLink;
   const defaultOptions = {

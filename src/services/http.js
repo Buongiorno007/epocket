@@ -1,9 +1,3 @@
-
-/**
- *
- * @param { string } url API link
- * @param { boolean } token if token does't need set false
- */
 export const httpGet = (url, token) => {
   const defaultHeaders = {
     Accept: "application/json",
@@ -11,46 +5,36 @@ export const httpGet = (url, token) => {
   };
   const OPTIONS = {
     method: "GET",
-    headers:
-      token
-        ? {
+    headers: token
+      ? {
           ...defaultHeaders,
           Authorization: `JWT ${token}`
         }
-        : { ...defaultHeaders }
+      : { ...defaultHeaders }
   };
   return sendRequest(url, OPTIONS);
 };
 
-/**
- *
- * @param { string } url API link
- * @param { Object } body parameters
- * @param { boolean } needToken if token does't need set false
- */
 export const httpPost = (url, body, token, formData) => {
   const defaultHeaders = {
-    "Content-Type": !formData ? "application/json" : "application/x-www-form-urlencoded"
+    "Content-Type": !formData
+      ? "application/json"
+      : "application/x-www-form-urlencoded"
   };
   const OPTIONS = {
     method: "POST",
-    headers:
-      token
-        ? {
+    headers: token
+      ? {
           ...defaultHeaders,
           Authorization: `JWT ${token}`
         }
-        : { ...defaultHeaders },
+      : { ...defaultHeaders },
     body: body
   };
 
   return sendRequest(url, OPTIONS);
 };
-/**
- *
- * @param { string } url API link
- * @param { Object } OPTIONS parameters for configuring request
- */
+
 function sendRequestHTTP(url, OPTIONS) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -94,9 +78,8 @@ function sendRequest(url, OPTIONS) {
           reject({
             code: parseInt(`${response.status}`)
           });
-        }
-        catch (err) {
-          console.log(err)
+        } catch (err) {
+          console.log(err);
           reject({
             body: err,
             code: parseInt(`${response.status}`)
@@ -106,4 +89,3 @@ function sendRequest(url, OPTIONS) {
     });
   });
 }
-

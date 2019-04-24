@@ -1,6 +1,5 @@
-
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 import {
   StyleSheet,
   WebView,
@@ -9,50 +8,53 @@ import {
   Dimensions,
   KeyboardAvoidingView,
   Platform
-} from 'react-native'
-import qs from 'qs'
-import { Button } from 'native-base'
+} from "react-native";
+import qs from "qs";
+import { Button } from "native-base";
 import Icon from "react-native-vector-icons/EvilIcons";
-const { width, height } = Dimensions.get('window')
+const { width, height } = Dimensions.get("window");
 
-const patchPostMessageJsCodeAndroid = `(${String(function () {
-  setTimeout(function () { window.postMessage(document.getElementsByTagName("pre")[0].innerHTML), '*' }, 500);
-})})();`
-const patchPostMessageJsCodeIOS = `(${String(function () {
-  { window.postMessage(document.getElementsByTagName("pre")[0].innerHTML) };
-})})();`
+const patchPostMessageJsCodeAndroid = `(${String(function() {
+  setTimeout(function() {
+    window.postMessage(document.getElementsByTagName("pre")[0].innerHTML), "*";
+  }, 500);
+})})();`;
+const patchPostMessageJsCodeIOS = `(${String(function() {
+  {
+    window.postMessage(document.getElementsByTagName("pre")[0].innerHTML);
+  }
+})})();`;
 export default class Instagram extends Component {
   constructor(props) {
-    super(props)
-    this.state = { modalVisible: false, url: "" }
+    super(props);
+    this.state = { modalVisible: false, url: "" };
   }
 
   show(url) {
-    this.setState({ modalVisible: true, url })
+    this.setState({ modalVisible: true, url });
   }
 
   hide() {
-    this.setState({ modalVisible: false })
+    this.setState({ modalVisible: false });
   }
 
   _onNavigationStateChange(webViewState) {
-    const { url } = webViewState
+    const { url } = webViewState;
     if (url && url.startsWith(this.props.redirectUrl)) {
-      const match = url.match(/(#|\?)(.*)/)
-      const results = qs.parse(match[2])
+      const match = url.match(/(#|\?)(.*)/);
+      const results = qs.parse(match[2]);
     }
   }
 
   _onMessage(reactMessage) {
-    const json = JSON.parse(reactMessage.nativeEvent.data)
-    console.log(json)
+    const json = JSON.parse(reactMessage.nativeEvent.data);
+    console.log(json);
     if (json.token) {
-      this.hide()
-      this.props.onLoginSuccess(json)
-    }
-    else {
-      this.hide()
-      this.props.onLoginFailure(json)
+      this.hide();
+      this.props.onLoginSuccess(json);
+    } else {
+      this.hide();
+      this.props.onLoginFailure(json);
     }
   }
 
@@ -62,23 +64,23 @@ export default class Instagram extends Component {
   // }
 
   onBackdropPress() {
-    const { onBackdropPress } = this.props
+    const { onBackdropPress } = this.props;
     if (onBackdropPress) {
-      this.setState({ modalVisible: false })
+      this.setState({ modalVisible: false });
     }
   }
 
   render() {
-    const { redirectUrl, scopes, hideCloseButton } = this.props
+    const { redirectUrl, scopes, hideCloseButton } = this.props;
     return (
       <Modal
-        animationType={'slide'}
+        animationType={"slide"}
         visible={this.state.modalVisible}
         onRequestClose={this.hide.bind(this)}
         transparent
       >
         <KeyboardAvoidingView
-          behavior='padding'
+          behavior="padding"
           style={[styles.keyboardStyle, this.props.styles.keyboardStyle]}
           enabled
         >
@@ -92,22 +94,32 @@ export default class Instagram extends Component {
             onError={this._onNavigationStateChange.bind(this)}
             // onLoadEnd={this._onLoadEnd.bind(this)}
             onMessage={this._onMessage.bind(this)}
-            ref={(webView) => { this.webView = webView }}
-            injectedJavaScript={Platform.OS === "ios" ? patchPostMessageJsCodeIOS : patchPostMessageJsCodeAndroid}
+            ref={webView => {
+              this.webView = webView;
+            }}
+            injectedJavaScript={
+              Platform.OS === "ios"
+                ? patchPostMessageJsCodeIOS
+                : patchPostMessageJsCodeAndroid
+            }
           />
           {!hideCloseButton ? (
             <Button
               transparent
               rounded
               block
-              onPress={this.hide.bind(this)} style={[styles.btnStyle, this.props.styles.btnStyle]}>
-              <Icon name='close' style={[styles.closeStyle, this.props.styles.closeStyle]} />
+              onPress={this.hide.bind(this)}
+              style={[styles.btnStyle, this.props.styles.btnStyle]}
+            >
+              <Icon
+                name="close"
+                style={[styles.closeStyle, this.props.styles.closeStyle]}
+              />
             </Button>
           ) : null}
         </KeyboardAvoidingView>
-      </Modal >
-
-    )
+      </Modal>
+    );
   }
 }
 const propTypes = {
@@ -119,44 +131,39 @@ const propTypes = {
   onLoginFailure: PropTypes.func,
   onBackdropPress: PropTypes.bool,
   hideCloseButton: PropTypes.bool
-}
+};
 
 const defaultProps = {
-  redirectUrl: 'https://epocket.dev.splinestudio.com',
+  redirectUrl: "https://epocket.dev.splinestudio.com",
   styles: {},
-  scopes: ['public_content'],
-  onLoginSuccess: (token) => {
-    Alert.alert(
-      'Alert Title',
-      'Token: ' + token,
-      [
-        { text: 'OK' }
-      ],
-      { cancelable: false }
-    )
+  scopes: ["public_content"],
+  onLoginSuccess: token => {
+    Alert.alert("Alert Title", "Token: " + token, [{ text: "OK" }], {
+      cancelable: false
+    });
   },
-  onLoginFailure: (failureJson) => {
-    console.debug(failureJson)
+  onLoginFailure: failureJson => {
+    console.debug(failureJson);
   }
-}
+};
 
-Instagram.propTypes = propTypes
-Instagram.defaultProps = defaultProps
+Instagram.propTypes = propTypes;
+Instagram.defaultProps = defaultProps;
 
 const styles = StyleSheet.create({
   modalWarp: {
     height: height,
     width: width,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(255,255,255,0.5)',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(255,255,255,0.5)"
   },
   keyboardStyle: {
-    position: 'relative',
+    position: "relative",
     height: height,
     width: width,
     paddingTop: 50,
-    backgroundColor: 'rgba(255,255,255,1)',
+    backgroundColor: "rgba(255,255,255,1)"
   },
 
   webView: {
@@ -165,14 +172,14 @@ const styles = StyleSheet.create({
   btnStyle: {
     width: 40,
     height: 40,
-    position: 'absolute',
+    position: "absolute",
     top: 15,
     right: 5,
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: "center",
+    justifyContent: "center"
   },
   closeStyle: {
-    color: '#000',
+    color: "#000",
     fontSize: 30
   }
-})
+});
