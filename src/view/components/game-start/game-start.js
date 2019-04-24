@@ -299,37 +299,49 @@ class GameStart extends React.Component {
           this.constructor.name,
           "loadTRC"
         );
+        this.setState({ errorText: error_respons.error_text });
+        this.setModalVisible(error_respons.error_modal);
+      }
+    );
+  };
+  goToMap = () => {
+    NavigationService.navigate("Main");
+    this.props.setNavigateToMall(true);
+    this.props.setTabState(1);
+  };
+  startTimer = () => {
+    this.setState({
+      interval: setCorrectingInterval(() => {
+        if (this.props.game_info.wait_timer_in_sec <= 1) {
+          clearCorrectingInterval(this.state.interval);
+        }
+        this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec);
+      }, 1000)
     });
-    goToMap = () => {
-        NavigationService.navigate("Main")
-        this.props.setNavigateToMall(true)
-        this.props.setTabState(1)
-    }
-    startTimer = () => {
-        this.setState({
-            interval:
-                setCorrectingInterval(() => {
-                    if (this.props.game_info.wait_timer_in_sec <= 1) {
-                        clearCorrectingInterval(this.state.interval);
-                    }
-                    this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec)
-                }, 1000)
-        })
-    }
-    openWebSite = () => {
-        this.startTimer();
-    }
-    closeBrandWebSite = () => {
-        this.setState({ website_visible: false })
-        clearCorrectingInterval(this.state.interval);
-        this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec)
-    }
-    forceRemoveTicker = () => {
-        this.props.loaderState(true);
-        let promise = httpPost(
-            urls.force_remove_ticker,
-            JSON.stringify({}),
-            this.props.token
+  };
+  openWebSite = () => {
+    this.startTimer();
+  };
+  closeBrandWebSite = () => {
+    this.setState({ website_visible: false });
+    clearCorrectingInterval(this.state.interval);
+    this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec);
+  };
+  forceRemoveTicker = () => {
+    this.props.loaderState(true);
+    httpPost(
+      urls.force_remove_ticker,
+      JSON.stringify({}),
+      this.props.token
+    ).then(
+      result => {
+        console.log(result);
+        this.setState({ website_visible: false });
+        this.props.loaderState(false);
+        this.props.getGameInfo(
+          this.props.token,
+          this.props.location.lat,
+          this.props.location.lng
         );
         this.closeBrandWebSite();
       },
@@ -344,6 +356,7 @@ class GameStart extends React.Component {
         );
         this.props.loaderState(false);
       }
+    );
   };
   _renderPartnerCard = ({ item, index }) => {
     return (
