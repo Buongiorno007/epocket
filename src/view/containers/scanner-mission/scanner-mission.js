@@ -1,24 +1,35 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { Button } from "native-base";
-import FastImage from 'react-native-fast-image'
+import FastImage from "react-native-fast-image";
 //constants
-import PickedLanguage from "../../../locales/language-picker";
-import { ICONS } from '../../../constants/icons';
+import { ICONS } from "../../../constants/icons";
 import styles from "./styles";
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 //services
 import NavigationService from "./../../../services/route";
+import I18n from "@locales/I18n";
 
 class ScannerMission extends React.Component {
+  state = {
+    currency: ""
+  };
+  componentDidMount() {
+    AsyncStorage.getItem("user_info").then(value => {
+      let object = JSON.parse(value);
+      this.setState({ currency: object.currency });
+    });
+  }
+
   render = () => {
     return (
       <View style={styles.container}>
         <View style={[styles.item, styles.cost]}>
           <Text style={[styles.text, styles.cost]}>
-            {this.props.selectedMission.price} {PickedLanguage.EPC}
+            {this.props.selectedMission.price}{" "}
+            {I18n.t("EPC", { currency: this.state.currency })}
           </Text>
           <Text />
         </View>
@@ -27,10 +38,8 @@ class ScannerMission extends React.Component {
             {this.props.selectedMission.trade}
           </Text>
           <Text style={[styles.text, styles.date]}>
-            {this.props.selectedMission.date_start.substring(10, 16)} -{this.props.selectedMission.date_end.substring(
-              10,
-              16
-            )}
+            {this.props.selectedMission.date_start.substring(10, 16)} -
+            {this.props.selectedMission.date_end.substring(10, 16)}
           </Text>
         </View>
         <View style={styles.item}>
@@ -43,10 +52,11 @@ class ScannerMission extends React.Component {
             style={styles.button}
             androidRippleColor={this.props.userColor.card_shadow}
           >
-            <FastImage style={styles.icon}
+            <FastImage
+              style={styles.icon}
               resizeMode={FastImage.resizeMode.contain}
-              source={{ uri: ICONS.COMMON.CLOSE }} >
-            </FastImage>
+              source={{ uri: ICONS.COMMON.CLOSE }}
+            />
           </Button>
         </View>
       </View>
