@@ -29,7 +29,6 @@ import ActivityIndicator from "../../containers/activity-indicator/activity-indi
 import "../../../services/correcting-interval";
 import { toHHMMSS } from "./../../../services/convert-time";
 import I18n from "@locales/I18n";
-import { AsyncStorage } from "react-native";
 
 const { width } = Dimensions.get("window");
 
