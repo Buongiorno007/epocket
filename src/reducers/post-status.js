@@ -79,7 +79,7 @@ export const checkForPostStatus = (
                 video: game.video,
                 wait_timer: (Number(game.future_timer) / 60).toFixed(),
                 brand_title: game.brand_name,
-                website_link: game.brand_link,
+                website_link: game.game_link || game.brand_link,
                 insta_data: {
                   base64: "data:image/jpg;base64," + result,
                   id: game.id,

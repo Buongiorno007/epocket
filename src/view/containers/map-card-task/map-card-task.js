@@ -12,7 +12,7 @@ import I18n from "@locales/I18n";
 class CardTask extends React.Component {
   constructor(props) {
     super(props);
-    state = {
+    this.state = {
       currency: ""
     };
   }
