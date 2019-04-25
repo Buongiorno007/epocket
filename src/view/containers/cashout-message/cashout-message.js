@@ -2,17 +2,31 @@ import React from "react";
 import { View, Text } from "react-native";
 //constants
 import styles from "./styles";
-import PickedLanguage from "./../../../locales/language-picker";
+import I18n from "@locales/I18n";
 
 class CashoutMessage extends React.Component {
+  state = {
+    currency: ""
+  };
+
+  componentDidMount() {
+    AsyncStorage.getItem("user_info").then(value => {
+      let object = JSON.parse(value);
+      this.setState({ currency: object.currency });
+    });
+  }
+
   render = () => {
     return (
       <View style={styles.container}>
         <Text style={[styles.text, styles.title]}>
-          {PickedLanguage.QRCODE.TITLE}
-          {this.props.total_price} {PickedLanguage.EPC}
+          {I18n.t("QRCODE.TITLE")}
+          {this.props.total_price}{" "}
+          {I18n.t("EPC", { currency: this.state.currency })}
         </Text>
-        <Text style={[styles.text, styles.seller]}>{PickedLanguage.QRCODE.SELLER}</Text>
+        <Text style={[styles.text, styles.seller]}>
+          {I18n.t("QRCODE.SELLER")}
+        </Text>
       </View>
     );
   };

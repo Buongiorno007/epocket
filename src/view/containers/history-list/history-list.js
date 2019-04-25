@@ -3,7 +3,6 @@ import { View, Text, ScrollView } from "react-native";
 import { Button } from "native-base";
 //constants
 import styles from "./styles";
-import PickedLanguage from "../../../locales/language-picker";
 import { colors } from "./../../../constants/colors";
 import { ICONS } from "../../../constants/icons";
 //containers
@@ -12,6 +11,7 @@ import HistoryCard from "./../../containers/history-card/history-card";
 import { getBonuses } from "../../../reducers/history-bonuses";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import I18n from "@locales/I18n";
 
 class HistoryList extends React.Component {
   constructor(props) {
@@ -38,22 +38,15 @@ class HistoryList extends React.Component {
       <View style={styles.container}>
         {this.props.picked_bonuses ? (
           <View>
-            {/* {this.props.receivedBonusesJSX.body.length > 0 ? (
-              <View style={styles.summary}>
-                <Text style={styles.summary_light}>
-                  {PickedLanguage.HISTORY_PAGE.ALL_BONUSES_RECEIVED}
-                </Text>
-                <Text style={styles.summary_bold}>
-                  {Number(this.props.receivedBonusesJSX.sum.toFixed(2))} {PickedLanguage.EPC}
-                </Text>
-              </View>
-            ) : null} */}
             <View>
               {this.props.receivedBonusesJSX.body.length > 0 ? (
                 <ScrollView
                   style={styles.list}
                   onScrollBeginDrag={() => {
-                    if (!this.props.receivedBonusesJSX.loader || !this.props.spentBonusesJSX.loader) {
+                    if (
+                      !this.props.receivedBonusesJSX.loader ||
+                      !this.props.spentBonusesJSX.loader
+                    ) {
                       let old_limitReceived = this.state.limitReceived;
                       this.setState({ limitReceived: old_limitReceived + 10 });
                       this.refreshList();
@@ -64,49 +57,42 @@ class HistoryList extends React.Component {
                   <View style={styles.filler} />
                 </ScrollView>
               ) : (
-                  <View style={styles.empty}>
-                    <Text>{PickedLanguage.HISTORY_PAGE.NO_HISTORY}</Text>
-                    <View style={styles.filler} />
-                  </View>
-                )}
+                <View style={styles.empty}>
+                  <Text>{I18n.t("HISTORY_PAGE.NO_HISTORY")}</Text>
+                  <View style={styles.filler} />
+                </View>
+              )}
             </View>
           </View>
         ) : (
+          <View>
             <View>
-              {/* {this.props.spentBonusesJSX.body.length > 0 ? (
-                <View style={styles.summary}>
-                  <Text style={styles.summary_light}>
-                    {PickedLanguage.HISTORY_PAGE.ALL_BONUSES_SPENT}
-                  </Text>
-                  <Text style={styles.summary_bold}>
-                    {Number(this.props.spentBonusesJSX.sum.toFixed(2))} {PickedLanguage.EPC}
-                  </Text>
+              {this.props.spentBonusesJSX.body.length > 0 ? (
+                <ScrollView
+                  style={styles.list}
+                  onScrollBeginDrag={() => {
+                    if (
+                      !this.props.receivedBonusesJSX.loader ||
+                      !this.props.spentBonusesJSX.loader
+                    ) {
+                      let old_limitSpent = this.state.limitSpent;
+                      this.setState({ limitSpent: old_limitSpent + 10 });
+                      this.refreshList();
+                    }
+                  }}
+                >
+                  {this.props.spentBonusesJSX.body}
+                  <View style={styles.filler} />
+                </ScrollView>
+              ) : (
+                <View style={styles.empty}>
+                  <Text>{I18n.t("HISTORY_PAGE.NO_HISTORY")}</Text>
+                  <View style={styles.filler} />
                 </View>
-              ) : null} */}
-              <View>
-                {this.props.spentBonusesJSX.body.length > 0 ? (
-                  <ScrollView
-                    style={styles.list}
-                    onScrollBeginDrag={() => {
-                      if (!this.props.receivedBonusesJSX.loader || !this.props.spentBonusesJSX.loader) {
-                        let old_limitSpent = this.state.limitSpent;
-                        this.setState({ limitSpent: old_limitSpent + 10 });
-                        this.refreshList();
-                      }
-                    }}
-                  >
-                    {this.props.spentBonusesJSX.body}
-                    <View style={styles.filler} />
-                  </ScrollView>
-                ) : (
-                    <View style={styles.empty}>
-                      <Text>{PickedLanguage.HISTORY_PAGE.NO_HISTORY}</Text>
-                      <View style={styles.filler} />
-                    </View>
-                  )}
-              </View>
+              )}
             </View>
-          )}
+          </View>
+        )}
       </View>
     );
   }
