@@ -1,23 +1,33 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
-import FastImage from 'react-native-fast-image'
+import FastImage from "react-native-fast-image";
 import { Button } from "native-base";
 import Icon from "react-native-vector-icons/Feather";
 //constants
 import styles from "./styles";
 import { colors } from "../../../constants/colors_men";
-import { ICONS } from '../../../constants/icons';
+import { ICONS } from "../../../constants/icons";
 //services
 import NavigationService from "./../../../services/route";
 //redux
 import { loaderState } from "../../../reducers/loader";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import PickedLanguage from "./../../../locales/language-picker";
+import I18n from "@locales/I18n";
 
 class CashoutList extends React.Component {
-  state = { count: this.props.item.count ? this.props.item.count : 0 };
+  state = {
+    count: this.props.item.count ? this.props.item.count : 0,
+    currency: ""
+  };
   item = this.props.item;
+
+  componentDidMount() {
+    AsyncStorage.getItem("user_info").then(value => {
+      let object = JSON.parse(value);
+      this.setState({ currency: object.currency });
+    });
+  }
 
   setItemCount = count => {
     this.props.loaderState(true);
@@ -25,18 +35,16 @@ class CashoutList extends React.Component {
       this.item.count = count;
       if (count === 0) {
         this.deleteElement();
-      }
-      else {
+      } else {
         this.props.addItemToOrder(this.item);
       }
       this.props.loaderState(false);
     });
   };
-  componentWillReceiveProps = (nextProps) => {
-  }
+  componentWillReceiveProps = nextProps => {};
   deleteElement = () => {
-    this.props.deleteElem(this.item)
-  }
+    this.props.deleteElem(this.item);
+  };
   render = () => {
     return (
       <View style={styles.container}>
@@ -61,8 +69,13 @@ class CashoutList extends React.Component {
             />
           </Button>
           <View style={styles.title}>
-            <Text numberOfLines={2} style={styles.text}>{this.props.item.name.toUpperCase()}</Text>
-            <Text style={styles.text_epc}>{this.props.item.formated_price.amount} {PickedLanguage.EPC}</Text>
+            <Text numberOfLines={2} style={styles.text}>
+              {this.props.item.name.toUpperCase()}
+            </Text>
+            <Text style={styles.text_epc}>
+              {this.props.item.formated_price.amount}{" "}
+              {I18n.t("EPC", { currency: this.state.currency })}
+            </Text>
           </View>
         </View>
         <View style={styles.calculate}>
@@ -75,12 +88,15 @@ class CashoutList extends React.Component {
             style={styles.calculate_button}
             onPress={() => this.setItemCount(--this.state.count)}
           >
-            <FastImage style={styles.icon}
+            <FastImage
+              style={styles.icon}
               resizeMode={FastImage.resizeMode.contain}
-              source={{ uri: ICONS.COMMON.MINUS }} >
-            </FastImage>
+              source={{ uri: ICONS.COMMON.MINUS }}
+            />
           </Button>
-          <Text style={styles.text_count}>{this.props.item.count ? this.props.item.count : 0}</Text>
+          <Text style={styles.text_count}>
+            {this.props.item.count ? this.props.item.count : 0}
+          </Text>
           <Button
             disabled={this.state.count == this.props.item.amount ? true : false}
             rounded
@@ -90,10 +106,11 @@ class CashoutList extends React.Component {
             style={styles.calculate_button}
             onPress={() => this.setItemCount(++this.state.count)}
           >
-            <FastImage style={styles.icon}
+            <FastImage
+              style={styles.icon}
               resizeMode={FastImage.resizeMode.contain}
-              source={{ uri: ICONS.COMMON.PLUS }} >
-            </FastImage>
+              source={{ uri: ICONS.COMMON.PLUS }}
+            />
           </Button>
         </View>
       </View>
