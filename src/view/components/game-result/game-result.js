@@ -70,13 +70,13 @@ class GameResult extends React.Component {
     });
   };
   startTimer = () => {
-    let timer  = 20;
     this.setState({
       interval: setCorrectingInterval(() => {
-        if (this.props.website_timer <= 1) {
+        console.log('website_timer',this.props.website_timer);
+        if (this.props.website_timer <= 0) {
           clearCorrectingInterval(this.state.interval);
         } else {
-          this.props.setWebSiteTimer(timer--);
+          this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec--);
         }
       }, 1000)
     });
