@@ -5,7 +5,6 @@ import { Button } from "native-base";
 import LinearGradient from "react-native-linear-gradient";
 //constants
 import styles from "./styles";
-import PickedLanguage from "./../../../locales/language-picker";
 import { ICONS } from "../../../constants/icons";
 import { colors } from "./../../../constants/colors";
 //services
@@ -17,6 +16,8 @@ import {
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { setTabState } from "../../../reducers/tabs";
+import I18n from "@locales/I18n";
+
 class RefLink extends React.Component {
   state = {
     shareMenuOpen: false,
@@ -37,35 +38,35 @@ class RefLink extends React.Component {
       share_link: nextProps.link,
       social: [
         {
-          title: PickedLanguage.REF_LINK.COPY,
+          title: I18n.t("REF_LINK.COPY"),
           subTitle: nextProps.link,
           iconUrl: ICONS.REF_LINK.COPY_ICON,
           type: "copy"
         },
         {
-          title: PickedLanguage.REF_LINK.VIBER,
+          title: I18n.t("REF_LINK.VIBER"),
           iconUrl: ICONS.REF_LINK.VIBER_ICON,
           type: "viber"
         },
         {
-          title: PickedLanguage.REF_LINK.TELEGRAM,
+          title: I18n.t("REF_LINK.TELEGRAM"),
           iconUrl: ICONS.REF_LINK.TELEGRAM_ICON,
           type: "telegram"
         },
         Platform.OS === "ios"
           ? null
           : {
-              title: PickedLanguage.REF_LINK.INSTAGRAM,
+              title: I18n.t("REF_LINK.INSTAGRAM"),
               iconUrl: ICONS.REF_LINK.INSTAGRAM_ICON,
               type: "instagram"
             },
         {
-          title: PickedLanguage.REF_LINK.FACEBOOK_MESSENGER,
+          title: I18n.t("REF_LINK.FACEBOOK_MESSENGER"),
           iconUrl: ICONS.REF_LINK.FACEBOOK_ICON,
           type: "facebook-messenger"
         },
         {
-          title: PickedLanguage.REF_LINK.MORE,
+          title: I18n.t("REF_LINK.MORE"),
           iconUrl: ICONS.REF_LINK.MORE_ICON,
           lastOne: true,
           type: "all"
@@ -130,7 +131,8 @@ class RefLink extends React.Component {
             source={{ uri: ICONS.REF_LINK.ADD_FRIEND }}
           />
           <Text style={styles.ref_link_text}>
-            + {this.props.price} {PickedLanguage.REF_LINK.GET_EPC}
+            + {this.props.price}{" "}
+            {I18n.t("REF_LINK.GET_EPC", { currency: this.state.currency })}
           </Text>
           <FastImage
             style={styles.navigate_forward}
@@ -170,7 +172,9 @@ class RefLink extends React.Component {
               </Button>
               <Text style={styles.opened_share_title}>
                 + {this.props.price}{" "}
-                {PickedLanguage.REF_LINK.FOR_YOU_AND_YOUR_FRIEND}
+                {I18n.t("REF_LINK.FOR_YOU_AND_YOUR_FRIEND", {
+                  currency: this.state.currency
+                })}
               </Text>
             </View>
             <View style={styles.share_list}>
