@@ -1,21 +1,24 @@
 import React from "react";
 import { View, Text, StatusBar } from "react-native";
-import FastImage from 'react-native-fast-image'
+import FastImage from "react-native-fast-image";
 import LinearGradient from "react-native-linear-gradient";
 import { Button } from "native-base";
 //constants
 import styles from "./styles";
 import { ICONS } from "../../../constants/icons";
 import { colors } from "./../../../constants/colors";
-import PickedLanguage from "./../../../locales/language-picker";
 //services
 import NavigationService from "./../../../services/route";
 //redux
 import { loaderState } from "../../../reducers/loader";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import I18n from "@locales/I18n";
 
 class MissionSuccess extends React.Component {
+  state = {
+    currency: ""
+  };
 
   earnMore = () => {
     NavigationService.navigate("EarnMore", {
@@ -24,8 +27,12 @@ class MissionSuccess extends React.Component {
   };
 
   componentDidMount = () => {
-    this.props.loaderState(false)
-  }
+    this.props.loaderState(false);
+    AsyncStorage.getItem("user_info").then(value => {
+      let object = JSON.parse(value);
+      this.setState({ currency: object.currency });
+    });
+  };
 
   render = () => {
     return (
@@ -35,10 +42,10 @@ class MissionSuccess extends React.Component {
           backgroundColor={"transparent"}
           translucent={true}
         />
-         <FastImage
+        <FastImage
           resizeMode={FastImage.resizeMode.contain}
           style={styles.image_background}
-          source={require('../../../assets/img/ANIMATED_EARN_MORE.gif')}
+          source={require("../../../assets/img/ANIMATED_EARN_MORE.gif")}
         />
         <LinearGradient
           colors={this.props.userColor.earn_more}
@@ -47,9 +54,10 @@ class MissionSuccess extends React.Component {
           style={styles.grad}
         />
         <View style={styles.success}>
-          <Text style={styles.congratulation}>{PickedLanguage.MISSION.SUCCESS}</Text>
+          <Text style={styles.congratulation}>{I18n.t("MISSION.SUCCESS")}</Text>
           <Text style={styles.cash}>
-            {PickedLanguage.MISSION.CASH} {this.props.navigation.state.params.price} {PickedLanguage.EPC}
+            {I18n.t("MISSION.CASH")} {this.props.navigation.state.params.price}{" "}
+            {I18n.t("EPC", { currency: this.state.currency })}
           </Text>
           <Button
             rounded
@@ -58,25 +66,25 @@ class MissionSuccess extends React.Component {
             style={styles.button}
             androidRippleColor={this.props.userColor.card_shadow}
             onPress={() => {
-              this.earnMore()
+              this.earnMore();
             }}
           >
-            <Text style={styles.text}>{PickedLanguage.OK}</Text>
+            <Text style={styles.text}>{I18n.t("OK")}</Text>
           </Button>
         </View>
-      </View >
+      </View>
     );
   };
 }
 
 const mapStateToProps = state => ({
-  userColor: state.userColor,
+  userColor: state.userColor
 });
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      loaderState,
+      loaderState
     },
     dispatch
   );

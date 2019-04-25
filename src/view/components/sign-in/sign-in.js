@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   View,
   StatusBar,
@@ -8,68 +8,69 @@ import {
   Animated,
   Platform,
   KeyboardAvoidingView
-} from 'react-native';
-import FastImage from 'react-native-fast-image';
-import { TextField } from 'react-native-material-textfield';
-import LinearGradient from 'react-native-linear-gradient';
-import { AccessToken } from 'react-native-fbsdk';
+} from "react-native";
+import FastImage from "react-native-fast-image";
+import { TextField } from "react-native-material-textfield";
+import LinearGradient from "react-native-linear-gradient";
+import { AccessToken } from "react-native-fbsdk";
 //containers
-import BackButton from '../../containers/back/back';
-import CustomButton from '../../containers/custom-button/custom-button';
-import CustomAlert from '../../containers/custom-alert/custom-alert';
-import ActivityIndicator from '../../containers/activity-indicator/activity-indicator';
+import BackButton from "../../containers/back/back";
+import CustomButton from "../../containers/custom-button/custom-button";
+import CustomAlert from "../../containers/custom-alert/custom-alert";
+import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 //redux
-import { setToken } from '../../../reducers/token';
-import { loaderState } from '../../../reducers/loader';
-import { setBalance } from '../../../reducers/user-balance';
-import { connect } from 'react-redux';
-import { setColor } from '../../../reducers/user-color';
-import { bindActionCreators } from 'redux';
-import { setInstaToken } from '../../../reducers/insta-token';
-import { setFacebookToken } from '../../../reducers/facebook-token';
-import { setProfileVirgin } from '../../../reducers/profile-virgin';
-import { setGeoVirgin } from '../../../reducers/geo-virgin';
-import { getPush } from '../../../reducers/push';
-import { saveUser } from '../../../reducers/profile-state';
+import { setToken } from "../../../reducers/token";
+import { loaderState } from "../../../reducers/loader";
+import { setBalance } from "../../../reducers/user-balance";
+import { connect } from "react-redux";
+import { setColor } from "../../../reducers/user-color";
+import { bindActionCreators } from "redux";
+import { setInstaToken } from "../../../reducers/insta-token";
+import { setFacebookToken } from "../../../reducers/facebook-token";
+import { setProfileVirgin } from "../../../reducers/profile-virgin";
+import { setGeoVirgin } from "../../../reducers/geo-virgin";
+import { getPush } from "../../../reducers/push";
+import { saveUser } from "../../../reducers/profile-state";
 import {
   locationStateListener,
   locationState
-} from '../../../reducers/geolocation-status';
+} from "../../../reducers/geolocation-status";
 import {
   locationCoordsListener,
   setLocation
-} from '../../../reducers/geolocation-coords';
+} from "../../../reducers/geolocation-coords";
 //services
-import NavigationService from '../../../services/route';
-import { httpPost } from '../../../services/http';
-import { handleError } from '../../../services/http-error-handler';
-import geo_config from '../start/geolocation-config';
-import BackgroundGeolocationModule from '../../../services/background-geolocation-picker';
+import NavigationService from "../../../services/route";
+import { httpPost } from "../../../services/http";
+import { handleError } from "../../../services/http-error-handler";
+import geo_config from "../start/geolocation-config";
+import BackgroundGeolocationModule from "../../../services/background-geolocation-picker";
 //constants
-import styles from './styles';
-import { colors } from '../../../constants/colors';
-import { urls } from '../../../constants/urls';
-import { ICONS } from '../../../constants/icons';
-import PickedLanguage from '../../../locales/language-picker';
-const keyboardVerticalOffset = Platform.OS === 'ios' ? -50 : -100;
+import styles from "./styles";
+import { colors } from "../../../constants/colors";
+import { urls } from "../../../constants/urls";
+import { ICONS } from "../../../constants/icons";
+import I18n from "@locales/I18n";
+
+const keyboardVerticalOffset = Platform.OS === "ios" ? -50 : -100;
 
 class SignIn extends React.Component {
   static navigationOptions = () => ({
-    header: <BackButton title={PickedLanguage.SIGN_IN_TITLE} route="Start" />
+    header: <BackButton title={I18n.t("SIGN_IN_TITLE")} route="Start" />
   });
 
-  prefix = '+';
+  prefix = "+";
   state = {
     signInMargin: new Animated.Value(40),
-    phone: '',
-    code: '',
+    phone: "",
+    code: "",
     invalidCode: false,
     numberNotExists: false,
     codeCorrect: false,
     step: 1,
     failedSignVisible: false,
     failedConfirmVisible: false,
-    errorText: ''
+    errorText: ""
   };
 
   constructor(props) {
@@ -79,11 +80,11 @@ class SignIn extends React.Component {
 
   componentDidMount() {
     this.keyboardDidShowListener = Keyboard.addListener(
-      'keyboardDidShow',
+      "keyboardDidShow",
       this._keyboardDidShow
     );
     this.keyboardDidHideListener = Keyboard.addListener(
-      'keyboardDidHide',
+      "keyboardDidHide",
       this._keyboardDidHide
     );
     this.props.loaderState(false);
@@ -120,27 +121,27 @@ class SignIn extends React.Component {
   };
 
   mphone = v => {
-    let r = v.replace(/\D/g, '');
-    r = r.replace(/^0/, '');
+    let r = v.replace(/\D/g, "");
+    r = r.replace(/^0/, "");
     if (r.length > 8) {
       // 11+ digits.
-      r = r.replace(/^(\d{2})(\d{3})(\d{0,3})(\d{0,5}).*/, '$1 $2 $3 $4');
+      r = r.replace(/^(\d{2})(\d{3})(\d{0,3})(\d{0,5}).*/, "$1 $2 $3 $4");
     } else if (r.length > 5) {
       // 6..10 digits. Format as 4+4
-      r = r.replace(/^(\d{2})(\d{0,3})(\d{0,5}).*/, '$1 $2 $3');
+      r = r.replace(/^(\d{2})(\d{0,3})(\d{0,5}).*/, "$1 $2 $3");
     } else if (r.length > 2) {
       // 3..5 digits.
-      r = r.replace(/^(\d{2})(\d{0,3})/, '$1 $2');
+      r = r.replace(/^(\d{2})(\d{0,3})/, "$1 $2");
     } else {
       // 0..2 digits.
-      r = r.replace(/^(\d*)/, '$1');
+      r = r.replace(/^(\d*)/, "$1");
     }
     return r;
   };
 
   onChangedPhone(text) {
     this.setState({ numberNotExists: false });
-    let newText = '';
+    let newText = "";
     let phonePattern = /^.+$/;
     if (phonePattern.test(text)) {
       newText = text;
@@ -154,7 +155,7 @@ class SignIn extends React.Component {
   }
 
   onChangedCode(text) {
-    let newText = '';
+    let newText = "";
     let codePattern = /^\d+$/;
     if (codePattern.test(text)) {
       newText = text;
@@ -172,9 +173,9 @@ class SignIn extends React.Component {
     Keyboard.dismiss();
     this.setFailedSignVisible(false);
     this.props.loaderState(true);
-    let bodyPhone = this.state.phone.replace(/\D/g, '');
+    let bodyPhone = this.state.phone.replace(/\D/g, "");
     let body = {
-      phone: '+' + bodyPhone
+      phone: "+" + bodyPhone
     };
     let promise = httpPost(urls.sing_in, JSON.stringify(body));
     promise.then(
@@ -189,9 +190,9 @@ class SignIn extends React.Component {
           error,
           body,
           urls.sign_in,
-          '',
+          "",
           this.constructor.name,
-          'login'
+          "login"
         );
         this.setState({ errorText: error_respons.error_text });
         if (error_respons.error_code == 400) {
@@ -211,7 +212,7 @@ class SignIn extends React.Component {
       result => {
         if (result.body.logged && result.body.active && result.body.token) {
           this.props.setFacebookToken(result.body.token);
-          Platform.OS === 'ios' &&
+          Platform.OS === "ios" &&
             AccessToken.setCurrentAccessToken({
               accessToken: result.body.token
             });
@@ -245,14 +246,14 @@ class SignIn extends React.Component {
     Keyboard.dismiss();
     this.setFailedConfirmVisible(false);
     this.props.loaderState(true);
-    let bodyPhone = this.state.phone.replace(/\D/g, '');
+    let bodyPhone = this.state.phone.replace(/\D/g, "");
     let body = {
-      phone: '+' + bodyPhone,
+      phone: "+" + bodyPhone,
       code: this.state.code
     };
     httpPost(urls.sing_in_confirm, JSON.stringify(body)).then(
       result => {
-        console.log('result', result);
+        console.log("result", result);
         if (result.status === 200) {
           this.setFailedConfirmVisible(false);
           this.props.loaderState(false);
@@ -273,7 +274,7 @@ class SignIn extends React.Component {
           this.props.setGeoVirgin(result.body.geo_virgin);
           this.isFblogged(result.body.token);
           this.isInstalogged(result.body.token);
-          NavigationService.navigate('Main');
+          NavigationService.navigate("Main");
         }
       },
       error => {
@@ -282,9 +283,9 @@ class SignIn extends React.Component {
           error,
           body,
           urls.sing_in_confirm,
-          '',
+          "",
           this.constructor.name,
-          'confirmLogin'
+          "confirmLogin"
         );
         this.setState({ errorText: error_respons.error_text });
         this.setFailedConfirmVisible(error_respons.error_modal);
@@ -305,7 +306,7 @@ class SignIn extends React.Component {
         <View style={styles.main_view}>
           <CustomAlert
             title={this.state.errorText}
-            first_btn_title={PickedLanguage.REPEAT}
+            first_btn_title={I18n.t("REPEAT")}
             visible={this.state.failedSignVisible}
             first_btn_handler={() => {
               this.login();
@@ -316,7 +317,7 @@ class SignIn extends React.Component {
           />
           <CustomAlert
             title={this.state.errorText}
-            first_btn_title={PickedLanguage.REPEAT}
+            first_btn_title={I18n.t("REPEAT")}
             visible={this.state.failedConfirmVisible}
             first_btn_handler={() => {
               this.confirmLogin();
@@ -328,14 +329,14 @@ class SignIn extends React.Component {
           <StatusBar
             barStyle="dark-content"
             translucent={true}
-            backgroundColor={'transparent'}
+            backgroundColor={"transparent"}
           />
           <FastImage
             style={styles.bottom_image}
             source={{ uri: ICONS.COMMON.SIGN_IN_BACKGROUND }}
           />
           <LinearGradient
-            colors={['#FEBF54', '#FB7375', 'rgba(246,34,183,0.48)']}
+            colors={["#FEBF54", "#FB7375", "rgba(246,34,183,0.48)"]}
             start={{ x: 1.0, y: 0.0 }}
             end={{ x: 0.0, y: 1.0 }}
             style={styles.grad}
@@ -343,11 +344,11 @@ class SignIn extends React.Component {
           {this.state.step == 1 ? (
             <View style={styles.form}>
               <TextField
-                label={PickedLanguage.MOBILE_NUMBER}
+                label={I18n.t("MOBILE_NUMBER")}
                 textColor={this.props.userColor.input}
                 tintColor={this.props.userColor.input}
                 baseColor={this.props.userColor.input}
-                placeholder={PickedLanguage.PHONE_MASK}
+                placeholder={I18n.t("PHONE_MASK")}
                 placeholderTextColor={this.props.userColor.input_placeholder}
                 labelPadding={16}
                 inputContainerPadding={16}
@@ -366,7 +367,7 @@ class SignIn extends React.Component {
                     : styles.disabled
                 }
               >
-                {PickedLanguage.NUMBER_NOT_EXISTS}
+                {I18n.t("NUMBER_NOT_EXISTS")}
               </Text>
               <Animated.View style={[{ marginTop: this.state.signInMargin }]}>
                 <CustomButton
@@ -379,23 +380,23 @@ class SignIn extends React.Component {
                     this.login();
                   }}
                   active={this.state.acceptButton}
-                  title={PickedLanguage.SIGN_IN.toUpperCase()}
+                  title={I18n.t("SIGN_IN").toUpperCase()}
                 />
               </Animated.View>
             </View>
           ) : this.state.step == 2 ? (
             <View style={styles.form}>
-              <Text style={styles.code_sent}>{PickedLanguage.CODE_SENT}</Text>
+              <Text style={styles.code_sent}>{I18n.t("CODE_SENT")}</Text>
               <Text style={styles.enter_code}>
-                {PickedLanguage.ENTER_CODE_SIDN_IN}
+                {I18n.t("ENTER_CODE_SIDN_IN")}
               </Text>
               <TextField
-                label={''}
+                label={""}
                 style={styles.code_input}
                 textColor={this.props.userColor.input}
                 tintColor={this.props.userColor.input}
                 baseColor={this.props.userColor.input}
-                placeholder={PickedLanguage.CODE_MASK}
+                placeholder={I18n.t("CODE_MASK")}
                 placeholderTextColor={this.props.userColor.input_placeholder}
                 labelPadding={16}
                 inputContainerPadding={16}
@@ -404,9 +405,7 @@ class SignIn extends React.Component {
                 onChangeText={text => this.onChangedCode(text)}
               />
               {this.state.invalidCode ? (
-                <Text style={styles.check_code}>
-                  {PickedLanguage.CHECK_CODE}
-                </Text>
+                <Text style={styles.check_code}>{I18n.t("CHECK_CODE")}</Text>
               ) : null}
               <Animated.View style={[{ marginTop: this.state.signInMargin }]}>
                 <CustomButton
@@ -419,7 +418,7 @@ class SignIn extends React.Component {
                     this.confirmLogin();
                   }}
                   active={this.state.acceptButton}
-                  title={PickedLanguage.ACCEPT.toUpperCase()}
+                  title={I18n.t("ACCEPT").toUpperCase()}
                 />
               </Animated.View>
             </View>
