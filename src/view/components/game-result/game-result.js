@@ -40,7 +40,7 @@ import { convertToBase64 } from "./../../../services/convert-to-base64";
 import InstagramLogin from "../../../services/Instagram";
 import { httpPost, httpGet } from "../../../services/http";
 import { handleError } from "../../../services/http-error-handler";
-import { postToSocialStory } from "../../../services/post-to-social";
+import { postToSocial } from "../../../services/post-to-social";
 //containers
 import CustomAlert from "../../containers/custom-alert/custom-alert";
 import CustomButton from "../../containers/custom-button/custom-button";
@@ -277,7 +277,7 @@ class GameResult extends React.Component {
   shareToInsta = () => {
     this.props.loaderState(true);
     if (Platform.OS === "ios") {
-      postToSocialStory(
+      postToSocial(
         this.props.navigation.state.params.insta_data,
         "https://www.instagram.com/epocketapp/",
         this.confirmPost,
@@ -286,7 +286,7 @@ class GameResult extends React.Component {
     } else {
       requestWriteExternalStoragePermission().then(granted => {
         if (granted) {
-          postToSocialStory(
+          postToSocial(
             this.props.navigation.state.params.insta_data,
             "https://www.instagram.com/epocketapp/",
             this.confirmPost
