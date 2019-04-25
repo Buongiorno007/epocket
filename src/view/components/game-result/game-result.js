@@ -90,6 +90,7 @@ class GameResult extends React.Component {
     });
   };
   checkForGames = next_navigation => {
+    console.log(next_navigation, "NEXT_NAVIGATION");
     this.props.loaderState(true);
     let received_promise = httpGet(
       urls.game_get +
@@ -120,10 +121,12 @@ class GameResult extends React.Component {
               this.props.loaderState(false);
               break;
             case "visit_website":
+              console.log("I'M ON VISIT WEB SITE");
               this.openWebSiteInfo();
               this.props.loaderState(false);
               break;
             case "wait":
+              console.log("I'M ON WAIT");
               this.goWait();
               this.props.loaderState(false);
               break;
@@ -400,6 +403,7 @@ class GameResult extends React.Component {
   };
 
   render() {
+    console.log(this.props.game_info.website_link, "WEBSITE LINK");
     return (
       <View style={styles.container}>
         <StatusBar
@@ -644,11 +648,11 @@ class GameResult extends React.Component {
                 ? I18n.t("GAME.RESULT.VISIT_WEBSITE").toUpperCase()
                 : this.props.game_info.wait_timer_in_sec < 60
                 ? // show time in seconds
-                  I18n.t("GAME.ZIFI.WAIT").toUpperCase() +
+                  I18n.t("GAME.RESULT.WAIT_").toUpperCase() +
                   this.props.game_info.wait_timer_in_sec +
                   I18n.t("GAME.RESULT.SEC").toUpperCase()
                 : // show time in minutes
-                  I18n.t("GAME.ZIFI.WAIT").toUpperCase() +
+                  I18n.t("GAME.RESULT.WAIT_").toUpperCase() +
                   this.props.game_info.wait_timer +
                   I18n.t("GAME.RESULT.MIN").toUpperCase()}
             </Text>

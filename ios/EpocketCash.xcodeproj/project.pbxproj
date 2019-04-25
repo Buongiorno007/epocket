@@ -1567,6 +1567,7 @@
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-cookies/ios/RNCookieManagerIOS",
 					"$(SRCROOT)/../node_modules/react-native-udp/ios/**",
+					"\"$(SRCROOT)/../node_modules/react-native/React\"",
 				);
 				INFOPLIST_FILE = EpocketCash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1606,6 +1607,7 @@
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-cookies/ios/RNCookieManagerIOS",
 					"$(SRCROOT)/../node_modules/react-native-udp/ios/**",
+					"\"$(SRCROOT)/../node_modules/react-native/React\"",
 				);
 				INFOPLIST_FILE = EpocketCash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
