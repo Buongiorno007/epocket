@@ -28,7 +28,6 @@ class BrandWebsite extends React.Component {
     });
   }
   render() {
-    console.log('render', this.props.website_timer)
     return (
       <View style={this.props.visible ? styles.main_view : styles.hidden}>
         {!this.state.infoPage ? (

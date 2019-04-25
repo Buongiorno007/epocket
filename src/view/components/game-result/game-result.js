@@ -70,12 +70,15 @@ class GameResult extends React.Component {
     });
   };
   startTimer = () => {
+    this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec);
     this.setState({
       interval: setCorrectingInterval(() => {
-        if (this.props.website_timer <= 1) {
+        console.log('website_timer',this.props.website_timer);
+        if (this.props.website_timer <= 0) {
           clearCorrectingInterval(this.state.interval);
+        } else {
+          this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec--);
         }
-        this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec--);
       }, 1000)
     });
   };
@@ -299,7 +302,6 @@ class GameResult extends React.Component {
     }
   };
   _handleAppStateChange = nextAppState => {
-    console.log(this.props.appState, nextAppState);
     if (this.props.navigation.state.params.status != 'success') {
       console.log('user tried to abuse');
       this.goWait();
@@ -402,7 +404,6 @@ class GameResult extends React.Component {
   };
 
   render() {
-    console.log(this.props.game_info.website_link, 'WEBSITE LINK');
     return (
       <View style={styles.container}>
         <StatusBar
