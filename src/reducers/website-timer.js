@@ -10,7 +10,6 @@ export default (state = 15, action) => {
 };
 
 export const setWebSiteTimer = time  => {
-  console.log(time, "dfsfsfsfswf");
   return {
     type: SET_WEB_SITE_TIMER,
     time
