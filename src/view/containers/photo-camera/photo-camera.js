@@ -40,7 +40,6 @@ class PhotoCamera extends React.Component {
     let promise = httpPost(urls.insta_outlet_template, body, this.props.token);
     promise.then(
       result => {
-        console.log(result);
         this.setState({
           template_info: {
             media: result.body.media,
