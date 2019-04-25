@@ -28,6 +28,7 @@ class BrandWebsite extends React.Component {
     });
   }
   render() {
+    console.log('render', this.props.website_timer)
     return (
       <View style={this.props.visible ? styles.main_view : styles.hidden}>
         {!this.state.infoPage ? (
@@ -66,15 +67,15 @@ class BrandWebsite extends React.Component {
                   }}
                 />
               </Button>
-              {this.props.game_info.wait_timer_in_sec >= 1 ? (
+              {this.props.website_timer >= 1 ? (
                 <GameTimer
                   minutes={
-                    toHHMMSS(this.props.game_info.wait_timer_in_sec).split(
+                    toHHMMSS(this.props.website_timer).split(
                       ":"
                     )[0]
                   }
                   seconds={
-                    toHHMMSS(this.props.game_info.wait_timer_in_sec).split(
+                    toHHMMSS(this.props.website_timer).split(
                       ":"
                     )[1]
                   }
@@ -106,13 +107,13 @@ class BrandWebsite extends React.Component {
                 block
                 style={styles.button_close}
                 onPress={() => {
-                  if (this.props.game_info.wait_timer_in_sec >= 1) {
+                  if (this.props.website_timer >= 1) {
                     this.props.closeBrandWebSite();
                     this.setState({ infoPage: true });
                   }
                 }}
               >
-                {this.props.game_info.wait_timer_in_sec >= 1 ? (
+                {this.props.website_timer >= 1 ? (
                   <FastImage
                     style={styles.icon_close}
                     resizeMode={FastImage.resizeMode.contain}
@@ -203,7 +204,7 @@ const mapStateToProps = state => {
   return {
     userColor: state.userColor,
     game_info: state.game_info,
-    website_timer: state.website_timer
+    website_timer: state.website_timer.time
   };
 };
 

@@ -1,4 +1,4 @@
-export const SET_WEB_SITE_TIMER = "./website-timer/SET_GAME_EXPIRED_IMAGE";
+export const SET_WEB_SITE_TIMER = "./website-timer/SET_WEB_SITE_TIMER";
 
 export default (state = 15, action) => {
   switch (action.type) {
@@ -9,7 +9,7 @@ export default (state = 15, action) => {
   }
 };
 
-export const setWebSiteTimer = time => getState => {
+export const setWebSiteTimer = time  => {
   console.log(time, "dfsfsfsfswf");
   return {
     type: SET_WEB_SITE_TIMER,
