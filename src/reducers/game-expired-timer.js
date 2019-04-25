@@ -70,7 +70,6 @@ export const launchGameExpiredTimer = (token, id) => async dispatch => {
   );
   received_promise.then(
     result => {
-      console.log(result);
       let time = result.body.time;
       let oldresult = result;
       if (oldresult.body.video_status && Platform.OS === "ios") {

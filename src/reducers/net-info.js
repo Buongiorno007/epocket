@@ -23,7 +23,6 @@ export const checkForInternetReacheable = connection => async dispatch => {
         let received_promise = httpGet(urls.echo);
         received_promise.then(
           result => {
-            console.log(result);
             dispatch(getStatus(true));
           },
           error => {

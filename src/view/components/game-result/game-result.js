@@ -137,7 +137,6 @@ class GameResult extends React.Component {
         }
       },
       error => {
-        console.log(error);
         if (error.code === 400) {
           let info = {
             description: "...",
