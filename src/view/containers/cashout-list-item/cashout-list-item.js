@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, AsyncStorage } from "react-native";
 import FastImage from "react-native-fast-image";
 import { Button } from "native-base";
 import Icon from "react-native-vector-icons/Feather";

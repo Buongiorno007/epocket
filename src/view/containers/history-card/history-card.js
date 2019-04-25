@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, AsyncStorage } from "react-native";
 import { Button } from "native-base";
 import { LinearTextGradient } from "react-native-text-gradient";
 //containers

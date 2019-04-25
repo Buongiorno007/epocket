@@ -32,7 +32,8 @@ class Partners extends React.Component {
     phone: "0000000000000",
     shopLink: "",
     shops: [],
-    onlineShops: []
+    onlineShops: [],
+    currency: ""
   };
   navigateBack = () => {
     NavigationService.navigate("Main");

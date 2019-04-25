@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, StatusBar, AppState, Platform } from "react-native";
+import {
+  View,
+  Text,
+  StatusBar,
+  AppState,
+  Platform,
+  AsyncStorage
+} from "react-native";
 import FastImage from "react-native-fast-image";
 import LinearGradient from "react-native-linear-gradient";
 import { Button } from "native-base";
@@ -37,7 +44,7 @@ class EarnMore extends React.Component {
       modalVisible: false,
       errorVisible: false,
       userCount: 0,
-      currency:""
+      currency: ""
     };
   }
   componentDidMount = () => {

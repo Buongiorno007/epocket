@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Dimensions, Platform } from "react-native";
+import { AsyncStorage, Text, Dimensions, Platform } from "react-native";
 import { Button } from "native-base";
 //constants
 import styles from "./styles";

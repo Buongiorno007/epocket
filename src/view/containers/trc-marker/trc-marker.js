@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Platform, Text, ImageBackground } from "react-native";
+import {
+  View,
+  Platform,
+  Text,
+  ImageBackground,
+  AsyncStorage
+} from "react-native";
 import MapView, { Marker, Circle } from "react-native-maps";
 import LinearGradient from "react-native-linear-gradient";
 //constants

@@ -30,7 +30,6 @@ import TimerModal from "../../containers/timer-modal/timer-modal";
 import styles from "./styles";
 import styles_top from "./styles_top";
 import { ICONS } from "../../../constants/icons";
-import PickedLanguage from "../../../locales/language-picker";
 import { urls } from "../../../constants/urls";
 import { colors } from "../../../constants/colors";
 //redux
@@ -58,6 +57,7 @@ import moment from "moment";
 import InstagramLogin from "../../../services/Instagram";
 import FacebookLogin from "../../../services/Facebook";
 import { handleError } from "../../../services/http-error-handler";
+import I18n from "@locales/I18n";
 
 const { width, height } = Dimensions.get("window");
 const CustomLayoutLinearFont = {
@@ -122,7 +122,8 @@ class Dashboard extends React.Component {
       minutes: 0,
       seconds: 0
     },
-    forceCloseHeader: false
+    forceCloseHeader: false,
+    currency: ""
   };
   constructor(props) {
     super(props);
@@ -328,6 +329,37 @@ class Dashboard extends React.Component {
       onPanResponderRelease: (evt, gestureState) => {}
     });
   }
+  componentDidMount = () => {
+    if (this.props.navigation.state.params.cardToOpen) {
+      this.props.setDashboardState(2);
+      this.props.setActiveCard(true);
+      this.props.selectMission(
+        this._submissionOrder(this.props.navigation.state.params.cardToOpen)
+      );
+    }
+    AsyncStorage.getItem("user_info").then(value => {
+      let object = JSON.parse(value);
+      this.setState({
+        sex: object.sex,
+        currency: object.currency
+      });
+    });
+    let count = 0;
+    this.props.navigation.state.params.dashboard_data.forEach(element => {
+      if (
+        element.type === "instagram_connect" ||
+        element.type === "facebook_connect"
+      ) {
+        count++;
+      }
+    });
+    this.props.setCount(count);
+    this.props.setMissions(this.props.navigation.state.params.dashboard_data);
+    this.setState({ load_missions: false, load_timer: false });
+    this.props.navigation.state.params.general_info.outlet
+      ? this.setState({ pickedCashout: true })
+      : this.callTimer();
+  };
   runAnimation = (
     epcСounterFontSizeProps,
     topHeightProps,
@@ -409,7 +441,7 @@ class Dashboard extends React.Component {
   };
   _submissionOrder = mission => {
     let insta_sub_mission = {
-      desc: PickedLanguage.MISSION.SUBMISSION_3,
+      desc: I18n.t("MISSION.SUBMISSION_3"),
       id: 1,
       name: "insta submission",
       type: 2,
@@ -420,36 +452,7 @@ class Dashboard extends React.Component {
     mission.subMissions.push(insta_sub_mission);
     return mission;
   };
-  componentDidMount = () => {
-    if (this.props.navigation.state.params.cardToOpen) {
-      this.props.setDashboardState(2);
-      this.props.setActiveCard(true);
-      this.props.selectMission(
-        this._submissionOrder(this.props.navigation.state.params.cardToOpen)
-      );
-    }
-    AsyncStorage.getItem("user_info").then(value => {
-      let object = JSON.parse(value);
-      this.setState({
-        sex: object.sex
-      });
-    });
-    let count = 0;
-    this.props.navigation.state.params.dashboard_data.forEach(element => {
-      if (
-        element.type === "instagram_connect" ||
-        element.type === "facebook_connect"
-      ) {
-        count++;
-      }
-    });
-    this.props.setCount(count);
-    this.props.setMissions(this.props.navigation.state.params.dashboard_data);
-    this.setState({ load_missions: false, load_timer: false });
-    this.props.navigation.state.params.general_info.outlet
-      ? this.setState({ pickedCashout: true })
-      : this.callTimer();
-  };
+
   setErrorVisible = visible => {
     this.setState({
       errorVisible: visible
@@ -797,8 +800,8 @@ class Dashboard extends React.Component {
           backgroundColor={"transparent"}
         />
         <CustomAlert
-          title={PickedLanguage.PROFILE_PAGE.ALREADY_ACCOUNT}
-          first_btn_title={PickedLanguage.OK}
+          title={I18n.t("PROFILE_PAGE.ALREADY_ACCOUNT")}
+          first_btn_title={I18n.t("OK")}
           visible={this.state.errorVisible}
           first_btn_handler={() =>
             this.setErrorVisible(!this.state.errorVisible)
@@ -808,9 +811,9 @@ class Dashboard extends React.Component {
           }
         />
         <CustomAlert
-          title={PickedLanguage.PROFILE_PAGE.NOT_ENOUGHT_SUB}
-          subtitle={this.state.userCount + PickedLanguage.PROFILE_PAGE.SUBS}
-          first_btn_title={PickedLanguage.OK}
+          title={I18n.t("PROFILE_PAGE.NOT_ENOUGHT_SUB")}
+          subtitle={this.state.userCount + I18n.t("PROFILE_PAGE.SUBS")}
+          first_btn_title={I18n.t("OK")}
           visible={this.state.modalVisible}
           first_btn_handler={() =>
             this.setModalVisible(!this.state.modalVisible)
@@ -821,7 +824,7 @@ class Dashboard extends React.Component {
         />
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={PickedLanguage.REPEAT}
+          first_btn_title={I18n.t("REPEAT")}
           visible={this.state.startMissionErrorVisible}
           first_btn_handler={() => {
             this.state.errorCode != 416 && this.state.errorCode != 418
@@ -838,7 +841,7 @@ class Dashboard extends React.Component {
         />
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={PickedLanguage.REPEAT}
+          first_btn_title={I18n.t("REPEAT")}
           visible={this.state.missionsErrorVisible}
           first_btn_handler={() => {
             this.getMissions();
@@ -849,7 +852,7 @@ class Dashboard extends React.Component {
         />
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={PickedLanguage.REPEAT}
+          first_btn_title={I18n.t("REPEAT")}
           visible={this.state.finishMissionErrorVisible}
           first_btn_handler={() => {
             this.finishMainMission();
@@ -1000,7 +1003,7 @@ class Dashboard extends React.Component {
                   ]}
                 >
                   <Text style={styles_top.finishMission_text}>
-                    {PickedLanguage.GOT_EPC}
+                    {I18n.t("GOT_EPC", { currency: this.state.currency })}
                   </Text>
                   <LinearTextGradient
                     locations={[0, 1]}
@@ -1012,10 +1015,12 @@ class Dashboard extends React.Component {
                     end={{ x: 0.5, y: 0.2 }}
                     style={styles_top.finishMission_text}
                   >
-                    {this.state.mainMissionPrice + " " + PickedLanguage.EPC}
+                    {this.state.mainMissionPrice +
+                      " " +
+                      I18n.t("EPC", { currency: this.state.currency })}
                   </LinearTextGradient>
                   <Text style={styles_top.finishMission_text}>
-                    {PickedLanguage.FOR_TRC}
+                    {I18n.t("FOR_TRC")}
                   </Text>
                 </View>
                 <Text
@@ -1024,7 +1029,7 @@ class Dashboard extends React.Component {
                     this.state.forceCloseHeader && { display: "none" }
                   ]}
                 >
-                  {PickedLanguage.COME_TOMMOROW}
+                  {I18n.t("COME_TOMMOROW")}
                 </Text>
               </Animated.View>
             ) : (
@@ -1067,7 +1072,7 @@ class Dashboard extends React.Component {
                       ]}
                     >
                       {/* <Text> */}
-                        {Number(this.state.mainMissionPrice).toFixed()}
+                      {Number(this.state.mainMissionPrice).toFixed()}
                       {/* </Text> */}
                     </LinearTextGradient>
                     <Animated.Text
@@ -1083,7 +1088,7 @@ class Dashboard extends React.Component {
                         }
                       ]}
                     >
-                      {" " + PickedLanguage.EPC}
+                      {" " + I18n.t("EPC", { currency: this.state.currency })}
                     </Animated.Text>
                   </View>
                   <Animated.View
@@ -1098,9 +1103,11 @@ class Dashboard extends React.Component {
                       }
                     ]}
                   >
-                    <Text style={styles_top.epc}>{PickedLanguage.EPC}</Text>
+                    <Text style={styles_top.epc}>
+                      {I18n.t("EPC", { currency: this.state.currency })}
+                    </Text>
                     <Text style={styles_top.epc_info}>
-                      {PickedLanguage.FOR_BEING_IN_MALL}
+                      {I18n.t("FOR_BEING_IN_MALL")}
                     </Text>
                     <Text
                       style={
@@ -1110,8 +1117,8 @@ class Dashboard extends React.Component {
                       }
                     >
                       {this.state.notInMall
-                        ? PickedLanguage.NOT_IN_MALL
-                        : PickedLanguage.TIME_STARTED}
+                        ? I18n.t("NOT_IN_MALL")
+                        : I18n.t("TIME_STARTED")}
                     </Text>
                   </Animated.View>
                 </Animated.View>
@@ -1182,11 +1189,7 @@ class Dashboard extends React.Component {
                     </Text>
                   </Animated.View>
                 </Animated.View>
-                <View style={styles_top.disabled}>
-                  {/* <Text style={styles.main_task_expired}>
-                       {PickedLanguage.MAIN_TASK_EXPIRED}
-                     </Text> */}
-                </View>
+                <View style={styles_top.disabled} />
               </Animated.View>
             )
           ) : (
@@ -1222,7 +1225,7 @@ class Dashboard extends React.Component {
                       end={{ x: 0.5, y: 0.2 }}
                       style={styles_top.up_text}
                     >
-                      {PickedLanguage.YOU_ARE_HERE}
+                      {I18n.t("YOU_ARE_HERE")}
                     </LinearTextGradient>
                     <LinearTextGradient
                       locations={[0, 1]}
@@ -1269,7 +1272,7 @@ class Dashboard extends React.Component {
                       end={{ x: 0.5, y: 0.2 }}
                       style={styles_top.up_text}
                     >
-                      {PickedLanguage.YOUR_BONUS}
+                      {I18n.t("YOUR_BONUS")}
                     </LinearTextGradient>
                     <LinearTextGradient
                       locations={[0, 1]}
@@ -1281,7 +1284,8 @@ class Dashboard extends React.Component {
                       end={{ x: 0.5, y: 0.2 }}
                       style={styles_top.down_text}
                     >
-                      {this.props.balance} {PickedLanguage.EPC}
+                      {this.props.balance}{" "}
+                      {I18n.t("EPC", { currency: this.state.currency })}
                     </LinearTextGradient>
                   </View>
                 </View>
@@ -1324,7 +1328,7 @@ class Dashboard extends React.Component {
                       end={{ x: 0.5, y: 0.2 }}
                       style={styles_top.time_counter_text}
                     >
-                      {PickedLanguage.EPC}
+                      {I18n.t("EPC", { currency: this.state.currency })}
                     </LinearTextGradient>
                   </View>
                   <View style={styles_top.small_time_counter_container}>
@@ -1451,12 +1455,12 @@ class Dashboard extends React.Component {
             <View style={styles.nav_buttons}>
               <HistoryNavButton
                 handler={!this.state.pickedTask ? () => this.pickTasks() : null}
-                title={PickedLanguage.DASHBOARD_LIST.TASKS_TAB_TITLE}
+                title={I18n.t("DASHBOARD_LIST.TASKS_TAB_TITLE")}
                 disabled={this.state.pickedTask}
               />
               <HistoryNavButton
                 handler={this.state.pickedTask ? () => this.pickPosts() : null}
-                title={PickedLanguage.DASHBOARD_LIST.POSTS_TAB_TITLE}
+                title={I18n.t("DASHBOARD_LIST.POSTS_TAB_TITLE")}
                 disabled={!this.state.pickedTask}
               />
             </View>

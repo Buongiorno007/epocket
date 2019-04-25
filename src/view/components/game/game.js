@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Dimensions, AppState } from "react-native";
+import { View, Text, Dimensions, AppState, AsyncStorage } from "react-native";
 import { Button } from "native-base";
 import FastImage from "react-native-fast-image";
 //redux

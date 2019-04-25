@@ -1,5 +1,5 @@
 import React from "react";
-import { View, WebView, Platform, Text } from "react-native";
+import { View, WebView, AsyncStorage, Text } from "react-native";
 import { Button } from "native-base";
 import FastImage from "react-native-fast-image";
 import LinearGradient from "react-native-linear-gradient";
