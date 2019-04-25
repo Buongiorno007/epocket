@@ -70,14 +70,13 @@ class GameResult extends React.Component {
     });
   };
   startTimer = () => {
-    this.setState({
-      interval: setCorrectingInterval(() => {
-        if (this.props.game_info.wait_timer_in_sec <= 1) {
-          clearCorrectingInterval(this.state.interval);
-        }
-        this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec);
-      }, 1000)
-    });
+    console.log('startTimer')
+    setCorrectingInterval(() => {
+      if (this.props.game_info.wait_timer_in_sec <= 1) {
+        clearCorrectingInterval(this.state.interval);
+      }
+      this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec--);
+    }, 1000)
   };
   setErrorVisible = visible => {
     this.setState({
