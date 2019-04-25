@@ -1,27 +1,29 @@
 import React from "react";
-import {
-  View,
-  StatusBar,
-  Modal,
-  Text,
-  AppState,
-  Platform,
-  TouchableHighlight
-} from "react-native";
+import { View, Text, Platform, AsyncStorage } from "react-native";
 import { Button } from "native-base";
 import FastImage from "react-native-fast-image";
 import LinearGradient from "react-native-linear-gradient";
 //constants
 import styles from "./styles";
-import PickedLanguage from "../../../locales/language-picker";
 import { colors } from "../../../constants/colors_men";
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { showDoneNotification } from "../../../reducers/main-task-done-notification";
 import { showFailedNotification } from "../../../reducers/main-task-failed-notification";
+import I18n from "@locales/I18n";
 
 class TimerModal extends React.Component {
+  state = {
+    currency: ""
+  };
+  componentDidMount() {
+    AsyncStorage.getItem("user_info").then(value => {
+      let object = JSON.parse(value);
+      this.setState({ currency: object.currency });
+    });
+  }
+
   render() {
     return (
       <View
@@ -46,17 +48,15 @@ class TimerModal extends React.Component {
               style={styles.grad}
             />
             <View style={styles.main_task_done_content}>
-              <Text style={styles.text_big}>{PickedLanguage.CONGRAT}</Text>
+              <Text style={styles.text_big}>{I18n.t("CONGRAT")}</Text>
               <Text style={styles.text}>
-                {PickedLanguage.GOT_EPC +
+                {I18n.t("GOT_EPC") +
                   this.props.doneMissionCost +
                   " " +
-                  PickedLanguage.EPC +
-                  PickedLanguage.FOR_TRC}
+                  I18n.t("EPC", { currency: this.state.currency }) +
+                  I18n.t("FOR_TRC")}
               </Text>
-              <Text style={styles.text_small}>
-                {PickedLanguage.COME_TOMMOROW}
-              </Text>
+              <Text style={styles.text_small}>{I18n.t("COME_TOMMOROW")}</Text>
 
               <Button
                 transparent
@@ -74,7 +74,7 @@ class TimerModal extends React.Component {
                     { color: this.props.userColor.second_gradient_color }
                   ]}
                 >
-                  {PickedLanguage.OK}
+                  {I18n.t("OK")}
                 </Text>
               </Button>
             </View>
@@ -89,10 +89,10 @@ class TimerModal extends React.Component {
               ]}
             >
               <Text style={[styles.text_big, styles.textBlack]}>
-                {PickedLanguage.MAIN_TASK_FAILED}
+                {I18n.t("MAIN_TASK_FAILED")}
               </Text>
               <Text style={[styles.text, styles.textBlack]}>
-                {PickedLanguage.MAIN_TASK_FAILURE_REASON}
+                {I18n.t("MAIN_TASK_FAILURE_REASON")}
               </Text>
               <Button
                 transparent
@@ -111,7 +111,7 @@ class TimerModal extends React.Component {
                   style={styles.confirm_button}
                 />
                 <Text style={[styles.confirm_button_text, styles.textWhite]}>
-                  {PickedLanguage.OK}
+                  {I18n.t("OK")}
                 </Text>
               </Button>
             </View>

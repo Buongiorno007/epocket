@@ -35,7 +35,6 @@ import { mapStyle } from "./mapCustomStyle";
 import styles from "./styles";
 import { ICONS } from "../../../constants/icons";
 import { urls } from "../../../constants/urls";
-import PickedLanguage from "./../../../locales/language-picker";
 import { colors } from "./../../../constants/colors";
 //redux
 import { connect } from "react-redux";
@@ -70,6 +69,7 @@ import FacebookLogin from "../../../services/Facebook";
 import { orderBy } from "lodash";
 import moment from "moment-timezone";
 import "../../../services/correcting-interval";
+import I18n from "@locales/I18n";
 
 const { width, height } = Dimensions.get("window");
 
@@ -376,7 +376,7 @@ class Map extends React.Component {
     if (nextProps.distance < 0 && nextProps.isLocation) {
       if (
         this.props.location.lat.toFixed(3) !==
-        nextProps.location.lat.toFixed(3) &&
+          nextProps.location.lat.toFixed(3) &&
         this.props.location.lng.toFixed(3) !== nextProps.location.lng.toFixed(3)
       ) {
         this.selectNearestMall(
@@ -520,7 +520,7 @@ class Map extends React.Component {
       let selectedTRC = mall_array.find(x => x.id === Number(nearestMall.key));
       try {
         this.selectMark(selectedTRC, ANIMATE_MAP, "task");
-      } catch (e) { }
+      } catch (e) {}
     }
   };
 
@@ -533,35 +533,36 @@ class Map extends React.Component {
         shopActive={this.state.shopActive}
         btnText={
           this.state.taskActive
-            ? PickedLanguage.MAP.TASKS.toUpperCase()
+            ? I18n.t("MAP.TASKS").toUpperCase()
             : this.state.shopActive
-              ? PickedLanguage.MAP.MAKE_PREORDER.toUpperCase()
-              : PickedLanguage.MAP.LIST_PRODUCTS.toUpperCase()
+            ? I18n.t("MAP.MAKE_PREORDER").toUpperCase()
+            : I18n.t("MAP.LIST_PRODUCTS").toUpperCase()
         }
       />
-    ) : item.item.type === "instagram_connect" ||
-      item.item.type === "facebook_connect" ? (
-          <CardFirst
-            type={item.item.type}
-            item={item.item}
-            taskActive={this.state.taskActive}
-            onPressItem={() => {
-              if (item.item.type === "facebook_connect") {
-                this.LoginFacebook();
-              } else if (item.item.type === "instagram_connect") {
-                this.refs.instagramLogin.show();
-              }
-            }}
-            btnText={PickedLanguage.EXECUTE.toUpperCase()}
-          />
-        ) : this.state.taskActive ? (
-          //item.item.active && //uncomment this to show only active cards at map
-          <CardTask item={item.item} onPressItem={this.openTaskDetails} />
-        ) : this.state.shopActive ? (
-          <CardCashout item={item.item} onPressItem={this.openAccordion} />
-        ) : (
-              <CardCashout item={item.item} onPressItem={this._showSelectedCard} />
-            );
+    ) : (item.item.type === "instagram_connect" ||
+      item.item.type === "facebook_connect") ? (
+      <CardFirst
+        type={item.item.type}
+        item={item.item}
+        taskActive={this.state.taskActive}
+        onPressItem={() => {
+          if (item.item.type === "facebook_connect") {
+            this.LoginFacebook();
+          } else if (item.item.type === "instagram_connect") {
+            this.refs.instagramLogin.show();
+          }
+        }}
+        btnText={I18n.t("EXECUTE").toUpperCase()}
+      />
+    ) : this.state.taskActive ? (
+      //item.item.active && //uncomment this to show only active cards at map
+      <CardTask item={item.item} onPressItem={this.openTaskDetails} />
+    ) : this.state.shopActive ? (
+      <CardCashout item={item.item} onPressItem={this.openAccordion} />
+    ) : (
+      <CardCashout item={item.item} onPressItem={this._showSelectedCard} />
+    );
+
   openNext = selectedCard => {
     let copyOfCards = [...this.state.cards];
     copyOfCards.shift(); //remove card with outlet|cashout information
@@ -578,7 +579,7 @@ class Map extends React.Component {
       });
     }
   };
-  _showSelectedCard = selectedCard => { };
+  _showSelectedCard = selectedCard => {};
   openTaskDetails = selectedCard => {
     let selectedOutlet = this.state.cards[0];
     let copyOfCards = [...this.state.cards];
@@ -776,12 +777,12 @@ class Map extends React.Component {
       (region.longitudeDelta &&
         Number(region.latitude).toFixed(3) == this.state.pickedMark.latitude &&
         Number(region.longitude).toFixed(5) ==
-        this.state.pickedMark.longitude) ||
+          this.state.pickedMark.longitude) ||
       (region.nativeEvent &&
         Number(region.nativeEvent.coordinate.latitude).toFixed(3) ==
-        this.state.pickedMark.latitude &&
+          this.state.pickedMark.latitude &&
         Number(region.nativeEvent.coordinate.longitude).toFixed(5) ==
-        this.state.pickedMark.longitude)
+          this.state.pickedMark.longitude)
     ) {
     } else {
       this.setState({ focusedOnMark: false, cards: [] });
@@ -821,8 +822,8 @@ class Map extends React.Component {
           ? false
           : true
         : this.props.distance <= 0 && this.props.isLocation
-          ? false
-          : true
+        ? false
+        : true
     };
     let promise = httpPost(
       urls.start_mission,
@@ -1085,7 +1086,7 @@ class Map extends React.Component {
                 (clusterValue ===
                   Number(cluster.properties.item.formated.money) ||
                   clusterValue ===
-                  Number(cluster.properties.item.formated.amount))
+                    Number(cluster.properties.item.formated.amount))
               ) {
                 this.selectMark(cluster.properties.item, true, "task");
               }
@@ -1113,8 +1114,8 @@ class Map extends React.Component {
             this.state.taskActive
               ? this.selectMark(marker, true, "task")
               : this.state.shopActive
-                ? this.selectMark(marker, true, "shop")
-                : this.selectMark(marker, true, "discount");
+              ? this.selectMark(marker, true, "shop")
+              : this.selectMark(marker, true, "discount");
           }}
         />
       );
@@ -1127,8 +1128,8 @@ class Map extends React.Component {
     return (
       <View style={styles.main_view}>
         <CustomAlert
-          title={PickedLanguage.PROFILE_PAGE.ALREADY_ACCOUNT}
-          first_btn_title={PickedLanguage.OK}
+          title={I18n.t("PROFILE_PAGE.ALREADY_ACCOUNT")}
+          first_btn_title={I18n.t("OK")}
           visible={this.state.errorLoginVisible}
           first_btn_handler={() =>
             this.setLoginErrorVisible(!this.state.errorVisible)
@@ -1138,9 +1139,9 @@ class Map extends React.Component {
           }
         />
         <CustomAlert
-          title={PickedLanguage.PROFILE_PAGE.NOT_ENOUGHT_SUB}
-          subtitle={this.state.userCount + PickedLanguage.PROFILE_PAGE.SUBS}
-          first_btn_title={PickedLanguage.OK}
+          title={I18n.t("PROFILE_PAGE.NOT_ENOUGHT_SUB")}
+          subtitle={this.state.userCount + I18n.t("PROFILE_PAGE.SUBS")}
+          first_btn_title={I18n.t("OK")}
           visible={this.state.modalVisible}
           first_btn_handler={() =>
             this.setModalVisible(!this.state.modalVisible)
@@ -1151,7 +1152,7 @@ class Map extends React.Component {
         />
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={PickedLanguage.REPEAT}
+          first_btn_title={I18n.t("REPEAT")}
           visible={this.state.errorVisible}
           first_btn_handler={() => {
             this.loadTRC();
@@ -1162,7 +1163,7 @@ class Map extends React.Component {
         />
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={PickedLanguage.REPEAT}
+          first_btn_title={I18n.t("REPEAT")}
           visible={this.state.errorVisible}
           first_btn_handler={() => {
             this.loadTRC();
@@ -1207,7 +1208,7 @@ class Map extends React.Component {
         />
         {Platform.OS == "ios"
           ? this.state.location_loader &&
-          this.props.isLocation && <ActivityIndicator />
+            this.props.isLocation && <ActivityIndicator />
           : this.state.location_loader && <ActivityIndicator />}
         <Animated.View
           style={[
@@ -1261,7 +1262,7 @@ class Map extends React.Component {
               end={{ x: 1, y: 0 }}
               style={styles.state_change_block_text}
             >
-              {PickedLanguage.MAP_TABS.SHOP.toUpperCase()}
+              {I18n.t("MAP_TABS.SHOP").toUpperCase()}
             </LinearTextGradient>
           </Button>
           <Button
@@ -1295,7 +1296,7 @@ class Map extends React.Component {
               end={{ x: 1, y: 0 }}
               style={styles.state_change_block_text}
             >
-              {PickedLanguage.MAP_TABS.TASK.toUpperCase()}
+              {I18n.t("MAP_TABS.TASK").toUpperCase()}
             </LinearTextGradient>
           </Button>
           <Button
@@ -1338,28 +1339,11 @@ class Map extends React.Component {
               end={{ x: 1, y: 0 }}
               style={styles.state_change_block_text}
             >
-              {PickedLanguage.MAP_TABS.DISCOUNT.toUpperCase()}
+              {I18n.t("MAP_TABS.DISCOUNT").toUpperCase()}
             </LinearTextGradient>
           </Button>
         </Animated.View>
-        {/* {this.props.isLocation ? (
-          <View style={styles.trc_info}>
-            <Button style={styles.img_geo_btn} transparent onPress={() => this.props.setInfo(true)}>
-              <FastImage
-                resizeMode={FastImage.resizeMode.contain}
-                style={styles.img_geo}
-                source={{ uri: ICONS.MAP_INFO }}
-              />
-            </Button>
-            {this.props.selectedMall.active ? (
-              <TrcInformation
-                info={this.props.selectedMall}
-                distance={this.props.distance}
-              />
-            ) : null}
-          </View>
-        ) : null
-        } */}
+
         {this.state.focusedOnMark && (
           <View
             style={[

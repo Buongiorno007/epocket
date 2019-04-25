@@ -1,42 +1,41 @@
 import React from "react";
 import { View, Text, Image, AsyncStorage } from "react-native";
-import FastImage from 'react-native-fast-image'
+import FastImage from "react-native-fast-image";
 //constants
 import styles from "./styles";
 import { ICONS } from "./../../../constants/icons";
-import PickedLanguage from "./../../../locales/language-picker";
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 //services
 import NavigationService from "./../../../services/route";
 import { Button } from "native-base";
+import I18n from "@locales/I18n";
 
 class CashoutBalance extends React.Component {
   state = {
-    currency: "epc"
-  }
+    currency: ""
+  };
   navigateBack = () => {
-    this.props.navigation ?
-      NavigationService.navigate(this.props.navigation.direction)
-      :
-      console.log("Fail. No navigation prop")
-  }
+    this.props.navigation
+      ? NavigationService.navigate(this.props.navigation.direction)
+      : console.log("Fail. No navigation prop");
+  };
   navigateToPartners = () => {
-    NavigationService.navigate("Partners")
-  }
+    NavigationService.navigate("Partners");
+  };
   componentDidMount = () => {
-    AsyncStorage.getItem('user_info').then((value) => {
+    AsyncStorage.getItem("user_info").then(value => {
       let object = JSON.parse(value);
       this.setState({
         currency: object.currency
       });
     });
-  }
+  };
   render = () => {
     return (
       <View style={styles.container}>
-        {this.props.navigation &&
+        {this.props.navigation && (
           <View style={[styles.block]}>
             <Button
               rounded
@@ -50,11 +49,13 @@ class CashoutBalance extends React.Component {
                 style={styles.icon}
                 source={{ uri: ICONS.COMMON.NAVIGATE_BACK }}
               />
-              <Text style={[styles.text, styles.title]}>{this.props.navigation.title}</Text>
+              <Text style={[styles.text, styles.title]}>
+                {this.props.navigation.title}
+              </Text>
             </Button>
           </View>
-        }
-        {this.props.showCurrency ?
+        )}
+        {this.props.showCurrency ? (
           <View style={[styles.block, styles.vertical_block]}>
             <View style={[styles.balance_title]}>
               <FastImage
@@ -62,16 +63,22 @@ class CashoutBalance extends React.Component {
                 style={[styles.epc_icon]}
                 source={{ uri: ICONS.COMMON.CASH_EPC_WHITE }}
               />
-              <Text style={[styles.text, styles.title]}>{this.props.navigation ? PickedLanguage.CASH.YOUR_TITLE : PickedLanguage.CASH.TITLE} {Number(this.props.balance.toFixed(2))} {PickedLanguage.EPC}</Text>
+              <Text style={[styles.text, styles.title]}>
+                {this.props.navigation
+                  ? I18n.t("CASH.YOUR_TITLE")
+                  : I18n.t("CASH.TITLE")}{" "}
+                {Number(this.props.balance.toFixed(2))}{" "}
+                {I18n.t("EPC", { currency: this.state.currency })}
+              </Text>
             </View>
-            <View style={styles.small_border}></View>
+            <View style={styles.small_border} />
             <View style={[styles.balance_value]}>
               <Text style={[styles.text, styles.cash]}>
                 {this.state.currency} {Number(this.props.balance.toFixed(2))}
               </Text>
             </View>
           </View>
-          :
+        ) : (
           <View style={styles.block}>
             <View style={[styles.item, styles.balance_title]}>
               <FastImage
@@ -81,17 +88,25 @@ class CashoutBalance extends React.Component {
               />
             </View>
             <View style={[styles.item, styles.balance_value]}>
-              <Text style={[styles.text, styles.title]}>{this.props.navigation ? PickedLanguage.CASH.YOUR_TITLE : PickedLanguage.CASH.TITLE} {Number(this.props.balance.toFixed(2))} {PickedLanguage.EPC}</Text>
+              <Text style={[styles.text, styles.title]}>
+                {this.props.navigation
+                  ? I18n.t("CASH.YOUR_TITLE")
+                  : I18n.t("CASH.TITLE")}{" "}
+                {Number(this.props.balance.toFixed(2))}{" "}
+                {I18n.t("EPC", { currency: this.state.currency })}
+              </Text>
             </View>
           </View>
-        }
-        {this.props.showCurrency &&
+        )}
+        {this.props.showCurrency && (
           <View style={[styles.block, styles.vertical_block_center]}>
             <View style={[styles.balance_title]}>
-              <View style={styles.epc_icon_filler}></View>
-              <Text style={[styles.text, styles.title]}>{PickedLanguage.CASH.PARTNERS}</Text>
+              <View style={styles.epc_icon_filler} />
+              <Text style={[styles.text, styles.title]}>
+                {I18n.t("CASH.PARTNERS")}
+              </Text>
             </View>
-            <View style={[styles.small_border, { display: "none" }]}></View>
+            <View style={[styles.small_border, { display: "none" }]} />
             <View>
               <Button
                 rounded
@@ -108,18 +123,16 @@ class CashoutBalance extends React.Component {
               </Button>
             </View>
           </View>
-        }
+        )}
       </View>
     );
   };
 }
-const mapStateToProps = state => ({ userColor: state.userColor, balance: state.balance });
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-    },
-    dispatch
-  );
+const mapStateToProps = state => ({
+  userColor: state.userColor,
+  balance: state.balance
+});
+const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch);
 export default connect(
   mapStateToProps,
   mapDispatchToProps
