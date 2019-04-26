@@ -166,6 +166,7 @@ subprojects {
     }
 }
 dependencies {
+    implementation project(':react-native-linear-gradient')
     implementation project(':react-native-i18n')
     implementation project(':react-native-fbsdk')
     implementation project(':react-native-google-analytics-bridge')
