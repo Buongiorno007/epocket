@@ -7,7 +7,8 @@ import {
   Alert,
   Animated,
   Platform,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  NativeModules
 } from "react-native";
 import FastImage from "react-native-fast-image";
 import { TextField } from "react-native-material-textfield";
@@ -257,14 +258,25 @@ class SignIn extends React.Component {
         if (result.status === 200) {
           this.setFailedConfirmVisible(false);
           this.props.loaderState(false);
+          const locale =
+            Platform.OS === "ios"
+              ? NativeModules.SettingsManager.settings.AppleLocale.substring(
+                  0,
+                  2
+                )
+              : NativeModules.I18nManager.localeIdentifier.substring(0, 2);
           const user_info = {
             name: result.body.user,
             phone: this.state.phone,
             photo: result.body.photo,
             sex: result.body.sex ? 1 : 0,
             birthDay: result.body.birthDay,
-            currency: result.body.currency
+            currency:
+              locale === "en"
+                ? result.body.currency
+                : result.body.currency_plural
           };
+
           this.props.getPush(result.body.token);
           this.props.saveUser(user_info);
           this.props.setColor(user_info.sex);

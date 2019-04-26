@@ -260,7 +260,9 @@
       "POST_NO_PUBLISH_MESSAGE": "Ваш пост не был опубликован",
       "STAY_ON_WEBSITE_FOR": "Проведи на сайте",
       "MIN": "мин.",
-      "LOOK_WHAT_TO_BUY": "Посмотри какие товары ты cможешь приобрести за {{currency}}"
+      "SEC": "сек.",
+      "LOOK_WHAT_TO_BUY": "Посмотри какие товары ты cможешь приобрести за {{currency}}",
+      "CANT_POST": "Не могу запостить :( Разрешите доступ к хранилищу"
     }
   },
   "CASHOUT_LIST": {
@@ -277,8 +279,8 @@
     "STORAGE_PERMISSON_MESSAGE": "Доступ необходим для совершения поста в Instagram."
   },
   "REF_LINK": {
-    "GET_EPC": "{{currency}} за друга",
-    "FOR_YOU_AND_YOUR_FRIEND": "{{currency}} тебе и другу за приглашение",
+    "GET_EPC": "{{currency}} for a friend",
+    "FOR_YOU_AND_YOUR_FRIEND": "{{currency}} to you and a friend for the invitation",
     "COPY": "Копировать ссылку",
     "FACEBOOK": "Facebook",
     "FACEBOOK_MESSENGER": "Facebook Messenger",
