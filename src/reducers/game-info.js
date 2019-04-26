@@ -226,13 +226,14 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
       }
     },
     error => {
+      console.log('game info err', error);
       if (error.code === 400) {
         let info = {
           description: "...",
           cost: "0",
           title: "",
           success_image: "",
-          no_more_games: true,
+          no_more_games: false,
           time: 0,
           available_game_len: 0,
           total_game_len: 0,

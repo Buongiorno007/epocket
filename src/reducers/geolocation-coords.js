@@ -30,11 +30,12 @@ export const locationCoordsListener = () => async dispatch => {
         ? dispatch(setLocation(location))
         : dispatch(
             setLocation({
-              lat: location.latitude,
-              lng: location.longitude
+              lat: location.latitude || 0,
+              lng: location.longitude || 0
             })
           );
     });
+
   }
 };
 
