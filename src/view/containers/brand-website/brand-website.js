@@ -1,28 +1,28 @@
-import React from "react";
-import { View, WebView, AsyncStorage, Text } from "react-native";
-import { Button } from "native-base";
-import FastImage from "react-native-fast-image";
-import LinearGradient from "react-native-linear-gradient";
+import React from 'react';
+import { View, WebView, AsyncStorage, Text } from 'react-native';
+import { Button } from 'native-base';
+import FastImage from 'react-native-fast-image';
+import LinearGradient from 'react-native-linear-gradient';
 //constants
-import styles from "./styles";
-import { colors } from "../../../constants/colors_men";
-import { ICONS } from "../../../constants/icons";
+import styles from './styles';
+import { colors } from '../../../constants/colors_men';
+import { ICONS } from '../../../constants/icons';
 //redux
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 //containers
-import GameTimer from "../../containers/game-timer/game-timer";
+import GameTimer from '../../containers/game-timer/game-timer';
 //services
-import { toHHMMSS } from "./../../../services/convert-time";
-import I18n from "@locales/I18n";
+import { toHHMMSS } from './../../../services/convert-time';
+import I18n from '@locales/I18n';
 
 class BrandWebsite extends React.Component {
   state = {
     infoPage: true,
-    currency: ""
+    currency: ''
   };
   componentDidMount() {
-    AsyncStorage.getItem("user_info").then(value => {
+    AsyncStorage.getItem('user_info').then(value => {
       let object = JSON.parse(value);
       this.setState({ currency: object.currency });
     });
@@ -68,16 +68,8 @@ class BrandWebsite extends React.Component {
               </Button>
               {this.props.website_timer >= 1 ? (
                 <GameTimer
-                  minutes={
-                    toHHMMSS(this.props.website_timer).split(
-                      ":"
-                    )[0]
-                  }
-                  seconds={
-                    toHHMMSS(this.props.website_timer).split(
-                      ":"
-                    )[1]
-                  }
+                  minutes={toHHMMSS(this.props.website_timer).split(':')[0]}
+                  seconds={toHHMMSS(this.props.website_timer).split(':')[1]}
                   white_text
                 />
               ) : (
@@ -96,7 +88,7 @@ class BrandWebsite extends React.Component {
                       { color: this.props.userColor.pink_blue }
                     ]}
                   >
-                    {I18n.t("GAME.RESULT.CONTINUE_PLAY").toUpperCase()}
+                    {I18n.t('GAME.RESULT.CONTINUE_PLAY').toUpperCase()}
                   </Text>
                 </Button>
               )}
@@ -122,7 +114,7 @@ class BrandWebsite extends React.Component {
                   <FastImage
                     style={styles.zifi}
                     resizeMode={FastImage.resizeMode.contain}
-                    source={require("../../../assets/img/zifi/playful.gif")}
+                    source={require('../../../assets/img/zifi/playful.gif')}
                   />
                 )}
               </Button>
@@ -133,7 +125,7 @@ class BrandWebsite extends React.Component {
             <FastImage
               resizeMode={FastImage.resizeMode.contain}
               style={styles.image_background}
-              source={require("../../../assets/img/ANIMATED_EARN_MORE.gif")}
+              source={require('../../../assets/img/ANIMATED_EARN_MORE.gif')}
             />
             <LinearGradient
               colors={this.props.userColor.earn_more}
@@ -158,7 +150,7 @@ class BrandWebsite extends React.Component {
                   source={{ uri: ICONS.COMMON.NAVIGATE_BACK }}
                 />
                 <Text style={[styles.text, styles.title]}>
-                  {I18n.t("BACK")}
+                  {I18n.t('BACK')}
                 </Text>
               </Button>
             </View>
@@ -166,11 +158,19 @@ class BrandWebsite extends React.Component {
               {this.props.brand_title.toUpperCase()}
             </Text>
             <Text style={styles.infoPage_title}>
-              {I18n.t("GAME.RESULT.STAY_ON_WEBSITE_FOR")}{" "}
-              {this.props.game_info.wait_timer} {I18n.t("GAME.RESULT.MIN")}
+              {I18n.t('GAME.RESULT.STAY_ON_WEBSITE_FOR')}{' '}
+              {this.props.game_info.wait_timer_in_sec < 60
+                ? // show time in seconds
+                  this.props.game_info.wait_timer_in_sec +
+                  ' ' +
+                  I18n.t('GAME.RESULT.SEC').toUpperCase()
+                : // show time in minutes
+                  this.props.game_info.wait_timer +
+                  ' ' +
+                  I18n.t('GAME.RESULT.MIN').toUpperCase()}
             </Text>
             <Text style={styles.infoPage_desc}>
-              {I18n.t("GAME.RESULT.LOOK_WHAT_TO_BUY", {
+              {I18n.t('GAME.RESULT.LOOK_WHAT_TO_BUY', {
                 currency: this.state.currency
               })}
             </Text>
@@ -190,7 +190,7 @@ class BrandWebsite extends React.Component {
                   { color: this.props.userColor.pink_blue }
                 ]}
               >
-                {I18n.t("GAME.RESULT.CONTINUE").toUpperCase()}
+                {I18n.t('GAME.RESULT.CONTINUE').toUpperCase()}
               </Text>
             </Button>
           </View>

@@ -73,7 +73,6 @@ class GameResult extends React.Component {
     this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec);
     this.setState({
       interval: setCorrectingInterval(() => {
-        console.log('website_timer',this.props.website_timer);
         if (this.props.website_timer <= 0) {
           clearCorrectingInterval(this.state.interval);
         } else {
@@ -93,7 +92,6 @@ class GameResult extends React.Component {
     });
   };
   checkForGames = next_navigation => {
-    console.log(next_navigation, 'NEXT_NAVIGATION');
     this.props.loaderState(true);
     let received_promise = httpGet(
       urls.game_get +
