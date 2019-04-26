@@ -1,6 +1,7 @@
 1) npm i
 2) replace from native-modules in node-modules
-3) node node_modules/react-native-text-gradient/patch-rn.js
+<!-- 3) node node_modules/react-native-text-gradient/patch-rn.js -->
+3) cd ios && rm -rf Pods && pod install && cd ../
 4) if FBSDK     /pod 'FBSDKCoreKit', '~> 4.42.0'   /
                / pod 'FBSDKLoginKit', '~> 4.42.0' /
               /  pod 'FBSDKShareKit', '~> 4.42.0'/
