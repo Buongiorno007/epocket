@@ -100,14 +100,16 @@ class HistoryCard extends React.Component {
                   <Text style={styles.date_text}>
                     {
                       moment(this.props.info.date)
-                        .add("hours", this.state.timeZome)
+                        .add(this.state.timeZome, "hours")
                         .format()
                         .split("T")[1]
                         .split("+")[0]
                     }
                   </Text>
                   <Text style={styles.date_text}>
-                    {this.format(this.props.info.date.split("T")[0])}
+                    {this.format(
+                      this.props.info.date.split("T")[0].split(" ")[0]
+                    )}
                   </Text>
                 </View>
               </View>
@@ -137,14 +139,16 @@ class HistoryCard extends React.Component {
                   <Text style={styles.date_text}>
                     {
                       moment(this.props.info.date)
-                        .add("hours", this.state.timeZome)
+                        .add(this.state.timeZome, "hours")
                         .format()
                         .split("T")[1]
                         .split("+")[0]
                     }
                   </Text>
                   <Text style={styles.date_text}>
-                    {this.format(this.props.info.date.split("T")[0])}
+                    {this.format(
+                      this.props.info.date.split("T")[0].split(" ")[0]
+                    )}
                   </Text>
                 </View>
               </View>

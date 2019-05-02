@@ -10,11 +10,10 @@ import HistoryCard from "../view/containers/history-card/history-card";
 
 export const getBonuses = (token, limitReceived, limitSpent) => {
   return dispatch => {
-    let received_promise = httpGet(
+    httpGet(
       urls.get_received_bonuses + "?page=1&limit=" + limitReceived,
       token
-    );
-    received_promise.then(
+    ).then(
       result => {
         let i = 1;
         const jsx_received_data = result.body.history.map(data => {
@@ -47,11 +46,10 @@ export const getBonuses = (token, limitReceived, limitSpent) => {
         });
       }
     );
-    let spent_promise = httpGet(
+    httpGet(
       urls.get_spent_bonuses + "?page=1&limit=" + limitSpent,
       token
-    );
-    spent_promise.then(
+    ).then(
       result => {
         let i = 1;
         const jsx_spent_data = result.body.history.map(data => {
