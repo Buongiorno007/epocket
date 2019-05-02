@@ -532,35 +532,33 @@ class GameStart extends React.Component {
                   : require("../../../assets/img/zifi/playful.gif")
               }
             />
-            {this.props.game_info.no_more_games ? (
-              <View style={styles.text_container}>
-                <Text style={styles.game_cost_text}>
-                  {this.props.game_info.no_more_games
-                    ? I18n.t("GAME.SORRY_TODAY").toLocaleUpperCase()
-                    : ""}{" "}
-                </Text>
-                <LinearTextGradient
-                  style={styles.game_cost_text}
-                  locations={[0, 1]}
-                  colors={[
-                    this.props.userColor.first_gradient_color,
-                    this.props.userColor.second_gradient_color
-                  ]}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 0 }}
-                >
-                  {this.props.game_info.no_more_games == true
-                    ? I18n.t("GAME.NO_GAMES").toLocaleUpperCase()
-                    : I18n.t("GAME.COST_TEXT").toLocaleUpperCase() +
-                      " " +
-                      this.props.game_info.cost.toLocaleUpperCase() +
-                      " " +
-                      I18n.t("EPC", {
-                        currency: this.state.currency
-                      }).toLocaleUpperCase()}
-                </LinearTextGradient>
-              </View>
-            ) : null}
+            <View style={styles.text_container}>
+              <Text style={styles.game_cost_text}>
+                {this.props.game_info.no_more_games
+                  ? I18n.t("GAME.SORRY_TODAY").toLocaleUpperCase()
+                  : ""}{" "}
+              </Text>
+              <LinearTextGradient
+                style={styles.game_cost_text}
+                locations={[0, 1]}
+                colors={[
+                  this.props.userColor.first_gradient_color,
+                  this.props.userColor.second_gradient_color
+                ]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
+              >
+                {this.props.game_info.no_more_games == true
+                  ? I18n.t("GAME.NO_GAMES").toLocaleUpperCase()
+                  : I18n.t("GAME.COST_TEXT").toLocaleUpperCase() +
+                    " " +
+                    this.props.game_info.cost.toLocaleUpperCase() +
+                    " " +
+                    I18n.t("EPC", {
+                      currency: this.state.currency
+                    }).toLocaleUpperCase()}
+              </LinearTextGradient>
+            </View>
 
             <View style={styles.game_description}>
               <Text
