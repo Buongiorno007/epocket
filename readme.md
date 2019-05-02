@@ -1,11 +1,14 @@
 1) npm i
 2) replace from native-modules in node-modules
-<!-- 3) node node_modules/react-native-text-gradient/patch-rn.js -->
-3) cd ios && rm -rf Pods && pod install && cd ../
+3) node node_modules/react-native-text-gradient/patch-rn.js
+3) cd ios && pod update && cd ../
 4) if FBSDK     /pod 'FBSDKCoreKit', '~> 4.42.0'   /
                / pod 'FBSDKLoginKit', '~> 4.42.0' /
               /  pod 'FBSDKShareKit', '~> 4.42.0'/
 5) react-native-google-analytics 15.0.0
+
+6) npm i && node node_modules/react-native-text-gradient/patch-rn.js && cd ios && pod update && cd ../ 
+then replace from native-modules in node-modules and react-native-google-analytics 15.0.0
 
 #EpocketCash
 

@@ -1,9 +1,9 @@
 import React from "react";
-import BackgroundGeolocationModule from "./src/services/background-geolocation-picker"
-import { sendToTelegramm } from './src/services/telegramm-notification'
+import BackgroundGeolocationModule from "./src/services/background-geolocation-picker";
+import { sendToTelegramm } from "./src/services/telegramm-notification";
 import { AppRegistry } from "react-native";
 import { Root } from "native-base";
-import { createStackNavigator } from "react-navigation";
+import { createStackNavigator, createAppContainer } from "react-navigation";
 import Start from "./src/view/components/start/start";
 import SignIn from "./src/view/components/sign-in/sign-in";
 import Main from "./src/view/components/main/main";
@@ -17,12 +17,12 @@ import Picture from "./src/view/components/picture/picture";
 import Trade from "./src/view/components/trade/trade";
 import MissionSuccess from "./src/view/components/mission-success/mission-success";
 import EarnMore from "./src/view/components/earn-more/earn-more";
-import ProfileSettings from "./src/view/components/profile-settings/profile-settings"
-import ProfileEdit from "./src/view/components/profile-edit/profile-edit"
-import Game from "./src/view/components/game/game"
-import GameResult from "./src/view/components/game-result/game-result"
-import Cashout from "./src/view/components/cashout/cashout"
-import Partners from "./src/view/components/partners/partners"
+import ProfileSettings from "./src/view/components/profile-settings/profile-settings";
+import ProfileEdit from "./src/view/components/profile-edit/profile-edit";
+import Game from "./src/view/components/game/game";
+import GameResult from "./src/view/components/game-result/game-result";
+import Cashout from "./src/view/components/cashout/cashout";
+import Partners from "./src/view/components/partners/partners";
 
 import { Provider } from "react-redux";
 import store from "./src/store";
@@ -32,7 +32,7 @@ import NavigationService from "./src/services/route";
 console.disableYellowBox = true;
 console.ignoredYellowBox = ["Warning: ReactNative.createElement"];
 
-const EpocketCash = createStackNavigator(
+const Navigator = createStackNavigator(
   {
     Start: { screen: Start },
     Main: { screen: Main },
@@ -56,12 +56,19 @@ const EpocketCash = createStackNavigator(
   },
   {
     initialRouteName: "Start",
+    defaultNavigationOptions: {
+      headerStyle: {
+        display: "none"
+      }
+    },
     navigationOptions: {
       gesturesEnabled: false,
       header: null
     }
   }
 );
+
+const EpocketCash = createAppContainer(Navigator);
 
 const App = () => (
   <Root>
@@ -71,7 +78,6 @@ const App = () => (
       />
     </Provider>
   </Root>
-
 );
 
 AppRegistry.registerComponent("EpocketCash", () => App);
