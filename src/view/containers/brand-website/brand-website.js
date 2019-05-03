@@ -203,7 +203,7 @@ const mapStateToProps = state => {
   return {
     userColor: state.userColor,
     game_info: state.game_info,
-    website_timer: state.website_timer.time
+    website_timer: state.website_timer
   };
 };
 

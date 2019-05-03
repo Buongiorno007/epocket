@@ -564,7 +564,7 @@ class Map extends React.Component {
     );
 
   openNext = selectedCard => {
-    let copyOfCards = [...this.state.cards];
+    let copyOfCards = this.state.cards;
     copyOfCards.shift(); //remove card with outlet|cashout information
     if (this.state.taskActive) {
       NavigationService.navigate("Dashboard", {
