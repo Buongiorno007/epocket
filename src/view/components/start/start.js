@@ -85,6 +85,7 @@ class Start extends React.Component {
     this._initialConfig();
     this.props.updateRootStatus();
     this.props.loadNTPDate();
+    !this.props.game_info.game_array && this.props.setGameStatus("start");
   };
 
   _initialConfig = () => {
@@ -237,7 +238,8 @@ const mapStateToProps = state => ({
   isConnected: state.isConnected,
   loader: state.loader,
   token: state.token,
-  isLocation: state.isLocation
+  isLocation: state.isLocation,
+  game_info: state.game_info
 });
 
 const mapDispatchToProps = dispatch =>

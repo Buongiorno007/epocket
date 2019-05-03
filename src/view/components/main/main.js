@@ -56,13 +56,11 @@ class Main extends React.Component {
       }, 5000);
     }
   };
-  componentWillMount = () => {
-    AppState.addEventListener("change", this._handleAppStateChange);
-  };
   componentWillUnmount() {
     AppState.removeEventListener("change", this._handleAppStateChange);
   }
   componentDidMount() {
+    AppState.addEventListener("change", this._handleAppStateChange);
     this.backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
       this.props.setActiveCard(false);
       return true;
@@ -74,7 +72,7 @@ class Main extends React.Component {
     if (__DEV__) {
       this.setState({ develop: true });
     }
-    //this.props.getGameInfo(this.props.token, this.props.location.lat, this.props.location.lng)
+        //this.props.getGameInfo(this.props.token, this.props.location.lat, this.props.location.lng)
   }
   renderLastTab = () => {
     let container;
@@ -121,7 +119,7 @@ class Main extends React.Component {
               <LocationDisabled />
             )
           : !this.props.isLocation && <LocationDisabled />}
-        {!this.state.develop && //!this.state.develop &&
+        {!this.state.develop &&
           (Platform.OS === "ios"
             ? this.props.rootStatus &&
               this.props.isLocation &&
@@ -173,6 +171,7 @@ const mapDispatchToProps = dispatch =>
       loadNTPDate,
       loaderState,
       setAppState
+      
     },
     dispatch
   );

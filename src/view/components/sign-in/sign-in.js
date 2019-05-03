@@ -229,8 +229,7 @@ class SignIn extends React.Component {
   isInstalogged = token => {
     this.props.loaderState(true);
     let body = JSON.stringify({});
-    let promise = httpPost(urls.insta_is_logged, body, token);
-    promise.then(
+    httpPost(urls.insta_is_logged, body, token).then(
       result => {
         if (result.body.logged && result.body.active && result.body.token) {
           this.props.setInstaToken(result.body.token);
