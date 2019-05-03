@@ -62,6 +62,7 @@ class GameStart extends React.Component {
     brand_title: "",
     currency: ""
   };
+
   componentDidMount() {
     this.loadTRC();
     AppState.addEventListener("change", this._handleAppStateChange);
@@ -76,11 +77,6 @@ class GameStart extends React.Component {
     ) {
       this.props.setGameStatus("start");
     }
-    console.log(
-      this.props.game_status === "lock",
-      this.props.distance <= 0,
-      this.props.selectedMall.id
-    );
     if (
       this.props.game_status === "lock" &&
       this.props.distance <= 0 &&
@@ -104,12 +100,7 @@ class GameStart extends React.Component {
           ? false
           : true
     };
-    let promise = httpPost(
-      urls.missions,
-      JSON.stringify(body),
-      this.props.token
-    );
-    promise.then(
+    httpPost(urls.missions, JSON.stringify(body), this.props.token).then(
       result => {
         this.props.loaderState(false);
         this.props.getGameInfo(
@@ -533,7 +524,7 @@ class GameStart extends React.Component {
               }
             />
             <View style={styles.text_container}>
-              <Text style={styles.game_cost_text}>
+              {/* <Text style={styles.game_cost_text}>
                 {this.props.game_info.no_more_games
                   ? I18n.t("GAME.SORRY_TODAY").toLocaleUpperCase()
                   : ""}{" "}
@@ -557,7 +548,7 @@ class GameStart extends React.Component {
                     I18n.t("EPC", {
                       currency: this.state.currency
                     }).toLocaleUpperCase()}
-              </LinearTextGradient>
+              </LinearTextGradient> */}
             </View>
 
             <View style={styles.game_description}>

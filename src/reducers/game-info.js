@@ -83,99 +83,10 @@ export const passGameResult = (
 export const getGameInfo = (token, latt, long) => async dispatch => {
   dispatch(loaderState(true));
   //urls.game_get + "?coords=" + '50.45466' + "%2C" + '30.5238', KIEV
-  let received_promise = httpGet(
-    urls.game_get + "?coords=" + latt + "%2C" + long,
-    token
-  );
-  received_promise.then(
+  httpGet(urls.game_get + "?coords=" + latt + "%2C" + long, token).then(
     result => {
       console.log("getGameInfo", result);
       let game = result.body;
-    //   let game = {
-    //     "ticker": false,
-    //     "base_time": "20",
-    //     "base_partners": [
-    //         {
-    //             "id": 1,
-    //             "name": "Allo",
-    //             "link": "https://allo.ua/",
-    //             "image": "https://epocket.dev.splinestudio.com/static/partners/allo.png",
-    //             "online": false,
-    //             "sandbox": true,
-    //             "places": [
-    //                 {
-    //                     "id": 1,
-    //                     "lng": "48.46472700",
-    //                     "lat": "35.04464900",
-    //                     "name": "Allo Center",
-    //                     "adress": "117, просп. Яворницького Дмитра",
-    //                     "image": "https://epocket.dev.splinestudio.com/static/partners/places/allo.png",
-    //                     "percent": "100.00"
-    //                 },
-    //                 {
-    //                     "id": 2,
-    //                     "lng": "47.46472700",
-    //                     "lat": "34.04464900",
-    //                     "name": "Allo Downtown",
-    //                     "adress": "116, просп. Яворницького Дмитра",
-    //                     "image": "https://epocket.dev.splinestudio.com/static/partners/places/allo_aeWb1pT.png",
-    //                     "percent": "100.00"
-    //                 },
-    //                 {
-    //                     "id": 3,
-    //                     "lng": "46.46472700",
-    //                     "lat": "33.04464900",
-    //                     "name": "Allo Uptown",
-    //                     "adress": "115, просп. Яворницького Дмитра",
-    //                     "image": "https://epocket.dev.splinestudio.com/static/partners/places/allo_mDAatLU.png",
-    //                     "percent": "100.00"
-    //                 }
-    //             ]
-    //         },
-    //         {
-    //             "id": 2,
-    //             "name": "Фуршет",
-    //             "link": "https://furshet.ua/",
-    //             "image": "https://epocket.dev.splinestudio.com/static/partners/furschet.jpg",
-    //             "online": false,
-    //             "sandbox": true,
-    //             "places": [
-    //                 {
-    //                     "id": 4,
-    //                     "lng": "35.00000000",
-    //                     "lat": "25.00000000",
-    //                     "name": "Фуршет",
-    //                     "adress": "Где-то там",
-    //                     "image": "https://epocket.dev.splinestudio.com/static/partners/places/furschet.jpg",
-    //                     "percent": "100.00"
-    //                 }
-    //             ]
-    //         },
-    //         {
-    //             "id": 3,
-    //             "name": "ROZETKA",
-    //             "link": "https://rozetka.com.ua/",
-    //             "image": "https://epocket.dev.splinestudio.com/static/partners/rozetka.png",
-    //             "online": true,
-    //             "sandbox": true,
-    //             "places": []
-    //         }
-    //     ],
-    //     "brand_partners": [
-    //         {
-    //             "name": "Фуршет",
-    //             "link": "https://furshet.ua/",
-    //             "image": "https://epocket.dev.splinestudio.com/static/partners/furschet.jpg",
-    //             "online": false
-    //         },
-    //         {
-    //             "name": "Allo",
-    //             "link": "https://allo.ua/",
-    //             "image": "https://epocket.dev.splinestudio.com/static/partners/allo.png",
-    //             "online": false
-    //         }
-    //     ]
-    // };
       if (game.ticker === false && !game.game_set) {
         // game.ticker === false && !game.game_set
         dispatch(setGameStatus("lock"));
@@ -226,14 +137,14 @@ export const getGameInfo = (token, latt, long) => async dispatch => {
       }
     },
     error => {
-      console.log('game info err', error);
+      console.log("game info err", error);
       if (error.code === 400) {
         let info = {
           description: "...",
           cost: "0",
           title: "",
           success_image: "",
-          no_more_games: false,
+          no_more_games: true,
           time: 0,
           available_game_len: 0,
           total_game_len: 0,

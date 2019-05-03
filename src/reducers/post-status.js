@@ -45,11 +45,7 @@ export const checkForPostStatus = (
   promise.then(
     result => {
       dispatch(changePostStatus(true));
-      let received_promise = httpGet(
-        urls.game_get + "?coords=" + lat + "%2C" + lng,
-        token
-      );
-      received_promise.then(
+      httpGet(urls.game_get + "?coords=" + lat + "%2C" + lng, token).then(
         result => {
           let game = result.body;
           if (game.ticker === false && !game.game_set) {
