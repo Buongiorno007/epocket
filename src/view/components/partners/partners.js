@@ -46,8 +46,6 @@ class Partners extends React.Component {
         currency: object.currency
       });
     });
-  };
-  componentDidMount = () => {
     this.props.loaderState(true);
     let body = JSON.stringify({
       latt: this.props.location.lat,

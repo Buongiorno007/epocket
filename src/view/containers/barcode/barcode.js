@@ -31,6 +31,7 @@ class BarcodeView extends React.Component {
       .catch(err => console.log(err));
   };
   render() {
+    console.log(this.props.phone, "MY PHONE");
     return (
       <View style={styles.container}>
         <FastImage

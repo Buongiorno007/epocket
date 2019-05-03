@@ -80,14 +80,18 @@ export const passGameResult = (
     }
   );
 };
-export const getGameInfo = (token, latt, long) => async dispatch => {
+
+export const getGameInfo = (token, latt, long) => async (
+  dispatch,
+  getState
+) => {
   dispatch(loaderState(true));
-  //urls.game_get + "?coords=" + '50.45466' + "%2C" + '30.5238', KIEV
+  const { distance } = getState();
   httpGet(urls.game_get + "?coords=" + latt + "%2C" + long, token).then(
     result => {
       console.log("getGameInfo", result);
       let game = result.body;
-      if (game.ticker === false && !game.game_set) {
+      if (game.ticker === false && !game.game_set && distance > 0) {
         // game.ticker === false && !game.game_set
         dispatch(setGameStatus("lock"));
         dispatch(errorState(null));
