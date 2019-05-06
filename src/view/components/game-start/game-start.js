@@ -63,6 +63,14 @@ class GameStart extends React.Component {
     currency: ""
   };
 
+  componentWillMount() {
+    this.props.getGameInfo(
+      this.props.token,
+      this.props.location.lat,
+      this.props.location.lng
+    );
+  }
+
   componentDidMount() {
     this.loadTRC();
     AppState.addEventListener("change", this._handleAppStateChange);

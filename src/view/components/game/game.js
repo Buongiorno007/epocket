@@ -67,6 +67,7 @@ class Game extends React.Component {
     this.props.editGame(i + 1);
   }
   goToResult = status => {
+    console.log("goToResult status", )
     let status_for_api = status === "success" ? true : false;
     let instadata = {
       success_image: this.props.game_info.success_image,

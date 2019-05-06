@@ -76,13 +76,14 @@ class GameStart extends React.Component {
   };
   _handleAppStateChange = nextAppState => {
     if (
-      this.props.appState.match(/background|inactive/) &&
+      (this.props.appState === 'background' || this.props.appState === 'inactive') &&
       nextAppState === "active"
     ) {
       if (!this.props.game_expired_img.game_link) {
         clearCorrectingInterval(this.state.interval);
         this.props.launchGameExpiredTimer(this.props.token);
         this.startTimer();
+        
       } else {
         this.closeBrandWebSite();
       }
@@ -206,7 +207,7 @@ class GameStart extends React.Component {
     );
   };
   openPartnersInfoPage = () => {
-    console.log(this.props.game_expired_img);
+    // console.log(this.props.game_expired_img);
     this.setState({
       website_visible: true,
       brand_title: this.props.game_expired_img.brand_name

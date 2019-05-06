@@ -13,6 +13,7 @@ import { getGameInfo } from "./game-info";
 //constants
 import { ICONS } from "../constants/icons";
 import { urls } from "../constants/urls";
+// import console = require("console");
 
 export default (state = 10, action) => {
   switch (action.type) {
@@ -70,6 +71,7 @@ export const launchGameExpiredTimer = (token, id) => async dispatch => {
   );
   received_promise.then(
     result => {
+      console.log("launchGameExpiredTimer",result)
       let time = result.body.time;
       let oldresult = result;
       if (oldresult.body.video_status && Platform.OS === "ios") {
@@ -134,10 +136,12 @@ export const launchGameExpiredTimer = (token, id) => async dispatch => {
     }
   );
 };
-export const setGameExpiredTimer = time => ({
+export const setGameExpiredTimer = time => {
+  console.log("setGameExpiredTimer", time)
+  return ({
   type: WAIT_TIMER,
   time
-});
+})};
 export const setError = error => ({
   type: GAME_ERROR,
   error
