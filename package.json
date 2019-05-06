@@ -5,8 +5,8 @@
     "scripts": {
         "start": "node node_modules/react-native/local-cli/cli.js start",
         "test": "jest",
-        "android:build": "cd android && ./gradlew assembleRelease",
-        "android:install": "cd android && ./gradlew assembleRelease && ./gradlew installRelease",
+        "android:build": "cd android && ./gradlew assembleRelease && cd ../",
+        "android:install": "cd android && ./gradlew assembleRelease && ./gradlew installRelease && cd ../",
         "watchman": "watchman waych-del-all && react-native start --reset-cache",
         "android": "react-native run-android",
         "ios": "react-native run-ios"

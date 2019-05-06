@@ -1,31 +1,31 @@
-import React from "react";
-import { View, Text, Image, AsyncStorage } from "react-native";
-import FastImage from "react-native-fast-image";
+import React from 'react';
+import { View, Text, Image, AsyncStorage } from 'react-native';
+import FastImage from 'react-native-fast-image';
 //constants
-import styles from "./styles";
-import { ICONS } from "./../../../constants/icons";
+import styles from './styles';
+import { ICONS } from './../../../constants/icons';
 //redux
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 //services
-import NavigationService from "./../../../services/route";
-import { Button } from "native-base";
-import I18n from "@locales/I18n";
+import NavigationService from './../../../services/route';
+import { Button } from 'native-base';
+import I18n from '@locales/I18n';
 
 class CashoutBalance extends React.Component {
   state = {
-    currency: ""
+    currency: ''
   };
   navigateBack = () => {
     this.props.navigation
       ? NavigationService.navigate(this.props.navigation.direction)
-      : console.log("Fail. No navigation prop");
+      : console.log('Fail. No navigation prop');
   };
   navigateToPartners = () => {
-    NavigationService.navigate("Partners");
+    NavigationService.navigate('Partners');
   };
   componentDidMount = () => {
-    AsyncStorage.getItem("user_info").then(value => {
+    AsyncStorage.getItem('user_info').then(value => {
       let object = JSON.parse(value);
       this.setState({
         currency: object.currency
@@ -65,17 +65,27 @@ class CashoutBalance extends React.Component {
               />
               <Text style={[styles.text, styles.title]}>
                 {this.props.navigation
-                  ? I18n.t("CASH.YOUR_TITLE")
-                  : I18n.t("CASH.TITLE")}{" "}
-                {Number(this.props.balance.toFixed(2))}{" "}
-                {I18n.t("EPC", { currency: this.state.currency })}
+                  ? I18n.t('CASH.YOUR_TITLE')
+                  : I18n.t('CASH.TITLE')}{' '}
+                {Number(this.props.balance.toFixed(2))}{' '}
+                {I18n.t('EPC', { currency: this.state.currency })}
               </Text>
             </View>
-            <View style={styles.small_border} />
-            <View style={[styles.balance_value]}>
-              <Text style={[styles.text, styles.cash]}>
-                {this.state.currency} {Number(this.props.balance.toFixed(2))}
-              </Text>
+            <View>
+              <Button
+                rounded
+                block
+                transparent
+                onPress={() => this.navigateToPartners()}
+                style={styles.refill}
+              >
+                <FastImage
+                  resizeMode={FastImage.resizeMode.contain}
+                  style={styles.barcode_icon}
+                  source={{ uri: ICONS.MOBILE }}
+                />
+                <Text style={[styles.textBlack, styles.title]}>Пополнить</Text>
+              </Button>
             </View>
           </View>
         ) : (
@@ -90,10 +100,10 @@ class CashoutBalance extends React.Component {
             <View style={[styles.item, styles.balance_value]}>
               <Text style={[styles.text, styles.title]}>
                 {this.props.navigation
-                  ? I18n.t("CASH.YOUR_TITLE")
-                  : I18n.t("CASH.TITLE")}{" "}
-                {Number(this.props.balance.toFixed(2))}{" "}
-                {I18n.t("EPC", { currency: this.state.currency })}
+                  ? I18n.t('CASH.YOUR_TITLE')
+                  : I18n.t('CASH.TITLE')}{' '}
+                {Number(this.props.balance.toFixed(2))}{' '}
+                {I18n.t('EPC', { currency: this.state.currency })}
               </Text>
             </View>
           </View>
@@ -103,10 +113,10 @@ class CashoutBalance extends React.Component {
             <View style={[styles.balance_title]}>
               <View style={styles.epc_icon_filler} />
               <Text style={[styles.text, styles.title]}>
-                {I18n.t("CASH.PARTNERS")}
+                {I18n.t('CASH.PARTNERS')}
               </Text>
             </View>
-            <View style={[styles.small_border, { display: "none" }]} />
+            <View style={[styles.small_border, { display: 'none' }]} />
             <View>
               <Button
                 rounded
