@@ -8,6 +8,8 @@ import com.facebook.appevents.AppEventsLogger;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.ReactApplication;
+import com.wheelpicker.WheelPickerPackage;
+import com.tron.ReactNativeWheelPickerPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
@@ -27,7 +29,6 @@ import com.psykar.cookiemanager.CookieManagerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import cl.json.RNSharePackage;
-import com.wheelpicker.WheelPickerPackage;
 import com.smixx.fabric.FabricPackage;
 import com.marianhello.bgloc.react.BackgroundGeolocationPackage;
 
@@ -85,6 +86,8 @@ public class MainApplication extends Application implements ShareApplication, Re
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new WheelPickerPackage(),
+            new ReactNativeWheelPickerPackage(),
             new RNGestureHandlerPackage(),
             new LinearGradientPackage(),
             new RNI18nPackage(),
@@ -104,7 +107,6 @@ public class MainApplication extends Application implements ShareApplication, Re
                     new RNFetchBlobPackage(),
                     new FastImageViewPackage(),
                     new RNSharePackage(),
-                    new WheelPickerPackage(),
                     new FabricPackage(),
                     new BackgroundGeolocationPackage(),
                     new RNFirebasePackage(),

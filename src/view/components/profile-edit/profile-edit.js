@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Platform,
   Text,
@@ -6,37 +6,37 @@ import {
   KeyboardAvoidingView,
   StatusBar,
   BackHandler
-} from "react-native";
-import { Button } from "native-base";
-import ImagePicker from "react-native-image-picker";
+} from 'react-native';
+import { Button } from 'native-base';
+import ImagePicker from 'react-native-image-picker';
 //containers
-import CustomButton from "../../containers/custom-button/custom-button";
-import CustomPhoto from "../../containers/custom-photo/custom-photo";
-import CustomAlert from "../../containers/custom-alert/custom-alert";
-import Blur from "../../containers/blur/blur";
+import CustomButton from '../../containers/custom-button/custom-button';
+import CustomPhoto from '../../containers/custom-photo/custom-photo';
+import CustomAlert from '../../containers/custom-alert/custom-alert';
+import Blur from '../../containers/blur/blur';
 //constants
-import styles from "./styles";
-import { colors } from "../../../constants/colors_men";
+import styles from './styles';
+import { colors } from '../../../constants/colors_men';
 //redux
-import { setBalance } from "../../../reducers/user-balance";
-import { setColor } from "../../../reducers/user-color";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { saveUser } from "../../../reducers/profile-state";
-import { setProfileVirgin } from "../../../reducers/profile-virgin";
-import { loaderState } from "../../../reducers/loader";
+import { setBalance } from '../../../reducers/user-balance';
+import { setColor } from '../../../reducers/user-color';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { saveUser } from '../../../reducers/profile-state';
+import { setProfileVirgin } from '../../../reducers/profile-virgin';
+import { loaderState } from '../../../reducers/loader';
 //service
-import { httpPost } from "../../../services/http";
-import { handleError } from "../../../services/http-error-handler";
-import { serializeJSON } from "../../../services/serialize-json";
-import { urls } from "../../../constants/urls";
-import NavigationService from "../../../services/route";
-import { TextField } from "react-native-material-textfield";
-import { LinearTextGradient } from "react-native-text-gradient";
-import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
-import I18n from "@locales/I18n";
+import { httpPost } from '../../../services/http';
+import { handleError } from '../../../services/http-error-handler';
+import { serializeJSON } from '../../../services/serialize-json';
+import { urls } from '../../../constants/urls';
+import NavigationService from '../../../services/route';
+import { TextField } from 'react-native-material-textfield';
+import { LinearTextGradient } from 'react-native-text-gradient';
+import ActivityIndicator from '../../containers/activity-indicator/activity-indicator';
+import I18n from '@locales/I18n';
 
-const keyboardVerticalOffset = Platform.OS === "ios" ? -20 : -10;
+const keyboardVerticalOffset = Platform.OS === 'ios' ? -20 : -10;
 class ProfileEdit extends React.Component {
   constructor(props) {
     super(props);
@@ -58,7 +58,7 @@ class ProfileEdit extends React.Component {
     datePickerVisible: false,
     rejectedRequestModal: false,
     changed: false,
-    errorText: "error"
+    errorText: 'error'
   };
   setRejectVisible = visible => {
     this.setState({
@@ -86,7 +86,7 @@ class ProfileEdit extends React.Component {
   SubmitEdit = () => {
     if (
       !this.state.user.username ||
-      this.props.birthday === "" ||
+      this.props.birthday === '' ||
       !this.state.user.photo
     ) {
       this.setModalVisible(true);
@@ -97,7 +97,7 @@ class ProfileEdit extends React.Component {
         name: this.state.user.username,
         sex: this.state.user.sex,
         birthDay: this.props.birthday,
-        photo: "data:image/jpeg;base64," + this.state.user.photo
+        photo: 'data:image/jpeg;base64,' + this.state.user.photo
       };
       console.log(body);
       let promise = httpPost(
@@ -126,7 +126,7 @@ class ProfileEdit extends React.Component {
           }
           this.props.saveUser(user);
           this.props.loaderState(false);
-          NavigationService.navigate("Main");
+          NavigationService.navigate('Main');
         },
         error => {
           let error_respons = handleError(
@@ -135,7 +135,7 @@ class ProfileEdit extends React.Component {
             urls.edit_profile_data,
             this.props.token,
             this.constructor.name,
-            "SubmitEdit"
+            'SubmitEdit'
           );
           this.setState({ errorText: error_respons.error_text });
           this.setRejectVisible(error_respons.error_modal);
@@ -146,12 +146,12 @@ class ProfileEdit extends React.Component {
   };
   ClearName = () => {
     let user = { ...this.state.user };
-    user.username = "";
+    user.username = '';
     this.setState({ user, changed: true });
   };
   ClearBirthDay = () => {
     let user = { ...this.state.user };
-    user.birthDay = "";
+    user.birthDay = '';
     this.setState({ user, changed: true });
   };
   ChangeUserName = text => {
@@ -171,19 +171,19 @@ class ProfileEdit extends React.Component {
   };
   PhotoEdit = () => {
     const options = {
-      title: I18n.t("PROFILE_PAGE.CHOOSE_AVATAR"),
-      mediaType: "photo",
+      title: I18n.t('PROFILE_PAGE.CHOOSE_AVATAR'),
+      mediaType: 'photo',
       maxWidth: 1000,
       maxHeight: 1000,
-      takePhotoButtonTitle: "Сделать фото",
-      chooseFromLibraryButtonTitle: "Выбрать из галереи",
-      cancelButtonTitle: "Отмена",
-      quality: Platform.OS === "ios" ? 0.75 : 1
+      takePhotoButtonTitle: 'Сделать фото',
+      chooseFromLibraryButtonTitle: 'Выбрать из галереи',
+      cancelButtonTitle: 'Отмена',
+      quality: Platform.OS === 'ios' ? 0.75 : 1
     };
     ImagePicker.showImagePicker(options, response => {
       if (response.didCancel) {
       } else if (response.error) {
-        console.log("ImagePicker Error: ", response.error);
+        console.log('ImagePicker Error: ', response.error);
       } else {
         let source = { uri: response.data };
         let user = { ...this.state.user };
@@ -193,11 +193,11 @@ class ProfileEdit extends React.Component {
     });
   };
   componentDidMount() {
-    this.backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
       if (this.state.changed) {
         this.Exit();
       } else {
-        NavigationService.navigate("Main");
+        NavigationService.navigate('Main');
       }
       return true;
     });
@@ -209,6 +209,7 @@ class ProfileEdit extends React.Component {
     this.backHandler.remove();
   }
   render() {
+    console.log(this.props.birthday, 'MY CURRENT BIRTHDAY');
     return (
       <View style={styles.main}>
         <View style={styles.container} />
@@ -217,9 +218,13 @@ class ProfileEdit extends React.Component {
           this.state.exitVisible ||
           this.state.rejectedRequestModal) && <Blur />}
         <View style={styles.user_edit_header_container}>
+          {/*  */}
+          {/*  */}
+          {/*  */}
+          {/*  */}
           <CustomAlert
             datepicker
-            first_btn_title={I18n.t("PROFILE_PAGE.ACCEPT")}
+            first_btn_title={I18n.t('PROFILE_PAGE.ACCEPT')}
             visible={this.state.datePickerVisible}
             first_btn_handler={() =>
               this.setDatePickerVisible(!this.state.datePickerVisible)
@@ -229,14 +234,14 @@ class ProfileEdit extends React.Component {
             }
           />
           <CustomAlert
-            title={I18n.t("PROFILE_PAGE.ALERT_NOT_SAVED_DATA")}
-            first_btn_title={I18n.t("PROFILE_PAGE.YES")}
-            second_btn_title={I18n.t("PROFILE_PAGE.NO")}
+            title={I18n.t('PROFILE_PAGE.ALERT_NOT_SAVED_DATA')}
+            first_btn_title={I18n.t('PROFILE_PAGE.YES')}
+            second_btn_title={I18n.t('PROFILE_PAGE.NO')}
             visible={this.state.exitVisible}
             second_btn_handler={() =>
               this.setExitVisible(!this.state.exitVisible)
             }
-            first_btn_handler={() => NavigationService.navigate("Main")}
+            first_btn_handler={() => NavigationService.navigate('Main')}
             decline_btn_handler={() =>
               this.setExitVisible(!this.state.exitVisible)
             }
@@ -251,7 +256,7 @@ class ProfileEdit extends React.Component {
           <StatusBar
             barStyle="dark-content"
             translucent={true}
-            backgroundColor={"transparent"}
+            backgroundColor={'transparent'}
           />
           <View style={styles.user_edit_container}>
             <View style={styles.photo_container}>
@@ -264,8 +269,8 @@ class ProfileEdit extends React.Component {
             </View>
             <View style={styles.text_container}>
               <TextField
-                label={I18n.t("NAMES")}
-                placeholder={I18n.t("ENTER_NAME")}
+                label={I18n.t('NAMES')}
+                placeholder={I18n.t('ENTER_NAME')}
                 tintColor={this.props.userColor.black41_09}
                 baseColor={this.props.userColor.black41_09}
                 textColor={this.props.userColor.black}
@@ -275,7 +280,7 @@ class ProfileEdit extends React.Component {
                   this.ChangeUserName(text);
                 }}
                 value={this.state.user.username}
-                inputContainerStyle={{ borderBottomColor: "transparent" }}
+                inputContainerStyle={{ borderBottomColor: 'transparent' }}
                 onFocus={() => {
                   this.ClearName();
                 }}
@@ -288,16 +293,16 @@ class ProfileEdit extends React.Component {
                 }}
               >
                 <Text style={styles.datepicker_button_title}>
-                  {I18n.t("PROFILE_PAGE.BIRTHDAY")}
+                  {I18n.t('PROFILE_PAGE.BIRTHDAY')}
                 </Text>
                 <Text style={styles.datepicker_button_label}>
-                  {this.props.birthday != ""
+                  {this.props.birthday != ''
                     ? this.props.birthday
-                    : I18n.t("PROFILE_PAGE.ENTER_BIRTHDAY")}
+                    : I18n.t('PROFILE_PAGE.ENTER_BIRTHDAY')}
                 </Text>
               </Button>
 
-              <Text style={styles.title}>{I18n.t("PROFILE_PAGE.SEX")}</Text>
+              <Text style={styles.title}>{I18n.t('PROFILE_PAGE.SEX')}</Text>
               <View style={styles.sex_picker}>
                 <Button
                   transparent
@@ -325,7 +330,7 @@ class ProfileEdit extends React.Component {
                     end={{ x: 0.7, y: 1.0 }}
                     style={styles.title}
                   >
-                    {I18n.t("MALE_SEX")}
+                    {I18n.t('MALE_SEX')}
                   </LinearTextGradient>
                 </Button>
                 <LinearTextGradient
@@ -338,8 +343,8 @@ class ProfileEdit extends React.Component {
                   end={{ x: 0.7, y: 1.0 }}
                   style={styles.title}
                 >
-                  {" "}
-                  /{" "}
+                  {' '}
+                  /{' '}
                 </LinearTextGradient>
                 <Button
                   transparent
@@ -367,7 +372,7 @@ class ProfileEdit extends React.Component {
                     end={{ x: 0.7, y: 1.0 }}
                     style={styles.title}
                   >
-                    {I18n.t("FEMALE_SEX")}
+                    {I18n.t('FEMALE_SEX')}
                   </LinearTextGradient>
                 </Button>
               </View>
@@ -380,7 +385,7 @@ class ProfileEdit extends React.Component {
             active
             short
             gradient
-            title={I18n.t("PROFILE_PAGE.ACCEPT").toUpperCase()}
+            title={I18n.t('PROFILE_PAGE.ACCEPT').toUpperCase()}
             color={this.props.userColor.white}
             handler={() => this.SubmitEdit()}
           />
@@ -389,18 +394,18 @@ class ProfileEdit extends React.Component {
             active
             short
             bordered
-            title={I18n.t("PROFILE_PAGE.DECLINE_2").toUpperCase()}
+            title={I18n.t('PROFILE_PAGE.DECLINE_2').toUpperCase()}
             color={this.props.userColor.pink_blue}
             handler={() =>
               this.state.changed
                 ? this.Exit()
-                : NavigationService.navigate("Main")
+                : NavigationService.navigate('Main')
             }
           />
         </View>
         <CustomAlert
-          title={I18n.t("PROFILE_PAGE.ALERT_EMPTY")}
-          first_btn_title={I18n.t("OK")}
+          title={I18n.t('PROFILE_PAGE.ALERT_EMPTY')}
+          first_btn_title={I18n.t('OK')}
           visible={this.state.modalVisible}
           first_btn_handler={() =>
             this.setModalVisible(!this.state.modalVisible)
@@ -411,7 +416,7 @@ class ProfileEdit extends React.Component {
         />
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={I18n.t("REPEAT")}
+          first_btn_title={I18n.t('REPEAT')}
           visible={this.state.rejectedRequestModal}
           first_btn_handler={() => {
             this.setRejectVisible(!this.state.rejectedRequestModal);
