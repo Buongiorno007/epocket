@@ -1067,7 +1067,7 @@ class Dashboard extends React.Component {
                       style={[
                         styles_top.epc_counter,
                         {
-                          fontSize: this.state.epcСounterFontSize
+                          fontSize: 18
                         }
                       ]}
                     >
