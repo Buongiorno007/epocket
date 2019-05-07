@@ -12,7 +12,7 @@ class ActivityIndicator extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Blur />
+        <Blur loader/>
         <FastImage resizeMode={FastImage.resizeMode.contain} source={require(gif_url)} style={styles.loader_image} />
       </View>
     );
