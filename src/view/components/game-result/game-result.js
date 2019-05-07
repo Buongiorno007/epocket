@@ -114,7 +114,7 @@ class GameResult extends React.Component {
           switch (next_navigation) {
             case "insta":
               this.goInst();
-              this.props.loaderState(false);
+              this.props.loaderState(true);
               break;
             case "home":
               this.goHome();
