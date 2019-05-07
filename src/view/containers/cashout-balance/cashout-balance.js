@@ -7,6 +7,7 @@ import { ICONS } from './../../../constants/icons';
 //redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { loaderState } from '../../../reducers/loader';
 //services
 import NavigationService from './../../../services/route';
 import { Button } from 'native-base';
@@ -31,7 +32,14 @@ class CashoutBalance extends React.Component {
         currency: object.currency
       });
     });
+    this.props.loaderState(false);
   };
+  goRefill() {
+    this.props.loaderState(true);
+    NavigationService.navigate('RefillMobile', {
+      currency: this.state.currency
+    });
+  }
   render = () => {
     return (
       <View style={styles.container}>
@@ -76,7 +84,7 @@ class CashoutBalance extends React.Component {
                 rounded
                 block
                 transparent
-                onPress={() => this.navigateToPartners()}
+                onPress={() => this.goRefill()}
                 style={styles.refill}
               >
                 <FastImage
@@ -84,7 +92,9 @@ class CashoutBalance extends React.Component {
                   style={styles.barcode_icon}
                   source={{ uri: ICONS.MOBILE }}
                 />
-                <Text style={[styles.textBlack, styles.title]}>Пополнить</Text>
+                <Text style={[styles.textBlack, styles.title]}>
+                  {I18n.t('CASH.REFILL')}
+                </Text>
               </Button>
             </View>
           </View>
@@ -140,9 +150,16 @@ class CashoutBalance extends React.Component {
 }
 const mapStateToProps = state => ({
   userColor: state.userColor,
-  balance: state.balance
+  balance: state.balance,
+  profileState: state.profileState
 });
-const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      loaderState
+    },
+    dispatch
+  );
 export default connect(
   mapStateToProps,
   mapDispatchToProps
