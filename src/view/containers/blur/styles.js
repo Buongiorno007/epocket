@@ -15,6 +15,9 @@ export default StyleSheet.create({
   blur_container_strong: {
     backgroundColor: "rgba(242, 242, 242, 0.9)"
   },
+  blur_loader_dark: {
+    backgroundColor: "rgb(80, 62, 93)"
+  },
   blur_container_dark: {
     backgroundColor: "rgba(0, 0, 0, 0.9)",
   },

@@ -137,7 +137,7 @@ export const launchGameExpiredTimer = (token, id) => async dispatch => {
   );
 };
 export const setGameExpiredTimer = time => {
-  console.log("setGameExpiredTimer", time)
+  // console.log("setGameExpiredTimer", time)
   return ({
   type: WAIT_TIMER,
   time
