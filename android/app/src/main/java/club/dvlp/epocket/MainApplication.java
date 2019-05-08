@@ -8,7 +8,6 @@ import com.facebook.appevents.AppEventsLogger;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.ReactApplication;
-import com.wheelpicker.WheelPickerPackage;
 import com.tron.ReactNativeWheelPickerPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
@@ -47,8 +46,6 @@ import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 import iyegoroff.RNTextGradient.RNTextGradientPackage;
 
 import com.surajit.rnrg.RNRadialGradientPackage;
-import com.transistorsoft.rnbackgroundfetch.RNBackgroundFetchPackage;
-import com.transistorsoft.rnbackgroundgeolocation.RNBackgroundGeolocation;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -86,7 +83,6 @@ public class MainApplication extends Application implements ShareApplication, Re
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new WheelPickerPackage(),
             new ReactNativeWheelPickerPackage(),
             new RNGestureHandlerPackage(),
             new LinearGradientPackage(),
@@ -119,8 +115,6 @@ public class MainApplication extends Application implements ShareApplication, Re
                     new RNTextGradientPackage(),
                     new VectorIconsPackage(),
                     new RNRadialGradientPackage(),
-                    new RNBackgroundFetchPackage(),
-                    new RNBackgroundGeolocation(),
                     new MapsPackage()
 
             );

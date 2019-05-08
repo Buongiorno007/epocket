@@ -168,7 +168,6 @@ subprojects {
     }
 }
 dependencies {
-    implementation project(':react-native-wheel-picker-android')
     implementation project(':react-native-wheel-pick')
     implementation project(':react-native-gesture-handler')
     implementation project(':react-native-linear-gradient')
@@ -203,8 +202,6 @@ dependencies {
     implementation project(':react-native-image-picker')
     implementation project(':react-native-text-gradient')
     implementation project(':react-native-radial-gradient')
-    implementation project(':react-native-background-fetch')
-    implementation project(':react-native-background-geolocation')
     implementation project(':react-native-vector-icons')
     implementation project(':react-native-maps')
     implementation fileTree(dir: "libs", include: ["*.jar"])

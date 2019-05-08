@@ -1,6 +1,4 @@
 rootProject.name = 'EpocketCash'
-include ':react-native-wheel-picker-android'
-project(':react-native-wheel-picker-android').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-wheel-picker-android/android')
 include ':react-native-wheel-pick'
 project(':react-native-wheel-pick').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-wheel-pick/android')
 include ':react-native-gesture-handler'
@@ -67,8 +65,6 @@ include ':react-native-radial-gradient'
 project(':react-native-radial-gradient').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-radial-gradient/android')
 include ':react-native-background-fetch'
 project(':react-native-background-fetch').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-background-fetch/android')
-include ':react-native-background-geolocation'
-project(':react-native-background-geolocation').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-background-geolocation/android')
 include ':react-native-maps'
 project(':react-native-maps').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-maps/lib/android')
 

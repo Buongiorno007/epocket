@@ -532,11 +532,11 @@ class GameStart extends React.Component {
               }
             />
             <View style={styles.text_container}>
-              <Text style={styles.game_cost_text}>
+              {/* <Text style={styles.game_cost_text}>
                 {this.props.game_info.no_more_games
                   ? I18n.t("GAME.SORRY_TODAY").toLocaleUpperCase()
                   : ""}{" "}
-              </Text>
+              </Text> */}
               <LinearTextGradient
                 style={styles.game_cost_text}
                 locations={[0, 1]}

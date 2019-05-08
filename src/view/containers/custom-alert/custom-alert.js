@@ -1,13 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-  Modal,
-  findNodeHandle,
-  Picker
-} from 'react-native';
+import { Text, View, Modal } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { LinearTextGradient } from 'react-native-text-gradient';
 import { Button } from 'native-base';
@@ -22,25 +14,42 @@ import styles from './styles';
 import { ICONS } from '../../../constants/icons';
 import { colors } from '../../../constants/colors_men';
 import Blur from '../blur/blur';
+import I18n from '@locales/I18n';
 
 const firstDay = new Date('1901-01-01');
 
 const today = new Date();
 
-const months = [
-  'январь',
-  'февраль',
-  'март',
-  'апрель',
-  'май',
-  'июнь',
-  'июль',
-  'август',
-  'сентябрь',
-  'октябрь',
-  'ноябрь',
-  'декабрь'
-];
+const months =
+  I18n.locale === 'ru'
+    ? [
+        'январь',
+        'февраль',
+        'март',
+        'апрель',
+        'май',
+        'июнь',
+        'июль',
+        'август',
+        'сентябрь',
+        'октябрь',
+        'ноябрь',
+        'декабрь'
+      ]
+    : [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+      ];
 
 class CustomAlert extends Component {
   constructor(props) {
@@ -53,9 +62,9 @@ class CustomAlert extends Component {
     birthday: ''
   };
   componentDidMount() {
-    let birthday = `${this.props.birthday.split('.')[1]}-${
-      this.props.birthday.split('.')[0]
-    }-${this.props.birthday.split('.')[2]}`;
+    let birthday = `${this.props.birthday.split('.')[2]}-${
+      this.props.birthday.split('.')[1]
+    }-${this.props.birthday.split('.')[0]}`;
     this.setState({
       birthday: new Date(birthday)
     });
@@ -107,7 +116,7 @@ class CustomAlert extends Component {
                   textSize={16}
                   itemSpace={15}
                   labelUnit={{ month: months, date: '', year: '' }}
-                  locale={'ru'}
+                  locale={I18n.locale}
                   date={this.state.birthday}
                   minimumDate={firstDay}
                   maximumDate={today}
@@ -173,7 +182,7 @@ class CustomAlert extends Component {
                   onPress={() => {
                     this.props.datepicker
                       ? (this.props.setBirthDay({
-                          day: this.state.chosenDay + 1,
+                          day: this.state.chosenDay,
                           month: this.state.chosenMonth + 1,
                           year: this.state.chosenYear
                         }),

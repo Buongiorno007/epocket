@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 import { colors } from '../../../constants/colors';
@@ -138,10 +138,9 @@ const styles = StyleSheet.create({
     // marginRight: 10
   },
   newWheelPicker: {
-    // backgroundColor: '#fff',
-    // height:150,
+    backgroundColor: '#fff',
     marginTop: 10,
-    width: width * 0.76
+    width: Platform.OS == 'ios' ? width * 0.76 : undefined
   },
   wheelPickerDay: {
     width: (width * 0.76) / 3 - 20
