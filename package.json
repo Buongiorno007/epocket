@@ -17,6 +17,7 @@
         ]
     },
     "dependencies": {
+        "@react-native-community/netinfo": "^2.0.10",
         "bundle": "^2.1.0",
         "eslint": "^5.16.0",
         "geolib": "^2.0.24",
