@@ -45,7 +45,7 @@ import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 
 import iyegoroff.RNTextGradient.RNTextGradientPackage;
-
+import com.transistorsoft.rnbackgroundfetch.RNBackgroundFetchPackage;
 import com.surajit.rnrg.RNRadialGradientPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.facebook.react.ReactNativeHost;
@@ -117,6 +117,7 @@ public class MainApplication extends Application implements ShareApplication, Re
                     new RNTextGradientPackage(),
                     new VectorIconsPackage(),
                     new RNRadialGradientPackage(),
+                    new RNBackgroundFetchPackage(),
                     new MapsPackage()
 
             );
