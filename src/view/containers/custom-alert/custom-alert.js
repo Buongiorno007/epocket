@@ -59,14 +59,18 @@ class CustomAlert extends Component {
     chosenDay: '',
     chosenMonth: '',
     chosenYear: '',
-    birthday: ''
+    birthday: new Date()
   };
   componentDidMount() {
     let birthday = `${this.props.birthday.split('.')[2]}-${
       this.props.birthday.split('.')[1]
     }-${this.props.birthday.split('.')[0]}`;
+    console.log(this.props.birthday.split('.')[1], 'HZZZZZZZZZZZZZ');
     this.setState({
-      birthday: new Date(birthday)
+      birthday: new Date(birthday),
+      chosenDay: this.props.birthday.split('.')[0],
+      chosenMonth: Number(this.props.birthday.split('.')[1]) - 1,
+      chosenYear: this.props.birthday.split('.')[2]
     });
   }
 
@@ -180,6 +184,12 @@ class CustomAlert extends Component {
                   transparent
                   style={styles.big_centered_button}
                   onPress={() => {
+                    console.log(
+                      this.state.chosenDay,
+                      this.state.chosenMonth,
+                      this.state.chosenYear,
+                      'RESULT ACCEPT'
+                    );
                     this.props.datepicker
                       ? (this.props.setBirthDay({
                           day: this.state.chosenDay,
