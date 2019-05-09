@@ -399,7 +399,7 @@ class GameResult extends React.Component {
   };
 
   render() {
-    console.log(this.props.website_timer, "PROPS WEBSITE TIMER");
+    // console.log(this.props.website_timer, "PROPS WEBSITE TIMER");
     return (
       <View style={styles.container}>
         <StatusBar

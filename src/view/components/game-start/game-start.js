@@ -196,7 +196,7 @@ class GameStart extends React.Component {
       id: trc.id,
       rad: trc.rad
     };
-    console.log('curr_trc', curr_trc);
+    // console.log('curr_trc', curr_trc);
     this.props.updateMall(curr_trc);
     this.updateGames(curr_trc.id);
     this.props.setDistance(distance);
