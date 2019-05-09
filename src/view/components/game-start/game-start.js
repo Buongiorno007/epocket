@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   View,
   Text,
@@ -6,51 +6,51 @@ import {
   FlatList,
   AppState,
   AsyncStorage
-} from "react-native";
-import { LinearTextGradient } from "react-native-text-gradient";
-import LinearGradient from "react-native-linear-gradient";
-import FastImage from "react-native-fast-image";
-import { Button } from "native-base";
-import geolib from "geolib";
+} from 'react-native';
+import { LinearTextGradient } from 'react-native-text-gradient';
+import LinearGradient from 'react-native-linear-gradient';
+import FastImage from 'react-native-fast-image';
+import { Button } from 'native-base';
+import geolib from 'geolib';
 //redux
-import { setBalance } from "../../../reducers/user-balance";
-import { connect } from "react-redux";
-import { setTabState } from "../../../reducers/tabs";
-import { setNavigateToMall } from "../../../reducers/navigate-to-mall";
-import { bindActionCreators } from "redux";
-import { setGameStatus } from "../../../reducers/game-status";
-import { loaderState } from "../../../reducers/loader";
-import { getGameInfo } from "../../../reducers/game-info";
-import { launchGameExpiredTimer } from "../../../reducers/game-expired-timer";
-import { errorState } from "../../../reducers/game-error";
-import { setLocation } from "../../../reducers/geolocation-coords";
-import { setDistance } from "../../../reducers/distance";
-import { updateMall } from "../../../reducers/selected-mall";
-import { updateClosMall } from "../../../reducers/closestMall";
-import { setOutlets } from "../../../reducers/outlet-list";
-import { setInitialOutlets } from "../../../reducers/initial-outlets";
-import { setWebSiteTimer } from "../../../reducers/website-timer";
-import { setAppState } from "../../../reducers/app-state";
+import { setBalance } from '../../../reducers/user-balance';
+import { connect } from 'react-redux';
+import { setTabState } from '../../../reducers/tabs';
+import { setNavigateToMall } from '../../../reducers/navigate-to-mall';
+import { bindActionCreators } from 'redux';
+import { setGameStatus } from '../../../reducers/game-status';
+import { loaderState } from '../../../reducers/loader';
+import { getGameInfo } from '../../../reducers/game-info';
+import { launchGameExpiredTimer } from '../../../reducers/game-expired-timer';
+import { errorState } from '../../../reducers/game-error';
+import { setLocation } from '../../../reducers/geolocation-coords';
+import { setDistance } from '../../../reducers/distance';
+import { updateMall } from '../../../reducers/selected-mall';
+import { updateClosMall } from '../../../reducers/closestMall';
+import { setOutlets } from '../../../reducers/outlet-list';
+import { setInitialOutlets } from '../../../reducers/initial-outlets';
+import { setWebSiteTimer } from '../../../reducers/website-timer';
+import { setAppState } from '../../../reducers/app-state';
 //constants
-import styles from "./styles";
-import { urls } from "../../../constants/urls";
-import { colors } from "./../../../constants/colors";
-import { ICONS } from "../../../constants/icons";
+import styles from './styles';
+import { urls } from '../../../constants/urls';
+import { colors } from './../../../constants/colors';
+import { ICONS } from '../../../constants/icons';
 //containers
-import CustomButton from "../../containers/custom-button/custom-button";
-import FooterNavigation from "../../containers/footer-navigator/footer-navigator";
-import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
-import CustomAlert from "../../containers/custom-alert/custom-alert";
-import TrcInformation from "../../containers/trc-information/trc-information";
-import PartnerCard from "./../../containers/partner-card/partner-card";
-import BrandWebsite from "../../containers/brand-website/brand-website";
+import CustomButton from '../../containers/custom-button/custom-button';
+import FooterNavigation from '../../containers/footer-navigator/footer-navigator';
+import ActivityIndicator from '../../containers/activity-indicator/activity-indicator';
+import CustomAlert from '../../containers/custom-alert/custom-alert';
+import TrcInformation from '../../containers/trc-information/trc-information';
+import PartnerCard from './../../containers/partner-card/partner-card';
+import BrandWebsite from '../../containers/brand-website/brand-website';
 //services
-import { httpPost } from "../../../services/http";
-import { handleError } from "../../../services/http-error-handler";
-import NavigationService from "./../../../services/route";
-import "../../../services/correcting-interval";
-import moment from "moment-timezone";
-import I18n from "@locales/I18n";
+import { httpPost } from '../../../services/http';
+import { handleError } from '../../../services/http-error-handler';
+import NavigationService from './../../../services/route';
+import '../../../services/correcting-interval';
+import moment from 'moment-timezone';
+import I18n from '@locales/I18n';
 
 class GameStart extends React.Component {
   state = {
@@ -58,9 +58,9 @@ class GameStart extends React.Component {
     loader: true,
     website_visible: false,
     interval: null,
-    errorText: "",
-    brand_title: "",
-    currency: ""
+    errorText: '',
+    brand_title: '',
+    currency: ''
   };
 
   componentWillMount() {
@@ -73,26 +73,26 @@ class GameStart extends React.Component {
 
   componentDidMount() {
     this.loadTRC();
-    AppState.addEventListener("change", this._handleAppStateChange);
+    AppState.addEventListener('change', this._handleAppStateChange);
     setTimeout(() => {
       this.setState({ loader: false });
     }, 1000);
     if (
-      this.props.game_status != "lock" &&
-      this.props.game_status != "expired" &&
-      this.props.game_status != "failed" &&
-      this.props.game_status != "start"
+      this.props.game_status != 'lock' &&
+      this.props.game_status != 'expired' &&
+      this.props.game_status != 'failed' &&
+      this.props.game_status != 'start'
     ) {
-      this.props.setGameStatus("start");
+      this.props.setGameStatus('start');
     }
     if (
-      this.props.game_status === "lock" &&
+      this.props.game_status === 'lock' &&
       this.props.distance <= 0 &&
       this.props.selectedMall.id
     ) {
       this.updateGames(this.props.selectedMall.id);
     }
-    AsyncStorage.getItem("user_info").then(value => {
+    AsyncStorage.getItem('user_info').then(value => {
       let object = JSON.parse(value);
       this.setState({ currency: object.currency });
     });
@@ -124,7 +124,7 @@ class GameStart extends React.Component {
           urls.missions,
           this.props.token,
           this.constructor.name,
-          "updateGames"
+          'updateGames'
         );
         this.props.loaderState(false);
       }
@@ -132,12 +132,12 @@ class GameStart extends React.Component {
   };
 
   componentWillUnmount = () => {
-    AppState.removeEventListener("change", this._handleAppStateChange);
+    AppState.removeEventListener('change', this._handleAppStateChange);
   };
   componentWillReceiveProps = nextProps => {
     if (
-      this.props.game_status == "initial" &&
-      nextProps.game_status == "start"
+      this.props.game_status == 'initial' &&
+      nextProps.game_status == 'start'
     ) {
       this.props.getGameInfo(
         this.props.token,
@@ -147,7 +147,7 @@ class GameStart extends React.Component {
     } else if (
       nextProps.location.lat.toFixed(3) != this.props.location.lat.toFixed(3) &&
       nextProps.location.lng.toFixed(3) != this.props.location.lng.toFixed(3) &&
-      nextProps.appState === "active"
+      nextProps.appState === 'active'
     ) {
       this.props.getGameInfo(
         this.props.token,
@@ -196,7 +196,7 @@ class GameStart extends React.Component {
       id: trc.id,
       rad: trc.rad
     };
-    console.log("curr_trc", curr_trc);
+    console.log('curr_trc', curr_trc);
     this.props.updateMall(curr_trc);
     this.updateGames(curr_trc.id);
     this.props.setDistance(distance);
@@ -236,7 +236,7 @@ class GameStart extends React.Component {
       };
       this.props.updateClosMall(curr_trc);
       try {
-        this.selectMark(selectedTRC, ANIMATE_MAP, "task");
+        this.selectMark(selectedTRC, ANIMATE_MAP, 'task');
       } catch (e) {}
     }
   };
@@ -249,7 +249,7 @@ class GameStart extends React.Component {
           this.props.location.lat != 0 && this.props.location.lng != 0,
         tzone: {
           timezone: moment.tz.guess(),
-          timedelta: moment().format("Z")
+          timedelta: moment().format('Z')
         }
       }),
       this.props.token
@@ -300,13 +300,13 @@ class GameStart extends React.Component {
               this.props.location.lat != 0 && this.props.location.lng != 0,
             tzone: {
               timezone: moment.tz.guess(),
-              timedelta: moment().format("Z")
+              timedelta: moment().format('Z')
             }
           },
           urls.outlets,
           this.props.token,
           this.constructor.name,
-          "loadTRC"
+          'loadTRC'
         );
         this.setState({ errorText: error_respons.error_text });
         this.setModalVisible(error_respons.error_modal);
@@ -314,7 +314,7 @@ class GameStart extends React.Component {
     );
   };
   goToMap = () => {
-    NavigationService.navigate("Main");
+    NavigationService.navigate('Main');
     this.props.setNavigateToMall(true);
     this.props.setTabState(1);
   };
@@ -360,7 +360,7 @@ class GameStart extends React.Component {
           urls.force_remove_ticker,
           this.props.token,
           this.constructor.name,
-          "forceRemoveTicker"
+          'forceRemoveTicker'
         );
         this.props.loaderState(false);
       }
@@ -404,7 +404,7 @@ class GameStart extends React.Component {
         {this.props.loader || (this.state.loader && <ActivityIndicator />)}
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={I18n.t("REPEAT")}
+          first_btn_title={I18n.t('REPEAT')}
           visible={this.state.errorVisible}
           first_btn_handler={() => {
             if (this.props.dateAbuseStatus) this.loadTRC();
@@ -415,7 +415,7 @@ class GameStart extends React.Component {
         />
         <CustomAlert
           title={this.props.game_error.error_text}
-          first_btn_title={I18n.t("REPEAT")}
+          first_btn_title={I18n.t('REPEAT')}
           visible={this.props.game_error.error_modal}
           first_btn_handler={() => {
             this.props.getGameInfo(
@@ -439,17 +439,17 @@ class GameStart extends React.Component {
           <View style={styles.game_title}>
             <Text style={styles.game_title_text}>
               {this.props.game_info.available_game_len}/
-              {this.props.game_info.total_game_len}{" "}
-              {I18n.t("GAME.GAMES_FOR_TODAY")}
+              {this.props.game_info.total_game_len}{' '}
+              {I18n.t('GAME.GAMES_FOR_TODAY')}
             </Text>
           </View>
         )}
-        {this.props.game_status === "lock" ? (
+        {this.props.game_status === 'lock' ? (
           <View style={styles.lock_container}>
             <FastImage
               resizeMode={FastImage.resizeMode.contain}
               style={styles.image_background}
-              source={require("../../../assets/img/ANIMATED_EARN_MORE.gif")}
+              source={require('../../../assets/img/ANIMATED_EARN_MORE.gif')}
             />
             <LinearGradient
               colors={this.props.userColor.earn_more}
@@ -458,11 +458,11 @@ class GameStart extends React.Component {
               style={styles.grad}
             />
             <Text style={[styles.zifi_text, styles.white_text]}>
-              {I18n.t("GAME.ZIFI.MORE_GAMES")}
+              {I18n.t('GAME.ZIFI.MORE_GAMES')}
             </Text>
             <Image
               style={[styles.zifi, styles.open_more_game_zifi]}
-              source={require("../../../assets/img/zifi/playful.gif")}
+              source={require('../../../assets/img/zifi/playful.gif')}
             />
             <Button
               rounded
@@ -473,7 +473,7 @@ class GameStart extends React.Component {
               onPress={() => {}}
             >
               <Text style={styles.lock_visit_text}>
-                {I18n.t("GAME.VISIT_PARTNERS")}
+                {I18n.t('GAME.VISIT_PARTNERS')}
               </Text>
             </Button>
             <FlatList
@@ -481,7 +481,7 @@ class GameStart extends React.Component {
               style={styles.visit_website_partners}
               horizontal={false}
               numColumns={2}
-              columnWrapperStyle={{ flexWrap: "wrap" }}
+              columnWrapperStyle={{ flexWrap: 'wrap' }}
               removeClippedSubviews={true}
               keyExtractor={this.keyExtractor}
               data={this.props.game_ticker_data.brand_partners}
@@ -497,7 +497,7 @@ class GameStart extends React.Component {
                 onPress={() => this.goToMap()}
               >
                 <Text style={styles.lock_visit_text}>
-                  {I18n.t("GAME.VISIT_NEAREST_ONE")}
+                  {I18n.t('GAME.VISIT_NEAREST_ONE')}
                 </Text>
                 <FastImage
                   resizeMode={FastImage.resizeMode.contain}
@@ -520,15 +520,15 @@ class GameStart extends React.Component {
             />
             <Text style={styles.zifi_text}>
               {this.props.game_info.no_more_games
-                ? I18n.t("GAME.ZIFI.BORING")
-                : I18n.t("GAME.ZIFI.PLAYFUL")}
+                ? I18n.t('GAME.ZIFI.BORING')
+                : I18n.t('GAME.ZIFI.PLAYFUL')}
             </Text>
             <Image
               style={styles.zifi}
               source={
                 this.props.game_info.no_more_games
-                  ? require("../../../assets/img/zifi/bored.gif")
-                  : require("../../../assets/img/zifi/playful.gif")
+                  ? require('../../../assets/img/zifi/bored.gif')
+                  : require('../../../assets/img/zifi/playful.gif')
               }
             />
             <View style={styles.text_container}>
@@ -548,12 +548,12 @@ class GameStart extends React.Component {
                 end={{ x: 1, y: 0 }}
               >
                 {this.props.game_info.no_more_games == true
-                  ? I18n.t("GAME.NO_GAMES").toLocaleUpperCase()
-                  : I18n.t("GAME.COST_TEXT").toLocaleUpperCase() +
-                    " " +
+                  ? '' // ? I18n.t("GAME.NO_GAMES").toLocaleUpperCase()
+                  : I18n.t('GAME.COST_TEXT').toLocaleUpperCase() +
+                    ' ' +
                     this.props.game_info.cost.toLocaleUpperCase() +
-                    " " +
-                    I18n.t("EPC", {
+                    ' ' +
+                    I18n.t('EPC', {
                       currency: this.state.currency
                     }).toLocaleUpperCase()}
               </LinearTextGradient>
@@ -568,8 +568,8 @@ class GameStart extends React.Component {
                 }
               >
                 {this.props.game_info.no_more_games
-                  ? I18n.t("GAME.GET_EPC", { currency: this.state.currency })
-                  : ""}
+                  ? I18n.t('GAME.GET_EPC', { currency: this.state.currency })
+                  : ''}
               </Text>
               {/* this.props.game_info.description */}
             </View>
@@ -577,15 +577,15 @@ class GameStart extends React.Component {
               <View style={styles.btn_container}>
                 <CustomButton
                   active={
-                    this.props.game_error.error_text === "" ? true : false
+                    this.props.game_error.error_text === '' ? true : false
                   }
                   short
                   gradient
-                  title={I18n.t("GAME.START").toUpperCase()}
+                  title={I18n.t('GAME.START').toUpperCase()}
                   color={this.props.userColor.white}
                   handler={() => {
                     this.props.loaderState(true);
-                    this.props.setGameStatus("game");
+                    this.props.setGameStatus('game');
                   }}
                 />
               </View>

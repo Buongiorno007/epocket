@@ -5,7 +5,7 @@ import { urls } from '../constants/urls';
 
 export const UPDATE_CONNECTION = 'net-info/UPDATE_CONNECTION';
 
-export default (state = false, action) => {
+export default (state = true, action) => {
   switch (action.type) {
     case UPDATE_CONNECTION:
       return action.connection;
@@ -21,13 +21,12 @@ export const checkForInternetReacheable = connection => async dispatch => {
         dispatch(getStatus(false));
       } else {
         dispatch(getStatus(true));
-        let received_promise = httpGet(urls.echo);
-        received_promise.then(
+        httpGet(urls.echo).then(
           result => {
             dispatch(getStatus(true));
           },
           error => {
-            console.log(error);
+            console.log(error, 'no server connection');
             dispatch(getStatus(false));
           }
         );

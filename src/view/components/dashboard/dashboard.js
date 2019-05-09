@@ -539,12 +539,11 @@ class Dashboard extends React.Component {
     };
     this.props.updateTimer(curr_time);
     this.setStartMissionErrorVisible(false);
-    let promise = httpPost(
+    httpPost(
       urls.start_mission,
       JSON.stringify(this.state.body),
       this.props.token
-    );
-    promise.then(
+    ).then(
       result => {
         this.setStartMissionErrorVisible(false);
         this.setState({ load_timer: false });

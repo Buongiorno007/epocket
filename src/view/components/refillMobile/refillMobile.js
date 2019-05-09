@@ -16,6 +16,7 @@ import FastImage from 'react-native-fast-image';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { loaderState } from '../../../reducers/loader';
+import { setBalance } from '@reducers/user-balance';
 //constants
 import styles from './styles';
 import { ICONS } from '../../../constants/icons';
@@ -223,6 +224,7 @@ class Partners extends React.Component {
         console.log(result, 'REFILL MOBILE RESULT');
         this.setState({ done: !this.state.done });
         this.props.loaderState(false);
+        this.props.setBalance(result.body.user_wallet_amount);
       },
       error => {
         console.log(error, 'REFILL MOBILE ERROR');
@@ -261,14 +263,15 @@ const mapStateToProps = state => {
     userColor: state.userColor,
     token: state.token,
     location: state.location,
-    loader:state.loader
+    loader: state.loader
   };
 };
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      loaderState
+      loaderState,
+      setBalance
     },
     dispatch
   );
