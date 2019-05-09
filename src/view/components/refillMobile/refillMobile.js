@@ -27,7 +27,8 @@ import NavigationService from './../../../services/route';
 import { httpPost } from '../../../services/http';
 import { urls } from '../../../constants/urls';
 import I18n from '@locales/I18n';
-class Partners extends React.Component {
+
+class RefillMobile extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -87,10 +88,12 @@ class Partners extends React.Component {
             contentContainerStyle={styles.scrollView}
           >
             <View>
-              <Text style={styles.header}>Пополнение вашего мобильного</Text>
+              <Text style={styles.header}>
+                {'Пополнение вашего мобильного'}
+              </Text>
             </View>
             <View>
-              <Text style={styles.subHead}>Введите сумму пополнения</Text>
+              <Text style={styles.subHead}>{'Введите сумму пополнения'}</Text>
             </View>
             <TextInput
               style={styles.input}
@@ -141,7 +144,7 @@ class Partners extends React.Component {
         style={styles.grad}
       >
         <View style={styles.scrollView}>
-          <Text style={styles.header}>Спасибо</Text>
+          <Text style={styles.header}>{'Спасибо'}</Text>
           <Text style={styles.successText}>
             {`Ваш счет скоро будет пополнен \n ${this.state.phone}`}
           </Text>
@@ -193,7 +196,7 @@ class Partners extends React.Component {
         <View style={styles.scrollView}>
           <Text style={styles.noMoney}>
             {'Ваш лимит пополнения в этом месяце исчерпан'}
-          </Text>{' '}
+          </Text>
         </View>
       </LinearGradient>
     );
@@ -279,4 +282,4 @@ const mapDispatchToProps = dispatch =>
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Partners);
+)(RefillMobile);

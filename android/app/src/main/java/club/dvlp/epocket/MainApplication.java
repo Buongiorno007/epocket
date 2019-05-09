@@ -5,7 +5,7 @@ import android.app.Application;
 import com.facebook.FacebookSdk;
 import com.facebook.CallbackManager;
 import com.facebook.appevents.AppEventsLogger;
-
+import com.jobeso.RNInstagramStoryShare.RNInstagramStorySharePackage;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.ReactApplication;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
@@ -16,14 +16,13 @@ import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.idehub.GoogleAnalyticsBridge.GoogleAnalyticsBridgePackage;
 import com.tradle.react.UdpSocketsModule;
-import com.mocklocation.reactnative.RNMockLocationDetectorPackage;
 import com.levelasquez.androidopensettings.AndroidOpenSettingsPackage;
+import com.mocklocation.reactnative.RNMockLocationDetectorPackage;
 import com.gantix.JailMonkey.JailMonkeyPackage;
 import com.jdc.reactlibrary.RNReferrerPackage;
 import com.horcrux.svg.SvgPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.rnfs.RNFSPackage;
-import com.jobeso.RNInstagramStoryShare.RNInstagramStorySharePackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.psykar.cookiemanager.CookieManagerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
@@ -84,17 +83,17 @@ public class MainApplication extends Application implements ShareApplication, Re
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new NetInfoPackage(),
-            new ReactNativeWheelPickerPackage(),
-            new RNGestureHandlerPackage(),
-            new LinearGradientPackage(),
-            new RNI18nPackage(),
-            new GoogleAnalyticsBridgePackage(),
-            new UdpSocketsModule(),
-            new RNMockLocationDetectorPackage(),
-            new AndroidOpenSettingsPackage(),
-            new JailMonkeyPackage(),
-            new RNReferrerPackage(),
+                    new NetInfoPackage(),
+                    new ReactNativeWheelPickerPackage(),
+                    new RNGestureHandlerPackage(),
+                    new LinearGradientPackage(),
+                    new RNI18nPackage(),
+                    new GoogleAnalyticsBridgePackage(),
+                    new UdpSocketsModule(),
+                    new RNMockLocationDetectorPackage(),
+                    new AndroidOpenSettingsPackage(),
+                    new JailMonkeyPackage(),
+                    new RNReferrerPackage(),
                     new LinearGradientPackage(),
                     new SvgPackage(),
                     new RNSoundPackage(),
