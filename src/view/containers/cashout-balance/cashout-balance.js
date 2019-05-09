@@ -12,10 +12,14 @@ import { loaderState } from '../../../reducers/loader';
 import NavigationService from './../../../services/route';
 import { Button } from 'native-base';
 import I18n from '@locales/I18n';
+import { urls } from '../../../constants/urls';
+import { httpGet } from '../../../services/http';
 
 class CashoutBalance extends React.Component {
   state = {
-    currency: ''
+    currency: '',
+    maxValue: 0,
+    phone: ''
   };
   navigateBack = () => {
     this.props.navigation
@@ -26,18 +30,31 @@ class CashoutBalance extends React.Component {
     NavigationService.navigate('Partners');
   };
   componentDidMount = () => {
+    this.props.loaderState(true);
     AsyncStorage.getItem('user_info').then(value => {
       let object = JSON.parse(value);
       this.setState({
-        currency: object.currency
+        currency: object.currency,
+        phone: `+${object.phone}`
       });
     });
-    this.props.loaderState(false);
+    httpGet(urls.get_received_bonuses, this.props.token).then(
+      result => {
+        this.setState({ maxValue: Number(result.body.refill) });
+        this.props.loaderState(false);
+      },
+      error => {
+        console.log(error, 'CashoutBalance ERROR');
+        this.props.loaderState(false);
+      }
+    );
   };
   goRefill() {
     this.props.loaderState(true);
     NavigationService.navigate('RefillMobile', {
-      currency: this.state.currency
+      currency: this.state.currency,
+      maxValue: this.state.maxValue,
+      phone: this.state.phone
     });
   }
   render = () => {
@@ -151,7 +168,8 @@ class CashoutBalance extends React.Component {
 const mapStateToProps = state => ({
   userColor: state.userColor,
   balance: state.balance,
-  profileState: state.profileState
+  profileState: state.profileState,
+  token: state.token
 });
 const mapDispatchToProps = dispatch =>
   bindActionCreators(

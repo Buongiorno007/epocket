@@ -97,5 +97,12 @@ export default StyleSheet.create({
     color: '#fff',
     marginBottom: 20,
     textAlign: 'center'
+  },
+  noMoney: {
+    fontSize: 18,
+    lineHeight: 22,
+    fontFamily: 'Rubik-Regular',
+    color: '#fff',
+    textAlign: 'center'
   }
 });

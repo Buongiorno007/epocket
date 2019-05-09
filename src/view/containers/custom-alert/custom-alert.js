@@ -15,6 +15,7 @@ import { ICONS } from '../../../constants/icons';
 import { colors } from '../../../constants/colors_men';
 import Blur from '../blur/blur';
 import I18n from '@locales/I18n';
+import moment from 'moment';
 
 const firstDay = new Date('1901-01-01');
 
@@ -62,15 +63,12 @@ class CustomAlert extends Component {
     birthday: new Date()
   };
   componentDidMount() {
-    let birthday = `${this.props.birthday.split('.')[2]}-${
-      this.props.birthday.split('.')[1]
-    }-${this.props.birthday.split('.')[0]}`;
-    console.log(this.props.birthday.split('.')[1], 'HZZZZZZZZZZZZZ');
+    let birthday = new Date(moment(this.props.birthday).format('YYYY-DD-MM'));
     this.setState({
-      birthday: new Date(birthday),
-      chosenDay: this.props.birthday.split('.')[0],
-      chosenMonth: Number(this.props.birthday.split('.')[1]) - 1,
-      chosenYear: this.props.birthday.split('.')[2]
+      birthday: birthday,
+      chosenDay: moment(this.props.birthday).format('MM'),
+      chosenMonth: Number(moment(this.props.birthday).format('DD')) - 1,
+      chosenYear: moment(this.props.birthday).format('YYYY')
     });
   }
 
@@ -78,7 +76,8 @@ class CustomAlert extends Component {
     this.setState({
       chosenDay: value.getUTCDate(),
       chosenMonth: value.getMonth(),
-      chosenYear: value.getFullYear()
+      chosenYear: value.getFullYear(),
+      birthday: value
     });
   }
 

@@ -209,7 +209,6 @@ class ProfileEdit extends React.Component {
     this.backHandler.remove();
   }
   render() {
-    console.log(this.props.birthday, 'MY CURRENT BIRTHDAY');
     return (
       <View style={styles.main}>
         <View style={styles.container} />
