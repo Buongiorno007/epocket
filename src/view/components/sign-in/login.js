@@ -55,7 +55,7 @@ import I18n from '@locales/I18n';
 
 const keyboardVerticalOffset = Platform.OS === 'ios' ? -50 : -100;
 
-class SignIn extends React.Component {
+class Login extends React.Component {
   static navigationOptions = () => ({
     header: <BackButton title={I18n.t('SIGN_IN_TITLE')} route="Start" />
   });
@@ -73,11 +73,6 @@ class SignIn extends React.Component {
     failedConfirmVisible: false,
     errorText: ''
   };
-
-  constructor(props) {
-    super(props);
-    Keyboard.dismiss();
-  }
 
   componentDidMount() {
     this.keyboardDidShowListener = Keyboard.addListener(
@@ -178,7 +173,8 @@ class SignIn extends React.Component {
     let body = {
       phone: '+' + bodyPhone
     };
-    httpPost(urls.sing_in, JSON.stringify(body)).then(
+    let promise = httpPost(urls.sing_in, JSON.stringify(body));
+    promise.then(
       result => {
         this.setFailedSignVisible(false);
         // this.props.loaderState(false); //DEPRECATED uncomment
@@ -472,4 +468,4 @@ const mapDispatchToProps = dispatch =>
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SignIn);
+)(Login);

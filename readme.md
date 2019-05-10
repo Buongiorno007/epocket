@@ -16,6 +16,24 @@ NOTATION: then replace from native-modules in node-modules and react-native-goog
 NOTATION: remove 'static' from 'static getDerivedStateFromProps'
 #EpocketCash
 
+remove libraries: {
+    react-native-referrer,
+    react-native-google-analytics-bridge,
+    react-native-custom-webview,
+    react-native-fabric,
+    react-native-imask,
+    react-native-qrcode-scanner,
+    react-native-svg,
+}
+
+check update for remove: {
+    react-native-maps-super-cluster,
+    react-native-mock-location-detector,
+    react-native-instagram-story-share
+}
+
+
+
 Purpose of the application: to increase the time of clients' stay in the shopping center
 
 ##Windows - Android
