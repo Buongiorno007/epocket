@@ -8,6 +8,7 @@
         "android:build": "cd android && ./gradlew assembleRelease && cd ../",
         "android:install": "cd android && ./gradlew assembleRelease && ./gradlew installRelease && cd ../",
         "watchman": "watchman waych-del-all && react-native start --reset-cache",
+        "watchman2":"watchman watch-del-all && rm -rf $TMPDIR/react-* && rm -rf node_modules/ && npm cache verify && npm install && npm start -- --reset-cache",
         "android": "react-native run-android",
         "ios": "react-native run-ios"
     },

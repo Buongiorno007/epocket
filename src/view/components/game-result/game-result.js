@@ -17,7 +17,7 @@ import RNFS from "react-native-fs";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { setGameStatus } from "../../../reducers/game-status";
-import { setTabState } from "../../../reducers/tabs";
+// import { setTabState } from "../../../reducers/tabs";
 import { loaderState } from "../../../reducers/loader";
 import { setInstaToken } from "../../../reducers/insta-token";
 import { setAppState } from "../../../reducers/app-state";
@@ -701,7 +701,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       setGameStatus,
-      setTabState,
+      // setTabState,
       launchGameExpiredTimer,
       loaderState,
       setFixedTime,

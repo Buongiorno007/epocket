@@ -60,15 +60,19 @@ class CustomAlert extends Component {
     chosenDay: '',
     chosenMonth: '',
     chosenYear: '',
-    birthday: new Date()
+    birthday: new Date(),
+    locale: ''
   };
   componentDidMount() {
-    let birthday = new Date(moment(this.props.birthday).format('YYYY-DD-MM'));
+    let birt = `${this.props.birthday.split('.')[2]}-${
+      this.props.birthday.split('.')[1]
+    }-${this.props.birthday.split('.')[0]}`;
     this.setState({
-      birthday: birthday,
+      birthday: new Date(birt),
       chosenDay: moment(this.props.birthday).format('MM'),
       chosenMonth: Number(moment(this.props.birthday).format('DD')) - 1,
-      chosenYear: moment(this.props.birthday).format('YYYY')
+      chosenYear: moment(this.props.birthday).format('YYYY'),
+      locale: I18n.locale
     });
   }
 
@@ -119,7 +123,7 @@ class CustomAlert extends Component {
                   textSize={16}
                   itemSpace={15}
                   labelUnit={{ month: months, date: '', year: '' }}
-                  locale={I18n.locale}
+                  locale={this.state.locale}
                   date={this.state.birthday}
                   minimumDate={firstDay}
                   maximumDate={today}

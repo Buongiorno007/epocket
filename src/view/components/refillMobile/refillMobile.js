@@ -41,6 +41,7 @@ class RefillMobile extends React.Component {
   };
   navigateBack = () => {
     NavigationService.navigate('Main');
+    // goBack()
   };
   componentDidMount = () => {
     this.props.loaderState(true);
@@ -100,6 +101,7 @@ class RefillMobile extends React.Component {
               keyboardType="numeric"
               onChangeText={amount => this.handleChange(amount)}
               value={this.state.amount}
+              maxLength={`${this.state.maxValue}`.length}
             />
             <View>
               <Text style={styles.subHead2}>
@@ -216,30 +218,40 @@ class RefillMobile extends React.Component {
   }
 
   checkValidation() {
-    Keyboard.dismiss();
     this.props.loaderState(true);
-    let body = {
-      type: 'true',
-      amount: this.state.amount
-    };
-    httpPost(urls.refill_mobile, JSON.stringify(body), this.props.token).then(
-      result => {
-        console.log(result, 'REFILL MOBILE RESULT');
-        this.setState({ done: !this.state.done });
-        this.props.loaderState(false);
-        this.props.setBalance(result.body.user_wallet_amount);
-      },
-      error => {
-        console.log(error, 'REFILL MOBILE ERROR');
-        Alert.alert(
-          `code: ${error.code}`,
-          '',
-          [{ text: 'OK', onPress: () => {} }],
-          { cancelable: false }
-        );
-        this.props.loaderState(false);
-      }
-    );
+    Keyboard.dismiss();
+    if (Number(this.state.amount) <= this.state.maxValue) {
+      let body = {
+        type: 'true',
+        amount: this.state.amount
+      };
+      httpPost(urls.refill_mobile, JSON.stringify(body), this.props.token).then(
+        result => {
+          console.log(result, 'REFILL MOBILE RESULT');
+          this.setState({ done: !this.state.done });
+          this.props.loaderState(false);
+          this.props.setBalance(result.body.user_wallet_amount);
+        },
+        error => {
+          console.log(error, 'REFILL MOBILE ERROR');
+          Alert.alert(
+            `code: ${error.code}`,
+            '',
+            [{ text: 'OK', onPress: () => {} }],
+            { cancelable: false }
+          );
+          this.props.loaderState(false);
+        }
+      );
+    } else {
+      this.props.loaderState(false);
+      Alert.alert(
+        `Max value ${this.state.maxValue}`,
+        '',
+        [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
+        { cancelable: false }
+      );
+    }
   }
 
   render() {

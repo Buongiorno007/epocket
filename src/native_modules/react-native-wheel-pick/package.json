@@ -1,0 +1,68 @@
+{
+  "_args": [
+    [
+      "react-native-wheel-pick@1.0.9",
+      "/Users/fpmsoft/Documents/Projects/Epocket App/epocket-app"
+    ]
+  ],
+  "_from": "react-native-wheel-pick@1.0.9",
+  "_id": "react-native-wheel-pick@1.0.9",
+  "_inBundle": false,
+  "_integrity": "sha512-+Z3lRscO49ZiqQgK5l0b6IHo3bGmhO9VXlpMzdyspC8UyHoeBXhT5KmLqse1rvLJIvrsjhSVyvdf3OHIAimPfA==",
+  "_location": "/react-native-wheel-pick",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "react-native-wheel-pick@1.0.9",
+    "name": "react-native-wheel-pick",
+    "escapedName": "react-native-wheel-pick",
+    "rawSpec": "1.0.9",
+    "saveSpec": null,
+    "fetchSpec": "1.0.9"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/react-native-wheel-pick/-/react-native-wheel-pick-1.0.9.tgz",
+  "_spec": "1.0.9",
+  "_where": "/Users/fpmsoft/Documents/Projects/Epocket App/epocket-app",
+  "author": {
+    "name": "Natthakorn Nakhaseno",
+    "email": "tron.natthakorn@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/TronNatthakorn/react-native-wheel-pick/issues"
+  },
+  "dependencies": {
+    "moment": "^2.19.1"
+  },
+  "description": "React native wheel picker iOS style with android.",
+  "homepage": "https://github.com/TronNatthakorn/react-native-wheel-pick#readme",
+  "keywords": [
+    "react-native",
+    "picker",
+    "wheel"
+  ],
+  "license": "MIT",
+  "main": "src/index.js",
+  "name": "react-native-wheel-pick",
+  "peerDependencies": {
+    "moment": ">=2.0.0",
+    "prop-types": "*",
+    "react-native": ">=0.45.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TronNatthakorn/react-native-wheel-pick.git"
+  },
+  "rnpm": {
+    "android": {
+      "packageInstance": "new ReactNativeWheelPickerPackage()"
+    }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.9"
+}
