@@ -75,33 +75,33 @@ class Login extends React.Component {
   };
 
   componentDidMount() {
-    this.keyboardDidShowListener = Keyboard.addListener(
-      'keyboardDidShow',
-      this._keyboardDidShow
-    );
-    this.keyboardDidHideListener = Keyboard.addListener(
-      'keyboardDidHide',
-      this._keyboardDidHide
-    );
+    // this.keyboardDidShowListener = Keyboard.addListener(
+    //   'keyboardDidShow',
+    //   this._keyboardDidShow
+    // );
+    // this.keyboardDidHideListener = Keyboard.addListener(
+    //   'keyboardDidHide',
+    //   this._keyboardDidHide
+    // );
     this.props.loaderState(false);
   }
   componentWillUnmount() {
-    this.keyboardDidShowListener.remove();
-    this.keyboardDidHideListener.remove();
+    // this.keyboardDidShowListener.remove();
+    // this.keyboardDidHideListener.remove();
   }
-  _keyboardDidShow = () => {
-    Animated.timing(this.state.signInMargin, {
-      duration: 100,
-      toValue: 0
-    }).start();
-  };
+  // _keyboardDidShow = () => {
+  //   Animated.timing(this.state.signInMargin, {
+  //     duration: 100,
+  //     toValue: 0
+  //   }).start();
+  // };
 
-  _keyboardDidHide = () => {
-    Animated.timing(this.state.signInMargin, {
-      duration: 100,
-      toValue: 40
-    }).start();
-  };
+  // _keyboardDidHide = () => {
+  //   Animated.timing(this.state.signInMargin, {
+  //     duration: 100,
+  //     toValue: 40
+  //   }).start();
+  // };
   setFailedSignVisible = visible => {
     this.setState({ failedSignVisible: visible });
   };
@@ -173,8 +173,7 @@ class Login extends React.Component {
     let body = {
       phone: '+' + bodyPhone
     };
-    let promise = httpPost(urls.sing_in, JSON.stringify(body));
-    promise.then(
+    httpPost(urls.sing_in, JSON.stringify(body)).then(
       result => {
         this.setFailedSignVisible(false);
         // this.props.loaderState(false); //DEPRECATED uncomment
@@ -204,8 +203,7 @@ class Login extends React.Component {
   isFblogged = token => {
     this.props.loaderState(true);
     let body = JSON.stringify({});
-    let promise = httpPost(urls.facebook_is_logged, body, token);
-    promise.then(
+    httpPost(urls.facebook_is_logged, body, token).then(
       result => {
         if (result.body.logged && result.body.active && result.body.token) {
           this.props.setFacebookToken(result.body.token);
@@ -251,7 +249,7 @@ class Login extends React.Component {
     };
     httpPost(urls.sing_in_confirm, JSON.stringify(body)).then(
       result => {
-        console.log('result', result);
+        console.log(result, 'RESULTTTTTTT');
         if (result.status === 200) {
           this.setFailedConfirmVisible(false);
           this.props.loaderState(false);
@@ -350,51 +348,51 @@ class Login extends React.Component {
             end={{ x: 0.0, y: 1.0 }}
             style={styles.grad}
           />
-          {this.state.step == 1 ? (
-            <View style={styles.form}>
-              <TextField
-                label={I18n.t('MOBILE_NUMBER')}
-                textColor={this.props.userColor.input}
-                tintColor={this.props.userColor.input}
-                baseColor={this.props.userColor.input}
-                placeholder={I18n.t('PHONE_MASK')}
-                placeholderTextColor={this.props.userColor.input_placeholder}
-                labelPadding={16}
-                inputContainerPadding={16}
-                onChangeText={text => {
-                  this.onChangedPhone(text);
-                }}
-                value={this.state.phone}
-                maxLength={15}
-                keyboardType="numeric"
-                prefix={this.prefix}
-              />
-              <Text
-                style={
-                  this.state.numberNotExists
-                    ? styles.number_exists
-                    : styles.disabled
+          {/* {this.state.step == 1 ? ( */}
+          <View style={styles.form}>
+            <TextField
+              label={I18n.t('MOBILE_NUMBER')}
+              textColor={this.props.userColor.input}
+              tintColor={this.props.userColor.input}
+              baseColor={this.props.userColor.input}
+              placeholder={I18n.t('PHONE_MASK')}
+              placeholderTextColor={this.props.userColor.input_placeholder}
+              labelPadding={16}
+              inputContainerPadding={16}
+              onChangeText={text => {
+                this.onChangedPhone(text);
+              }}
+              value={this.state.phone}
+              maxLength={15}
+              keyboardType="numeric"
+              prefix={this.prefix}
+            />
+            <Text
+              style={
+                this.state.numberNotExists
+                  ? styles.number_exists
+                  : styles.disabled
+              }
+            >
+              {I18n.t('NUMBER_NOT_EXISTS')}
+            </Text>
+            <View style={[{ marginTop: this.state.signInMargin }]}>
+              <CustomButton
+                color={
+                  this.state.acceptButton
+                    ? this.props.userColor.pink
+                    : this.props.userColor.white
                 }
-              >
-                {I18n.t('NUMBER_NOT_EXISTS')}
-              </Text>
-              <Animated.View style={[{ marginTop: this.state.signInMargin }]}>
-                <CustomButton
-                  color={
-                    this.state.acceptButton
-                      ? this.props.userColor.pink
-                      : this.props.userColor.white
-                  }
-                  handler={() => {
-                    this.login();
-                  }}
-                  active={this.state.acceptButton}
-                  title={I18n.t('SIGN_IN').toUpperCase()}
-                />
-              </Animated.View>
+                handler={() => {
+                  this.login();
+                }}
+                active={this.state.acceptButton}
+                title={I18n.t('SIGN_IN').toUpperCase()}
+              />
             </View>
-          ) : this.state.step == 2 ? (
-            <View style={styles.form}>
+          </View>
+          {/* ) : this.state.step == 2 ? ( */}
+          {/* <View style={styles.form}>
               <Text style={styles.code_sent}>{I18n.t('CODE_SENT')}</Text>
               <Text style={styles.enter_code}>
                 {I18n.t('ENTER_CODE_SIDN_IN')}
@@ -430,8 +428,8 @@ class Login extends React.Component {
                   title={I18n.t('ACCEPT').toUpperCase()}
                 />
               </Animated.View>
-            </View>
-          ) : null}
+            </View> */}
+          {/* ) : null} */}
         </View>
         {this.props.loader && <ActivityIndicator />}
       </KeyboardAvoidingView>

@@ -255,7 +255,7 @@ class SignIn extends React.Component {
     };
     httpPost(urls.sing_in_confirm, JSON.stringify(body)).then(
       result => {
-        console.log('result', result);
+        console.log(result, 'RESULTTTTT');
         if (result.status === 200) {
           this.setFailedConfirmVisible(false);
           this.props.loaderState(false);

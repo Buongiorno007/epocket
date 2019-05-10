@@ -548,7 +548,7 @@ class GameStart extends React.Component {
                 end={{ x: 1, y: 0 }}
               >
                 {this.props.game_info.no_more_games == true
-                  ? '' // ? I18n.t("GAME.NO_GAMES").toLocaleUpperCase()
+                  ? I18n.t("GAME.NO_GAMES").toLocaleUpperCase()
                   : I18n.t('GAME.COST_TEXT').toLocaleUpperCase() +
                     ' ' +
                     this.props.game_info.cost.toLocaleUpperCase() +
