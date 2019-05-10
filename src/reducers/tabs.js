@@ -1,6 +1,6 @@
-import { setGameStatus } from "./game-status";
+import { setGameStatus } from './game-status';
 
-export const CHANGE_ACTIVE_TAB = "tabs/CHANGE_ACTIVE_TAB";
+export const CHANGE_ACTIVE_TAB = 'tabs/CHANGE_ACTIVE_TAB';
 
 export default (state = 0, action) => {
   // console.log('action',action);
@@ -11,17 +11,23 @@ export default (state = 0, action) => {
       return state;
   }
 };
-export const setState = activeTab => {
-  {
-    return {
-      type: CHANGE_ACTIVE_TAB,
-      activeTab
-    };
-  }
-};
-export const setTabState = activeTab => async dispatch => {
+// export const setState = activeTab => {
+//   {
+//     return {
+//       type: CHANGE_ACTIVE_TAB,
+//       activeTab
+//     };
+//   }
+// };
+
+export const setTabState = activeTab => dispatch => {
   if (activeTab > 0) {
-    dispatch(setGameStatus("initial"));
+    dispatch(setGameStatus('initial'));
   }
   dispatch(setState(activeTab));
 };
+
+export const setState = activeTab => ({
+  type: CHANGE_ACTIVE_TAB,
+  activeTab
+});
