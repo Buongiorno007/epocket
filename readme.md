@@ -18,6 +18,7 @@ NOTATION: remove 'static' from 'static getDerivedStateFromProps'
 
 remove libraries: {
     react-native-referrer,
+    /////DONE/////
     react-native-google-analytics-bridge,
     react-native-custom-webview,
     react-native-fabric,
@@ -31,8 +32,6 @@ check update for remove: {
     react-native-mock-location-detector,
     react-native-instagram-story-share
 }
-
-
 
 Purpose of the application: to increase the time of clients' stay in the shopping center
 

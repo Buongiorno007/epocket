@@ -48,7 +48,6 @@ target 'EpocketCash' do
   pod 'Firebase/Messaging'
   pod 'Fabric'
   pod 'Crashlytics'
-  pod 'ReactNativeFabric', :path => '../node_modules/react-native-fabric'
 
   pod 'react-native-fast-image', :path => '../node_modules/react-native-fast-image'
 
@@ -62,13 +61,11 @@ target 'EpocketCash' do
   pod 'RNFS', :path => '../node_modules/react-native-fs'
   pod 'RNSound', :path => '../node_modules/react-native-sound'
 
-  pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
   pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
 
   pod 'jail-monkey', :path => '../node_modules/jail-monkey'
 
-  pod 'react-native-google-analytics-bridge', :path => '../node_modules/react-native-google-analytics-bridge'
   
   pod 'YandexMobileMetrica', '3.6.0'
   pod 'RNI18n', :path => '../node_modules/react-native-i18n'
