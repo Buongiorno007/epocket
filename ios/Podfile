@@ -74,6 +74,8 @@ target 'EpocketCash' do
 
   pod 'react-native-netinfo', :path => '../node_modules/@react-native-community/netinfo'
 
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
+
 end
   post_install do |installer|
     installer.pods_project.targets.each do |target|

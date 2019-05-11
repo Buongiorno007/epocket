@@ -135,6 +135,7 @@ class GameStart extends React.Component {
     AppState.removeEventListener('change', this._handleAppStateChange);
   };
   componentWillReceiveProps = nextProps => {
+    console.log('Props Updated');
     if (
       this.props.game_status == 'initial' &&
       nextProps.game_status == 'start'
@@ -242,7 +243,7 @@ class GameStart extends React.Component {
   };
   loadTRC = () => {
     this.setModalVisible(false);
-    let promise = httpPost(
+    httpPost(
       urls.outlets,
       JSON.stringify({
         geolocation_status:
@@ -253,8 +254,7 @@ class GameStart extends React.Component {
         }
       }),
       this.props.token
-    );
-    promise.then(
+    ).then(
       result => {
         result.body.outlets.forEach(elem => {
           elem.location = {

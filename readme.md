@@ -24,7 +24,7 @@ remove libraries: {
     react-native-fabric,
     react-native-imask,
     react-native-qrcode-scanner,
-    react-native-svg,
+    react-native-svg, // NEED FOR REACT_NATIVE QRCODE_SVG
 }
 
 check update for remove: {
