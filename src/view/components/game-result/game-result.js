@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   View,
   Text,
@@ -7,46 +7,46 @@ import {
   AppState,
   AsyncStorage,
   Image
-} from "react-native";
-import FastImage from "react-native-fast-image";
-import LinearGradient from "react-native-linear-gradient";
-import { Button } from "native-base";
-import CookieManager from "react-native-cookies";
-import RNFS from "react-native-fs";
+} from 'react-native';
+import FastImage from 'react-native-fast-image';
+import LinearGradient from 'react-native-linear-gradient';
+import { Button } from 'native-base';
+import CookieManager from 'react-native-cookies';
+import RNFS from 'react-native-fs';
 //redux
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { setGameStatus } from "../../../reducers/game-status";
-import { loaderState } from "../../../reducers/loader";
-import { setInstaToken } from "../../../reducers/insta-token";
-import { setAppState } from "../../../reducers/app-state";
-import { launchGameExpiredTimer } from "../../../reducers/game-expired-timer";
-import { errorState } from "../../../reducers/game-error";
-import { setFixedTime } from "../../../reducers/fixedTime";
-import { setTempTime } from "../../../reducers/tempTime";
-import { setGameInfo, getGameInfo } from "../../../reducers/game-info";
-import { checkForPostStatus } from "../../../reducers/post-status";
-import { setWebSiteTimer } from "../../../reducers/website-timer";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setGameStatus } from '../../../reducers/game-status';
+import { loaderState } from '../../../reducers/loader';
+import { setInstaToken } from '../../../reducers/insta-token';
+import { setAppState } from '../../../reducers/app-state';
+import { launchGameExpiredTimer } from '../../../reducers/game-expired-timer';
+import { errorState } from '../../../reducers/game-error';
+import { setFixedTime } from '../../../reducers/fixedTime';
+import { setTempTime } from '../../../reducers/tempTime';
+import { setGameInfo, getGameInfo } from '../../../reducers/game-info';
+import { checkForPostStatus } from '../../../reducers/post-status';
+import { setWebSiteTimer } from '../../../reducers/website-timer';
 //constants
-import styles from "./styles";
-import { colors } from "../../../constants/colors";
-import { ICONS } from "../../../constants/icons";
-import { urls } from "../../../constants/urls";
+import styles from './styles';
+import { colors } from '../../../constants/colors';
+import { ICONS } from '../../../constants/icons';
+import { urls } from '../../../constants/urls';
 //services
-import "../../../services/correcting-interval";
-import NavigationService from "./../../../services/route";
-import { convertToBase64 } from "./../../../services/convert-to-base64";
-import InstagramLogin from "../../../services/Instagram";
-import { httpPost, httpGet } from "../../../services/http";
-import { handleError } from "../../../services/http-error-handler";
-import { postToSocial } from "../../../services/post-to-social";
+import '../../../services/correcting-interval';
+import NavigationService from './../../../services/route';
+import { convertToBase64 } from './../../../services/convert-to-base64';
+import InstagramLogin from '../../../services/Instagram';
+import { httpPost, httpGet } from '../../../services/http';
+import { handleError } from '../../../services/http-error-handler';
+import { postToSocial } from '../../../services/post-to-social';
 //containers
-import CustomAlert from "../../containers/custom-alert/custom-alert";
-import CustomButton from "../../containers/custom-button/custom-button";
-import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
-import BrandWebsite from "../../containers/brand-website/brand-website";
-import { PermissionsAndroid } from "react-native";
-import I18n from "@locales/I18n";
+import CustomAlert from '../../containers/custom-alert/custom-alert';
+import CustomButton from '../../containers/custom-button/custom-button';
+import ActivityIndicator from '../../containers/activity-indicator/activity-indicator';
+import BrandWebsite from '../../containers/brand-website/brand-website';
+import { PermissionsAndroid } from 'react-native';
+import I18n from '@locales/I18n';
 
 class GameResult extends React.Component {
   state = {
@@ -57,13 +57,13 @@ class GameResult extends React.Component {
     userCount: 0,
     buttonActive: true,
     interval: null,
-    filePath: "",
-    currency: ""
+    filePath: '',
+    currency: ''
   };
   componentDidMount = () => {
-    AppState.addEventListener("change", this._handleAppStateChange);
+    AppState.addEventListener('change', this._handleAppStateChange);
     this.props.setGameStatus(this.props.navigation.state.params.status);
-    AsyncStorage.getItem("user_info").then(value => {
+    AsyncStorage.getItem('user_info').then(value => {
       let object = JSON.parse(value);
       this.setState({ currency: object.currency });
     });
@@ -94,9 +94,9 @@ class GameResult extends React.Component {
     this.props.loaderState(true);
     httpGet(
       urls.game_get +
-        "?coords=" +
+        '?coords=' +
         this.props.location.lat +
-        "%2C" +
+        '%2C' +
         this.props.location.lng,
       this.props.token
     ).then(
@@ -111,19 +111,19 @@ class GameResult extends React.Component {
           );
         } else {
           switch (next_navigation) {
-            case "insta":
+            case 'insta':
               this.goInst();
               this.props.loaderState(true);
               break;
-            case "home":
+            case 'home':
               this.goHome();
               this.props.loaderState(false);
               break;
-            case "visit_website":
+            case 'visit_website':
               this.openWebSiteInfo();
               this.props.loaderState(false);
               break;
-            case "wait":
+            case 'wait':
               this.goWait();
               this.props.loaderState(false);
               break;
@@ -136,9 +136,9 @@ class GameResult extends React.Component {
       error => {
         if (error.code === 400) {
           let info = {
-            description: "...",
-            cost: "0",
-            title: "",
+            description: '...',
+            cost: '0',
+            title: '',
             success_image: ICONS.FILLER,
             no_more_games: true,
             time: 0,
@@ -147,25 +147,25 @@ class GameResult extends React.Component {
             true_answer: [],
             video: false,
             wait_timer: 0,
-            brand_title: "",
+            brand_title: '',
             insta_data: {}
           };
           this.props.setGameInfo(info);
           this.props.loaderState(false);
-          NavigationService.navigate("Main");
-          this.props.setGameStatus("start");
+          NavigationService.navigate('Main');
+          this.props.setGameStatus('start');
         } else {
           let error_response = handleError(
             error,
             {},
             urls.game_get +
-              "?coords=" +
+              '?coords=' +
               this.props.location.lat +
-              "%2C" +
+              '%2C' +
               this.props.location.lng,
             this.props.token,
             this.component.name,
-            "checkForGames"
+            'checkForGames'
           );
           this.props.errorState(error_response);
           this.props.loaderState(false);
@@ -186,9 +186,9 @@ class GameResult extends React.Component {
   };
 
   goLock = () => {
-    NavigationService.navigate("Main");
+    NavigationService.navigate('Main');
     setTimeout(() => {
-      this.props.setGameStatus("lock");
+      this.props.setGameStatus('lock');
     }, 0);
   };
   openWebSiteInfo = () => {
@@ -203,14 +203,14 @@ class GameResult extends React.Component {
     this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec);
   };
   goWait = () => {
-    NavigationService.navigate("Main");
+    NavigationService.navigate('Main');
     if (this.props.game_info.id) {
       this.props.launchGameExpiredTimer(
         this.props.token,
         this.props.game_info.id
       );
       setTimeout(() => {
-        this.props.setGameStatus("expired");
+        this.props.setGameStatus('expired');
       }, 0);
     } else {
       this.setErrorVisible(true);
@@ -223,8 +223,8 @@ class GameResult extends React.Component {
       this.props.location.lng
     );
     setTimeout(() => {
-      NavigationService.navigate("Main");
-      this.props.setGameStatus("start");
+      NavigationService.navigate('Main');
+      this.props.setGameStatus('start');
     }, 500);
   };
   connectInsta = instagram_token => {
@@ -272,10 +272,10 @@ class GameResult extends React.Component {
 
   shareToInsta = () => {
     this.props.loaderState(true);
-    if (Platform.OS === "ios") {
+    if (Platform.OS === 'ios') {
       postToSocial(
         this.props.navigation.state.params.insta_data,
-        "https://www.instagram.com/epocketapp/",
+        'https://www.instagram.com/epocketapp/',
         this.confirmPost,
         this.props.navigation.state.params.insta_data.video
       );
@@ -284,7 +284,7 @@ class GameResult extends React.Component {
         if (granted) {
           postToSocial(
             this.props.navigation.state.params.insta_data,
-            "https://www.instagram.com/epocketapp/",
+            'https://www.instagram.com/epocketapp/',
             this.confirmPost
           );
         } else {
@@ -296,51 +296,51 @@ class GameResult extends React.Component {
     }
   };
   _handleAppStateChange = nextAppState => {
-    if (this.props.navigation.state.params.status != "success") {
-      console.log("user tried to abuse");
+    if (this.props.navigation.state.params.status != 'success') {
+      console.log('user tried to abuse');
       this.goWait();
     }
     this.props.setAppState(nextAppState);
   };
 
   componentWillUnmount() {
-    AppState.removeEventListener("change", this._handleAppStateChange);
+    AppState.removeEventListener('change', this._handleAppStateChange);
   }
   chooseZifiText = status => {
     let text;
-    if (status === "success") {
-      text = I18n.t("GAME.ZIFI.SHOCKED");
-    } else if (status === "failed") {
-      text = I18n.t("GAME.ZIFI.FAILED");
-    } else if (status === "expired") {
-      text = I18n.t("GAME.ZIFI.TOO_LONG");
+    if (status === 'success') {
+      text = I18n.t('GAME.ZIFI.SHOCKED');
+    } else if (status === 'failed') {
+      text = I18n.t('GAME.ZIFI.FAILED');
+    } else if (status === 'expired') {
+      text = I18n.t('GAME.ZIFI.TOO_LONG');
     } else {
-      text = "";
+      text = '';
     }
     return text;
   };
   chooseZifi = status => {
     let zifi;
-    if (status === "success") {
-      zifi = require("../../../assets/img/zifi/shocked.gif");
-    } else if (status === "failed") {
-      zifi = require("../../../assets/img/zifi/grimaces.gif");
-    } else if (status === "expired") {
-      zifi = require("../../../assets/img/zifi/bored.gif");
+    if (status === 'success') {
+      zifi = require('../../../assets/img/zifi/shocked.gif');
+    } else if (status === 'failed') {
+      zifi = require('../../../assets/img/zifi/grimaces.gif');
+    } else if (status === 'expired') {
+      zifi = require('../../../assets/img/zifi/bored.gif');
     } else {
-      zifi = require("../../../assets/img/zifi/shocked.gif");
+      zifi = require('../../../assets/img/zifi/shocked.gif');
     }
     return zifi;
   };
   chooseZifiCloud = status => {
     let zifiCloud, style;
-    if (status === "success") {
+    if (status === 'success') {
       zifiCloud = ICONS.ZIFI.CLOUD_1_TRANSPARENT;
       style = styles.zifi_cloud_success;
-    } else if (status === "failed") {
+    } else if (status === 'failed') {
       zifiCloud = ICONS.ZIFI.CLOUD_2_TRANSPARENT;
       style = styles.zifi_cloud_failed;
-    } else if (status === "expired") {
+    } else if (status === 'expired') {
       zifiCloud = ICONS.ZIFI.CLOUD_2_TRANSPARENT;
       style = styles.zifi_cloud_failed;
     } else {
@@ -352,40 +352,40 @@ class GameResult extends React.Component {
   chooseResultText = status => {
     let text;
     let style;
-    if (status === "success") {
+    if (status === 'success') {
       text =
-        I18n.t("GAME.RESULT.CONGRATS") +
-        "\n" +
-        I18n.t("GAME.RESULT.YOU_WON") +
-        " " +
+        I18n.t('GAME.RESULT.CONGRATS') +
+        '\n' +
+        I18n.t('GAME.RESULT.YOU_WON') +
+        ' ' +
         this.props.game_info.cost +
-        " " +
-        I18n.t("EPC", { currency: this.state.currency }).toUpperCase();
+        ' ' +
+        I18n.t('EPC', { currency: this.state.currency }).toUpperCase();
       style = styles.congratulation;
-    } else if (status === "failed" || status === "expired") {
-      text = "";
+    } else if (status === 'failed' || status === 'expired') {
+      text = '';
       style = styles.fail_text;
     } else {
-      text = "";
+      text = '';
       style = styles.congratulation;
     }
     return { text, style };
   };
   chooseButtonText = status => {
     let text;
-    if (status === "success") {
-      text = I18n.t("GAME.RESULT.CONTINUE").toLocaleUpperCase();
-    } else if (status === "failed" || status === "expired") {
-      text = I18n.t("GAME.RESULT.PUBLISH_AND_CONTINUE").toLocaleUpperCase();
+    if (status === 'success') {
+      text = I18n.t('GAME.RESULT.CONTINUE').toLocaleUpperCase();
+    } else if (status === 'failed' || status === 'expired') {
+      text = I18n.t('GAME.RESULT.PUBLISH_AND_CONTINUE').toLocaleUpperCase();
     } else {
-      text = "";
+      text = '';
     }
     return text;
   };
   chooseBackground = status => {
     let img, style;
-    if (status === "success") {
-      img = require("../../../assets/img/ANIMATED_EARN_MORE.gif");
+    if (status === 'success') {
+      img = require('../../../assets/img/ANIMATED_EARN_MORE.gif');
       style = styles.image;
     } else {
       img = {
@@ -403,7 +403,7 @@ class GameResult extends React.Component {
       <View style={styles.container}>
         <StatusBar
           barStyle="light-content"
-          backgroundColor={"transparent"}
+          backgroundColor={'transparent'}
           translucent={true}
         />
         <BrandWebsite
@@ -414,13 +414,13 @@ class GameResult extends React.Component {
           startTimer={() => this.openWebSite()}
           continue={() => {
             this.closeBrandWebSite();
-            this.checkForGames("home");
+            this.checkForGames('home');
           }}
         />
         {this.props.loader && <ActivityIndicator />}
         <CustomAlert
-          title={I18n.t("GAME.RESULT.CANT_POST")}
-          first_btn_title={I18n.t("OK")}
+          title={I18n.t('GAME.RESULT.CANT_POST')}
+          first_btn_title={I18n.t('OK')}
           visible={this.state.cantPostToInsta}
           first_btn_handler={() =>
             this.setErrorVisible(!this.state.cantPostToInsta)
@@ -430,8 +430,8 @@ class GameResult extends React.Component {
           }
         />
         <CustomAlert
-          title={I18n.t("PROFILE_PAGE.ALREADY_ACCOUNT")}
-          first_btn_title={I18n.t("OK")}
+          title={I18n.t('PROFILE_PAGE.ALREADY_ACCOUNT')}
+          first_btn_title={I18n.t('OK')}
           visible={this.state.errorVisible}
           first_btn_handler={() =>
             this.setErrorVisible(!this.state.errorVisible)
@@ -441,9 +441,9 @@ class GameResult extends React.Component {
           }
         />
         <CustomAlert
-          title={I18n.t("PROFILE_PAGE.NOT_ENOUGHT_SUB")}
-          subtitle={this.state.userCount + I18n.t("PROFILE_PAGE.SUBS")}
-          first_btn_title={I18n.t("OK")}
+          title={I18n.t('PROFILE_PAGE.NOT_ENOUGHT_SUB')}
+          subtitle={this.state.userCount + I18n.t('PROFILE_PAGE.SUBS')}
+          first_btn_title={I18n.t('OK')}
           visible={this.state.modalVisible}
           first_btn_handler={() =>
             this.setModalVisible(!this.state.modalVisible)
@@ -454,7 +454,7 @@ class GameResult extends React.Component {
         />
         <CustomAlert
           title={this.props.game_error.error_text}
-          first_btn_title={I18n.t("REPEAT")}
+          first_btn_title={I18n.t('REPEAT')}
           visible={this.props.game_error.error_modal}
           first_btn_handler={() => {
             this.props.launchGameExpiredTimer(
@@ -478,19 +478,19 @@ class GameResult extends React.Component {
           clientId="7df789fc907d4ffbbad30b7e25ba3933"
           redirectUrl="https://epocket.dev.splinestudio.com"
           scopes={[
-            "basic",
-            "public_content",
-            "likes",
-            "follower_list",
-            "comments",
-            "relationships"
+            'basic',
+            'public_content',
+            'likes',
+            'follower_list',
+            'comments',
+            'relationships'
           ]}
           onLoginSuccess={token => {
             console.log(token);
             this.connectInsta(token);
           }}
           onLoginFailure={data => {
-            let token = data.next.split("#access_token=")[1];
+            let token = data.next.split('#access_token=')[1];
             console.log(data, token);
             this.connectInsta(token);
           }}
@@ -498,7 +498,7 @@ class GameResult extends React.Component {
         <FastImage
           resizeMode={FastImage.resizeMode.contain}
           style={styles.image_background}
-          source={require("../../../assets/img/ANIMATED_EARN_MORE.gif")}
+          source={require('../../../assets/img/ANIMATED_EARN_MORE.gif')}
         />
         <LinearGradient
           colors={this.props.userColor.earn_more}
@@ -506,12 +506,12 @@ class GameResult extends React.Component {
           end={{ x: 1.0, y: 0.0 }}
           style={styles.grad}
         />
-        {this.props.navigation.state.params.status !== "success" ? (
+        {this.props.navigation.state.params.status !== 'success' ? (
           <View style={styles.background_grey} />
         ) : null}
         <View
           style={
-            this.props.navigation.state.params.status === "success"
+            this.props.navigation.state.params.status === 'success'
               ? styles.success
               : styles.failed
           }
@@ -547,7 +547,7 @@ class GameResult extends React.Component {
                 .text
             }
           </Text>
-          {this.props.navigation.state.params.status !== "success" ? (
+          {this.props.navigation.state.params.status !== 'success' ? (
             <View style={styles.image_to_post_container}>
               <FastImage
                 style={styles.image_to_post}
@@ -559,7 +559,7 @@ class GameResult extends React.Component {
               />
             </View>
           ) : null}
-          {this.props.navigation.state.params.status !== "success" ? (
+          {this.props.navigation.state.params.status !== 'success' ? (
             <CustomButton
               gradient
               instaLogo={true}
@@ -570,14 +570,14 @@ class GameResult extends React.Component {
               )}
               color={this.props.userColor.white}
               style={[
-                this.props.navigation.state.params.status === "success"
+                this.props.navigation.state.params.status === 'success'
                   ? styles.button_short
                   : styles.button
               ]}
               handler={() => {
-                this.props.navigation.state.params.status === "success"
-                  ? this.checkForGames("home")
-                  : this.checkForGames("insta");
+                this.props.navigation.state.params.status === 'success'
+                  ? this.checkForGames('home')
+                  : this.checkForGames('insta');
               }}
             />
           ) : (
@@ -586,18 +586,18 @@ class GameResult extends React.Component {
               transparent
               block
               style={[
-                this.props.navigation.state.params.status === "success"
+                this.props.navigation.state.params.status === 'success'
                   ? styles.button_short
                   : styles.button
               ]}
               androidRippleColor={this.props.userColor.card_shadow}
               onPress={() => {
-                this.props.navigation.state.params.status === "success"
-                  ? this.checkForGames("home")
-                  : this.checkForGames("insta");
+                this.props.navigation.state.params.status === 'success'
+                  ? this.checkForGames('home')
+                  : this.checkForGames('insta');
               }}
             >
-              {this.props.navigation.state.params.status != "success" && (
+              {this.props.navigation.state.params.status != 'success' && (
                 <FastImage
                   style={styles.insta_logo}
                   resizeMode={FastImage.resizeMode.contain}
@@ -609,7 +609,7 @@ class GameResult extends React.Component {
                   styles.text,
                   {
                     color:
-                      this.props.navigation.state.params.status != "success"
+                      this.props.navigation.state.params.status != 'success'
                         ? this.props.userColor.white
                         : this.props.userColor.pink_blue
                   }
@@ -628,28 +628,28 @@ class GameResult extends React.Component {
             androidRippleColor={this.props.userColor.card_shadow}
             style={[
               styles.wait_button,
-              this.props.navigation.state.params.status == "success" && {
-                display: "none"
+              this.props.navigation.state.params.status == 'success' && {
+                display: 'none'
               }
             ]}
             onPress={() => {
               this.props.game_info.website_link
-                ? this.checkForGames("visit_website")
-                : this.checkForGames("wait");
+                ? this.checkForGames('visit_website')
+                : this.checkForGames('wait');
             }}
           >
             <Text style={styles.fail}>
               {this.props.game_info.website_link
-                ? I18n.t("GAME.RESULT.VISIT_WEBSITE").toUpperCase()
+                ? I18n.t('GAME.RESULT.VISIT_WEBSITE').toUpperCase()
                 : this.props.game_info.wait_timer_in_sec < 60
                 ? // show time in seconds
-                  I18n.t("GAME.RESULT.WAIT_").toUpperCase() +
+                  I18n.t('GAME.RESULT.WAIT_').toUpperCase() +
                   this.props.game_info.wait_timer_in_sec +
-                  I18n.t("GAME.RESULT.SEC").toUpperCase()
+                  I18n.t('GAME.RESULT.SEC').toUpperCase()
                 : // show time in minutes
-                  I18n.t("GAME.RESULT.WAIT_").toUpperCase() +
+                  I18n.t('GAME.RESULT.WAIT_').toUpperCase() +
                   this.props.game_info.wait_timer +
-                  I18n.t("GAME.RESULT.MIN").toUpperCase()}
+                  I18n.t('GAME.RESULT.MIN').toUpperCase()}
             </Text>
           </Button>
         </View>

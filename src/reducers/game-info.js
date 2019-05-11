@@ -1,26 +1,26 @@
-export const GAME_INFO = "game-info/GAME_INFO";
+export const GAME_INFO = 'game-info/GAME_INFO';
 //services
-import { httpGet, httpPost } from "../services/http";
-import { handleError } from "../services/http-error-handler";
-import NavigationService from "../services/route";
-import { convertToBase64 } from "../services/convert-to-base64";
+import { httpGet, httpPost } from '../services/http';
+import { handleError } from '../services/http-error-handler';
+import NavigationService from '../services/route';
+import { convertToBase64 } from '../services/convert-to-base64';
 //redux
-import { setFixedTime } from "./fixedTime";
-import { errorState } from "./game-error";
-import { setTempTime } from "./tempTime";
-import { setGameStatus } from "./game-status";
-import { setBalance } from "./user-balance";
-import { loaderState } from "./loader";
-import { setGameTickerData } from "./game-ticker-data";
-import { launchGameExpiredTimer } from "./game-expired-timer";
+import { setFixedTime } from './fixedTime';
+import { errorState } from './game-error';
+import { setTempTime } from './tempTime';
+import { setGameStatus } from './game-status';
+import { setBalance } from './user-balance';
+import { loaderState } from './loader';
+import { setGameTickerData } from './game-ticker-data';
+import { launchGameExpiredTimer } from './game-expired-timer';
 //constants
-import { ICONS } from "../constants/icons";
-import { urls } from "../constants/urls";
+import { ICONS } from '../constants/icons';
+import { urls } from '../constants/urls';
 
 const initialState = {
-  description: "...",
-  cost: "0",
-  title: "",
+  description: '...',
+  cost: '0',
+  title: '',
   success_image: ICONS.FILLER,
   no_more_games: false,
   time: 0,
@@ -29,8 +29,8 @@ const initialState = {
   true_answer: [],
   wait_timer: 0,
   wait_timer_in_sec: 0,
-  brand_title: "",
-  website_link: "" //game.link
+  brand_title: '',
+  website_link: '' //game.link
 };
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -58,7 +58,7 @@ export const passGameResult = (
       if (result.body.wallet_amount) {
         dispatch(setBalance(result.body.wallet_amount));
       }
-      NavigationService.navigate("GameResult", { status, insta_data });
+      NavigationService.navigate('GameResult', { status, insta_data });
       dispatch(errorState(null));
       dispatch(loaderState(false));
     },
@@ -68,11 +68,11 @@ export const passGameResult = (
         body,
         urls.game_get,
         token,
-        "game-info",
-        "passGameResult"
+        'game-info',
+        'passGameResult'
       );
-      NavigationService.navigate("GameResult", {
-        status: "failed",
+      NavigationService.navigate('GameResult', {
+        status: 'failed',
         insta_data
       });
       dispatch(errorState(error_response));
@@ -87,16 +87,16 @@ export const getGameInfo = (token, latt, long) => async (
 ) => {
   dispatch(loaderState(true));
   const { distance } = getState();
-  httpGet(urls.game_get + "?coords=" + latt + "%2C" + long, token).then(
+  httpGet(urls.game_get + '?coords=' + latt + '%2C' + long, token).then(
     result => {
       // console.log("getGameInfo", result);
       let game = result.body;
       if (game.ticker === false && !game.game_set) {
         // game.ticker === false && !game.game_set
-        dispatch(setGameStatus("lock"));
+        dispatch(setGameStatus('lock'));
         dispatch(errorState(null));
         dispatch(loaderState(false));
-        NavigationService.navigate("Main");
+        NavigationService.navigate('Main');
         if (game.brand_partners.lenght % 2 != 0)
           game.brand_partners.push({ invisible: true });
         dispatch(setGameTickerData(game));
@@ -110,7 +110,7 @@ export const getGameInfo = (token, latt, long) => async (
         convertToBase64(game.insta_image_url).then(result => {
           let info = {
             description: game.description,
-            cost: Number(Number(game.formated.amount).toFixed(2)) + "",
+            cost: Number(Number(game.formated.amount).toFixed(2)) + '',
             title: game.title,
             success_image: game.insta_image_url,
             no_more_games: false,
@@ -126,7 +126,7 @@ export const getGameInfo = (token, latt, long) => async (
             brand_title: game.brand_name,
             website_link: game.game_link || game.brand_link, //game.brand_link
             insta_data: {
-              base64: "data:image/jpg;base64," + result,
+              base64: 'data:image/jpg;base64,' + result,
               id: game.id,
               hash_tag: game.hash_tag
             }
@@ -141,13 +141,13 @@ export const getGameInfo = (token, latt, long) => async (
       }
     },
     error => {
-      console.log("game info err", error);
+      console.log('game info err', error);
       if (error.code === 400) {
         let info = {
-          description: "...",
-          cost: "0",
-          title: "",
-          success_image: "",
+          description: '...',
+          cost: '0',
+          title: '',
+          success_image: '',
           no_more_games: true,
           time: 0,
           available_game_len: 0,
@@ -155,7 +155,7 @@ export const getGameInfo = (token, latt, long) => async (
           true_answer: [],
           wait_timer: 0,
           wait_timer_in_sec: 0,
-          brand_title: "",
+          brand_title: '',
           insta_data: {}
         };
         dispatch(setGameInfo(info));
@@ -165,10 +165,10 @@ export const getGameInfo = (token, latt, long) => async (
         let error_response = handleError(
           error,
           {},
-          urls.game_get + "?coords=" + latt + "%2C" + long,
+          urls.game_get + '?coords=' + latt + '%2C' + long,
           token,
-          "game-info",
-          "getGameInfo"
+          'game-info',
+          'getGameInfo'
         );
         dispatch(errorState(error_response));
         dispatch(loaderState(false));

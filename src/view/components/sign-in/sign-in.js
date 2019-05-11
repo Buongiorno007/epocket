@@ -172,37 +172,37 @@ class SignIn extends React.Component {
 
   login = () => {
     Keyboard.dismiss();
-    this.setFailedSignVisible(false);
-    this.props.loaderState(true);
-    let bodyPhone = this.state.phone.replace(/\D/g, '');
-    let body = {
-      phone: '+' + bodyPhone
-    };
-    httpPost(urls.sing_in, JSON.stringify(body)).then(
-      result => {
-        this.setFailedSignVisible(false);
-        // this.props.loaderState(false); //DEPRECATED uncomment
-        // this.setState({ step: 2, acceptButton: false });
-        this.confirmLogin(); //DEPRECATED
-      },
-      error => {
-        let error_respons = handleError(
-          error,
-          body,
-          urls.sign_in,
-          '',
-          this.constructor.name,
-          'login'
-        );
-        this.setState({ errorText: error_respons.error_text });
-        if (error_respons.error_code == 400) {
-          this.setState({ numberNotExists: true });
-        } else {
-          this.setFailedSignVisible(error_respons.error_modal);
+      this.setFailedSignVisible(false);
+      this.props.loaderState(true);
+      let bodyPhone = this.state.phone.replace(/\D/g, '');
+      let body = {
+        phone: '+' + bodyPhone
+      };
+      httpPost(urls.sing_in, JSON.stringify(body)).then(
+        result => {
+          this.setFailedSignVisible(false);
+          // this.props.loaderState(false); //DEPRECATED uncomment
+          // this.setState({ step: 2, acceptButton: false });
+          this.confirmLogin(); //DEPRECATED
+        },
+        error => {
+          let error_respons = handleError(
+            error,
+            body,
+            urls.sign_in,
+            '',
+            this.constructor.name,
+            'login'
+          );
+          this.setState({ errorText: error_respons.error_text });
+          if (error_respons.error_code == 400) {
+            this.setState({ numberNotExists: true });
+          } else {
+            this.setFailedSignVisible(error_respons.error_modal);
+          }
+          this.props.loaderState(false);
         }
-        this.props.loaderState(false);
-      }
-    );
+      );
   };
 
   isFblogged = token => {
@@ -382,20 +382,18 @@ class SignIn extends React.Component {
               >
                 {I18n.t('NUMBER_NOT_EXISTS')}
               </Text>
-              <Animated.View style={[{ marginTop: this.state.signInMargin }]}>
-                <CustomButton
-                  color={
-                    this.state.acceptButton
-                      ? this.props.userColor.pink
-                      : this.props.userColor.white
-                  }
-                  handler={() => {
-                    this.login();
-                  }}
-                  active={this.state.acceptButton}
-                  title={I18n.t('SIGN_IN').toUpperCase()}
-                />
-              </Animated.View>
+              <CustomButton
+                color={
+                  this.state.acceptButton
+                    ? this.props.userColor.pink
+                    : this.props.userColor.white
+                }
+                handler={() => {
+                  this.login();
+                }}
+                active={this.state.acceptButton}
+                title={I18n.t('SIGN_IN').toUpperCase()}
+              />
             </View>
           ) : this.state.step == 2 ? (
             <View style={styles.form}>
@@ -420,20 +418,18 @@ class SignIn extends React.Component {
               {this.state.invalidCode ? (
                 <Text style={styles.check_code}>{I18n.t('CHECK_CODE')}</Text>
               ) : null}
-              <Animated.View style={[{ marginTop: this.state.signInMargin }]}>
-                <CustomButton
-                  color={
-                    this.state.acceptButton
-                      ? this.props.userColor.pink
-                      : this.props.userColor.white
-                  }
-                  handler={() => {
-                    this.confirmLogin();
-                  }}
-                  active={this.state.acceptButton}
-                  title={I18n.t('ACCEPT').toUpperCase()}
-                />
-              </Animated.View>
+              <CustomButton
+                color={
+                  this.state.acceptButton
+                    ? this.props.userColor.pink
+                    : this.props.userColor.white
+                }
+                handler={() => {
+                  this.confirmLogin();
+                }}
+                active={this.state.acceptButton}
+                title={I18n.t('ACCEPT').toUpperCase()}
+              />
             </View>
           ) : null}
         </View>
