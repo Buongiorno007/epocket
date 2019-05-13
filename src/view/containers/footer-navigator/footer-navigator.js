@@ -1,17 +1,17 @@
-import React from "react";
-import { View } from "react-native";
-import FastImage from "react-native-fast-image";
-import { Label, Button } from "native-base";
-import LinearGradient from "react-native-linear-gradient";
+import React from 'react';
+import { View } from 'react-native';
+import FastImage from 'react-native-fast-image';
+import { Label, Button } from 'native-base';
+import LinearGradient from 'react-native-linear-gradient';
 //constants
-import { ICONS } from "../../../constants/icons";
-import styles from "./styles";
+import { ICONS } from '../../../constants/icons';
+import styles from './styles';
 //redux
-import { setTabState } from "../../../reducers/tabs";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { showDashboard } from "../../../reducers/show-dashboard";
-import I18n from "@locales/I18n";
+import { setTabState } from '../../../reducers/tabs';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { showDashboard } from '../../../reducers/show-dashboard';
+import I18n from '@locales/I18n';
 
 class FooterNavigation extends React.Component {
   render() {
@@ -50,8 +50,8 @@ class FooterNavigation extends React.Component {
           />
           {this.props.activeTab === 0 ? (
             <Label style={styles.footer_tab_text}>
-              {" "}
-              {I18n.t("GAME.GAME_TITLE").toUpperCase()}{" "}
+              {' '}
+              {I18n.t('GAME.GAME_TITLE').toUpperCase()}{' '}
             </Label>
           ) : null}
         </Button>
@@ -77,8 +77,8 @@ class FooterNavigation extends React.Component {
           />
           {this.props.activeTab === 1 ? (
             <Label style={styles.footer_tab_text}>
-              {" "}
-              {I18n.t("SHOP").toUpperCase()}{" "}
+              {' '}
+              {I18n.t('SHOP').toUpperCase()}{' '}
             </Label>
           ) : null}
         </Button>
@@ -104,8 +104,8 @@ class FooterNavigation extends React.Component {
           />
           {this.props.activeTab === 2 ? (
             <Label style={styles.footer_tab_text}>
-              {" "}
-              {I18n.t("HISTORY").toUpperCase()}{" "}
+              {' '}
+              {I18n.t('HISTORY').toUpperCase()}{' '}
             </Label>
           ) : null}
         </Button>
@@ -129,8 +129,8 @@ class FooterNavigation extends React.Component {
           />
           {this.props.activeTab === 3 ? (
             <Label style={styles.footer_tab_text}>
-              {" "}
-              {I18n.t("PROFILE").toUpperCase()}{" "}
+              {' '}
+              {I18n.t('PROFILE').toUpperCase()}{' '}
             </Label>
           ) : null}
         </Button>

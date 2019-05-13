@@ -1,4 +1,4 @@
-export const CHANGE_LOADER_STATE = "loader/CHANGE_LOADER_STATE";
+export const CHANGE_LOADER_STATE = 'loader/CHANGE_LOADER_STATE';
 
 export default (state = false, action) => {
   switch (action.type) {

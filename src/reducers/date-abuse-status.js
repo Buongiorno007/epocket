@@ -26,7 +26,7 @@ export const loadNTPDate = () => async dispatch => {
   let deviceMinutes = moment().format("mm");
   ntpClient.getNetworkTime("pool.ntp.org", 123, function(err, date) {
     if (err) {
-      console.log(err);
+      // console.log(err);
       dispatch(setDateAbuseStatus(true)); //if error abuse windows will not show
       return;
     } else {

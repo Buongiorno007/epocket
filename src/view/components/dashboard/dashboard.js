@@ -509,7 +509,7 @@ class Dashboard extends React.Component {
       error => {
         CookieManager.clearAll().then(res => {
           this.props.loaderState(false);
-          console.log("Rejected: ", error);
+          // console.log("Rejected: ", error);
         });
       }
     );
@@ -539,12 +539,11 @@ class Dashboard extends React.Component {
     };
     this.props.updateTimer(curr_time);
     this.setStartMissionErrorVisible(false);
-    let promise = httpPost(
+    httpPost(
       urls.start_mission,
       JSON.stringify(this.state.body),
       this.props.token
-    );
-    promise.then(
+    ).then(
       result => {
         this.setStartMissionErrorVisible(false);
         this.setState({ load_timer: false });
@@ -734,7 +733,7 @@ class Dashboard extends React.Component {
   }
   finishMainMission() {
     if (this.state.finishMissionCalled) {
-      console.log("finishMainMission called second time");
+      // console.log("finishMainMission called second time");
     } else {
       this.setFinishMissionErrorVisible(false);
       this.setState({ load_missions: true });
@@ -869,7 +868,7 @@ class Dashboard extends React.Component {
           scopes={["basic"]}
           onLoginSuccess={json => this.connectFacebook(json.token)}
           onLoginFailure={data => {
-            console.log("Fail", data);
+            // console.log("Fail", data);
             CookieManager.clearAll().then(res => {
               this.props.loaderState(false);
             });
@@ -889,7 +888,7 @@ class Dashboard extends React.Component {
           scopes={["basic"]}
           onLoginSuccess={token => this.connectInsta(token)}
           onLoginFailure={data => {
-            console.log(data);
+            // console.log(data);
             CookieManager.clearAll().then(res => {
               this.props.loaderState(false);
             });
@@ -1067,7 +1066,7 @@ class Dashboard extends React.Component {
                       style={[
                         styles_top.epc_counter,
                         {
-                          fontSize: this.state.epcСounterFontSize
+                          fontSize: 18
                         }
                       ]}
                     >

@@ -16,7 +16,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: "space-around",
         backgroundColor: colors.no_internet_background,
-        zIndex : 10,
+        zIndex : 999,
 
     },
     purple_text : {

@@ -48,7 +48,7 @@ class PhotoCamera extends React.Component {
         });
       },
       error => {
-        console.log("Rejected: ", error);
+        // console.log("Rejected: ", error);
       }
     );
   };

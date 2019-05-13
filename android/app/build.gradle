@@ -99,7 +99,7 @@ def enableProguardInReleaseBuilds = false
 android {
     compileSdkVersion 27
 
-compileOptions {
+    compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -168,6 +168,8 @@ subprojects {
     }
 }
 dependencies {
+    implementation project(':@react-native-community_netinfo')
+    implementation project(':react-native-wheel-pick')
     implementation project(':react-native-gesture-handler')
     implementation project(':react-native-linear-gradient')
     implementation project(':react-native-i18n')
@@ -187,8 +189,8 @@ dependencies {
     implementation project(':react-native-cookies')
     implementation project(':rn-fetch-blob')
     implementation project(':react-native-fast-image')
+    implementation project(':react-native-background-fetch')
     implementation project(':react-native-share')
-    implementation project(':react-native-wheel-picker-android')
     implementation project(':react-native-fabric')
     implementation project(':react-native-mauron85-background-geolocation')
     implementation project(':react-native-firebase')
@@ -202,8 +204,6 @@ dependencies {
     implementation project(':react-native-image-picker')
     implementation project(':react-native-text-gradient')
     implementation project(':react-native-radial-gradient')
-    implementation project(':react-native-background-fetch')
-    implementation project(':react-native-background-geolocation')
     implementation project(':react-native-vector-icons')
     implementation project(':react-native-maps')
     implementation fileTree(dir: "libs", include: ["*.jar"])

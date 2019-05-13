@@ -23,7 +23,7 @@ class BarcodeView extends React.Component {
     Linking.canOpenURL(link)
       .then(supported => {
         if (!supported) {
-          console.log("Not supported");
+          // console.log("Not supported");
         } else {
           Linking.openURL(link);
         }
@@ -31,7 +31,7 @@ class BarcodeView extends React.Component {
       .catch(err => console.log(err));
   };
   render() {
-    console.log(this.props.phone, "MY PHONE");
+    // console.log(this.props.phone, "MY PHONE");
     return (
       <View style={styles.container}>
         <FastImage

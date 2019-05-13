@@ -221,7 +221,7 @@ class SignIn extends React.Component {
         this.props.loaderState(false);
       },
       error => {
-        console.log(error);
+        // console.log(error);
         this.props.loaderState(false);
       }
     );
@@ -237,7 +237,7 @@ class SignIn extends React.Component {
         this.props.loaderState(false);
       },
       error => {
-        console.log(error);
+        // console.log(error);
         this.props.loaderState(false);
       }
     );
@@ -253,7 +253,7 @@ class SignIn extends React.Component {
     };
     httpPost(urls.sing_in_confirm, JSON.stringify(body)).then(
       result => {
-        console.log("result", result);
+        // console.log("result", result);
         if (result.status === 200) {
           this.setFailedConfirmVisible(false);
           this.props.loaderState(false);

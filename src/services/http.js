@@ -1,10 +1,10 @@
 export const httpGet = (url, token) => {
   const defaultHeaders = {
-    Accept: "application/json",
-    "Content-Type": "application/json"
+    Accept: 'application/json',
+    'Content-Type': 'application/json'
   };
   const OPTIONS = {
-    method: "GET",
+    method: 'GET',
     headers: token
       ? {
           ...defaultHeaders,
@@ -17,12 +17,12 @@ export const httpGet = (url, token) => {
 
 export const httpPost = (url, body, token, formData) => {
   const defaultHeaders = {
-    "Content-Type": !formData
-      ? "application/json"
-      : "application/x-www-form-urlencoded"
+    'Content-Type': !formData
+      ? 'application/json'
+      : 'application/x-www-form-urlencoded'
   };
   const OPTIONS = {
-    method: "POST",
+    method: 'POST',
     headers: token
       ? {
           ...defaultHeaders,
@@ -38,7 +38,7 @@ export const httpPost = (url, body, token, formData) => {
 function sendRequestHTTP(url, OPTIONS) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      reject({ code: 408, statusText: "Request Timeout" });
+      reject({ code: 408, statusText: 'Request Timeout' });
     }, 45000);
     fetch(url, OPTIONS).then(response => {
       if (response.status >= 200 && response.status < 300) {
@@ -61,7 +61,7 @@ function sendRequestHTTP(url, OPTIONS) {
 function sendRequest(url, OPTIONS) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      reject({ code: 408, statusText: "Request Timeout" });
+      reject({ code: 408, statusText: 'Request Timeout' });
       // sendRequestHTTP(url.replace(/https/i, 'http'), OPTIONS)
     }, 45000);
     fetch(url, OPTIONS).then(response => {
@@ -79,7 +79,7 @@ function sendRequest(url, OPTIONS) {
             code: parseInt(`${response.status}`)
           });
         } catch (err) {
-          console.log(err);
+          // console.log(err);
           reject({
             body: err,
             code: parseInt(`${response.status}`)

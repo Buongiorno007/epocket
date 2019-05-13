@@ -15,7 +15,7 @@ import {
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { setTabState } from "../../../reducers/tabs";
+// import { setTabState } from "../../../reducers/tabs";
 import I18n from "@locales/I18n";
 
 class RefLink extends React.Component {
@@ -201,7 +201,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      setTabState
+      // setTabState
     },
     dispatch
   );

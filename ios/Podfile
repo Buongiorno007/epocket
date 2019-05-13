@@ -44,7 +44,7 @@ target 'EpocketCash' do
   pod 'ReactNativePermissions', :path => '../node_modules/react-native-permissions'
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
   pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
-  pod 'Firebase/Core'
+  pod 'Firebase/Core', '~> 4.13.0'
   pod 'Firebase/Messaging'
   pod 'Fabric'
   pod 'Crashlytics'
@@ -74,6 +74,8 @@ target 'EpocketCash' do
   pod 'RNI18n', :path => '../node_modules/react-native-i18n'
 
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
+  pod 'react-native-netinfo', :path => '../node_modules/@react-native-community/netinfo'
 
 end
   post_install do |installer|

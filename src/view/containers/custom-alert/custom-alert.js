@@ -1,106 +1,107 @@
-import React, { Component } from "react";
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-  Modal,
-  findNodeHandle,
-  Picker
-} from "react-native";
-import FastImage from 'react-native-fast-image'
-import { LinearTextGradient } from "react-native-text-gradient";
-import { Button } from "native-base";
+import React, { Component } from 'react';
+import { Text, View, Modal } from 'react-native';
+import FastImage from 'react-native-fast-image';
+import { LinearTextGradient } from 'react-native-text-gradient';
+import { Button } from 'native-base';
 //redux
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { setBirthDay } from "../../../reducers/birthday";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setBirthDay } from '../../../reducers/birthday';
 //containers
-import { WheelPicker } from 'react-native-wheel-picker-android'
+import { DatePicker } from 'react-native-wheel-pick';
 //constants
-import styles from "./styles";
-import { ICONS } from "../../../constants/icons";
-import { colors } from "../../../constants/colors_men";
-import Blur from "../blur/blur";
+import styles from './styles';
+import { ICONS } from '../../../constants/icons';
+import { colors } from '../../../constants/colors_men';
+import Blur from '../blur/blur';
+import I18n from '@locales/I18n';
+import moment from 'moment';
+
+const firstDay = new Date('1901-01-01');
+
 const today = new Date();
-const months = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь']
-{
-  /* 
-call example
-title - main message
-first_btn_title - title on left button
-second_btn_title - title on right button (if doesnt exist, modal will be with 1 big button)
-first_btn_handler - function onPress left button
-second_btn_handler - function onPress right button
-visible - visibility of the modal (default true)
 
-<CustomAlert
-            title={"Sample"}
-            first_btn_title={"OK"}
-            second_btn_title={"DECLINE"}
-            visible={this.state.modalVisible}
-            first_btn_handler={() => NavigationService.navigate("Main")}
-            second_btn_handler={() =>
-              this.setModalVisible(!this.state.exitVisible)
-            }
-            decline_btn_handler={() =>
-              this.setModalVisible(!this.state.exitVisible)
-            }
-          />
+const months =
+  I18n.locale === 'ru'
+    ? [
+        'январь',
+        'февраль',
+        'март',
+        'апрель',
+        'май',
+        'июнь',
+        'июль',
+        'август',
+        'сентябрь',
+        'октябрь',
+        'ноябрь',
+        'декабрь'
+      ]
+    : [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+      ];
 
-*/
-}
 class CustomAlert extends Component {
   constructor(props) {
     super(props);
   }
   state = {
-    viewRef: null,
-    initialDay: today.getUTCDate(),
-    initialYear: today.getFullYear(),
-    initialMonths: today.getMonth(),
-    wheelPickerDataDays: [],
-    wheelPickerDataYears: [],
-    wheelPickerDataMonths: months,
-    pickedDay: Platform.OS === "ios" ? { data: today.getUTCDate() + "" } : { data: today.getUTCDate() },
-    pickedMonth: { position: today.getMonth() },
-    pickedYear: Platform.OS === "ios" ? { data: today.getFullYear() + "" } : { data: today.getFullYear() }
+    chosenDay: '',
+    chosenMonth: '',
+    chosenYear: '',
+    birthday: new Date(),
+    locale: ''
   };
   componentDidMount() {
-    let wheelPickerDataDays = [];
-    let wheelPickerDataYears = [];
-    for (let i = 1; i <= 31; i++) {
-      Platform.OS === "ios" ? wheelPickerDataDays.push('' + i) : wheelPickerDataDays.push(i)
-    }
-    for (let i = 1905; i <= today.getFullYear(); i++) {
-      Platform.OS === "ios" ? wheelPickerDataYears.push('' + i) : wheelPickerDataYears.push(i)
-    }
-    this.setState({ wheelPickerDataDays, wheelPickerDataYears })
+    let birt = `${this.props.birthday.split('.')[2]}-${
+      this.props.birthday.split('.')[1]
+    }-${this.props.birthday.split('.')[0]}`;
+    this.setState({
+      birthday: new Date(birt),
+      chosenDay: moment(this.props.birthday).format('MM'),
+      chosenMonth: Number(moment(this.props.birthday).format('DD')) - 1,
+      chosenYear: moment(this.props.birthday).format('YYYY'),
+      locale: I18n.locale
+    });
   }
-  modalLoaded() {
-    this.setState({ viewRef: findNodeHandle(this.backgroundModal) });
+
+  pickBirthDay(value) {
+    this.setState({
+      chosenDay: value.getUTCDate(),
+      chosenMonth: value.getMonth(),
+      chosenYear: value.getFullYear(),
+      birthday: value
+    });
   }
-  onDaySelected(pickedDay) {
-    this.setState({ pickedDay })
-  }
-  onMonthSelected(pickedMonth) {
-    this.setState({ pickedMonth })
-  }
-  onYearSelected(pickedYear) {
-    this.setState({ pickedYear })
-    console.log(this.state.pickedDay, this.state.pickedMonth, this.state.pickedYear)
-  }
+
   render() {
     return (
       <Modal
         animationType="fade"
         transparent={true}
         visible={this.props.visible}
-        onRequestClose={() => { }}
+        onRequestClose={() => {}}
       >
         <Blur />
         <View style={styles.content}>
-          <View style={this.props.datepicker ? styles.big_content_inner : styles.content_inner}>
+          <View
+            style={
+              this.props.datepicker
+                ? styles.big_content_inner
+                : styles.content_inner
+            }
+          >
             <View style={styles.cross_view}>
               <Button
                 transparent
@@ -114,92 +115,42 @@ class CustomAlert extends Component {
                 />
               </Button>
             </View>
-            {this.props.datepicker ?
-              Platform.OS === "ios" ?
-                <View style={styles.date_modal}>
-                  <Picker
-                    style={[styles.wheelPickerIOS]}
-                    selectedValue={this.state.pickedDay.data}
-                    onValueChange={itemValue => this.setState({ pickedDay: { data: itemValue } })}
-                  >
-                    {this.state.wheelPickerDataDays.map((i, index) => (
-                      <Picker.Item style={[styles.wheelPickerIOS_item]} key={index} label={i} value={i} />
-                    ))}
-                  </Picker>
-                  <Picker
-                    style={[styles.wheelPickerIOS, styles.wheelPickerIOS_month]}
-                    selectedValue={this.state.pickedMonth.position}
-                    onValueChange={itemValue => this.setState({ pickedMonth: { position: itemValue } })}>
-                    {this.state.wheelPickerDataMonths.map((i, index) => (
-                      <Picker.Item style={[styles.wheelPickerIOS_item]} key={index} label={i} value={index} />
-                    ))}
-                  </Picker>
-                  <Picker
-                    style={[styles.wheelPickerIOS]}
-                    selectedValue={this.state.pickedYear.data}
-                    onValueChange={itemValue => this.setState({ pickedYear: { data: itemValue } })}>
-                    {this.state.wheelPickerDataYears.map((i, index) => (
-                      <Picker.Item style={[styles.wheelPickerIOS_item]} key={index} label={i} value={i} />
-                    ))}
-                  </Picker>
-                </View>
-                :
-                <View style={styles.date_modal}>
-                  <WheelPicker
-                    isCurved
-                    isCyclic
-                    selectedItemTextColor="#F63272"
-                    indicatorColor="#F63272"
-                    renderIndicator
-                    selectedItemPosition={this.state.wheelPickerDataDays.indexOf(this.state.initialDay)}
-                    itemSpace={30}
-                    itemTextSize={31}
-                    visibleItemCount={3}
-                    data={this.state.wheelPickerDataDays}
-                    style={[styles.wheelPicker, styles.wheelPickerDay]}
-                    onItemSelected={(day) => this.onDaySelected(day)} />
-                  <WheelPicker
-                    isCurved
-                    isCyclic
-                    selectedItemTextColor="#F63272"
-                    indicatorColor="#F63272"
-                    renderIndicator
-                    selectedItemPosition={this.state.initialMonths}
-                    itemSpace={30}
-                    itemTextSize={31}
-                    visibleItemCount={3}
-                    data={this.state.wheelPickerDataMonths}
-                    style={[styles.wheelPicker, styles.wheelPickerMonths]}
-                    onItemSelected={(month) => this.onMonthSelected(month)} />
-                  <WheelPicker
-                    isCurved
-                    selectedItemTextColor="#F63272"
-                    indicatorColor="#F63272"
-                    renderIndicator
-                    selectedItemPosition={this.state.wheelPickerDataYears.indexOf(this.state.initialYear)}
-                    itemSpace={30}
-                    itemTextSize={31}
-                    visibleItemCount={3}
-                    data={this.state.wheelPickerDataYears}
-                    style={[styles.wheelPicker, styles.wheelPickerYear]}
-                    onItemSelected={(year) => this.onYearSelected(year)} />
-                </View>
-              :
+            {this.props.datepicker ? (
+              <View style={styles.date_modal}>
+                <DatePicker
+                  order={'D-M-Y'}
+                  style={styles.newWheelPicker}
+                  textSize={16}
+                  itemSpace={15}
+                  labelUnit={{ month: months, date: '', year: '' }}
+                  locale={this.state.locale}
+                  date={this.state.birthday}
+                  minimumDate={firstDay}
+                  maximumDate={today}
+                  onDateChange={date => {
+                    this.pickBirthDay(date);
+                  }}
+                />
+              </View>
+            ) : (
               <View style={styles.modal_title}>
                 <Text style={styles.modal_title_text}>{this.props.title}</Text>
-                {this.props.subtitle &&
+                {this.props.subtitle && (
                   <LinearTextGradient
                     locations={[0, 1]}
-                    colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
+                    colors={[
+                      this.props.userColor.first_gradient_color,
+                      this.props.userColor.second_gradient_color
+                    ]}
                     start={{ x: 0.0, y: 1.0 }}
                     end={{ x: 1.0, y: 1.0 }}
                     style={styles.modal_title_text}
                   >
                     {this.props.subtitle}
                   </LinearTextGradient>
-                }
+                )}
               </View>
-            }
+            )}
             {this.props.second_btn_title ? (
               <View style={styles.modal_buttons}>
                 <Button
@@ -209,7 +160,10 @@ class CustomAlert extends Component {
                 >
                   <LinearTextGradient
                     locations={[0, 1]}
-                    colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
+                    colors={[
+                      this.props.userColor.first_gradient_color,
+                      this.props.userColor.second_gradient_color
+                    ]}
                     start={{ x: 0.0, y: 1.0 }}
                     end={{ x: 1.0, y: 1.0 }}
                     style={styles.alert_text}
@@ -228,29 +182,48 @@ class CustomAlert extends Component {
                 </Button>
               </View>
             ) : (
-                <View style={styles.modal_buttons}>
-                  <Button
-                    transparent
-                    style={styles.big_centered_button}
-                    onPress={() => { this.props.datepicker ? (this.props.setBirthDay({ day: this.state.pickedDay.data, month: this.state.pickedMonth.position + 1, year: this.state.pickedYear.data }), this.props.first_btn_handler()) : this.props.first_btn_handler() }}
-                  >
-                    {this.props.datepicker || this.props.subtitle ?
-                      <LinearTextGradient
-                        locations={[0, 1]}
-                        colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
-                        start={{ x: 0.0, y: 1.0 }}
-                        end={{ x: 1.0, y: 1.0 }}
-                        style={styles.alert_text}
-                      >
-                        {this.props.first_btn_title}
-                      </LinearTextGradient> :
-                      <Text style={styles.alert_text}>
-                        {this.props.first_btn_title}
-                      </Text>
-                    }
-                  </Button>
-                </View>
-              )}
+              <View style={styles.modal_buttons}>
+                <Button
+                  transparent
+                  style={styles.big_centered_button}
+                  onPress={() => {
+                    console.log(
+                      this.state.chosenDay,
+                      this.state.chosenMonth,
+                      this.state.chosenYear,
+                      'RESULT ACCEPT'
+                    );
+                    this.props.datepicker
+                      ? (this.props.setBirthDay({
+                          day: this.state.chosenDay,
+                          month: this.state.chosenMonth + 1,
+                          year: this.state.chosenYear
+                        }),
+                        this.props.first_btn_handler())
+                      : this.props.first_btn_handler();
+                  }}
+                >
+                  {this.props.datepicker || this.props.subtitle ? (
+                    <LinearTextGradient
+                      locations={[0, 1]}
+                      colors={[
+                        this.props.userColor.first_gradient_color,
+                        this.props.userColor.second_gradient_color
+                      ]}
+                      start={{ x: 0.0, y: 1.0 }}
+                      end={{ x: 1.0, y: 1.0 }}
+                      style={styles.alert_text}
+                    >
+                      {this.props.first_btn_title}
+                    </LinearTextGradient>
+                  ) : (
+                    <Text style={styles.alert_text}>
+                      {this.props.first_btn_title}
+                    </Text>
+                  )}
+                </Button>
+              </View>
+            )}
           </View>
         </View>
       </Modal>
@@ -259,6 +232,7 @@ class CustomAlert extends Component {
 }
 const mapStateToProps = state => ({
   userColor: state.userColor,
+  birthday: state.birthday
 });
 
 const mapDispatchToProps = dispatch =>

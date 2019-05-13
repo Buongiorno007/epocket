@@ -1,27 +1,27 @@
-import React from "react";
-import { Platform, AppState } from "react-native";
-import geolib from "geolib";
-import BackgroundFetch from "react-native-background-fetch";
-import BackgroundTimer from "react-native-background-timer";
-import { httpPost } from "./http";
+import React from 'react';
+import { Platform, AppState } from 'react-native';
+import geolib from 'geolib';
+import BackgroundFetch from 'react-native-background-fetch';
+import BackgroundTimer from 'react-native-background-timer';
+import { httpPost } from './http';
 //services
-import getCurrentGeolocation from "./get-location";
+import getCurrentGeolocation from './get-location';
 //redux
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { showDashboard } from "../reducers/show-dashboard";
-import { setDistance } from "../reducers/distance";
-import { setAppState } from "../reducers/app-state";
-import { setGameStatus } from "../reducers/game-status";
-import { setMainTaskId } from "../reducers/main-task-id";
-import { setSheduleRequestStart } from "../reducers/set-shedule-request-start";
-import { showDoneNotification } from "../reducers/main-task-done-notification";
-import { showTimer } from "../reducers/show-dashboard-timer";
-import { setPushStatus } from "../reducers/push-send-status";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { showDashboard } from '../reducers/show-dashboard';
+import { setDistance } from '../reducers/distance';
+import { setAppState } from '../reducers/app-state';
+import { setGameStatus } from '../reducers/game-status';
+import { setMainTaskId } from '../reducers/main-task-id';
+import { setSheduleRequestStart } from '../reducers/set-shedule-request-start';
+import { showDoneNotification } from '../reducers/main-task-done-notification';
+import { showTimer } from '../reducers/show-dashboard-timer';
+import { setPushStatus } from '../reducers/push-send-status';
 //constants
-import { urls } from "../constants/urls";
-import firebase from "react-native-firebase";
-import I18n from "@locales/I18n";
+import { urls } from '../constants/urls';
+import firebase from 'react-native-firebase';
+import I18n from '@locales/I18n';
 
 class GeolocationService extends React.Component {
   state = {
@@ -32,12 +32,7 @@ class GeolocationService extends React.Component {
     let body = {
       outlet_id: this.props.selectedMall.id
     };
-    let promise = httpPost(
-      urls.start_mission,
-      JSON.stringify(body),
-      this.props.token
-    );
-    promise.then(
+    httpPost(urls.start_mission, JSON.stringify(body), this.props.token).then(
       result => {
         if (result.body.interval <= 0) {
           this.finishMainTask();
@@ -92,14 +87,14 @@ class GeolocationService extends React.Component {
 
   sendDistancePush = message => {
     const notification = new firebase.notifications.Notification()
-      .setNotificationId("notificationId")
-      .setTitle("EpocketCash")
+      .setNotificationId('notificationId')
+      .setTitle('EpocketCash')
       .setBody(message);
 
     notification.android
-      .setChannelId("chanelId")
+      .setChannelId('chanelId')
       .android.setColor(this.props.userColor.pink)
-      .android.setSmallIcon("@drawable/ic_notif");
+      .android.setSmallIcon('@drawable/ic_notif');
 
     firebase.notifications().displayNotification(notification);
   };
@@ -120,9 +115,10 @@ class GeolocationService extends React.Component {
   //   });
   // };
   _handleAppStateChange = nextAppState => {
+    
     if (
       this.props.appState.match(/inactive|background/) &&
-      nextAppState === "active"
+      nextAppState === 'active'
     ) {
       getCurrentGeolocation().then(
         location => {
@@ -143,7 +139,7 @@ class GeolocationService extends React.Component {
   };
 
   componentDidMount() {
-    AppState.addEventListener("change", this._handleAppStateChange);
+    AppState.addEventListener('change', this._handleAppStateChange);
   }
   closeMission = () => {
     this.props.showFailedNotification(true);
@@ -173,7 +169,7 @@ class GeolocationService extends React.Component {
           this.props.setPushStatus(true);
         }
         if (distance <= 100 && !nextProps.pushSendStaus) {
-          this.sendDistancePush(I18n.t("PUSH_MESSAGE.PUSH_3"));
+          this.sendDistancePush(I18n.t('PUSH_MESSAGE.PUSH_3'));
           this.props.setPushStatus(true);
         }
         if (
@@ -183,12 +179,12 @@ class GeolocationService extends React.Component {
         ) {
           this.props.showDashboard(true);
           this.props.showTimer(false);
-          this.sendDistancePush(I18n.t("PUSH_MESSAGE.PUSH_4"));
+          this.sendDistancePush(I18n.t('PUSH_MESSAGE.PUSH_4'));
         }
         if (distance > 0 && this.props.timer_status) {
           this.props.showDashboard(false);
           this.props.showTimer(true);
-          this.sendDistancePush(I18n.t("PUSH_MESSAGE.PUSH_5"));
+          this.sendDistancePush(I18n.t('PUSH_MESSAGE.PUSH_5'));
         }
       }
     }

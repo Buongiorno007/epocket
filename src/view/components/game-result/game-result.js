@@ -17,7 +17,7 @@ import RNFS from "react-native-fs";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { setGameStatus } from "../../../reducers/game-status";
-import { setTabState } from "../../../reducers/tabs";
+// import { setTabState } from "../../../reducers/tabs";
 import { loaderState } from "../../../reducers/loader";
 import { setInstaToken } from "../../../reducers/insta-token";
 import { setAppState } from "../../../reducers/app-state";
@@ -254,7 +254,7 @@ class GameResult extends React.Component {
         }
       },
       error => {
-        console.log(error);
+        // console.log(error);
         CookieManager.clearAll().then(res => {
           this.props.loaderState(false);
         });
@@ -298,7 +298,7 @@ class GameResult extends React.Component {
   };
   _handleAppStateChange = nextAppState => {
     if (this.props.navigation.state.params.status != "success") {
-      console.log("user tried to abuse");
+      // console.log("user tried to abuse");
       this.goWait();
     }
     this.props.setAppState(nextAppState);
@@ -399,7 +399,7 @@ class GameResult extends React.Component {
   };
 
   render() {
-    console.log(this.props.website_timer, "PROPS WEBSITE TIMER");
+    // console.log(this.props.website_timer, "PROPS WEBSITE TIMER");
     return (
       <View style={styles.container}>
         <StatusBar
@@ -487,12 +487,12 @@ class GameResult extends React.Component {
             "relationships"
           ]}
           onLoginSuccess={token => {
-            console.log(token);
+            // console.log(token);
             this.connectInsta(token);
           }}
           onLoginFailure={data => {
             let token = data.next.split("#access_token=")[1];
-            console.log(data, token);
+            // console.log(data, token);
             this.connectInsta(token);
           }}
         />
@@ -701,7 +701,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       setGameStatus,
-      setTabState,
+      // setTabState,
       launchGameExpiredTimer,
       loaderState,
       setFixedTime,

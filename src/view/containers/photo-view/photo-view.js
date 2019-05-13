@@ -48,7 +48,7 @@ class PhotoView extends React.Component {
       photo: this.props.navigation.state.params.image,
       mission_id: this.props.selectedMission.id
     };
-    console.log(body);
+    // console.log(body);
     let promise = httpPost(
       urls.insta_upload_photo,
       serializeJSON(body),
@@ -57,7 +57,7 @@ class PhotoView extends React.Component {
     );
     promise.then(
       result => {
-        console.log("result", result);
+        // console.log("result", result);
         this.setErrorPhotoVisible(false);
         if (__DEV__) {
           NavigationService.navigate("MissionSuccess", {

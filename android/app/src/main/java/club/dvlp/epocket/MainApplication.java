@@ -5,29 +5,29 @@ import android.app.Application;
 import com.facebook.FacebookSdk;
 import com.facebook.CallbackManager;
 import com.facebook.appevents.AppEventsLogger;
-
+import com.jobeso.RNInstagramStoryShare.RNInstagramStorySharePackage;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.netinfo.NetInfoPackage;
+import com.tron.ReactNativeWheelPickerPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.idehub.GoogleAnalyticsBridge.GoogleAnalyticsBridgePackage;
 import com.tradle.react.UdpSocketsModule;
-import com.mocklocation.reactnative.RNMockLocationDetectorPackage;
 import com.levelasquez.androidopensettings.AndroidOpenSettingsPackage;
+import com.mocklocation.reactnative.RNMockLocationDetectorPackage;
 import com.gantix.JailMonkey.JailMonkeyPackage;
 import com.jdc.reactlibrary.RNReferrerPackage;
 import com.horcrux.svg.SvgPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.rnfs.RNFSPackage;
-import com.jobeso.RNInstagramStoryShare.RNInstagramStorySharePackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.psykar.cookiemanager.CookieManagerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import cl.json.RNSharePackage;
-import com.wheelpicker.WheelPickerPackage;
 import com.smixx.fabric.FabricPackage;
 import com.marianhello.bgloc.react.BackgroundGeolocationPackage;
 
@@ -44,10 +44,8 @@ import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 
 import iyegoroff.RNTextGradient.RNTextGradientPackage;
-
-import com.surajit.rnrg.RNRadialGradientPackage;
 import com.transistorsoft.rnbackgroundfetch.RNBackgroundFetchPackage;
-import com.transistorsoft.rnbackgroundgeolocation.RNBackgroundGeolocation;
+import com.surajit.rnrg.RNRadialGradientPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -85,15 +83,17 @@ public class MainApplication extends Application implements ShareApplication, Re
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new RNGestureHandlerPackage(),
-            new LinearGradientPackage(),
-            new RNI18nPackage(),
-            new GoogleAnalyticsBridgePackage(),
-            new UdpSocketsModule(),
-            new RNMockLocationDetectorPackage(),
-            new AndroidOpenSettingsPackage(),
-            new JailMonkeyPackage(),
-            new RNReferrerPackage(),
+                    new NetInfoPackage(),
+                    new ReactNativeWheelPickerPackage(),
+                    new RNGestureHandlerPackage(),
+                    new LinearGradientPackage(),
+                    new RNI18nPackage(),
+                    new GoogleAnalyticsBridgePackage(),
+                    new UdpSocketsModule(),
+                    new RNMockLocationDetectorPackage(),
+                    new AndroidOpenSettingsPackage(),
+                    new JailMonkeyPackage(),
+                    new RNReferrerPackage(),
                     new LinearGradientPackage(),
                     new SvgPackage(),
                     new RNSoundPackage(),
@@ -104,7 +104,6 @@ public class MainApplication extends Application implements ShareApplication, Re
                     new RNFetchBlobPackage(),
                     new FastImageViewPackage(),
                     new RNSharePackage(),
-                    new WheelPickerPackage(),
                     new FabricPackage(),
                     new BackgroundGeolocationPackage(),
                     new RNFirebasePackage(),
@@ -118,7 +117,6 @@ public class MainApplication extends Application implements ShareApplication, Re
                     new VectorIconsPackage(),
                     new RNRadialGradientPackage(),
                     new RNBackgroundFetchPackage(),
-                    new RNBackgroundGeolocation(),
                     new MapsPackage()
 
             );

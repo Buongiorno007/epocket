@@ -150,7 +150,7 @@ class CashoutList extends React.Component {
         outlet_id: this.props.selectedMall.id,
         products: copyForCategoryClean
       };
-      console.log(body);
+      // console.log(body);
       let promise = httpPost(
         urls.create_order,
         JSON.stringify(body),

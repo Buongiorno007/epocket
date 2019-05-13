@@ -141,7 +141,7 @@ export const getGameInfo = (token, latt, long) => async (
       }
     },
     error => {
-      console.log("game info err", error);
+      // console.log("game info err", error);
       if (error.code === 400) {
         let info = {
           description: "...",

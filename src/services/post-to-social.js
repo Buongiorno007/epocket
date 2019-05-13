@@ -47,38 +47,38 @@ callCallback = callback => {
   }
 };
 
-export function postToSocialStory(postData, deepLink, confirmFuction) {
-  //deprecated
-  if (Platform.OS === "ios") {
-    RNInstagramStoryShare.share(
-      {
-        backgroundImage: postData.base64,
-        deeplinkingUrl: deepLink
-      },
-      this.callCallback,
-      this.callCallback
-    );
-    confirmFuction();
-  } else {
-    let image_data = postData.base64.split("data:image/jpg;base64,")[1];
-    const dirs = RNFetchBlob.fs.dirs;
-    const file_path = dirs.DCIMDir + "/epc_game_img.jpg";
-    RNFS.writeFile(file_path, image_data, "base64")
-      .then(() => {
-        RNInstagramStoryShare.share(
-          {
-            backgroundImage: file_path,
-            deeplinkingUrl: deepLink
-          },
-          this.callCallback,
-          this.callCallback
-        );
-      })
-      .catch(err => {
-        console.log("writeFile error", err);
-      });
-  }
-}
+// export function postToSocialStory(postData, deepLink, confirmFuction) {
+//   //deprecated
+//   if (Platform.OS === "ios") {
+//     RNInstagramStoryShare.share(
+//       {
+//         backgroundImage: postData.base64,
+//         deeplinkingUrl: deepLink
+//       },
+//       this.callCallback,
+//       this.callCallback
+//     );
+//     confirmFuction();
+//   } else {
+//     let image_data = postData.base64.split("data:image/jpg;base64,")[1];
+//     const dirs = RNFetchBlob.fs.dirs;
+//     const file_path = dirs.DCIMDir + "/epc_game_img.jpg";
+//     RNFS.writeFile(file_path, image_data, "base64")
+//       .then(() => {
+//         RNInstagramStoryShare.share(
+//           {
+//             backgroundImage: file_path,
+//             deeplinkingUrl: deepLink
+//           },
+//           this.callCallback,
+//           this.callCallback
+//         );
+//       })
+//       .catch(err => {
+//         console.log("writeFile error", err);
+//       });
+//   }
+// }
 export function postToSocial(postData, deepLink, confirmFuction, video_status) {
   let base64Prefix = "data:image/jpg;base64,";
   const dirs = RNFetchBlob.fs.dirs;

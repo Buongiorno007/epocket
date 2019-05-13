@@ -11,8 +11,9 @@ if FBSDK     /pod 'FBSDKCoreKit', '~> 4.42.0'   /
 
 
 6) npm i && node node_modules/react-native-text-gradient/patch-rn.js && cd ios && pod update && cd ../ 
-then replace from native-modules in node-modules and react-native-google-analytics 15.0.0
 
+NOTATION: then replace from native-modules in node-modules and react-native-google-analytics 15.0.0
+NOTATION: remove 'static' from 'static getDerivedStateFromProps'
 #EpocketCash
 
 Purpose of the application: to increase the time of clients' stay in the shopping center
