@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, WebView, AsyncStorage, Text } from 'react-native';
+import { View, AsyncStorage, Text } from 'react-native';
 import { Button } from 'native-base';
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
@@ -15,6 +15,7 @@ import GameTimer from '../../containers/game-timer/game-timer';
 //services
 import { toHHMMSS } from './../../../services/convert-time';
 import I18n from '@locales/I18n';
+import { WebView } from 'react-native-webview';
 
 class BrandWebsite extends React.Component {
     state = {
@@ -28,7 +29,7 @@ class BrandWebsite extends React.Component {
         });
     }
     render() {
-        if (this.props.website_timer === 1 || this.props.website_timer < 0) {
+        if (this.props.website_timer <= 0) {
             if (this.props.stopTimer) {
                 this.props.stopTimer();
             }

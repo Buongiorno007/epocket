@@ -8,9 +8,10 @@ import {
   Platform,
   Alert,
   Keyboard,
-  Animated,
-  WebView
+  Animated
 } from "react-native";
+import { WebView } from 'react-native-webview';
+
 import FastImage from "react-native-fast-image";
 import { TextField } from "react-native-material-textfield";
 import LinearGradient from "react-native-linear-gradient";

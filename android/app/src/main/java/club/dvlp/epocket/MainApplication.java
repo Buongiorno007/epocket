@@ -5,6 +5,7 @@ import android.app.Application;
 import com.facebook.CallbackManager;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.horcrux.svg.SvgPackage;
 import com.jobeso.RNInstagramStoryShare.RNInstagramStorySharePackage;
 import com.mocklocation.reactnative.RNMockLocationDetectorPackage;
@@ -83,6 +84,7 @@ public class MainApplication extends Application implements ShareApplication, Re
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new RNCWebViewPackage(),
                     new SvgPackage(),
                     new NetInfoPackage(),
                     new ReactNativeWheelPickerPackage(),
