@@ -417,7 +417,7 @@ class GameResult extends React.Component {
             this.checkForGames('home');
           }}
         />
-        {this.props.loader && <ActivityIndicator />}
+        {/* {this.props.loader && <ActivityIndicator />} */}
         <CustomAlert
           title={I18n.t('GAME.RESULT.CANT_POST')}
           first_btn_title={I18n.t('OK')}

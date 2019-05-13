@@ -221,7 +221,7 @@ class GameStart extends React.Component {
   render() {
     return (
       <View style={styles.main_view}>
-        {this.props.loader && <ActivityIndicator />}
+        {/* {this.props.loader && <ActivityIndicator />} */}
         <BrandWebsite
           visible={this.state.website_visible}
           brand_title={this.state.brand_title}
