@@ -69,6 +69,7 @@ class Main extends React.Component {
       setTimeout(() => {
         this.props.updateRootStatus();
       }, 5000);
+      console.log('test')
     }
   };
   renderLastTab() {
