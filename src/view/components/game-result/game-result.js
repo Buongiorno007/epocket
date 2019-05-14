@@ -262,12 +262,13 @@ class GameResult extends React.Component {
     );
   };
   confirmPost = () => {
-    this.props.checkForPostStatus(
+    setTimeout(() => {
+      this.props.checkForPostStatus(
       this.props.game_info.id,
       this.props.token,
       this.props.location.lat,
-      this.props.location.lng
-    );
+      this.props.location.lng)
+    }, 5000)
     this.setState({ buttonActive: true });
   };
 

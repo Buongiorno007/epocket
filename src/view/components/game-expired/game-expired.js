@@ -146,13 +146,14 @@ class GameStart extends React.Component {
   };
   confirmPost = () => {
     if (this.props.game_expired_img.id) {
-      this.props.checkForPostStatus(
+      setTimeout(() => {
+        this.props.checkForPostStatus(
         this.props.game_expired_img.id,
         this.props.token,
         this.props.location.lat,
         this.props.location.lng,
-        this.props.game_expired_timer
-      );
+        this.props.game_expired_timer)
+      }, 5000 )
       if (this.props.postStatus)
         this.props.shutDownExpiredTimer(
           this.props.token,

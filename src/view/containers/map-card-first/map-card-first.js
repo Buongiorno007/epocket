@@ -20,6 +20,7 @@ import CustomButton from "../custom-button/custom-button";
 //services
 import moment from "moment";
 import I18n from "@locales/I18n";
+// import console = require("console");
 
 class CardDiscount extends React.Component {
   state = {
@@ -34,6 +35,7 @@ class CardDiscount extends React.Component {
     this.props.onPressItem(this.props.item);
   };
   componentDidMount = () => {
+    console.log("this.props.isLocation", this.props.isLocation)
     if (!this.props.type && this.props.shopActive) {
       AsyncStorage.multiGet([
         "cashout_cart",

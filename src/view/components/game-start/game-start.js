@@ -51,6 +51,7 @@ import NavigationService from './../../../services/route';
 import '../../../services/correcting-interval';
 import moment from 'moment-timezone';
 import I18n from '@locales/I18n';
+// import console = require('console');
 
 class GameStart extends React.Component {
   state = {
@@ -72,6 +73,11 @@ class GameStart extends React.Component {
   // }
 
   componentDidMount() {
+    this.props.getGameInfo(
+      this.props.token,
+      this.props.location.lat,
+      this.props.location.lng
+    );
     this.loadTRC();
     AppState.addEventListener('change', this._handleAppStateChange);
     setTimeout(() => {
