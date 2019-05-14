@@ -168,6 +168,7 @@ subprojects {
     }
 }
 dependencies {
+    implementation project(':@react-native-community_blur')
     implementation project(':react-native-svg')
     implementation project(':@react-native-community_netinfo')
     implementation project(':react-native-wheel-pick')

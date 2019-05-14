@@ -76,6 +76,8 @@ target 'EpocketCash' do
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
+  pod 'react-native-blur', :path => '../node_modules/@react-native-community/blur'
+
 end
   post_install do |installer|
     installer.pods_project.targets.each do |target|

@@ -16,7 +16,7 @@ NOTATION: then replace from native-modules in node-modules and react-native-goog
 NOTATION: remove 'static' from 'static getDerivedStateFromProps'
 
 #EpocketCash
-
+cd ios && pod deintegrate && pod clean && pod install && cd ../
 remove libraries: {
     react-native-referrer,
     react-native-google-analytics-bridge,
