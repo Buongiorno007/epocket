@@ -63,39 +63,39 @@ class GameStart extends React.Component {
     currency: ''
   };
 
-  componentWillMount() {
-    this.props.getGameInfo(
-      this.props.token,
-      this.props.location.lat,
-      this.props.location.lng
-    );
-  }
+  // componentWillMount() {
+  //   this.props.getGameInfo(
+  //     this.props.token,
+  //     this.props.location.lat,
+  //     this.props.location.lng
+  //   );
+  // }
 
   componentDidMount() {
-    this.loadTRC();
-    AppState.addEventListener('change', this._handleAppStateChange);
-    setTimeout(() => {
-      this.setState({ loader: false });
-    }, 1000);
-    if (
-      this.props.game_status != 'lock' &&
-      this.props.game_status != 'expired' &&
-      this.props.game_status != 'failed' &&
-      this.props.game_status != 'start'
-    ) {
-      this.props.setGameStatus('start');
-    }
-    if (
-      this.props.game_status === 'lock' &&
-      this.props.distance <= 0 &&
-      this.props.selectedMall.id
-    ) {
-      this.updateGames(this.props.selectedMall.id);
-    }
-    AsyncStorage.getItem('user_info').then(value => {
-      let object = JSON.parse(value);
-      this.setState({ currency: object.currency });
-    });
+      this.loadTRC();
+      AppState.addEventListener('change', this._handleAppStateChange);
+      setTimeout(() => {
+        this.setState({ loader: false });
+      }, 1000);
+      if (
+        this.props.game_status != 'lock' &&
+        this.props.game_status != 'expired' &&
+        this.props.game_status != 'failed' &&
+        this.props.game_status != 'start'
+      ) {
+        this.props.setGameStatus('start');
+      }
+      if (
+        this.props.game_status === 'lock' &&
+        this.props.distance <= 0 &&
+        this.props.selectedMall.id
+      ) {
+        this.updateGames(this.props.selectedMall.id);
+      }
+      AsyncStorage.getItem('user_info').then(value => {
+        let object = JSON.parse(value);
+        this.setState({ currency: object.currency });
+      });
   }
   updateGames = id => {
     this.props.loaderState(true);
@@ -135,6 +135,7 @@ class GameStart extends React.Component {
     AppState.removeEventListener('change', this._handleAppStateChange);
   };
   componentWillReceiveProps = nextProps => {
+    console.log('Props Updated');
     if (
       this.props.game_status == 'initial' &&
       nextProps.game_status == 'start'
@@ -242,7 +243,7 @@ class GameStart extends React.Component {
   };
   loadTRC = () => {
     this.setModalVisible(false);
-    let promise = httpPost(
+    httpPost(
       urls.outlets,
       JSON.stringify({
         geolocation_status:
@@ -253,8 +254,7 @@ class GameStart extends React.Component {
         }
       }),
       this.props.token
-    );
-    promise.then(
+    ).then(
       result => {
         result.body.outlets.forEach(elem => {
           elem.location = {
@@ -401,7 +401,7 @@ class GameStart extends React.Component {
             }}
           />
         ) : null}
-        {this.props.loader || (this.state.loader && <ActivityIndicator />)}
+        {/* {this.props.loader || (this.state.loader && <ActivityIndicator />)} */}
         <CustomAlert
           title={this.state.errorText}
           first_btn_title={I18n.t('REPEAT')}
@@ -548,7 +548,7 @@ class GameStart extends React.Component {
                 end={{ x: 1, y: 0 }}
               >
                 {this.props.game_info.no_more_games == true
-                  ? '' // ? I18n.t("GAME.NO_GAMES").toLocaleUpperCase()
+                  ? I18n.t('GAME.NO_GAMES').toLocaleUpperCase()
                   : I18n.t('GAME.COST_TEXT').toLocaleUpperCase() +
                     ' ' +
                     this.props.game_info.cost.toLocaleUpperCase() +

@@ -8,19 +8,18 @@ import com.facebook.appevents.AppEventsLogger;
 import com.jobeso.RNInstagramStoryShare.RNInstagramStorySharePackage;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.ReactApplication;
+import com.cmcewen.blurview.BlurViewPackage;
+import com.horcrux.svg.SvgPackage;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
 import com.tron.ReactNativeWheelPickerPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
-import com.idehub.GoogleAnalyticsBridge.GoogleAnalyticsBridgePackage;
 import com.tradle.react.UdpSocketsModule;
 import com.levelasquez.androidopensettings.AndroidOpenSettingsPackage;
 import com.mocklocation.reactnative.RNMockLocationDetectorPackage;
 import com.gantix.JailMonkey.JailMonkeyPackage;
-import com.jdc.reactlibrary.RNReferrerPackage;
-import com.horcrux.svg.SvgPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.rnfs.RNFSPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
@@ -28,7 +27,6 @@ import com.psykar.cookiemanager.CookieManagerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import cl.json.RNSharePackage;
-import com.smixx.fabric.FabricPackage;
 import com.marianhello.bgloc.react.BackgroundGeolocationPackage;
 
 import io.invertase.firebase.RNFirebasePackage;
@@ -83,6 +81,8 @@ public class MainApplication extends Application implements ShareApplication, Re
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new BlurViewPackage(),
+            new SvgPackage(),
                     new NetInfoPackage(),
                     new ReactNativeWheelPickerPackage(),
                     new RNGestureHandlerPackage(),

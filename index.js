@@ -31,7 +31,10 @@ import store from './src/store';
 import NavigationService from './src/services/route';
 
 console.disableYellowBox = true;
-console.ignoredYellowBox = ['Warning: ReactNative.createElement'];
+console.ignoredYellowBox = [
+  'Warning: ReactNative.createElement',
+  'Require cycle: node_modules/rn-fetch-blob/index.js'
+];
 
 const Navigator = createStackNavigator(
   {

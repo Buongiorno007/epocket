@@ -15,7 +15,6 @@ import { ICONS } from '../../../constants/icons';
 import { colors } from '../../../constants/colors_men';
 import Blur from '../blur/blur';
 import I18n from '@locales/I18n';
-import moment from 'moment';
 
 const firstDay = new Date('1901-01-01');
 
@@ -69,10 +68,10 @@ class CustomAlert extends Component {
     }-${this.props.birthday.split('.')[0]}`;
     this.setState({
       birthday: new Date(birt),
-      chosenDay: moment(this.props.birthday).format('MM'),
-      chosenMonth: Number(moment(this.props.birthday).format('DD')) - 1,
-      chosenYear: moment(this.props.birthday).format('YYYY'),
-      locale: I18n.locale
+      chosenDay: this.props.birthday.split('.')[0],
+      chosenMonth: Number(this.props.birthday.split('.')[1]) - 1,
+      chosenYear: this.props.birthday.split('.')[2],
+      locale: I18n.locale || 'ru'
     });
   }
 
@@ -189,7 +188,7 @@ class CustomAlert extends Component {
                   onPress={() => {
                     console.log(
                       this.state.chosenDay,
-                      this.state.chosenMonth,
+                      this.state.chosenMonth + 1,
                       this.state.chosenYear,
                       'RESULT ACCEPT'
                     );

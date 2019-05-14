@@ -14,9 +14,32 @@ if FBSDK     /pod 'FBSDKCoreKit', '~> 4.42.0'   /
 
 NOTATION: then replace from native-modules in node-modules and react-native-google-analytics 15.0.0
 NOTATION: remove 'static' from 'static getDerivedStateFromProps'
-#EpocketCash
 
-Purpose of the application: to increase the time of clients' stay in the shopping center
+#EpocketCash
+cd ios && pod deintegrate && pod clean && pod install && cd ../
+remove libraries: {
+    react-native-referrer,
+    react-native-google-analytics-bridge,
+    react-native-custom-webview,
+    react-native-fabric,
+    react-native-imask,
+    react-native-qrcode-scanner
+}
+
+check update for remove: {
+    react-native-maps-super-cluster,
+    react-native-mock-location-detector,
+    react-native-instagram-story-share
+}
+
+This might be related to https://github.com/facebook/react-native/issues/4968
+To resolve try the following:
+  1. Clear watchman watches: `watchman watch-del-all`.
+  2. Delete the `node_modules` folder: `rm -rf node_modules && npm install`.
+  3. Reset Metro Bundler cache: `rm -rf /tmp/metro-bundler-cache-*` or `npm start -- --reset-cache`.
+  4. Remove haste cache: `rm -rf /tmp/haste-map-react-native-packager-*`. (null))
+
+<!-- Purpose of the application: to increase the time of clients' stay in the shopping center -->
 
 ##Windows - Android
 

@@ -40,8 +40,8 @@ class RefillMobile extends React.Component {
     phone: ''
   };
   navigateBack = () => {
+    // this.props.navigation.goBack();
     NavigationService.navigate('Main');
-    // goBack()
   };
   componentDidMount = () => {
     this.props.loaderState(true);

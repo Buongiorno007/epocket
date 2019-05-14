@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   View,
   Text,
@@ -6,27 +6,27 @@ import {
   Image,
   Platform,
   TouchableOpacity
-} from "react-native";
-import FastImage from "react-native-fast-image";
-import { Button } from "native-base";
+} from 'react-native';
+import FastImage from 'react-native-fast-image';
+import { Button } from 'native-base';
 //constants
-import styles from "./styles";
-import { urls } from "../../../constants/urls";
+import styles from './styles';
+import { urls } from '../../../constants/urls';
 //containers
-import FooterNavigation from "../../containers/footer-navigator/footer-navigator";
-import CustomButton from "../../containers/custom-button/custom-button";
-import CustomPhoto from "../../containers/custom-photo/custom-photo";
-import Blur from "../../containers/blur/blur";
-import RefLink from "../../containers/ref-link/ref-link";
+import FooterNavigation from '../../containers/footer-navigator/footer-navigator';
+import CustomButton from '../../containers/custom-button/custom-button';
+import CustomPhoto from '../../containers/custom-photo/custom-photo';
+import Blur from '../../containers/blur/blur';
+import RefLink from '../../containers/ref-link/ref-link';
 //redux
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { setBirthDay } from "../../../reducers/birthday";
-import { loaderState } from "../../../reducers/loader";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setBirthDay } from '../../../reducers/birthday';
+import { loaderState } from '../../../reducers/loader';
 //service
-import NavigationService from "../../../services/route";
-import { httpPost } from "../../../services/http";
-import I18n from "@locales/I18n";
+import NavigationService from '../../../services/route';
+import { httpPost } from '../../../services/http';
+import I18n from '@locales/I18n';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -43,11 +43,11 @@ class Profile extends React.Component {
     refferal_price: 0,
     modalVisible: false,
     animationVisible:
-      this.props.profileIsVirgin && this.props.profileIsVirgin != "false"
+      this.props.profileIsVirgin && this.props.profileIsVirgin != 'false'
   };
   componentDidMount() {
     this.props.loaderState(true);
-    AsyncStorage.getItem("user_info").then(value => {
+    AsyncStorage.getItem('user_info').then(value => {
       let object = JSON.parse(value);
       this.setState({
         user: {
@@ -65,12 +65,7 @@ class Profile extends React.Component {
         this.setState({ animationVisible: false });
       }, 5000);
     }
-    let promise = httpPost(
-      urls.get_referral_link,
-      JSON.stringify({}),
-      this.props.token
-    );
-    promise.then(
+    httpPost(urls.get_referral_link, JSON.stringify({}), this.props.token).then(
       result => {
         this.setState({
           refferal_link: result.body.new_link
@@ -96,7 +91,6 @@ class Profile extends React.Component {
       );
       promise.then(
         result => {
-          
           this.setState({
             refferal_link: result.body.new_link
               ? result.body.new_link
@@ -126,23 +120,20 @@ class Profile extends React.Component {
     };
     if (
       async_storage_user.user_birthDay &&
-      async_storage_user.user_birthDay != ""
+      async_storage_user.user_birthDay != ''
     ) {
       this.props.setBirthDay(async_storage_user.user_birthDay);
     }
-    NavigationService.navigate("ProfileEdit", { async_storage_user });
+    NavigationService.navigate('ProfileEdit', { async_storage_user });
   };
   ToSettings = () => {
-    NavigationService.navigate("ProfileSettings");
+    NavigationService.navigate('ProfileSettings');
   };
   setModalVisible = visible => {
     this.setState({ modalVisible: visible });
   };
   ExitProfile = () => {
     this.setModalVisible(true);
-  };
-  editProfile = () => {
-    NavigationService.navigate("ProfileSettings");
   };
   connectInsta = () => {
     this.refs.instagramLogin.show();
@@ -156,7 +147,7 @@ class Profile extends React.Component {
           <FastImage
             style={styles.animation}
             resizeMode={FastImage.resizeMode.contain}
-            source={require("../../../assets/img/smile.gif")}
+            source={require('../../../assets/img/smile.gif')}
           />
         ) : null}
         {(this.state.user.sex != 0 && this.state.user.sex != 1) ||
@@ -167,7 +158,7 @@ class Profile extends React.Component {
               active
               short
               gradient
-              title={I18n.t("PROFILE_PAGE.ADD_DATA").toUpperCase()}
+              title={I18n.t('PROFILE_PAGE.ADD_DATA').toUpperCase()}
               color={this.props.userColor.white}
               handler={() => this.ToEdit()}
             />
@@ -185,7 +176,7 @@ class Profile extends React.Component {
             <FastImage
               style={styles.settings_img}
               resizeMode={FastImage.resizeMode.contain}
-              source={require("../../../assets/img/settings.png")}
+              source={require('../../../assets/img/settings.png')}
             />
           </Button>
         </View>
@@ -193,7 +184,7 @@ class Profile extends React.Component {
           <View style={styles.photo_container}>
             <CustomPhoto src={this.state.user.photo} />
           </View>
-          {Platform.OS == "ios" ? (
+          {Platform.OS == 'ios' ? (
             <Button
               transparent
               block
@@ -202,27 +193,27 @@ class Profile extends React.Component {
               style={styles.text_container}
             >
               <View style={styles.text_item}>
-                <Text style={styles.title}>{I18n.t("NAMES")}</Text>
+                <Text style={styles.title}>{I18n.t('NAMES')}</Text>
                 <Text style={styles.name}>{this.state.user.username}</Text>
               </View>
               <View style={styles.text_item}>
-                <Text style={styles.title}>{I18n.t("PROFILE_PAGE.PHONE")}</Text>
+                <Text style={styles.title}>{I18n.t('PROFILE_PAGE.PHONE')}</Text>
                 <Text style={styles.phone}>+ {this.state.user.phone}</Text>
               </View>
               {this.state.user.birthDay ? (
                 <View style={styles.text_item}>
                   <Text style={styles.title}>
-                    {I18n.t("PROFILE_PAGE.BIRTHDAY")}
+                    {I18n.t('PROFILE_PAGE.BIRTHDAY')}
                   </Text>
                   <Text style={styles.phone}>{this.state.user.birthDay}</Text>
                 </View>
               ) : null}
               {this.state.user.sex === 1 || this.state.user.sex === 0 ? (
                 <View style={styles.text_item}>
-                  <Text style={styles.title}>{I18n.t("PROFILE_PAGE.SEX")}</Text>
+                  <Text style={styles.title}>{I18n.t('PROFILE_PAGE.SEX')}</Text>
                   <Text style={styles.phone}>
-                    {this.state.user.sex == 0 && I18n.t("PROFILE_PAGE.FEMALE")}
-                    {this.state.user.sex == 1 && I18n.t("PROFILE_PAGE.MALE")}
+                    {this.state.user.sex == 0 && I18n.t('PROFILE_PAGE.FEMALE')}
+                    {this.state.user.sex == 1 && I18n.t('PROFILE_PAGE.MALE')}
                   </Text>
                 </View>
               ) : null}
@@ -233,27 +224,27 @@ class Profile extends React.Component {
               style={styles.text_container_android}
             >
               <View style={styles.text_item}>
-                <Text style={styles.title}>{I18n.t("NAMES")}</Text>
+                <Text style={styles.title}>{I18n.t('NAMES')}</Text>
                 <Text style={styles.name}>{this.state.user.username}</Text>
               </View>
               <View style={styles.text_item}>
-                <Text style={styles.title}>{I18n.t("PROFILE_PAGE.PHONE")}</Text>
+                <Text style={styles.title}>{I18n.t('PROFILE_PAGE.PHONE')}</Text>
                 <Text style={styles.phone}>+ {this.state.user.phone}</Text>
               </View>
               {this.state.user.birthDay ? (
                 <View style={styles.text_item}>
                   <Text style={styles.title}>
-                    {I18n.t("PROFILE_PAGE.BIRTHDAY")}
+                    {I18n.t('PROFILE_PAGE.BIRTHDAY')}
                   </Text>
                   <Text style={styles.phone}>{this.state.user.birthDay}</Text>
                 </View>
               ) : null}
               {this.state.user.sex === 1 || this.state.user.sex === 0 ? (
                 <View style={styles.text_item}>
-                  <Text style={styles.title}>{I18n.t("PROFILE_PAGE.SEX")}</Text>
+                  <Text style={styles.title}>{I18n.t('PROFILE_PAGE.SEX')}</Text>
                   <Text style={styles.phone}>
-                    {this.state.user.sex == 0 && I18n.t("PROFILE_PAGE.FEMALE")}
-                    {this.state.user.sex == 1 && I18n.t("PROFILE_PAGE.MALE")}
+                    {this.state.user.sex == 0 && I18n.t('PROFILE_PAGE.FEMALE')}
+                    {this.state.user.sex == 1 && I18n.t('PROFILE_PAGE.MALE')}
                   </Text>
                 </View>
               ) : null}
