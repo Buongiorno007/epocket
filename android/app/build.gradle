@@ -171,6 +171,7 @@ subprojects {
     }
 }
 dependencies {
+    implementation project(':react-native-webview')
     implementation project(':react-native-blur-overlay')
     implementation project(':@react-native-community_blur')
     implementation project(':react-native-svg')

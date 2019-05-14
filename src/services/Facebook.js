@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import {
   StyleSheet,
-  WebView,
   Alert,
   Modal,
   Dimensions,
   KeyboardAvoidingView,
   Platform
 } from "react-native";
+import { WebView } from 'react-native-webview';
+
 import qs from "qs";
 import { Button } from "native-base";
 import Icon from "react-native-vector-icons/EvilIcons";

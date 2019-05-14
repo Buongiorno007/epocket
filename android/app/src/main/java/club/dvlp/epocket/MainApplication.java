@@ -9,6 +9,7 @@ import com.jobeso.RNInstagramStoryShare.RNInstagramStorySharePackage;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.ReactApplication;
 import com.bluroverly.SajjadBlurOverlayPackage;
+import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.cmcewen.blurview.BlurViewPackage;
 import com.horcrux.svg.SvgPackage;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
@@ -62,6 +63,7 @@ import cl.json.ShareApplication;
 import java.util.Arrays;
 import java.util.List;
 
+import android.os.Build;
 import android.webkit.WebView;
 
 public class MainApplication extends Application implements ShareApplication, ReactApplication {
@@ -82,8 +84,9 @@ public class MainApplication extends Application implements ShareApplication, Re
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new SajjadBlurOverlayPackage(),
-            new BlurViewPackage(),
+                    new RNCWebViewPackage(),
+                    new SajjadBlurOverlayPackage(),
+                    new BlurViewPackage(),
                     new NetInfoPackage(),
                     new ReactNativeWheelPickerPackage(),
                     new RNGestureHandlerPackage(),
@@ -148,7 +151,8 @@ public class MainApplication extends Application implements ShareApplication, Re
         Fabric.with(this, new Crashlytics());
         SoLoader.init(this, /* native exopackage */ false);
         Fresco.initialize(this);
-        WebView.setWebContentsDebuggingEnabled(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        }
     }
 
 

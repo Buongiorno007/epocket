@@ -76,6 +76,7 @@ target 'EpocketCash' do
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
+  pod 'react-native-webview', :path => '../node_modules/react-native-webview'
   pod 'react-native-blur', :path => '../node_modules/@react-native-community/blur'
 
 end
