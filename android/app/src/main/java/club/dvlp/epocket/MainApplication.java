@@ -8,6 +8,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.jobeso.RNInstagramStoryShare.RNInstagramStorySharePackage;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.ReactApplication;
+import com.bluroverly.SajjadBlurOverlayPackage;
 import com.cmcewen.blurview.BlurViewPackage;
 import com.horcrux.svg.SvgPackage;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
@@ -81,6 +82,7 @@ public class MainApplication extends Application implements ShareApplication, Re
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new SajjadBlurOverlayPackage(),
             new BlurViewPackage(),
                     new NetInfoPackage(),
                     new ReactNativeWheelPickerPackage(),
