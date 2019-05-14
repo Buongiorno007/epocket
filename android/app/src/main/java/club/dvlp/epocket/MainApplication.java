@@ -82,19 +82,15 @@ public class MainApplication extends Application implements ShareApplication, Re
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
             new BlurViewPackage(),
-            new SvgPackage(),
                     new NetInfoPackage(),
                     new ReactNativeWheelPickerPackage(),
                     new RNGestureHandlerPackage(),
                     new LinearGradientPackage(),
                     new RNI18nPackage(),
-                    new GoogleAnalyticsBridgePackage(),
                     new UdpSocketsModule(),
                     new RNMockLocationDetectorPackage(),
                     new AndroidOpenSettingsPackage(),
                     new JailMonkeyPackage(),
-                    new RNReferrerPackage(),
-                    new LinearGradientPackage(),
                     new SvgPackage(),
                     new RNSoundPackage(),
                     new RNFSPackage(),
@@ -104,7 +100,6 @@ public class MainApplication extends Application implements ShareApplication, Re
                     new RNFetchBlobPackage(),
                     new FastImageViewPackage(),
                     new RNSharePackage(),
-                    new FabricPackage(),
                     new BackgroundGeolocationPackage(),
                     new RNFirebasePackage(),
                     new RNFirebaseNotificationsPackage(),
@@ -118,7 +113,6 @@ public class MainApplication extends Application implements ShareApplication, Re
                     new RNRadialGradientPackage(),
                     new RNBackgroundFetchPackage(),
                     new MapsPackage()
-
             );
         }
 
