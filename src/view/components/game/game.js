@@ -143,7 +143,7 @@ class Game extends React.Component {
   render() {
     return (
       <View style={styles.main_view}>
-        {this.props.loader && <ActivityIndicator />}
+        {/* {this.props.loader && <ActivityIndicator />} */}
         <View style={styles.game_title}>
           <Text style={styles.game_cost_text}>
             {this.props.game_info.cost}{' '}

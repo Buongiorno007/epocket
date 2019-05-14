@@ -5,7 +5,11 @@ import android.app.Application;
 import com.facebook.CallbackManager;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.ReactApplication;
+<<<<<<< HEAD
 import com.reactnativecommunity.webview.RNCWebViewPackage;
+=======
+import com.cmcewen.blurview.BlurViewPackage;
+>>>>>>> 80f76a00caa7fb581cbe0fbf46209aca444b32f0
 import com.horcrux.svg.SvgPackage;
 import com.jobeso.RNInstagramStoryShare.RNInstagramStorySharePackage;
 import com.mocklocation.reactnative.RNMockLocationDetectorPackage;
@@ -86,6 +90,7 @@ public class MainApplication extends Application implements ShareApplication, Re
                     new MainReactPackage(),
             new RNCWebViewPackage(),
                     new SvgPackage(),
+            new BlurViewPackage(),
                     new NetInfoPackage(),
                     new ReactNativeWheelPickerPackage(),
                     new RNGestureHandlerPackage(),
@@ -116,7 +121,6 @@ public class MainApplication extends Application implements ShareApplication, Re
                     new RNRadialGradientPackage(),
                     new RNBackgroundFetchPackage(),
                     new MapsPackage()
-
             );
         }
 

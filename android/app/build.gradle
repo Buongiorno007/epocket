@@ -111,6 +111,8 @@ android {
         versionName "2.5"
         multiDexEnabled true
         missingDimensionStrategy 'react-native-camera', 'general'
+        renderscriptTargetApi 23
+        renderscriptSupportModeEnabled true
 
     }
     signingConfigs {
@@ -169,6 +171,7 @@ subprojects {
 }
 dependencies {
     implementation project(':react-native-webview')
+    implementation project(':@react-native-community_blur')
     implementation project(':react-native-svg')
     implementation project(':@react-native-community_netinfo')
     implementation project(':react-native-wheel-pick')
