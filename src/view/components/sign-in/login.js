@@ -5,6 +5,9 @@ import {
   Text,
   Keyboard,
   Alert,
+  ScrollView,
+  Button,
+  TextInput,
   Animated,
   Platform,
   KeyboardAvoidingView,
@@ -47,21 +50,23 @@ import { handleError } from '../../../services/http-error-handler';
 import geo_config from '../start/geolocation-config';
 import BackgroundGeolocationModule from '../../../services/background-geolocation-picker';
 //constants
-import styles from './styles';
+import styles from './style';
 import { colors } from '../../../constants/colors';
 import { urls } from '../../../constants/urls';
 import { ICONS } from '../../../constants/icons';
+///////////////
+import { Dropdown } from 'react-native-material-dropdown';
 import I18n from '@locales/I18n';
-
-const keyboardVerticalOffset = Platform.OS === 'ios' ? -50 : -100;
 
 class Login extends React.Component {
   static navigationOptions = () => ({
-    header: <BackButton title={I18n.t('SIGN_IN_TITLE')} route="Start" />
+    header: <BackButton title={I18n.t('BACK').toUpperCase()} route="Start" />
   });
 
   prefix = '+';
   state = {
+    phoneNumber: '-- --- -- --',
+
     signInMargin: new Animated.Value(40),
     phone: '',
     code: '',
@@ -74,34 +79,39 @@ class Login extends React.Component {
     errorText: ''
   };
 
+  constructor(props) {
+    super(props);
+    Keyboard.dismiss();
+  }
+
   componentDidMount() {
-    // this.keyboardDidShowListener = Keyboard.addListener(
-    //   'keyboardDidShow',
-    //   this._keyboardDidShow
-    // );
-    // this.keyboardDidHideListener = Keyboard.addListener(
-    //   'keyboardDidHide',
-    //   this._keyboardDidHide
-    // );
+    this.keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      this._keyboardDidShow
+    );
+    this.keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      this._keyboardDidHide
+    );
     this.props.loaderState(false);
   }
   componentWillUnmount() {
-    // this.keyboardDidShowListener.remove();
-    // this.keyboardDidHideListener.remove();
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
   }
-  // _keyboardDidShow = () => {
-  //   Animated.timing(this.state.signInMargin, {
-  //     duration: 100,
-  //     toValue: 0
-  //   }).start();
-  // };
+  _keyboardDidShow = () => {
+    Animated.timing(this.state.signInMargin, {
+      duration: 100,
+      toValue: 0
+    }).start();
+  };
 
-  // _keyboardDidHide = () => {
-  //   Animated.timing(this.state.signInMargin, {
-  //     duration: 100,
-  //     toValue: 40
-  //   }).start();
-  // };
+  _keyboardDidHide = () => {
+    Animated.timing(this.state.signInMargin, {
+      duration: 100,
+      toValue: 40
+    }).start();
+  };
   setFailedSignVisible = visible => {
     this.setState({ failedSignVisible: visible });
   };
@@ -200,42 +210,6 @@ class Login extends React.Component {
     );
   };
 
-  isFblogged = token => {
-    this.props.loaderState(true);
-    let body = JSON.stringify({});
-    httpPost(urls.facebook_is_logged, body, token).then(
-      result => {
-        if (result.body.logged && result.body.active && result.body.token) {
-          this.props.setFacebookToken(result.body.token);
-          Platform.OS === 'ios' &&
-            AccessToken.setCurrentAccessToken({
-              accessToken: result.body.token
-            });
-        }
-        this.props.loaderState(false);
-      },
-      error => {
-        this.props.loaderState(false);
-      }
-    );
-  };
-
-  isInstalogged = token => {
-    this.props.loaderState(true);
-    let body = JSON.stringify({});
-    httpPost(urls.insta_is_logged, body, token).then(
-      result => {
-        if (result.body.logged && result.body.active && result.body.token) {
-          this.props.setInstaToken(result.body.token);
-        }
-        this.props.loaderState(false);
-      },
-      error => {
-        this.props.loaderState(false);
-      }
-    );
-  };
-
   confirmLogin = () => {
     Keyboard.dismiss();
     this.setFailedConfirmVisible(false);
@@ -276,8 +250,8 @@ class Login extends React.Component {
           this.props.setBalance(result.body.balance);
           this.props.setProfileVirgin(result.body.profile_virgin);
           this.props.setGeoVirgin(result.body.geo_virgin);
-          this.isFblogged(result.body.token);
-          this.isInstalogged(result.body.token);
+          // this.isFblogged(result.body.token);
+          // this.isInstalogged(result.body.token);
           NavigationService.navigate('Main');
         }
       },
@@ -298,82 +272,143 @@ class Login extends React.Component {
       }
     );
   };
+  // <CustomAlert
+  //           title={this.state.errorText}
+  //           first_btn_title={I18n.t('REPEAT')}
+  //           visible={this.state.failedSignVisible}
+  //           first_btn_handler={() => {
+  //             this.login();
+  //           }}
+  //           decline_btn_handler={() => {
+  //             this.setFailedSignVisible(!this.state.failedSignVisible);
+  //           }}
+  //         />
+  //         <CustomAlert
+  //           title={this.state.errorText}
+  //           first_btn_title={I18n.t('REPEAT')}
+  //           visible={this.state.failedConfirmVisible}
+  //           first_btn_handler={() => {
+  //             this.confirmLogin();
+  //           }}
+  //           decline_btn_handler={() => {
+  //             this.setFailedConfirmVisible(!this.state.failedConfirmVisible);
+  //           }}
+  //         />
+  // <CustomButton
+  //               color={
+  //                 this.state.acceptButton
+  //                   ? this.props.userColor.pink
+  //                   : this.props.userColor.white
+  //               }
+  //               handler={() => {
+  //                 this.login();
+  //               }}
+  //               active={this.state.acceptButton}
+  //               title={I18n.t('SIGN_IN').toUpperCase()}
+  //             />
 
   render() {
+    let data = [
+      {
+        value: 'Banana'
+      },
+      {
+        value: 'Mango'
+      },
+      {
+        value: 'Pear'
+      },
+      {
+        value: 'Mango'
+      },
+      {
+        value: 'Pear'
+      },
+      {
+        value: 'Mango'
+      },
+      {
+        value: 'Pear'
+      },
+      {
+        value: 'Mango'
+      },
+      {
+        value: 'Pear'
+      }
+    ];
     return (
-      <KeyboardAvoidingView
-        style={styles.main_view}
-        behavior="padding"
-        keyboardVerticalOffset={keyboardVerticalOffset}
-        enabled
-      >
-        <View style={styles.main_view}>
-          <CustomAlert
-            title={this.state.errorText}
-            first_btn_title={I18n.t('REPEAT')}
-            visible={this.state.failedSignVisible}
-            first_btn_handler={() => {
-              this.login();
-            }}
-            decline_btn_handler={() => {
-              this.setFailedSignVisible(!this.state.failedSignVisible);
-            }}
-          />
-          <CustomAlert
-            title={this.state.errorText}
-            first_btn_title={I18n.t('REPEAT')}
-            visible={this.state.failedConfirmVisible}
-            first_btn_handler={() => {
-              this.confirmLogin();
-            }}
-            decline_btn_handler={() => {
-              this.setFailedConfirmVisible(!this.state.failedConfirmVisible);
-            }}
-          />
-          <StatusBar
-            barStyle="dark-content"
-            translucent={true}
-            backgroundColor={'transparent'}
-          />
-          <FastImage
-            style={styles.bottom_image}
-            source={{ uri: ICONS.COMMON.SIGN_IN_BACKGROUND }}
-          />
-          <LinearGradient
-            colors={['#FEBF54', '#FB7375', 'rgba(246,34,183,0.48)']}
-            start={{ x: 1.0, y: 0.0 }}
-            end={{ x: 0.0, y: 1.0 }}
-            style={styles.grad}
-          />
-          {/* {this.state.step == 1 ? ( */}
-          <View style={styles.form}>
-            <TextField
-              label={I18n.t('MOBILE_NUMBER')}
-              textColor={this.props.userColor.input}
-              tintColor={this.props.userColor.input}
-              baseColor={this.props.userColor.input}
-              placeholder={I18n.t('PHONE_MASK')}
-              placeholderTextColor={this.props.userColor.input_placeholder}
-              labelPadding={16}
-              inputContainerPadding={16}
-              onChangeText={text => {
-                this.onChangedPhone(text);
-              }}
-              value={this.state.phone}
-              maxLength={15}
-              keyboardType="numeric"
-              prefix={this.prefix}
-            />
-            <Text
-              style={
-                this.state.numberNotExists
-                  ? styles.number_exists
-                  : styles.disabled
-              }
+      <View style={styles.container}>
+        <StatusBar
+          barStyle="light-content"
+          backgroundColor={'transparent'}
+          translucent={true}
+        />
+        <LinearGradient
+          colors={['#FEBF54', '#FB7375', 'rgba(246,34,183,0.48)']}
+          start={{ x: 1.0, y: 0.0 }}
+          end={{ x: 0.0, y: 1.0 }}
+          style={styles.grad}
+        >
+          <KeyboardAvoidingView
+            behavior="padding"
+            style={styles.avoiding}
+            enabled
+          >
+            <ScrollView
+              scrollEnabled={false}
+              keyboardShouldPersistTaps={'handled'}
+              //   style={styles.scrollView}
+              contentContainerStyle={styles.scrollView}
             >
-              {I18n.t('NUMBER_NOT_EXISTS')}
-            </Text>
-            <View style={[{ marginTop: this.state.signInMargin }]}>
+              <View style={styles.inputView}>
+                <Dropdown
+                  baseColor={'#fff'} // arrow and border
+                  textColor={'#f00'} // PICKED COLOR
+                  itemColor={'#707070'} // NOT PICKED DROPDOWN ITEM
+                  selectedItemColor={'#00f'}
+                  disabledItemColor={'yellow'}
+                  // dropdownMargins={16}
+                  // textColor={'#FFF'}
+                  itemTextStyle={styles.itemTextStyle}
+                  // itemPadding={15}
+                  // dropdownOffset={{ top: -30, left: 0 }}
+                  // itemColor={'#000'}
+                  // itemPadding={0} // padding in dropDOwn elements
+                  // style={styles.dropDown}
+
+                  // textColor={'#000'}
+                  // itemColor={'rgba(0, 0, 0, .54)'}
+                  // containerStyle={styles.dropDown}
+                  // overlayStyle={{ color: '#000' }}
+                  data={data}
+                />
+                {/* <TextInput
+                  style={styles.input}
+                  keyboardType="numeric"
+                  onChangeText={value => {}}
+                  value={this.state.phoneNumber}
+                  maxLength={`${this.state.phoneNumber}`.length}
+                /> */}
+              </View>
+
+              {/* <TextField
+                label={I18n.t('MOBILE_NUMBER')}
+                textColor={'#000000'}
+                tintColor={'#000000'}
+                baseColor={'#000000'}
+                placeholder={I18n.t('PHONE_MASK')}
+                placeholderTextColor={'#000000'}
+                labelPadding={16}
+                inputContainerPadding={16}
+                onChangeText={text => {
+                  //
+                }}
+                value={this.state.phoneNumber}
+                maxLength={`${this.state.phoneNumber}`.length}
+                keyboardType="numeric"
+                // prefix={this.prefix}
+              /> */}
               <CustomButton
                 color={
                   this.state.acceptButton
@@ -386,50 +421,11 @@ class Login extends React.Component {
                 active={this.state.acceptButton}
                 title={I18n.t('SIGN_IN').toUpperCase()}
               />
-            </View>
-          </View>
-          {/* ) : this.state.step == 2 ? ( */}
-          {/* <View style={styles.form}>
-              <Text style={styles.code_sent}>{I18n.t('CODE_SENT')}</Text>
-              <Text style={styles.enter_code}>
-                {I18n.t('ENTER_CODE_SIDN_IN')}
-              </Text>
-              <TextField
-                label={''}
-                style={styles.code_input}
-                textColor={this.props.userColor.input}
-                tintColor={this.props.userColor.input}
-                baseColor={this.props.userColor.input}
-                placeholder={I18n.t('CODE_MASK')}
-                placeholderTextColor={this.props.userColor.input_placeholder}
-                labelPadding={16}
-                inputContainerPadding={16}
-                maxLength={6}
-                keyboardType="numeric"
-                onChangeText={text => this.onChangedCode(text)}
-              />
-              {this.state.invalidCode ? (
-                <Text style={styles.check_code}>{I18n.t('CHECK_CODE')}</Text>
-              ) : null}
-              <Animated.View style={[{ marginTop: this.state.signInMargin }]}>
-                <CustomButton
-                  color={
-                    this.state.acceptButton
-                      ? this.props.userColor.pink
-                      : this.props.userColor.white
-                  }
-                  handler={() => {
-                    this.confirmLogin();
-                  }}
-                  active={this.state.acceptButton}
-                  title={I18n.t('ACCEPT').toUpperCase()}
-                />
-              </Animated.View>
-            </View> */}
-          {/* ) : null} */}
-        </View>
+            </ScrollView>
+          </KeyboardAvoidingView>
+        </LinearGradient>
         {this.props.loader && <ActivityIndicator />}
-      </KeyboardAvoidingView>
+      </View>
     );
   }
 }

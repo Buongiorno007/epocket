@@ -164,6 +164,10 @@ class Start extends React.Component {
     this.props.loaderState(true);
     NavigationService.navigate('SignIn');
   };
+  goToLogin = () => {
+    this.props.loaderState(true);
+    NavigationService.navigate('Login');
+  };
   goToSignUp = () => {
     this.props.loaderState(true);
     NavigationService.navigate('SignUp');
@@ -221,6 +225,15 @@ class Start extends React.Component {
               <Text style={styles.go_to_signin_text}>
                 {I18n.t('GO_TO_SIGNIN')}
               </Text>
+            </Button>
+            <Button
+              rounded
+              block
+              transparent
+              style={styles.go_to_signin}
+              onPress={() => this.goToLogin()}
+            >
+              <Text style={styles.go_to_signin_text}>{I18n.t('LOGIN')}</Text>
             </Button>
           </View>
         )}
