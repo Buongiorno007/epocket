@@ -71,8 +71,7 @@ class ProfileSettings extends React.Component {
     let body = JSON.stringify({
       access_token: token
     });
-    let promise = httpPost(urls.facebook_login, body, this.props.token);
-    promise.then(
+    httpPost(urls.facebook_login, body, this.props.token).then(
       result => {
         if (result.body.url) {
           this.refs.facebookLogin.show(result.body.url);
@@ -103,8 +102,7 @@ class ProfileSettings extends React.Component {
     this.props.loaderState(true);
     this.props.setFacebookToken('');
     let body = JSON.stringify({});
-    let promise = httpPost(urls.facebook_logout, body, this.props.token);
-    promise.then(
+    httpPost(urls.facebook_logout, body, this.props.token).then(
       result => {
         this.props.loaderState(false);
         CookieManager.clearAll().then(res => {
@@ -125,8 +123,7 @@ class ProfileSettings extends React.Component {
     let body = JSON.stringify({
       instagram_token: this.props.insta_token
     });
-    let promise = httpPost(urls.insta_logout, body, this.props.token);
-    promise.then(
+    httpPost(urls.insta_logout, body, this.props.token).then(
       result => {
         this.props.loaderState(false);
         CookieManager.clearAll().then(res => {
@@ -149,8 +146,7 @@ class ProfileSettings extends React.Component {
     let body = JSON.stringify({
       instagram_token
     });
-    let promise = httpPost(urls.insta_login, body, this.props.token);
-    promise.then(
+    httpPost(urls.insta_login, body, this.props.token).then(
       result => {
         if (result.status === 200) {
           this.props.setInstaToken(String(instagram_token));

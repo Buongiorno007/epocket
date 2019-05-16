@@ -1,23 +1,23 @@
-import React from "react";
-import { View, Text } from "react-native";
-import FastImage from "react-native-fast-image";
+import React from 'react';
+import { View, Text } from 'react-native';
+import FastImage from 'react-native-fast-image';
 //containers
-import CustomButton from "../../containers/custom-button/custom-button";
-import CustomAlert from "../../containers/custom-alert/custom-alert";
-import { Button } from "native-base";
+import CustomButton from '../../containers/custom-button/custom-button';
+import CustomAlert from '../../containers/custom-alert/custom-alert';
+import { Button } from 'native-base';
 //constants
-import styles from "./styles";
-import { colors } from "../../../constants/colors";
-import { urls } from "../../../constants/urls";
-import { ICONS } from "../../../constants/icons";
+import styles from './styles';
+import { colors } from '../../../constants/colors';
+import { urls } from '../../../constants/urls';
+import { ICONS } from '../../../constants/icons';
 //redux
-import { timerStatus } from "../../../reducers/timer-status";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import { timerStatus } from '../../../reducers/timer-status';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 //services
-import { httpPost } from "../../../services/http";
-import { handleError } from "../../../services/http-error-handler";
-import I18n from "@locales/I18n";
+import { httpPost } from '../../../services/http';
+import { handleError } from '../../../services/http-error-handler';
+import I18n from '@locales/I18n';
 
 class ReturnToMall extends React.Component {
   state = {
@@ -26,7 +26,7 @@ class ReturnToMall extends React.Component {
     hours: 0,
     time_out: false,
     errorVisible: false,
-    errorText: ""
+    errorText: ''
   };
   setModalVisible = visible => {
     this.setState({ errorVisible: visible });
@@ -36,12 +36,7 @@ class ReturnToMall extends React.Component {
     let body = {
       outlet_id: this.props.selectedMall.id
     };
-    let promise = httpPost(
-      urls.close_mission,
-      JSON.stringify(body),
-      this.props.token
-    );
-    promise.then(
+    httpPost(urls.close_mission, JSON.stringify(body), this.props.token).then(
       result => {
         this.setModalVisible(false);
       },
@@ -52,7 +47,7 @@ class ReturnToMall extends React.Component {
           urls.close_mission,
           this.props.token,
           this.constructor.name,
-          "closeTimerTask"
+          'closeTimerTask'
         );
         this.setState({ errorText: error_respons.error_text });
         this.setModalVisible(error_respons.error_modal);
@@ -62,7 +57,6 @@ class ReturnToMall extends React.Component {
 
   startTimer = () => {
     let five_min = 300000;
-    // let five_min = 5000;
     let countDownDate = new Date().getTime() + five_min;
 
     let x = setInterval(() => {
@@ -117,7 +111,7 @@ class ReturnToMall extends React.Component {
         </View>
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={I18n.t("REPEAT")}
+          first_btn_title={I18n.t('REPEAT')}
           visible={this.state.errorVisible}
           first_btn_handler={() => {
             this.closeTimerTask();
@@ -135,18 +129,18 @@ class ReturnToMall extends React.Component {
               {this.props.selectedMall.name}
             </Text>
             <Text style={[styles.top_title, styles.text_common]}>
-              {I18n.t("RETURN_TO_MALL.TITLE_TOP")}
+              {I18n.t('RETURN_TO_MALL.TITLE_TOP')}
             </Text>
             <Text style={[styles.timer, styles.text_common]}>
               0{this.state.hours}:0{this.state.minutes}:
-              {this.state.seconds < 10 ? "0" : null}
+              {this.state.seconds < 10 ? '0' : null}
               {this.state.seconds}
             </Text>
           </View>
         ) : (
           <View style={[styles.close_view]}>
             <Text style={[styles.top_title, styles.text_common]}>
-              {I18n.t("RETURN_TO_MALL.TIME_IS_UP")}
+              {I18n.t('RETURN_TO_MALL.TIME_IS_UP')}
             </Text>
             <CustomButton
               active

@@ -51,8 +51,7 @@ class Partners extends React.Component {
       latt: this.props.location.lat,
       long: this.props.location.lng
     });
-    let promise = httpPost(urls.get_partners, body, this.props.token);
-    promise.then(
+    httpPost(urls.get_partners, body, this.props.token).then(
       result => {
         let shops = [];
         let onlineShops = [];

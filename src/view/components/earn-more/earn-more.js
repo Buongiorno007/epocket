@@ -77,8 +77,7 @@ class EarnMore extends React.Component {
     let body = JSON.stringify({
       instagram_token: instagram_token
     });
-    let promise = httpPost(urls.insta_login, body, this.props.token);
-    promise.then(
+    httpPost(urls.insta_login, body, this.props.token).then(
       result => {
         if (result.status === 200) {
           this.props.setInstaToken(String(instagram_token));

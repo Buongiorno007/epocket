@@ -208,8 +208,7 @@ class SignIn extends React.Component {
   isFblogged = token => {
     this.props.loaderState(true);
     let body = JSON.stringify({});
-    let promise = httpPost(urls.facebook_is_logged, body, token);
-    promise.then(
+    httpPost(urls.facebook_is_logged, body, token).then(
       result => {
         if (result.body.logged && result.body.active && result.body.token) {
           this.props.setFacebookToken(result.body.token);

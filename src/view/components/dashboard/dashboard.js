@@ -466,8 +466,7 @@ class Dashboard extends React.Component {
   LoginFacebook = () => {
     this.props.loaderState(true);
     let body = JSON.stringify({});
-    let promise = httpPost(urls.facebook_login, body, this.props.token);
-    promise.then(
+    httpPost(urls.facebook_login, body, this.props.token).then(
       result => {
         this.props.loaderState(false);
         this.refs.facebookLogin.show(result.body.url);
@@ -487,8 +486,7 @@ class Dashboard extends React.Component {
     let body = JSON.stringify({
       instagram_token
     });
-    let promise = httpPost(urls.insta_login, body, this.props.token);
-    promise.then(
+    httpPost(urls.insta_login, body, this.props.token).then(
       result => {
         if (result.status === 200) {
           this.props.setInstaToken(String(instagram_token));
@@ -665,12 +663,11 @@ class Dashboard extends React.Component {
   getMissions = () => {
     this.setMissionsErrorVisible(false);
     this.setState({ load_missions: true });
-    let promise = httpPost(
+    httpPost(
       urls.missions,
       JSON.stringify(this.state.body),
       this.props.token
-    );
-    promise.then(
+    ).then(
       result => {
         this.setMissionsErrorVisible(false);
         this.setState({ load_missions: false });
@@ -739,12 +736,11 @@ class Dashboard extends React.Component {
         outlet_id: this.props.selectedMall.id,
         mission_id: this.state.mainMissionId
       };
-      let promise = httpPost(
+      httpPost(
         urls.finish_mission,
         JSON.stringify(body),
         this.props.token
-      );
-      promise.then(
+      ).then(
         result => {
           this.setFinishMissionErrorVisible(false);
           this.props.timerStatus(false);

@@ -146,12 +146,11 @@ class Map extends React.Component {
         outlet_id: this.props.selectedMall.id,
         mission_id: this.state.mainMissionId
       };
-      let promise = httpPost(
+      httpPost(
         urls.finish_mission,
         JSON.stringify(body),
         this.props.token
-      );
-      promise.then(
+      ).then(
         result => {
           this.setErrorVisible(false);
           this.props.timerStatus(false);
@@ -288,8 +287,7 @@ class Map extends React.Component {
   LoginFacebook = () => {
     this.props.loaderState(true);
     let body = JSON.stringify({});
-    let promise = httpPost(urls.facebook_login, body, this.props.token);
-    promise.then(
+    httpPost(urls.facebook_login, body, this.props.token).then(
       result => {
         this.props.loaderState(false);
         this.refs.facebookLogin.show(result.body.url);
@@ -309,8 +307,7 @@ class Map extends React.Component {
     let body = JSON.stringify({
       instagram_token
     });
-    let promise = httpPost(urls.insta_login, body, this.props.token);
-    promise.then(
+    httpPost(urls.insta_login, body, this.props.token).then(
       result => {
         if (result.status === 200) {
           this.props.setInstaToken(String(instagram_token));
@@ -412,7 +409,7 @@ class Map extends React.Component {
   loadTRC = () => {
     this.setModalVisible(false);
     this.props.loaderState(true);
-    let promise = httpPost(
+    httpPost(
       urls.outlets,
       JSON.stringify({
         geolocation_status:
@@ -423,8 +420,7 @@ class Map extends React.Component {
         }
       }),
       this.props.token
-    );
-    promise.then(
+    ).then(
       result => {
         result.body.outlets.forEach(elem => {
           elem.location = {
@@ -523,7 +519,7 @@ class Map extends React.Component {
     }
   };
 
-  _renderItem = item =>
+  _renderItem = item => {
     item.item.adress ? (
       <CardFirst
         item={item.item}
@@ -561,6 +557,7 @@ class Map extends React.Component {
     ) : (
       <CardCashout item={item.item} onPressItem={this._showSelectedCard} />
     );
+  };
 
   openNext = selectedCard => {
     let copyOfCards = this.state.cards;
@@ -623,12 +620,7 @@ class Map extends React.Component {
       notInMall:
         this.props.distance <= 0 && this.props.isLocation ? false : true
     };
-    let promise = httpPost(
-      urls.missions,
-      JSON.stringify(body),
-      this.props.token
-    );
-    promise.then(
+    httpPost(urls.missions, JSON.stringify(body), this.props.token).then(
       result => {
         this.setErrorVisible(false);
         if (result.status == 200) {
@@ -693,12 +685,11 @@ class Map extends React.Component {
         outlet_id: trc.id // clicked marker = outlet
       };
     }
-    let promise = httpPost(
+    httpPost(
       urls.get_outlet_products,
       JSON.stringify(body),
       this.props.token
-    );
-    promise.then(
+    ).then(
       result => {
         this.setModalVisible(false);
         this.props.loaderState(false);
@@ -733,12 +724,11 @@ class Map extends React.Component {
     let body = {
       cashout_id: trc.id
     };
-    let promise = httpPost(
+    httpPost(
       urls.get_outlet_products,
       JSON.stringify(body),
       this.props.token
-    );
-    promise.then(
+    ).then(
       result => {
         this.setModalVisible(false);
         this.props.loaderState(false);
@@ -824,12 +814,7 @@ class Map extends React.Component {
         ? false
         : true
     };
-    let promise = httpPost(
-      urls.start_mission,
-      JSON.stringify(body),
-      this.props.token
-    );
-    promise.then(
+    httpPost(urls.start_mission, JSON.stringify(body), this.props.token).then(
       result => {
         this.setErrorVisible(false);
         this.setState({ load_timer: false });

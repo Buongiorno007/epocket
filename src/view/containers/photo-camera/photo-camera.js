@@ -37,8 +37,7 @@ class PhotoCamera extends React.Component {
       outlet_id: this.props.selectedMall.id,
       mission_id: this.props.selectedMission.id
     });
-    let promise = httpPost(urls.insta_outlet_template, body, this.props.token);
-    promise.then(
+    httpPost(urls.insta_outlet_template, body, this.props.token).then(
       result => {
         this.setState({
           template_info: {

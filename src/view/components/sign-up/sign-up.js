@@ -150,8 +150,7 @@ class SignUp extends React.Component {
     let body = {
       phone: '+' + bodyPhone
     };
-    let promise = httpPost(urls.sign_up, JSON.stringify(body));
-    promise.then(
+    httpPost(urls.sign_up, JSON.stringify(body)).then(
       result => {
         this.setFailedSignVisible(false);
         //this.props.loaderState(false); //DEPRECATED uncomment
@@ -189,8 +188,7 @@ class SignUp extends React.Component {
       name: this.state.name,
       user_id: this.state.user_id
     };
-    let promise = httpPost(urls.sign_up_confirm, JSON.stringify(body));
-    promise.then(
+    httpPost(urls.sign_up_confirm, JSON.stringify(body)).then(
       result => {
         this.setFailedConfirmVisible(false);
         this.props.loaderState(false);
