@@ -1,8 +1,8 @@
-import { Platform } from "react-native";
-import JailMonkey from "jail-monkey";
-import RNMockLocationDetector from "../native_modules/react-native-mock-location-detector";
-import { loaderState } from "./loader";
-export const UPDATE_ROOT_STATUS = "root-status/UPDATE_ROOT_STATUS";
+import { Platform } from 'react-native';
+import JailMonkey from 'jail-monkey';
+import RNMockLocationDetector from '../native_modules/react-native-mock-location-detector';
+import { loaderState } from './loader';
+export const UPDATE_ROOT_STATUS = 'root-status/UPDATE_ROOT_STATUS';
 
 export default (state = true, action) => {
   switch (action.type) {
@@ -28,10 +28,8 @@ export const additionalCheckMock = () => async dispatch => {
 };
 export const updateRootStatus = () => async dispatch => {
   //   const status = await JailMonkey;
-  //   console.log(status.isJailBroken, "status");
   //   let status = await JailMonkey.trustFall();
-  //   console.log(status, JailMonkey, "STATUS JAILMONKEY");
-  if (Platform.OS != "ios") {
+  if (Platform.OS != 'ios') {
     // run additional check if jail monkey failed
     dispatch(additionalCheckMock());
   } else {

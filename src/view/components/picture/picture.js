@@ -1,22 +1,21 @@
-import React from "react";
-import { View, StatusBar, BackHandler } from "react-native";
-import FastImage from 'react-native-fast-image'
+import React from 'react';
+import { View, StatusBar, BackHandler } from 'react-native';
+import FastImage from 'react-native-fast-image';
 //containers
-import Navbar from "./../../containers/cashout-navbar/cashout-navbar";
+import Navbar from './../../containers/cashout-navbar/cashout-navbar';
 //constants
-import styles from "./styles";
+import styles from './styles';
 //services
-import NavigationService from "./../../../services/route";
+import NavigationService from './../../../services/route';
 
 class Picture extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props.navigation.state.params, "PARAMS");
   }
 
   componentDidMount() {
-    this.backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
-      NavigationService.navigate("Main");
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      NavigationService.navigate('Main');
       return true;
     });
   }
@@ -29,9 +28,12 @@ class Picture extends React.Component {
         <StatusBar
           barStyle="dark-content"
           translucent={true}
-          backgroundColor={"transparent"}
+          backgroundColor={'transparent'}
         />
-        <Navbar copyOfCards={this.props.navigation.state.params.copyOfCards} general_info={this.props.navigation.state.params.general_info} />
+        <Navbar
+          copyOfCards={this.props.navigation.state.params.copyOfCards}
+          general_info={this.props.navigation.state.params.general_info}
+        />
         <View style={styles.block}>
           <FastImage
             resizeMode={FastImage.resizeMode.contain}

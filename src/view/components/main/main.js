@@ -59,7 +59,6 @@ class Main extends React.Component {
     // if (__DEV__) {
     //   this.setState({ develop: true });
     // }
-    console.log(this.props.game_status, 'PROPS GAME STATUS');
   }
   _handleAppStateChange = nextAppState => {
     if (nextAppState === 'active') {

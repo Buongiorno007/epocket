@@ -76,7 +76,6 @@ class Profile extends React.Component {
         this.props.loaderState(false);
       },
       error => {
-        console.log(error);
         this.props.loaderState(false);
       }
     );
@@ -84,12 +83,11 @@ class Profile extends React.Component {
 
   componentDidUpdate = (prevProps, prevState) => {
     if (prevState.toogle !== this.state.toogle && !this.state.toogle) {
-      let promise = httpPost(
+      httpPost(
         urls.get_referral_link,
         JSON.stringify({}),
         this.props.token
-      );
-      promise.then(
+      ).then(
         result => {
           this.setState({
             refferal_link: result.body.new_link
@@ -100,7 +98,6 @@ class Profile extends React.Component {
           this.props.loaderState(false);
         },
         error => {
-          console.log(error);
           this.props.loaderState(false);
         }
       );

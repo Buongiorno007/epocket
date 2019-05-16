@@ -78,6 +78,8 @@ target 'EpocketCash' do
 
   pod 'react-native-blur', :path => '../node_modules/@react-native-community/blur'
 
+  pod 'react-native-webview', :path => '../node_modules/react-native-webview'
+
 end
   post_install do |installer|
     installer.pods_project.targets.each do |target|

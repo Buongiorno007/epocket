@@ -98,6 +98,7 @@ def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -111,6 +112,8 @@ android {
         versionName "2.5"
         multiDexEnabled true
         missingDimensionStrategy 'react-native-camera', 'general'
+        renderscriptTargetApi 27
+        renderscriptSupportModeEnabled true
 
     }
     signingConfigs {
@@ -168,6 +171,8 @@ subprojects {
     }
 }
 dependencies {
+    implementation project(':react-native-webview')
+    implementation project(':react-native-blur-overlay')
     implementation project(':@react-native-community_blur')
     implementation project(':react-native-svg')
     implementation project(':@react-native-community_netinfo')

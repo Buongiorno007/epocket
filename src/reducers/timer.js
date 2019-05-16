@@ -1,4 +1,4 @@
-export const UPDATE_TIMER = "timer/UPDATE_TIMER";
+export const UPDATE_TIMER = 'timer/UPDATE_TIMER';
 
 let def_time = {
   hours: 0,
@@ -6,7 +6,6 @@ let def_time = {
   seconds: 0
 };
 export default (state = def_time, action) => {
-  // console.log('timerStatus',action)
   switch (action.type) {
     case UPDATE_TIMER:
       return action.timer;

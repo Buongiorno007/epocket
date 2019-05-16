@@ -172,44 +172,43 @@ class SignIn extends React.Component {
 
   login = () => {
     Keyboard.dismiss();
-      this.setFailedSignVisible(false);
-      this.props.loaderState(true);
-      let bodyPhone = this.state.phone.replace(/\D/g, '');
-      let body = {
-        phone: '+' + bodyPhone
-      };
-      httpPost(urls.sing_in, JSON.stringify(body)).then(
-        result => {
-          this.setFailedSignVisible(false);
-          // this.props.loaderState(false); //DEPRECATED uncomment
-          // this.setState({ step: 2, acceptButton: false });
-          this.confirmLogin(); //DEPRECATED
-        },
-        error => {
-          let error_respons = handleError(
-            error,
-            body,
-            urls.sign_in,
-            '',
-            this.constructor.name,
-            'login'
-          );
-          this.setState({ errorText: error_respons.error_text });
-          if (error_respons.error_code == 400) {
-            this.setState({ numberNotExists: true });
-          } else {
-            this.setFailedSignVisible(error_respons.error_modal);
-          }
-          this.props.loaderState(false);
+    this.setFailedSignVisible(false);
+    this.props.loaderState(true);
+    let bodyPhone = this.state.phone.replace(/\D/g, '');
+    let body = {
+      phone: '+' + bodyPhone
+    };
+    httpPost(urls.sing_in, JSON.stringify(body)).then(
+      result => {
+        this.setFailedSignVisible(false);
+        // this.props.loaderState(false); //DEPRECATED uncomment
+        // this.setState({ step: 2, acceptButton: false });
+        this.confirmLogin(); //DEPRECATED
+      },
+      error => {
+        let error_respons = handleError(
+          error,
+          body,
+          urls.sign_in,
+          '',
+          this.constructor.name,
+          'login'
+        );
+        this.setState({ errorText: error_respons.error_text });
+        if (error_respons.error_code == 400) {
+          this.setState({ numberNotExists: true });
+        } else {
+          this.setFailedSignVisible(error_respons.error_modal);
         }
-      );
+        this.props.loaderState(false);
+      }
+    );
   };
 
   isFblogged = token => {
     this.props.loaderState(true);
     let body = JSON.stringify({});
-    let promise = httpPost(urls.facebook_is_logged, body, token);
-    promise.then(
+    httpPost(urls.facebook_is_logged, body, token).then(
       result => {
         if (result.body.logged && result.body.active && result.body.token) {
           this.props.setFacebookToken(result.body.token);
@@ -221,7 +220,6 @@ class SignIn extends React.Component {
         this.props.loaderState(false);
       },
       error => {
-        console.log(error);
         this.props.loaderState(false);
       }
     );
@@ -238,7 +236,6 @@ class SignIn extends React.Component {
         this.props.loaderState(false);
       },
       error => {
-        console.log(error);
         this.props.loaderState(false);
       }
     );
@@ -255,7 +252,6 @@ class SignIn extends React.Component {
     };
     httpPost(urls.sing_in_confirm, JSON.stringify(body)).then(
       result => {
-        console.log(result, 'RESULTTTTT');
         if (result.status === 200) {
           this.setFailedConfirmVisible(false);
           this.props.loaderState(false);

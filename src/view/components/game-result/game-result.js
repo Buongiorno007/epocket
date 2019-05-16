@@ -70,15 +70,15 @@ class GameResult extends React.Component {
   };
   startTimer = () => {
     this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec);
-    this.setState({
-      interval: setCorrectingInterval(() => {
-        if (this.props.website_timer <= 0) {
-          clearCorrectingInterval(this.state.interval);
-        } else {
-          this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec--);
-        }
-      }, 1000)
-    });
+    const interval = setCorrectingInterval(() => {
+      if (this.props.website_timer <= 0) {
+        clearCorrectingInterval(this.state.interval);
+      } else {
+        this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec--);
+      }
+    }, 1000);
+
+    this.setState({ interval: interval });
   };
   setErrorVisible = visible => {
     this.setState({
@@ -232,8 +232,7 @@ class GameResult extends React.Component {
     let body = JSON.stringify({
       instagram_token: instagram_token
     });
-    let promise = httpPost(urls.insta_login, body, this.props.token);
-    promise.then(
+    httpPost(urls.insta_login, body, this.props.token).then(
       result => {
         if (result.status === 200) {
           this.props.setInstaToken(String(instagram_token));
@@ -253,7 +252,6 @@ class GameResult extends React.Component {
         }
       },
       error => {
-        console.log(error);
         CookieManager.clearAll().then(res => {
           this.props.loaderState(false);
         });
@@ -297,7 +295,6 @@ class GameResult extends React.Component {
   };
   _handleAppStateChange = nextAppState => {
     if (this.props.navigation.state.params.status != 'success') {
-      console.log('user tried to abuse');
       this.goWait();
     }
     this.props.setAppState(nextAppState);
@@ -398,7 +395,6 @@ class GameResult extends React.Component {
   };
 
   render() {
-    // console.log(this.props.website_timer, "PROPS WEBSITE TIMER");
     return (
       <View style={styles.container}>
         <StatusBar
@@ -416,8 +412,11 @@ class GameResult extends React.Component {
             this.closeBrandWebSite();
             this.checkForGames('home');
           }}
+          stopTimer={() => {
+            clearCorrectingInterval(this.state.interval);
+          }}
         />
-        {/* {this.props.loader && <ActivityIndicator />} */}
+        {this.props.loader && <ActivityIndicator />}
         <CustomAlert
           title={I18n.t('GAME.RESULT.CANT_POST')}
           first_btn_title={I18n.t('OK')}
@@ -486,12 +485,10 @@ class GameResult extends React.Component {
             'relationships'
           ]}
           onLoginSuccess={token => {
-            console.log(token);
             this.connectInsta(token);
           }}
           onLoginFailure={data => {
             let token = data.next.split('#access_token=')[1];
-            console.log(data, token);
             this.connectInsta(token);
           }}
         />
@@ -601,7 +598,9 @@ class GameResult extends React.Component {
                 <FastImage
                   style={styles.insta_logo}
                   resizeMode={FastImage.resizeMode.contain}
-                  source={{ uri: ICONS.INSTAGRAM_COLOR_FILLED }}
+                  source={{
+                    uri: ICONS.INSTAGRAM_COLOR_FILLED
+                  }}
                 />
               )}
               <Text

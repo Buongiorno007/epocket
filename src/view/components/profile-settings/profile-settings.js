@@ -1,33 +1,33 @@
-import React from "react";
-import { View, Text, AsyncStorage, Platform } from "react-native";
-import FastImage from "react-native-fast-image";
-import { Button } from "native-base";
-import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
-import CookieManager from "react-native-cookies";
-import Blur from "../../containers/blur/blur";
-import { LoginButton, AccessToken, LoginManager } from "react-native-fbsdk";
+import React from 'react';
+import { View, Text, AsyncStorage, Platform } from 'react-native';
+import FastImage from 'react-native-fast-image';
+import { Button } from 'native-base';
+import ActivityIndicator from '../../containers/activity-indicator/activity-indicator';
+import CookieManager from 'react-native-cookies';
+import Blur from '../../containers/blur/blur';
+import { LoginButton, AccessToken, LoginManager } from 'react-native-fbsdk';
 //redux
-import { connect } from "react-redux";
-import { setGameStatus } from "../../../reducers/game-status";
-import { bindActionCreators } from "redux";
-import { setInstaToken } from "../../../reducers/insta-token";
-import { setFacebookToken } from "../../../reducers/facebook-token";
-import { loaderState } from "../../../reducers/loader";
-import { setBirthDay } from "../../../reducers/birthday";
+import { connect } from 'react-redux';
+import { setGameStatus } from '../../../reducers/game-status';
+import { bindActionCreators } from 'redux';
+import { setInstaToken } from '../../../reducers/insta-token';
+import { setFacebookToken } from '../../../reducers/facebook-token';
+import { loaderState } from '../../../reducers/loader';
+import { setBirthDay } from '../../../reducers/birthday';
 //constants
-import styles from "./styles";
-import { ICONS } from "../../../constants/icons";
-import { urls } from "../../../constants/urls";
-import { colors } from "../../../constants/colors";
+import styles from './styles';
+import { ICONS } from '../../../constants/icons';
+import { urls } from '../../../constants/urls';
+import { colors } from '../../../constants/colors';
 //containers
-import CustomButton from "../../containers/custom-button/custom-button";
-import CustomAlert from "../../containers/custom-alert/custom-alert";
+import CustomButton from '../../containers/custom-button/custom-button';
+import CustomAlert from '../../containers/custom-alert/custom-alert';
 //service
-import NavigationService from "../../../services/route";
-import InstagramLogin from "../../../services/Instagram";
-import FacebookLogin from "../../../services/Facebook";
-import { httpPost } from "../../../services/http";
-import I18n from "@locales/I18n";
+import NavigationService from '../../../services/route';
+import InstagramLogin from '../../../services/Instagram';
+import FacebookLogin from '../../../services/Facebook';
+import { httpPost } from '../../../services/http';
+import I18n from '@locales/I18n';
 
 class ProfileSettings extends React.Component {
   constructor(props) {
@@ -47,21 +47,21 @@ class ProfileSettings extends React.Component {
   LogOut = () => {
     AsyncStorage.multiSet(
       [
-        ["user_info", ""],
-        ["balance", ""],
-        ["token", ""],
-        ["insta_token", ""],
-        ["facebook_token", ""],
-        ["cashout_cart", ""],
-        ["cashout_cart_time", ""],
-        ["cashout_cart_id", ""],
-        ["game_status", "initial"]
+        ['user_info', ''],
+        ['balance', ''],
+        ['token', ''],
+        ['insta_token', ''],
+        ['facebook_token', ''],
+        ['cashout_cart', ''],
+        ['cashout_cart_time', ''],
+        ['cashout_cart_id', ''],
+        ['game_status', 'initial']
       ],
       () => {
-        NavigationService.navigate("Start");
-        this.props.setGameStatus("initial");
-        this.props.setInstaToken("");
-        this.props.setFacebookToken("");
+        NavigationService.navigate('Start');
+        this.props.setGameStatus('initial');
+        this.props.setInstaToken('');
+        this.props.setFacebookToken('');
         CookieManager.clearAll();
       }
     );
@@ -71,8 +71,7 @@ class ProfileSettings extends React.Component {
     let body = JSON.stringify({
       access_token: token
     });
-    let promise = httpPost(urls.facebook_login, body, this.props.token);
-    promise.then(
+    httpPost(urls.facebook_login, body, this.props.token).then(
       result => {
         if (result.body.url) {
           this.refs.facebookLogin.show(result.body.url);
@@ -96,15 +95,14 @@ class ProfileSettings extends React.Component {
   };
 
   ToProfile = () => {
-    NavigationService.navigate("Main");
+    NavigationService.navigate('Main');
   };
 
   disConnectFacebook = () => {
     this.props.loaderState(true);
-    this.props.setFacebookToken("");
+    this.props.setFacebookToken('');
     let body = JSON.stringify({});
-    let promise = httpPost(urls.facebook_logout, body, this.props.token);
-    promise.then(
+    httpPost(urls.facebook_logout, body, this.props.token).then(
       result => {
         this.props.loaderState(false);
         CookieManager.clearAll().then(res => {
@@ -121,12 +119,11 @@ class ProfileSettings extends React.Component {
   };
   disConnectInsta = () => {
     this.props.loaderState(true);
-    this.props.setInstaToken("");
+    this.props.setInstaToken('');
     let body = JSON.stringify({
       instagram_token: this.props.insta_token
     });
-    let promise = httpPost(urls.insta_logout, body, this.props.token);
-    promise.then(
+    httpPost(urls.insta_logout, body, this.props.token).then(
       result => {
         this.props.loaderState(false);
         CookieManager.clearAll().then(res => {
@@ -145,13 +142,11 @@ class ProfileSettings extends React.Component {
     this.props.setFacebookToken(String(token));
   };
   connectInsta = instagram_token => {
-    console.log(instagram_token);
     this.props.loaderState(true);
     let body = JSON.stringify({
       instagram_token
     });
-    let promise = httpPost(urls.insta_login, body, this.props.token);
-    promise.then(
+    httpPost(urls.insta_login, body, this.props.token).then(
       result => {
         if (result.status === 200) {
           this.props.setInstaToken(String(instagram_token));
@@ -187,7 +182,7 @@ class ProfileSettings extends React.Component {
     });
   };
   ToProfileEdit = () => {
-    AsyncStorage.getItem("user_info").then(value => {
+    AsyncStorage.getItem('user_info').then(value => {
       let object = JSON.parse(value);
       let async_storage_user = {
         user_name: object.name,
@@ -197,10 +192,10 @@ class ProfileSettings extends React.Component {
         user_birthDay: object.birthDay,
         user_currency: object.currency
       };
-      if (object.birthDay && object.birthDay != "") {
+      if (object.birthDay && object.birthDay != '') {
         this.props.setBirthDay(object.birthDay);
       }
-      NavigationService.navigate("ProfileEdit", { async_storage_user });
+      NavigationService.navigate('ProfileEdit', { async_storage_user });
     });
   };
   render() {
@@ -209,13 +204,13 @@ class ProfileSettings extends React.Component {
         {this.props.loader && <ActivityIndicator />}
         <FacebookLogin
           ref="facebookLogin"
-          scopes={["basic"]}
+          scopes={['basic']}
           onLoginSuccess={json => this.connectFacebook(json.token)}
           onLoginFailure={data => {
             CookieManager.clearAll().then(res => {
               this.props.loaderState(false);
             });
-            if (data.msg === "Not enough friends") {
+            if (data.msg === 'Not enough friends') {
               if (data.subsc_needed) {
                 this.setState({ userCount: data.subsc_needed });
                 this.setModalVisible(true);
@@ -228,10 +223,10 @@ class ProfileSettings extends React.Component {
         <InstagramLogin
           ref="instagramLogin"
           clientId="7df789fc907d4ffbbad30b7e25ba3933"
-          scopes={["basic"]}
+          scopes={['basic']}
           onLoginSuccess={token => this.connectInsta(token)}
           onLoginFailure={data => {
-            this.connectInsta(data.next.split("/#access_token=")[1]);
+            this.connectInsta(data.next.split('/#access_token=')[1]);
             CookieManager.clearAll().then(res => {
               this.props.loaderState(false);
             });
@@ -242,12 +237,12 @@ class ProfileSettings extends React.Component {
           <FastImage
             style={styles.animation}
             resizeMode={FastImage.resizeMode.contain}
-            source={require("../../../assets/img/smile.gif")}
+            source={require('../../../assets/img/smile.gif')}
           />
         ) : null}
         {this.state.animationState ? (
           <View style={styles.white_text_container}>
-            <Text style={styles.white_text}>{I18n.t("CONNECT_SOCIAL")}</Text>
+            <Text style={styles.white_text}>{I18n.t('CONNECT_SOCIAL')}</Text>
           </View>
         ) : null}
         <View style={[styles.image_block_button, styles.top_insta]}>
@@ -258,8 +253,8 @@ class ProfileSettings extends React.Component {
             gradient
             title={
               this.props.insta_token
-                ? I18n.t("PROFILE_SETTINGS.REMOVE")
-                : I18n.t("PROFILE_SETTINGS.ADD")
+                ? I18n.t('PROFILE_SETTINGS.REMOVE')
+                : I18n.t('PROFILE_SETTINGS.ADD')
             }
             color={this.props.userColor.white}
             handler={() => {
@@ -274,9 +269,7 @@ class ProfileSettings extends React.Component {
             <LoginButton
               onLoginFinished={(error, result) => {
                 if (error) {
-                  console.log("login has error: " + result.error);
                 } else if (result.isCancelled) {
-                  console.log("login is cancelled.");
                 } else {
                   AccessToken.getCurrentAccessToken().then(data => {
                     this.LoginFacebook(data.accessToken.toString());
@@ -289,7 +282,7 @@ class ProfileSettings extends React.Component {
         </View>
         <View style={styles.header}>
           <Text style={[styles.header_text, styles.image_block_text_big]}>
-            {I18n.t("PROFILE_SETTINGS.SETTINGS")}
+            {I18n.t('PROFILE_SETTINGS.SETTINGS')}
           </Text>
           <Button
             transparent
@@ -324,11 +317,11 @@ class ProfileSettings extends React.Component {
               <FastImage
                 style={styles.settings_img}
                 resizeMode={FastImage.resizeMode.contain}
-                source={require("../../../assets/img/writing.png")}
+                source={require('../../../assets/img/writing.png')}
               />
               <View style={styles.image_block_text_button}>
                 <Text style={styles.image_block_text_big}>
-                  {I18n.t("PROFILE_SETTINGS.EDIT_PROFILE")}
+                  {I18n.t('PROFILE_SETTINGS.EDIT_PROFILE')}
                 </Text>
               </View>
             </Button>
@@ -338,21 +331,21 @@ class ProfileSettings extends React.Component {
             <FastImage
               style={styles.settings_img}
               resizeMode={FastImage.resizeMode.contain}
-              source={require("../../../assets/img/instagram-logo.png")}
+              source={require('../../../assets/img/instagram-logo.png')}
             />
             <View style={styles.image_block_text}>
               <Text style={styles.image_block_text_big}>
-                {I18n.t("PROFILE_SETTINGS.INSTAGRAM")}
+                {I18n.t('PROFILE_SETTINGS.INSTAGRAM')}
               </Text>
               <Text style={styles.image_block_text_small}>
-                {I18n.t("PROFILE_SETTINGS.INSTAGRAM_ADDITIONAL")}
+                {I18n.t('PROFILE_SETTINGS.INSTAGRAM_ADDITIONAL')}
               </Text>
             </View>
           </View>
           <View style={[styles.image_block, styles.image_block_with_border]}>
             <FastImage
               style={styles.settings_img}
-              source={require("../../../assets/img/facebook.png")}
+              source={require('../../../assets/img/facebook.png')}
             />
             <View style={styles.image_block_text}>
               <Text style={styles.image_block_text_big} />
@@ -374,19 +367,19 @@ class ProfileSettings extends React.Component {
               <FastImage
                 style={styles.settings_img}
                 resizeMode={FastImage.resizeMode.contain}
-                source={require("../../../assets/img/logout.png")}
+                source={require('../../../assets/img/logout.png')}
               />
               <View style={styles.image_block_text_button}>
                 <Text style={styles.image_block_text_big}>
-                  {I18n.t("PROFILE_SETTINGS.EXIT")}
+                  {I18n.t('PROFILE_SETTINGS.EXIT')}
                 </Text>
               </View>
             </Button>
           </View>
         </View>
         <CustomAlert
-          title={I18n.t("PROFILE_PAGE.ALREADY_ACCOUNT")}
-          first_btn_title={I18n.t("OK")}
+          title={I18n.t('PROFILE_PAGE.ALREADY_ACCOUNT')}
+          first_btn_title={I18n.t('OK')}
           visible={this.state.errorVisible}
           first_btn_handler={() =>
             this.setErrorVisible(!this.state.errorVisible)
@@ -396,9 +389,9 @@ class ProfileSettings extends React.Component {
           }
         />
         <CustomAlert
-          title={I18n.t("PROFILE_PAGE.NOT_ENOUGHT_SUB")}
-          subtitle={this.state.userCount + I18n.t("PROFILE_PAGE.SUBS")}
-          first_btn_title={I18n.t("OK")}
+          title={I18n.t('PROFILE_PAGE.NOT_ENOUGHT_SUB')}
+          subtitle={this.state.userCount + I18n.t('PROFILE_PAGE.SUBS')}
+          first_btn_title={I18n.t('OK')}
           visible={this.state.modalVisible}
           first_btn_handler={() =>
             this.setModalVisible(!this.state.modalVisible)

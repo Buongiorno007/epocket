@@ -1,29 +1,29 @@
-import React from "react";
-import FastImage from "react-native-fast-image";
-import { View } from "react-native";
-import { RNCamera } from "react-native-camera";
+import React from 'react';
+import FastImage from 'react-native-fast-image';
+import { View } from 'react-native';
+import { RNCamera } from 'react-native-camera';
 //containers
-import CustomAlert from "../../containers/custom-alert/custom-alert";
+import CustomAlert from '../../containers/custom-alert/custom-alert';
 //constants
-import styles from "./styles";
-import { ICONS } from "./../../../constants/icons";
-import { urls } from "../../../constants/urls";
+import styles from './styles';
+import { ICONS } from './../../../constants/icons';
+import { urls } from '../../../constants/urls';
 //redux
-import { loaderState } from "../../../reducers/loader";
-import { setShowQR } from "../../../reducers/set-show-qr";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import { loaderState } from '../../../reducers/loader';
+import { setShowQR } from '../../../reducers/set-show-qr';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 //services
-import NavigationService from "../../../services/route";
-import { httpPost } from "../../../services/http";
-import { handleError } from "../../../services/http-error-handler";
-import I18n from "@locales/I18n";
+import NavigationService from '../../../services/route';
+import { httpPost } from '../../../services/http';
+import { handleError } from '../../../services/http-error-handler';
+import I18n from '@locales/I18n';
 
 class ScannerCamera extends React.Component {
   state = {
     errorVisible: false,
     qr_code: null,
-    errorText: ""
+    errorText: ''
   };
 
   setModalVisible = visible => {
@@ -44,15 +44,10 @@ class ScannerCamera extends React.Component {
         mission_id: this.props.selectedMission.id,
         qrCode: qrcode.data
       };
-      let promise = httpPost(
-        urls.send_qr_code,
-        JSON.stringify(body),
-        this.props.token
-      );
-      promise.then(
+      httpPost(urls.send_qr_code, JSON.stringify(body), this.props.token).then(
         result => {
           this.props.setShowQR(true);
-          NavigationService.navigate("Photograph");
+          NavigationService.navigate('Photograph');
         },
         error => {
           this.props.loaderState(false);
@@ -63,7 +58,7 @@ class ScannerCamera extends React.Component {
             urls.send_qr_code,
             this.props.token,
             this.constructor.name,
-            "sendQRCode"
+            'sendQRCode'
           );
           this.setState({ errorText: error_respons.error_text });
           this.setModalVisible(error_respons.error_modal);
@@ -81,7 +76,7 @@ class ScannerCamera extends React.Component {
       <View style={styles.container}>
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={I18n.t("REPEAT")}
+          first_btn_title={I18n.t('REPEAT')}
           visible={this.state.errorVisible}
           first_btn_handler={() => this.reopenQRScanner()}
           decline_btn_handler={() => this.reopenQRScanner()}
@@ -89,15 +84,15 @@ class ScannerCamera extends React.Component {
         <View style={styles.frame}>
           <RNCamera
             captureAudio={false}
-            ratio={"1:1"}
+            ratio={'1:1'}
             ref={ref => (this.camera = ref)}
             style={styles.camera}
             onBarCodeRead={e => {
               if (this.props.showQR) this.sendQRCode(e);
             }}
             barCodeTypes={[RNCamera.Constants.BarCodeType.qr]}
-            permissionDialogTitle={I18n.t("TITLE")}
-            permissionDialogMessage={I18n.t("CAMERA_PERMISSION")}
+            permissionDialogTitle={I18n.t('TITLE')}
+            permissionDialogMessage={I18n.t('CAMERA_PERMISSION')}
           />
           <FastImage
             resizeMode={FastImage.resizeMode.contain}

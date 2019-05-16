@@ -1,13 +1,12 @@
-import { Platform } from "react-native";
-import BackgroundGeolocationModule from "../services/background-geolocation-picker";
-import { sendToTelegramm } from "../services/telegramm-notification";
-export const CHANGE_LOCATION = "geolocation-coords/CHANGE_LOCATION";
-import getCurrentGeolocation from "../services/get-location";
+import { Platform } from 'react-native';
+import BackgroundGeolocationModule from '../services/background-geolocation-picker';
+import { sendToTelegramm } from '../services/telegramm-notification';
+export const CHANGE_LOCATION = 'geolocation-coords/CHANGE_LOCATION';
+import getCurrentGeolocation from '../services/get-location';
 
 export default (state = { lng: 0, lat: 0 }, action) => {
   switch (action.type) {
     case CHANGE_LOCATION:
-      //  console.log('location',action.location)
       return Object.assign({}, { ...state, ...action.location });
     default:
       return state;
@@ -15,8 +14,8 @@ export default (state = { lng: 0, lat: 0 }, action) => {
 };
 
 export const locationCoordsListener = () => async dispatch => {
-  if (Platform.OS === "ios") {
-    BackgroundGeolocationModule.on("location", location =>
+  if (Platform.OS === 'ios') {
+    BackgroundGeolocationModule.on('location', location =>
       dispatch(
         setLocation({
           lng: Number(location.coords.longitude),
@@ -25,7 +24,7 @@ export const locationCoordsListener = () => async dispatch => {
       )
     );
   } else {
-    BackgroundGeolocationModule.on("location", location => {
+    BackgroundGeolocationModule.on('location', location => {
       location.lng
         ? dispatch(setLocation(location))
         : dispatch(
@@ -35,7 +34,6 @@ export const locationCoordsListener = () => async dispatch => {
             })
           );
     });
-
   }
 };
 

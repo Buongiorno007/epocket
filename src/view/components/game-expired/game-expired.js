@@ -118,8 +118,7 @@ class GameStart extends React.Component {
     let body = JSON.stringify({
       instagram_token: instagram_token
     });
-    let promise = httpPost(urls.insta_login, body, this.props.token);
-    promise.then(
+    httpPost(urls.insta_login, body, this.props.token).then(
       result => {
         if (result.status === 200) {
           this.props.setInstaToken(String(instagram_token));
@@ -207,7 +206,6 @@ class GameStart extends React.Component {
     );
   };
   openPartnersInfoPage = () => {
-    // console.log(this.props.game_expired_img);
     this.setState({
       website_visible: true,
       brand_title: this.props.game_expired_img.brand_name
@@ -285,7 +283,6 @@ class GameStart extends React.Component {
           onLoginSuccess={token => this.connectInsta(token)}
           onLoginFailure={data => {
             let token = data.next.split('#access_token=')[1];
-            console.log(data, token);
             this.connectInsta(token);
           }}
         />
