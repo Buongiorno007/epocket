@@ -43,5 +43,16 @@ export default StyleSheet.create({
     textAlign: 'center',
     color: 'white',
     marginBottom: 5
+  },
+  container_android: {
+    position: 'absolute',
+    width: width,
+    height: height,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    zIndex: 997,
+    // elevation: 16,
+    backgroundColor: 'rgba(255,255,255,0.95)'
   }
 });

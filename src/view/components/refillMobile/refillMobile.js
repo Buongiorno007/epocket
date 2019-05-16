@@ -211,7 +211,7 @@ class RefillMobile extends React.Component {
       Alert.alert(
         'Allow only numbers',
         '',
-        [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
+        [{ text: 'OK', onPress: () => {} }],
         { cancelable: false }
       );
     }
@@ -246,7 +246,7 @@ class RefillMobile extends React.Component {
       Alert.alert(
         `Max value ${this.state.maxValue}`,
         '',
-        [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
+        [{ text: 'OK', onPress: () => {} }],
         { cancelable: false }
       );
     }

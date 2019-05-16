@@ -2,7 +2,7 @@ import { setGameStatus } from './game-status';
 
 export const CHANGE_ACTIVE_TAB = 'tabs/CHANGE_ACTIVE_TAB';
 
-export default (state = 1, action) => {
+export default (state = 0, action) => {
   switch (action.type) {
     case CHANGE_ACTIVE_TAB:
       return action.activeTab;
