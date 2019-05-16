@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   View,
   StatusBar,
@@ -8,50 +8,51 @@ import {
   Platform,
   Alert,
   Keyboard,
-  Animated,
-  WebView
-} from "react-native";
-import FastImage from "react-native-fast-image";
-import { TextField } from "react-native-material-textfield";
-import LinearGradient from "react-native-linear-gradient";
-//containers
-import CustomButton from "../../containers/custom-button/custom-button";
-import BackButton from "../../containers/back/back";
-import CustomAlert from "../../containers/custom-alert/custom-alert";
-import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
-//constants
-import styles from "./styles";
-import { colors } from "../../../constants/colors";
-import { urls } from "../../../constants/urls";
-import { ICONS } from "../../../constants/icons";
-//redux
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { setToken } from "../../../reducers/token";
-import { loaderState } from "../../../reducers/loader";
-import { setBalance } from "../../../reducers/user-balance";
-import { setProfileVirgin } from "../../../reducers/profile-virgin";
-import { setGeoVirgin } from "../../../reducers/geo-virgin";
-import { getPush } from "../../../reducers/push";
-import { saveUser } from "../../../reducers/profile-state";
-//services
-import { httpPost } from "../../../services/http";
-import { handleError } from "../../../services/http-error-handler";
-import { sendToTelegramm } from "../../../services/telegramm-notification";
-import I18n from "@locales/I18n";
+  Animated
+} from 'react-native';
+import { WebView } from 'react-native-webview';
 
-const keyboardVerticalOffset = Platform.OS === "ios" ? -50 : -100;
+import FastImage from 'react-native-fast-image';
+import { TextField } from 'react-native-material-textfield';
+import LinearGradient from 'react-native-linear-gradient';
+//containers
+import CustomButton from '../../containers/custom-button/custom-button';
+import BackButton from '../../containers/back/back';
+import CustomAlert from '../../containers/custom-alert/custom-alert';
+import ActivityIndicator from '../../containers/activity-indicator/activity-indicator';
+//constants
+import styles from './styles';
+import { colors } from '../../../constants/colors';
+import { urls } from '../../../constants/urls';
+import { ICONS } from '../../../constants/icons';
+//redux
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setToken } from '../../../reducers/token';
+import { loaderState } from '../../../reducers/loader';
+import { setBalance } from '../../../reducers/user-balance';
+import { setProfileVirgin } from '../../../reducers/profile-virgin';
+import { setGeoVirgin } from '../../../reducers/geo-virgin';
+import { getPush } from '../../../reducers/push';
+import { saveUser } from '../../../reducers/profile-state';
+//services
+import { httpPost } from '../../../services/http';
+import { handleError } from '../../../services/http-error-handler';
+import { sendToTelegramm } from '../../../services/telegramm-notification';
+import I18n from '@locales/I18n';
+
+const keyboardVerticalOffset = Platform.OS === 'ios' ? -50 : -100;
 
 class SignUp extends React.Component {
   static navigationOptions = () => ({
-    header: <BackButton title={I18n.t("SIGN_UP_TITLE")} route="Start" />
+    header: <BackButton title={I18n.t('SIGN_UP_TITLE')} route="Start" />
   });
 
   state = {
     signUpMargin: new Animated.Value(40),
-    phone: "",
-    name: "",
-    code: "",
+    phone: '',
+    name: '',
+    code: '',
     numberExists: false,
     invalidCode: false,
     phoneCorrect: false,
@@ -60,8 +61,8 @@ class SignUp extends React.Component {
     step: 1,
     failedSignVisible: false,
     failedConfirmVisible: false,
-    errorText: "",
-    user_id: ""
+    errorText: '',
+    user_id: ''
   };
 
   constructor(props) {
@@ -82,26 +83,26 @@ class SignUp extends React.Component {
   };
 
   mphone = v => {
-    let r = v.replace(/\D/g, "");
-    r = r.replace(/^0/, "");
+    let r = v.replace(/\D/g, '');
+    r = r.replace(/^0/, '');
     if (r.length > 8) {
       // 11+ digits.
-      r = r.replace(/^(\d{2})(\d{3})(\d{0,3})(\d{0,5}).*/, "$1 $2 $3 $4");
+      r = r.replace(/^(\d{2})(\d{3})(\d{0,3})(\d{0,5}).*/, '$1 $2 $3 $4');
     } else if (r.length > 5) {
       // 6..10 digits. Format as 4+4
-      r = r.replace(/^(\d{2})(\d{0,3})(\d{0,5}).*/, "$1 $2 $3");
+      r = r.replace(/^(\d{2})(\d{0,3})(\d{0,5}).*/, '$1 $2 $3');
     } else if (r.length > 2) {
       // 3..5 digits.
-      r = r.replace(/^(\d{2})(\d{0,3})/, "$1 $2");
+      r = r.replace(/^(\d{2})(\d{0,3})/, '$1 $2');
     } else {
       // 0..2 digits.
-      r = r.replace(/^(\d*)/, "$1");
+      r = r.replace(/^(\d*)/, '$1');
     }
     return r;
   };
   onChangedPhone(text) {
     this.setState({ numberExists: false });
-    let newText = "";
+    let newText = '';
     let phonePattern = /^.+$/;
     if (phonePattern.test(text)) {
       newText = text;
@@ -114,9 +115,8 @@ class SignUp extends React.Component {
   }
 
   onChangedName(text) {
-    let newText = "";
+    let newText = '';
     let namePattern = /^[a-z A-Zа-яА-Я]{1,64}$/;
-    // console.log("text", text, namePattern.test(text));
     if (namePattern.test(text)) {
       newText = text;
       this.setState({ nameCorrect: text.length >= 2 });
@@ -128,7 +128,7 @@ class SignUp extends React.Component {
 
   onChangedCode(text) {
     this.setState({ invalidCode: false });
-    let newText = "";
+    let newText = '';
     let codePattern = /^\d+$/;
     if (codePattern.test(text)) {
       newText = text;
@@ -146,16 +146,13 @@ class SignUp extends React.Component {
     this.setFailedSignVisible(false);
     this.props.loaderState(true);
     Keyboard.dismiss();
-    let bodyPhone = this.state.phone.replace(/\D/g, "");
+    let bodyPhone = this.state.phone.replace(/\D/g, '');
     let body = {
-      phone: "+" + bodyPhone
+      phone: '+' + bodyPhone
     };
-    // console.log(body, this.state.phoneCorrect, this.state.nameCorrect);
-    let promise = httpPost(urls.sign_up, JSON.stringify(body));
-    promise.then(
+    httpPost(urls.sign_up, JSON.stringify(body)).then(
       result => {
         this.setFailedSignVisible(false);
-        // console.log("Fulfilled sendForm: ", result);
         //this.props.loaderState(false); //DEPRECATED uncomment
         this.setState({ step: 2, acceptButton: false });
         this.sendCode(); //DEPRECATED
@@ -166,9 +163,9 @@ class SignUp extends React.Component {
           error,
           body,
           urls.sign_up,
-          "",
+          '',
           this.constructor.name,
-          "sendForm"
+          'sendForm'
         );
         this.setState({ errorText: error_respons.error_text });
         if (error_respons.error_code === 400)
@@ -184,19 +181,16 @@ class SignUp extends React.Component {
     Keyboard.dismiss();
     this.setFailedConfirmVisible(false);
     this.props.loaderState(true);
-    let bodyPhone = this.state.phone.replace(/\D/g, "");
+    let bodyPhone = this.state.phone.replace(/\D/g, '');
     let body = {
-      phone: "+" + bodyPhone,
+      phone: '+' + bodyPhone,
       code: this.state.code,
       name: this.state.name,
       user_id: this.state.user_id
     };
-    // console.log(body);
-    let promise = httpPost(urls.sign_up_confirm, JSON.stringify(body));
-    promise.then(
+    httpPost(urls.sign_up_confirm, JSON.stringify(body)).then(
       result => {
         this.setFailedConfirmVisible(false);
-        // console.log("Fulfilled sendCode: ", result);
         this.props.loaderState(false);
         let new_user = {
           name: this.state.name,
@@ -220,9 +214,9 @@ class SignUp extends React.Component {
           error,
           body,
           urls.sign_up_confirm,
-          "",
+          '',
           this.constructor.name,
-          "sendCode"
+          'sendCode'
         );
         this.setState({ errorText: error_respons.error_text });
         if (error_respons.error_code === 400) {
@@ -235,15 +229,15 @@ class SignUp extends React.Component {
   }
 
   goToMap() {
-    this.props.navigation.navigate("Main");
+    this.props.navigation.navigate('Main');
   }
   componentDidMount() {
     this.keyboardDidShowListener = Keyboard.addListener(
-      "keyboardDidShow",
+      'keyboardDidShow',
       this._keyboardDidShow
     );
     this.keyboardDidHideListener = Keyboard.addListener(
-      "keyboardDidHide",
+      'keyboardDidHide',
       this._keyboardDidHide
     );
     this.props.loaderState(false);
@@ -278,14 +272,13 @@ class SignUp extends React.Component {
           injectedJavaScript={
             "window.waitForBridge = function(fn) { return (window.postMessage.length === 1) ? fn() : setTimeout(function() { window.waitForBridge(fn) }, 500) }; window.waitForBridge(function() {setTimeout(function() {  window.postMessage(document.getElementById('hash').innerHTML)  }, 1500) });"
           }
-          source={{ uri: urls.blank + "/reflink?not_redirect=true" }}
+          source={{ uri: urls.blank + '/reflink?not_redirect=true' }}
           onMessage={event => {
             this.setState({ user_id: event.nativeEvent.data });
-            console.log("Received: ", event.nativeEvent.data);
           }}
           style={{
             flex: 0,
-            position: "absolute",
+            position: 'absolute',
             width: 0,
             height: 0,
             zIndex: 0,
@@ -295,7 +288,7 @@ class SignUp extends React.Component {
         />
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={I18n.t("REPEAT")}
+          first_btn_title={I18n.t('REPEAT')}
           visible={this.state.failedSignVisible}
           first_btn_handler={() => {
             this.sendForm();
@@ -306,7 +299,7 @@ class SignUp extends React.Component {
         />
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={I18n.t("REPEAT")}
+          first_btn_title={I18n.t('REPEAT')}
           visible={this.state.failedConfirmVisible}
           first_btn_handler={() => {
             this.sendCode();
@@ -318,14 +311,14 @@ class SignUp extends React.Component {
         <StatusBar
           barStyle="default"
           translucent={true}
-          backgroundColor={"transparent"}
+          backgroundColor={'transparent'}
         />
         <FastImage
           style={styles.bottom_image}
           source={{ uri: ICONS.COMMON.SIGN_UP_BACKGROUND }}
         />
         <LinearGradient
-          colors={["#FC4866", "#FE51A2", "rgba(171,107,255,0.43)"]}
+          colors={['#FC4866', '#FE51A2', 'rgba(171,107,255,0.43)']}
           start={{ x: 1.0, y: 0.0 }}
           end={{ x: 0.0, y: 1.0 }}
           style={styles.grad}
@@ -334,11 +327,11 @@ class SignUp extends React.Component {
           {this.state.step == 1 ? (
             <View style={styles.form}>
               <TextField
-                label={I18n.t("MOBILE_NUMBER")}
+                label={I18n.t('MOBILE_NUMBER')}
                 textColor={this.props.userColor.input}
                 tintColor={this.props.userColor.input}
                 baseColor={this.props.userColor.input}
-                placeholder={I18n.t("PHONE_MASK")}
+                placeholder={I18n.t('PHONE_MASK')}
                 placeholderTextColor={this.props.userColor.input_placeholder}
                 labelPadding={16}
                 inputContainerPadding={16}
@@ -355,14 +348,14 @@ class SignUp extends React.Component {
                     : styles.disabled
                 }
               >
-                {I18n.t("NUMBER_EXISTS")}
+                {I18n.t('NUMBER_EXISTS')}
               </Text>
               <TextField
-                label={I18n.t("FIRST_LAST_NAME")}
+                label={I18n.t('FIRST_LAST_NAME')}
                 textColor={this.props.userColor.input}
                 tintColor={this.props.userColor.input}
                 baseColor={this.props.userColor.input}
-                placeholder={I18n.t("NAMES")}
+                placeholder={I18n.t('NAMES')}
                 placeholderTextColor={this.props.userColor.input_placeholder}
                 value={this.state.name}
                 labelPadding={16}
@@ -378,22 +371,22 @@ class SignUp extends React.Component {
                       : this.props.userColor.white
                   }
                   active={this.state.phoneCorrect && this.state.nameCorrect}
-                  title={I18n.t("SIGN_UP").toUpperCase()}
+                  title={I18n.t('SIGN_UP').toUpperCase()}
                   handler={() => this.sendForm()}
                 />
               </Animated.View>
             </View>
           ) : this.state.step == 2 ? (
             <View style={styles.form}>
-              <Text style={styles.code_sent}>{I18n.t("CODE_SENT")}</Text>
-              <Text style={styles.enter_code}>{I18n.t("ENTER_CODE")}</Text>
+              <Text style={styles.code_sent}>{I18n.t('CODE_SENT')}</Text>
+              <Text style={styles.enter_code}>{I18n.t('ENTER_CODE')}</Text>
               <TextField
                 label=""
                 style={styles.code_input}
                 textColor={this.props.userColor.input}
                 tintColor={this.props.userColor.input}
                 baseColor={this.props.userColor.input}
-                placeholder={I18n.t("CODE_MASK")}
+                placeholder={I18n.t('CODE_MASK')}
                 placeholderTextColor={this.props.userColor.input_placeholder}
                 labelPadding={16}
                 label=""
@@ -408,7 +401,7 @@ class SignUp extends React.Component {
                   this.state.invalidCode ? styles.check_code : styles.disabled
                 }
               >
-                {I18n.t("CHECK_CODE")}
+                {I18n.t('CHECK_CODE')}
               </Text>
               <Animated.View style={[{ marginTop: this.state.signUpMargin }]}>
                 <CustomButton
@@ -418,20 +411,20 @@ class SignUp extends React.Component {
                       : this.props.userColor.white
                   }
                   active={this.state.codeCorrect}
-                  title={I18n.t("ACCEPT").toUpperCase()}
+                  title={I18n.t('ACCEPT').toUpperCase()}
                   handler={() => this.sendCode()}
                 />
               </Animated.View>
             </View>
           ) : this.state.step == 3 ? (
             <View style={styles.form}>
-              <Text style={styles.code_sent}>{I18n.t("SING_UP_SUCCESS")}</Text>
-              <Text style={styles.enter_code}>{I18n.t("USE_YOUR_PHONE")}</Text>
+              <Text style={styles.code_sent}>{I18n.t('SING_UP_SUCCESS')}</Text>
+              <Text style={styles.enter_code}>{I18n.t('USE_YOUR_PHONE')}</Text>
               <Animated.View style={[{ marginTop: this.state.signUpMargin }]}>
                 <CustomButton
                   color={this.props.userColor.pink}
                   active
-                  title={I18n.t("OK").toUpperCase()}
+                  title={I18n.t('OK').toUpperCase()}
                   handler={() => this.goToMap()}
                 />
               </Animated.View>

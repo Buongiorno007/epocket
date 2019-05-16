@@ -8,19 +8,20 @@ import com.facebook.appevents.AppEventsLogger;
 import com.jobeso.RNInstagramStoryShare.RNInstagramStorySharePackage;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.webview.RNCWebViewPackage;
+import com.bluroverly.SajjadBlurOverlayPackage;
+import com.cmcewen.blurview.BlurViewPackage;
+import com.horcrux.svg.SvgPackage;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
 import com.tron.ReactNativeWheelPickerPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
-import com.idehub.GoogleAnalyticsBridge.GoogleAnalyticsBridgePackage;
 import com.tradle.react.UdpSocketsModule;
 import com.levelasquez.androidopensettings.AndroidOpenSettingsPackage;
 import com.mocklocation.reactnative.RNMockLocationDetectorPackage;
 import com.gantix.JailMonkey.JailMonkeyPackage;
-import com.jdc.reactlibrary.RNReferrerPackage;
-import com.horcrux.svg.SvgPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.rnfs.RNFSPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
@@ -28,7 +29,6 @@ import com.psykar.cookiemanager.CookieManagerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import cl.json.RNSharePackage;
-import com.smixx.fabric.FabricPackage;
 import com.marianhello.bgloc.react.BackgroundGeolocationPackage;
 
 import io.invertase.firebase.RNFirebasePackage;
@@ -63,6 +63,7 @@ import cl.json.ShareApplication;
 import java.util.Arrays;
 import java.util.List;
 
+import android.os.Build;
 import android.webkit.WebView;
 
 public class MainApplication extends Application implements ShareApplication, ReactApplication {
@@ -83,18 +84,18 @@ public class MainApplication extends Application implements ShareApplication, Re
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+                    new RNCWebViewPackage(),
+                    new SajjadBlurOverlayPackage(),
+                    new BlurViewPackage(),
                     new NetInfoPackage(),
                     new ReactNativeWheelPickerPackage(),
                     new RNGestureHandlerPackage(),
                     new LinearGradientPackage(),
                     new RNI18nPackage(),
-                    new GoogleAnalyticsBridgePackage(),
                     new UdpSocketsModule(),
                     new RNMockLocationDetectorPackage(),
                     new AndroidOpenSettingsPackage(),
                     new JailMonkeyPackage(),
-                    new RNReferrerPackage(),
-                    new LinearGradientPackage(),
                     new SvgPackage(),
                     new RNSoundPackage(),
                     new RNFSPackage(),
@@ -104,7 +105,6 @@ public class MainApplication extends Application implements ShareApplication, Re
                     new RNFetchBlobPackage(),
                     new FastImageViewPackage(),
                     new RNSharePackage(),
-                    new FabricPackage(),
                     new BackgroundGeolocationPackage(),
                     new RNFirebasePackage(),
                     new RNFirebaseNotificationsPackage(),
@@ -118,7 +118,6 @@ public class MainApplication extends Application implements ShareApplication, Re
                     new RNRadialGradientPackage(),
                     new RNBackgroundFetchPackage(),
                     new MapsPackage()
-
             );
         }
 
@@ -152,7 +151,8 @@ public class MainApplication extends Application implements ShareApplication, Re
         Fabric.with(this, new Crashlytics());
         SoLoader.init(this, /* native exopackage */ false);
         Fresco.initialize(this);
-        WebView.setWebContentsDebuggingEnabled(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        }
     }
 
 

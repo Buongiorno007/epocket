@@ -68,12 +68,7 @@ class GeolocationService extends React.Component {
       outlet_id: this.props.selectedMall.id,
       mission_id: this.props.mainTaskId
     };
-    let promise = httpPost(
-      urls.finish_mission,
-      JSON.stringify(body),
-      this.props.token
-    );
-    promise.then(
+    httpPost(urls.finish_mission, JSON.stringify(body), this.props.token).then(
       result => {
         if (body.status == 200) {
           this.props.timerStatus(false);

@@ -15,7 +15,6 @@ import {
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-// import { setTabState } from "../../../reducers/tabs";
 import I18n from "@locales/I18n";
 
 class RefLink extends React.Component {
@@ -160,8 +159,7 @@ class RefLink extends React.Component {
                 style={styles.button_close}
                 onPress={() => {
                   this.props.setToogle(false);
-                  //   this.props.setTabState(0);
-                  //   this.props.setTabState(3);
+
                 }}
               >
                 <FastImage
@@ -201,7 +199,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      // setTabState
     },
     dispatch
   );

@@ -1,8 +1,8 @@
 //constants
-import { Platform } from "react-native";
-import { sendToEpcErrorBot } from "./telegramm-notification";
-import I18n from "@locales/I18n";
-const defaultError = "code : 500. Internal Server Error";
+import { Platform } from 'react-native';
+import { sendToEpcErrorBot } from './telegramm-notification';
+import I18n from '@locales/I18n';
+const defaultError = 'code : 500. Internal Server Error';
 {
   /* 
       call example
@@ -40,99 +40,84 @@ export const handleError = (
   switch (errorAll.code) {
     case 503:
       error = this.setErrorData(
-        I18n.t("HTTP_ERRORS.SERVER_ERROR"),
+        I18n.t('HTTP_ERRORS.SERVER_ERROR'),
         true,
         errorAll.code
       );
       break;
     case 400:
       error = this.setErrorData(
-        I18n.t("HTTP_ERRORS.NOT_FOUND"),
+        I18n.t('HTTP_ERRORS.NOT_FOUND'),
         true,
         errorAll.code
       );
       break;
     case 403:
       error = this.setErrorData(
-        I18n.t("HTTP_ERRORS.SMTH_WENT_WRONG"),
+        I18n.t('HTTP_ERRORS.SMTH_WENT_WRONG'),
         true,
         errorAll.code
       );
       break;
     case 408:
       error = this.setErrorData(
-        I18n.t("HTTP_ERRORS.RUNTIME"),
+        I18n.t('HTTP_ERRORS.RUNTIME'),
         true,
         errorAll.code
       );
       break;
     case 416:
       error = this.setErrorData(
-        I18n.t("HTTP_ERRORS.PEOPLE_LIMIT"),
+        I18n.t('HTTP_ERRORS.PEOPLE_LIMIT'),
         true,
         errorAll.code
       );
       break;
     case 418:
       error = this.setErrorData(
-        I18n.t("HTTP_ERRORS.PERSONAL_LIMIT"),
+        I18n.t('HTTP_ERRORS.PERSONAL_LIMIT'),
         true,
         errorAll.code
       );
       break;
     default:
       error = this.setErrorData(
-        I18n.t("HTTP_ERRORS.SERVER_ERROR"),
+        I18n.t('HTTP_ERRORS.SERVER_ERROR'),
         true,
         errorAll.code
       );
       break;
   }
-  console.log(
-    "Rejected request at " + constructor_name,
-    "/// Function name: ",
-    function_name,
-    "/// Error all: ",
-    errorAll,
-    "/// Generated error: ",
-    error,
-    "/// Request body: ",
-    request_body,
-    "/// Request url: ",
-    request_url,
-    "/// Request token: ",
-    request_token
-  );
   if (!__DEV__) {
     sendToEpcErrorBot(
-      "---FRONT INFO---" +
-        " \n " +
+      '---FRONT INFO---' +
+        ' \n ' +
         "/// Rejected request at Constructor: '" +
         constructor_name +
         "' \n " +
-        "/// Function name: " +
+        '/// Function name: ' +
         function_name +
-        " \n " +
-        "/// Generated error: " +
+        ' \n ' +
+        '/// Generated error: ' +
         JSON.stringify(error) +
-        " \n " +
-        "/// Platform: " +
+        ' \n ' +
+        '/// Platform: ' +
         Platform.OS +
-        " \n " +
-        "---BACK INFO---" +
-        " \n " +
-        "/// Error all: " +
+        ' \n ' +
+        '---BACK INFO---' +
+        ' \n ' +
+        '/// Error all: ' +
         JSON.stringify(errorAll) +
-        " \n " +
-        "/// Request body: " +
+        ' \n ' +
+        '/// Request body: ' +
         JSON.stringify(request_body) +
-        " \n " +
-        "/// Request url: " +
+        ' \n ' +
+        '/// Request url: ' +
         request_url +
-        " \n " +
-        "/// Request token: " +
+        ' \n ' +
+        '/// Request token: ' +
         request_token +
-        " \n "
+        ' \n '
     );
   }
   return error;

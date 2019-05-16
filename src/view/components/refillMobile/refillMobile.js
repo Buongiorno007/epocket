@@ -40,8 +40,8 @@ class RefillMobile extends React.Component {
     phone: ''
   };
   navigateBack = () => {
+    // this.props.navigation.goBack();
     NavigationService.navigate('Main');
-    // goBack()
   };
   componentDidMount = () => {
     this.props.loaderState(true);
@@ -211,7 +211,7 @@ class RefillMobile extends React.Component {
       Alert.alert(
         'Allow only numbers',
         '',
-        [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
+        [{ text: 'OK', onPress: () => {} }],
         { cancelable: false }
       );
     }
@@ -227,13 +227,11 @@ class RefillMobile extends React.Component {
       };
       httpPost(urls.refill_mobile, JSON.stringify(body), this.props.token).then(
         result => {
-          // console.log(result, 'REFILL MOBILE RESULT');
           this.setState({ done: !this.state.done });
           this.props.loaderState(false);
           this.props.setBalance(result.body.user_wallet_amount);
         },
         error => {
-          // console.log(error, 'REFILL MOBILE ERROR');
           Alert.alert(
             `code: ${error.code}`,
             '',
@@ -248,7 +246,7 @@ class RefillMobile extends React.Component {
       Alert.alert(
         `Max value ${this.state.maxValue}`,
         '',
-        [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
+        [{ text: 'OK', onPress: () => {} }],
         { cancelable: false }
       );
     }

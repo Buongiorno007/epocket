@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   View,
   ScrollView,
@@ -10,38 +10,38 @@ import {
   Easing,
   Dimensions,
   AsyncStorage
-} from "react-native";
-import Accordion from "react-native-collapsible/Accordion";
-import FastImage from "react-native-fast-image";
+} from 'react-native';
+import Accordion from 'react-native-collapsible/Accordion';
+import FastImage from 'react-native-fast-image';
 //containers
-import Item from "./../../containers/cashout-list-item/cashout-list-item";
-import CustomButton from "./../../containers/custom-button/custom-button";
-import CustomAlert from "../custom-alert/custom-alert";
-import HistoryNavButton from "./../../containers/history-nav-button/history-nav-button";
-import CartCard from "./../../containers/cashout-cart-card/cashout-cart-card";
+import Item from './../../containers/cashout-list-item/cashout-list-item';
+import CustomButton from './../../containers/custom-button/custom-button';
+import CustomAlert from '../custom-alert/custom-alert';
+import HistoryNavButton from './../../containers/history-nav-button/history-nav-button';
+import CartCard from './../../containers/cashout-cart-card/cashout-cart-card';
 //constants
-import styles from "./styles";
-import { urls } from "../../../constants/urls";
-import { colors } from "../../../constants/colors_men";
-import { ICONS } from "./../../../constants/icons";
+import styles from './styles';
+import { urls } from '../../../constants/urls';
+import { colors } from '../../../constants/colors_men';
+import { ICONS } from './../../../constants/icons';
 //redux
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { getSocket } from "../../../reducers/socket";
-import { loaderState } from "../../../reducers/loader";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getSocket } from '../../../reducers/socket';
+import { loaderState } from '../../../reducers/loader';
 //services
-import NavigationService from "./../../../services/route";
-import { httpPost } from "../../../services/http";
-import { handleError } from "../../../services/http-error-handler";
-import moment from "moment";
-import I18n from "@locales/I18n";
+import NavigationService from './../../../services/route';
+import { httpPost } from '../../../services/http';
+import { handleError } from '../../../services/http-error-handler';
+import moment from 'moment';
+import I18n from '@locales/I18n';
 
-const { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get('window');
 
 class CashoutList extends React.Component {
   state = {
     errorVisible: false,
-    errorText: "",
+    errorText: '',
     pickedCart: true,
     orderCopy: [],
     activeSections: [],
@@ -55,21 +55,21 @@ class CashoutList extends React.Component {
     let jsonOrder = JSON.stringify(orderCopy);
     AsyncStorage.multiSet(
       [
-        ["cashout_cart", jsonOrder],
-        ["cashout_cart_time", currentTime],
-        ["cashout_cart_id", String(this.props.general_info.id)]
+        ['cashout_cart', jsonOrder],
+        ['cashout_cart_time', currentTime],
+        ['cashout_cart_id', String(this.props.general_info.id)]
       ],
       () => {}
     );
   };
   componentDidMount = () => {
     AsyncStorage.multiGet([
-      "cashout_cart",
-      "cashout_cart_time",
-      "cashout_cart_id"
+      'cashout_cart',
+      'cashout_cart_time',
+      'cashout_cart_id'
     ]).then(response => {
       responseOrder = JSON.parse(response[0][1]);
-      let diff = moment().diff(response[1][1], "seconds");
+      let diff = moment().diff(response[1][1], 'seconds');
       if (
         diff < 86400 &&
         String(this.props.general_info.id) == response[2][1]
@@ -150,17 +150,11 @@ class CashoutList extends React.Component {
         outlet_id: this.props.selectedMall.id,
         products: copyForCategoryClean
       };
-      // console.log(body);
-      let promise = httpPost(
-        urls.create_order,
-        JSON.stringify(body),
-        this.props.token
-      );
-      promise.then(
+      httpPost(urls.create_order, JSON.stringify(body), this.props.token).then(
         result => {
           this.setModalVisible(false);
           this.props.loaderState(false);
-          NavigationService.navigate("QrCode", {
+          NavigationService.navigate('QrCode', {
             total_price: total_price,
             link: result.body.link,
             orderId: result.body.orderId,
@@ -175,7 +169,7 @@ class CashoutList extends React.Component {
             urls.create_order,
             this.props.token,
             this.constructor.name,
-            "sendOrder"
+            'sendOrder'
           );
           this.setState({ errorText: error_respons.error_text });
           this.setModalVisible(error_respons.error_modal);
@@ -188,7 +182,7 @@ class CashoutList extends React.Component {
     }
   };
   checkForActive = (section, isActive) => {
-    spin = "0deg";
+    spin = '0deg';
     if (isActive) {
       Animated.timing(this.state.rotateAngle, {
         toValue: 1,
@@ -198,13 +192,13 @@ class CashoutList extends React.Component {
       }).start();
       spin = this.state.rotateAngle.interpolate({
         inputRange: [0, 1],
-        outputRange: ["0deg", "180deg"]
+        outputRange: ['0deg', '180deg']
       });
     }
     return spin;
   };
   _renderHeader = (section, index, isActive, sections) => {
-    spin = "0deg";
+    spin = '0deg';
     spin = this.checkForActive(section, isActive);
     return (
       <View style={styles.header}>
@@ -218,7 +212,7 @@ class CashoutList extends React.Component {
             <FastImage
               style={styles.round_image}
               resizeMode={FastImage.resizeMode.contain}
-              source={require("../../../assets/img/settings.png")}
+              source={require('../../../assets/img/settings.png')}
             />
             <View style={styles.header_text}>
               <Text style={styles.header_name}>
@@ -227,15 +221,15 @@ class CashoutList extends React.Component {
               <Text style={styles.positions}>
                 {section.products.length === 1
                   ? section.products.length +
-                    " " +
-                    I18n.t("CASHOUT_LIST.POSITIONS_1")
+                    ' ' +
+                    I18n.t('CASHOUT_LIST.POSITIONS_1')
                   : section.products.length > 1 && section.products.length <= 4
                   ? section.products.length +
-                    " " +
-                    I18n.t("CASHOUT_LIST.POSITIONS_2")
+                    ' ' +
+                    I18n.t('CASHOUT_LIST.POSITIONS_2')
                   : section.products.length +
-                    " " +
-                    I18n.t("CASHOUT_LIST.POSITIONS_3")}
+                    ' ' +
+                    I18n.t('CASHOUT_LIST.POSITIONS_3')}
               </Text>
             </View>
           </View>
@@ -250,7 +244,7 @@ class CashoutList extends React.Component {
                 ]
               }
             ]}
-            source={require("../../../assets/img/arrow_down.png")}
+            source={require('../../../assets/img/arrow_down.png')}
           />
         </View>
       </View>
@@ -303,7 +297,7 @@ class CashoutList extends React.Component {
       <View style={styles.container}>
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={I18n.t("REPEAT")}
+          first_btn_title={I18n.t('REPEAT')}
           visible={this.state.errorVisible}
           first_btn_handler={() => {
             this.sendOrder();
@@ -315,12 +309,12 @@ class CashoutList extends React.Component {
         <View style={styles.nav_buttons}>
           <HistoryNavButton
             handler={!this.state.pickedCart ? () => this.pickAll() : null}
-            title={I18n.t("CASHOUT_LIST.LIST_OF_PRODUCTS")}
+            title={I18n.t('CASHOUT_LIST.LIST_OF_PRODUCTS')}
             disabled={this.state.pickedCart}
           />
           <HistoryNavButton
             handler={this.state.pickedCart ? () => this.pickCart() : null}
-            title={I18n.t("CASHOUT_LIST.CART")}
+            title={I18n.t('CASHOUT_LIST.CART')}
             disabled={!this.state.pickedCart}
             cartCount={this.state.orderCopy.length}
           />
@@ -356,9 +350,9 @@ class CashoutList extends React.Component {
               >
                 {this.state.orderCopy.length ? (
                   <FlatList
-                    listKey={"cart"}
+                    listKey={'cart'}
                     contentContainerStyle={{
-                      alignItems: "center"
+                      alignItems: 'center'
                     }}
                     removeClippedSubviews={true}
                     keyExtractor={this.keyExtractor}
@@ -372,7 +366,7 @@ class CashoutList extends React.Component {
                   />
                 ) : (
                   <View style={styles.empty_cart}>
-                    <Text>{I18n.t("CASH.NO_CART")}</Text>
+                    <Text>{I18n.t('CASH.NO_CART')}</Text>
                   </View>
                 )}
                 {this.state.orderCopy.length ? (
@@ -381,7 +375,7 @@ class CashoutList extends React.Component {
                       active
                       gradient
                       short
-                      title={I18n.t("CASH.BUTTON")}
+                      title={I18n.t('CASH.BUTTON')}
                       color={this.props.userColor.white}
                       handler={() => this.sendOrder()}
                     />
@@ -392,7 +386,7 @@ class CashoutList extends React.Component {
           </View>
         ) : (
           <View style={styles.empty}>
-            <Text>{I18n.t("CASH.NO_CASH")}</Text>
+            <Text>{I18n.t('CASH.NO_CASH')}</Text>
           </View>
         )}
       </View>

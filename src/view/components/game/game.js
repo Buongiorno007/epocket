@@ -1,36 +1,36 @@
-import React from "react";
-import { View, Text, Dimensions, AppState, AsyncStorage } from "react-native";
-import { Button } from "native-base";
-import FastImage from "react-native-fast-image";
+import React from 'react';
+import { View, Text, Dimensions, AppState, AsyncStorage } from 'react-native';
+import { Button } from 'native-base';
+import FastImage from 'react-native-fast-image';
 //redux
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { setTempTime } from "../../../reducers/tempTime";
-import { setFixedTime } from "../../../reducers/fixedTime";
-import { setGameStatus } from "../../../reducers/game-status";
-import { setAppState } from "../../../reducers/app-state";
-import { loaderState } from "../../../reducers/loader";
-import { passGameResult } from "../../../reducers/game-info";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setTempTime } from '../../../reducers/tempTime';
+import { setFixedTime } from '../../../reducers/fixedTime';
+import { setGameStatus } from '../../../reducers/game-status';
+import { setAppState } from '../../../reducers/app-state';
+import { loaderState } from '../../../reducers/loader';
+import { passGameResult } from '../../../reducers/game-info';
 import {
   playClock,
   stopClock,
   playQuestComplete,
   playQuestFail
-} from "../../../reducers/sounds";
-import { editGame, clearGame } from "../../../reducers/game-controller";
+} from '../../../reducers/sounds';
+import { editGame, clearGame } from '../../../reducers/game-controller';
 //constants
-import { ICONS } from "../../../constants/icons";
-import styles from "./styles";
+import { ICONS } from '../../../constants/icons';
+import styles from './styles';
 //containers
-import CustomButton from "../../containers/custom-button/custom-button";
-import CustomProgressBar from "../../containers/custom-progress-bar/custom-progress-bar";
-import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
+import CustomButton from '../../containers/custom-button/custom-button';
+import CustomProgressBar from '../../containers/custom-progress-bar/custom-progress-bar';
+import ActivityIndicator from '../../containers/activity-indicator/activity-indicator';
 //services
-import "../../../services/correcting-interval";
-import { toHHMMSS } from "./../../../services/convert-time";
-import I18n from "@locales/I18n";
+import '../../../services/correcting-interval';
+import { toHHMMSS } from './../../../services/convert-time';
+import I18n from '@locales/I18n';
 
-const { width } = Dimensions.get("window");
+const { width } = Dimensions.get('window');
 
 class Game extends React.Component {
   state = {
@@ -45,30 +45,29 @@ class Game extends React.Component {
       start: { x: 0.0, y: 1.0 },
       end: { x: 1.0, y: 0.0 }
     },
-    currency: ""
+    currency: ''
   };
   componentDidMount() {
     this.props.loaderState(false);
-    AppState.addEventListener("change", this._handleAppStateChange);
+    AppState.addEventListener('change', this._handleAppStateChange);
     this.props.clearGame();
     if (this.props.tempTime >= 1) {
       this.startTimer();
     }
-    AsyncStorage.getItem("user_info").then(value => {
+    AsyncStorage.getItem('user_info').then(value => {
       let object = JSON.parse(value);
       this.setState({ currency: object.currency });
     });
   }
   componentWillUnmount() {
-    AppState.removeEventListener("change", this._handleAppStateChange);
+    AppState.removeEventListener('change', this._handleAppStateChange);
     clearCorrectingInterval(this.state.interval);
   }
   changePressed(i) {
     this.props.editGame(i + 1);
   }
   goToResult = status => {
-    // console.log("goToResult status", )
-    let status_for_api = status === "success" ? true : false;
+    let status_for_api = status === 'success' ? true : false;
     let instadata = {
       success_image: this.props.game_info.success_image,
       base64: this.props.game_info.insta_data.base64,
@@ -118,20 +117,20 @@ class Game extends React.Component {
     ) {
       //compare JSONs to compare arrays
       this.props.playQuestComplete(this.props.sounds[1]);
-      this.goToResult("success");
+      this.goToResult('success');
     } else {
       this.props.playQuestFail(this.props.sounds[2]);
       if (timer_expired) {
-        this.goToResult("expired");
+        this.goToResult('expired');
       } else {
-        this.goToResult("failed");
+        this.goToResult('failed');
       }
     }
   };
   _handleAppStateChange = nextAppState => {
     if (
       this.props.appState.match(/background|inactive/) &&
-      nextAppState === "active"
+      nextAppState === 'active'
     ) {
       clearCorrectingInterval(this.state.interval);
       this.props.setTempTime(this.props.tempTime);
@@ -143,11 +142,11 @@ class Game extends React.Component {
   render() {
     return (
       <View style={styles.main_view}>
-        {this.props.loader && <ActivityIndicator />}
+        {/* {this.props.loader && <ActivityIndicator />} */}
         <View style={styles.game_title}>
           <Text style={styles.game_cost_text}>
-            {this.props.game_info.cost}{" "}
-            {I18n.t("EPC", { currency: this.state.currency })}
+            {this.props.game_info.cost}{' '}
+            {I18n.t('EPC', { currency: this.state.currency })}
           </Text>
           <Text style={styles.game_title_text}>
             {this.props.game_info.title}
@@ -161,7 +160,7 @@ class Game extends React.Component {
         <CustomProgressBar
           style={styles.custom_progress}
           gradient={this.state.progressGradient}
-          animationType={"timing"}
+          animationType={'timing'}
           borderWidth={0}
           borderRadius={12}
           height={5}
@@ -205,7 +204,7 @@ class Game extends React.Component {
                       : index >= 6
                       ? styles.item_last_line
                       : styles.item,
-                    { position: "absolute" }
+                    { position: 'absolute' }
                   ]}
                 />
                 <FastImage
@@ -227,7 +226,7 @@ class Game extends React.Component {
             active={this.state.buttonActive ? true : false}
             short
             gradient
-            title={I18n.t("GAME.CONFIRM").toUpperCase()}
+            title={I18n.t('GAME.CONFIRM').toUpperCase()}
             color={this.props.userColor.white}
             handler={() => {
               this.submitGame();

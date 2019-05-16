@@ -26,7 +26,6 @@ export const checkForInternetReacheable = connection => async dispatch => {
             dispatch(getStatus(true));
           },
           error => {
-            // console.log(error, 'no server connection');
             dispatch(getStatus(false));
           }
         );

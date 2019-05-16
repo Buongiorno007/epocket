@@ -99,14 +99,12 @@ class ProfileEdit extends React.Component {
         birthDay: this.props.birthday,
         photo: 'data:image/jpeg;base64,' + this.state.user.photo
       };
-      // console.log(body);
-      let promise = httpPost(
+      httpPost(
         urls.edit_profile_data,
         serializeJSON(body),
         this.props.token,
         true
-      );
-      promise.then(
+      ).then(
         result => {
           this.props.setBalance(result.body.balance.amount);
           this.props.setProfileVirgin(false);
@@ -125,7 +123,6 @@ class ProfileEdit extends React.Component {
             this.props.setColor(false);
           }
           this.props.saveUser(user);
-          this.props.loaderState(false);
           NavigationService.navigate('Main');
         },
         error => {
@@ -183,7 +180,6 @@ class ProfileEdit extends React.Component {
     ImagePicker.showImagePicker(options, response => {
       if (response.didCancel) {
       } else if (response.error) {
-        // console.log('ImagePicker Error: ', response.error);
       } else {
         let source = { uri: response.data };
         let user = { ...this.state.user };

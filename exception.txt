@@ -1,0 +1,5 @@
+2019-05-11 09:37:36.732978+0300 EpocketCash[447:150779] *** Terminating app due to uncaught exception 'NSRangeException', reason: 'NSMutableRLEArray objectAtIndex:effectiveRange:: Out of bounds'
+*** First throw call stack:
+(0x1d8bbb3d 0x1cb43067 0x1d8bba85 0x1e11f4df 0x1e139189 0x22a7dcad 0x22a7d6d5 0x22a7dc1f 0xc6ab23 0x22b6f6b3 0x20743817 0x20660051 0x2074336d 0x20743083 0x20737b9f 0x20737c0d 0x206c6839 0x206e4fdb 0x206e5b2f 0x1d877803 0x1d875a55 0x1d876017 0x1d7c91af 0x1d7c8fd1 0x1ef73b41 0x22b51a53 0x4c0cb 0x1cfb64eb)
+libc++abi.dylib: terminating with uncaught exception of type NSException
+(lldb) 

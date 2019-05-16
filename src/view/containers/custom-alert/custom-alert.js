@@ -15,7 +15,6 @@ import { ICONS } from '../../../constants/icons';
 import { colors } from '../../../constants/colors_men';
 import Blur from '../blur/blur';
 import I18n from '@locales/I18n';
-import moment from 'moment';
 
 const firstDay = new Date('1901-01-01');
 
@@ -68,17 +67,18 @@ class CustomAlert extends Component {
       this.props.birthday.split('.')[1]
     }-${this.props.birthday.split('.')[0]}`;
     this.setState({
-      birthday: new Date(birt),
-      chosenDay: moment(this.props.birthday).format('MM'),
-      chosenMonth: Number(moment(this.props.birthday).format('DD')) - 1,
-      chosenYear: moment(this.props.birthday).format('YYYY'),
-      locale: I18n.locale
+      birthday: this.props.birthday ? new Date(birt) : today,
+      chosenDay: this.props.birthday.split('.')[0] || today.getUTCDate(),
+      chosenMonth:
+        Number(this.props.birthday.split('.')[1]) - 1 || today.getMonth(),
+      chosenYear: this.props.birthday.split('.')[2] || today.getFullYear(),
+      locale: I18n.locale || 'ru'
     });
   }
 
   pickBirthDay(value) {
     this.setState({
-      chosenDay: value.getUTCDate(),
+      chosenDay: value.getDate(),
       chosenMonth: value.getMonth(),
       chosenYear: value.getFullYear(),
       birthday: value
@@ -187,12 +187,6 @@ class CustomAlert extends Component {
                   transparent
                   style={styles.big_centered_button}
                   onPress={() => {
-                    console.log(
-                      this.state.chosenDay,
-                      this.state.chosenMonth,
-                      this.state.chosenYear,
-                      'RESULT ACCEPT'
-                    );
                     this.props.datepicker
                       ? (this.props.setBirthDay({
                           day: this.state.chosenDay,
