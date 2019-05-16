@@ -17,6 +17,10 @@ sendFiredaseToken = (app_token, firebase_token) => {
     token: firebase_token,
     platform: Platform.OS === 'ios' ? 2 : 1
   };
+  httpPost(urls.add_device, JSON.stringify(body), app_token).then(
+    result => {},
+    error => {}
+  );
 };
 
 export const getPush = app_token => async dispatch => {
