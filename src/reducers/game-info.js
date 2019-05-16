@@ -22,7 +22,7 @@ const initialState = {
   cost: '0',
   title: '',
   success_image: ICONS.FILLER,
-  no_more_games: false,
+  no_more_games: true,
   time: 0,
   available_game_len: 0,
   total_game_len: 0,
@@ -88,7 +88,7 @@ export const getGameInfo = (token, latt, long) => async (
   const { distance } = getState();
   httpGet(urls.game_get + '?coords=' + latt + '%2C' + long, token).then(
     result => {
-      // let game = result.body;
+      let game = result.body;
       if (game.ticker === false && !game.game_set) {
         // game.ticker === false && !game.game_set
         dispatch(setGameStatus('lock'));

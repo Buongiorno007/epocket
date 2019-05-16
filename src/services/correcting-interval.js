@@ -2,10 +2,10 @@
 /* jshint evil: true */
 (function(global, factory) {
   // Use UMD pattern to expose exported functions
-  if (typeof exports === "object") {
+  if (typeof exports === 'object') {
     // Expose to Node.js
     module.exports = factory();
-  } else if (typeof define === "function" && define.amd) {
+  } else if (typeof define === 'function' && define.amd) {
     // Expose to RequireJS
     define([], factory);
   }
@@ -33,9 +33,9 @@
 
     // Normalize func as function
     switch (typeof func) {
-      case "function":
+      case 'function':
         break;
-      case "string":
+      case 'string':
         var sFunc = func;
         func = function() {
           eval(sFunc);
