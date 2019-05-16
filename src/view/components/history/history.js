@@ -1,19 +1,19 @@
-import React from "react";
-import { View, AsyncStorage } from "react-native";
-import LinearGradient from "react-native-linear-gradient";
-import { Button } from "native-base";
+import React from 'react';
+import { View, AsyncStorage } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import { Button } from 'native-base';
 //redux
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 //constants
-import styles from "./styles";
-import { ICONS } from "../../../constants/icons";
+import styles from './styles';
+import { ICONS } from '../../../constants/icons';
 //containers
-import FooterNavigation from "../../containers/footer-navigator/footer-navigator";
-import Balance from "./../../containers/cashout-balance/cashout-balance";
-import HistoryNavButton from "./../../containers/history-nav-button/history-nav-button";
-import HistoryList from "./../../containers/history-list/history-list";
-import I18n from "@locales/I18n";
+import FooterNavigation from '../../containers/footer-navigator/footer-navigator';
+import Balance from './../../containers/cashout-balance/cashout-balance';
+import HistoryNavButton from './../../containers/history-nav-button/history-nav-button';
+import HistoryList from './../../containers/history-list/history-list';
+import I18n from '@locales/I18n';
 
 class History extends React.Component {
   constructor(props) {
@@ -43,9 +43,9 @@ class History extends React.Component {
             <Balance
               showCurrency
               openBarcode={() => {
-                this.state.phone
-                  ? this.setState({ showBarcode: !this.state.showBarcode })
-                  : console.log("phone is not ready");
+                if (this.state.phone) {
+                  this.setState({ showBarcode: !this.state.showBarcode });
+                }
               }}
             />
           </View>
@@ -55,14 +55,14 @@ class History extends React.Component {
                 handler={
                   !this.state.pickedBonuses ? () => this.toggleBonuses() : null
                 }
-                title={I18n.t("HISTORY_PAGE.GETTED")}
+                title={I18n.t('HISTORY_PAGE.GETTED')}
                 disabled={this.state.pickedBonuses}
               />
               <HistoryNavButton
                 handler={
                   this.state.pickedBonuses ? () => this.toggleBonuses() : null
                 }
-                title={I18n.t("HISTORY_PAGE.LOST")}
+                title={I18n.t('HISTORY_PAGE.LOST')}
                 disabled={!this.state.pickedBonuses}
               />
             </View>

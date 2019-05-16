@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   View,
   Platform,
@@ -8,70 +8,70 @@ import {
   Easing,
   Dimensions,
   Text
-} from "react-native";
-import FastImage from "react-native-fast-image";
-import { Button } from "native-base";
-import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import ClusteredMapView from "../../../native_modules/react-native-maps-super-cluster";
-import geolib from "geolib";
-import { LinearTextGradient } from "react-native-text-gradient";
-import LinearGradient from "react-native-linear-gradient";
-import CookieManager from "react-native-cookies";
+} from 'react-native';
+import FastImage from 'react-native-fast-image';
+import { Button } from 'native-base';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import ClusteredMapView from '../../../native_modules/react-native-maps-super-cluster';
+import geolib from 'geolib';
+import { LinearTextGradient } from 'react-native-text-gradient';
+import LinearGradient from 'react-native-linear-gradient';
+import CookieManager from 'react-native-cookies';
 //containers
-import TrcInformation from "../../containers/trc-information/trc-information";
-import UserMarker from "../../containers/user-marker/user-marker";
-import TRCMarker from "../../containers/trc-marker/trc-marker";
-import LocationDisabled from "../../containers/location-disabled/location-disabled";
-import FooterNavigation from "../../containers/footer-navigator/footer-navigator";
-import CurrentGeolocation from "../../containers/current-geolocation/current-geolocation";
-import CustomAlert from "../../containers/custom-alert/custom-alert";
-import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
-import CardTask from "../../containers/map-card-task/map-card-task";
-import CardCashout from "../../containers/map-card-shop/map-card-shop";
-import CardFirst from "../../containers/map-card-first/map-card-first";
-import TimerModal from "../../containers/timer-modal/timer-modal";
+import TrcInformation from '../../containers/trc-information/trc-information';
+import UserMarker from '../../containers/user-marker/user-marker';
+import TRCMarker from '../../containers/trc-marker/trc-marker';
+import LocationDisabled from '../../containers/location-disabled/location-disabled';
+import FooterNavigation from '../../containers/footer-navigator/footer-navigator';
+import CurrentGeolocation from '../../containers/current-geolocation/current-geolocation';
+import CustomAlert from '../../containers/custom-alert/custom-alert';
+import ActivityIndicator from '../../containers/activity-indicator/activity-indicator';
+import CardTask from '../../containers/map-card-task/map-card-task';
+import CardCashout from '../../containers/map-card-shop/map-card-shop';
+import CardFirst from '../../containers/map-card-first/map-card-first';
+import TimerModal from '../../containers/timer-modal/timer-modal';
 //constants
-import { mapStyle } from "./mapCustomStyle";
-import styles from "./styles";
-import { ICONS } from "../../../constants/icons";
-import { urls } from "../../../constants/urls";
-import { colors } from "./../../../constants/colors";
+import { mapStyle } from './mapCustomStyle';
+import styles from './styles';
+import { ICONS } from '../../../constants/icons';
+import { urls } from '../../../constants/urls';
+import { colors } from './../../../constants/colors';
 //redux
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { setNavigateToMall } from "../../../reducers/navigate-to-mall";
-import { setLocation } from "../../../reducers/geolocation-coords";
-import { setDistance } from "../../../reducers/distance";
-import { updateMall } from "../../../reducers/selected-mall";
-import { showDashboard } from "../../../reducers/show-dashboard";
-import { loaderState } from "../../../reducers/loader";
-import { setOutlets } from "../../../reducers/outlet-list";
-import { setInitialOutlets } from "../../../reducers/initial-outlets";
-import { setInfo } from "../../../reducers/info";
-import { setInstaToken } from "../../../reducers/insta-token";
-import { setFacebookToken } from "../../../reducers/facebook-token";
-import { showTimer } from "../../../reducers/show-dashboard-timer";
-import { timerStatus } from "../../../reducers/timer-status";
-import { updateTimer } from "../../../reducers/timer";
-import { reloadTimer } from "../../../reducers/timer-interval";
-import { showDoneNotification } from "../../../reducers/main-task-done-notification";
-import { showFailedNotification } from "../../../reducers/main-task-failed-notification";
-import { setBalance } from "../../../reducers/user-balance";
-import { setMainMissionCost } from "../../../reducers/main-task-cost";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setNavigateToMall } from '../../../reducers/navigate-to-mall';
+import { setLocation } from '../../../reducers/geolocation-coords';
+import { setDistance } from '../../../reducers/distance';
+import { updateMall } from '../../../reducers/selected-mall';
+import { showDashboard } from '../../../reducers/show-dashboard';
+import { loaderState } from '../../../reducers/loader';
+import { setOutlets } from '../../../reducers/outlet-list';
+import { setInitialOutlets } from '../../../reducers/initial-outlets';
+import { setInfo } from '../../../reducers/info';
+import { setInstaToken } from '../../../reducers/insta-token';
+import { setFacebookToken } from '../../../reducers/facebook-token';
+import { showTimer } from '../../../reducers/show-dashboard-timer';
+import { timerStatus } from '../../../reducers/timer-status';
+import { updateTimer } from '../../../reducers/timer';
+import { reloadTimer } from '../../../reducers/timer-interval';
+import { showDoneNotification } from '../../../reducers/main-task-done-notification';
+import { showFailedNotification } from '../../../reducers/main-task-failed-notification';
+import { setBalance } from '../../../reducers/user-balance';
+import { setMainMissionCost } from '../../../reducers/main-task-cost';
 //services
-import { httpPost } from "../../../services/http";
-import { handleError } from "../../../services/http-error-handler";
-import NavigationService from "../../../services/route";
-import getCurrentGeolocation from "../../../services/get-location";
-import { sendToTelegramm } from "../../../services/telegramm-notification";
-import InstagramLogin from "../../../services/Instagram";
-import FacebookLogin from "../../../services/Facebook";
-import { orderBy } from "lodash";
-import moment from "moment-timezone";
-import "../../../services/correcting-interval";
-import I18n from "@locales/I18n";
+import { httpPost } from '../../../services/http';
+import { handleError } from '../../../services/http-error-handler';
+import NavigationService from '../../../services/route';
+import getCurrentGeolocation from '../../../services/get-location';
+import { sendToTelegramm } from '../../../services/telegramm-notification';
+import InstagramLogin from '../../../services/Instagram';
+import FacebookLogin from '../../../services/Facebook';
+import { orderBy } from 'lodash';
+import moment from 'moment-timezone';
+import '../../../services/correcting-interval';
+import I18n from '@locales/I18n';
 
-const { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get('window');
 
 class Map extends React.Component {
   state = {
@@ -81,7 +81,7 @@ class Map extends React.Component {
     location_loader: false,
     errorVisible: false,
     errorLoginVisible: false,
-    errorText: "",
+    errorText: '',
     posts: [],
     region: {
       latitude: this.props.location.lat,
@@ -139,7 +139,6 @@ class Map extends React.Component {
   }
   finishMainMission() {
     if (this.state.finishMissionCalled) {
-      console.log("finishMainMission called second time");
     } else {
       this.setErrorVisible(false);
       this.setState({ load_missions: true });
@@ -167,7 +166,7 @@ class Map extends React.Component {
             urls.finish_mission,
             this.props.token,
             this.constructor.name,
-            "finishMainMission"
+            'finishMainMission'
           );
           this.setState({
             errorText: error_respons.error_text,
@@ -189,14 +188,14 @@ class Map extends React.Component {
       let name = item.id;
       if (
         !outlets &&
-        newItem.latitude != "None" &&
-        newItem.longitude != "None"
+        newItem.latitude != 'None' &&
+        newItem.longitude != 'None'
       ) {
         newArr[name] = newItem;
       } else if (
         outlets &&
-        newItem.latitude != "None" &&
-        newItem.longitude != "None" &&
+        newItem.latitude != 'None' &&
+        newItem.longitude != 'None' &&
         item.formated.money > 0
       ) {
         newArr[name] = newItem;
@@ -223,7 +222,7 @@ class Map extends React.Component {
   };
   toggleTab = tab => {
     this.setState({ mapKey: Math.random() });
-    if (tab == "shop") {
+    if (tab == 'shop') {
       this.setState({
         shopActive: true,
         taskActive: false,
@@ -242,7 +241,7 @@ class Map extends React.Component {
         },
         allShops
       );
-    } else if (tab == "task") {
+    } else if (tab == 'task') {
       if (this.props.isLocation && this.props.distance < 0) {
         this.selectNearestMall(
           {
@@ -269,7 +268,7 @@ class Map extends React.Component {
         focusedOnMark: false
       });
       this.props.setOutlets(this.props.initial_outlets.outlets);
-    } else if (tab == "discount") {
+    } else if (tab == 'discount') {
       this.setState({
         shopActive: false,
         taskActive: false,
@@ -396,7 +395,7 @@ class Map extends React.Component {
         0.0058,
         0.0058
       );
-      this.selectMark(this.props.selectedMall, false, "task");
+      this.selectMark(this.props.selectedMall, false, 'task');
       this.setState({ location_loader: false });
       this.props.setNavigateToMall(false);
     }
@@ -420,7 +419,7 @@ class Map extends React.Component {
           this.props.location.lat != 0 && this.props.location.lng != 0,
         tzone: {
           timezone: moment.tz.guess(),
-          timedelta: moment().format("Z")
+          timedelta: moment().format('Z')
         }
       }),
       this.props.token
@@ -478,13 +477,13 @@ class Map extends React.Component {
               this.props.location.lat != 0 && this.props.location.lng != 0,
             tzone: {
               timezone: moment.tz.guess(),
-              timedelta: moment().format("Z")
+              timedelta: moment().format('Z')
             }
           },
           urls.finish_mission,
           this.props.token,
           this.constructor.name,
-          "loadTRC"
+          'loadTRC'
         );
         this.setState({ errorText: error_respons.error_text });
         this.setModalVisible(error_respons.error_modal);
@@ -519,7 +518,7 @@ class Map extends React.Component {
     if (nearestMall) {
       let selectedTRC = mall_array.find(x => x.id === Number(nearestMall.key));
       try {
-        this.selectMark(selectedTRC, ANIMATE_MAP, "task");
+        this.selectMark(selectedTRC, ANIMATE_MAP, 'task');
       } catch (e) {}
     }
   };
@@ -533,26 +532,26 @@ class Map extends React.Component {
         shopActive={this.state.shopActive}
         btnText={
           this.state.taskActive
-            ? I18n.t("MAP.TASKS").toUpperCase()
+            ? I18n.t('MAP.TASKS').toUpperCase()
             : this.state.shopActive
-            ? I18n.t("MAP.MAKE_PREORDER").toUpperCase()
-            : I18n.t("MAP.LIST_PRODUCTS").toUpperCase()
+            ? I18n.t('MAP.MAKE_PREORDER').toUpperCase()
+            : I18n.t('MAP.LIST_PRODUCTS').toUpperCase()
         }
       />
-    ) : (item.item.type === "instagram_connect" ||
-      item.item.type === "facebook_connect") ? (
+    ) : item.item.type === 'instagram_connect' ||
+      item.item.type === 'facebook_connect' ? (
       <CardFirst
         type={item.item.type}
         item={item.item}
         taskActive={this.state.taskActive}
         onPressItem={() => {
-          if (item.item.type === "facebook_connect") {
+          if (item.item.type === 'facebook_connect') {
             this.LoginFacebook();
-          } else if (item.item.type === "instagram_connect") {
+          } else if (item.item.type === 'instagram_connect') {
             this.refs.instagramLogin.show();
           }
         }}
-        btnText={I18n.t("EXECUTE").toUpperCase()}
+        btnText={I18n.t('EXECUTE').toUpperCase()}
       />
     ) : this.state.taskActive ? (
       //item.item.active && //uncomment this to show only active cards at map
@@ -567,13 +566,13 @@ class Map extends React.Component {
     let copyOfCards = this.state.cards;
     copyOfCards.shift(); //remove card with outlet|cashout information
     if (this.state.taskActive) {
-      NavigationService.navigate("Dashboard", {
+      NavigationService.navigate('Dashboard', {
         dashboard_data: copyOfCards,
         general_info: selectedCard,
         posts: this.state.posts
       });
     } else {
-      NavigationService.navigate("Cashout", {
+      NavigationService.navigate('Cashout', {
         cashout_data: copyOfCards,
         general_info: selectedCard
       });
@@ -585,7 +584,7 @@ class Map extends React.Component {
     let copyOfCards = [...this.state.cards];
     copyOfCards.shift(); //remove card with outlet|cashout information
     if (this.state.taskActive) {
-      NavigationService.navigate("Dashboard", {
+      NavigationService.navigate('Dashboard', {
         dashboard_data: copyOfCards,
         general_info: selectedOutlet,
         posts: this.state.posts,
@@ -597,7 +596,7 @@ class Map extends React.Component {
     let selectedCashout = this.state.cards[0];
     let copyOfCards = [...this.state.cards];
     copyOfCards.shift(); //remove card with outlet|cashout information
-    NavigationService.navigate("Cashout", {
+    NavigationService.navigate('Cashout', {
       cashout_data: copyOfCards,
       general_info: selectedCashout,
       cardForAccordion: selectedCard
@@ -605,15 +604,15 @@ class Map extends React.Component {
   };
   getActiveMissions = missions => {
     missions.forEach(item => {
-      let currentTime = moment().format("HH:mm:ss");
-      let startTime = moment(item.date_start).format("HH:mm:ss");
-      let endTime = moment(item.date_end).format("HH:mm:ss");
+      let currentTime = moment().format('HH:mm:ss');
+      let startTime = moment(item.date_start).format('HH:mm:ss');
+      let endTime = moment(item.date_end).format('HH:mm:ss');
       item.active = currentTime > startTime && currentTime < endTime;
     });
     return orderBy(
-      orderBy(missions, ["price"], ["desc"]),
-      ["active"],
-      ["desc"]
+      orderBy(missions, ['price'], ['desc']),
+      ['active'],
+      ['desc']
     );
   };
   loadTaskItems = trc => {
@@ -638,7 +637,7 @@ class Map extends React.Component {
           if (!this.props.insta_token) {
             //check for instagramm !this.props.insta_token
             cards.unshift({
-              type: "instagram_connect",
+              type: 'instagram_connect',
               reward: result.body.networks.insta_reward,
               price: 0,
               formated: { money: 0 }
@@ -647,7 +646,7 @@ class Map extends React.Component {
           if (!this.props.facebook_token) {
             //check for facebook !this.props.facebook_token
             cards.unshift({
-              type: "facebook_connect",
+              type: 'facebook_connect',
               reward: result.body.networks.fb_reward,
               price: 0,
               formated: { money: 0 }
@@ -671,7 +670,7 @@ class Map extends React.Component {
           urls.missions,
           this.props.token,
           this.constructor.name,
-          "getMissions"
+          'getMissions'
         );
         this.setState({
           errorText: error_respons.error_text,
@@ -722,7 +721,7 @@ class Map extends React.Component {
           urls.get_outlet_products,
           this.props.token,
           this.constructor.name,
-          "loadData"
+          'loadData'
         );
         this.setState({ errorText: error_respons.error_text });
         this.setModalVisible(error_respons.error_modal);
@@ -763,7 +762,7 @@ class Map extends React.Component {
           urls.get_outlet_products,
           this.props.token,
           this.constructor.name,
-          "loadData"
+          'loadData'
         );
         this.setState({ errorText: error_respons.error_text });
         this.setModalVisible(error_respons.error_modal);
@@ -842,7 +841,6 @@ class Map extends React.Component {
           },
           () => {
             if (result.body.failed) {
-              console.log(result, 'HELLO I"M HERE');
               this.props.showFailedNotification(true);
               this.props.timerStatus(false);
             } else {
@@ -890,7 +888,7 @@ class Map extends React.Component {
           urls.start_mission,
           this.props.token,
           this.constructor.name,
-          "callTimer"
+          'callTimer'
         );
         this.setState({
           errorText: error_respons.error_text,
@@ -940,7 +938,7 @@ class Map extends React.Component {
     this.props.updateMall(curr_trc);
     this.props.setDistance(distance);
     // use JSON.stringify because js copies array with link, so changes applied to the new array applies to the old one
-    if (mark_type === "task") {
+    if (mark_type === 'task') {
       this.props.loaderState(true);
       this.loadTaskItems(trc);
       this.props.setOutlets([
@@ -965,7 +963,7 @@ class Map extends React.Component {
           this.callTimer(trc.id, distance);
         }
       }
-    } else if (mark_type === "shop") {
+    } else if (mark_type === 'shop') {
       this.props.loaderState(true);
       this.props.setOutlets([
         ...this.props.initial_outlets.cashouts,
@@ -998,7 +996,7 @@ class Map extends React.Component {
     }
   };
   _keyExtractor = (item, index) => {
-    let key = item.id + "_" + item.name;
+    let key = item.id + '_' + item.name;
     return key;
   };
   renderCluster = (cluster, onPress) => {
@@ -1046,8 +1044,8 @@ class Map extends React.Component {
     }
     let marker;
     let markerData = {
-      adress: "",
-      city: "",
+      adress: '',
+      city: '',
       id: clusterId,
       lat: coordinate.latitude,
       lng: coordinate.longitude,
@@ -1055,19 +1053,19 @@ class Map extends React.Component {
         latitude: coordinate.latitude,
         longitude: coordinate.longitude
       },
-      name: "",
-      photo: "",
+      name: '',
+      photo: '',
       price: clusterValue,
       discount: clusterValue,
       formated: { money: clusterValue },
       rad: 0,
-      time_weekdays: ""
+      time_weekdays: ''
     };
     if (clusterValue > 0 || this.state.shopActive) {
       marker = (
         <TRCMarker
           marker={markerData}
-          key={markerData.id + "_" + markerData.lat}
+          key={markerData.id + '_' + markerData.lat}
           selected={this.props.selectedMall.id}
           active={markerData.active}
           discountMarker={this.state.discountActive}
@@ -1088,7 +1086,7 @@ class Map extends React.Component {
                   clusterValue ===
                     Number(cluster.properties.item.formated.amount))
               ) {
-                this.selectMark(cluster.properties.item, true, "task");
+                this.selectMark(cluster.properties.item, true, 'task');
               }
             });
           }}
@@ -1101,21 +1099,21 @@ class Map extends React.Component {
   };
   renderMarker = marker => {
     let markerComponent;
-    if (marker.lat != "None" && marker.lng != "None") {
+    if (marker.lat != 'None' && marker.lng != 'None') {
       markerComponent = (
         <TRCMarker
           marker={marker}
-          key={marker.id + "_" + marker.lat}
+          key={marker.id + '_' + marker.lat}
           selected={this.props.selectedMall.id}
           active={marker.active}
           discountMarker={this.state.discountActive}
           cashoutMarker={this.state.shopActive}
           onPress={() => {
             this.state.taskActive
-              ? this.selectMark(marker, true, "task")
+              ? this.selectMark(marker, true, 'task')
               : this.state.shopActive
-              ? this.selectMark(marker, true, "shop")
-              : this.selectMark(marker, true, "discount");
+              ? this.selectMark(marker, true, 'shop')
+              : this.selectMark(marker, true, 'discount');
           }}
         />
       );
@@ -1128,8 +1126,8 @@ class Map extends React.Component {
     return (
       <View style={styles.main_view}>
         <CustomAlert
-          title={I18n.t("PROFILE_PAGE.ALREADY_ACCOUNT")}
-          first_btn_title={I18n.t("OK")}
+          title={I18n.t('PROFILE_PAGE.ALREADY_ACCOUNT')}
+          first_btn_title={I18n.t('OK')}
           visible={this.state.errorLoginVisible}
           first_btn_handler={() =>
             this.setLoginErrorVisible(!this.state.errorVisible)
@@ -1139,9 +1137,9 @@ class Map extends React.Component {
           }
         />
         <CustomAlert
-          title={I18n.t("PROFILE_PAGE.NOT_ENOUGHT_SUB")}
-          subtitle={this.state.userCount + I18n.t("PROFILE_PAGE.SUBS")}
-          first_btn_title={I18n.t("OK")}
+          title={I18n.t('PROFILE_PAGE.NOT_ENOUGHT_SUB')}
+          subtitle={this.state.userCount + I18n.t('PROFILE_PAGE.SUBS')}
+          first_btn_title={I18n.t('OK')}
           visible={this.state.modalVisible}
           first_btn_handler={() =>
             this.setModalVisible(!this.state.modalVisible)
@@ -1152,7 +1150,7 @@ class Map extends React.Component {
         />
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={I18n.t("REPEAT")}
+          first_btn_title={I18n.t('REPEAT')}
           visible={this.state.errorVisible}
           first_btn_handler={() => {
             this.loadTRC();
@@ -1163,7 +1161,7 @@ class Map extends React.Component {
         />
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={I18n.t("REPEAT")}
+          first_btn_title={I18n.t('REPEAT')}
           visible={this.state.errorVisible}
           first_btn_handler={() => {
             this.loadTRC();
@@ -1174,13 +1172,13 @@ class Map extends React.Component {
         />
         <FacebookLogin
           ref="facebookLogin"
-          scopes={["basic"]}
+          scopes={['basic']}
           onLoginSuccess={json => this.connectFacebook(json.token)}
           onLoginFailure={data => {
             CookieManager.clearAll().then(res => {
               this.props.loaderState(false);
             });
-            if (data.msg === "Not enough friends") {
+            if (data.msg === 'Not enough friends') {
               if (data.subsc_needed) {
                 this.setState({ userCount: data.subsc_needed });
                 this.setModalVisible(true);
@@ -1193,7 +1191,7 @@ class Map extends React.Component {
         <InstagramLogin
           ref="instagramLogin"
           clientId="7df789fc907d4ffbbad30b7e25ba3933"
-          scopes={["basic"]}
+          scopes={['basic']}
           onLoginSuccess={token => this.connectInsta(token)}
           onLoginFailure={data => {
             CookieManager.clearAll().then(res => {
@@ -1204,9 +1202,9 @@ class Map extends React.Component {
         <StatusBar
           barStyle="dark-content"
           translucent={true}
-          backgroundColor={"transparent"}
+          backgroundColor={'transparent'}
         />
-        {Platform.OS == "ios"
+        {Platform.OS == 'ios'
           ? this.state.location_loader &&
             this.props.isLocation && <ActivityIndicator />
           : this.state.location_loader && <ActivityIndicator />}
@@ -1228,7 +1226,7 @@ class Map extends React.Component {
               styles.state_change_block_btn_left
             ]}
             transparent
-            onPress={() => this.toggleTab("shop")}
+            onPress={() => this.toggleTab('shop')}
           >
             {this.state.shopActive && (
               <View
@@ -1262,13 +1260,13 @@ class Map extends React.Component {
               end={{ x: 1, y: 0 }}
               style={styles.state_change_block_text}
             >
-              {I18n.t("MAP_TABS.SHOP").toUpperCase()}
+              {I18n.t('MAP_TABS.SHOP').toUpperCase()}
             </LinearTextGradient>
           </Button>
           <Button
             style={styles.state_change_block_btn}
             transparent
-            onPress={() => this.toggleTab("task")}
+            onPress={() => this.toggleTab('task')}
           >
             {this.state.taskActive && (
               <View style={[styles.state_change_block_btn, styles.pink_bg]} />
@@ -1296,7 +1294,7 @@ class Map extends React.Component {
               end={{ x: 1, y: 0 }}
               style={styles.state_change_block_text}
             >
-              {I18n.t("MAP_TABS.TASK").toUpperCase()}
+              {I18n.t('MAP_TABS.TASK').toUpperCase()}
             </LinearTextGradient>
           </Button>
           <Button
@@ -1305,7 +1303,7 @@ class Map extends React.Component {
               styles.state_change_block_btn_right
             ]}
             transparent
-            onPress={() => this.toggleTab("discount")}
+            onPress={() => this.toggleTab('discount')}
           >
             {this.state.discountActive && (
               <View
@@ -1339,7 +1337,7 @@ class Map extends React.Component {
               end={{ x: 1, y: 0 }}
               style={styles.state_change_block_text}
             >
-              {I18n.t("MAP_TABS.DISCOUNT").toUpperCase()}
+              {I18n.t('MAP_TABS.DISCOUNT').toUpperCase()}
             </LinearTextGradient>
           </Button>
         </Animated.View>
@@ -1350,12 +1348,12 @@ class Map extends React.Component {
               styles.cards_block,
               this.state.cards.length === 1 && {
                 width: width * 0.69,
-                alignSelf: "flex-start"
+                alignSelf: 'flex-start'
               }
             ]}
           >
             <FlatList
-              listKey={"cards"}
+              listKey={'cards'}
               scrollEnabled={this.state.cards.length != 1}
               contentContainerStyle={styles.horizontal_list_content}
               horizontal={true}
@@ -1363,7 +1361,7 @@ class Map extends React.Component {
               style={styles.horizontal_list}
               data={this.state.cards}
               removeClippedSubviews={true}
-              keyExtractor={(item, index) => item.id + "_" + index}
+              keyExtractor={(item, index) => item.id + '_' + index}
               renderItem={this._renderItem}
             />
           </View>
@@ -1373,7 +1371,7 @@ class Map extends React.Component {
           style={styles.map_view}
           data={this.props.outlets}
           initialRegion={this.state.region}
-          provider={Platform.OS == "ios" ? PROVIDER_GOOGLE : null}
+          provider={Platform.OS == 'ios' ? PROVIDER_GOOGLE : null}
           ref={r => {
             this.map = r;
           }}

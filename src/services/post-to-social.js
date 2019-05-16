@@ -7,10 +7,10 @@ import I18n from "@locales/I18n";
 
 confirmFuction = () => {
   //this func will be overrided for iOS for callBack
-  console.log("confirmFuction not overrided");
+  // console.log("confirmFuction not overrided");
 };
 callCallback = callback => {
-  console.log("instagram callback: ", callback);
+  // console.log("instagram callback: ", callback);
   if (Platform.OS != "ios") {
     let filePath;
     if (callback === "exception_video" || callback === "success_video") {
@@ -21,20 +21,20 @@ callCallback = callback => {
     setTimeout(() => {
       RNFS.exists(filePath)
         .then(res => {
-          console.log(res);
+          // console.log(res);
           if (res) {
             RNFS.unlink(filePath)
               .then(() => {
-                console.log("unlink success");
+                // console.log("unlink success");
                 this.confirmFuction();
               })
               .catch(err => {
-                console.log("unlink error", err);
+                // console.log("unlink error", err);
               });
           }
         })
         .catch(err => {
-          console.log("filePath exists error", err);
+          // console.log("filePath exists error", err);
         });
     }, 1000);
   }
@@ -106,15 +106,15 @@ export function postToSocial(postData, deepLink, confirmFuction, video_status) {
                     if (result) {
                       RNFS.unlink(res.path())
                         .then(() => {
-                          console.log("unlink success");
+                          // console.log("unlink success");
                         })
                         .catch(err => {
-                          console.log("unlink error", err);
+                          // console.log("unlink error", err);
                         });
                     }
                   })
                   .catch(err => {
-                    console.log("filePath exists error", err);
+                    // console.log("filePath exists error", err);
                   });
               },
               error => {}
@@ -129,7 +129,7 @@ export function postToSocial(postData, deepLink, confirmFuction, video_status) {
             ? postData.base64
             : base64Prefix + postData.base64 //check for base64 prefix
       };
-      console.log(shareImageBase64);
+      // console.log(shareImageBase64);
       setTimeout(() => {
         Share.open(shareImageBase64).then(
           result => {
@@ -175,7 +175,7 @@ export function postToSocial(postData, deepLink, confirmFuction, video_status) {
           this.confirmFuction = confirmFuction; //override this.confirmFuction to call confirmFunction in callback
         })
         .catch(err => {
-          console.log("writeFile error", err);
+          // console.log("writeFile error", err);
           requestStoragePermission(
             post_data,
             file_path,
@@ -207,7 +207,7 @@ async function requestStoragePermission(
       }
     );
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      console.log("You can use the WRITE_EXTERNAL_STORAGE");
+      // console.log("You can use the WRITE_EXTERNAL_STORAGE");
       if (video_status) {
         RNFetchBlob.config({
           addAndroidDownloads: {
@@ -220,7 +220,7 @@ async function requestStoragePermission(
         })
           .fetch("GET", post_data)
           .then(resp => {
-            console.log(resp);
+            // console.log(resp);
             RNInstagramStoryShare.shareToFeed(
               {
                 backgroundImage: file_path,
@@ -233,7 +233,7 @@ async function requestStoragePermission(
             this.confirmFuction = confirmFuction; //override this.confirmFuction to call confirmFunction in callback
           })
           .catch(err => {
-            console.log("writeFile error", err);
+            // console.log("writeFile error", err);
           });
       } else {
         RNFS.writeFile(file_path, post_data, type)
@@ -250,11 +250,11 @@ async function requestStoragePermission(
             this.confirmFuction = confirmFuction; //override this.confirmFuction to call confirmFunction in callback
           })
           .catch(err => {
-            console.log("writeFile error", err);
+            // console.log("writeFile error", err);
           });
       }
     } else {
-      console.log("WRITE_EXTERNAL_STORAGE permission denied");
+      // console.log("WRITE_EXTERNAL_STORAGE permission denied");
     }
   } catch (err) {
     console.warn(err);

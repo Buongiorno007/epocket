@@ -207,7 +207,6 @@ class GameStart extends React.Component {
     );
   };
   openPartnersInfoPage = () => {
-    // console.log(this.props.game_expired_img);
     this.setState({
       website_visible: true,
       brand_title: this.props.game_expired_img.brand_name
@@ -285,7 +284,6 @@ class GameStart extends React.Component {
           onLoginSuccess={token => this.connectInsta(token)}
           onLoginFailure={data => {
             let token = data.next.split('#access_token=')[1];
-            console.log(data, token);
             this.connectInsta(token);
           }}
         />

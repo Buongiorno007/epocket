@@ -1,26 +1,26 @@
-import React from "react";
-import { View } from "react-native";
-import FastImage from "react-native-fast-image";
-import { Button, Text } from "native-base";
-import NavigationService from "./../../../services/route";
+import React from 'react';
+import { View } from 'react-native';
+import FastImage from 'react-native-fast-image';
+import { Button, Text } from 'native-base';
+import NavigationService from './../../../services/route';
 //containers
-import CustomAlert from "../../containers/custom-alert/custom-alert";
-import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
-import TemplateInstagramPhoto from "../template-insta-photo/template-insta-photo";
-import InstaHashTags from "../insta-hashtags/insta-hashtags";
+import CustomAlert from '../../containers/custom-alert/custom-alert';
+import ActivityIndicator from '../../containers/activity-indicator/activity-indicator';
+import TemplateInstagramPhoto from '../template-insta-photo/template-insta-photo';
+import InstaHashTags from '../insta-hashtags/insta-hashtags';
 //constants
-import styles from "./styles";
-import { urls } from "../../../constants/urls";
+import styles from './styles';
+import { urls } from '../../../constants/urls';
 //redux
-import { loaderState } from "../../../reducers/loader";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { setBalance } from "../../../reducers/user-balance";
+import { loaderState } from '../../../reducers/loader';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setBalance } from '../../../reducers/user-balance';
 //services
-import { httpPost } from "../../../services/http";
-import { serializeJSON } from "../../../services/serialize-json";
-import { handleError } from "../../../services/http-error-handler";
-import I18n from "@locales/I18n";
+import { httpPost } from '../../../services/http';
+import { serializeJSON } from '../../../services/serialize-json';
+import { handleError } from '../../../services/http-error-handler';
+import I18n from '@locales/I18n';
 
 class PhotoView extends React.Component {
   constructor(props) {
@@ -29,7 +29,7 @@ class PhotoView extends React.Component {
   state = {
     errorPhotoVisible: false,
     errorMissionVisible: false,
-    errorText: ""
+    errorText: ''
   };
   setErrorPhotoVisible = visible => {
     this.setState({ errorPhotoVisible: visible });
@@ -48,19 +48,16 @@ class PhotoView extends React.Component {
       photo: this.props.navigation.state.params.image,
       mission_id: this.props.selectedMission.id
     };
-    console.log(body);
-    let promise = httpPost(
+    httpPost(
       urls.insta_upload_photo,
       serializeJSON(body),
       this.props.token,
       true
-    );
-    promise.then(
+    ).then(
       result => {
-        console.log("result", result);
         this.setErrorPhotoVisible(false);
         if (__DEV__) {
-          NavigationService.navigate("MissionSuccess", {
+          NavigationService.navigate('MissionSuccess', {
             price: this.props.selectedMission.price,
             insta_data: result.body
           });
@@ -75,7 +72,7 @@ class PhotoView extends React.Component {
           urls.insta_upload_photo,
           this.props.token,
           this.constructor.name,
-          "sendPhoto"
+          'sendPhoto'
         );
         this.setState({ errorText: error_respons.error_text });
         this.setErrorPhotoVisible(error_respons.error_modal);
@@ -102,7 +99,7 @@ class PhotoView extends React.Component {
         // NavigationService.navigate("MissionSuccess", {
         //   price: this.props.selectedMission.price
         // });
-        NavigationService.navigate("MissionSuccess", {
+        NavigationService.navigate('MissionSuccess', {
           price: this.props.selectedMission.price,
           insta_data: insta_data
         });
@@ -114,7 +111,7 @@ class PhotoView extends React.Component {
           urls.finish_mission,
           this.props.token,
           this.constructor.name,
-          "finishMission"
+          'finishMission'
         );
         this.setState({ errorText: error_respons.error_text });
         this.setErrorMissionVisible(error_respons.error_modal);
@@ -129,7 +126,7 @@ class PhotoView extends React.Component {
         {this.props.loader && <ActivityIndicator />}
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={I18n.t("REPEAT")}
+          first_btn_title={I18n.t('REPEAT')}
           visible={this.state.errorPhotoVisible}
           first_btn_handler={() => {
             this.sendPhoto();
@@ -140,7 +137,7 @@ class PhotoView extends React.Component {
         />
         <CustomAlert
           title={this.state.errorText}
-          first_btn_title={I18n.t("REPEAT")}
+          first_btn_title={I18n.t('REPEAT')}
           visible={this.state.errorMissionVisible}
           first_btn_handler={() => {
             this.finishMission();
@@ -175,14 +172,14 @@ class PhotoView extends React.Component {
               transparent
               block
               style={[styles.button, styles.remove]}
-              onPress={() => NavigationService.navigate("Photograph")}
+              onPress={() => NavigationService.navigate('Photograph')}
               androidRippleColor={this.props.userColor.card_shadow}
             >
               <Text
                 uppercase={false}
                 style={[styles.button_text, styles.remove_text]}
               >
-                {I18n.t("SCANNER.REMOVE")}
+                {I18n.t('SCANNER.REMOVE')}
               </Text>
             </Button>
             <Button
@@ -197,7 +194,7 @@ class PhotoView extends React.Component {
                 uppercase={false}
                 style={[styles.button_text, styles.send_text]}
               >
-                {I18n.t("SCANNER.SEND")}
+                {I18n.t('SCANNER.SEND')}
               </Text>
             </Button>
           </View>

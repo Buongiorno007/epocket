@@ -1,9 +1,8 @@
-export const DASHBOARD_STATE = "dashboard-state/DASHBOARD_STATE";
+export const DASHBOARD_STATE = 'dashboard-state/DASHBOARD_STATE';
 
 export default (state = 2, action) => {
   switch (action.type) {
     case DASHBOARD_STATE:
-      // console.log('DASHBOARD_STATE',action.dashboardState)
       return action.dashboardState;
     default:
       return state;

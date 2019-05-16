@@ -1,17 +1,17 @@
-import React from "react";
-import { View, Text, FlatList, Linking } from "react-native";
-import { Button } from "native-base";
-import FastImage from "react-native-fast-image";
+import React from 'react';
+import { View, Text, FlatList, Linking } from 'react-native';
+import { Button } from 'native-base';
+import FastImage from 'react-native-fast-image';
 //constants
-import styles from "./styles";
-import { colors } from "./../../../constants/colors";
-import { ICONS } from "../../../constants/icons";
+import styles from './styles';
+import { colors } from './../../../constants/colors';
+import { ICONS } from '../../../constants/icons';
 //containers
-import PartnerCard from "./../../containers/partner-card/partner-card";
+import PartnerCard from './../../containers/partner-card/partner-card';
 //redux
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import I18n from "@locales/I18n";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import I18n from '@locales/I18n';
 
 class PartnersList extends React.Component {
   constructor(props) {
@@ -29,12 +29,11 @@ class PartnersList extends React.Component {
     Linking.canOpenURL(link)
       .then(supported => {
         if (!supported) {
-          console.log("Not supported");
         } else {
           Linking.openURL(link);
         }
       })
-      .catch(err => console.log(err));
+      .catch(err => {});
   };
   _renderItem = ({ item, index }) => {
     return (
@@ -75,7 +74,7 @@ class PartnersList extends React.Component {
               ) : (
                 <View style={styles.empty}>
                   <Text style={styles.no_shops}>
-                    {I18n.t("PARTNERS.NO_SHOPS")}
+                    {I18n.t('PARTNERS.NO_SHOPS')}
                   </Text>
                   <View style={styles.filler} />
                 </View>
@@ -108,7 +107,7 @@ class PartnersList extends React.Component {
               ) : (
                 <View style={styles.empty}>
                   <Text style={styles.no_shops}>
-                    {I18n.t("PARTNERS.NO_SHOPS")}
+                    {I18n.t('PARTNERS.NO_SHOPS')}
                   </Text>
                   <View style={styles.filler} />
                 </View>

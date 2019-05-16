@@ -1,31 +1,31 @@
-import React from "react";
-import { View, Text, Platform } from "react-native";
-import FastImage from "react-native-fast-image";
-import { Button } from "native-base";
-import Permissions from "react-native-permissions";
-import LinearGradient from "react-native-linear-gradient";
+import React from 'react';
+import { View, Text, Platform } from 'react-native';
+import FastImage from 'react-native-fast-image';
+import { Button } from 'native-base';
+import Permissions from 'react-native-permissions';
+import LinearGradient from 'react-native-linear-gradient';
 //constants
-import styles from "./styles";
-import RNAndroidLocationEnabler from "react-native-android-location-enabler";
+import styles from './styles';
+import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 //redux
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
   locationStateListener,
   locationState
-} from "../../../reducers/geolocation-status";
+} from '../../../reducers/geolocation-status';
 import {
   locationCoordsListener,
   setLocation
-} from "../../../reducers/geolocation-coords";
-import { setGeoVirgin } from "../../../reducers/geo-virgin";
-import { updateRootStatus } from "../../../reducers/root-status";
+} from '../../../reducers/geolocation-coords';
+import { setGeoVirgin } from '../../../reducers/geo-virgin';
+import { updateRootStatus } from '../../../reducers/root-status';
 //components
-import Blur from "../blur/blur";
+import Blur from '../blur/blur';
 //services
-import geo_config from "./geolocation-config";
-import BackgroundGeolocationModule from "../../../services/background-geolocation-picker";
-import I18n from "@locales/I18n";
+import geo_config from './geolocation-config';
+import BackgroundGeolocationModule from '../../../services/background-geolocation-picker';
+import I18n from '@locales/I18n';
 
 class LocationDisabled extends React.Component {
   async checkIsLocation() {
@@ -44,15 +44,12 @@ class LocationDisabled extends React.Component {
             this.props.updateRootStatus();
           },
           error => {
-            console.log("position", error);
             this.props.locationState(false);
           },
           { enableHighAccuracy: false, timeout: 20000, maximumAge: 10000 }
         );
       })
-      .catch(err => {
-        console.log(err);
-      });
+      .catch(err => {});
   }
   _getLocation = () => {
     navigator.geolocation.getCurrentPosition(
@@ -72,8 +69,7 @@ class LocationDisabled extends React.Component {
 
   connectGeolocation = () => {
     try {
-      console.log("connectGeolocation");
-      if (Platform.OS === "ios") {
+      if (Platform.OS === 'ios') {
         BackgroundGeolocationModule.ready(geo_config(), state => {
           if (!state.enabled) {
             BackgroundGeolocationModule.start(function() {});
@@ -90,14 +86,12 @@ class LocationDisabled extends React.Component {
         });
       }
       this.props.setGeoVirgin(false);
-    } catch (err) {
-      console.log("error connectGeolocation", err);
-    }
+    } catch (err) {}
   };
   _requestLocation = () => {
     try {
       switch (Platform.OS) {
-        case "android": {
+        case 'android': {
           BackgroundGeolocationModule.configure(geo_config());
           BackgroundGeolocationModule.checkStatus(status => {
             if (!status.isRunning) {
@@ -108,7 +102,7 @@ class LocationDisabled extends React.Component {
           this.checkIsLocation();
           break;
         }
-        case "ios": {
+        case 'ios': {
           BackgroundGeolocationModule.ready(geo_config(), state => {
             if (!state.enabled) {
               BackgroundGeolocationModule.start(function() {});
@@ -120,23 +114,21 @@ class LocationDisabled extends React.Component {
           break;
         }
       }
-    } catch (err) {
-      console.log("error _requestLocation", err);
-    }
+    } catch (err) {}
   };
   render() {
     return this.props.geolocationIsVirgin &&
-      this.props.geolocationIsVirgin != "false" ? (
+      this.props.geolocationIsVirgin != 'false' ? (
       <View style={styles.main_view}>
         <Blur dark />
         <FastImage
           style={styles.bottom_image}
           resizeMode={FastImage.resizeMode.contain}
-          source={require("../../../assets/img/GEOLOCATION_ENABLE.gif")}
+          source={require('../../../assets/img/GEOLOCATION_ENABLE.gif')}
         />
         <View style={[styles.circle_container, styles.virgin_container]}>
           <Text style={styles.location_disable_text_white}>
-            {I18n.t("LOCATION_VIRGIN").toUpperCase()}
+            {I18n.t('LOCATION_VIRGIN').toUpperCase()}
           </Text>
         </View>
         <View
@@ -163,7 +155,7 @@ class LocationDisabled extends React.Component {
               style={styles.enable_location}
             />
             <Text style={styles.location_enable_text}>
-              {I18n.t("LOCATION_ENABLE")}
+              {I18n.t('LOCATION_ENABLE')}
             </Text>
           </Button>
         </View>
@@ -173,7 +165,7 @@ class LocationDisabled extends React.Component {
         <Blur strong />
         <View style={styles.circle_container}>
           <Text style={styles.location_disable_text}>
-            {I18n.t("LOCATION_DISABLED")}
+            {I18n.t('LOCATION_DISABLED')}
           </Text>
         </View>
         <View style={[styles.enable_location, styles.btnContainer]}>
@@ -194,7 +186,7 @@ class LocationDisabled extends React.Component {
               style={styles.enable_location}
             />
             <Text style={styles.location_enable_text}>
-              {I18n.t("LOCATION_ENABLE")}
+              {I18n.t('LOCATION_ENABLE')}
             </Text>
           </Button>
         </View>

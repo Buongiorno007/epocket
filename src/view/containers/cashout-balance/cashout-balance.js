@@ -22,9 +22,9 @@ class CashoutBalance extends React.Component {
     phone: ''
   };
   navigateBack = () => {
-    this.props.navigation
-      ? NavigationService.navigate(this.props.navigation.direction)
-      : console.log('Fail. No navigation prop');
+    if (this.props.navigation) {
+      NavigationService.navigate(this.props.navigation.direction);
+    }
   };
   navigateToPartners = () => {
     NavigationService.navigate('Partners');
@@ -44,7 +44,6 @@ class CashoutBalance extends React.Component {
         this.props.loaderState(false);
       },
       error => {
-        console.log(error, 'CashoutBalance ERROR');
         this.props.loaderState(false);
       }
     );

@@ -1,33 +1,33 @@
-import React from "react";
-import { View } from "react-native";
-import FastImage from "react-native-fast-image";
-import { RNCamera } from "react-native-camera";
-import Refresh from "react-native-vector-icons/SimpleLineIcons";
-import Circle from "react-native-vector-icons/Entypo";
-import { Button } from "native-base";
+import React from 'react';
+import { View } from 'react-native';
+import FastImage from 'react-native-fast-image';
+import { RNCamera } from 'react-native-camera';
+import Refresh from 'react-native-vector-icons/SimpleLineIcons';
+import Circle from 'react-native-vector-icons/Entypo';
+import { Button } from 'native-base';
 //containers
-import TemplateInstagramPhoto from "../template-insta-photo/template-insta-photo";
-import InstaHashTags from "../insta-hashtags/insta-hashtags";
+import TemplateInstagramPhoto from '../template-insta-photo/template-insta-photo';
+import InstaHashTags from '../insta-hashtags/insta-hashtags';
 //constants
-import styles from "./styles";
-import { urls } from "../../../constants/urls";
-import { ICONS } from "./../../../constants/icons";
+import styles from './styles';
+import { urls } from '../../../constants/urls';
+import { ICONS } from './../../../constants/icons';
 //services
-import NavigationService from "./../../../services/route";
-import { httpPost } from "../../../services/http";
+import NavigationService from './../../../services/route';
+import { httpPost } from '../../../services/http';
 //redux
-import { loaderState } from "../../../reducers/loader";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import I18n from "@locales/I18n";
+import { loaderState } from '../../../reducers/loader';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import I18n from '@locales/I18n';
 
 class PhotoCamera extends React.Component {
   state = {
     type: false,
     flash: false,
     template_info: {
-      media: "",
-      hashtags: ""
+      media: '',
+      hashtags: ''
     }
   };
 
@@ -47,9 +47,7 @@ class PhotoCamera extends React.Component {
           }
         });
       },
-      error => {
-        console.log("Rejected: ", error);
-      }
+      error => {}
     );
   };
 
@@ -66,7 +64,7 @@ class PhotoCamera extends React.Component {
       };
       const data = await this.camera.takePictureAsync(options);
 
-      NavigationService.navigate("Photo", {
+      NavigationService.navigate('Photo', {
         image: `data:image/jpg;base64,${data.base64}`,
         url: data.uri,
         template_info: this.state.template_info
@@ -85,7 +83,7 @@ class PhotoCamera extends React.Component {
         <View style={[styles.camera, styles.size]}>
           <RNCamera
             captureAudio={false}
-            ratio={"1:1"}
+            ratio={'1:1'}
             ref={ref => (this.camera = ref)}
             style={styles.preview}
             type={
@@ -98,8 +96,8 @@ class PhotoCamera extends React.Component {
                 ? RNCamera.Constants.FlashMode.on
                 : RNCamera.Constants.FlashMode.off
             }
-            permissionDialogTitle={I18n.t("TITLE")}
-            permissionDialogMessage={I18n.t("CAMERA_PERMISSION")}
+            permissionDialogTitle={I18n.t('TITLE')}
+            permissionDialogMessage={I18n.t('CAMERA_PERMISSION')}
           />
         </View>
         <View style={styles.template_hashtags}>

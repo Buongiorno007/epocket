@@ -1,31 +1,30 @@
-import React from "react";
-import { View, Text, Platform, Linking } from "react-native";
-import FastImage from "react-native-fast-image";
-import { Button } from "native-base";
-import LinearGradient from "react-native-linear-gradient";
-import Permissions from "react-native-permissions";
-import AndroidOpenSettings from "react-native-android-open-settings";
+import React from 'react';
+import { View, Text, Platform, Linking } from 'react-native';
+import FastImage from 'react-native-fast-image';
+import { Button } from 'native-base';
+import LinearGradient from 'react-native-linear-gradient';
+import Permissions from 'react-native-permissions';
+import AndroidOpenSettings from 'react-native-android-open-settings';
 //constants
-import styles from "./styles";
+import styles from './styles';
 //redux
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { updateRootStatus } from "../../../reducers/root-status";
-import I18n from "@locales/I18n";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { updateRootStatus } from '../../../reducers/root-status';
+import I18n from '@locales/I18n';
 
 class LocationDisabled extends React.Component {
   openSettings = () => {
-    if (Platform.OS === "ios") {
-      Linking.canOpenURL("App-prefs:")
+    if (Platform.OS === 'ios') {
+      Linking.canOpenURL('App-prefs:')
         .then(supported => {
           if (!supported) {
-            console.log("Can't handle settings url");
             Permissions.openSettings();
           } else {
-            return Linking.openURL("App-prefs:");
+            return Linking.openURL('App-prefs:');
           }
         })
-        .catch(err => console.error("An error occurred", err));
+        .catch(err => console.error('An error occurred', err));
     } else {
       AndroidOpenSettings.generalSettings();
     }
@@ -36,7 +35,7 @@ class LocationDisabled extends React.Component {
         <FastImage
           resizeMode={FastImage.resizeMode.contain}
           style={styles.image_background}
-          source={require("../../../assets/img/ANIMATED_EARN_MORE.gif")}
+          source={require('../../../assets/img/ANIMATED_EARN_MORE.gif')}
         />
         <LinearGradient
           colors={this.props.userColor.earn_more}
@@ -45,12 +44,12 @@ class LocationDisabled extends React.Component {
           style={styles.grad}
         />
         <View style={styles.circle_container}>
-          <Text style={styles.attention}>{I18n.t("ATTENTION")}</Text>
+          <Text style={styles.attention}>{I18n.t('ATTENTION')}</Text>
           <Text style={styles.root_text}>
-            {I18n.t("DEVELOPER_ENABLED")}{" "}
-            {Platform.OS === "ios"
-              ? I18n.t("ROOT_ENABLED_IOS")
-              : I18n.t("ROOT_ENABLED_ANDROID")}
+            {I18n.t('DEVELOPER_ENABLED')}{' '}
+            {Platform.OS === 'ios'
+              ? I18n.t('ROOT_ENABLED_IOS')
+              : I18n.t('ROOT_ENABLED_ANDROID')}
           </Text>
         </View>
         <View style={[styles.open_settings, styles.btnContainer]}>
@@ -67,7 +66,7 @@ class LocationDisabled extends React.Component {
                 { color: this.props.userColor.pink_blue }
               ]}
             >
-              {I18n.t("DEVICE_SETTINGS").toUpperCase()}
+              {I18n.t('DEVICE_SETTINGS').toUpperCase()}
             </Text>
           </Button>
         </View>

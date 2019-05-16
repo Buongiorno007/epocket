@@ -88,8 +88,7 @@ export const getGameInfo = (token, latt, long) => async (
   const { distance } = getState();
   httpGet(urls.game_get + '?coords=' + latt + '%2C' + long, token).then(
     result => {
-      console.log(result, 'RESULT GAME INFO');
-      let game = result.body;
+      // let game = result.body;
       if (game.ticker === false && !game.game_set) {
         // game.ticker === false && !game.game_set
         dispatch(setGameStatus('lock'));
@@ -140,7 +139,6 @@ export const getGameInfo = (token, latt, long) => async (
       }
     },
     error => {
-      console.log('game info err', error);
       if (error.code === 400) {
         let info = {
           description: '...',

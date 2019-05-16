@@ -1,19 +1,19 @@
-import React from "react";
-import { View, Text, Dimensions, Linking } from "react-native";
-import LinearGradient from "react-native-linear-gradient";
-import { Button } from "native-base";
-import FastImage from "react-native-fast-image";
-import Barcode from "react-native-barcode-builder";
+import React from 'react';
+import { View, Text, Dimensions, Linking } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import { Button } from 'native-base';
+import FastImage from 'react-native-fast-image';
+import Barcode from 'react-native-barcode-builder';
 //redux
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 //constants
-import styles from "./styles";
-import { colors } from "./../../../constants/colors";
-import { ICONS } from "../../../constants/icons";
-import I18n from "@locales/I18n";
+import styles from './styles';
+import { colors } from './../../../constants/colors';
+import { ICONS } from '../../../constants/icons';
+import I18n from '@locales/I18n';
 
-const { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get('window');
 
 class BarcodeView extends React.Component {
   constructor(props) {
@@ -22,22 +22,19 @@ class BarcodeView extends React.Component {
   openLink = link => {
     Linking.canOpenURL(link)
       .then(supported => {
-        if (!supported) {
-          console.log("Not supported");
-        } else {
+        if (supported) {
           Linking.openURL(link);
         }
       })
-      .catch(err => console.log(err));
+      .catch(err => {});
   };
   render() {
-    console.log(this.props.phone, "MY PHONE");
     return (
       <View style={styles.container}>
         <FastImage
           resizeMode={FastImage.resizeMode.contain}
           style={styles.image_background}
-          source={require("../../../assets/img/ANIMATED_EARN_MORE.gif")}
+          source={require('../../../assets/img/ANIMATED_EARN_MORE.gif')}
         />
         <LinearGradient
           colors={this.props.userColor.earn_more}
@@ -58,13 +55,13 @@ class BarcodeView extends React.Component {
               style={styles.icon}
               source={{ uri: ICONS.COMMON.NAVIGATE_BACK }}
             />
-            <Text style={[styles.text, styles.title]}>{I18n.t("BACK")}</Text>
+            <Text style={[styles.text, styles.title]}>{I18n.t('BACK')}</Text>
           </Button>
         </View>
         <View style={styles.barcode_container}>
           <View style={styles.barcode_text_container}>
             <Text style={styles.barcode_text}>
-              {I18n.t("HISTORY_PAGE.SHOW_THIS_BARCODE")}
+              {I18n.t('HISTORY_PAGE.SHOW_THIS_BARCODE')}
             </Text>
           </View>
           <View style={styles.barcode}>
@@ -75,9 +72,7 @@ class BarcodeView extends React.Component {
                 format="EAN13"
                 text={this.props.phone}
                 flat
-                onError={e => {
-                  console.log("barcode error", e);
-                }}
+                onError={e => {}}
               />
             )}
           </View>

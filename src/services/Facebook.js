@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   StyleSheet,
   Alert,
@@ -7,28 +7,28 @@ import {
   Dimensions,
   KeyboardAvoidingView,
   Platform
-} from "react-native";
+} from 'react-native';
 import { WebView } from 'react-native-webview';
 
-import qs from "qs";
-import { Button } from "native-base";
-import Icon from "react-native-vector-icons/EvilIcons";
-const { width, height } = Dimensions.get("window");
+import qs from 'qs';
+import { Button } from 'native-base';
+import Icon from 'react-native-vector-icons/EvilIcons';
+const { width, height } = Dimensions.get('window');
 
 const patchPostMessageJsCodeAndroid = `(${String(function() {
   setTimeout(function() {
-    window.postMessage(document.getElementsByTagName("pre")[0].innerHTML), "*";
+    window.postMessage(document.getElementsByTagName('pre')[0].innerHTML), '*';
   }, 500);
 })})();`;
 const patchPostMessageJsCodeIOS = `(${String(function() {
   {
-    window.postMessage(document.getElementsByTagName("pre")[0].innerHTML);
+    window.postMessage(document.getElementsByTagName('pre')[0].innerHTML);
   }
 })})();`;
 export default class Instagram extends Component {
   constructor(props) {
     super(props);
-    this.state = { modalVisible: false, url: "" };
+    this.state = { modalVisible: false, url: '' };
   }
 
   show(url) {
@@ -49,7 +49,6 @@ export default class Instagram extends Component {
 
   _onMessage(reactMessage) {
     const json = JSON.parse(reactMessage.nativeEvent.data);
-    console.log(json);
     if (json.token) {
       this.hide();
       this.props.onLoginSuccess(json);
@@ -75,7 +74,7 @@ export default class Instagram extends Component {
     const { redirectUrl, scopes, hideCloseButton } = this.props;
     return (
       <Modal
-        animationType={"slide"}
+        animationType={'slide'}
         visible={this.state.modalVisible}
         onRequestClose={this.hide.bind(this)}
         transparent
@@ -99,7 +98,7 @@ export default class Instagram extends Component {
               this.webView = webView;
             }}
             injectedJavaScript={
-              Platform.OS === "ios"
+              Platform.OS === 'ios'
                 ? patchPostMessageJsCodeIOS
                 : patchPostMessageJsCodeAndroid
             }
@@ -135,11 +134,11 @@ const propTypes = {
 };
 
 const defaultProps = {
-  redirectUrl: "https://epocket.dev.splinestudio.com",
+  redirectUrl: 'https://epocket.dev.splinestudio.com',
   styles: {},
-  scopes: ["public_content"],
+  scopes: ['public_content'],
   onLoginSuccess: token => {
-    Alert.alert("Alert Title", "Token: " + token, [{ text: "OK" }], {
+    Alert.alert('Alert Title', 'Token: ' + token, [{ text: 'OK' }], {
       cancelable: false
     });
   },
@@ -155,16 +154,16 @@ const styles = StyleSheet.create({
   modalWarp: {
     height: height,
     width: width,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(255,255,255,0.5)"
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255,255,255,0.5)'
   },
   keyboardStyle: {
-    position: "relative",
+    position: 'relative',
     height: height,
     width: width,
     paddingTop: 50,
-    backgroundColor: "rgba(255,255,255,1)"
+    backgroundColor: 'rgba(255,255,255,1)'
   },
 
   webView: {
@@ -173,14 +172,14 @@ const styles = StyleSheet.create({
   btnStyle: {
     width: 40,
     height: 40,
-    position: "absolute",
+    position: 'absolute',
     top: 15,
     right: 5,
-    alignItems: "center",
-    justifyContent: "center"
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   closeStyle: {
-    color: "#000",
+    color: '#000',
     fontSize: 30
   }
 });

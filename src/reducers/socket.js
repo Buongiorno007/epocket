@@ -1,11 +1,11 @@
-import { AsyncStorage } from "react-native";
-import { urls } from "../constants/urls";
-export const RETURN_DATA = "socket/RETURN_DATA";
+import { AsyncStorage } from 'react-native';
+import { urls } from '../constants/urls';
+export const RETURN_DATA = 'socket/RETURN_DATA';
 
 const initialState = {
   status: 0,
   products: [],
-  message: "",
+  message: '',
   total: 0
 };
 
@@ -24,8 +24,6 @@ export const getSocket = (token, orderId) => async dispatch => {
     orderId: orderId,
     token: token
   };
-  console.log(socket);
-  console.log(msg);
   socket.onopen = event => {
     socket.send(JSON.stringify(msg));
     dispatch(returnData());
@@ -36,9 +34,9 @@ export const getSocket = (token, orderId) => async dispatch => {
     }
     AsyncStorage.multiSet(
       [
-        ["cashout_cart", ""],
-        ["cashout_cart_time", ""],
-        ["cashout_cart_id", ""]
+        ['cashout_cart', ''],
+        ['cashout_cart_time', ''],
+        ['cashout_cart_id', '']
       ],
       () => {}
     );
