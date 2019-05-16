@@ -227,13 +227,13 @@ class RefillMobile extends React.Component {
       };
       httpPost(urls.refill_mobile, JSON.stringify(body), this.props.token).then(
         result => {
-          console.log(result, 'REFILL MOBILE RESULT');
+          // console.log(result, 'REFILL MOBILE RESULT');
           this.setState({ done: !this.state.done });
           this.props.loaderState(false);
           this.props.setBalance(result.body.user_wallet_amount);
         },
         error => {
-          console.log(error, 'REFILL MOBILE ERROR');
+          // console.log(error, 'REFILL MOBILE ERROR');
           Alert.alert(
             `code: ${error.code}`,
             '',

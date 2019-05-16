@@ -29,7 +29,7 @@ class PartnersList extends React.Component {
     Linking.canOpenURL(link)
       .then(supported => {
         if (!supported) {
-          console.log("Not supported");
+          // console.log("Not supported");
         } else {
           Linking.openURL(link);
         }

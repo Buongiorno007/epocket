@@ -19,7 +19,7 @@ class LocationDisabled extends React.Component {
       Linking.canOpenURL("App-prefs:")
         .then(supported => {
           if (!supported) {
-            console.log("Can't handle settings url");
+            // console.log("Can't handle settings url");
             Permissions.openSettings();
           } else {
             return Linking.openURL("App-prefs:");

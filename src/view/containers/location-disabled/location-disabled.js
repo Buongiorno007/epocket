@@ -44,14 +44,14 @@ class LocationDisabled extends React.Component {
             this.props.updateRootStatus();
           },
           error => {
-            console.log("position", error);
+            // console.log("position", error);
             this.props.locationState(false);
           },
           { enableHighAccuracy: false, timeout: 20000, maximumAge: 10000 }
         );
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
       });
   }
   _getLocation = () => {
@@ -72,7 +72,7 @@ class LocationDisabled extends React.Component {
 
   connectGeolocation = () => {
     try {
-      console.log("connectGeolocation");
+      // console.log("connectGeolocation");
       if (Platform.OS === "ios") {
         BackgroundGeolocationModule.ready(geo_config(), state => {
           if (!state.enabled) {
@@ -91,7 +91,7 @@ class LocationDisabled extends React.Component {
       }
       this.props.setGeoVirgin(false);
     } catch (err) {
-      console.log("error connectGeolocation", err);
+      // console.log("error connectGeolocation", err);
     }
   };
   _requestLocation = () => {
@@ -121,7 +121,7 @@ class LocationDisabled extends React.Component {
         }
       }
     } catch (err) {
-      console.log("error _requestLocation", err);
+      // console.log("error _requestLocation", err);
     }
   };
   render() {

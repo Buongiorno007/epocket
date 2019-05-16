@@ -54,7 +54,7 @@ class Partners extends React.Component {
     let promise = httpPost(urls.get_partners, body, this.props.token);
     promise.then(
       result => {
-        console.log(result);
+        // console.log(result);
         let shops = [];
         let onlineShops = [];
         result.body.forEach(element => {

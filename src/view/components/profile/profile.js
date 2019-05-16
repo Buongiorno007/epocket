@@ -76,7 +76,7 @@ class Profile extends React.Component {
         this.props.loaderState(false);
       },
       error => {
-        console.log(error);
+        // console.log(error);
         this.props.loaderState(false);
       }
     );
@@ -100,7 +100,7 @@ class Profile extends React.Component {
           this.props.loaderState(false);
         },
         error => {
-          console.log(error);
+          // console.log(error);
           this.props.loaderState(false);
         }
       );

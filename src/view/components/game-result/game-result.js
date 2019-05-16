@@ -47,6 +47,7 @@ import ActivityIndicator from '../../containers/activity-indicator/activity-indi
 import BrandWebsite from '../../containers/brand-website/brand-website';
 import { PermissionsAndroid } from 'react-native';
 import I18n from '@locales/I18n';
+// import console = require('console');
 
 class GameResult extends React.Component {
   state = {
@@ -58,7 +59,8 @@ class GameResult extends React.Component {
     buttonActive: true,
     interval: null,
     filePath: '',
-    currency: ''
+    currency: '',
+    wait_timer_in_sec: 0
   };
   componentDidMount = () => {
     AppState.addEventListener('change', this._handleAppStateChange);
@@ -117,7 +119,7 @@ class GameResult extends React.Component {
               break;
             case 'home':
               this.goHome();
-              this.props.loaderState(false);
+              // this.props.loaderState(false);
               break;
             case 'visit_website':
               this.openWebSiteInfo();
@@ -198,9 +200,12 @@ class GameResult extends React.Component {
     this.startTimer();
   };
   closeBrandWebSite = () => {
-    this.setState({ website_visible: false });
-    clearCorrectingInterval(this.state.interval);
-    this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec);
+    this.props.loaderState(true);
+    setTimeout(() => {
+      this.setState({ website_visible: false });
+      clearCorrectingInterval(this.state.interval);
+      this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec);
+    }, 1500);
   };
   goWait = () => {
     NavigationService.navigate('Main');
@@ -253,7 +258,7 @@ class GameResult extends React.Component {
         }
       },
       error => {
-        console.log(error);
+        // console.log(error);
         CookieManager.clearAll().then(res => {
           this.props.loaderState(false);
         });
@@ -295,13 +300,28 @@ class GameResult extends React.Component {
       });
     }
   };
+
+
+
+
   _handleAppStateChange = nextAppState => {
+    // if (nextAppState === 'background') {
+    //   this.closeBrandWebSite();
+    //   console.log("this.state.wait_timer_in_sec")
+    // }
+
     if (this.props.navigation.state.params.status != 'success') {
-      console.log('user tried to abuse');
+      // console.log('user tried to abuse');
       this.goWait();
     }
+
     this.props.setAppState(nextAppState);
   };
+
+
+
+
+
 
   componentWillUnmount() {
     AppState.removeEventListener('change', this._handleAppStateChange);
@@ -486,12 +506,12 @@ class GameResult extends React.Component {
             'relationships'
           ]}
           onLoginSuccess={token => {
-            console.log(token);
+            // console.log(token);
             this.connectInsta(token);
           }}
           onLoginFailure={data => {
             let token = data.next.split('#access_token=')[1];
-            console.log(data, token);
+            // console.log(data, token);
             this.connectInsta(token);
           }}
         />

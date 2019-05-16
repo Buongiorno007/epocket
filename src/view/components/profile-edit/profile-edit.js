@@ -180,7 +180,7 @@ class ProfileEdit extends React.Component {
     ImagePicker.showImagePicker(options, response => {
       if (response.didCancel) {
       } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
+        // console.log('ImagePicker Error: ', response.error);
       } else {
         let source = { uri: response.data };
         let user = { ...this.state.user };

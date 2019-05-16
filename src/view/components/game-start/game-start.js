@@ -296,9 +296,12 @@ class GameStart extends React.Component {
     this.startTimer();
   };
   closeBrandWebSite = () => {
-    this.setState({ website_visible: false });
-    clearCorrectingInterval(this.state.interval);
-    this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec);
+    this.props.loaderState(true);
+    setTimeout(() => {
+      this.setState({ website_visible: false });
+      clearCorrectingInterval(this.state.interval);
+      this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec);
+    }, 1500);
   };
   forceRemoveTicker = () => {
     this.props.loaderState(true);

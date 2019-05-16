@@ -36,6 +36,7 @@ import InstagramLogin from '../../../services/Instagram';
 import { httpPost } from '../../../services/http';
 import { postToSocial } from '../../../services/post-to-social';
 import I18n from '@locales/I18n';
+// import console = require('console');
 
 class GameStart extends React.Component {
   state = {
@@ -74,7 +75,13 @@ class GameStart extends React.Component {
       }, 1000)
     });
   };
+
+
+
   _handleAppStateChange = nextAppState => {
+    // if (nextAppState === 'background') {
+    //   this.closeBrandWebSite();
+    // }
     if (
       (this.props.appState === 'background' ||
         this.props.appState === 'inactive') &&
@@ -90,6 +97,11 @@ class GameStart extends React.Component {
     }
     this.props.setAppState(nextAppState);
   };
+
+
+
+
+
   componentDidMount = () => {
     AppState.addEventListener('change', this._handleAppStateChange);
     if (!this.props.game_expired_img.game_link) {
@@ -193,9 +205,12 @@ class GameStart extends React.Component {
     this.startTimerWebsite();
   };
   closeBrandWebSite = () => {
-    this.setState({ website_visible: false });
-    clearCorrectingInterval(this.state.intervalWebsite);
-    this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec);
+    this.props.loaderState(true);
+    setTimeout(() => {
+      this.setState({ website_visible: false });
+      clearCorrectingInterval(this.state.intervalWebsite);
+      this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec);
+    }, 1500);
   };
   loadNextGame = () => {
     this.closeBrandWebSite();
@@ -285,7 +300,7 @@ class GameStart extends React.Component {
           onLoginSuccess={token => this.connectInsta(token)}
           onLoginFailure={data => {
             let token = data.next.split('#access_token=')[1];
-            console.log(data, token);
+            // console.log(data, token);
             this.connectInsta(token);
           }}
         />

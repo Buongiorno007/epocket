@@ -44,7 +44,7 @@ class CashoutBalance extends React.Component {
         this.props.loaderState(false);
       },
       error => {
-        console.log(error, 'CashoutBalance ERROR');
+        // console.log(error, 'CashoutBalance ERROR');
         this.props.loaderState(false);
       }
     );

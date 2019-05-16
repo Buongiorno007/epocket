@@ -11,7 +11,7 @@ import NavigationService from "./../../../services/route";
 class Picture extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props.navigation.state.params, "PARAMS");
+    // console.log(this.props.navigation.state.params, "PARAMS");
   }
 
   componentDidMount() {

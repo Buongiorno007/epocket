@@ -145,7 +145,7 @@ class ProfileSettings extends React.Component {
     this.props.setFacebookToken(String(token));
   };
   connectInsta = instagram_token => {
-    console.log(instagram_token);
+    // console.log(instagram_token);
     this.props.loaderState(true);
     let body = JSON.stringify({
       instagram_token
@@ -274,9 +274,9 @@ class ProfileSettings extends React.Component {
             <LoginButton
               onLoginFinished={(error, result) => {
                 if (error) {
-                  console.log("login has error: " + result.error);
+                  // console.log("login has error: " + result.error);
                 } else if (result.isCancelled) {
-                  console.log("login is cancelled.");
+                  // console.log("login is cancelled.");
                 } else {
                   AccessToken.getCurrentAccessToken().then(data => {
                     this.LoginFacebook(data.accessToken.toString());

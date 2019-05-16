@@ -150,12 +150,12 @@ class SignUp extends React.Component {
     let body = {
       phone: "+" + bodyPhone
     };
-    console.log(body, this.state.phoneCorrect, this.state.nameCorrect);
+    // console.log(body, this.state.phoneCorrect, this.state.nameCorrect);
     let promise = httpPost(urls.sign_up, JSON.stringify(body));
     promise.then(
       result => {
         this.setFailedSignVisible(false);
-        console.log("Fulfilled sendForm: ", result);
+        // console.log("Fulfilled sendForm: ", result);
         //this.props.loaderState(false); //DEPRECATED uncomment
         this.setState({ step: 2, acceptButton: false });
         this.sendCode(); //DEPRECATED
@@ -191,12 +191,12 @@ class SignUp extends React.Component {
       name: this.state.name,
       user_id: this.state.user_id
     };
-    console.log(body);
+    // console.log(body);
     let promise = httpPost(urls.sign_up_confirm, JSON.stringify(body));
     promise.then(
       result => {
         this.setFailedConfirmVisible(false);
-        console.log("Fulfilled sendCode: ", result);
+        // console.log("Fulfilled sendCode: ", result);
         this.props.loaderState(false);
         let new_user = {
           name: this.state.name,
@@ -281,7 +281,7 @@ class SignUp extends React.Component {
           source={{ uri: urls.blank + "/reflink?not_redirect=true" }}
           onMessage={event => {
             this.setState({ user_id: event.nativeEvent.data });
-            console.log("Received: ", event.nativeEvent.data);
+            // console.log("Received: ", event.nativeEvent.data);
           }}
           style={{
             flex: 0,

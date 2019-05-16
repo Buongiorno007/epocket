@@ -98,7 +98,7 @@ class EarnMore extends React.Component {
       error => {
         CookieManager.clearAll().then(res => {
           this.props.loaderState(false);
-          console.log("Rejected: ", error);
+          // console.log("Rejected: ", error);
         });
       }
     );
@@ -134,7 +134,7 @@ class EarnMore extends React.Component {
     let promise = httpPost(urls.insta_getmedia, body, this.props.token);
     promise.then(
       result => {
-        console.log("result", result);
+        // console.log("result", result);
         this.props.setBalance(result.body.media.status.balance);
         this.skip();
       },

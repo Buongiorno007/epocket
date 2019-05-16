@@ -29,6 +29,8 @@ import ActivityIndicator from '../../containers/activity-indicator/activity-indi
 import '../../../services/correcting-interval';
 import { toHHMMSS } from './../../../services/convert-time';
 import I18n from '@locales/I18n';
+import BackgroundTimer from 'react-native-background-timer';
+// import console = require('console');
 
 const { width } = Dimensions.get('window');
 
@@ -67,7 +69,7 @@ class Game extends React.Component {
     this.props.editGame(i + 1);
   }
   goToResult = status => {
-    console.log('goToResult status');
+    // console.log('goToResult status');
     let status_for_api = status === 'success' ? true : false;
     let instadata = {
       success_image: this.props.game_info.success_image,
@@ -128,11 +130,29 @@ class Game extends React.Component {
       }
     }
   };
+  componentWillReceiveProps(props) {
+    if(props.tempTime !== this.props.tempTime){
+      if (this.props.tempTime == 1) {
+        clearCorrectingInterval(this.state.interval);
+        this.submitGame(true);
+        BackgroundTimer.stopBackgroundTimer();
+      }
+    }
+  }
   _handleAppStateChange = nextAppState => {
+    if (nextAppState == "background") {
+      BackgroundTimer.runBackgroundTimer(() => { 
+        clearCorrectingInterval(this.state.interval);
+        this.props.setTempTime(this.props.tempTime);
+        this.startTimer();
+        }, 20);
+    }
+
     if (
       this.props.appState.match(/background|inactive/) &&
       nextAppState === 'active'
     ) {
+      BackgroundTimer.stopBackgroundTimer();
       clearCorrectingInterval(this.state.interval);
       this.props.setTempTime(this.props.tempTime);
       this.startTimer();

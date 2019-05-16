@@ -24,8 +24,8 @@ export const getSocket = (token, orderId) => async dispatch => {
     orderId: orderId,
     token: token
   };
-  console.log(socket);
-  console.log(msg);
+  // console.log(socket);
+  // console.log(msg);
   socket.onopen = event => {
     socket.send(JSON.stringify(msg));
     dispatch(returnData());

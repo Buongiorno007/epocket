@@ -139,7 +139,7 @@ class Map extends React.Component {
   }
   finishMainMission() {
     if (this.state.finishMissionCalled) {
-      console.log("finishMainMission called second time");
+      // console.log("finishMainMission called second time");
     } else {
       this.setErrorVisible(false);
       this.setState({ load_missions: true });
@@ -842,7 +842,7 @@ class Map extends React.Component {
           },
           () => {
             if (result.body.failed) {
-              console.log(result, 'HELLO I"M HERE');
+              // console.log(result, 'HELLO I"M HERE');
               this.props.showFailedNotification(true);
               this.props.timerStatus(false);
             } else {

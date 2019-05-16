@@ -79,7 +79,7 @@ function sendRequest(url, OPTIONS) {
             code: parseInt(`${response.status}`)
           });
         } catch (err) {
-          console.log(err);
+          // console.log(err);
           reject({
             body: err,
             code: parseInt(`${response.status}`)
