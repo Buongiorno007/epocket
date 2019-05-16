@@ -1,3 +1,5 @@
+// import console = require("console");
+
 export const SET_TEMP_TIME = "tempTime/SET_TEMP_TIME";
 const initialState = 30;
 export default (state = initialState, action) => {
