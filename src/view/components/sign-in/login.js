@@ -57,6 +57,7 @@ import { ICONS } from '../../../constants/icons';
 ///////////////
 import { Dropdown } from 'react-native-material-dropdown';
 import I18n from '@locales/I18n';
+import SignForm from '@containers/signForm/signForm';
 
 class Login extends React.Component {
   static navigationOptions = () => ({
@@ -66,7 +67,6 @@ class Login extends React.Component {
   prefix = '+';
   state = {
     phoneNumber: '-- --- -- --',
-
     signInMargin: new Animated.Value(40),
     phone: '',
     code: '',
@@ -76,7 +76,8 @@ class Login extends React.Component {
     step: 1,
     failedSignVisible: false,
     failedConfirmVisible: false,
-    errorText: ''
+    errorText: '',
+    pressed: false
   };
 
   constructor(props) {
@@ -306,37 +307,12 @@ class Login extends React.Component {
   //               active={this.state.acceptButton}
   //               title={I18n.t('SIGN_IN').toUpperCase()}
   //             />
-
+  closeIfOpened() {
+    if (this.state.pressed) {
+      this.setState({ pressed: !this.state.pressed });
+    }
+  }
   render() {
-    let data = [
-      {
-        value: 'Banana'
-      },
-      {
-        value: 'Mango'
-      },
-      {
-        value: 'Pear'
-      },
-      {
-        value: 'Mango'
-      },
-      {
-        value: 'Pear'
-      },
-      {
-        value: 'Mango'
-      },
-      {
-        value: 'Pear'
-      },
-      {
-        value: 'Mango'
-      },
-      {
-        value: 'Pear'
-      }
-    ];
     return (
       <View style={styles.container}>
         <StatusBar
@@ -349,6 +325,9 @@ class Login extends React.Component {
           start={{ x: 1.0, y: 0.0 }}
           end={{ x: 0.0, y: 1.0 }}
           style={styles.grad}
+          // onTouchEnd={() => {
+          //   this.closeIfOpened();
+          // }}
         >
           <KeyboardAvoidingView
             behavior="padding"
@@ -358,57 +337,9 @@ class Login extends React.Component {
             <ScrollView
               scrollEnabled={false}
               keyboardShouldPersistTaps={'handled'}
-              //   style={styles.scrollView}
               contentContainerStyle={styles.scrollView}
             >
-              <View style={styles.inputView}>
-                <Dropdown
-                  baseColor={'#fff'} // arrow and border
-                  textColor={'#f00'} // PICKED COLOR
-                  itemColor={'#707070'} // NOT PICKED DROPDOWN ITEM
-                  selectedItemColor={'#00f'}
-                  disabledItemColor={'yellow'}
-                  // dropdownMargins={16}
-                  // textColor={'#FFF'}
-                  itemTextStyle={styles.itemTextStyle}
-                  // itemPadding={15}
-                  // dropdownOffset={{ top: -30, left: 0 }}
-                  // itemColor={'#000'}
-                  // itemPadding={0} // padding in dropDOwn elements
-                  // style={styles.dropDown}
-
-                  // textColor={'#000'}
-                  // itemColor={'rgba(0, 0, 0, .54)'}
-                  // containerStyle={styles.dropDown}
-                  // overlayStyle={{ color: '#000' }}
-                  data={data}
-                />
-                {/* <TextInput
-                  style={styles.input}
-                  keyboardType="numeric"
-                  onChangeText={value => {}}
-                  value={this.state.phoneNumber}
-                  maxLength={`${this.state.phoneNumber}`.length}
-                /> */}
-              </View>
-
-              {/* <TextField
-                label={I18n.t('MOBILE_NUMBER')}
-                textColor={'#000000'}
-                tintColor={'#000000'}
-                baseColor={'#000000'}
-                placeholder={I18n.t('PHONE_MASK')}
-                placeholderTextColor={'#000000'}
-                labelPadding={16}
-                inputContainerPadding={16}
-                onChangeText={text => {
-                  //
-                }}
-                value={this.state.phoneNumber}
-                maxLength={`${this.state.phoneNumber}`.length}
-                keyboardType="numeric"
-                // prefix={this.prefix}
-              /> */}
+              <SignForm />
               <CustomButton
                 color={
                   this.state.acceptButton
