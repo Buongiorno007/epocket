@@ -1,4 +1,5 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, StatusBar, Platform } from 'react-native';
+import { Header } from 'react-navigation';
 import { colors } from '../../../constants/colors';
 const { width, height } = Dimensions.get('window');
 
@@ -18,8 +19,16 @@ export default StyleSheet.create({
   },
   grad: {
     position: 'absolute',
-    height: height,
+    // height: height,
+    height:
+      Platform.OS === 'ios'
+        ? height - Header.HEIGHT
+        : height - Header.HEIGHT - StatusBar.currentHeight,
     width: width,
+    top:
+      Platform.OS === 'ios'
+        ? Header.HEIGHT
+        : Header.HEIGHT + StatusBar.currentHeight,
     flex: 1,
     flexDirection: 'column',
     paddingHorizontal: 25

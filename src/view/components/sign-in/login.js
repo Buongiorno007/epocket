@@ -55,7 +55,6 @@ import { colors } from '../../../constants/colors';
 import { urls } from '../../../constants/urls';
 import { ICONS } from '../../../constants/icons';
 ///////////////
-import { Dropdown } from 'react-native-material-dropdown';
 import I18n from '@locales/I18n';
 import SignForm from '@containers/signForm/signForm';
 
@@ -314,49 +313,40 @@ class Login extends React.Component {
   }
   render() {
     return (
-      <View style={styles.container}>
+      <LinearGradient
+        colors={['#FEBF54', '#FB7375', 'rgba(246,34,183,0.48)']}
+        start={{ x: 1.0, y: 0.0 }}
+        end={{ x: 0.0, y: 1.0 }}
+        style={styles.container}
+      >
         <StatusBar
           barStyle="light-content"
           backgroundColor={'transparent'}
           translucent={true}
         />
-        <LinearGradient
-          colors={['#FEBF54', '#FB7375', 'rgba(246,34,183,0.48)']}
-          start={{ x: 1.0, y: 0.0 }}
-          end={{ x: 0.0, y: 1.0 }}
-          style={styles.grad}
-          // onTouchEnd={() => {
-          //   this.closeIfOpened();
-          // }}
-        >
-          <KeyboardAvoidingView
-            behavior="padding"
-            style={styles.avoiding}
-            enabled
+
+        <KeyboardAvoidingView behavior="padding" style={styles.grad}>
+          <ScrollView
+            scrollEnabled={false}
+            contentContainerStyle={styles.scrollView}
           >
-            <ScrollView
-              scrollEnabled={false}
-              keyboardShouldPersistTaps={'handled'}
-              contentContainerStyle={styles.scrollView}
-            >
-              <SignForm />
-              <CustomButton
-                color={
-                  this.state.acceptButton
-                    ? this.props.userColor.pink
-                    : this.props.userColor.white
-                }
-                handler={() => {
-                  this.login();
-                }}
-                active={this.state.acceptButton}
-                title={I18n.t('SIGN_IN').toUpperCase()}
-              />
-            </ScrollView>
-          </KeyboardAvoidingView>
-        </LinearGradient>
+            <SignForm />
+            <CustomButton
+              color={
+                this.state.acceptButton
+                  ? this.props.userColor.pink
+                  : this.props.userColor.white
+              }
+              handler={() => {
+                this.login();
+              }}
+              active={this.state.acceptButton}
+              title={I18n.t('SIGN_IN').toUpperCase()}
+            />
+          </ScrollView>
+        </KeyboardAvoidingView>
         {this.props.loader && <ActivityIndicator />}
-      </View>
+      </LinearGradient>
     );
   }
 }
