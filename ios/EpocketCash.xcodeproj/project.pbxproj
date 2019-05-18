@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -32,7 +31,6 @@
 		42F60399E8384E599979D1F5 /* Rubik-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5EA51E44F8B74DBCB63351C2 /* Rubik-Regular.ttf */; };
 		461014632EC84CB6827E3933 /* Rubik-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 511814A1532F4C6BA4A83A76 /* Rubik-LightItalic.ttf */; };
 		46A93BD644D247FBAAD3BEB7 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 097E387202BC41D1AFF466FF /* Foundation.ttf */; };
-		4807C41EB4D2455F8016FEFC /* libSajjadBlurOverlay.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DBD018FB324F4103B187BE6E /* libSajjadBlurOverlay.a */; };
 		4AB58759998A4713A6227782 /* Rubik-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 832D9BA8AE8B4022A983881C /* Rubik-MediumItalic.ttf */; };
 		4D2A64F4C2A248D88CFC0A6A /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C00A89E4DBAE4BB288A969E7 /* Zocial.ttf */; };
 		524C86D39D804555926B67A9 /* libRNTextGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A77E8646384AD1A321422F /* libRNTextGradient.a */; };
@@ -46,6 +44,7 @@
 		6C9F29CD21AD3D3600167317 /* libRNShare.a in Sources */ = {isa = PBXBuildFile; fileRef = 6CD127E021A56AB9007BC7FD /* libRNShare.a */; };
 		6CABB0A821CB781E000D3408 /* libRNShare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CABB0A421CB780D000D3408 /* libRNShare.a */; };
 		7747F44ED10349ABAF72FF9D /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 980D170C751B492D8F80F736 /* MaterialIcons.ttf */; };
+		7FB17177ACF94898BA8C3A6D /* libRNTextInputMask.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B6652B9787924DFD954E117F /* libRNTextInputMask.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8B21EE2BCF8E487CB6E0E75D /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E491EBD0C6894115A34FC58D /* EvilIcons.ttf */; };
 		A5A389192237DF5600F9C812 /* quest_fail.wav in Resources */ = {isa = PBXBuildFile; fileRef = A5A389162237DF5500F9C812 /* quest_fail.wav */; };
@@ -413,12 +412,12 @@
 			remoteGlobalIDString = ED296FEE214C9CF800B7C4FE;
 			remoteInfo = "jsiexecutor-tvOS";
 		};
-		F37133D1228ACA5400303E1E /* PBXContainerItemProxy */ = {
+		F396EAAF2290382E00691DFD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = A4AC8943AC1E4BC09ED1F4AD /* SajjadBlurOverlay.xcodeproj */;
+			containerPortal = B5242EFD363247799051AE25 /* RNTextInputMask.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = SajjadBlurOverlay;
+			remoteInfo = RNTextInputMask;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -481,7 +480,6 @@
 		92AC22B1058643A69DADC1FF /* libRNFirebase.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFirebase.a; sourceTree = "<group>"; };
 		980D170C751B492D8F80F736 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		A0FEAF16BB0F46A2857876ED /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/native-base/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
-		A4AC8943AC1E4BC09ED1F4AD /* SajjadBlurOverlay.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SajjadBlurOverlay.xcodeproj; path = "../node_modules/react-native-blur-overlay/ios/SajjadBlurOverlay.xcodeproj"; sourceTree = "<group>"; };
 		A5A389162237DF5500F9C812 /* quest_fail.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = quest_fail.wav; path = ../android/app/src/main/res/raw/quest_fail.wav; sourceTree = "<group>"; };
 		A5A389172237DF5500F9C812 /* clock_tick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = clock_tick.wav; path = ../android/app/src/main/res/raw/clock_tick.wav; sourceTree = "<group>"; };
 		A5A389182237DF5500F9C812 /* quest_complete.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = quest_complete.mp3; path = ../android/app/src/main/res/raw/quest_complete.mp3; sourceTree = "<group>"; };
@@ -490,12 +488,13 @@
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		AF8297859AC940B29F59C410 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/native-base/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		B15CEB4AB522451A8CD8BB46 /* Rubik-BlackItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-BlackItalic.ttf"; path = "../src/assets/fonts/Rubik/Rubik-BlackItalic.ttf"; sourceTree = "<group>"; };
+		B5242EFD363247799051AE25 /* RNTextInputMask.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNTextInputMask.xcodeproj; path = "../node_modules/react-native-text-input-mask/ios/RNTextInputMask.xcodeproj"; sourceTree = "<group>"; };
+		B6652B9787924DFD954E117F /* libRNTextInputMask.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNTextInputMask.a; sourceTree = "<group>"; };
 		B87D12CB96984C74A140AC1C /* SRSRadialGradient.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SRSRadialGradient.xcodeproj; path = "../node_modules/react-native-radial-gradient/ios/SRSRadialGradient.xcodeproj"; sourceTree = "<group>"; };
 		BA5772EDC44846D79BA3590D /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/native-base/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		C00A89E4DBAE4BB288A969E7 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		D1BBFF974D5A4052988871E8 /* libSRSRadialGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSRSRadialGradient.a; sourceTree = "<group>"; };
 		D96D77508BC148399D51CF35 /* Rubik-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Bold.ttf"; path = "../src/assets/fonts/Rubik/Rubik-Bold.ttf"; sourceTree = "<group>"; };
-		DBD018FB324F4103B187BE6E /* libSajjadBlurOverlay.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSajjadBlurOverlay.a; sourceTree = "<group>"; };
 		E1A77E8646384AD1A321422F /* libRNTextGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNTextGradient.a; sourceTree = "<group>"; };
 		E491EBD0C6894115A34FC58D /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/native-base/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -533,8 +532,8 @@
 				EA2A6BC7519E4783AAC05559 /* libRNFirebase.a in Frameworks */,
 				C9868F9F9C5C4526844BEDE8 /* libRNCookieManagerIOS.a in Frameworks */,
 				C214D908912B46688298F87A /* libUdpSockets.a in Frameworks */,
-				4807C41EB4D2455F8016FEFC /* libSajjadBlurOverlay.a in Frameworks */,
 				6A9F2B4BF8992CCF5F3DAD19 /* libPods-EpocketCash.a in Frameworks */,
+				7FB17177ACF94898BA8C3A6D /* libRNTextInputMask.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -702,6 +701,7 @@
 				AD648120A4414AF5B0B325A1 /* libRNCookieManagerIOS.a */,
 				4F88ADA8B8C7445597C37C1B /* libUdpSockets.a */,
 				DBD018FB324F4103B187BE6E /* libSajjadBlurOverlay.a */,
+				B6652B9787924DFD954E117F /* libRNTextInputMask.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -828,7 +828,7 @@
 				910D9C4B81854FF59D837898 /* RNFirebase.xcodeproj */,
 				19A42D0FCEB34D1EA90DEBC4 /* RNCookieManagerIOS.xcodeproj */,
 				F43EC7D03F6348288CF09713 /* UdpSockets.xcodeproj */,
-				A4AC8943AC1E4BC09ED1F4AD /* SajjadBlurOverlay.xcodeproj */,
+				B5242EFD363247799051AE25 /* RNTextInputMask.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -896,10 +896,10 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		F37133CE228ACA5400303E1E /* Products */ = {
+		F396EAAC2290382E00691DFD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F37133D2228ACA5400303E1E /* libSajjadBlurOverlay.a */,
+				F396EAB02290382E00691DFD /* libRNTextInputMask.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1041,8 +1041,8 @@
 					ProjectRef = 6B29C7C30ECF4E7393F0998E /* RNTextGradient.xcodeproj */;
 				},
 				{
-					ProductGroup = F37133CE228ACA5400303E1E /* Products */;
-					ProjectRef = A4AC8943AC1E4BC09ED1F4AD /* SajjadBlurOverlay.xcodeproj */;
+					ProductGroup = F396EAAC2290382E00691DFD /* Products */;
+					ProjectRef = B5242EFD363247799051AE25 /* RNTextInputMask.xcodeproj */;
 				},
 				{
 					ProductGroup = 32DE99CB21005FFA00EF1FE9 /* Products */;
@@ -1404,11 +1404,11 @@
 			remoteRef = F301BFF0227C701400421BA7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		F37133D2228ACA5400303E1E /* libSajjadBlurOverlay.a */ = {
+		F396EAB02290382E00691DFD /* libRNTextInputMask.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = libSajjadBlurOverlay.a;
-			remoteRef = F37133D1228ACA5400303E1E /* PBXContainerItemProxy */;
+			path = libRNTextInputMask.a;
+			remoteRef = F396EAAF2290382E00691DFD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1608,15 +1608,13 @@
 					"$(SRCROOT)/../node_modules/react-native-cookies/ios/RNCookieManagerIOS",
 					"$(SRCROOT)/../node_modules/react-native-udp/ios/**",
 					"\"$(SRCROOT)/../node_modules/react-native/React\"",
-					"$(SRCROOT)/../node_modules/react-native-blur-overlay/ios",
+					"$(SRCROOT)/../node_modules/react-native-text-input-mask/ios/**",
 				);
 				INFOPLIST_FILE = EpocketCash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/EpocketCash\"",
-					"\"$(SRCROOT)/EpocketCash\"",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1650,15 +1648,13 @@
 					"$(SRCROOT)/../node_modules/react-native-cookies/ios/RNCookieManagerIOS",
 					"$(SRCROOT)/../node_modules/react-native-udp/ios/**",
 					"\"$(SRCROOT)/../node_modules/react-native/React\"",
-					"$(SRCROOT)/../node_modules/react-native-blur-overlay/ios",
+					"$(SRCROOT)/../node_modules/react-native-text-input-mask/ios/**",
 				);
 				INFOPLIST_FILE = EpocketCash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/EpocketCash\"",
-					"\"$(SRCROOT)/EpocketCash\"",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
