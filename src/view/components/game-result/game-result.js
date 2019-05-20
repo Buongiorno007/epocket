@@ -76,7 +76,9 @@ class GameResult extends React.Component {
       if (this.props.website_timer <= 0) {
         clearCorrectingInterval(this.state.interval);
       } else {
-        this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec--);
+        if (this.props.game_info.wait_timer_in_sec > 0) {
+          this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec--);
+        }
       }
     }, 1000);
 
@@ -712,7 +714,7 @@ const mapStateToProps = state => {
     loader: state.loader,
     location: state.location,
     postStatus: state.postStatus,
-    website_timer: state.website_timer.time
+    website_timer: state.website_timer
   };
 };
 
