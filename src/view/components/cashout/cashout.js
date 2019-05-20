@@ -7,7 +7,6 @@ import {
   Dimensions,
   Easing,
   Text,
-  StatusBar,
   Platform
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
@@ -197,11 +196,6 @@ class Cashout extends React.Component {
   render = () => {
     return (
       <View style={styles.container}>
-        <StatusBar
-          barStyle="dark-content"
-          translucent={true}
-          backgroundColor={"transparent"}
-        />
         <CustomAlert
           title={this.state.errorText}
           first_btn_title={I18n.t("REPEAT")}

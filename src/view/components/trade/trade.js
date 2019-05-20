@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StatusBar, ScrollView } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 //containers
 import Status from "./../../containers/trade-status/trade-status";
 import Title from "./../../containers/trade-title/trade-title";
@@ -28,11 +28,6 @@ class Trade extends React.Component {
   render = () => {
     return (
       <View style={styles.container}>
-        <StatusBar
-          barStyle="dark-content"
-          translucent={true}
-          backgroundColor={"transparent"}
-        />
         <Status
           status={this.props.socket.status}
           total_approve={this.totalApprove(this.props.socket.products)}

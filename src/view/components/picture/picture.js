@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StatusBar, BackHandler } from 'react-native';
+import { View, BackHandler } from 'react-native';
 import FastImage from 'react-native-fast-image';
 //containers
 import Navbar from './../../containers/cashout-navbar/cashout-navbar';
@@ -25,11 +25,6 @@ class Picture extends React.Component {
   render = () => {
     return (
       <View style={styles.container}>
-        <StatusBar
-          barStyle="dark-content"
-          translucent={true}
-          backgroundColor={'transparent'}
-        />
         <Navbar
           copyOfCards={this.props.navigation.state.params.copyOfCards}
           general_info={this.props.navigation.state.params.general_info}

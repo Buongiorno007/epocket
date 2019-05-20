@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   View,
-  StatusBar,
   Text,
   AsyncStorage,
   Keyboard,
@@ -171,11 +170,6 @@ class Start extends React.Component {
   render() {
     return (
       <View style={styles.main_view}>
-        <StatusBar
-          barStyle="dark-content"
-          translucent={true}
-          backgroundColor={'transparent'}
-        />
         <LinearGradient
           colors={[
             'rgba(89,91,241,1)',

@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   View,
-  StatusBar,
   Text,
   Keyboard,
   Alert,
@@ -334,11 +333,6 @@ class SignIn extends React.Component {
             decline_btn_handler={() => {
               this.setFailedConfirmVisible(!this.state.failedConfirmVisible);
             }}
-          />
-          <StatusBar
-            barStyle="dark-content"
-            translucent={true}
-            backgroundColor={'transparent'}
           />
           <FastImage
             style={styles.bottom_image}

@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   View,
-  StatusBar,
   Text,
   Animated,
   PanResponder,
@@ -787,11 +786,6 @@ class Dashboard extends React.Component {
   render() {
     return (
       <View style={styles.main_view}>
-        <StatusBar
-          barStyle="dark-content"
-          translucent={true}
-          backgroundColor={'transparent'}
-        />
         <CustomAlert
           title={I18n.t('PROFILE_PAGE.ALREADY_ACCOUNT')}
           first_btn_title={I18n.t('OK')}
@@ -885,11 +879,6 @@ class Dashboard extends React.Component {
               this.props.loaderState(false);
             });
           }}
-        />
-        <StatusBar
-          barStyle="dark-content"
-          translucent={true}
-          backgroundColor={'transparent'}
         />
 
         {!this.props.activeCard ? (

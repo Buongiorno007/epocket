@@ -2,7 +2,6 @@ import React from 'react';
 import {
   View,
   Text,
-  StatusBar,
   AppState,
   Platform,
   AsyncStorage
@@ -162,11 +161,6 @@ class EarnMore extends React.Component {
     return (
       <View style={styles.container}>
         {this.props.loader && <ActivityIndicator />}
-        <StatusBar
-          barStyle="light-content"
-          backgroundColor={'transparent'}
-          translucent={true}
-        />
         <CustomAlert
           title={I18n.t('PROFILE_PAGE.ALREADY_ACCOUNT')}
           first_btn_title={I18n.t('OK')}

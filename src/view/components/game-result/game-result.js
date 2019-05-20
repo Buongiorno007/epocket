@@ -2,7 +2,6 @@ import React from 'react';
 import {
   View,
   Text,
-  StatusBar,
   Platform,
   AppState,
   AsyncStorage,
@@ -420,11 +419,6 @@ class GameResult extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <StatusBar
-          barStyle="light-content"
-          backgroundColor={'transparent'}
-          translucent={true}
-        />
         <BrandWebsite
           visible={this.state.website_visible}
           brand_title={this.props.game_info.brand_title}

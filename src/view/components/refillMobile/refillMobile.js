@@ -2,7 +2,6 @@ import React from 'react';
 import {
   View,
   Text,
-  StatusBar,
   KeyboardAvoidingView,
   TextInput,
   ScrollView,
@@ -255,11 +254,6 @@ class RefillMobile extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <StatusBar
-          barStyle="light-content"
-          backgroundColor={'transparent'}
-          translucent={true}
-        />
         {this.state.maxValue
           ? !this.state.done
             ? this.firstScreen()
