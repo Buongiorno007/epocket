@@ -1,0 +1,41 @@
+{
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaVersion": 8,
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true,
+            "jsx": true
+        },
+        "sourceType": "module"
+    },
+    "extends": [
+        "plugin:prettier/recommended",
+        "prettier/react",
+        "prettier/standard"
+    ],
+    "plugins": [
+        "react",
+        "react-native",
+        "prettier"
+    ],
+    "rules": {
+        "indent": 0,
+        "no-tabs": 0,
+        "linebreak-style": 0,
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": 0,
+        "no-var": [
+            "error"
+        ],
+        "eqeqeq": [
+            "error"
+        ],
+        "prettier/prettier": "error"
+    },
+    "globals": {
+        "fetch": true
+    }
+}

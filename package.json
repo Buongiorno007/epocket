@@ -3,15 +3,18 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest",
-    "android:build": "cd android && ./gradlew assembleRelease && cd ../",
-    "android:install": "cd android && ./gradlew assembleRelease && ./gradlew installRelease && cd ../",
-    "watchman": "watchman waych-del-all && react-native start --reset-cache",
-    "watchman2": "watchman watch-del-all && rm -rf $TMPDIR/react-* && rm -rf node_modules/ && rm -rf package-lock.json && npm cache verify && npm install && cd ios && pod deintegrate && pod clean && pod update && cd ../ && node node_modules/react-native-text-gradient/patch-rn.js && npm start -- --reset-cache",
+    "start": "react-native start",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "clear-pods": "cd ios && pod deintegrate && pod clean && pod update && cd ../"
+    "android:release": "cd android && ./gradlew clean && ./gradlew assembleRelease && cd ../",
+    "android:clean": "cd android && ./gradlew clean && cd ../",
+    "js-check": "eslint --print-config .eslintrc | eslint-config-prettier-check --fix",
+    "prettier": "prettier --write './src/**/*.js'",
+    "postinstall": "node node_modules/react-native-text-gradient/patch-rn.js",
+    "pod:clean": "cd ios && pod deintegrate && pod clean && pod update && cd ../",
+    "watchman": "watchman watch-del-all && rm -rf $TMPDIR/react-* && rm -rf node_modules/ && npm cache verify && npm install && npm start -- --reset-cache",
+	"watchman2": "watchman watch-del-all && rm -rf $TMPDIR/react-* && rm -rf node_modules/ && rm -rf package-lock.json && npm cache verify && npm install && cd ios && pod deintegrate && pod clean && pod update && cd ../ && node node_modules/react-native-text-gradient/patch-rn.js && npm start -- --reset-cache",
+	"xcode": "open ios/EpocketCash.xcworkspace"
   },
   "rnpm": {
     "assets": [
@@ -20,9 +23,8 @@
   },
   "dependencies": {
     "@react-native-community/blur": "^3.3.1",
-    "@react-native-community/netinfo": "^2.0.10",
+    "@react-native-community/netinfo": "^3.1.0",
     "bundle": "^2.1.0",
-    "eslint": "^5.16.0",
     "geolib": "^2.0.24",
     "i18n": "^0.8.3",
     "intl": "^1.2.5",
@@ -32,6 +34,7 @@
     "moment-timezone": "^0.5.25",
     "native-base": "^2.12.1",
     "prop-types": "^15.7.2",
+    "qs": "^6.7.0",
     "react": "16.8.6",
     "react-native": "0.59.8",
     "react-native-android-location-enabler": "^1.0.8",
@@ -66,14 +69,13 @@
     "react-native-sound": "^0.10.12",
     "react-native-svg": "^9.4.0",
     "react-native-swipe-gestures": "^1.0.3",
-    "react-native-text-gradient": "0.1.4",
-    "react-native-text-input-mask": "^1.0.1",
-    "react-native-webview": "^5.8.2",
+	"react-native-text-gradient": "0.1.4",
+	"react-native-text-input-mask": "^1.0.1",
+    "react-native-webview": "^5.9.1",
     "react-native-wheel-pick": "^1.0.9",
-    "react-navigation": "^3.9.1",
+    "react-navigation": "^3.11.0",
     "react-redux": "^7.0.3",
     "redux": "^4.0.1",
-    "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "remote-redux-devtools": "^0.5.16",
     "rn-fetch-blob": "^0.10.15"
@@ -81,15 +83,17 @@
   "devDependencies": {
     "@babel/core": "^7.4.4",
     "@babel/runtime": "^7.4.4",
-    "babel-jest": "24.8.0",
+    "babel-eslint": "^10.0.1",
     "babel-plugin-transform-remove-console": "^6.9.4",
-    "babel-preset-react-native": "^4.0.1",
-    "jest": "24.8.0",
-    "metro-react-native-babel-preset": "0.54.0",
-    "react-test-renderer": "16.8.6",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.13.0",
+    "eslint-plugin-react-native": "^3.7.0",
+    "metro-react-native-babel-preset": "0.54.1",
+    "prettier": "^1.17.1",
+    "prettier-eslint": "^8.8.2",
+    "redux-devtools-extension": "^2.13.8",
     "schedule": "^0.5.0"
-  },
-  "jest": {
-    "preset": "react-native"
   }
 }

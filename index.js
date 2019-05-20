@@ -1,92 +1,60 @@
-import React from 'react';
-import BackgroundGeolocationModule from './src/services/background-geolocation-picker';
-import { sendToTelegramm } from './src/services/telegramm-notification';
-import { AppRegistry } from 'react-native';
-import { Root } from 'native-base';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
-import Start from './src/view/components/start/start';
-import SignIn from './src/view/components/sign-in/sign-in';
-import Main from './src/view/components/main/main';
-import SignUp from './src/view/components/sign-up/sign-up';
-import Dashboard from './src/view/components/dashboard/dashboard';
-import Scanner from './src/view/components/scanner/scanner';
-import Photograph from './src/view/components/photograph/photograph';
-import Photo from './src/view/components/photo/photo';
-import QrCode from './src/view/components/qr-code/qr-code';
-import Picture from './src/view/components/picture/picture';
-import Trade from './src/view/components/trade/trade';
-import MissionSuccess from './src/view/components/mission-success/mission-success';
-import EarnMore from './src/view/components/earn-more/earn-more';
-import ProfileSettings from './src/view/components/profile-settings/profile-settings';
-import ProfileEdit from './src/view/components/profile-edit/profile-edit';
-import Game from './src/view/components/game/game';
-import GameResult from './src/view/components/game-result/game-result';
-import Cashout from './src/view/components/cashout/cashout';
-import Partners from './src/view/components/partners/partners';
-import RefillMobile from './src/view/components/refillMobile/refillMobile';
-import Login from './src/view/components/sign-in/login';
-import Registration from './src/view/components/sign-up/registration';
+import React from 'react'
+import { AppRegistry } from 'react-native'
+import { Root } from 'native-base'
+import { createStackNavigator, createAppContainer } from 'react-navigation'
 
-import { Provider } from 'react-redux';
-import store from './src/store';
+import { Provider } from 'react-redux'
+import store from './src/store'
 
-import NavigationService from './src/services/route';
+import NavigationService from './src/services/route'
 
-console.disableYellowBox = true;
-console.ignoredYellowBox = [
-  'Warning: ReactNative.createElement',
-  'Require cycle: node_modules/rn-fetch-blob/index.js'
-];
+console.disableYellowBox = true
+console.ignoredYellowBox = ['Warning: ReactNative.createElement', 'Require cycle: node_modules/rn-fetch-blob/index.js']
 
 const Navigator = createStackNavigator(
-  {
-    Start: { screen: Start },
-    Main: { screen: Main },
-    SignIn: { screen: SignIn },
-    SignUp: { screen: SignUp },
-    Dashboard: { screen: Dashboard },
-    Scanner: { screen: Scanner },
-    Photograph: { screen: Photograph },
-    Photo: { screen: Photo },
-    QrCode: { screen: QrCode },
-    Picture: { screen: Picture },
-    Trade: { screen: Trade },
-    MissionSuccess: { screen: MissionSuccess },
-    EarnMore: { screen: EarnMore },
-    ProfileEdit: { screen: ProfileEdit },
-    ProfileSettings: { screen: ProfileSettings },
-    Game: { screen: Game },
-    GameResult: { screen: GameResult },
-    Cashout: { screen: Cashout },
-    Partners: { screen: Partners },
-    RefillMobile: { screen: RefillMobile },
-    Login: { screen: Login },
-    Registration: { screen: Registration }
-  },
-  {
-    initialRouteName: 'Start',
-    defaultNavigationOptions: {
-      headerStyle: {
-        display: 'none'
-      }
-    },
-    navigationOptions: {
-      gesturesEnabled: false,
-      header: null
-    }
-  }
-);
+	{
+		Start: { screen: require('@components/start/start').default },
+		Main: { screen: require('@components/main/main').default },
+		SignIn: { screen: require('@components/sign-in/sign-in').default },
+		SignUp: { screen: require('@components/sign-up/sign-up').default },
+		Dashboard: { screen: require('@components/dashboard/dashboard').default },
+		Scanner: { screen: require('@components/scanner/scanner').default },
+		Photograph: { screen: require('@components/photograph/photograph').default },
+		Photo: { screen: require('@components/photo/photo').default },
+		QrCode: { screen: require('@components/qr-code/qr-code').default },
+		Picture: { screen: require('@components/picture/picture').default },
+		Trade: { screen: require('@components/trade/trade').default },
+		MissionSuccess: { screen: require('@components/mission-success/mission-success').default },
+		EarnMore: { screen: require('@components/earn-more/earn-more').default },
+		ProfileEdit: { screen: require('@components/profile-edit/profile-edit').default },
+		ProfileSettings: { screen: require('@components/profile-settings/profile-settings').default },
+		Game: { screen: require('@components/game/game').default },
+		GameResult: { screen: require('@components/game-result/game-result').default },
+		Cashout: { screen: require('@components/cashout/cashout').default },
+		Partners: { screen: require('@components/partners/partners').default },
+		RefillMobile: { screen: require('@components/refillMobile/refillMobile').default },
+		Login: { screen: require('@components/sign-in/login').default },
+		Registration: { screen: require('@components/sign-up/registration').default },
+	},
+	{
+		initialRouteName: 'Start',
+		defaultNavigationOptions: {
+			header: null,
+		},
+		navigationOptions: {
+			gesturesEnabled: false,
+		},
+	},
+)
 
-const EpocketCash = createAppContainer(Navigator);
+const EpocketCash = createAppContainer(Navigator)
 
 const App = () => (
-  <Root>
-    <Provider store={store}>
-      <EpocketCash
-        ref={navigatorRef => NavigationService.setRoot(navigatorRef)}
-      />
-    </Provider>
-  </Root>
-);
+	<Root>
+		<Provider store={store}>
+			<EpocketCash ref={(navigatorRef) => NavigationService.setRoot(navigatorRef)} />
+		</Provider>
+	</Root>
+)
 
-AppRegistry.registerComponent('EpocketCash', () => App);
+AppRegistry.registerComponent('EpocketCash', () => App)
