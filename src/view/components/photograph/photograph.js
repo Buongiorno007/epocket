@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StatusBar } from "react-native";
+import { View } from "react-native";
 //containers
 import Mission from "./../../containers/scanner-mission/scanner-mission";
 import Camera from "./../../containers/photo-camera/photo-camera";
@@ -18,11 +18,6 @@ class Photograph extends React.Component {
     return (
       <View style={styles.container}>
         {this.props.loader && <ActivityIndicator />}
-        <StatusBar
-          barStyle="dark-content"
-          translucent={true}
-          backgroundColor={"transparent"}
-        />
         <View style={styles.content}>
           <Mission />
           <Camera />

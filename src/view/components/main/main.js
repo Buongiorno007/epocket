@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   View,
-  StatusBar,
   BackHandler,
   AsyncStorage,
   Platform,
@@ -92,11 +91,6 @@ class Main extends React.Component {
   render() {
     return (
       <View style={styles.main_view}>
-        <StatusBar
-          barStyle="dark-content"
-          translucent={true}
-          backgroundColor={'transparent'}
-        />
         <View style={styles.content}>
           {this.props.activeTab == 0 ? this.renderLastTab() : null}
           {this.props.activeTab == 1 ? <Map /> : null}
