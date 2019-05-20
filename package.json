@@ -13,8 +13,8 @@
     "postinstall": "node node_modules/react-native-text-gradient/patch-rn.js",
     "pod:clean": "cd ios && pod deintegrate && pod clean && pod update && cd ../",
     "watchman": "watchman watch-del-all && rm -rf $TMPDIR/react-* && rm -rf node_modules/ && npm cache verify && npm install && npm start -- --reset-cache",
-	"watchman2": "watchman watch-del-all && rm -rf $TMPDIR/react-* && rm -rf node_modules/ && rm -rf package-lock.json && npm cache verify && npm install && cd ios && pod deintegrate && pod clean && pod update && cd ../ && node node_modules/react-native-text-gradient/patch-rn.js && npm start -- --reset-cache",
-	"xcode": "open ios/EpocketCash.xcworkspace"
+    "watchman2": "watchman watch-del-all && rm -rf $TMPDIR/react-* && rm -rf node_modules/ && rm -rf package-lock.json && npm cache verify && npm install && cd ios && pod deintegrate && pod clean && pod update && cd ../ && node node_modules/react-native-text-gradient/patch-rn.js && npm start -- --reset-cache",
+    "xcode": "open ios/EpocketCash.xcworkspace"
   },
   "rnpm": {
     "assets": [
@@ -69,8 +69,8 @@
     "react-native-sound": "^0.10.12",
     "react-native-svg": "^9.4.0",
     "react-native-swipe-gestures": "^1.0.3",
-	"react-native-text-gradient": "0.1.4",
-	"react-native-text-input-mask": "^1.0.1",
+    "react-native-text-gradient": "0.1.4",
+    "react-native-text-input-mask": "^1.0.1",
     "react-native-webview": "^5.9.1",
     "react-native-wheel-pick": "^1.0.9",
     "react-navigation": "^3.11.0",

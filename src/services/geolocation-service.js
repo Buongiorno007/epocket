@@ -70,7 +70,7 @@ class GeolocationService extends React.Component {
 		}
 		httpPost(urls.finish_mission, JSON.stringify(body), this.props.token).then(
 			(result) => {
-				if (body.status == 200) {
+				if (body.status === 200) {
 					this.props.timerStatus(false)
 					this.props.showDoneNotification(true)
 					this.props.setBalance(result.balance)
@@ -166,8 +166,8 @@ class GeolocationService extends React.Component {
 		if (
 			(this.props.selectedMall.lat &&
 				this.props.selectedMall.lng &&
-				nextProps.location.lat.toFixed(4) != this.props.location.lat.toFixed(4) &&
-				nextProps.location.lng.toFixed(4) != this.props.location.lng.toFixed(4)) ||
+				nextProps.location.lat.toFixed(4) !== this.props.location.lat.toFixed(4) &&
+				nextProps.location.lng.toFixed(4) !== this.props.location.lng.toFixed(4)) ||
 			(this.props.selectedMall.lat &&
 				this.props.selectedMall.lng &&
 				!this.state.sendDistancePush &&

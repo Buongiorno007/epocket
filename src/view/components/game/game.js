@@ -121,7 +121,7 @@ class Game extends React.Component {
 	}
 	componentWillReceiveProps(props) {
 		if (props.tempTime !== this.props.tempTime) {
-			if (this.props.tempTime == 1) {
+			if (this.props.tempTime === 1) {
 				clearCorrectingInterval(this.state.interval)
 				this.submitGame(true)
 				BackgroundTimer.stopBackgroundTimer()
@@ -129,7 +129,7 @@ class Game extends React.Component {
 		}
 	}
 	_handleAppStateChange = (nextAppState) => {
-		if (nextAppState == 'background') {
+		if (nextAppState === 'background') {
 			BackgroundTimer.runBackgroundTimer(() => {
 				clearCorrectingInterval(this.state.interval)
 				this.props.setTempTime(this.props.tempTime)

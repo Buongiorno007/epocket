@@ -112,7 +112,7 @@ class GameStart extends React.Component {
 					this.props.setInstaToken(String(instagram_token))
 					this.props.loaderState(false)
 					this.shareToInsta()
-				} else if (result.status == 201) {
+				} else if (result.status === 201) {
 					CookieManager.clearAll().then((res) => {
 						this.setModalVisible(true)
 						this.props.loaderState(false)

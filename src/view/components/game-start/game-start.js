@@ -58,10 +58,10 @@ class GameStart extends React.Component {
 	componentDidMount() {
 		this.props.getGameInfo(this.props.token, this.props.location.lat, this.props.location.lng)
 		if (
-			this.props.game_status != 'lock' &&
-			this.props.game_status != 'expired' &&
-			this.props.game_status != 'failed' &&
-			this.props.game_status != 'start'
+			this.props.game_status !== 'lock' &&
+			this.props.game_status !== 'expired' &&
+			this.props.game_status !== 'failed' &&
+			this.props.game_status !== 'start'
 		) {
 			this.props.setGameStatus('start')
 		}
@@ -82,7 +82,7 @@ class GameStart extends React.Component {
 		this.props.loaderState(true)
 		let body = {
 			outlet_id: id,
-			notInMall: this.props.distance != null && this.props.distance <= 0 && this.props.isLocation ? false : true,
+			notInMall: this.props.distance !== null && this.props.distance <= 0 && this.props.isLocation ? false : true,
 		}
 		httpPost(urls.missions, JSON.stringify(body), this.props.token).then(
 			(result) => {
@@ -108,11 +108,11 @@ class GameStart extends React.Component {
 	}
 
 	componentWillReceiveProps = (nextProps) => {
-		if (this.props.game_status == 'initial' && nextProps.game_status == 'start') {
+		if (this.props.game_status === 'initial' && nextProps.game_status === 'start') {
 			this.props.getGameInfo(this.props.token, nextProps.location.lat, nextProps.location.lng)
 		} else if (
-			nextProps.location.lat.toFixed(3) != this.props.location.lat.toFixed(3) &&
-			nextProps.location.lng.toFixed(3) != this.props.location.lng.toFixed(3) &&
+			nextProps.location.lat.toFixed(3) !== this.props.location.lat.toFixed(3) &&
+			nextProps.location.lng.toFixed(3) !== this.props.location.lng.toFixed(3) &&
 			nextProps.appState === 'active'
 		) {
 			this.props.getGameInfo(this.props.token, nextProps.location.lat, nextProps.location.lng)
@@ -180,7 +180,7 @@ class GameStart extends React.Component {
 		httpPost(
 			urls.outlets,
 			JSON.stringify({
-				geolocation_status: this.props.location.lat != 0 && this.props.location.lng != 0,
+				geolocation_status: this.props.location.lat !== 0 && this.props.location.lng !== 0,
 				tzone: {
 					timezone: moment.tz.guess(),
 					timedelta: moment().format('Z'),
@@ -229,7 +229,7 @@ class GameStart extends React.Component {
 				let error_respons = handleError(
 					error,
 					{
-						geolocation_status: this.props.location.lat != 0 && this.props.location.lng != 0,
+						geolocation_status: this.props.location.lat !== 0 && this.props.location.lng !== 0,
 						tzone: {
 							timezone: moment.tz.guess(),
 							timedelta: moment().format('Z'),
@@ -447,7 +447,7 @@ class GameStart extends React.Component {
 								start={{ x: 0, y: 0 }}
 								end={{ x: 1, y: 0 }}
 							>
-								{this.props.game_info.no_more_games == true
+								{this.props.game_info.no_more_games === true
 									? I18n.t('GAME.NO_GAMES').toLocaleUpperCase()
 									: I18n.t('GAME.COST_TEXT').toLocaleUpperCase() +
 									  ' ' +

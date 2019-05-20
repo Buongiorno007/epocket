@@ -217,7 +217,7 @@ class GameResult extends React.Component {
 					this.props.setInstaToken(String(instagram_token))
 					this.props.loaderState(false)
 					this.shareToInsta()
-				} else if (result.status == 201) {
+				} else if (result.status === 201) {
 					CookieManager.clearAll().then((res) => {
 						this.setModalVisible(true)
 						this.props.loaderState(false)
@@ -275,7 +275,7 @@ class GameResult extends React.Component {
 		}
 	}
 	_handleAppStateChange = (nextAppState) => {
-		if (this.props.navigation.state.params.status != 'success') {
+		if (this.props.navigation.state.params.status !== 'success') {
 			this.goWait()
 		}
 		this.props.setAppState(nextAppState)
@@ -527,7 +527,7 @@ class GameResult extends React.Component {
 									: this.checkForGames('insta')
 							}}
 						>
-							{this.props.navigation.state.params.status != 'success' && (
+							{this.props.navigation.state.params.status !== 'success' && (
 								<FastImage
 									style={styles.insta_logo}
 									resizeMode={FastImage.resizeMode.contain}
@@ -541,7 +541,7 @@ class GameResult extends React.Component {
 									styles.text,
 									{
 										color:
-											this.props.navigation.state.params.status != 'success'
+											this.props.navigation.state.params.status !== 'success'
 												? this.props.userColor.white
 												: this.props.userColor.pink_blue,
 									},
@@ -558,7 +558,7 @@ class GameResult extends React.Component {
 						androidRippleColor={this.props.userColor.card_shadow}
 						style={[
 							styles.wait_button,
-							this.props.navigation.state.params.status == 'success' && {
+							this.props.navigation.state.params.status === 'success' && {
 								display: 'none',
 							},
 						]}
