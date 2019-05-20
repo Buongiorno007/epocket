@@ -25,6 +25,7 @@ import Cashout from './src/view/components/cashout/cashout';
 import Partners from './src/view/components/partners/partners';
 import RefillMobile from './src/view/components/refillMobile/refillMobile';
 import Login from './src/view/components/sign-in/login';
+import Registration from './src/view/components/sign-up/registration';
 
 import { Provider } from 'react-redux';
 import store from './src/store';
@@ -59,10 +60,11 @@ const Navigator = createStackNavigator(
     Cashout: { screen: Cashout },
     Partners: { screen: Partners },
     RefillMobile: { screen: RefillMobile },
-    Login: { screen: Login }
+    Login: { screen: Login },
+    Registration: { screen: Registration }
   },
   {
-    initialRouteName: 'Login',
+    initialRouteName: 'Start',
     defaultNavigationOptions: {
       headerStyle: {
         display: 'none'

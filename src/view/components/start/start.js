@@ -164,13 +164,17 @@ class Start extends React.Component {
     this.props.loaderState(true);
     NavigationService.navigate('SignIn');
   };
+  goToSignUp = () => {
+    this.props.loaderState(true);
+    NavigationService.navigate('SignUp');
+  };
   goToLogin = () => {
     this.props.loaderState(true);
     NavigationService.navigate('Login');
   };
-  goToSignUp = () => {
+  goToRegistration = () => {
     this.props.loaderState(true);
-    NavigationService.navigate('SignUp');
+    NavigationService.navigate('Registration');
   };
   render() {
     return (
@@ -208,7 +212,7 @@ class Start extends React.Component {
         <Text style={styles.start_title}>{I18n.t('START_TITLE')}</Text>
         {this.state.enable_login && (
           <View style={styles.signup_signin_buttons}>
-            <CustomButton
+            {/* <CustomButton
               style={styles.signup_button}
               active
               title={I18n.t('SIGN_UP_TITLE').toUpperCase()}
@@ -225,7 +229,14 @@ class Start extends React.Component {
               <Text style={styles.go_to_signin_text}>
                 {I18n.t('GO_TO_SIGNIN')}
               </Text>
-            </Button>
+            </Button> */}
+            <CustomButton
+              style={styles.signup_button}
+              active
+              title={I18n.t('NEW_SIGN_UP_TITLE').toUpperCase()}
+              color={'#F55890'}
+              handler={() => this.goToRegistration()}
+            />
             <Button
               rounded
               block
