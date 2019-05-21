@@ -9,7 +9,8 @@
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/splash</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="android:windowFullscreen">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">false</item>
     </style>
 
 </resources>

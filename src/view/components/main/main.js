@@ -14,7 +14,6 @@ import GameStart from './../game-start/game-start';
 import Game from './../game/game';
 import GameExpired from './../game-expired/game-expired';
 //containers
-import ActivityIndicator from '../../containers/activity-indicator/activity-indicator';
 import ReturnToMall from '../../containers/return-to-mall-timer/return-to-mall-timer';
 import NoInternet from '../../containers/no-internet/no-internet';
 import TimerModal from '../../containers/timer-modal/timer-modal';
@@ -128,7 +127,6 @@ class Main extends React.Component {
         <TimerModal />
         <GeolocationService />
         {!this.props.isConnected && <NoInternet />}
-        {this.props.loader && <ActivityIndicator />}
       </View>
     );
   }

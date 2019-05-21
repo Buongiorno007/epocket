@@ -25,7 +25,7 @@ import styles from './styles';
 //containers
 import CustomButton from '../../containers/custom-button/custom-button';
 import CustomProgressBar from '../../containers/custom-progress-bar/custom-progress-bar';
-import ActivityIndicator from '../../containers/activity-indicator/activity-indicator';
+import Loader from '@containers/application/loader'
 //services
 import '../../../services/correcting-interval';
 import { toHHMMSS } from './../../../services/convert-time';
@@ -163,7 +163,6 @@ class Game extends React.Component {
   render() {
     return (
       <View style={styles.main_view}>
-        {/* {this.props.loader && <ActivityIndicator />} */}
         <View style={styles.game_title}>
           <Text style={styles.game_cost_text}>
             {this.props.game_info.cost}{' '}

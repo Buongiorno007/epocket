@@ -24,7 +24,7 @@ import LocationDisabled from '../../containers/location-disabled/location-disabl
 import FooterNavigation from '../../containers/footer-navigator/footer-navigator';
 import CurrentGeolocation from '../../containers/current-geolocation/current-geolocation';
 import CustomAlert from '../../containers/custom-alert/custom-alert';
-import ActivityIndicator from '../../containers/activity-indicator/activity-indicator';
+import Loader from '@containers/application/loader'
 import CardTask from '../../containers/map-card-task/map-card-task';
 import CardCashout from '../../containers/map-card-shop/map-card-shop';
 import CardFirst from '../../containers/map-card-first/map-card-first';
@@ -1185,8 +1185,8 @@ class Map extends React.Component {
         />
         {Platform.OS == 'ios'
           ? this.state.location_loader &&
-            this.props.isLocation && <ActivityIndicator />
-          : this.state.location_loader && <ActivityIndicator />}
+            this.props.isLocation && <Loader />
+          : this.state.location_loader && <Loader />}
         <Animated.View
           style={[
             styles.state_change_block,

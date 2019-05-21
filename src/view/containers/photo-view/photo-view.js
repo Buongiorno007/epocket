@@ -5,7 +5,6 @@ import { Button, Text } from 'native-base';
 import NavigationService from './../../../services/route';
 //containers
 import CustomAlert from '../../containers/custom-alert/custom-alert';
-import ActivityIndicator from '../../containers/activity-indicator/activity-indicator';
 import TemplateInstagramPhoto from '../template-insta-photo/template-insta-photo';
 import InstaHashTags from '../insta-hashtags/insta-hashtags';
 //constants
@@ -118,7 +117,6 @@ class PhotoView extends React.Component {
   render = () => {
     return (
       <View style={styles.container}>
-        {this.props.loader && <ActivityIndicator />}
         <CustomAlert
           title={this.state.errorText}
           first_btn_title={I18n.t('REPEAT')}

@@ -71,7 +71,7 @@ class History extends React.Component {
           </View>
         </LinearGradient>
         {/* {(this.props.receivedBonusesJSX.loader ||
-          this.props.spentBonusesJSX.loader) && <ActivityIndicator />} */}
+          this.props.spentBonusesJSX.loader) && <Loader />} */}
         <FooterNavigation />
       </View>
     );

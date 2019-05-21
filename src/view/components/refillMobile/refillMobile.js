@@ -19,8 +19,6 @@ import { setBalance } from '@reducers/user-balance';
 //constants
 import styles from './styles';
 import { ICONS } from '../../../constants/icons';
-//containers
-import ActivityIndicator from '../../containers/activity-indicator/activity-indicator';
 //services
 import NavigationService from './../../../services/route';
 import { httpPost } from '../../../services/http';
@@ -259,7 +257,6 @@ class RefillMobile extends React.Component {
             ? this.firstScreen()
             : this.doneScreen()
           : this.noMoneyScreen()}
-        {this.props.loader && <ActivityIndicator />}
       </View>
     );
   }

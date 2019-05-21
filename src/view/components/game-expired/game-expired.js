@@ -27,7 +27,6 @@ import GameTimer from '../../containers/game-timer/game-timer';
 import CustomButton from '../../containers/custom-button/custom-button';
 import FooterNavigation from '../../containers/footer-navigator/footer-navigator';
 import CustomAlert from '../../containers/custom-alert/custom-alert';
-import ActivityIndicator from '../../containers/activity-indicator/activity-indicator';
 import BrandWebsite from '../../containers/brand-website/brand-website';
 //services
 import '../../../services/correcting-interval';
@@ -235,7 +234,6 @@ class GameStart extends React.Component {
   render() {
     return (
       <View style={styles.main_view}>
-        {/* {this.props.loader && <ActivityIndicator />} */}
         <BrandWebsite
           visible={this.state.website_visible}
           brand_title={this.state.brand_title}

@@ -3,7 +3,6 @@ import { View, Text, Platform } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import FastImage from 'react-native-fast-image';
 import { Button } from 'native-base';
-import ActivityIndicator from '../../containers/activity-indicator/activity-indicator';
 import CookieManager from 'react-native-cookies';
 import Blur from '../../containers/blur/blur';
 import { LoginButton, AccessToken, LoginManager } from 'react-native-fbsdk';
@@ -202,7 +201,6 @@ class ProfileSettings extends React.Component {
   render() {
     return (
       <View style={styles.main_view}>
-        {this.props.loader && <ActivityIndicator />}
         <FacebookLogin
           ref="facebookLogin"
           scopes={['basic']}

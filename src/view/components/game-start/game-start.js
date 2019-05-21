@@ -4,9 +4,9 @@ import {
   Text,
   Image,
   FlatList,
-  AppState,
-  AsyncStorage
+  AppState
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import { LinearTextGradient } from 'react-native-text-gradient';
 import LinearGradient from 'react-native-linear-gradient';
 import FastImage from 'react-native-fast-image';
@@ -39,7 +39,6 @@ import { ICONS } from '../../../constants/icons';
 //containers
 import CustomButton from '../../containers/custom-button/custom-button';
 import FooterNavigation from '../../containers/footer-navigator/footer-navigator';
-import ActivityIndicator from '../../containers/activity-indicator/activity-indicator';
 import CustomAlert from '../../containers/custom-alert/custom-alert';
 import TrcInformation from '../../containers/trc-information/trc-information';
 import PartnerCard from './../../containers/partner-card/partner-card';

@@ -17,7 +17,6 @@ import { AccessToken } from 'react-native-fbsdk';
 import BackButton from '../../containers/back/back';
 import CustomButton from '../../containers/custom-button/custom-button';
 import CustomAlert from '../../containers/custom-alert/custom-alert';
-import ActivityIndicator from '../../containers/activity-indicator/activity-indicator';
 //redux
 import { setToken } from '../../../reducers/token';
 import { loaderState } from '../../../reducers/loader';
@@ -422,7 +421,6 @@ class Login extends React.Component {
             </View> */}
           {/* ) : null} */}
         </View>
-        {this.props.loader && <ActivityIndicator />}
       </KeyboardAvoidingView>
     );
   }
