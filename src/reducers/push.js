@@ -1,5 +1,5 @@
-import { Platform, AsyncStorage } from 'react-native';
-
+import { Platform } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import firebase from 'react-native-firebase';
 import { sendToTelegramm } from '../services/telegramm-notification';
 import { urls } from '../constants/urls';

@@ -2,10 +2,10 @@ import React from 'react';
 import {
   View,
   BackHandler,
-  AsyncStorage,
   Platform,
   AppState
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 //components
 import Map from './../map/map';
 import Profile from './../profile/profile';

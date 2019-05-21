@@ -1,5 +1,6 @@
 import React from "react";
-import { AsyncStorage, Text, Dimensions, Platform } from "react-native";
+import {  Text, Dimensions, Platform } from "react-native";
+import AsyncStorage from '@react-native-community/async-storage';
 import { Button } from "native-base";
 //constants
 import styles from "./styles";

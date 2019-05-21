@@ -4,9 +4,9 @@ import {
   Text,
   Platform,
   AppState,
-  AsyncStorage,
   Image
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 import { Button } from 'native-base';

@@ -1,4 +1,4 @@
-import { AsyncStorage } from "react-native";
+import AsyncStorage from '@react-native-community/async-storage';
 export const TOKEN_UPDATE = "token/TOKEN_UPDATE";
 
 export default (state = null, action) => {

@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, AsyncStorage, Platform } from 'react-native';
+import { View, Text, Platform } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import FastImage from 'react-native-fast-image';
 import { Button } from 'native-base';
 import ActivityIndicator from '../../containers/activity-indicator/activity-indicator';

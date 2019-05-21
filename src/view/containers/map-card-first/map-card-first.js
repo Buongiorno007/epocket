@@ -3,9 +3,9 @@ import {
   View,
   Text,
   Platform,
-  ImageBackground,
-  AsyncStorage
+  ImageBackground
 } from "react-native";
+import AsyncStorage from '@react-native-community/async-storage';
 import { Button } from "native-base";
 import FastImage from "react-native-fast-image";
 //constants

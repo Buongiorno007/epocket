@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, AsyncStorage } from "react-native";
+import { View, Text } from "react-native";
+import AsyncStorage from '@react-native-community/async-storage';
 //constants
 import styles from "./styles";
 import I18n from "@locales/I18n";

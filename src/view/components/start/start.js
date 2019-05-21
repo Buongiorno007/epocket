@@ -2,10 +2,10 @@ import React from 'react';
 import {
   View,
   Text,
-  AsyncStorage,
   Keyboard,
   Platform
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import FastImage from 'react-native-fast-image';
 import { Button } from 'native-base';
 import LinearGradient from 'react-native-linear-gradient';

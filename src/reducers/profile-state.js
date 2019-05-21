@@ -1,4 +1,4 @@
-import { AsyncStorage } from "react-native";
+import AsyncStorage from '@react-native-community/async-storage';
 export const PROFILE_STATE = "profile-state/PROFILE_STATE";
 let defaultProfile = {
   name: "",

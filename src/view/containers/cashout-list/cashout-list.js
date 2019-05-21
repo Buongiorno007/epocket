@@ -8,9 +8,9 @@ import {
   Animated,
   Image,
   Easing,
-  Dimensions,
-  AsyncStorage
+  Dimensions
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import Accordion from 'react-native-collapsible/Accordion';
 import FastImage from 'react-native-fast-image';
 //containers

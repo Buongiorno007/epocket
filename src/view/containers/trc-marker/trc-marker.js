@@ -3,9 +3,9 @@ import {
   View,
   Platform,
   Text,
-  ImageBackground,
-  AsyncStorage
+  ImageBackground
 } from "react-native";
+import AsyncStorage from '@react-native-community/async-storage';
 import MapView, { Marker, Circle } from "react-native-maps";
 import LinearGradient from "react-native-linear-gradient";
 //constants
