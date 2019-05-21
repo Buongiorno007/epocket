@@ -214,8 +214,6 @@ class Login extends React.Component {
 				end={{ x: 0.0, y: 1.0 }}
 				style={styles.container}
 			>
-				<StatusBar barStyle='light-content' backgroundColor={'transparent'} translucent={true} />
-
 				<KeyboardAvoidingView behavior='padding' style={styles.grad}>
 					<ScrollView scrollEnabled={false} contentContainerStyle={styles.scrollView}>
 						<View>

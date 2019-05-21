@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StatusBar, BackHandler } from "react-native";
+import { View, BackHandler } from "react-native";
 import NavigationService from "./../../../services/route";
 //containers
 import Mission from "./../../containers/scanner-mission/scanner-mission";
@@ -29,11 +29,6 @@ class Scanner extends React.Component {
     return (
       <View style={styles.container}>
         {this.props.loader && <ActivityIndicator />}
-        <StatusBar
-          barStyle="dark-content"
-          translucent={true}
-          backgroundColor={"transparent"}
-        />
         <View style={styles.content}>
           <Mission />
           <Info />

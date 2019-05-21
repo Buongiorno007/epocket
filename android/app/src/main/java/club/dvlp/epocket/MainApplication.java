@@ -2,9 +2,7 @@ package club.dvlp.epocket;
 
 import android.app.Application;
 
-import com.facebook.FacebookSdk;
 import com.facebook.CallbackManager;
-import com.facebook.appevents.AppEventsLogger;
 import com.jobeso.RNInstagramStoryShare.RNInstagramStorySharePackage;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.ReactApplication;
@@ -23,14 +21,13 @@ import com.mocklocation.reactnative.RNMockLocationDetectorPackage;
 import com.gantix.JailMonkey.JailMonkeyPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.rnfs.RNFSPackage;
-import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.psykar.cookiemanager.CookieManagerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import cl.json.RNSharePackage;
 import com.marianhello.bgloc.react.BackgroundGeolocationPackage;
 
-import io.invertase.firebase.RNFirebasePackage;
+
 
 import com.heanoria.library.reactnative.locationenabler.RNAndroidLocationEnablerPackage;
 
@@ -39,21 +36,22 @@ import org.reactnative.camera.RNCameraPackage;
 import com.ocetnik.timer.BackgroundTimerPackage;
 import com.imagepicker.ImagePickerPackage;
 
-import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
+import io.invertase.firebase.RNFirebasePackage;
+import io.invertase.firebase.fabric.crashlytics.RNFirebaseCrashlyticsPackage;
+import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage;
+import io.invertase.firebase.perf.RNFirebasePerformancePackage;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
+import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
 
 import iyegoroff.RNTextGradient.RNTextGradientPackage;
 import com.transistorsoft.rnbackgroundfetch.RNBackgroundFetchPackage;
 import com.surajit.rnrg.RNRadialGradientPackage;
-import com.BV.LinearGradient.LinearGradientPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
-import com.crashlytics.android.Crashlytics;
-import io.fabric.sdk.android.Fabric;
 import com.yandex.metrica.YandexMetrica;
 import com.yandex.metrica.YandexMetricaConfig;
 
@@ -63,7 +61,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import android.os.Build;
-import android.webkit.WebView;
 
 public class MainApplication extends Application implements ShareApplication, ReactApplication {
 
@@ -106,8 +103,11 @@ public class MainApplication extends Application implements ShareApplication, Re
                     new RNSharePackage(),
                     new BackgroundGeolocationPackage(),
                     new RNFirebasePackage(),
-                    new RNFirebaseNotificationsPackage(),
+                    new RNFirebaseCrashlyticsPackage(),
+                    new RNFirebaseAnalyticsPackage(),
+                    new RNFirebasePerformancePackage(),
                     new RNFirebaseMessagingPackage(),
+                    new RNFirebaseNotificationsPackage(),
                     new RNAndroidLocationEnablerPackage(),
                     new RNCameraPackage(),
                     new BackgroundTimerPackage(),
@@ -147,7 +147,6 @@ public class MainApplication extends Application implements ShareApplication, Re
         YandexMetrica.activate(getApplicationContext(), config);
         YandexMetrica.enableActivityAutoTracking(this);
 
-        Fabric.with(this, new Crashlytics());
         SoLoader.init(this, /* native exopackage */ false);
         Fresco.initialize(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

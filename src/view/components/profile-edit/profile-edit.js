@@ -4,7 +4,6 @@ import {
   Text,
   View,
   KeyboardAvoidingView,
-  StatusBar,
   BackHandler
 } from 'react-native';
 import { Button } from 'native-base';
@@ -248,11 +247,6 @@ class ProfileEdit extends React.Component {
           keyboardVerticalOffset={keyboardVerticalOffset}
           enabled
         >
-          <StatusBar
-            barStyle="dark-content"
-            translucent={true}
-            backgroundColor={'transparent'}
-          />
           <View style={styles.user_edit_container}>
             <View style={styles.photo_container}>
               <CustomPhoto

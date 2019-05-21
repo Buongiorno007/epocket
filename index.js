@@ -1,5 +1,5 @@
 import React from 'react'
-import { AppRegistry } from 'react-native'
+import { AppRegistry, StatusBar } from 'react-native'
 import { Root } from 'native-base'
 import { createStackNavigator, createAppContainer } from 'react-navigation'
 
@@ -52,6 +52,7 @@ const EpocketCash = createAppContainer(Navigator)
 const App = () => (
 	<Root>
 		<Provider store={store}>
+			<StatusBar barStyle='dark-content' translucent={true} backgroundColor={'transparent'} />
 			<EpocketCash ref={(navigatorRef) => NavigationService.setRoot(navigatorRef)} />
 		</Provider>
 	</Root>

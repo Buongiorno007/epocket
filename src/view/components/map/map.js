@@ -2,7 +2,6 @@ import React from 'react';
 import {
   View,
   Platform,
-  StatusBar,
   FlatList,
   Animated,
   Easing,
@@ -1183,11 +1182,6 @@ class Map extends React.Component {
               this.props.loaderState(false);
             });
           }}
-        />
-        <StatusBar
-          barStyle="dark-content"
-          translucent={true}
-          backgroundColor={'transparent'}
         />
         {Platform.OS == 'ios'
           ? this.state.location_loader &&

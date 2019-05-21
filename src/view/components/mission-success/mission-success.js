@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StatusBar, AsyncStorage } from "react-native";
+import { View, Text, AsyncStorage } from "react-native";
 import FastImage from "react-native-fast-image";
 import LinearGradient from "react-native-linear-gradient";
 import { Button } from "native-base";
@@ -37,11 +37,6 @@ class MissionSuccess extends React.Component {
   render = () => {
     return (
       <View style={styles.container}>
-        <StatusBar
-          barStyle="light-content"
-          backgroundColor={"transparent"}
-          translucent={true}
-        />
         <FastImage
           resizeMode={FastImage.resizeMode.contain}
           style={styles.image_background}
