@@ -11,9 +11,9 @@
     "js-check": "eslint --print-config .eslintrc | eslint-config-prettier-check --fix",
     "prettier": "prettier --write './src/**/*.js'",
     "postinstall": "node node_modules/react-native-text-gradient/patch-rn.js",
-    "pod:clean": "cd ios && pod deintegrate && pod clean && pod update && cd ../",
+    "pod:clean": "cd ios && pod deintegrate && pod clean && pod install && cd ../",
     "watchman": "watchman watch-del-all && rm -rf $TMPDIR/react-* && rm -rf node_modules/ && npm cache verify && npm install && npm start -- --reset-cache",
-    "watchman2": "watchman watch-del-all && rm -rf $TMPDIR/react-* && rm -rf node_modules/ && rm -rf package-lock.json && npm cache verify && npm install && cd ios && pod deintegrate && pod clean && pod update && cd ../ && node node_modules/react-native-text-gradient/patch-rn.js && npm start -- --reset-cache",
+    "watchman2": "watchman watch-del-all && rm -rf $TMPDIR/react-* && rm -rf node_modules/ && rm -rf package-lock.json && npm cache verify && npm install && cd ios && pod deintegrate && pod clean && pod install && cd ../ && npm start -- --reset-cache",
     "xcode": "open ios/EpocketCash.xcworkspace"
   },
   "rnpm": {
@@ -58,6 +58,7 @@
     "react-native-linear-gradient": "2.5.4",
     "react-native-maps": "^0.24.2",
     "react-native-maps-super-cluster": "^1.5.0",
+    "react-native-masked-text": "^1.12.3",
     "react-native-material-textfield": "^0.12.0",
     "react-native-mauron85-background-geolocation": "git+https://github.com/kruyvanna/react-native-background-geolocation.git",
     "react-native-mock-location-detector": "^1.0.5",
@@ -70,7 +71,6 @@
     "react-native-svg": "^9.4.0",
     "react-native-swipe-gestures": "^1.0.3",
     "react-native-text-gradient": "0.1.4",
-    "react-native-text-input-mask": "^1.0.1",
     "react-native-webview": "^5.9.1",
     "react-native-wheel-pick": "^1.0.9",
     "react-navigation": "^3.11.0",

@@ -171,7 +171,6 @@ subprojects {
     }
 }
 dependencies {
-    implementation project(':react-native-text-input-mask')
     implementation project(':react-native-webview')
     implementation project(':@react-native-community_blur')
     implementation project(':react-native-svg')
