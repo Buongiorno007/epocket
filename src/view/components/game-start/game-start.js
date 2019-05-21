@@ -4,9 +4,9 @@ import {
   Text,
   Image,
   FlatList,
-  AppState,
-  AsyncStorage
+  AppState
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import { LinearTextGradient } from 'react-native-text-gradient';
 import LinearGradient from 'react-native-linear-gradient';
 import FastImage from 'react-native-fast-image';
