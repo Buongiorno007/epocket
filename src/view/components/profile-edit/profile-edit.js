@@ -32,7 +32,6 @@ import { urls } from '../../../constants/urls';
 import NavigationService from '../../../services/route';
 import { TextField } from 'react-native-material-textfield';
 import { LinearTextGradient } from 'react-native-text-gradient';
-import ActivityIndicator from '../../containers/activity-indicator/activity-indicator';
 import I18n from '@locales/I18n';
 
 const keyboardVerticalOffset = Platform.OS === 'ios' ? -20 : -10;
@@ -207,15 +206,10 @@ class ProfileEdit extends React.Component {
     return (
       <View style={styles.main}>
         <View style={styles.container} />
-        {this.props.loader && <ActivityIndicator />}
         {(this.state.modalVisible ||
           this.state.exitVisible ||
           this.state.rejectedRequestModal) && <Blur />}
         <View style={styles.user_edit_header_container}>
-          {/*  */}
-          {/*  */}
-          {/*  */}
-          {/*  */}
           <CustomAlert
             datepicker
             first_btn_title={I18n.t('PROFILE_PAGE.ACCEPT')}

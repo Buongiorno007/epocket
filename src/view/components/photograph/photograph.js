@@ -3,7 +3,6 @@ import { View } from "react-native";
 //containers
 import Mission from "./../../containers/scanner-mission/scanner-mission";
 import Camera from "./../../containers/photo-camera/photo-camera";
-import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 import Footer from "./../../containers/photo-footer/photo-footer";
 //constants
 import styles from "./styles";
@@ -17,7 +16,6 @@ class Photograph extends React.Component {
   render = () => {
     return (
       <View style={styles.container}>
-        {this.props.loader && <ActivityIndicator />}
         <View style={styles.content}>
           <Mission />
           <Camera />

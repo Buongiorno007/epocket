@@ -13,7 +13,6 @@ import { AccessToken } from 'react-native-fbsdk';
 //containers
 import CustomButton from '../../containers/custom-button/custom-button';
 import NoInternet from '../../containers/no-internet/no-internet';
-import ActivityIndicator from '../../containers/activity-indicator/activity-indicator';
 //constants
 import styles from './styles';
 import { ICONS } from '../../../constants/icons';
@@ -218,7 +217,6 @@ class Start extends React.Component {
             </Button>
           </View>
         )}
-        {this.props.loader && <ActivityIndicator />}
         {!this.props.isConnected && <NoInternet />}
       </View>
     );

@@ -5,7 +5,6 @@ import NavigationService from "./../../../services/route";
 import Mission from "./../../containers/scanner-mission/scanner-mission";
 import Info from "./../../containers/scanner-info/scanner-info";
 import Camera from "./../../containers/scanner-camera/scanner-camera";
-import ActivityIndicator from "../../containers/activity-indicator/activity-indicator";
 //constants
 import styles from "./styles";
 //redux
@@ -28,7 +27,6 @@ class Scanner extends React.Component {
   render = () => {
     return (
       <View style={styles.container}>
-        {this.props.loader && <ActivityIndicator />}
         <View style={styles.content}>
           <Mission />
           <Info />

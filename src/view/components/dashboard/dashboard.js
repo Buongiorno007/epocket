@@ -21,7 +21,7 @@ import CardList from '../../containers/card-list/card-list';
 import CardListPosts from '../../containers/card-posts-list/card-posts-list';
 import CustomAlert from '../../containers/custom-alert/custom-alert';
 import HistoryNavButton from './../../containers/history-nav-button/history-nav-button';
-import ActivityIndicator from '../../containers/activity-indicator/activity-indicator';
+import Loader from '@containers/application/loader'
 import DashTop from '../../containers/dash-top/dash-top';
 import Balance from '../../containers/cashout-balance/cashout-balance';
 import TimerModal from '../../containers/timer-modal/timer-modal';
@@ -850,7 +850,6 @@ class Dashboard extends React.Component {
             );
           }}
         />
-        {this.props.loader && <ActivityIndicator />}
         <FacebookLogin
           ref="facebookLogin"
           scopes={['basic']}
@@ -1462,7 +1461,7 @@ class Dashboard extends React.Component {
             <CardListPosts posts={this.props.navigation.state.params.posts} />
           )}
         </Animated.View>
-        {this.state.load_missions && <ActivityIndicator />}
+        {this.state.load_missions && <Loader />}
         {this.props.doneNotification || this.props.failedNotification ? (
           <View style={styles.timer_modal_container}>
             <TimerModal

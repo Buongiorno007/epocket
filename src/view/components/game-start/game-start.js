@@ -39,7 +39,6 @@ import { ICONS } from '../../../constants/icons';
 //containers
 import CustomButton from '../../containers/custom-button/custom-button';
 import FooterNavigation from '../../containers/footer-navigator/footer-navigator';
-import ActivityIndicator from '../../containers/activity-indicator/activity-indicator';
 import CustomAlert from '../../containers/custom-alert/custom-alert';
 import TrcInformation from '../../containers/trc-information/trc-information';
 import PartnerCard from './../../containers/partner-card/partner-card';

@@ -30,7 +30,6 @@ import { setInstaToken } from '../../../reducers/insta-token';
 import { setAppState } from '../../../reducers/app-state';
 import { setBalance } from '../../../reducers/user-balance';
 import CustomButton from '../../containers/custom-button/custom-button';
-import ActivityIndicator from '../../containers/activity-indicator/activity-indicator';
 import CustomAlert from '../../containers/custom-alert/custom-alert';
 import I18n from '@locales/I18n';
 
@@ -160,7 +159,6 @@ class EarnMore extends React.Component {
   render = () => {
     return (
       <View style={styles.container}>
-        {this.props.loader && <ActivityIndicator />}
         <CustomAlert
           title={I18n.t('PROFILE_PAGE.ALREADY_ACCOUNT')}
           first_btn_title={I18n.t('OK')}

@@ -15,7 +15,6 @@ import { ICONS } from '../../../constants/icons';
 import HistoryNavButton from './../../containers/history-nav-button/history-nav-button';
 import PartnersList from './../../containers/partners-list/partners-list';
 import Barcode from '../../containers/barcode/barcode';
-import ActivityIndicator from '../../containers/activity-indicator/activity-indicator';
 //services
 import NavigationService from './../../../services/route';
 import { httpPost } from '../../../services/http';
@@ -104,7 +103,6 @@ class Partners extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        {this.props.loader && <ActivityIndicator />}
         {this.state.showBarcode && (
           <Barcode
             shopLink={this.state.shopLink}

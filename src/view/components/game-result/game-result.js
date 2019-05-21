@@ -42,7 +42,6 @@ import { postToSocial } from '../../../services/post-to-social';
 //containers
 import CustomAlert from '../../containers/custom-alert/custom-alert';
 import CustomButton from '../../containers/custom-button/custom-button';
-import ActivityIndicator from '../../containers/activity-indicator/activity-indicator';
 import BrandWebsite from '../../containers/brand-website/brand-website';
 import { PermissionsAndroid } from 'react-native';
 import I18n from '@locales/I18n';
@@ -433,7 +432,6 @@ class GameResult extends React.Component {
             clearCorrectingInterval(this.state.interval);
           }}
         />
-        {this.props.loader && <ActivityIndicator />}
         <CustomAlert
           title={I18n.t('GAME.RESULT.CANT_POST')}
           first_btn_title={I18n.t('OK')}
