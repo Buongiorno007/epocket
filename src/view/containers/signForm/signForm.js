@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, TouchableOpacity, Text, Image, View, FlatList, Modal, StatusBar, Platform } from 'react-native'
 import { Header } from 'react-navigation'
 // import TextInputMask from 'react-native-text-input-mask'
-// import { TextInputMask } from 'react-native-masked-text'
+import { TextInputMask } from 'react-native-masked-text'
 
 export default class SignForm extends Component {
 	state = {
@@ -68,15 +68,19 @@ export default class SignForm extends Component {
 						)}
 						<Text style={styles.resultText}>{this.state.codeValue}</Text>
 					</TouchableOpacity>
-					{/* <TextInputMask
+					<TextInputMask
 						style={styles.textInput}
 						value={this.props.value}
 						keyboardType={'numeric'}
 						onChangeText={(value) => this.props.setPhoneNumber(value)}
-						mask={'[00] [000] [00] [00]'}
+						type={'custom'}
+						options={{
+							mask: '99 999 99 99',
+						}}
+						maxLength={12}
 						placeholder={'-- --- -- --'}
 						placeholderTextColor={'#fff'}
-					/> */}
+					/>
 				</View>
 				<Modal visible={this.state.visible} transparent={true}>
 					<View
