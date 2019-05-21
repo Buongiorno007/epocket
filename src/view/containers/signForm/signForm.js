@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, TouchableOpacity, Text, Image, View, FlatList, Modal, StatusBar, Platform } from 'react-native'
 import { Header } from 'react-navigation'
-// import TextInputMask from 'react-native-text-input-mask'
 import { TextInputMask } from 'react-native-masked-text'
 
 export default class SignForm extends Component {
@@ -20,6 +19,7 @@ export default class SignForm extends Component {
 			imgUri: this.props.data[0].icon || '',
 			activeIndex: 0,
 		})
+		this.props.setCode(this.props.data[0].code || '')
 	}
 
 	blur = () => {

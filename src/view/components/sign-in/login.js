@@ -98,15 +98,22 @@ const data = [
 ]
 
 class Login extends React.Component {
-	static navigationOptions = () => ({
-		header: <BackButton title={I18n.t('BACK')} route='Start' />,
+	static navigationOptions = ({ navigation }) => ({
+		headerLeft: <BackButton title={I18n.t('BACK')} route='Start' />,
+		title: I18n.t('SIGN_IN_TITLE'),
+		headerStyle: {
+			backgroundColor: 'rgba(255,255,255,.1)',
+		},
+		headerTitleStyle: {
+			fontWeight: 'bold',
+			color: '#fff',
+			fontSize: 18,
+		},
 	})
 
 	state = {
 		phoneNumber: '',
 		phone: '',
-		invalidCode: false,
-		numberNotExists: false,
 		errorText: '',
 		code: '',
 	}
@@ -116,23 +123,19 @@ class Login extends React.Component {
 	}
 
 	login = () => {
-		this.setFailedSignVisible(false)
 		this.props.loaderState(true)
-		let bodyPhone = this.state.phone.replace(/\D/g, '')
+		// let bodyPhone = this.state.phone.replace(/\D/g, '')
 		let body = {
-			phone: '+' + bodyPhone,
+			phone: this.state.code + this.state.phoneNumber,
 		}
 		httpPost(urls.sing_in, JSON.stringify(body)).then(
 			(result) => {
-				this.setFailedSignVisible(false)
-				// this.props.loaderState(false); //DEPRECATED uncomment
 				this.confirmLogin() //DEPRECATED
 			},
 			(error) => {
 				let error_respons = handleError(error, body, urls.sign_in, '', this.constructor.name, 'login')
 				this.setState({ errorText: error_respons.error_text })
 				if (error_respons.error_code === 400) {
-					this.setState({ numberNotExists: true })
 				} else {
 					this.setFailedSignVisible(error_respons.error_modal)
 				}
@@ -188,7 +191,6 @@ class Login extends React.Component {
 				)
 				this.setState({ errorText: error_respons.error_text })
 				this.setFailedConfirmVisible(error_respons.error_modal)
-				if (error_respons.error_code === 400) this.setState({ invalidCode: true })
 			},
 		)
 	}

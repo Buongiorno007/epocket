@@ -39,7 +39,7 @@ const Navigator = createStackNavigator(
 	{
 		initialRouteName: 'Start',
 		defaultNavigationOptions: {
-			header: null,
+			headerTransparent: true,
 		},
 		navigationOptions: {
 			gesturesEnabled: false,

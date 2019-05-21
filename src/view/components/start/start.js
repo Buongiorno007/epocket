@@ -137,10 +137,10 @@ class Start extends React.Component {
 			},
 		)
 	}
-	// goToSignIn = () => {
-	// 	this.props.loaderState(true)
-	// 	NavigationService.navigate('SignIn')
-	// }
+	goToSignIn = () => {
+		this.props.loaderState(true)
+		NavigationService.navigate('SignIn')
+	}
 	// goToSignUp = () => {
 	// 	this.props.loaderState(true)
 	// 	NavigationService.navigate('SignUp')
@@ -156,7 +156,6 @@ class Start extends React.Component {
 	render() {
 		return (
 			<View style={styles.main_view}>
-				<StatusBar barStyle='dark-content' translucent={true} backgroundColor={'transparent'} />
 				<LinearGradient
 					colors={['rgba(89,91,241,1)', 'rgba(232,67,232, 0.1)', 'rgba(255,187,71,0)']}
 					start={{ x: 1.0, y: 0.1 }}
@@ -182,23 +181,15 @@ class Start extends React.Component {
 				{this.state.enable_login && (
 					<View style={styles.signup_signin_buttons}>
 						{/* <CustomButton
-              style={styles.signup_button}
-              active
-              title={I18n.t('SIGN_UP_TITLE').toUpperCase()}
-              color={'#F55890'}
-              handler={() => this.goToSignUp()}
-            />
-            <Button
-              rounded
-              block
-              transparent
-              style={styles.go_to_signin}
-              onPress={() => this.goToSignIn()}
-            >
-              <Text style={styles.go_to_signin_text}>
-                {I18n.t('GO_TO_SIGNIN')}
-              </Text>
-            </Button> */}
+							style={styles.signup_button}
+							active
+							title={I18n.t('SIGN_UP_TITLE').toUpperCase()}
+							color={'#F55890'}
+							handler={() => this.goToSignUp()}
+						/> */}
+						<Button rounded block transparent style={styles.go_to_signin} onPress={() => this.goToSignIn()}>
+							<Text style={styles.go_to_signin_text}>{I18n.t('GO_TO_SIGNIN')}</Text>
+						</Button>
 						<CustomButton
 							style={styles.signup_button}
 							active
