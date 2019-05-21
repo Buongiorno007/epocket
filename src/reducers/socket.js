@@ -1,4 +1,4 @@
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import { urls } from '../constants/urls';
 export const RETURN_DATA = 'socket/RETURN_DATA';
 

@@ -1,4 +1,4 @@
-import { AsyncStorage } from "react-native";
+import AsyncStorage from '@react-native-community/async-storage';
 export const SET_GEO_VIRGIN = "geo-virgin/SET_GEO_VIRGIN";
 
 export default (state = [], action) => {

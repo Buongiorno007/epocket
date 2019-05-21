@@ -8,9 +8,9 @@ import {
   Easing,
   LayoutAnimation,
   UIManager,
-  Platform,
-  AsyncStorage
+  Platform
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 import { LinearTextGradient } from 'react-native-text-gradient';

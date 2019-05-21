@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, AsyncStorage } from 'react-native';
+import { View, Text } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import LinearGradient from 'react-native-linear-gradient';
 import { Button } from 'native-base';
 import FastImage from 'react-native-fast-image';
