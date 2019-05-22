@@ -34,10 +34,11 @@ import geo_config from './geolocation-config'
 import NavigationService from '../../../services/route'
 import BackgroundGeolocationModule from '../../../services/background-geolocation-picker'
 //constants
-// import { urls } from '../../../constants/urls';
+import { urls } from '../../../constants/urls'
 // import { sendToTelegramm } from '../../../services/telegramm-notification';
-// import { httpPost } from '../../../services/http';
+import { httpGet } from '../../../services/http'
 import I18n from '@locales/I18n'
+import { setCountries } from '@reducers/countries'
 
 class Start extends React.Component {
 	state = {
@@ -71,6 +72,15 @@ class Start extends React.Component {
 		!this.props.game_info.game_array && this.props.setGameStatus('start')
 		this.props.updateRootStatus()
 		this._initialConfig()
+
+		httpGet(urls.echo).then(
+			(result) => {
+				this.props.setCountries(result.body.c_list)
+			},
+			(error) => {
+				console.log(error, 'No server request')
+			},
+		)
 	}
 
 	_initialConfig = () => {
@@ -238,6 +248,7 @@ const mapDispatchToProps = (dispatch) =>
 			updateRootStatus,
 			loadNTPDate,
 			setGameStatus,
+			setCountries,
 		},
 		dispatch,
 	)

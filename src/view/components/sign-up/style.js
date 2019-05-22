@@ -2,6 +2,7 @@ import { StyleSheet, Dimensions, StatusBar, Platform } from 'react-native'
 import { Header } from 'react-navigation'
 import { colors } from '../../../constants/colors'
 const { width, height } = Dimensions.get('window')
+const iPhoneX = Platform.OS === 'ios' && (height === 812 || width === 812 || height === 896 || width === 896)
 
 export default StyleSheet.create({
 	container: {
@@ -20,12 +21,35 @@ export default StyleSheet.create({
 	grad: {
 		position: 'absolute',
 		// height: height,
-		height: Platform.OS === 'ios' ? height - Header.HEIGHT : height - Header.HEIGHT - StatusBar.currentHeight,
+		height:
+			Platform.OS === 'ios'
+				? iPhoneX
+					? height - Header.HEIGHT - 22
+					: height - Header.HEIGHT
+				: height - Header.HEIGHT - StatusBar.currentHeight,
 		width: width,
-		top: Platform.OS === 'ios' ? Header.HEIGHT : Header.HEIGHT + StatusBar.currentHeight,
+		top:
+			Platform.OS === 'ios'
+				? iPhoneX
+					? Header.HEIGHT + 22
+					: Header.HEIGHT
+				: Header.HEIGHT + StatusBar.currentHeight,
 		flex: 1,
 		flexDirection: 'column',
-		paddingHorizontal: 25,
+		paddingHorizontal: 16,
+	},
+	textLeft: {
+		textAlign: 'left',
+		color: 'rgba(255, 255, 255, .75)',
+		marginBottom: 8,
+		fontSize: 12,
+	},
+	textRight: {
+		textAlign: 'right',
+		color: '#fff',
+		marginTop: 8,
+		marginBottom: 24,
+		fontSize: 10,
 	},
 	navigation_item: {
 		top: 15,
@@ -48,6 +72,7 @@ export default StyleSheet.create({
 		flexGrow: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
+		paddingBottom: 48,
 	},
 	header: {
 		fontSize: 15,
@@ -127,5 +152,16 @@ export default StyleSheet.create({
 		borderBottomWidth: 1,
 		color: '#FFF',
 		paddingVertical: 10,
+	},
+	genderActive: {
+		backgroundColor: 'rgba(255, 255, 255, 0.45)',
+	},
+	genderText: {
+		fontSize: 16,
+		color: '#fff',
+	},
+	genderActiveText: {
+		fontSize: 16,
+		color: '#F63272',
 	},
 })

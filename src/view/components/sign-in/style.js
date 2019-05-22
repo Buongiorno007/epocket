@@ -25,7 +25,20 @@ export default StyleSheet.create({
 		top: Platform.OS === 'ios' ? Header.HEIGHT : Header.HEIGHT + StatusBar.currentHeight,
 		flex: 1,
 		flexDirection: 'column',
-		paddingHorizontal: 25,
+		paddingHorizontal: 16,
+	},
+	textLeft: {
+		textAlign: 'left',
+		color: 'rgba(255, 255, 255, .75)',
+		marginBottom: 8,
+		fontSize: 12,
+	},
+	textRight: {
+		textAlign: 'right',
+		color: '#fff',
+		marginTop: 8,
+		marginBottom: 24,
+		fontSize: 10,
 	},
 	navigation_item: {
 		top: 15,
@@ -43,11 +56,9 @@ export default StyleSheet.create({
 	},
 	avoiding: {
 		height: '100%',
-		// backgroundColor: '#fff'
 	},
 	scrollView: {
 		height: '100%',
-		// backgroundColor: '#fff',
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',

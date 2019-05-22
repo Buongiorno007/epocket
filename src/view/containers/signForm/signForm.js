@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, TouchableOpacity, Text, Image, View, FlatList, Modal, StatusBar, Platform } from 'react-native'
 import { Header } from 'react-navigation'
 import { TextInputMask } from 'react-native-masked-text'
+import I18n from '@locales/I18n'
 
 export default class SignForm extends Component {
 	state = {
@@ -15,11 +16,11 @@ export default class SignForm extends Component {
 
 	componentDidMount() {
 		this.setState({
-			codeValue: this.props.data[0].code || '',
-			imgUri: this.props.data[0].icon || '',
+			codeValue: this.props.data[0].phone_code || '',
+			imgUri: this.props.data[0].flag || '',
 			activeIndex: 0,
 		})
-		this.props.setCode(this.props.data[0].code || '')
+		this.props.setCode(this.props.data[0].phone_code || '')
 	}
 
 	blur = () => {
@@ -33,16 +34,18 @@ export default class SignForm extends Component {
 				onPress={() => {
 					this.setState({
 						visible: false,
-						codeValue: item.item.code,
-						imgUri: item.item.icon,
+						codeValue: item.item.phone_code,
+						imgUri: item.item.flag,
 						activeIndex: item.index,
 					}),
-						this.props.setCode(item.item.code)
+						this.props.setCode(item.item.phone_code)
 				}}
 			>
-				<Image style={styles.imgStyle} source={{ uri: item.item.icon }} />
-				<Text>{item.item.country}</Text>
-				<Text>{item.item.code}</Text>
+				<Image style={styles.imgStyle} source={{ uri: item.item.flag }} />
+				<Text style={{ flexGrow: 1, color: '#404140', fontSize: 14 }}>
+					{I18n.t(`COUNTRY.${item.item.code}`)}
+				</Text>
+				<Text style={{ color: 'rgba(64, 65, 64, .55)', fontSize: 14 }}>{item.item.phone_code}</Text>
 			</TouchableOpacity>
 		)
 	}
@@ -52,21 +55,15 @@ export default class SignForm extends Component {
 			<View
 				style={styles.cont}
 				onLayout={(event) => {
-					const layout = event.nativeEvent.layout
-					this.setState({ top: layout.y, width: layout.width })
+					const { y, width } = event.nativeEvent.layout
+					this.setState({ top: y, width: width })
 				}}
 			>
 				<View style={styles.viewInput}>
 					<TouchableOpacity style={styles.choseCountry} onPress={() => this.setState({ visible: true })}>
-						{this.state.imgUri && (
-							<Image
-								style={styles.imgStyle}
-								source={{
-									uri: this.state.imgUri,
-								}}
-							/>
-						)}
-						<Text style={styles.resultText}>{this.state.codeValue}</Text>
+						<Image style={styles.imgStyle1} source={{ uri: this.state.imgUri }} />
+						<Text style={styles.resultText}>{this.state.codeValue} </Text>
+						<View style={styles.triangular} />
 					</TouchableOpacity>
 					<TextInputMask
 						style={styles.textInput}
@@ -78,9 +75,11 @@ export default class SignForm extends Component {
 							mask: '99 999 99 99',
 						}}
 						maxLength={12}
-						placeholder={'-- --- -- --'}
+						placeholder={'- -   - - -   - -   - -'}
 						placeholderTextColor={'#fff'}
+						onFocus={() => this.props.onFocus()}
 					/>
+					{this.props.children}
 				</View>
 				<Modal visible={this.state.visible} transparent={true}>
 					<View
@@ -92,10 +91,10 @@ export default class SignForm extends Component {
 							style={{
 								top:
 									Platform.OS === 'ios'
-										? this.state.top + 49 + Header.HEIGHT
-										: this.state.top + 49 + Header.HEIGHT + StatusBar.currentHeight,
+										? this.state.top + 47 + Header.HEIGHT
+										: this.state.top + 47 + Header.HEIGHT + StatusBar.currentHeight,
 								width: this.state.width,
-								marginHorizontal: 25,
+								marginHorizontal: 16,
 								maxHeight: 192,
 								backgroundColor: '#fff',
 							}}
@@ -104,7 +103,7 @@ export default class SignForm extends Component {
 								data={this.props.data}
 								renderItem={this.renderItem}
 								scrollEnabled={this.props.data.length > 4}
-								keyExtractor={(item) => item.id}
+								keyExtractor={(item) => item.phone_code + item.code}
 							/>
 						</View>
 					</View>
@@ -116,38 +115,61 @@ export default class SignForm extends Component {
 
 const styles = StyleSheet.create({
 	cont: {
-		marginVertical: 10,
-		position: 'relative',
+		// position: 'relative',
 		width: '100%',
-		zIndex: 900,
 	},
 	choseCountry: {
-		width: '25%',
+		width: 90,
 		display: 'flex',
 		flexDirection: 'row',
 		borderBottomColor: '#FFF',
 		borderBottomWidth: 1,
-		paddingVertical: 10,
-		marginRight: 15,
-		// justifyContent: 'space-between'
-	},
-	textInput: {
-		width: '100%',
-		borderBottomColor: '#FFF',
-		borderBottomWidth: 1,
-		color: '#FFF',
-	},
-	imgStyle: {
-		width: 22,
-		height: 22,
-		resizeMode: 'contain',
+		paddingVertical: 8,
+		marginRight: 16,
+		alignItems: 'center',
 	},
 	resultText: {
 		color: '#fff',
+		textAlign: 'right',
+		flexGrow: 1,
+		fontSize: 16,
+	},
+	textInput: {
+		flexGrow: 1,
+		borderBottomColor: '#FFF',
+		borderBottomWidth: 1,
+		color: '#FFF',
+		paddingVertical: 8,
+		fontSize: 16,
+	},
+	imgStyle: {
+		width: 24,
+		height: 18,
+		marginRight: 16,
+	},
+	imgStyle1: {
+		width: 24,
+		height: 18,
+		marginRight: 8,
 	},
 	viewInput: {
+		width: '100%',
 		display: 'flex',
 		flexDirection: 'row',
+		alignItems: 'center',
+	},
+	triangular: {
+		marginLeft: 8,
+		width: 0,
+		height: 0,
+		backgroundColor: 'transparent',
+		borderStyle: 'solid',
+		borderLeftWidth: 5,
+		borderRightWidth: 5,
+		borderTopWidth: 5,
+		borderLeftColor: 'transparent',
+		borderRightColor: 'transparent',
+		borderTopColor: '#fff',
 	},
 	scrollView: {
 		width: '100%',
@@ -158,20 +180,17 @@ const styles = StyleSheet.create({
 		width: '100%',
 		display: 'flex',
 		flexDirection: 'row',
-		paddingVertical: 15,
+		paddingVertical: 16,
+		paddingHorizontal: 16,
 		backgroundColor: '#FFFFFF',
 	},
 	activeItem: {
 		width: '100%',
 		display: 'flex',
 		flexDirection: 'row',
-		paddingVertical: 15,
+		paddingVertical: 16,
+		paddingHorizontal: 16,
 		backgroundColor: '#EEEEEE',
-	},
-	baasdasad: {
-		backgroundColor: 'blue',
-		width: '100%',
-		height: 200,
 	},
 	touchOverlay: {
 		position: 'absolute',
