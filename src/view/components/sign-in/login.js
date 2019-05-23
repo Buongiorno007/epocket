@@ -1,75 +1,34 @@
 import React from 'react'
-import {
-	View,
-	Image,
-	Text,
-	Keyboard,
-	Alert,
-	ScrollView,
-	Button,
-	TextInput,
-	Animated,
-	Platform,
-	KeyboardAvoidingView,
-	NativeModules,
-} from 'react-native'
-import FastImage from 'react-native-fast-image'
-import { TextField } from 'react-native-material-textfield'
+import { View, Image, Text, ScrollView, KeyboardAvoidingView } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
-import { AccessToken } from 'react-native-fbsdk'
-//containers
-import BackButton from '../../containers/back/back'
-import CustomButton from '../../containers/custom-button/custom-button'
-import CustomAlert from '../../containers/custom-alert/custom-alert'
-import ActivityIndicator from '../../containers/activity-indicator/activity-indicator'
-//redux
-import { setToken } from '../../../reducers/token'
-import { loaderState } from '../../../reducers/loader'
-import { setBalance } from '../../../reducers/user-balance'
 import { connect } from 'react-redux'
-import { setColor } from '../../../reducers/user-color'
 import { bindActionCreators } from 'redux'
-import { setInstaToken } from '../../../reducers/insta-token'
-import { setFacebookToken } from '../../../reducers/facebook-token'
-import { setProfileVirgin } from '../../../reducers/profile-virgin'
-import { setGeoVirgin } from '../../../reducers/geo-virgin'
-import { getPush } from '../../../reducers/push'
-import { saveUser } from '../../../reducers/profile-state'
-import { locationStateListener, locationState } from '../../../reducers/geolocation-status'
-import { locationCoordsListener, setLocation } from '../../../reducers/geolocation-coords'
-//services
-import NavigationService from '../../../services/route'
-import { httpPost } from '../../../services/http'
-import { handleError } from '../../../services/http-error-handler'
-import geo_config from '../start/geolocation-config'
-import BackgroundGeolocationModule from '../../../services/background-geolocation-picker'
-//constants
-import styles from './style'
-import { colors } from '../../../constants/colors'
-import { urls } from '../../../constants/urls'
-import { ICONS } from '../../../constants/icons'
-///////////////
-import I18n from '@locales/I18n'
+//containers
+import BackButton from '@containers/back/back'
+import CustomButton from '@containers/custom-button/custom-button'
 import SignForm from '@containers/signForm/signForm'
+//reducers
+import { loaderState } from '@reducers/loader'
+//services
+import NavigationService from '@services/route'
+import { httpPost } from '@services/http'
+//constants
+import { urls } from '@constants/urls'
+//locales
+import I18n from '@locales/I18n'
+//style
+import styles from './style'
 
 class Login extends React.Component {
-	static navigationOptions = ({ navigation }) => ({
+	static navigationOptions = () => ({
 		headerLeft: <BackButton title={I18n.t('BACK')} route='Start' />,
 		title: I18n.t('SIGN_IN_TITLE'),
-		headerStyle: {
-			backgroundColor: 'rgba(255,255,255,.2)',
-		},
-		headerTitleStyle: {
-			fontWeight: 'bold',
-			color: '#fff',
-			fontSize: 18,
-		},
+		headerStyle: styles.headerBackground,
+		headerTitleStyle: styles.headerTitle,
 	})
 
 	state = {
 		phoneNumber: '',
-		phone: '',
-		errorText: '',
 		code: '',
 		notCorrect: false,
 	}
@@ -78,95 +37,32 @@ class Login extends React.Component {
 		this.props.loaderState(false)
 	}
 
-	login = () => {
+	newLogin = () => {
 		this.props.loaderState(true)
 		let body = {
 			phone: '+' + `${this.state.code}${this.state.phoneNumber}`.replace(/\D/g, ''),
 		}
 		httpPost(urls.sing_in, JSON.stringify(body)).then(
 			(result) => {
-				// this.confirmLogin() //DEPRECATED
-				console.log(result, 'SUCCESS')
-				this.props.loaderState(false) // MAYBE NEED REPLACE TO CONFIRM CODE PAGE COMPONENT DID MOUNT
+				NavigationService.navigate('ConfirmCode', {
+					back: 'Login',
+					title: I18n.t('SIGN_IN_TITLE'),
+					phone: body.phone,
+				})
 			},
 			(error) => {
-				// let error_respons = handleError(error, body, urls.sign_in, '', this.constructor.name, 'login')
-				console.log(error, 'ERROR')
 				this.setState({ notCorrect: true })
 				this.props.loaderState(false)
 			},
 		)
 	}
-	// this one will be in confirm
-	confirmLogin = () => {
-		this.setFailedConfirmVisible(false)
-		this.props.loaderState(true)
-		let bodyPhone = this.state.phone.replace(/\D/g, '')
-		let body = {
-			phone: this.state.code + this.state.phoneNumber,
-			code: this.state.code,
-		}
-		httpPost(urls.sing_in_confirm, JSON.stringify(body)).then(
-			(result) => {
-				if (result.status === 200) {
-					this.setFailedConfirmVisible(false)
-					this.props.loaderState(false)
-					const locale = I18n.locale
-					const user_info = {
-						name: result.body.user,
-						phone: this.state.phone,
-						photo: result.body.photo,
-						sex: result.body.sex ? 1 : 0,
-						birthDay: result.body.birthDay,
-						currency: locale === 'en' ? result.body.currency : result.body.currency_plural,
-					}
-
-					this.props.getPush(result.body.token)
-					this.props.saveUser(user_info)
-					this.props.setColor(user_info.sex)
-					this.props.setToken(result.body.token)
-					this.props.setBalance(result.body.balance)
-					this.props.setProfileVirgin(result.body.profile_virgin)
-					this.props.setGeoVirgin(result.body.geo_virgin)
-					// this.isFblogged(result.body.token);
-					// this.isInstalogged(result.body.token);
-					NavigationService.navigate('Main')
-				}
-			},
-			(error) => {
-				this.props.loaderState(false)
-				let error_respons = handleError(
-					error,
-					body,
-					urls.sing_in_confirm,
-					'',
-					this.constructor.name,
-					'confirmLogin',
-				)
-				this.setState({ errorText: error_respons.error_text })
-				this.setFailedConfirmVisible(error_respons.error_modal)
-			},
-		)
-	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if (prevState.phoneNumber !== this.state.phoneNumber) {
+		if (prevState.phoneNumber !== this.state.phoneNumber || prevState.code !== this.state.code) {
 			this.state.phoneNumber.length === 12 && this.state.code
 				? this.setState({ acceptButton: true })
 				: this.setState({ acceptButton: false })
 		}
-		if (prevState.code !== this.state.code) {
-			this.state.phoneNumber.length === 12 && this.state.code
-				? this.setState({ acceptButton: true })
-				: this.setState({ acceptButton: false })
-		}
-	}
-
-	setPhone(value) {
-		this.setState({ phoneNumber: value })
-	}
-	setCode(value) {
-		this.setState({ code: value })
 	}
 
 	render() {
@@ -179,33 +75,29 @@ class Login extends React.Component {
 			>
 				<KeyboardAvoidingView behavior='padding' style={styles.grad}>
 					<ScrollView scrollEnabled={false} contentContainerStyle={styles.scrollView}>
-						<View style={{ width: '100%' }}>
-							<Text style={styles.textLeft}>Введите ваш номер телефона</Text>
+						<View style={styles.fullWidth}>
+							<Text style={styles.textLeft}>{I18n.t('SIGN.ENTER_PHONE_NUMBER')}</Text>
 						</View>
-
 						<SignForm
 							data={this.props.countries}
 							value={this.state.phoneNumber}
-							setPhoneNumber={(value) => this.setPhone(value)}
-							setCode={(value) => this.setCode(value)}
+							setPhoneNumber={(value) => this.setState({ phoneNumber: value.trim() })}
+							setCode={(value) => this.setState({ code: value })}
 							onFocus={() => this.setState({ notCorrect: false })}
 						>
 							{this.state.notCorrect && (
-								<Image
-									style={{ right: 0, top: 3, zIndex: 100, position: 'absolute' }}
-									source={require('./eyes.png')}
-								/>
+								<Image style={styles.eye} source={require('@assets/img/eyes.png')} />
 							)}
 						</SignForm>
-						<View style={{ width: '100%' }}>
+						<View style={styles.fullWidth}>
 							<Text style={[styles.textRight, { opacity: this.state.notCorrect ? 1 : 0 }]}>
-								Проверьте номер на ошибки
+								{I18n.t('SIGN.CHECK_PHONE_NUMBER')}
 							</Text>
 						</View>
 						<CustomButton
 							color={this.state.acceptButton ? this.props.userColor.pink : this.props.userColor.white}
 							handler={() => {
-								this.login()
+								this.newLogin()
 							}}
 							active={this.state.acceptButton}
 							title={I18n.t('SIGN_IN').toUpperCase()}
@@ -219,27 +111,13 @@ class Login extends React.Component {
 
 const mapStateToProps = (state) => ({
 	userColor: state.userColor,
-	loader: state.loader,
 	countries: state.countries,
 })
 
 const mapDispatchToProps = (dispatch) =>
 	bindActionCreators(
 		{
-			setToken,
-			setBalance,
 			loaderState,
-			setInstaToken,
-			setFacebookToken,
-			setColor,
-			getPush,
-			saveUser,
-			setProfileVirgin,
-			setGeoVirgin,
-			locationState,
-			setLocation,
-			locationStateListener,
-			locationCoordsListener,
 		},
 		dispatch,
 	)

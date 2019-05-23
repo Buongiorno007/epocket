@@ -35,6 +35,7 @@ const Navigator = createStackNavigator(
 		RefillMobile: { screen: require('@components/refillMobile/refillMobile').default },
 		Login: { screen: require('@components/sign-in/login').default },
 		Registration: { screen: require('@components/sign-up/registration').default },
+		ConfirmCode: { screen: require('@components/confirmCode/confirmCode').default },
 	},
 	{
 		initialRouteName: 'Start',

@@ -23,10 +23,6 @@ export default class SignForm extends Component {
 		this.props.setCode(this.props.data[0].phone_code || '')
 	}
 
-	blur = () => {
-		this.setState({ visible: false })
-	}
-
 	renderItem = (item) => {
 		return (
 			<TouchableOpacity
