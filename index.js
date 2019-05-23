@@ -37,6 +37,7 @@ const Navigator = createStackNavigator(
 		Login: { screen: require('@components/sign-in/login').default },
 		Registration: { screen: require('@components/sign-up/registration').default },
 		ConfirmCode: { screen: require('@components/confirmCode/confirmCode').default },
+		CatCode: { screen: require('@components/catCode/catCode').default },
 	},
 	{
 		initialRouteName: 'Start',

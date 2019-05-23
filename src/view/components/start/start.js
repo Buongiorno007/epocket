@@ -1,7 +1,6 @@
 import React from 'react'
 import { View, Text, Keyboard, Platform } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
-import FastImage from 'react-native-fast-image'
 import { Button } from 'native-base'
 import LinearGradient from 'react-native-linear-gradient'
 import { AccessToken } from 'react-native-fbsdk'
@@ -9,7 +8,6 @@ import { AccessToken } from 'react-native-fbsdk'
 import CustomButton from '../../containers/custom-button/custom-button'
 //constants
 import styles from './styles'
-import { ICONS } from '../../../constants/icons'
 //redux
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -174,16 +172,16 @@ class Start extends React.Component {
 
 				{/* {this.state.enable_login && ( */}
 				<View style={styles.signup_signin_buttons}>
-					{/* <CustomButton
-							style={styles.signup_button}
-							active
-							title={I18n.t('SIGN_UP_TITLE').toUpperCase()}
-							color={'#F55890'}
-							handler={() => this.goToSignUp()}
-						/> */}
-					{/* <Button rounded block transparent style={styles.go_to_signin} onPress={() => this.goToSignIn()}>
+					<CustomButton
+						style={styles.signup_button}
+						active
+						title={I18n.t('SIGN_UP_TITLE').toUpperCase()}
+						color={'#F55890'}
+						handler={() => this.goToSignUp()}
+					/>
+					<Button rounded block transparent style={styles.go_to_signin} onPress={() => this.goToSignIn()}>
 						<Text style={styles.go_to_signin_text}>{I18n.t('GO_TO_SIGNIN')}</Text>
-					</Button> */}
+					</Button>
 
 					<Button style={styles.registration} onPress={() => this.goToRegistration()}>
 						<LinearGradient
