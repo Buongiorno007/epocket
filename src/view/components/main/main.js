@@ -114,7 +114,6 @@ class Main extends React.Component {
 
 				<TimerModal />
 				<GeolocationService />
-				{!this.props.isConnected && <NoInternet />}
 			</View>
 		)
 	}
@@ -123,7 +122,6 @@ const mapStateToProps = (state) => ({
 	activeTab: state.activeTab,
 	loader: state.loader,
 	userColor: state.userColor,
-	isConnected: state.isConnected,
 	dashboard: state.dashboard,
 	info: state.info,
 	timer_status: state.timer_status,
