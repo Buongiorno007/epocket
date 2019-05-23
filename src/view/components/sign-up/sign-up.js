@@ -9,7 +9,6 @@ import LinearGradient from 'react-native-linear-gradient'
 import CustomButton from '../../containers/custom-button/custom-button'
 import BackButton from '../../containers/back/back'
 import CustomAlert from '../../containers/custom-alert/custom-alert'
-import ActivityIndicator from '../../containers/activity-indicator/activity-indicator'
 //constants
 import styles from './styles'
 import { colors } from '../../../constants/colors'
@@ -386,7 +385,6 @@ class SignUp extends React.Component {
 						</View>
 					) : null}
 				</View>
-				{this.props.loader && <ActivityIndicator />}
 			</KeyboardAvoidingView>
 		)
 	}
