@@ -87,8 +87,8 @@ export default class SignForm extends Component {
 							style={{
 								top:
 									Platform.OS === 'ios'
-										? this.state.top + 47 + Header.HEIGHT
-										: this.state.top + 47 + Header.HEIGHT + StatusBar.currentHeight,
+										? this.state.top + 68 + Header.HEIGHT
+										: this.state.top + 68 + Header.HEIGHT + StatusBar.currentHeight,
 								width: this.state.width,
 								marginHorizontal: 16,
 								maxHeight: 192,

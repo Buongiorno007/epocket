@@ -114,6 +114,7 @@ class confirmCode extends React.Component {
 			gender: this.state.gender,
 		}
 		console.log(body, 'TOTAL BODY')
+		this.props.loaderState(false)
 	}
 
 	render() {

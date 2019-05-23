@@ -213,7 +213,6 @@ class Start extends React.Component {
 						</Button>
 					</View>
 				)}
-				{this.props.loader && <ActivityIndicator />}
 				{!this.props.isConnected && <NoInternet />}
 			</View>
 		)

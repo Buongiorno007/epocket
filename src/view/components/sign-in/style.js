@@ -2,6 +2,7 @@ import { StyleSheet, Dimensions, StatusBar, Platform } from 'react-native'
 import { Header } from 'react-navigation'
 import { colors } from '../../../constants/colors'
 const { width, height } = Dimensions.get('window')
+const iPhoneX = Platform.OS === 'ios' && (height === 812 || width === 812 || height === 896 || width === 896)
 
 export default StyleSheet.create({
 	headerTitle: {
@@ -27,10 +28,19 @@ export default StyleSheet.create({
 	},
 	grad: {
 		position: 'absolute',
-		// height: height,
-		height: Platform.OS === 'ios' ? height - Header.HEIGHT : height - Header.HEIGHT - StatusBar.currentHeight,
+		height:
+			Platform.OS === 'ios'
+				? iPhoneX
+					? height - Header.HEIGHT - 22
+					: height - Header.HEIGHT
+				: height - Header.HEIGHT - StatusBar.currentHeight,
 		width: width,
-		top: Platform.OS === 'ios' ? Header.HEIGHT : Header.HEIGHT + StatusBar.currentHeight,
+		top:
+			Platform.OS === 'ios'
+				? iPhoneX
+					? Header.HEIGHT + 22
+					: Header.HEIGHT
+				: Header.HEIGHT + StatusBar.currentHeight,
 		flex: 1,
 		flexDirection: 'column',
 		paddingHorizontal: 16,
