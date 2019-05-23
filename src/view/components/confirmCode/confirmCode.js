@@ -1,11 +1,9 @@
 import React from 'react'
 import { View, Image, Text, ScrollView, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
-import { AccessToken } from 'react-native-fbsdk'
 //containers
 import BackButton from '../../containers/back/back'
 import CustomButton from '../../containers/custom-button/custom-button'
-import CustomAlert from '../../containers/custom-alert/custom-alert'
 import AndroidHeader from '@containers/androidHeader/androidHeader'
 //redux
 import { setToken } from '../../../reducers/token'
@@ -24,31 +22,20 @@ import { locationStateListener, locationState } from '../../../reducers/geolocat
 import { locationCoordsListener, setLocation } from '../../../reducers/geolocation-coords'
 //services
 import NavigationService from '../../../services/route'
-import { httpPost } from '../../../services/http'
-import { handleError } from '../../../services/http-error-handler'
-import geo_config from '../start/geolocation-config'
-import BackgroundGeolocationModule from '../../../services/background-geolocation-picker'
+
 //constants
 import styles from './styles'
-import { urls } from '../../../constants/urls'
-import { ICONS } from '../../../constants/icons'
+
 ///////////////
 import I18n from '@locales/I18n'
-import SignForm from '@containers/signForm/signForm'
 
 class confirmCode extends React.Component {
 	interval
 	static navigationOptions = ({ navigation }) => ({
 		headerLeft: <BackButton title={I18n.t('BACK')} route={navigation.state.params.back} />,
 		title: navigation.state.params.title,
-		headerStyle: {
-			backgroundColor: 'rgba(255,255,255,.2)',
-		},
-		headerTitleStyle: {
-			fontWeight: 'bold',
-			color: '#fff',
-			fontSize: 18,
-		},
+		headerStyle: styles.headerBackground,
+		headerTitleStyle: styles.headerTitle,
 	})
 
 	state = {
@@ -105,7 +92,7 @@ class confirmCode extends React.Component {
 		}
 	}
 
-	sendCode() {
+	sendResult() {
 		this.props.loaderState(true)
 		let body = {
 			phone: this.state.phoneNumber,
@@ -114,8 +101,7 @@ class confirmCode extends React.Component {
 			name: this.state.name,
 			gender: this.state.gender,
 		}
-		console.log(body, 'TOTAL BODY')
-		this.props.loaderState(false)
+		NavigationService.navigate('CatCode')
 	}
 
 	render() {
@@ -138,7 +124,7 @@ class confirmCode extends React.Component {
 							onPress={() => this.sendCodeAgain()}
 						>
 							<Text style={[styles.resendText, !this.state.seconds ? styles.resendTextActive : null]}>
-								Отправить повторно
+								{I18n.t('SIGN.SEND_AGAIN')}
 							</Text>
 							{this.state.seconds && (
 								<View style={styles.timerView}>
@@ -147,9 +133,9 @@ class confirmCode extends React.Component {
 							)}
 						</TouchableOpacity>
 						<View style={styles.fullWidth}>
-							<Text style={styles.title}>На ваш номер телефона отправлено 6-ти значный код</Text>
+							<Text style={styles.title}>{I18n.t('SIGN.SENDED_CODE')}</Text>
 						</View>
-						<View style={{ width: '100%' }}>
+						<View style={styles.fullWidth}>
 							<TextInput
 								value={this.state.confirmCode}
 								onChangeText={(value) => this.setState({ confirmCode: value })}
@@ -161,21 +147,18 @@ class confirmCode extends React.Component {
 								maxLength={6}
 							/>
 							{this.state.notCorrect && (
-								<Image
-									style={{ right: 0, top: 3, zIndex: 100, position: 'absolute' }}
-									source={require('@assets/img/eyes.png')}
-								/>
+								<Image style={styles.eye} source={require('@assets/img/eyes.png')} />
 							)}
 						</View>
 						<View style={styles.fullWidth}>
 							<Text style={[styles.textRight, { opacity: this.state.notCorrect ? 1 : 0 }]}>
-								Проверьте код на ошибки
+								{I18n.t('SIGN.CHECK_CODE')}
 							</Text>
 						</View>
 						<CustomButton
 							color={this.state.acceptButton ? this.props.userColor.pink : this.props.userColor.white}
 							handler={() => {
-								this.sendCode()
+								this.sendResult()
 							}}
 							active={this.state.acceptButton}
 							title={I18n.t('ACCEPT').toUpperCase()}
@@ -189,7 +172,6 @@ class confirmCode extends React.Component {
 
 const mapStateToProps = (state) => ({
 	userColor: state.userColor,
-	countries: state.countries,
 })
 
 const mapDispatchToProps = (dispatch) =>
