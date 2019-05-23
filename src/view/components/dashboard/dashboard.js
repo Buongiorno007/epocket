@@ -1478,7 +1478,6 @@ class Dashboard extends React.Component {
 }
 const mapStateToProps = state => ({
   isLocation: state.isLocation,
-  isConnected: state.isConnected,
   location: state.location,
   userColor: state.userColor,
   selectedMall: state.selectedMall,

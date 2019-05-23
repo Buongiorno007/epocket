@@ -21,26 +21,14 @@ export default StyleSheet.create({
 		left: 0,
 		right: 0,
 		bottom: 0,
-		alignItems: 'center',
-		justifyContent: 'center',
 		backgroundColor: colors.backgroundForAnimated,
 		zIndex: 100,
 	},
 	grad: {
 		position: 'absolute',
-		height:
-			Platform.OS === 'ios'
-				? iPhoneX
-					? height - Header.HEIGHT - 22
-					: height - Header.HEIGHT
-				: height - Header.HEIGHT - StatusBar.currentHeight,
+		height: Platform.OS === 'ios' ? (iPhoneX ? height - Header.HEIGHT - 22 : height - Header.HEIGHT) : height - 62,
 		width: width,
-		top:
-			Platform.OS === 'ios'
-				? iPhoneX
-					? Header.HEIGHT + 22
-					: Header.HEIGHT
-				: Header.HEIGHT + StatusBar.currentHeight,
+		top: Platform.OS === 'ios' ? (iPhoneX ? Header.HEIGHT + 22 : Header.HEIGHT) : 62,
 		flex: 1,
 		flexDirection: 'column',
 		paddingHorizontal: 16,

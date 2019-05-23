@@ -7,7 +7,6 @@ import LinearGradient from 'react-native-linear-gradient'
 import { AccessToken } from 'react-native-fbsdk'
 //containers
 import CustomButton from '../../containers/custom-button/custom-button'
-import NoInternet from '../../containers/no-internet/no-internet'
 //constants
 import styles from './styles'
 import { ICONS } from '../../../constants/icons'
@@ -167,64 +166,45 @@ class Start extends React.Component {
 		return (
 			<View style={styles.main_view}>
 				<LinearGradient
-					colors={['rgba(89,91,241,1)', 'rgba(232,67,232, 0.1)', 'rgba(255,187,71,0)']}
-					start={{ x: 1.0, y: 0.1 }}
-					end={{ x: 0.0, y: 1.5 }}
+					colors={['#F4F9FF', '#E0EFFF']}
+					start={{ x: 0.0, y: 0.0 }}
+					end={{ x: 0.0, y: 1.0 }}
 					style={styles.grad}
 				/>
-				<FastImage
-					resizeMode={FastImage.resizeMode.cover}
-					style={styles.top_image}
-					source={require('../../../assets/img/ANIMATED_EARN_MORE.gif')}
-				/>
-				<FastImage
-					resizeMode={FastImage.resizeMode.cover}
-					style={styles.top_image}
-					source={require('../../../assets/img/START_GRADIENT_med.png')}
-				/>
-				<FastImage
-					resizeMode={FastImage.resizeMode.contain}
-					style={styles.top_logo_image}
-					source={{ uri: ICONS.COMMON.CASH_EPC_WHITE }}
-				/>
-				<Text style={styles.start_title}>{I18n.t('START_TITLE')}</Text>
-				{this.state.enable_login && (
-					<View style={styles.signup_signin_buttons}>
-						{/* <CustomButton
+
+				{/* {this.state.enable_login && ( */}
+				<View style={styles.signup_signin_buttons}>
+					{/* <CustomButton
 							style={styles.signup_button}
 							active
 							title={I18n.t('SIGN_UP_TITLE').toUpperCase()}
 							color={'#F55890'}
 							handler={() => this.goToSignUp()}
 						/> */}
-						<Button rounded block transparent style={styles.go_to_signin} onPress={() => this.goToSignIn()}>
-							<Text style={styles.go_to_signin_text}>{I18n.t('GO_TO_SIGNIN')}</Text>
-						</Button>
+					{/* <Button rounded block transparent style={styles.go_to_signin} onPress={() => this.goToSignIn()}>
+						<Text style={styles.go_to_signin_text}>{I18n.t('GO_TO_SIGNIN')}</Text>
+					</Button> */}
 
-						<CustomButton
-							style={styles.signup_button}
-							active
-							title={I18n.t('NEW_SIGN_UP_TITLE').toUpperCase()}
-							color={'#F55890'}
-							handler={() => this.goToRegistration()}
+					<Button style={styles.registration} onPress={() => this.goToRegistration()}>
+						<LinearGradient
+							colors={['#FF9950', '#F55890']}
+							start={{ x: 0.0, y: 0.0 }}
+							end={{ x: 1.0, y: 0.0 }}
+							style={styles.registration}
 						/>
-						<Button rounded block transparent style={styles.go_to_signin} onPress={() => this.goToLogin()}>
-							<Text style={styles.go_to_signin_text}>{I18n.t('LOGIN')}</Text>
-						</Button>
-					</View>
-				)}
-				{!this.props.isConnected && <NoInternet />}
+						<Text style={styles.registration_text}>{I18n.t('NEW_SIGN_UP_TITLE')}</Text>
+					</Button>
+					<Button style={styles.login} onPress={() => this.goToLogin()}>
+						<Text style={styles.login_text}>{I18n.t('LOGIN')}</Text>
+					</Button>
+				</View>
 			</View>
 		)
 	}
 }
 
 const mapStateToProps = (state) => ({
-	userColor: state.userColor,
-	isConnected: state.isConnected,
-	loader: state.loader,
 	token: state.token,
-	isLocation: state.isLocation,
 	game_info: state.game_info,
 })
 

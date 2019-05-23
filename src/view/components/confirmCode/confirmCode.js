@@ -6,6 +6,7 @@ import { AccessToken } from 'react-native-fbsdk'
 import BackButton from '../../containers/back/back'
 import CustomButton from '../../containers/custom-button/custom-button'
 import CustomAlert from '../../containers/custom-alert/custom-alert'
+import AndroidHeader from '@containers/androidHeader/androidHeader'
 //redux
 import { setToken } from '../../../reducers/token'
 import { loaderState } from '../../../reducers/loader'
@@ -125,6 +126,11 @@ class confirmCode extends React.Component {
 				end={{ x: 0.0, y: 1.0 }}
 				style={styles.container}
 			>
+				<AndroidHeader
+					route={this.props.navigation.state.params.back}
+					title={this.props.navigation.state.params.title}
+				/>
+
 				<KeyboardAvoidingView behavior='padding' style={styles.grad}>
 					<ScrollView scrollEnabled={false} contentContainerStyle={styles.scrollView}>
 						<TouchableOpacity

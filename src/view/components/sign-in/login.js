@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux'
 import BackButton from '@containers/back/back'
 import CustomButton from '@containers/custom-button/custom-button'
 import SignForm from '@containers/signForm/signForm'
+import AndroidHeader from '@containers/androidHeader/androidHeader'
 //reducers
 import { loaderState } from '@reducers/loader'
 //services
@@ -73,6 +74,7 @@ class Login extends React.Component {
 				end={{ x: 0.0, y: 1.0 }}
 				style={styles.container}
 			>
+				<AndroidHeader route='Start' title={I18n.t('SIGN_IN_TITLE')} />
 				<KeyboardAvoidingView behavior='padding' style={styles.grad}>
 					<ScrollView scrollEnabled={false} contentContainerStyle={styles.scrollView}>
 						<View style={styles.fullWidth}>

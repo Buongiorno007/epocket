@@ -85,10 +85,7 @@ export default class SignForm extends Component {
 					>
 						<View
 							style={{
-								top:
-									Platform.OS === 'ios'
-										? this.state.top + 68 + Header.HEIGHT
-										: this.state.top + 68 + Header.HEIGHT + StatusBar.currentHeight,
+								top: Platform.OS === 'ios' ? this.state.top + 68 + Header.HEIGHT : this.state.top + 90,
 								width: this.state.width,
 								marginHorizontal: 16,
 								maxHeight: 192,
@@ -135,7 +132,7 @@ const styles = StyleSheet.create({
 		borderBottomColor: '#FFF',
 		borderBottomWidth: 1,
 		color: '#FFF',
-		paddingVertical: 8,
+		paddingVertical: Platform.OS === 'ios' ? 8 : 5,
 		fontSize: 16,
 	},
 	imgStyle: {
