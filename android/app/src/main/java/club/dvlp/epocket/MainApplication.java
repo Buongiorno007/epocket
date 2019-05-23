@@ -7,8 +7,8 @@ import com.jobeso.RNInstagramStoryShare.RNInstagramStorySharePackage;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.ReactApplication;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
+import cl.json.RNSharePackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
-import com.bluroverly.SajjadBlurOverlayPackage;
 import com.cmcewen.blurview.BlurViewPackage;
 import com.horcrux.svg.SvgPackage;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
@@ -26,7 +26,6 @@ import com.rnfs.RNFSPackage;
 import com.psykar.cookiemanager.CookieManagerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
-import cl.json.RNSharePackage;
 import com.marianhello.bgloc.react.BackgroundGeolocationPackage;
 
 
@@ -81,45 +80,44 @@ public class MainApplication extends Application implements ShareApplication, Re
         @Override
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
-                new MainReactPackage(),
-                new AsyncStoragePackage(),
-                new RNCWebViewPackage(),
-                new SajjadBlurOverlayPackage(),
-                new BlurViewPackage(),
-                new NetInfoPackage(),
-                new ReactNativeWheelPickerPackage(),
-                new RNGestureHandlerPackage(),
-                new LinearGradientPackage(),
-                new RNI18nPackage(),
-                new UdpSocketsModule(),
-                new RNMockLocationDetectorPackage(),
-                new AndroidOpenSettingsPackage(),
-                new JailMonkeyPackage(),
-                new SvgPackage(),
-                new RNSoundPackage(),
-                new RNFSPackage(),
-                new RNInstagramStorySharePackage(),
-                new FBSDKPackage(mCallbackManager),
-                new CookieManagerPackage(),
-                new RNFetchBlobPackage(),
-                new FastImageViewPackage(),
-                new RNSharePackage(),
-                new BackgroundGeolocationPackage(),
-                new RNFirebasePackage(),
-                new RNFirebaseCrashlyticsPackage(),
-                new RNFirebaseAnalyticsPackage(),
-                new RNFirebasePerformancePackage(),
-                new RNFirebaseMessagingPackage(),
-                new RNFirebaseNotificationsPackage(),
-                new RNAndroidLocationEnablerPackage(),
-                new RNCameraPackage(),
-                new BackgroundTimerPackage(),
-                new ImagePickerPackage(),
-                new RNTextGradientPackage(),
-                new VectorIconsPackage(),
-                new RNRadialGradientPackage(),
-                new RNBackgroundFetchPackage(),
-                new MapsPackage()
+                    new MainReactPackage(),
+                    new RNSharePackage(),
+                    new RNCWebViewPackage(),
+                    new BlurViewPackage(),
+                    new NetInfoPackage(),
+                    new ReactNativeWheelPickerPackage(),
+                    new RNGestureHandlerPackage(),
+                    new LinearGradientPackage(),
+                    new RNI18nPackage(),
+                    new UdpSocketsModule(),
+                    new RNMockLocationDetectorPackage(),
+                    new AndroidOpenSettingsPackage(),
+                    new JailMonkeyPackage(),
+                    new SvgPackage(),
+                    new RNSoundPackage(),
+                    new RNFSPackage(),
+                    new RNInstagramStorySharePackage(),
+                    new FBSDKPackage(mCallbackManager),
+                    new CookieManagerPackage(),
+                    new RNFetchBlobPackage(),
+                    new FastImageViewPackage(),
+                    new RNSharePackage(),
+                    new BackgroundGeolocationPackage(),
+                    new RNFirebasePackage(),
+                    new RNFirebaseCrashlyticsPackage(),
+                    new RNFirebaseAnalyticsPackage(),
+                    new RNFirebasePerformancePackage(),
+                    new RNFirebaseMessagingPackage(),
+                    new RNFirebaseNotificationsPackage(),
+                    new RNAndroidLocationEnablerPackage(),
+                    new RNCameraPackage(),
+                    new BackgroundTimerPackage(),
+                    new ImagePickerPackage(),
+                    new RNTextGradientPackage(),
+                    new VectorIconsPackage(),
+                    new RNRadialGradientPackage(),
+                    new RNBackgroundFetchPackage(),
+                    new MapsPackage()
             );
         }
 

@@ -1,7 +1,6 @@
 // prettier-ignore
 {
-    "workbench.sideBar.location": "right",
-    "workbench.iconTheme": "vscode-icons",
+    "workbench.iconTheme": "vs-seti",
     "editor.tabSize": 4,
     "editor.insertSpaces": true,
     "editor.detectIndentation": false,

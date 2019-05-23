@@ -1,33 +1,27 @@
-
-
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native'
 
 import { colors } from '../../../constants/colors'
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window')
 
 export default StyleSheet.create({
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        position: "absolute", 
-        top: 25, 
-        width: width,
-        height : 50
-    },
-    back_button : {
-        alignItems: 'center',
-        justifyContent: "center",
-        alignSelf: 'center',
-        width : 50,
-        height : 50
-    },
-    back_icon : {
-        color : colors.white,
-        fontSize: 30,
-    },
-    back_txt : {
-        color : colors.white,
-        fontSize: 18, 
-    }
-});
+	header: {
+		alignItems: 'center',
+		justifyContent: 'center',
+		flexDirection: 'row',
+		marginLeft: 16,
+	},
+	arrow: {
+		width: 16,
+		height: 16,
+		borderLeftWidth: 3,
+		borderLeftColor: '#fff',
+		borderTopWidth: 3,
+		borderTopColor: '#fff',
+		transform: [{ rotate: '-45deg' }],
+	},
+	back_txt: {
+		color: colors.white,
+		fontSize: 16,
+	},
+})

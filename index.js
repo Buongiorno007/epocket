@@ -34,11 +34,14 @@ const Navigator = createStackNavigator(
 		Cashout: { screen: require('@components/cashout/cashout').default },
 		Partners: { screen: require('@components/partners/partners').default },
 		RefillMobile: { screen: require('@components/refillMobile/refillMobile').default },
+		Login: { screen: require('@components/sign-in/login').default },
+		Registration: { screen: require('@components/sign-up/registration').default },
+		ConfirmCode: { screen: require('@components/confirmCode/confirmCode').default },
 	},
 	{
 		initialRouteName: 'Start',
 		defaultNavigationOptions: {
-			header: null,
+			headerTransparent: true,
 		},
 		navigationOptions: {
 			gesturesEnabled: false,

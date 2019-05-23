@@ -58,6 +58,8 @@ target 'EpocketCash' do
     pod 'react-native-webview', :path => '../node_modules/react-native-webview'
     pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
 
+  pod 'RNShare', :path => '../node_modules/react-native-share'
+
 end
 
 post_install do |installer|

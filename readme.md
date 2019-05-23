@@ -17,13 +17,17 @@ NOTATION: remove 'static' from 'static getDerivedStateFromProps'
 
 #EpocketCash
 cd ios && pod deintegrate && pod clean && pod install && cd ../
-remove libraries: {
-    react-native-referrer,
-    react-native-google-analytics-bridge,
-    react-native-custom-webview,
-    react-native-fabric,
-    react-native-imask,
-    react-native-qrcode-scanner
+
+maybe need remove :{
+  react-native-crypto,<---- NEED FOR react-native-randombytes
+  react-native-drawer,
+  react-native-easy-grid,
+  react-native-iphone-x-helper,
+  react-native-keyboard-aware-scroll-view,
+  react-native-safe-area-view,
+  react-native-screens,
+  react-native-tab-view,
+  react-native-udp
 }
 
 check update for remove: {
