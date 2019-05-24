@@ -1,16 +1,17 @@
 import React from 'react'
-import { View, Text, Keyboard, Platform } from 'react-native'
+import { View, Text, Platform, Image } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import { Button } from 'native-base'
 import LinearGradient from 'react-native-linear-gradient'
 import { AccessToken } from 'react-native-fbsdk'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 //containers
 import CustomButton from '../../containers/custom-button/custom-button'
 //constants
 import styles from './styles'
 //redux
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+
 import { setGameStatus } from '../../../reducers/game-status'
 import { setBalance } from '../../../reducers/user-balance'
 import { getConnection } from '../../../reducers/net-info'
@@ -38,14 +39,18 @@ import I18n from '@locales/I18n'
 import { setCountries } from '@reducers/countries'
 
 class Start extends React.Component {
-	state = {
-		enable_login: false,
+	componentDidMount = () => {
+		this.props.loaderState(true)
+		this.props.getConnection()
+		this.props.setSounds()
+		this.props.locationStateListener()
+		this.props.locationCoordsListener()
+		this.props.loadNTPDate()
+
+		this.props.updateRootStatus()
+		this._initialConfig()
 	}
 
-	constructor(props) {
-		super(props)
-		Keyboard.dismiss()
-	}
 	_getLocation = () => {
 		navigator.geolocation.getCurrentPosition(
 			(position) => {
@@ -60,35 +65,28 @@ class Start extends React.Component {
 			},
 		)
 	}
-	componentDidMount = () => {
-		this.props.getConnection()
-		this.props.setSounds()
-		this.props.locationStateListener()
-		this.props.locationCoordsListener()
-		this.props.loadNTPDate()
-		!this.props.game_info.game_array && this.props.setGameStatus('start')
-		this.props.updateRootStatus()
-		this._initialConfig()
-
+	getCountries() {
 		httpGet(urls.echo).then(
 			(result) => {
 				this.props.setCountries(result.body.c_list)
+				this.props.loaderState(false)
 			},
 			(error) => {
 				console.log(error, 'No server request')
+				this.props.loaderState(false)
 			},
 		)
 	}
 
 	_initialConfig = () => {
 		AsyncStorage.multiGet(
-			['insta_token', 'token', 'balance', 'facebook_token', 'geo_virgin', 'profile_virgin', 'game_status'],
+			// ['insta_token', 'token', 'balance', 'facebook_token', 'geo_virgin', 'profile_virgin', 'game_status'],
+			['insta_token', 'facebook_token', 'geo_virgin', 'profile_virgin', 'game_status', 'token'],
 			(err, stores) => {
-				stores.map((result, i, store) => {
-					this.props.loaderState(false)
+				stores.map((result) => {
 					// get at each store's key/value so you can work with it
-					let key = store[i][0]
-					let value = store[i][1]
+					let key = result[0]
+					let value = result[1]
 					switch (key) {
 						case 'insta_token': {
 							value && this.props.setInstaToken(value)
@@ -97,30 +95,6 @@ class Start extends React.Component {
 						case 'facebook_token': {
 							value && this.props.setFacebookToken(value)
 							value && Platform.OS === 'ios' && AccessToken.setCurrentAccessToken({ accessToken: value })
-							break
-						}
-						case 'token': {
-							if (value) {
-								this.props.setToken(value)
-								this._getLocation()
-								NavigationService.navigate('Main')
-								if (Platform.OS === 'ios') {
-									BackgroundGeolocationModule.ready(geo_config(), (state) => {
-										if (!state.enabled) {
-											BackgroundGeolocationModule.start(function() {})
-										}
-									})
-								} else {
-									BackgroundGeolocationModule.configure(geo_config())
-									BackgroundGeolocationModule.checkStatus((status) => {
-										if (!status.isRunning) {
-											BackgroundGeolocationModule.start()
-										}
-									})
-								}
-							} else {
-								this.setState({ enable_login: true })
-							}
 							break
 						}
 						case 'balance': {
@@ -136,7 +110,32 @@ class Start extends React.Component {
 							break
 						}
 						case 'game_status': {
-							value && this.props.setGameStatus(value)
+							value ? this.props.setGameStatus(value) : this.props.setGameStatus('Start')
+							break
+						}
+						case 'token': {
+							if (value) {
+								this.props.setToken(value)
+								this._getLocation()
+								if (Platform.OS === 'ios') {
+									BackgroundGeolocationModule.ready(geo_config(), (state) => {
+										if (!state.enabled) {
+											BackgroundGeolocationModule.start(function() {})
+										}
+									})
+								} else {
+									BackgroundGeolocationModule.configure(geo_config())
+									BackgroundGeolocationModule.checkStatus((status) => {
+										console.log(status, 'STATUS')
+										if (!status.isRunning) {
+											BackgroundGeolocationModule.start()
+										}
+									})
+								}
+								NavigationService.navigate('Main')
+							} else {
+								this.getCountries()
+							}
 							break
 						}
 					}
@@ -144,22 +143,23 @@ class Start extends React.Component {
 			},
 		)
 	}
+
+	//WILL BE DEPRECATED//
 	goToSignIn = () => {
 		this.props.loaderState(true)
 		NavigationService.navigate('SignIn')
 	}
-	// goToSignUp = () => {
-	// 	this.props.loaderState(true)
-	// 	NavigationService.navigate('SignUp')
-	// }
-	goToLogin = () => {
+	goToSignUp = () => {
 		this.props.loaderState(true)
-		NavigationService.navigate('Login')
+		NavigationService.navigate('SignUp')
 	}
-	goToRegistration = () => {
+	//WILL BE DEPRECATED//
+
+	goToSign = (value) => {
 		this.props.loaderState(true)
-		NavigationService.navigate('Registration')
+		NavigationService.navigate(value)
 	}
+
 	render() {
 		return (
 			<View style={styles.main_view}>
@@ -169,21 +169,21 @@ class Start extends React.Component {
 					end={{ x: 0.0, y: 1.0 }}
 					style={styles.grad}
 				/>
-
-				{/* {this.state.enable_login && ( */}
+				<Image source={require('@assets/img/brand.png')} />
 				<View style={styles.signup_signin_buttons}>
-					<CustomButton
-						style={styles.signup_button}
-						active
-						title={I18n.t('SIGN_UP_TITLE').toUpperCase()}
-						color={'#F55890'}
-						handler={() => this.goToSignUp()}
-					/>
-					<Button rounded block transparent style={styles.go_to_signin} onPress={() => this.goToSignIn()}>
-						<Text style={styles.go_to_signin_text}>{I18n.t('GO_TO_SIGNIN')}</Text>
-					</Button>
+					{/* <--//////////// WILL BE DEPRECATED ////////////--> */}
+					{true && (
+						<CustomButton //
+							style={styles.signup_button}
+							active
+							title={I18n.t('SIGN_UP_TITLE').toUpperCase()}
+							color={'#F55890'}
+							handler={() => this.goToSignUp()}
+						/>
+					)}
+					{/* <--//////////// WILL BE DEPRECATED ////////////--> */}
 
-					<Button style={styles.registration} onPress={() => this.goToRegistration()}>
+					<Button style={styles.registration} onPress={() => this.goToSign('Registration')}>
 						<LinearGradient
 							colors={['#FF9950', '#F55890']}
 							start={{ x: 0.0, y: 0.0 }}
@@ -192,7 +192,7 @@ class Start extends React.Component {
 						/>
 						<Text style={styles.registration_text}>{I18n.t('NEW_SIGN_UP_TITLE')}</Text>
 					</Button>
-					<Button style={styles.login} onPress={() => this.goToLogin()}>
+					<Button style={styles.login} onPress={() => this.goToSign('Login')}>
 						<Text style={styles.login_text}>{I18n.t('LOGIN')}</Text>
 					</Button>
 				</View>

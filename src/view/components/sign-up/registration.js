@@ -19,6 +19,14 @@ import { urls } from '@constants/urls'
 import I18n from '@locales/I18n'
 //style
 import styles from './style'
+//will be removed
+import { saveUser } from '../../../reducers/profile-state'
+import { getPush } from '../../../reducers/push'
+import { setColor } from '../../../reducers/user-color'
+import { setToken } from '../../../reducers/token'
+import { setBalance } from '../../../reducers/user-balance'
+import { setProfileVirgin } from '../../../reducers/profile-virgin'
+import { setGeoVirgin } from '../../../reducers/geo-virgin'
 
 class Registration extends React.Component {
 	static navigationOptions = () => ({
@@ -35,6 +43,7 @@ class Registration extends React.Component {
 		age: '',
 		notCorrect: false,
 		gender: 0,
+		user_id: '',
 	}
 
 	componentDidMount() {
@@ -42,25 +51,17 @@ class Registration extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
+		const { phoneNumber, code, name, age, gender } = this.state
 		if (
-			prevState.phoneNumber !== this.state.phoneNumber ||
-			prevState.code !== this.state.code ||
-			prevState.name !== this.state.name ||
-			prevState.age !== this.state.age ||
-			prevState.gender !== this.state.gender
+			prevState.phoneNumber !== phoneNumber ||
+			prevState.code !== code ||
+			prevState.name !== name ||
+			prevState.age !== age ||
+			prevState.gender !== gender
 		) {
-			this.setState({ acceptButton: this.fieldsValue() })
+			const check = phoneNumber.length === 12 && code && name.length >= 2 && age && gender
+			this.setState({ acceptButton: check })
 		}
-	}
-
-	fieldsValue() {
-		return this.state.phoneNumber.length === 12 &&
-			this.state.code &&
-			this.state.name.length >= 2 &&
-			this.state.age &&
-			this.state.gender
-			? true
-			: false
 	}
 
 	newRegister = () => {
@@ -87,20 +88,52 @@ class Registration extends React.Component {
 	}
 
 	addTextFirstName = (value) => {
-		this.setState({
-			name: value,
-		})
+		let Reg61 = /^.*[^A-zА-яЁё].*$/
+		if (Reg61.test(value)) {
+			console.log('Not only letters')
+		} else {
+			this.setState({
+				name: value,
+			})
+		}
 	}
 
-	restrict = (event) => {
-		const regex = new RegExp('/^[^!-\\/:-@\\[-`{-~]+$/;')
-
-		const key = String.fromCharCode(!event.charCode ? event.which : event.charCode)
-
-		if (!regex.test(key)) {
-			event.preventDefault()
-			return false
+	whileNoCodeConfirm() {
+		this.props.loaderState(true)
+		const { code, phoneNumber, name, age, gender, user_id } = this.state
+		const body = {
+			phone: '+' + `${code}${phoneNumber}`.replace(/\D/g, ''),
+			code: '123456',
+			name: name,
+			user_id: user_id,
+			age: age,
+			gender: gender - 1,
 		}
+		httpPost(urls.sign_up_confirm, JSON.stringify(body)).then(
+			(result) => {
+				const new_user = {
+					name: name,
+					phone: body.phone,
+					balance: 0,
+					sex: gender - 1,
+					birthDay: age,
+					currency: result.body.currency,
+				}
+				this.props.saveUser(new_user)
+				this.props.setToken(result.body.token)
+				this.props.setBalance(0)
+				this.props.setColor(new_user.sex)
+				this.props.getPush(result.body.token)
+				this.props.setGeoVirgin(true)
+				this.props.setProfileVirgin(true)
+				NavigationService.navigate('Main')
+			},
+			(error) => {
+				this.props.loaderState(false)
+				this.setState({ notCorrect: true })
+				console.log(error, 'LOGIN ERROR')
+			},
+		)
 	}
 
 	render() {
@@ -139,12 +172,10 @@ class Registration extends React.Component {
 						<View style={styles.fullWidth}>
 							<TextInput
 								value={this.state.name}
-								// onChangeText={(value) => this.setState({ name: value })}
 								placeholder={I18n.t('SIGN.FIRST_SECOND_NAME')}
 								style={styles.textInput}
 								placeholderTextColor={'#fff'}
 								onFocus={() => this.setState({ notCorrect: false })}
-								onKeyPress={(e) => this.restrict(e)}
 								onChangeText={(value) => this.addTextFirstName(value)}
 							/>
 						</View>
@@ -182,7 +213,8 @@ class Registration extends React.Component {
 						<CustomButton
 							color={this.state.acceptButton ? this.props.userColor.pink : this.props.userColor.white}
 							handler={() => {
-								this.newRegister()
+								// this.newRegister()
+								this.whileNoCodeConfirm()
 							}}
 							active={this.state.acceptButton}
 							title={I18n.t('SIGN_UP').toUpperCase()}
@@ -203,6 +235,13 @@ const mapDispatchToProps = (dispatch) =>
 	bindActionCreators(
 		{
 			loaderState,
+			getPush,
+			saveUser,
+			setColor,
+			setToken,
+			setBalance,
+			setProfileVirgin,
+			setGeoVirgin,
 		},
 		dispatch,
 	)
