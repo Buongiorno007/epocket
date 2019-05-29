@@ -38,6 +38,7 @@ const Navigator = createStackNavigator(
 		Registration: { screen: require('@components/sign-up/registration').default },
 		ConfirmCode: { screen: require('@components/confirmCode/confirmCode').default },
 		CatCode: { screen: require('@components/catCode/catCode').default },
+		ProfEdit: { screen: require('@components/profile-edit/profileEdit').default },
 	},
 	{
 		initialRouteName: 'Start',

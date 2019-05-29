@@ -55,13 +55,10 @@ class Main extends React.Component {
 	}
 	_handleAppStateChange = (nextAppState) => {
 		if (nextAppState === 'active') {
-			this.props.loadNTPDate()
 			this.props.loaderState(true)
+			this.props.loadNTPDate()
 			this.props.updateRootStatus()
-			setTimeout(() => {
-				this.props.updateRootStatus()
-			}, 5000)
-			console.log('test')
+			this.props.loaderState(false)
 		}
 	}
 	renderLastTab() {

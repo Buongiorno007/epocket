@@ -28,6 +28,8 @@ import styles from './styles'
 
 ///////////////
 import I18n from '@locales/I18n'
+import { httpPost } from '@services/http'
+import { urls } from '@constants/urls'
 
 class confirmCode extends React.Component {
 	interval
@@ -85,10 +87,18 @@ class confirmCode extends React.Component {
 
 	sendCodeAgain() {
 		if (!this.state.seconds) {
-			//HERE WILL BE CODE SEND AGAIN
-			this.setState({ seconds: 60 })
-			this.startInterval()
-			console.log('CODE SEND')
+			this.props.loaderState(true)
+			httpPost(urls.re_send_code, JSON.stringify({ phone: this.state.phoneNumber })).then(
+				(result) => {
+					this.setState({ seconds: 60 })
+					this.startInterval()
+					this.props.loaderState(false)
+				},
+				(error) => {
+					this.props.loaderState(false)
+					console.log(error, 'ERROR')
+				},
+			)
 		}
 	}
 
@@ -126,9 +136,9 @@ class confirmCode extends React.Component {
 							<Text style={[styles.resendText, !this.state.seconds ? styles.resendTextActive : null]}>
 								{I18n.t('SIGN.SEND_AGAIN')}
 							</Text>
-							{this.state.seconds && (
+							{this.state.seconds !== 0 && (
 								<View style={styles.timerView}>
-									<Text style={styles.timer}>{this.state.seconds}</Text>
+									<Text style={styles.timer}>{`${this.state.seconds}`}</Text>
 								</View>
 							)}
 						</TouchableOpacity>

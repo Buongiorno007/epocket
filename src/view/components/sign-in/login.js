@@ -19,6 +19,17 @@ import { urls } from '@constants/urls'
 import I18n from '@locales/I18n'
 //style
 import styles from './style'
+//will be removed
+import { saveUser } from '../../../reducers/profile-state'
+import { getPush } from '../../../reducers/push'
+import { setColor } from '../../../reducers/user-color'
+import { setToken } from '../../../reducers/token'
+import { setBalance } from '../../../reducers/user-balance'
+import { setProfileVirgin } from '../../../reducers/profile-virgin'
+import { setGeoVirgin } from '../../../reducers/geo-virgin'
+import { setInstaToken } from '../../../reducers/insta-token'
+import { setFacebookToken } from '../../../reducers/facebook-token'
+import { toAge } from '@services/converteDate'
 
 class Login extends React.Component {
 	static navigationOptions = () => ({
@@ -36,6 +47,14 @@ class Login extends React.Component {
 
 	componentDidMount() {
 		this.props.loaderState(false)
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (prevState.phoneNumber !== this.state.phoneNumber || prevState.code !== this.state.code) {
+			this.state.phoneNumber.length === 12 && this.state.code
+				? this.setState({ acceptButton: true })
+				: this.setState({ acceptButton: false })
+		}
 	}
 
 	newLogin = () => {
@@ -58,12 +77,37 @@ class Login extends React.Component {
 		)
 	}
 
-	componentDidUpdate(prevProps, prevState) {
-		if (prevState.phoneNumber !== this.state.phoneNumber || prevState.code !== this.state.code) {
-			this.state.phoneNumber.length === 12 && this.state.code
-				? this.setState({ acceptButton: true })
-				: this.setState({ acceptButton: false })
+	whileNoCodeConfirm = () => {
+		this.props.loaderState(true)
+		let body = {
+			phone: '+' + `${this.state.code}${this.state.phoneNumber}`.replace(/\D/g, ''),
+			code: '123456',
 		}
+		httpPost(urls.sing_in_confirm, JSON.stringify(body)).then(
+			(result) => {
+				const user_info = {
+					name: result.body.user,
+					phone: body.phone,
+					photo: result.body.photo,
+					sex: result.body.sex ? 1 : 0,
+					birthDay: toAge(result.body.birthDay),
+					currency: I18n.locale === 'en' ? result.body.currency : result.body.currency_plural,
+				}
+				console.log(result, 'LOGIN RESULT')
+				this.props.getPush(result.body.token)
+				this.props.saveUser(user_info)
+				this.props.setColor(user_info.sex)
+				this.props.setToken(result.body.token)
+				this.props.setBalance(result.body.balance)
+				// this.props.setProfileVirgin(result.body.profile_virgin)
+				// this.props.setGeoVirgin(result.body.geo_virgin)
+				NavigationService.navigate('Main')
+			},
+			(error) => {
+				this.props.loaderState(false)
+				console.log(error, 'LOGIN ERROR')
+			},
+		)
 	}
 
 	render() {
@@ -99,7 +143,8 @@ class Login extends React.Component {
 						<CustomButton
 							color={this.state.acceptButton ? this.props.userColor.pink : this.props.userColor.white}
 							handler={() => {
-								this.newLogin()
+								// this.newLogin()
+								this.whileNoCodeConfirm()
 							}}
 							active={this.state.acceptButton}
 							title={I18n.t('SIGN_IN').toUpperCase()}
@@ -120,6 +165,15 @@ const mapDispatchToProps = (dispatch) =>
 	bindActionCreators(
 		{
 			loaderState,
+			getPush,
+			saveUser,
+			setColor,
+			setToken,
+			setBalance,
+			setProfileVirgin,
+			setGeoVirgin,
+			setFacebookToken,
+			setInstaToken,
 		},
 		dispatch,
 	)

@@ -9,6 +9,7 @@ export default StyleSheet.create({
 		height: height,
 		width: width,
 		alignItems: 'center',
+		justifyContent: 'center',
 	},
 	grad: {
 		position: 'absolute',

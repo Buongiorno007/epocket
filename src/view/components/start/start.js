@@ -1,31 +1,27 @@
 import React from 'react'
-import { View, Text, Keyboard, Platform } from 'react-native'
+import { View, Text, Platform, Image } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import { Button } from 'native-base'
 import LinearGradient from 'react-native-linear-gradient'
 import { AccessToken } from 'react-native-fbsdk'
-//containers
-import CustomButton from '../../containers/custom-button/custom-button'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 //constants
 import styles from './styles'
 //redux
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { setGameStatus } from '../../../reducers/game-status'
 import { setBalance } from '../../../reducers/user-balance'
 import { getConnection } from '../../../reducers/net-info'
 import { setSounds } from '../../../reducers/sounds'
 import { loaderState } from '../../../reducers/loader'
-import { setGeoVirgin } from '../../../reducers/geo-virgin'
 import { getPush } from '../../../reducers/push'
-import { setFacebookToken } from '../../../reducers/facebook-token'
-import { setProfileVirgin } from '../../../reducers/profile-virgin'
 import { updateRootStatus } from '../../../reducers/root-status'
 import { loadNTPDate } from '../../../reducers/date-abuse-status'
 import { locationStateListener, locationState } from '../../../reducers/geolocation-status'
 import { locationCoordsListener, setLocation } from '../../../reducers/geolocation-coords'
 import { setToken } from '../../../reducers/token'
-import { setInstaToken } from '../../../reducers/insta-token'
+import { saveUser } from '../../../reducers/profile-state'
+import { setCountries } from '@reducers/countries'
 //services
 import geo_config from './geolocation-config'
 import NavigationService from '../../../services/route'
@@ -33,19 +29,22 @@ import BackgroundGeolocationModule from '../../../services/background-geolocatio
 //constants
 import { urls } from '../../../constants/urls'
 // import { sendToTelegramm } from '../../../services/telegramm-notification';
-import { httpGet } from '../../../services/http'
+import { httpGet, httpPost } from '../../../services/http'
 import I18n from '@locales/I18n'
-import { setCountries } from '@reducers/countries'
+import { toAge } from '@services/converteDate'
 
 class Start extends React.Component {
-	state = {
-		enable_login: false,
+	componentDidMount = () => {
+		this.props.loaderState(true)
+		this.props.getConnection()
+		this.props.setSounds()
+		this.props.locationStateListener()
+		this.props.locationCoordsListener()
+		this.props.loadNTPDate()
+		this.props.updateRootStatus()
+		this._initialConfig()
 	}
 
-	constructor(props) {
-		super(props)
-		Keyboard.dismiss()
-	}
 	_getLocation = () => {
 		navigator.geolocation.getCurrentPosition(
 			(position) => {
@@ -60,106 +59,87 @@ class Start extends React.Component {
 			},
 		)
 	}
-	componentDidMount = () => {
-		this.props.getConnection()
-		this.props.setSounds()
-		this.props.locationStateListener()
-		this.props.locationCoordsListener()
-		this.props.loadNTPDate()
-		!this.props.game_info.game_array && this.props.setGameStatus('start')
-		this.props.updateRootStatus()
-		this._initialConfig()
-
+	getCountries() {
 		httpGet(urls.echo).then(
 			(result) => {
 				this.props.setCountries(result.body.c_list)
+				this.props.loaderState(false)
 			},
 			(error) => {
 				console.log(error, 'No server request')
+				this.props.loaderState(false)
 			},
 		)
 	}
 
+	saveData = (data) => {
+		const user = {
+			name: data.user_name,
+			phone: data.user_phone,
+			photo: data.photo,
+			sex: data.sex ? 1 : 0,
+			currency: I18n.locale === 'ru' ? data.currency_plural : data.currency,
+			birthDay: toAge(data.birth_day),
+		}
+		this.props.saveUser(user)
+		this.props.setBalance(Number(data.balance))
+		NavigationService.navigate('Main')
+	}
+
 	_initialConfig = () => {
-		AsyncStorage.multiGet(
-			['insta_token', 'token', 'balance', 'facebook_token', 'geo_virgin', 'profile_virgin', 'game_status'],
-			(err, stores) => {
-				stores.map((result, i, store) => {
-					this.props.loaderState(false)
-					// get at each store's key/value so you can work with it
-					let key = store[i][0]
-					let value = store[i][1]
-					switch (key) {
-						case 'insta_token': {
-							value && this.props.setInstaToken(value)
-							break
-						}
-						case 'facebook_token': {
-							value && this.props.setFacebookToken(value)
-							value && Platform.OS === 'ios' && AccessToken.setCurrentAccessToken({ accessToken: value })
-							break
-						}
-						case 'token': {
-							if (value) {
-								this.props.setToken(value)
-								this._getLocation()
-								NavigationService.navigate('Main')
-								if (Platform.OS === 'ios') {
-									BackgroundGeolocationModule.ready(geo_config(), (state) => {
-										if (!state.enabled) {
-											BackgroundGeolocationModule.start(function() {})
-										}
-									})
-								} else {
-									BackgroundGeolocationModule.configure(geo_config())
-									BackgroundGeolocationModule.checkStatus((status) => {
-										if (!status.isRunning) {
-											BackgroundGeolocationModule.start()
-										}
-									})
-								}
-							} else {
-								this.setState({ enable_login: true })
-							}
-							break
-						}
-						case 'balance': {
-							value && this.props.setBalance(Number(value))
-							break
-						}
-						case 'geo_virgin': {
-							value && this.props.setGeoVirgin(value)
-							break
-						}
-						case 'profile_virgin': {
-							value && this.props.setProfileVirgin(value)
-							break
-						}
-						case 'game_status': {
-							value && this.props.setGameStatus(value)
-							break
-						}
+		AsyncStorage.multiGet(['game_status', 'token'], (err, stores) => {
+			stores.map((result) => {
+				let key = result[0]
+				let value = result[1]
+				switch (key) {
+					case 'game_status': {
+						value ? this.props.setGameStatus(value) : this.props.setGameStatus('start')
+						break
 					}
-				})
-			},
-		)
+					case 'token': {
+						if (value) {
+							if (Platform.OS === 'ios') {
+								BackgroundGeolocationModule.ready(geo_config(), (state) => {
+									if (!state.enabled) {
+										BackgroundGeolocationModule.start(function() {})
+									}
+								})
+							} else {
+								BackgroundGeolocationModule.configure(geo_config())
+								BackgroundGeolocationModule.checkStatus((status) => {
+									if (!status.isRunning) {
+										BackgroundGeolocationModule.start()
+									}
+								})
+							}
+							httpPost(urls.get_user, JSON.stringify({}), value).then(
+								(result) => {
+									console.log(result.body, 'START SIGNIN')
+									this.props.setToken(value)
+									this.props.getPush(value)
+									this._getLocation()
+									this.saveData(result.body)
+								},
+								(error) => {
+									console.log(error, 'ERROR')
+									this.getCountries()
+								},
+							)
+						} else {
+							this.getCountries()
+						}
+						break
+					}
+				}
+			})
+		})
 	}
-	goToSignIn = () => {
+
+	goToSign = (value) => {
 		this.props.loaderState(true)
-		NavigationService.navigate('SignIn')
+		NavigationService.navigate(value)
 	}
-	// goToSignUp = () => {
-	// 	this.props.loaderState(true)
-	// 	NavigationService.navigate('SignUp')
-	// }
-	goToLogin = () => {
-		this.props.loaderState(true)
-		NavigationService.navigate('Login')
-	}
-	goToRegistration = () => {
-		this.props.loaderState(true)
-		NavigationService.navigate('Registration')
-	}
+
 	render() {
 		return (
 			<View style={styles.main_view}>
@@ -169,21 +149,9 @@ class Start extends React.Component {
 					end={{ x: 0.0, y: 1.0 }}
 					style={styles.grad}
 				/>
-
-				{/* {this.state.enable_login && ( */}
+				<Image source={require('@assets/img/brand.png')} />
 				<View style={styles.signup_signin_buttons}>
-					<CustomButton
-						style={styles.signup_button}
-						active
-						title={I18n.t('SIGN_UP_TITLE').toUpperCase()}
-						color={'#F55890'}
-						handler={() => this.goToSignUp()}
-					/>
-					<Button rounded block transparent style={styles.go_to_signin} onPress={() => this.goToSignIn()}>
-						<Text style={styles.go_to_signin_text}>{I18n.t('GO_TO_SIGNIN')}</Text>
-					</Button>
-
-					<Button style={styles.registration} onPress={() => this.goToRegistration()}>
+					<Button style={styles.registration} onPress={() => this.goToSign('Registration')}>
 						<LinearGradient
 							colors={['#FF9950', '#F55890']}
 							start={{ x: 0.0, y: 0.0 }}
@@ -192,7 +160,7 @@ class Start extends React.Component {
 						/>
 						<Text style={styles.registration_text}>{I18n.t('NEW_SIGN_UP_TITLE')}</Text>
 					</Button>
-					<Button style={styles.login} onPress={() => this.goToLogin()}>
+					<Button style={styles.login} onPress={() => this.goToSign('Login')}>
 						<Text style={styles.login_text}>{I18n.t('LOGIN')}</Text>
 					</Button>
 				</View>
@@ -201,10 +169,7 @@ class Start extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => ({
-	token: state.token,
-	game_info: state.game_info,
-})
+const mapStateToProps = (state) => ({})
 
 const mapDispatchToProps = (dispatch) =>
 	bindActionCreators(
@@ -215,18 +180,15 @@ const mapDispatchToProps = (dispatch) =>
 			locationStateListener,
 			locationCoordsListener,
 			setToken,
-			setInstaToken,
-			setFacebookToken,
-			setGeoVirgin,
 			setBalance,
 			loaderState,
 			getPush,
-			setProfileVirgin,
 			setSounds,
 			updateRootStatus,
 			loadNTPDate,
 			setGameStatus,
 			setCountries,
+			saveUser,
 		},
 		dispatch,
 	)
