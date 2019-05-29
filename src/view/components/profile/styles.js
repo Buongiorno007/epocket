@@ -27,7 +27,6 @@ export default StyleSheet.create({
 	settings_btn: {
 		height: 50,
 		width: 50,
-		backgroundColor: 'yellow',
 		alignSelf: 'flex-end',
 	},
 	settings_img: {

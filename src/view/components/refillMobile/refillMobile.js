@@ -16,141 +16,116 @@ import NavigationService from './../../../services/route'
 import { httpPost } from '../../../services/http'
 import { urls } from '../../../constants/urls'
 import I18n from '@locales/I18n'
+import AndroidHeader from '@containers/androidHeader/androidHeader'
+import BackButton from '@containers/back/back'
 
 class RefillMobile extends React.Component {
-	constructor(props) {
-		super(props)
-	}
+	static navigationOptions = () => ({
+		headerLeft: <BackButton title={I18n.t('BACK')} route='Main' />,
+		title: I18n.t('REFILL_SCREEN'),
+		headerStyle: styles.headerBackground,
+		headerTitleStyle: styles.headerTitle,
+	})
 	state = {
-		currency: '',
 		amount: '',
 		done: false,
-		maxValue: 0,
+		currency: '',
 		phone: '',
+		maxValue: 0,
+		minValue: 0,
+		tax: 0,
+		currentValue: 0,
 	}
 	navigateBack = () => {
-		// this.props.navigation.goBack();
 		NavigationService.navigate('Main')
 	}
 	componentDidMount = () => {
 		this.props.loaderState(true)
+		const { currency, phone, maxValue, minValue, tax, currentValue } = this.props.navigation.state.params
 		this.setState({
-			currency: this.props.navigation.state.params.currency || 'грн',
-			maxValue: this.props.navigation.state.params.maxValue || 0,
-			phone: this.props.navigation.state.params.phone || '',
+			currency: currency || 'грн',
+			phone: phone || '',
+			maxValue: maxValue || 0,
+			minValue: minValue || 0,
+			tax: tax || 0,
+			currentValue: currentValue || 0,
 		})
 		this.props.loaderState(false)
 	}
 
 	firstScreen() {
 		return (
-			<LinearGradient
-				colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
-				start={{ x: 0.0, y: 1.0 }}
-				end={{ x: 1.0, y: 1.0 }}
-				style={styles.grad}
+			<ScrollView
+				scrollEnabled={false}
+				keyboardShouldPersistTaps={'handled'}
+				//   style={styles.scrollView}
+				contentContainerStyle={styles.scrollView}
 			>
-				<Button transparent onPress={() => this.navigateBack()} style={styles.navigation_item}>
-					<FastImage
-						resizeMode={FastImage.resizeMode.contain}
-						style={styles.icon}
-						source={{ uri: ICONS.COMMON.NAVIGATE_BACK }}
-					/>
-					<Text style={styles.back}>{I18n.t('HISTORY')}</Text>
+				<View>
+					<Text style={styles.header}>{'Пополнение вашего мобильного'}</Text>
+				</View>
+				<View>
+					<Text style={styles.subHead}>{'Введите сумму пополнения'}</Text>
+				</View>
+				<TextInput
+					style={styles.input}
+					keyboardType='numeric'
+					onChangeText={(amount) => this.handleChange(amount)}
+					value={this.state.amount}
+					maxLength={`${this.state.maxValue}`.length}
+				/>
+				<View>
+					<Text style={styles.subHead2}>
+						{`Максимальная сумма пополнения ${this.state.maxValue} ${this.state.currency}`}
+					</Text>
+					<Text style={styles.subHead2}>
+						{`Минимальная сумма пополнения ${this.state.minValue} ${this.state.currency}`}
+					</Text>
+					<Text style={styles.subHead2}>{`Комиссия ${this.state.tax} ${this.state.currency}`}</Text>
+				</View>
+
+				<Button
+					rounded
+					block
+					style={styles.button}
+					onPress={() => {
+						this.checkValidation()
+					}}
+				>
+					<Text style={[styles.buttonText, { color: this.props.userColor.second_gradient_color }]}>
+						{I18n.t('ACCEPT')}
+					</Text>
 				</Button>
-
-				<KeyboardAvoidingView behavior='padding' style={styles.avoiding} enabled>
-					<ScrollView
-						scrollEnabled={false}
-						keyboardShouldPersistTaps={'handled'}
-						//   style={styles.scrollView}
-						contentContainerStyle={styles.scrollView}
-					>
-						<View>
-							<Text style={styles.header}>{'Пополнение вашего мобильного'}</Text>
-						</View>
-						<View>
-							<Text style={styles.subHead}>{'Введите сумму пополнения'}</Text>
-						</View>
-						<TextInput
-							style={styles.input}
-							keyboardType='numeric'
-							onChangeText={(amount) => this.handleChange(amount)}
-							value={this.state.amount}
-							maxLength={`${this.state.maxValue}`.length}
-						/>
-						<View>
-							<Text style={styles.subHead2}>
-								{`Максимальная сумма пополнения ${this.state.maxValue} ${this.state.currency}`}
-							</Text>
-						</View>
-
-						<Button
-							rounded
-							block
-							style={styles.button}
-							onPress={() => {
-								this.checkValidation()
-							}}
-						>
-							<Text style={[styles.buttonText, { color: this.props.userColor.second_gradient_color }]}>
-								{I18n.t('ACCEPT')}
-							</Text>
-						</Button>
-					</ScrollView>
-				</KeyboardAvoidingView>
-			</LinearGradient>
+			</ScrollView>
 		)
 	}
 
 	doneScreen() {
 		return (
-			<LinearGradient
-				colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
-				start={{ x: 0.0, y: 1.0 }}
-				end={{ x: 1.0, y: 1.0 }}
-				style={styles.grad}
-			>
-				<View style={styles.scrollView}>
-					<Text style={styles.header}>{'Спасибо'}</Text>
-					<Text style={styles.successText}>{`Ваш счет скоро будет пополнен \n ${this.state.phone}`}</Text>
-					<Button
-						rounded
-						block
-						style={styles.button}
-						onPress={() => {
-							this.navigateBack()
-						}}
-					>
-						<Text style={[styles.buttonText, { color: this.props.userColor.second_gradient_color }]}>
-							{I18n.t('OK')}
-						</Text>
-					</Button>
-				</View>
-			</LinearGradient>
+			<View style={styles.scrollView}>
+				<Text style={styles.header}>{'Спасибо'}</Text>
+				<Text style={styles.successText}>{`Ваш счет скоро будет пополнен \n ${this.state.phone}`}</Text>
+				<Button
+					rounded
+					block
+					style={styles.button}
+					onPress={() => {
+						this.navigateBack()
+					}}
+				>
+					<Text style={[styles.buttonText, { color: this.props.userColor.second_gradient_color }]}>
+						{I18n.t('OK')}
+					</Text>
+				</Button>
+			</View>
 		)
 	}
 
 	noMoneyScreen() {
 		return (
-			<LinearGradient
-				colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
-				start={{ x: 0.0, y: 1.0 }}
-				end={{ x: 1.0, y: 1.0 }}
-				style={styles.grad}
-			>
-				<Button transparent onPress={() => this.navigateBack()} style={styles.navigation_item}>
-					<FastImage
-						resizeMode={FastImage.resizeMode.contain}
-						style={styles.icon}
-						source={{ uri: ICONS.COMMON.NAVIGATE_BACK }}
-					/>
-					<Text style={styles.back}>{I18n.t('HISTORY')}</Text>
-				</Button>
-				<View style={styles.scrollView}>
-					<Text style={styles.noMoney}>{'Ваш лимит пополнения в этом месяце исчерпан'}</Text>
-				</View>
-			</LinearGradient>
+			<View style={styles.scrollView}>
+				<Text style={styles.noMoney}>{'Ваш лимит пополнения в этом месяце исчерпан'}</Text>
+			</View>
 		)
 	}
 
@@ -162,13 +137,33 @@ class RefillMobile extends React.Component {
 		}
 	}
 
+	checkSend(amount, maxValue, minValue, tax, currentValue) {
+		const obj = { status: false, msg: '' }
+		if (Number(amount) >= minValue) {
+			if (Number(amount) <= tax + currentValue) {
+				if (Number(amount) <= maxValue) {
+					obj.status = true
+				} else {
+					obj.msg = `Max value ${maxValue}`
+				}
+			} else {
+				obj.msg = `Not enpugh bonuses ${currentValue}`
+			}
+		} else {
+			obj.msg = `Min refill amount ${minValue}`
+		}
+		return obj
+	}
+
 	checkValidation() {
-		this.props.loaderState(true)
-		Keyboard.dismiss()
-		if (Number(this.state.amount) <= this.state.maxValue) {
+		const { amount, maxValue, minValue, tax, currentValue } = this.state
+		const tempObject = this.checkSend(amount, maxValue, minValue, tax, currentValue)
+
+		if (tempObject.status) {
+			this.props.loaderState(true)
 			let body = {
 				type: 'true',
-				amount: this.state.amount,
+				amount: amount,
 			}
 			httpPost(urls.refill_mobile, JSON.stringify(body), this.props.token).then(
 				(result) => {
@@ -177,13 +172,14 @@ class RefillMobile extends React.Component {
 					this.props.setBalance(result.body.user_wallet_amount)
 				},
 				(error) => {
-					Alert.alert(`code: ${error.code}`, '', [{ text: 'OK', onPress: () => {} }], { cancelable: false })
+					Alert.alert(`code: ${error.code}`, '', [{ text: 'OK', onPress: () => {} }], {
+						cancelable: false,
+					})
 					this.props.loaderState(false)
 				},
 			)
 		} else {
-			this.props.loaderState(false)
-			Alert.alert(`Max value ${this.state.maxValue}`, '', [{ text: 'OK', onPress: () => {} }], {
+			Alert.alert(tempObject.msg, '', [{ text: 'OK', onPress: () => {} }], {
 				cancelable: false,
 			})
 		}
@@ -191,13 +187,21 @@ class RefillMobile extends React.Component {
 
 	render() {
 		return (
-			<View style={styles.container}>
-				{this.state.maxValue
-					? !this.state.done
-						? this.firstScreen()
-						: this.doneScreen()
-					: this.noMoneyScreen()}
-			</View>
+			<LinearGradient
+				colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
+				start={{ x: 1.0, y: 0.0 }}
+				end={{ x: 0.0, y: 1.0 }}
+				style={styles.container}
+			>
+				<AndroidHeader route='Main' title={I18n.t('REFILL_SCREEN')} />
+				<KeyboardAvoidingView behavior='padding' style={styles.grad}>
+					{this.state.maxValue
+						? !this.state.done
+							? this.firstScreen()
+							: this.doneScreen()
+						: this.noMoneyScreen()}
+				</KeyboardAvoidingView>
+			</LinearGradient>
 		)
 	}
 }
@@ -208,6 +212,7 @@ const mapStateToProps = (state) => {
 		token: state.token,
 		location: state.location,
 		loader: state.loader,
+		profileState: state.profileState,
 	}
 }
 

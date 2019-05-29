@@ -80,7 +80,7 @@ class ProfEdit extends React.Component {
 	}
 
 	addTextFirstName = (value) => {
-		let Reg61 = /^.*[^A-zА-яЁё].*$/
+		let Reg61 = /^.*[^A-zА-яЁё ].*$/
 		if (Reg61.test(value)) {
 			console.log('Not only letters')
 		} else {
