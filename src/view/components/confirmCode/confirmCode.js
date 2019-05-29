@@ -30,6 +30,8 @@ import styles from './styles'
 import I18n from '@locales/I18n'
 import { httpPost } from '@services/http'
 import { urls } from '@constants/urls'
+import { ICONS } from '@constants/icons'
+import BackgroundTimer from 'react-native-background-timer'
 
 class confirmCode extends React.Component {
 	interval
@@ -47,42 +49,47 @@ class confirmCode extends React.Component {
 		phoneNumber: '',
 		name: '',
 		gender: '',
-		date: new Date(),
+		date: '',
+		route: '',
 	}
 
 	componentDidMount() {
 		const { params } = this.props.navigation.state
-		const timeStamp = new Date().getTime() - params.age * 31536000000 || new Date().getTime()
 		this.setState({
 			phoneNumber: params.phone || '',
 			name: params.name || '',
 			gender: params.gender || '',
-			date: new Date(timeStamp),
+			age: params.age || '',
+			route: params.back === 'Registration' ? true : false,
 		})
 		this.startInterval()
 		this.props.loaderState(false)
 	}
 
+	componentWillUnmount() {
+		BackgroundTimer.stopBackgroundTimer()
+	}
+
 	componentDidUpdate(prevProps, prevState) {
 		if (prevState.confirmCode !== this.state.confirmCode) {
-			this.state.confirmCode.length === 6
-				? this.setState({ acceptButton: true })
-				: this.setState({ acceptButton: false })
+			this.setState({ acceptButton: this.state.confirmCode.length === 6 })
 		}
 	}
 
-	componentWillUnmount() {
-		clearInterval(this.interval)
-	}
-
-	startInterval() {
-		this.interval = setInterval(() => {
+	startInterval = () => {
+		BackgroundTimer.runBackgroundTimer(() => {
 			if (this.state.seconds) {
 				this.setState({ seconds: this.state.seconds - 1 })
 			} else {
-				clearInterval(this.interval)
+				BackgroundTimer.stopBackgroundTimer()
 			}
 		}, 1000)
+	}
+
+	restartInterval = () => {
+		this.setState({ seconds: 60 })
+		BackgroundTimer.stopBackgroundTimer()
+		this.startInterval()
 	}
 
 	sendCodeAgain() {
@@ -90,8 +97,7 @@ class confirmCode extends React.Component {
 			this.props.loaderState(true)
 			httpPost(urls.re_send_code, JSON.stringify({ phone: this.state.phoneNumber })).then(
 				(result) => {
-					this.setState({ seconds: 60 })
-					this.startInterval()
+					this.restartInterval()
 					this.props.loaderState(false)
 				},
 				(error) => {
@@ -104,12 +110,14 @@ class confirmCode extends React.Component {
 
 	sendResult() {
 		this.props.loaderState(true)
-		let body = {
+		const body = {
 			phone: this.state.phoneNumber,
-			confirmCode: this.state.confirmCode,
-			birthday: this.state.date,
+			code: this.state.code,
 			name: this.state.name,
-			gender: this.state.gender,
+			user_id: this.state.user_id,
+			birth_year: this.state.age,
+			sex: this.state.gender,
+			photo: 'data:image/png;base64,' + ICONS.TEST.SHOE_PHOTO,
 		}
 		NavigationService.navigate('CatCode')
 	}

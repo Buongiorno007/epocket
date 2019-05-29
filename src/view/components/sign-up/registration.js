@@ -75,7 +75,7 @@ class Registration extends React.Component {
 					title: I18n.t('SIGN_UP_TITLE'),
 					phone: body.phone,
 					name: this.state.name,
-					gender: `${this.state.gender - 1}`,
+					gender: this.state.gender,
 					age: this.state.age,
 				})
 			},
@@ -109,7 +109,6 @@ class Registration extends React.Component {
 			sex: `${gender - 1}`,
 			photo: 'data:image/png;base64,' + ICONS.TEST.SHOE_PHOTO,
 		}
-		console.log(body, 'BODYYY')
 		httpPost(urls.sign_up_confirm, JSON.stringify(body)).then(
 			(result) => {
 				const new_user = {
@@ -120,7 +119,6 @@ class Registration extends React.Component {
 					currency: I18n.locale === 'en' ? result.body.currency : result.body.currency_plural,
 					photo: ICONS.TEST.SHOE_PHOTO,
 				}
-				console.log(new_user, 'NEW USER REGISTRATION')
 				this.props.saveUser(new_user)
 				this.props.setToken(result.body.token)
 				this.props.setBalance(0)

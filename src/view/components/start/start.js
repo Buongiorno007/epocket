@@ -158,10 +158,10 @@ class Start extends React.Component {
 							end={{ x: 1.0, y: 0.0 }}
 							style={styles.registration}
 						/>
-						<Text style={styles.registration_text}>{I18n.t('NEW_SIGN_UP_TITLE')}</Text>
+						<Text style={styles.registration_text}>{I18n.t('SIGN_UP_TITLE').toUpperCase()}</Text>
 					</Button>
 					<Button style={styles.login} onPress={() => this.goToSign('Login')}>
-						<Text style={styles.login_text}>{I18n.t('LOGIN')}</Text>
+						<Text style={styles.login_text}>{I18n.t('SIGN_IN_TITLE').toUpperCase()}</Text>
 					</Button>
 				</View>
 			</View>
