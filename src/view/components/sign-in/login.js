@@ -29,6 +29,7 @@ import { setProfileVirgin } from '../../../reducers/profile-virgin'
 import { setGeoVirgin } from '../../../reducers/geo-virgin'
 import { setInstaToken } from '../../../reducers/insta-token'
 import { setFacebookToken } from '../../../reducers/facebook-token'
+import { toAge } from '@services/converteDate'
 
 class Login extends React.Component {
 	static navigationOptions = () => ({
@@ -84,67 +85,27 @@ class Login extends React.Component {
 		}
 		httpPost(urls.sing_in_confirm, JSON.stringify(body)).then(
 			(result) => {
-				if (result.status === 200) {
-					const locale = I18n.locale
-					const user_info = {
-						name: result.body.user,
-						phone: body.phone,
-						photo: result.body.photo,
-						sex: result.body.sex ? 1 : 0,
-						birthDay: result.body.birthDay,
-						currency: locale === 'en' ? result.body.currency : result.body.currency_plural,
-					}
-
-					this.props.getPush(result.body.token)
-					this.props.saveUser(user_info)
-					this.props.setColor(user_info.sex)
-					this.props.setToken(result.body.token)
-					this.props.setBalance(result.body.balance)
-					this.props.setProfileVirgin(result.body.profile_virgin)
-					this.props.setGeoVirgin(result.body.geo_virgin)
-					this.isFblogged(result.body.token)
-					this.isInstalogged(result.body.token)
-					NavigationService.navigate('Main')
+				const user_info = {
+					name: result.body.user,
+					phone: body.phone,
+					photo: result.body.photo,
+					sex: result.body.sex ? 1 : 0,
+					birthDay: toAge(result.body.birthDay),
+					currency: I18n.locale === 'en' ? result.body.currency : result.body.currency_plural,
 				}
+				console.log(result, 'LOGIN RESULT')
+				this.props.getPush(result.body.token)
+				this.props.saveUser(user_info)
+				this.props.setColor(user_info.sex)
+				this.props.setToken(result.body.token)
+				this.props.setBalance(result.body.balance)
+				// this.props.setProfileVirgin(result.body.profile_virgin)
+				// this.props.setGeoVirgin(result.body.geo_virgin)
+				NavigationService.navigate('Main')
 			},
 			(error) => {
 				this.props.loaderState(false)
 				console.log(error, 'LOGIN ERROR')
-			},
-		)
-	}
-
-	isFblogged = (token) => {
-		let body = JSON.stringify({})
-		httpPost(urls.facebook_is_logged, body, token).then(
-			(result) => {
-				console.log(result, 'RESULT isFblogged')
-				if (result.body.logged && result.body.active && result.body.token) {
-					this.props.setFacebookToken(result.body.token)
-					Platform.OS === 'ios' &&
-						AccessToken.setCurrentAccessToken({
-							accessToken: result.body.token,
-						})
-				}
-			},
-			(error) => {
-				console.log(error, 'isFblogged')
-			},
-		)
-	}
-
-	isInstalogged = (token) => {
-		let body = JSON.stringify({})
-		httpPost(urls.insta_is_logged, body, token).then(
-			(result) => {
-				console.log(result, 'RESULT isInstalogged')
-
-				if (result.body.logged && result.body.active && result.body.token) {
-					this.props.setInstaToken(result.body.token)
-				}
-			},
-			(error) => {
-				console.log(error, 'isInstalogged')
 			},
 		)
 	}

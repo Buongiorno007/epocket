@@ -40,4 +40,6 @@ export const urls = {
 	ref_link: devserver + '/reflink?code=',
 	echo: devserver + '/echo',
 	refill_mobile: devserver + '/payment/send/',
+	re_send_code: devserver + '/sign-in/re-send',
+	get_user: devserver + '/sign-in/user-info',
 }

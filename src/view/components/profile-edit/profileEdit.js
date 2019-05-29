@@ -1,12 +1,24 @@
 import React from 'react'
-import { View, Text, ScrollView, TextInput, KeyboardAvoidingView, Image, TouchableOpacity } from 'react-native'
+import {
+	View,
+	Image,
+	Text,
+	ScrollView,
+	KeyboardAvoidingView,
+	TextInput,
+	TouchableOpacity,
+	Platform,
+} from 'react-native'
+import FastImage from 'react-native-fast-image'
+
 import LinearGradient from 'react-native-linear-gradient'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import ImagePicker from 'react-native-image-picker'
+
 //containers
 import BackButton from '@containers/back/back'
 import CustomButton from '@containers/custom-button/custom-button'
-import SignForm from '@containers/signForm/signForm'
 import AndroidHeader from '@containers/androidHeader/androidHeader'
 //reducers
 import { loaderState } from '@reducers/loader'
@@ -19,71 +31,52 @@ import { urls } from '@constants/urls'
 import I18n from '@locales/I18n'
 //style
 import styles from './style'
+import { ICONS } from '@constants/icons'
 //will be removed
 import { saveUser } from '../../../reducers/profile-state'
-import { getPush } from '../../../reducers/push'
 import { setColor } from '../../../reducers/user-color'
-import { setToken } from '../../../reducers/token'
-import { setBalance } from '../../../reducers/user-balance'
-import { ICONS } from '@constants/icons'
+import { serializeJSON } from '../../../services/serialize-json'
+import CustomPhoto from '@containers/custom-photo/custom-photo'
+import { ageToDate } from '@services/converteDate'
 
-class Registration extends React.Component {
+class ProfEdit extends React.Component {
 	static navigationOptions = () => ({
-		headerLeft: <BackButton title={I18n.t('BACK')} route='Start' />,
-		title: I18n.t('SIGN_UP_TITLE'),
+		headerLeft: <BackButton title={I18n.t('BACK')} route='Main' />,
+		title: I18n.t('PROFILE_SETTINGS.EDIT'),
 		headerStyle: styles.headerBackground,
 		headerTitleStyle: styles.headerTitle,
 	})
-
 	state = {
-		phoneNumber: '',
-		code: '',
+		gender: 0,
 		name: '',
 		age: '',
+		photo: '',
 		notCorrect: false,
-		gender: 0,
-		user_id: '',
+		acceptButton: false,
 	}
 
 	componentDidMount() {
+		const { profileState } = this.props
+		this.setState({
+			name: profileState.name || '',
+			age: profileState.birthDay || '',
+			gender: profileState.sex + 1 || 0,
+			photo: profileState.photo || ICONS.TEST.SHOE_PHOTO,
+		})
 		this.props.loaderState(false)
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		const { phoneNumber, code, name, age, gender } = this.state
+		const { name, age, gender, photo } = this.state
 		if (
-			prevState.phoneNumber !== phoneNumber ||
-			prevState.code !== code ||
 			prevState.name !== name ||
 			prevState.age !== age ||
-			prevState.gender !== gender
+			prevState.gender !== gender ||
+			prevState.photo !== photo
 		) {
-			const check = phoneNumber.length === 12 && code && name.length >= 2 && age && gender
+			const check = name.length >= 2 && age && gender && photo
 			this.setState({ acceptButton: check })
 		}
-	}
-
-	newRegister = () => {
-		this.props.loaderState(true)
-		let body = {
-			phone: '+' + `${this.state.code}${this.state.phoneNumber}`.replace(/\D/g, ''),
-		}
-		httpPost(urls.sign_up, JSON.stringify(body)).then(
-			(result) => {
-				NavigationService.navigate('ConfirmCode', {
-					back: 'Registration',
-					title: I18n.t('SIGN_UP_TITLE'),
-					phone: body.phone,
-					name: this.state.name,
-					gender: `${this.state.gender - 1}`,
-					age: this.state.age,
-				})
-			},
-			(error) => {
-				this.setState({ notCorrect: true })
-				this.props.loaderState(false)
-			},
-		)
 	}
 
 	addTextFirstName = (value) => {
@@ -97,77 +90,78 @@ class Registration extends React.Component {
 		}
 	}
 
-	whileNoCodeConfirm() {
+	changeProfile = () => {
 		this.props.loaderState(true)
-		const { code, phoneNumber, name, age, gender, user_id } = this.state
-		const body = {
-			phone: '+' + `${code}${phoneNumber}`.replace(/\D/g, ''),
-			code: '123456',
-			name: name,
-			user_id: user_id,
-			birth_year: age,
-			sex: `${gender - 1}`,
-			photo: 'data:image/png;base64,' + ICONS.TEST.SHOE_PHOTO,
+		let body = {
+			name: this.state.name,
+			sex: this.state.gender - 1,
+			birthDay: ageToDate(this.state.age),
+			photo: 'data:image/jpeg;base64,' + this.state.photo,
 		}
-		console.log(body, 'BODYYY')
-		httpPost(urls.sign_up_confirm, JSON.stringify(body)).then(
+		console.log(body, 'BODY')
+		httpPost(urls.edit_profile_data, serializeJSON(body), this.props.token, true).then(
 			(result) => {
-				const new_user = {
-					name: name,
-					phone: body.phone,
-					sex: gender - 1,
-					birthDay: age,
-					currency: I18n.locale === 'en' ? result.body.currency : result.body.currency_plural,
-					photo: ICONS.TEST.SHOE_PHOTO,
+				let user = {
+					name: this.state.name,
+					photo: this.state.photo,
+					sex: this.state.gender - 1,
+					birthDay: this.state.age,
+					phone: this.props.profileState.phone,
+					currency: this.props.profileState.currency,
 				}
-				console.log(new_user, 'NEW USER REGISTRATION')
-				this.props.saveUser(new_user)
-				this.props.setToken(result.body.token)
-				this.props.setBalance(0)
-				this.props.setColor(new_user.sex)
-				this.props.getPush(result.body.token)
+				if (user.sex) {
+					this.props.setColor(true)
+				} else {
+					this.props.setColor(false)
+				}
+				this.props.saveUser(user)
 				NavigationService.navigate('Main')
 			},
 			(error) => {
-				this.props.loaderState(false)
+				console.log(error, 'ERROR')
 				this.setState({ notCorrect: true })
-				console.log(error, 'REGISTRATION ERROR')
+				this.props.loaderState(false)
 			},
 		)
 	}
-
+	PhotoEdit = () => {
+		const options = {
+			title: I18n.t('PROFILE_PAGE.CHOOSE_AVATAR'),
+			mediaType: 'photo',
+			maxWidth: 1000,
+			maxHeight: 1000,
+			takePhotoButtonTitle: 'Сделать фото',
+			chooseFromLibraryButtonTitle: 'Выбрать из галереи',
+			cancelButtonTitle: 'Отмена',
+			quality: Platform.OS === 'ios' ? 0.75 : 1,
+		}
+		ImagePicker.showImagePicker(options, (response) => {
+			if (response.didCancel) {
+			} else if (response.error) {
+			} else {
+				this.setState({ photo: response.data })
+			}
+		})
+	}
 	render() {
 		return (
 			<LinearGradient
-				colors={['#F55890', '#FF9950']}
-				start={{ x: 1.0, y: 0.0 }}
+				colors={['#9B45F0', '#D833C8', '#F55890', '#FF8D50', '#F7BB42']}
+				start={{ x: 0.0, y: 0.0 }}
 				end={{ x: 0.0, y: 1.0 }}
 				style={styles.container}
 			>
-				<AndroidHeader route='Start' title={I18n.t('SIGN_UP_TITLE')} />
+				<Image style={styles.img} source={require('@assets/img/bubles.png')} />
+
+				<AndroidHeader route='Main' title={I18n.t('PROFILE_SETTINGS.EDIT')} />
 				<KeyboardAvoidingView behavior='padding' style={styles.grad}>
 					<ScrollView contentContainerStyle={styles.scrollView}>
-						<View style={styles.fullWidth}>
-							<Text style={styles.textLeft}>{I18n.t('SIGN.ENTER_PHONE_NUMBER')}</Text>
+						<View style={styles.photo_container}>
+							<CustomPhoto edit src={this.state.photo} photoEdit={() => this.PhotoEdit()} />
 						</View>
-						<SignForm
-							data={this.props.countries}
-							value={this.state.phoneNumber}
-							setPhoneNumber={(value) => this.setState({ phoneNumber: value })}
-							setCode={(value) => this.setState({ code: value })}
-							onFocus={() => this.setState({ notCorrect: false })}
-						>
-							{this.state.notCorrect && (
-								<Image style={styles.eye} source={require('@assets/img/eyes.png')} />
-							)}
-						</SignForm>
+
 						<View style={styles.fullWidth}>
-							<Text style={[styles.textRight, { opacity: this.state.notCorrect ? 1 : 0 }]}>
-								{I18n.t('SIGN.ALREADY_REGISTARED')}
-							</Text>
-						</View>
-						<View style={styles.fullWidth}>
-							<Text style={styles.textLeft}>{I18n.t('SIGN.LETS_ACQUAINTED')}</Text>
+							<Text style={styles.textLeft}>{I18n.t('SIGN.FIRST_SECOND_NAME')}</Text>
 						</View>
 						<View style={styles.fullWidth}>
 							<TextInput
@@ -180,14 +174,15 @@ class Registration extends React.Component {
 							/>
 						</View>
 						<View style={styles.fullWidth}>
+							<Text style={styles.textLeft}>{I18n.t('SIGN.AGE')}</Text>
+						</View>
+						<View style={styles.fullWidth}>
 							<TextInput
 								style={styles.textInput}
-								placeholder={I18n.t('SIGN.AGE')}
-								value={this.state.age}
+								value={`${this.state.age}`}
 								keyboardType={'numeric'}
 								onChangeText={(value) => this.setState({ age: value })}
 								maxLength={2}
-								placeholderTextColor={'#fff'}
 								onFocus={() => this.setState({ notCorrect: false })}
 							/>
 						</View>
@@ -212,11 +207,10 @@ class Registration extends React.Component {
 						<CustomButton
 							color={this.state.acceptButton ? this.props.userColor.pink : this.props.userColor.white}
 							handler={() => {
-								// this.newRegister()
-								this.whileNoCodeConfirm()
+								this.changeProfile()
 							}}
 							active={this.state.acceptButton}
-							title={I18n.t('SIGN_UP').toUpperCase()}
+							title={I18n.t('PROFILE_SETTINGS.CONFIRM').toUpperCase()}
 						/>
 					</ScrollView>
 				</KeyboardAvoidingView>
@@ -227,18 +221,16 @@ class Registration extends React.Component {
 
 const mapStateToProps = (state) => ({
 	userColor: state.userColor,
-	countries: state.countries,
+	profileState: state.profileState,
+	token: state.token,
 })
 
 const mapDispatchToProps = (dispatch) =>
 	bindActionCreators(
 		{
 			loaderState,
-			getPush,
 			saveUser,
 			setColor,
-			setToken,
-			setBalance,
 		},
 		dispatch,
 	)
@@ -246,4 +238,4 @@ const mapDispatchToProps = (dispatch) =>
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps,
-)(Registration)
+)(ProfEdit)

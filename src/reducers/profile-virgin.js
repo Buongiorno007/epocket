@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage'
 export const SET_PROFILE_VIRGIN = 'profile-virgin/SET_PROFILE_VIRGIN'
 
-export default (state = [], action) => {
+export default (state = false, action) => {
 	switch (action.type) {
 		case SET_PROFILE_VIRGIN:
 			return action.status

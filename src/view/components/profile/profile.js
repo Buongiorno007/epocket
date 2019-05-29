@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, Image, Platform, TouchableOpacity } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage'
+// import AsyncStorage from '@react-native-community/async-storage'
 import FastImage from 'react-native-fast-image'
 import { Button } from 'native-base'
 //constants
@@ -40,19 +40,18 @@ class Profile extends React.Component {
 	}
 	componentDidMount() {
 		this.props.loaderState(true)
-		AsyncStorage.getItem('user_info').then((value) => {
-			let object = JSON.parse(value)
-			this.setState({
-				user: {
-					username: object.name,
-					phone: object.phone,
-					photo: object.photo,
-					sex: object.sex,
-					birthDay: object.birthDay,
-					currency: object.currency,
-				},
-			})
+		const { profileState } = this.props
+		this.setState({
+			user: {
+				username: profileState.name,
+				phone: profileState.phone,
+				photo: profileState.photo,
+				sex: profileState.sex,
+				birthDay: profileState.birthDay,
+				currency: profileState.currency,
+			},
 		})
+
 		if (this.state.animationVisible) {
 			setTimeout(() => {
 				this.setState({ animationVisible: false })
@@ -92,18 +91,8 @@ class Profile extends React.Component {
 	setToogle = (value) => this.setState({ toogle: value })
 
 	ToEdit = () => {
-		let async_storage_user = {
-			user_name: this.state.user.username,
-			user_phone: this.state.user.phone,
-			user_photo_url: this.state.user.photo,
-			user_sex: this.state.user.sex,
-			user_birthDay: this.state.user.birthDay,
-			user_currency: this.state.user.currency,
-		}
-		if (async_storage_user.user_birthDay && async_storage_user.user_birthDay !== '') {
-			this.props.setBirthDay(async_storage_user.user_birthDay)
-		}
-		NavigationService.navigate('ProfileEdit', { async_storage_user })
+		this.props.loaderState(true)
+		NavigationService.navigate('ProfEdit')
 	}
 	ToSettings = () => {
 		NavigationService.navigate('ProfileSettings')
@@ -120,7 +109,7 @@ class Profile extends React.Component {
 	render() {
 		return (
 			<View style={styles.main_view}>
-				{this.state.modalVisible ? <Blur /> : null}
+				{/* {this.state.modalVisible ? <Blur /> : null}
 				{this.state.animationVisible ? <Blur dark paddingBottom /> : null}
 				{this.state.animationVisible ? (
 					<FastImage
@@ -142,7 +131,7 @@ class Profile extends React.Component {
 							handler={() => this.ToEdit()}
 						/>
 					</View>
-				) : null}
+				) : null} */}
 				<View style={styles.header}>
 					<Button
 						transparent
@@ -175,7 +164,7 @@ class Profile extends React.Component {
 							</View>
 							{this.state.user.birthDay ? (
 								<View style={styles.text_item}>
-									<Text style={styles.title}>{I18n.t('PROFILE_PAGE.BIRTHDAY')}</Text>
+									<Text style={styles.title}>{I18n.t('SIGN.AGE')}</Text>
 									<Text style={styles.phone}>{this.state.user.birthDay}</Text>
 								</View>
 							) : null}
@@ -201,7 +190,7 @@ class Profile extends React.Component {
 							</View>
 							{this.state.user.birthDay ? (
 								<View style={styles.text_item}>
-									<Text style={styles.title}>{I18n.t('PROFILE_PAGE.BIRTHDAY')}</Text>
+									<Text style={styles.title}>{I18n.t('SIGN.AGE')}</Text>
 									<Text style={styles.phone}>{this.state.user.birthDay}</Text>
 								</View>
 							) : null}
@@ -235,6 +224,7 @@ const mapStateToProps = (state) => {
 		userColor: state.userColor,
 		profileIsVirgin: state.profileIsVirgin,
 		token: state.token,
+		profileState: state.profileState,
 	}
 }
 
