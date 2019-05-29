@@ -1,15 +1,15 @@
-export const SET_MISSIONS = "missions/SET_MISSIONS";
+export const SET_MISSIONS = 'missions/SET_MISSIONS'
 
 export default (state = [], action) => {
-  switch (action.type) {
-    case SET_MISSIONS:
-      return action.missions;
-    default:
-      return state;
-  }
-};
+	switch (action.type) {
+		case SET_MISSIONS:
+			return action.missions
+		default:
+			return state
+	}
+}
 
-export const setMissions = missions => ({
-  type: SET_MISSIONS,
-  missions
-});
+export const setMissions = (missions) => ({
+	type: SET_MISSIONS,
+	missions,
+})

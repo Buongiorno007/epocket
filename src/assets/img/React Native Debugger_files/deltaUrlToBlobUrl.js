@@ -10,62 +10,58 @@
 
 /* global Blob, URL: true */
 
-(function(global) {
-  'use strict';
+;(function(global) {
+	'use strict'
 
-  let cachedBundleUrls = new Map();
+	let cachedBundleUrls = new Map()
 
-  /**
-   * Converts the passed delta URL into an URL object containing already the
-   * whole JS bundle Blob.
-   */
-  async function deltaUrlToBlobUrl(deltaUrl) {
-    const client = global.DeltaPatcher.get(deltaUrl);
+	/**
+	 * Converts the passed delta URL into an URL object containing already the
+	 * whole JS bundle Blob.
+	 */
+	async function deltaUrlToBlobUrl(deltaUrl) {
+		const client = global.DeltaPatcher.get(deltaUrl)
 
-    const deltaBundleId = client.getLastBundleId()
-      ? `&deltaBundleId=${client.getLastBundleId()}`
-      : '';
+		const deltaBundleId = client.getLastBundleId() ? `&deltaBundleId=${client.getLastBundleId()}` : ''
 
-    const data = await fetch(deltaUrl + deltaBundleId);
-    const bundle = await data.json();
+		const data = await fetch(deltaUrl + deltaBundleId)
+		const bundle = await data.json()
 
-    const deltaPatcher = client.applyDelta({
-      id: bundle.id,
-      pre: new Map(bundle.pre),
-      post: new Map(bundle.post),
-      delta: new Map(bundle.delta),
-      reset: bundle.reset,
-    });
+		const deltaPatcher = client.applyDelta({
+			id: bundle.id,
+			pre: new Map(bundle.pre),
+			post: new Map(bundle.post),
+			delta: new Map(bundle.delta),
+			reset: bundle.reset,
+		})
 
-    let cachedBundle = cachedBundleUrls.get(deltaUrl);
+		let cachedBundle = cachedBundleUrls.get(deltaUrl)
 
-    // If nothing changed, avoid recreating a bundle blob by reusing the
-    // previous one.
-    if (deltaPatcher.getLastNumModifiedFiles() === 0 && cachedBundle) {
-      return cachedBundle;
-    }
+		// If nothing changed, avoid recreating a bundle blob by reusing the
+		// previous one.
+		if (deltaPatcher.getLastNumModifiedFiles() === 0 && cachedBundle) {
+			return cachedBundle
+		}
 
-    // Clean up the previous bundle URL to not leak memory.
-    if (cachedBundle) {
-      URL.revokeObjectURL(cachedBundle);
-    }
+		// Clean up the previous bundle URL to not leak memory.
+		if (cachedBundle) {
+			URL.revokeObjectURL(cachedBundle)
+		}
 
-    // To make Source Maps work correctly, we need to add a newline between
-    // modules.
-    const blobContent = deltaPatcher
-      .getAllModules()
-      .map(module => module + '\n');
+		// To make Source Maps work correctly, we need to add a newline between
+		// modules.
+		const blobContent = deltaPatcher.getAllModules().map((module) => module + '\n')
 
-    // Build the blob with the whole JS bundle.
-    const blob = new Blob(blobContent, {
-      type: 'application/javascript',
-    });
+		// Build the blob with the whole JS bundle.
+		const blob = new Blob(blobContent, {
+			type: 'application/javascript',
+		})
 
-    const bundleContents = URL.createObjectURL(blob);
-    cachedBundleUrls.set(deltaUrl, bundleContents);
+		const bundleContents = URL.createObjectURL(blob)
+		cachedBundleUrls.set(deltaUrl, bundleContents)
 
-    return bundleContents;
-  }
+		return bundleContents
+	}
 
-  global.deltaUrlToBlobUrl = deltaUrlToBlobUrl;
-})(window || {});
+	global.deltaUrlToBlobUrl = deltaUrlToBlobUrl
+})(window || {})

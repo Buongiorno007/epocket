@@ -1,16 +1,16 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet, Dimensions } from 'react-native'
 
-const { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get('window')
 
 export default StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#F5F9FE",
-    paddingRight: width * 0.05,
-    paddingLeft: width * 0.05
-  },
-  content: {
-    paddingTop: 20,
-    flex: 1
-  }
-});
+	container: {
+		flex: 1,
+		backgroundColor: '#F5F9FE',
+		paddingRight: width * 0.05,
+		paddingLeft: width * 0.05,
+	},
+	content: {
+		paddingTop: 20,
+		flex: 1,
+	},
+})

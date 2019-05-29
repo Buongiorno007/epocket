@@ -1,6 +1,5 @@
+import { NativeModules } from 'react-native'
 
-import { NativeModules } from 'react-native';
+const { RNMockLocationDetector } = NativeModules
 
-const { RNMockLocationDetector } = NativeModules;
-
-export default RNMockLocationDetector;
+export default RNMockLocationDetector

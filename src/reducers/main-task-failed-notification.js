@@ -1,15 +1,15 @@
-export const SHOW_FAILED_NOTIFICATION = 'SHOW_FAILED_NOTIFICATION';
+export const SHOW_FAILED_NOTIFICATION = 'SHOW_FAILED_NOTIFICATION'
 
 export default (state = false, action) => {
-  switch (action.type) {
-    case SHOW_FAILED_NOTIFICATION:
-      return action.failedNotification;
-    default:
-      return state;
-  }
-};
+	switch (action.type) {
+		case SHOW_FAILED_NOTIFICATION:
+			return action.failedNotification
+		default:
+			return state
+	}
+}
 
-export const showFailedNotification = failedNotification => ({
-  type: SHOW_FAILED_NOTIFICATION,
-  failedNotification
-});
+export const showFailedNotification = (failedNotification) => ({
+	type: SHOW_FAILED_NOTIFICATION,
+	failedNotification,
+})

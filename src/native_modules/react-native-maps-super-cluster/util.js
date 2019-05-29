@@ -6,18 +6,16 @@
  * @returns {Object} - Region's bounding box as WSEN array
  */
 export const regionToBoundingBox = (region) => {
-  let lngD
-  if (region.longitudeDelta < 0)
-    lngD = region.longitudeDelta + 360
-  else
-    lngD = region.longitudeDelta
+	let lngD
+	if (region.longitudeDelta < 0) lngD = region.longitudeDelta + 360
+	else lngD = region.longitudeDelta
 
-  return ([
-    region.longitude - lngD, // westLng - min lng
-    region.latitude - region.latitudeDelta, // southLat - min lat
-    region.longitude + lngD, // eastLng - max lng
-    region.latitude + region.latitudeDelta // northLat - max lat
-  ])
+	return [
+		region.longitude - lngD, // westLng - min lng
+		region.latitude - region.latitudeDelta, // southLat - min lat
+		region.longitude + lngD, // eastLng - max lng
+		region.latitude + region.latitudeDelta, // northLat - max lat
+	]
 }
 
 /**
@@ -31,30 +29,33 @@ export const regionToBoundingBox = (region) => {
  * @returns {Object} - Google Maps/MapKit compliant region
  */
 export const boundingBoxToRegion = (bbox) => {
-  const minLon = bbox.ws.longitude * Math.PI / 180,
-        maxLon = bbox.en.longitude * Math.PI / 180
+	const minLon = (bbox.ws.longitude * Math.PI) / 180,
+		maxLon = (bbox.en.longitude * Math.PI) / 180
 
-  const minLat = bbox.ws.latitude * Math.PI / 180,
-        maxLat = bbox.en.latitude * Math.PI / 180
+	const minLat = (bbox.ws.latitude * Math.PI) / 180,
+		maxLat = (bbox.en.latitude * Math.PI) / 180
 
-  const dLon = maxLon - minLon,
-        dLat = maxLat - minLat
+	const dLon = maxLon - minLon,
+		dLat = maxLat - minLat
 
-  const x = Math.cos(maxLat) * Math.cos(dLon),
-        y = Math.cos(maxLat) * Math.sin(dLon)
+	const x = Math.cos(maxLat) * Math.cos(dLon),
+		y = Math.cos(maxLat) * Math.sin(dLon)
 
-  const latRad = Math.atan2(Math.sin(minLat) + Math.sin(maxLat), Math.sqrt((Math.cos(minLat) + x) * (Math.cos(minLat) + x) + y * y )),
-        lonRad = minLon + Math.atan2(y, Math.cos(minLat) + x)
+	const latRad = Math.atan2(
+			Math.sin(minLat) + Math.sin(maxLat),
+			Math.sqrt((Math.cos(minLat) + x) * (Math.cos(minLat) + x) + y * y),
+		),
+		lonRad = minLon + Math.atan2(y, Math.cos(minLat) + x)
 
-  const latitude = latRad * 180 / Math.PI,
-        longitude = lonRad * 180 / Math.PI
+	const latitude = (latRad * 180) / Math.PI,
+		longitude = (lonRad * 180) / Math.PI
 
-  return {
-    latitude,
-    longitude,
-    latitudeDelta: dLat * 180 / Math.PI,
-    longitudeDelta: dLon * 180 / Math.PI
-  }
+	return {
+		latitude,
+		longitude,
+		latitudeDelta: (dLat * 180) / Math.PI,
+		longitudeDelta: (dLon * 180) / Math.PI,
+	}
 }
 
 /**
@@ -65,10 +66,10 @@ export const boundingBoxToRegion = (bbox) => {
  * @returns {Object} - GeoJSON Feature object
  */
 export const itemToGeoJSONFeature = (item) => ({
-  type: 'Feature',
-  geometry: {
-    type: 'Point',
-    coordinates: [item.location.longitude, item.location.latitude]
-  },
-  properties: { point_count: 0, item } // eslint-disable-line camelcase
+	type: 'Feature',
+	geometry: {
+		type: 'Point',
+		coordinates: [item.location.longitude, item.location.latitude],
+	},
+	properties: { point_count: 0, item }, // eslint-disable-line camelcase
 })
