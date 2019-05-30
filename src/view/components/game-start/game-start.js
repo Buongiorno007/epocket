@@ -1,6 +1,5 @@
 import React from 'react'
 import { View, Text, Image, FlatList, AppState } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage'
 import { LinearTextGradient } from 'react-native-text-gradient'
 import LinearGradient from 'react-native-linear-gradient'
 import FastImage from 'react-native-fast-image'
@@ -29,7 +28,6 @@ import styles from './styles'
 import { urls } from '../../../constants/urls'
 import { colors } from './../../../constants/colors'
 import { ICONS } from '../../../constants/icons'
-// import PickedLanguage from '../../../locales/language-picker';
 //containers
 import CustomButton from '../../containers/custom-button/custom-button'
 import FooterNavigation from '../../containers/footer-navigator/footer-navigator'
@@ -48,15 +46,14 @@ import I18n from '@locales/I18n'
 class GameStart extends React.Component {
 	state = {
 		errorVisible: false,
-		loader: true,
 		website_visible: false,
 		interval: null,
 		errorText: '',
 		brand_title: '',
 		currency: 'UAH',
 	}
+
 	componentDidMount() {
-		this.props.getGameInfo(this.props.token, this.props.location.lat, this.props.location.lng)
 		if (
 			this.props.game_status !== 'lock' &&
 			this.props.game_status !== 'expired' &&
@@ -65,19 +62,35 @@ class GameStart extends React.Component {
 		) {
 			this.props.setGameStatus('start')
 		}
+
+		this.props.getGameInfo(this.props.token, this.props.location.lat, this.props.location.lng)
+
 		if (this.props.game_status === 'lock' && this.props.distance <= 0 && this.props.selectedMall.id) {
 			this.updateGames(this.props.selectedMall.id)
 		}
 		this.loadTRC()
 		AppState.addEventListener('change', this._handleAppStateChange)
-		setTimeout(() => {
-			this.setState({ loader: false })
-		}, 1000)
-		AsyncStorage.getItem('user_info').then((value) => {
-			let object = JSON.parse(value)
-			this.setState({ currency: object.currency })
-		})
+
+		this.setState({ currency: this.props.profileState.currency || '' })
 	}
+
+	componentWillUnmount = () => {
+		AppState.removeEventListener('change', this._handleAppStateChange)
+	}
+
+	componentWillReceiveProps = (nextProps) => {
+		if (this.props.game_status === 'initial' && nextProps.game_status === 'start') {
+			this.props.getGameInfo(this.props.token, nextProps.location.lat, nextProps.location.lng)
+		} else if (
+			nextProps.location.lat.toFixed(3) !== this.props.location.lat.toFixed(3) &&
+			nextProps.location.lng.toFixed(3) !== this.props.location.lng.toFixed(3) &&
+			nextProps.appState === 'active'
+		) {
+			this.props.getGameInfo(this.props.token, nextProps.location.lat, nextProps.location.lng)
+			this.loadTRC()
+		}
+	}
+
 	updateGames = (id) => {
 		this.props.loaderState(true)
 		let body = {
@@ -101,23 +114,6 @@ class GameStart extends React.Component {
 				this.props.loaderState(false)
 			},
 		)
-	}
-
-	componentWillUnmount = () => {
-		AppState.removeEventListener('change', this._handleAppStateChange)
-	}
-
-	componentWillReceiveProps = (nextProps) => {
-		if (this.props.game_status === 'initial' && nextProps.game_status === 'start') {
-			this.props.getGameInfo(this.props.token, nextProps.location.lat, nextProps.location.lng)
-		} else if (
-			nextProps.location.lat.toFixed(3) !== this.props.location.lat.toFixed(3) &&
-			nextProps.location.lng.toFixed(3) !== this.props.location.lng.toFixed(3) &&
-			nextProps.appState === 'active'
-		) {
-			this.props.getGameInfo(this.props.token, nextProps.location.lat, nextProps.location.lng)
-			this.loadTRC()
-		}
 	}
 
 	_handleAppStateChange = (nextAppState) => {
@@ -501,7 +497,6 @@ const mapStateToProps = (state) => {
 		game_info: state.game_info,
 		token: state.token,
 		location: state.location,
-		loader: state.loader,
 		userColor: state.userColor,
 		game_error: state.game_error,
 		game_status: state.game_status,
@@ -512,6 +507,7 @@ const mapStateToProps = (state) => {
 		dateAbuseStatus: state.dateAbuseStatus,
 		website_timer: state.website_timer,
 		game_ticker_data: state.game_ticker_data,
+		profileState: state.profileState,
 	}
 }
 

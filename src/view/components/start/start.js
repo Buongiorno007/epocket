@@ -93,7 +93,7 @@ class Start extends React.Component {
 				let value = result[1]
 				switch (key) {
 					case 'game_status': {
-						value ? this.props.setGameStatus(value) : this.props.setGameStatus('start')
+						value && value !== 'game' ? this.props.setGameStatus(value) : this.props.setGameStatus('start')
 						break
 					}
 					case 'token': {
