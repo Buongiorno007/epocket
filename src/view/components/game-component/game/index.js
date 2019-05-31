@@ -40,6 +40,7 @@ class Gamee extends React.Component {
 		tempTime: 60,
 		but: [false, false, false, false, false, false, false, false, false],
 	}
+
 	componentDidMount = () => {
 		this.setState({
 			currency: this.props.profileState.currency || '',
@@ -48,15 +49,18 @@ class Gamee extends React.Component {
 		this.startInterval()
 		this.props.loaderState(false)
 	}
+
 	componentWillUnmount() {
 		BackgroundTimer.stopBackgroundTimer()
 	}
+
 	startInterval() {
 		this.setState({ progress: 0 })
 		BackgroundTimer.runBackgroundTimer(() => {
 			this.timerTask()
-		}, 1000)
+		}, 900)
 	}
+
 	timerTask() {
 		if (this.state.tempTime) {
 			this.setState({ tempTime: this.state.tempTime - 1 })

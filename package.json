@@ -73,7 +73,6 @@
     "react-native-swipe-gestures": "^1.0.3",
     "react-native-text-gradient": "0.1.4",
     "react-native-webview": "^5.9.1",
-    "react-native-wheel-pick": "^1.0.9",
     "react-navigation": "^3.11.0",
     "react-redux": "^7.0.3",
     "redux": "^4.0.1",

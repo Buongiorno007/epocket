@@ -42,7 +42,7 @@ const Navigator = createStackNavigator(
 		Gamee: { screen: require('@components/game-component/game').default },
 	},
 	{
-		initialRouteName: 'Gamee',
+		initialRouteName: 'Start',
 		defaultNavigationOptions: {
 			headerTransparent: true,
 		},
