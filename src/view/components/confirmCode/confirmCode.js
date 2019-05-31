@@ -67,7 +67,7 @@ class confirmCode extends React.Component {
 	}
 
 	componentWillUnmount() {
-		BackgroundTimer.stopBackgroundTimer()
+		BackgroundTimer.clearInterval(this.interval)
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -77,18 +77,18 @@ class confirmCode extends React.Component {
 	}
 
 	startInterval = () => {
-		BackgroundTimer.runBackgroundTimer(() => {
+		this.interval = BackgroundTimer.setInterval(() => {
 			if (this.state.seconds) {
 				this.setState({ seconds: this.state.seconds - 1 })
 			} else {
-				BackgroundTimer.stopBackgroundTimer()
+				BackgroundTimer.clearInterval(this.interval)
 			}
 		}, 1000)
 	}
 
 	restartInterval = () => {
 		this.setState({ seconds: 60 })
-		BackgroundTimer.stopBackgroundTimer()
+		BackgroundTimer.clearInterval(this.interval)
 		this.startInterval()
 	}
 

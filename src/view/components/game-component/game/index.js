@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Dimensions, ImageBackground } from 'react-native'
+import { View, Text, Dimensions, ImageBackground, Platform } from 'react-native'
 import { Button } from 'native-base'
 import FastImage from 'react-native-fast-image'
 import { connect } from 'react-redux'
@@ -27,6 +27,7 @@ const ttttTime = 30
 const { width } = Dimensions.get('window')
 
 class Gamee extends React.Component {
+	interv
 	state = {
 		progress: 1,
 		buttonActive: true,
@@ -52,19 +53,19 @@ class Gamee extends React.Component {
 	}
 	startInterval() {
 		this.setState({ progress: 0 })
-		console.log('IM IN START INTERVAL')
 		BackgroundTimer.runBackgroundTimer(() => {
-			if (this.state.tempTime) {
-				this.setState({ tempTime: this.state.tempTime - 1 })
-			} else {
-				// this.submitGame()
-				BackgroundTimer.stopBackgroundTimer()
-				// console.log('IM HERE AGAIN')
-			}
-			if (this.state.tempTime === 5) {
-				this.props.playClock(this.props.sounds[0])
-			}
-		}, 900)
+			this.timerTask()
+		}, 1000)
+	}
+	timerTask() {
+		if (this.state.tempTime) {
+			this.setState({ tempTime: this.state.tempTime - 1 })
+		} else {
+			this.submitGame()
+		}
+		if (this.state.tempTime === 5) {
+			this.props.playClock(this.props.sounds[0])
+		}
 	}
 
 	goToResult = (status) => {
@@ -87,8 +88,9 @@ class Gamee extends React.Component {
 	submitGame() {
 		this.setState({ buttonActive: false })
 		BackgroundTimer.stopBackgroundTimer()
-		// this.props.stopClock(this.props.sounds[0])
 		console.log(this.state.but, 'STATE BUT')
+		// this.props.stopClock(this.props.sounds[0])
+
 		// let pressedArray = []
 		// let pressedIndexArray = []
 		// this.props.game_images.forEach((item) => {
@@ -182,7 +184,7 @@ class Gamee extends React.Component {
 						title={I18n.t('GAME.CONFIRM').toUpperCase()}
 						color={this.props.userColor.white}
 						handler={() => {
-							// this.submitGame()
+							this.submitGame()
 						}}
 					/>
 				</View>
