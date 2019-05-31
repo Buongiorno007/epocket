@@ -39,9 +39,10 @@ const Navigator = createStackNavigator(
 		ConfirmCode: { screen: require('@components/confirmCode/confirmCode').default },
 		CatCode: { screen: require('@components/catCode/catCode').default },
 		ProfEdit: { screen: require('@components/profile-edit/profileEdit').default },
+		Gamee: { screen: require('@components/game-component/game').default },
 	},
 	{
-		initialRouteName: 'Start',
+		initialRouteName: 'Gamee',
 		defaultNavigationOptions: {
 			headerTransparent: true,
 		},

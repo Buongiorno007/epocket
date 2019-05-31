@@ -114,14 +114,13 @@ class Start extends React.Component {
 							}
 							httpPost(urls.get_user, JSON.stringify({}), value).then(
 								(result) => {
-									console.log(result.body, 'START SIGNIN')
 									this.props.setToken(value)
 									this.props.getPush(value)
 									this._getLocation()
 									this.saveData(result.body)
 								},
 								(error) => {
-									console.log(error, 'ERROR')
+									console.log(error, 'START get_user ERROR')
 									this.getCountries()
 								},
 							)

@@ -1,37 +1,33 @@
 import React from 'react'
-import { View, Text, Dimensions, AppState } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage'
+import { View, Text, Dimensions, ImageBackground } from 'react-native'
 import { Button } from 'native-base'
 import FastImage from 'react-native-fast-image'
-//redux
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { setTempTime } from '../../../reducers/tempTime'
-import { setFixedTime } from '../../../reducers/fixedTime'
-import { setGameStatus } from '../../../reducers/game-status'
-import { setAppState } from '../../../reducers/app-state'
-import { loaderState } from '../../../reducers/loader'
-import { passGameResult } from '../../../reducers/game-info'
-import { playClock, stopClock, playQuestComplete, playQuestFail } from '../../../reducers/sounds'
-import { editGame, clearGame } from '../../../reducers/game-controller'
+import BackgroundTimer from 'react-native-background-timer'
+//redux
+import { setGameStatus } from '@reducers/game-status'
+import { setAppState } from '@reducers/app-state'
+import { loaderState } from '@reducers/loader'
+import { passGameResult } from '@reducers/game-info'
+import { playClock, stopClock, playQuestComplete, playQuestFail } from '@reducers/sounds'
+import { editGame, clearGame } from '@reducers/game-controller'
 //constants
-import { ICONS } from '../../../constants/icons'
+import { ICONS } from '@constants/icons'
 import styles from './styles'
 //containers
-import CustomButton from '../../containers/custom-button/custom-button'
-import CustomProgressBar from '../../containers/custom-progress-bar/custom-progress-bar'
-import Loader from '@containers/application/loader'
+import CustomButton from '@containers/custom-button/custom-button'
+import CustomProgressBar from '@containers/custom-progress-bar/custom-progress-bar'
 //services
-import '../../../services/correcting-interval'
-import { toHHMMSS } from './../../../services/convert-time'
+import { toHHMMSS } from '@services/convert-time'
 import I18n from '@locales/I18n'
-import BackgroundTimer from 'react-native-background-timer'
+import { setSounds } from '@reducers/sounds'
 
+const ttttTime = 30
 const { width } = Dimensions.get('window')
 
-class Game extends React.Component {
+class Gamee extends React.Component {
 	state = {
-		interval: null,
 		progress: 1,
 		buttonActive: true,
 		progressGradient: {
@@ -40,26 +36,37 @@ class Game extends React.Component {
 			end: { x: 1.0, y: 0.0 },
 		},
 		currency: '',
+		tempTime: 60,
+		but: [false, false, false, false, false, false, false, false, false],
 	}
-	componentDidMount() {
-		this.props.loaderState(false)
-		AppState.addEventListener('change', this._handleAppStateChange)
-		this.props.clearGame()
-		if (this.props.tempTime >= 1) {
-			this.startTimer()
-		}
-		AsyncStorage.getItem('user_info').then((value) => {
-			let object = JSON.parse(value)
-			this.setState({ currency: object.currency })
+	componentDidMount = () => {
+		this.setState({
+			currency: this.props.profileState.currency || '',
+			tempTime: ttttTime || 0,
 		})
+		this.startInterval()
+		this.props.loaderState(false)
 	}
 	componentWillUnmount() {
-		AppState.removeEventListener('change', this._handleAppStateChange)
-		clearCorrectingInterval(this.state.interval)
+		BackgroundTimer.stopBackgroundTimer()
 	}
-	changePressed(i) {
-		this.props.editGame(i + 1)
+	startInterval() {
+		this.setState({ progress: 0 })
+		console.log('IM IN START INTERVAL')
+		BackgroundTimer.runBackgroundTimer(() => {
+			if (this.state.tempTime) {
+				this.setState({ tempTime: this.state.tempTime - 1 })
+			} else {
+				// this.submitGame()
+				BackgroundTimer.stopBackgroundTimer()
+				// console.log('IM HERE AGAIN')
+			}
+			if (this.state.tempTime === 5) {
+				this.props.playClock(this.props.sounds[0])
+			}
+		}, 900)
 	}
+
 	goToResult = (status) => {
 		let status_for_api = status === 'success' ? true : false
 		let instadata = {
@@ -75,76 +82,43 @@ class Game extends React.Component {
 			status,
 			instadata,
 		)
-		clearCorrectingInterval(this.state.interval)
 	}
-	startTimer = () => {
-		this.setState({ progress: 0 })
-		this.setState({
-			interval: setCorrectingInterval(() => {
-				if (this.props.tempTime === 5) {
-					this.props.playClock(this.props.sounds[0])
-				} else if (this.props.tempTime <= 1) {
-					clearCorrectingInterval(this.state.interval)
-					this.submitGame(true)
-				}
-				this.props.setTempTime(this.props.tempTime - 1)
-			}, 1000),
-		})
-	}
-	submitGame = (timer_expired) => {
-		this.setState({ buttonActive: false })
-		this.props.stopClock(this.props.sounds[0])
-		let pressedArray = []
-		let pressedIndexArray = []
-		this.props.game_images.forEach((item) => {
-			if (item.pressed) {
-				pressedArray.push(item)
-			}
-		})
-		pressedArray.forEach((pressedItem) => {
-			pressedIndexArray.push(pressedItem.id)
-		})
-		if (
-			pressedArray.length >= 1 &&
-			JSON.stringify(pressedIndexArray) === JSON.stringify(this.props.game_info.true_answer)
-		) {
-			//compare JSONs to compare arrays
-			this.props.playQuestComplete(this.props.sounds[1])
-			this.goToResult('success')
-		} else {
-			this.props.playQuestFail(this.props.sounds[2])
-			if (timer_expired) {
-				this.goToResult('expired')
-			} else {
-				this.goToResult('failed')
-			}
-		}
-	}
-	componentWillReceiveProps(props) {
-		if (props.tempTime !== this.props.tempTime) {
-			if (this.props.tempTime === 1) {
-				clearCorrectingInterval(this.state.interval)
-				this.submitGame(true)
-				BackgroundTimer.stopBackgroundTimer()
-			}
-		}
-	}
-	_handleAppStateChange = (nextAppState) => {
-		if (nextAppState === 'background') {
-			BackgroundTimer.runBackgroundTimer(() => {
-				clearCorrectingInterval(this.state.interval)
-				this.props.setTempTime(this.props.tempTime)
-				this.startTimer()
-			}, 20)
-		}
 
-		if (this.props.appState.match(/background|inactive/) && nextAppState === 'active') {
-			BackgroundTimer.stopBackgroundTimer()
-			clearCorrectingInterval(this.state.interval)
-			this.props.setTempTime(this.props.tempTime)
-			this.startTimer()
-		}
-		this.props.setAppState(nextAppState)
+	submitGame() {
+		this.setState({ buttonActive: false })
+		BackgroundTimer.stopBackgroundTimer()
+		// this.props.stopClock(this.props.sounds[0])
+		console.log(this.state.but, 'STATE BUT')
+		// let pressedArray = []
+		// let pressedIndexArray = []
+		// this.props.game_images.forEach((item) => {
+		// 	if (item.pressed) {
+		// 		pressedArray.push(item)
+		// 	}
+		// })
+		// pressedArray.forEach((pressedItem) => {
+		// 	pressedIndexArray.push(pressedItem.id)
+		// })
+		// if (
+		// 	pressedArray.length >= 1 &&
+		// 	JSON.stringify(pressedIndexArray) === JSON.stringify(this.props.game_info.true_answer)
+		// ) {
+		// 	//compare JSONs to compare arrays
+		// 	this.props.playQuestComplete(this.props.sounds[1])
+		// 	this.goToResult('success')
+		// } else {
+		// 	this.props.playQuestFail(this.props.sounds[2])
+		// 	if (timer_expired) {
+		// 		this.goToResult('expired')
+		// 	} else {
+		// 		this.goToResult('failed')
+		// 	}
+		// }
+	}
+
+	changeItem = (index) => {
+		this.setState({})
+		this.state.but[index] = !this.state.but[index]
 	}
 
 	render() {
@@ -152,12 +126,14 @@ class Game extends React.Component {
 			<View style={styles.main_view}>
 				<View style={styles.game_title}>
 					<Text style={styles.game_cost_text}>
-						{this.props.game_info.cost} {I18n.t('EPC', { currency: this.state.currency })}
+						{/* {this.props.game_info.cost} {I18n.t('EPC', { currency: this.state.currency })} */}
+						{'12 UAH'}
 					</Text>
-					<Text style={styles.game_title_text}>{this.props.game_info.title}</Text>
+					{/* <Text style={styles.game_title_text}>{this.props.game_info.title}</Text> */}
+					<Text style={styles.game_title_text}>{'Brand'}</Text>
 				</View>
 				<View style={styles.game_time}>
-					<Text style={styles.game_time_text}>{toHHMMSS(this.props.tempTime)}</Text>
+					<Text style={styles.game_time_text}>{toHHMMSS(this.state.tempTime)}</Text>
 				</View>
 				<CustomProgressBar
 					style={styles.custom_progress}
@@ -166,24 +142,26 @@ class Game extends React.Component {
 					borderWidth={0}
 					borderRadius={12}
 					height={5}
-					animationConfig={{ duration: this.props.fixedTime * 1000 }}
+					// animationConfig={{ duration: this.props.tempTime * 1000 }}
+					animationConfig={{ duration: ttttTime * 1000 }}
 					progress={this.state.progress}
-					width={width * 0.85}
+					width={width - 32}
 					useNativeDriver={true}
 					unfilledColor={this.props.userColor.black_o90}
 				/>
 				<View style={styles.game_description}>
-					<Text style={styles.game_description_text}>{this.props.game_info.description}</Text>
+					{/* <Text style={styles.game_description_text}>{this.props.game_info.description}</Text> */}
+					<Text style={styles.game_description_text}>{'description'}</Text>
 				</View>
-				<View style={styles.container}>
-					{this.props.game_images.map((game_element, index) => {
+				<ImageBackground source={require('@assets/img/sequel.png')} style={styles.container}>
+					{this.state.but.map((item, index) => {
 						return (
 							<Button
-								transparent
-								block
 								key={index}
+								transparent
+								bordered={false}
 								style={[
-									game_element.pressed
+									item
 										? index >= 6
 											? styles.pressed_button_last_line
 											: styles.pressed_button
@@ -191,36 +169,11 @@ class Game extends React.Component {
 										? styles.item_last_line
 										: styles.item,
 								]}
-								onPress={() => {
-									this.changePressed(index)
-								}}
-							>
-								<View
-									style={[
-										game_element.pressed
-											? index >= 6
-												? styles.pressed_button_last_line
-												: styles.pressed_button
-											: index >= 6
-											? styles.item_last_line
-											: styles.item,
-										{ position: 'absolute' },
-									]}
-								/>
-								<FastImage
-									style={styles.image_in_square}
-									resizeMode={FastImage.resizeMode.contain}
-									source={{
-										uri: this.props.game_info.game_array[index].img
-											? this.props.game_info.game_array[index].img
-											: ICONS.COMMON.CLOSE_WHITE,
-										priority: FastImage.priority.high,
-									}}
-								/>
-							</Button>
+								onPress={() => this.changeItem(index)}
+							/>
 						)
 					})}
-				</View>
+				</ImageBackground>
 				<View style={styles.btn_container}>
 					<CustomButton
 						active={this.state.buttonActive}
@@ -229,7 +182,7 @@ class Game extends React.Component {
 						title={I18n.t('GAME.CONFIRM').toUpperCase()}
 						color={this.props.userColor.white}
 						handler={() => {
-							this.submitGame()
+							// this.submitGame()
 						}}
 					/>
 				</View>
@@ -237,7 +190,7 @@ class Game extends React.Component {
 		)
 	}
 }
-//
+
 const mapStateToProps = (state) => {
 	return {
 		game_info: state.game_info,
@@ -249,14 +202,13 @@ const mapStateToProps = (state) => {
 		appState: state.appState,
 		game_images: state.game_controller.game_images,
 		sounds: state.sounds,
+		profileState: state.profileState,
 	}
 }
 
 const mapDispatchToProps = (dispatch) =>
 	bindActionCreators(
 		{
-			setTempTime,
-			setFixedTime,
 			setGameStatus,
 			setAppState,
 			passGameResult,
@@ -267,6 +219,7 @@ const mapDispatchToProps = (dispatch) =>
 			stopClock,
 			playQuestComplete,
 			playQuestFail,
+			setSounds,
 		},
 		dispatch,
 	)
@@ -274,4 +227,4 @@ const mapDispatchToProps = (dispatch) =>
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps,
-)(Game)
+)(Gamee)

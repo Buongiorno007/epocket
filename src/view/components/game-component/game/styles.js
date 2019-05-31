@@ -1,14 +1,15 @@
 import { StyleSheet, Dimensions, Platform } from 'react-native'
 
 const { width, height } = Dimensions.get('window')
-import { colors } from '../../../constants/colors'
+import { colors } from '@constants/colors'
 
 export default StyleSheet.create({
 	main_view: {
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: colors.drag_panel_color,
+		// backgroundColor: colors.drag_panel_color,
+		paddingHorizontal: 16,
 	},
 	grad: {
 		height: height,
@@ -46,14 +47,16 @@ export default StyleSheet.create({
 	container: {
 		flexDirection: 'row',
 		flexWrap: 'wrap',
-		width: width * 0.85,
-		alignItems: 'center',
-		justifyContent: 'center',
-		marginBottom: height * 0.1,
+		width: width - 34,
+		// height: width - 32,
+		// alignItems: 'center',
+		// justifyContent: 'center',
+		// marginBottom: height * 0.1,
+		// backgroundColor: 'yellow',
 	},
 	item: {
-		width: (width * 0.85) / 3,
-		height: (width * 0.85) / 3,
+		width: (width - 32) / 3,
+		height: (width - 32) / 3,
 		padding: 0,
 		marginTop: -1,
 		marginRight: -1,
@@ -65,8 +68,8 @@ export default StyleSheet.create({
 		borderColor: colors.black_o33,
 	},
 	item_last_line: {
-		width: (width * 0.85) / 3,
-		height: (width * 0.85) / 3,
+		width: (width - 32) / 3,
+		height: (width - 32) / 3,
 		padding: 0,
 		borderRadius: 0,
 		marginTop: Platform.OS === 'ios' ? -2 : -1,
@@ -124,8 +127,8 @@ export default StyleSheet.create({
 		fontFamily: 'Rubik-Bold',
 	},
 	pressed_button: {
-		width: (width * 0.85) / 3,
-		height: (width * 0.85) / 3,
+		width: (width - 32) / 3,
+		height: (width - 32) / 3,
 		borderWidth: 2,
 		padding: 0,
 		marginTop: -1,
@@ -144,8 +147,8 @@ export default StyleSheet.create({
 		zIndex: 10,
 	},
 	pressed_button_last_line: {
-		width: (width * 0.85) / 3,
-		height: (width * 0.85) / 3,
+		width: (width - 32) / 3,
+		height: (width - 32) / 3,
 		borderWidth: 2,
 		padding: 0,
 		zIndex: 11,
@@ -160,5 +163,21 @@ export default StyleSheet.create({
 	TextStyle: {
 		color: colors.white,
 		textAlign: 'center',
+	},
+
+	btnNotActive: {
+		width: (width - 32) / 3,
+		height: (width - 32) / 3,
+		borderRadius: 0,
+		borderWidth: 1,
+		borderColor: '#000',
+	},
+	btnActive: {
+		width: (width - 32) / 3,
+		height: (width - 32) / 3,
+		borderRadius: 0,
+		borderWidth: 1,
+		borderColor: colors.dark_pink,
+		backgroundColor: colors.dark_pink_o10,
 	},
 })
