@@ -5,13 +5,12 @@ const { width, height } = Dimensions.get('window')
 export default StyleSheet.create({
 	layout: {
 		position: 'absolute',
-		width,
-		height,
+		width: width,
+		height: height,
 		alignItems: 'center',
 		justifyContent: 'center',
 		alignSelf: 'center',
-		zIndex: 997,
-		elevation: 16,
+		zIndex: 990,
 		...Platform.select({
 			android: {
 				backgroundColor: 'rgba(255,255,255,0.95)',

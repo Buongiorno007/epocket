@@ -32,11 +32,21 @@ import { urls } from '../../../constants/urls'
 import { httpGet, httpPost } from '../../../services/http'
 import I18n from '@locales/I18n'
 import { toAge } from '@services/converteDate'
+import { updateServerRequest } from '@reducers/serverRequest'
 
 class Start extends React.Component {
 	componentDidMount = () => {
-		this.props.loaderState(true)
 		this.props.getConnection()
+		this.props.isConnected && this.startScreen()
+	}
+	componentDidUpdate(prevProps) {
+		if (prevProps.isConnected !== this.props.isConnected && this.props.isConnected) {
+			this.startScreen()
+		}
+	}
+
+	startScreen() {
+		this.props.loaderState(true)
 		this.props.setSounds()
 		this.props.locationStateListener()
 		this.props.locationCoordsListener()
@@ -64,10 +74,12 @@ class Start extends React.Component {
 			(result) => {
 				this.props.setCountries(result.body.c_list)
 				this.props.loaderState(false)
+				this.props.updateServerRequest(false)
 			},
 			(error) => {
 				console.log(error, 'No server request')
-				this.props.loaderState(false)
+				this.props.updateServerRequest(true)
+				this.getCountries()
 			},
 		)
 	}
@@ -168,7 +180,9 @@ class Start extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => ({})
+const mapStateToProps = (state) => ({
+	isConnected: state.isConnected,
+})
 
 const mapDispatchToProps = (dispatch) =>
 	bindActionCreators(
@@ -188,6 +202,7 @@ const mapDispatchToProps = (dispatch) =>
 			setGameStatus,
 			setCountries,
 			saveUser,
+			updateServerRequest,
 		},
 		dispatch,
 	)

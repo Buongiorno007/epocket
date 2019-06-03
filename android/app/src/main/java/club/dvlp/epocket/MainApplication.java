@@ -84,7 +84,6 @@ public class MainApplication extends Application implements ShareApplication, Re
                 new RNCWebViewPackage(),
                 new BlurViewPackage(),
                 new NetInfoPackage(),
-                new ReactNativeWheelPickerPackage(),
                 new RNGestureHandlerPackage(),
                 new LinearGradientPackage(),
                 new RNI18nPackage(),

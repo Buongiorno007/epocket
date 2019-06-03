@@ -56,6 +56,7 @@ import pushSendStaus from './push-send-status'
 import website_timer from './website-timer'
 import game_ticker_data from './game-ticker-data'
 import countries from './countries'
+import serverRequest from './serverRequest'
 
 export default combineReducers({
 	isConnected,
@@ -115,4 +116,5 @@ export default combineReducers({
 	website_timer,
 	game_ticker_data,
 	countries,
+	serverRequest,
 })
