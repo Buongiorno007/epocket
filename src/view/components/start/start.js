@@ -35,9 +35,6 @@ import { toAge } from '@services/converteDate'
 import { updateServerRequest } from '@reducers/serverRequest'
 
 class Start extends React.Component {
-	state = {
-		sms_active: false,
-	}
 	componentDidMount = () => {
 		this.props.getConnection()
 		this.props.isConnected && this.startScreen()
@@ -77,7 +74,6 @@ class Start extends React.Component {
 			(result) => {
 				this.props.setCountries(result.body.c_list)
 				this.props.updateServerRequest(false)
-				this.setState({ sms_active: result.body.sms_active || false })
 				this.props.loaderState(false)
 			},
 			(error) => {
@@ -152,8 +148,7 @@ class Start extends React.Component {
 
 	goToSign = (value) => {
 		this.props.loaderState(true)
-		// NavigationService.navigate(value, { sms_active: this.state.sms_active })
-		NavigationService.navigate(value, { sms_active: true })
+		NavigationService.navigate(value)
 	}
 
 	render() {

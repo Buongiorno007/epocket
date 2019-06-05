@@ -12,7 +12,7 @@ import AndroidHeader from '@containers/androidHeader/androidHeader'
 import { loaderState } from '@reducers/loader'
 //services
 import NavigationService from '@services/route'
-import { httpPost } from '@services/http'
+import { httpPost, httpGet } from '@services/http'
 //constants
 import { urls } from '@constants/urls'
 //locales
@@ -47,8 +47,9 @@ class Registration extends React.Component {
 	}
 
 	componentDidMount() {
-		const { sms_active } = this.props.navigation.state.params
-		this.setState({ sms_active: sms_active })
+		httpGet(urls.echo).then((result) => {
+			this.setState({ sms_active: result.body.sms_active || false })
+		})
 		this.props.loaderState(false)
 	}
 

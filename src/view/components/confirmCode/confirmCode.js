@@ -50,7 +50,6 @@ const initialProps = {
 }
 
 class confirmCode extends React.Component<Props, State> {
-	interval
 	static navigationOptions = ({ navigation }) => ({
 		title: navigation.state.params.title,
 		headerStyle: styles.background,
@@ -95,36 +94,31 @@ class confirmCode extends React.Component<Props, State> {
 	}
 
 	startInterval = () => {
-		console.log(this.state.timer, 'timer')
-		BackgroundTimer.backgroundClockMethod(this.interv, 1000)
+		BackgroundTimer.runBackgroundTimer(this.interv, 1000)
 	}
 
 	interv = () => {
-		if (this.state.timer) {
-			console.log('IM HERE AFTER RUN')
-			this.setState({ timer: this.state.timer - 1 })
+		if (this.state.seconds) {
+			this.setState({ seconds: this.state.seconds - 1 })
 		} else {
-			console.log('IM ON STOP')
 			BackgroundTimer.stopBackgroundTimer()
 		}
 	}
 
-	resend = () => {
-		// if (!this.state.timer) {
-		// 	this.props.loaderState(true)
-		// 	httpPost(urls.re_send_code, JSON.stringify({ phone: this.state.phoneNumber })).then(
-		// 		(result) => {
-		// 			// this.restartInterval()
-		// 			this.setState({ timer: 10 })
-		// 			this.props.loaderState(false)
-		// 		},
-		// 		(error) => {
-		// 			this.props.loaderState(false)
-		// 			console.log(error, 'ERROR')
-		// 		},
-		// 	)
-		// }
-		this.setState({ timer: 10 })
+	sendCodeAgain() {
+		if (!this.state.seconds) {
+			this.props.loaderState(true)
+			httpPost(urls.re_send_code, JSON.stringify({ phone: this.state.phoneNumber })).then(
+				(result) => {
+					this.setState({ seconds: 10 })
+					this.props.loaderState(false)
+				},
+				(error) => {
+					this.props.loaderState(false)
+					console.log(error, 'ERROR')
+				},
+			)
+		}
 	}
 
 	whileNoCodeConfirmRegistration() {

@@ -1,5 +1,4 @@
-// export const devserver = 'https://epocket.dev.splinestudio.com'
-export const devserver = 'http://epocket.dev.splinestudio.com'
+export const devserver = 'https://epocket.dev.splinestudio.com'
 
 export const urls = {
 	sign_up: devserver + '/sign-in/registration/',
