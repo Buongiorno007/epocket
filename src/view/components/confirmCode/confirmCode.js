@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 //containers
 import BackButton from '@containers/back/back'
-import CustomButton from '@containers/custom-button/custom-button'
+import Button from '@containers/custom-button/custom-button'
 import AndroidHeader from '@containers/androidHeader/androidHeader'
 //redux
 import { setToken } from '@reducers/token'
@@ -28,24 +28,37 @@ import I18n from '@locales/I18n'
 //styles
 import styles from './styles'
 
-class confirmCode extends React.Component {
+type Props = typeof initialProps
+
+type State = typeof initialState
+
+const initialState = {
+	validate: false,
+	code: '',
+	timer: 10,
+	phoneNumber: '',
+	name: '',
+	gender: '',
+	route: '',
+	accept: false,
+}
+
+const initialProps = {
+	colors: ['#F55890', '#FF9950'],
+	start: { x: 1.0, y: 0.0 },
+	end: { x: 0.0, y: 1.0 },
+}
+
+class confirmCode extends React.Component<Props, State> {
 	static navigationOptions = ({ navigation }) => ({
-		headerLeft: <BackButton title={I18n.t('BACK')} route={navigation.state.params.back} />,
 		title: navigation.state.params.title,
-		headerStyle: styles.headerBackground,
-		headerTitleStyle: styles.headerTitle,
+		headerStyle: styles.background,
+		headerTitleStyle: styles.title,
+		headerLeft: <BackButton title={I18n.t('BACK')} route={navigation.state.params.back} />,
 	})
 
-	state = {
-		notCorrect: false,
-		confirmCode: '',
-		seconds: 10,
-		phoneNumber: '',
-		name: '',
-		gender: '',
-		date: '',
-		route: '',
-	}
+	state = initialState
+	static defaultProps = initialProps
 
 	componentDidMount() {
 		const { params } = this.props.navigation.state
@@ -65,13 +78,19 @@ class confirmCode extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if (prevState.confirmCode !== this.state.confirmCode) {
-			this.setState({ acceptButton: this.state.confirmCode.length === 6 })
+		if (prevState.code !== this.state.code) {
+			this.setState({ accept: this.state.code.length === 6 })
 		}
-		if (prevState.seconds === 0 && this.state.seconds === 10) {
+		if (prevState.timer === 0 && this.state.timer === 10) {
 			BackgroundTimer.stopBackgroundTimer()
 			this.startInterval()
 		}
+	}
+
+	interval = () => {
+		BackgroundTimer.runBackgroundTimer(() => {
+			this.setState({ timer: this.state.timer - 1 })
+		})
 	}
 
 	startInterval = () => {
@@ -104,10 +123,10 @@ class confirmCode extends React.Component {
 
 	whileNoCodeConfirmRegistration() {
 		this.props.loaderState(true)
-		const { confirmCode, phoneNumber, name, age, gender, user_id } = this.state
+		const { code, phoneNumber, name, age, gender, user_id } = this.state
 		const body = {
 			phone: phoneNumber,
-			code: confirmCode,
+			code: code,
 			name: name,
 			user_id: user_id,
 			birth_year: age,
@@ -132,7 +151,7 @@ class confirmCode extends React.Component {
 				NavigationService.navigate('CatCode')
 			},
 			(error) => {
-				this.setState({ notCorrect: true })
+				this.setState({ validate: true })
 				this.props.loaderState(false)
 			},
 		)
@@ -142,7 +161,7 @@ class confirmCode extends React.Component {
 		this.props.loaderState(true)
 		let body = {
 			phone: this.state.phoneNumber,
-			code: this.state.confirmCode,
+			code: this.state.code,
 		}
 		httpPost(urls.sing_in_confirm, JSON.stringify(body)).then(
 			(result) => {
@@ -162,74 +181,70 @@ class confirmCode extends React.Component {
 				NavigationService.navigate('CatCode')
 			},
 			(error) => {
-				this.setState({ notCorrect: true })
+				this.setState({ validate: true })
 				this.props.loaderState(false)
 			},
 		)
 	}
 
-	sendResult() {
+	submit = () => {
 		this.props.loaderState(true)
 		this.state.route ? this.whileNoCodeConfirmRegistration() : this.whileNoCodeConfirmLogin()
 	}
 
-	render() {
-		return (
-			<LinearGradient
-				colors={['#F55890', '#FF9950']}
-				start={{ x: 1.0, y: 0.0 }}
-				end={{ x: 0.0, y: 1.0 }}
-				style={styles.container}
-			>
-				<AndroidHeader
-					route={this.props.navigation.state.params.back}
-					title={this.props.navigation.state.params.title}
-				/>
+	handleFocusCode = () => this.setState({ validate: false })
 
-				<KeyboardAvoidingView behavior='padding' style={styles.grad}>
-					<ScrollView scrollEnabled={false} contentContainerStyle={styles.scrollView}>
+	handleChangeCode = (code) => this.setState({ code })
+
+	render = () => {
+		const { navigation, userColor, colors, start, end } = this.props
+		const { back, title } = navigation.state.params
+		const { pink, white } = userColor
+		const { timer, code, accept, validate } = this.state
+		return (
+			<LinearGradient colors={colors} start={start} end={end} style={styles.layout}>
+				<AndroidHeader route={back} title={title} />
+				<KeyboardAvoidingView behavior='padding' style={styles.keyboard}>
+					<ScrollView scrollEnabled={false} contentContainerStyle={styles.scroll}>
 						<TouchableOpacity
-							style={[styles.resendCode, !this.state.seconds ? styles.resendCodeActive : null]}
-							onPress={() => this.sendCodeAgain()}
+							style={[styles.again_button, !timer && styles.again_button_active]}
+							onPress={this.resend}
+							disabled={timer !== 0}
 						>
-							<Text style={[styles.resendText, !this.state.seconds ? styles.resendTextActive : null]}>
+							<Text style={[styles.again_text, !timer && styles.again_text_active]}>
 								{I18n.t('SIGN.SEND_AGAIN')}
 							</Text>
-							{this.state.seconds !== 0 && (
-								<View style={styles.timerView}>
-									<Text style={styles.timer}>{`${this.state.seconds}`}</Text>
+							{timer !== 0 && (
+								<View style={styles.wrapper}>
+									<Text style={styles.timer}>{`${timer}`}</Text>
 								</View>
 							)}
 						</TouchableOpacity>
-						<View style={styles.fullWidth}>
-							<Text style={styles.title}>{I18n.t('SIGN.SENDED_CODE')}</Text>
+						<View style={styles.content}>
+							<Text style={styles.description}>{I18n.t('SIGN.SENDED_CODE')}</Text>
 						</View>
-						<View style={styles.fullWidth}>
+						<View style={styles.content}>
 							<TextInput
-								value={this.state.confirmCode}
-								onChangeText={(value) => this.setState({ confirmCode: value })}
+								value={code}
+								onFocus={this.handleFocusCode}
+								onChangeText={this.handleChangeCode}
 								placeholder={'-  -  -  -  -  -'}
-								style={styles.textInput}
-								keyboardType='numeric'
 								placeholderTextColor={'#fff'}
-								onFocus={() => this.setState({ notCorrect: false })}
+								style={styles.field}
+								keyboardType={'numeric'}
 								maxLength={6}
 							/>
-							{this.state.notCorrect && (
-								<Image style={styles.eye} source={require('@assets/img/eyes.png')} />
-							)}
+							{validate && <Image style={styles.hidden} source={require('@assets/img/eyes.png')} />}
 						</View>
-						<View style={styles.fullWidth}>
-							<Text style={[styles.textRight, { opacity: this.state.notCorrect ? 1 : 0 }]}>
+						<View style={styles.content}>
+							<Text style={[styles.right, { opacity: validate ? 1 : 0 }]}>
 								{I18n.t('SIGN.CHECK_CODE')}
 							</Text>
 						</View>
-						<CustomButton
-							color={this.state.acceptButton ? this.props.userColor.pink : this.props.userColor.white}
-							handler={() => {
-								this.sendResult()
-							}}
-							active={this.state.acceptButton}
+						<Button
+							color={accept ? pink : white}
+							handler={this.submit}
+							active={accept}
 							title={I18n.t('ACCEPT').toUpperCase()}
 						/>
 					</ScrollView>
