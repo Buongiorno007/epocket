@@ -68,7 +68,7 @@ class GameResult extends React.Component {
 			if (this.props.website_timer <= 0) {
 				clearCorrectingInterval(this.state.interval)
 			} else {
-				if (this.props.game_info.wait_timer_in_sec > 0) {
+				if (this.props.game_info.wait_timer_in_sec >= 0) {
 					this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec--)
 				}
 			}
