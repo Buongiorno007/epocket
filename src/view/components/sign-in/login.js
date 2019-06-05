@@ -43,9 +43,12 @@ class Login extends React.Component {
 		phoneNumber: '',
 		code: '',
 		notCorrect: false,
+		sms_active: false,
 	}
 
 	componentDidMount() {
+		const { sms_active } = this.props.navigation.state.params
+		this.setState({ sms_active: sms_active })
 		this.props.loaderState(false)
 	}
 
@@ -93,14 +96,11 @@ class Login extends React.Component {
 					birthDay: toAge(result.body.birthDay),
 					currency: I18n.locale === 'en' ? result.body.currency : result.body.currency_plural,
 				}
-				console.log(result, 'LOGIN RESULT')
 				this.props.getPush(result.body.token)
 				this.props.saveUser(user_info)
 				this.props.setColor(user_info.sex)
 				this.props.setToken(result.body.token)
 				this.props.setBalance(result.body.balance)
-				// this.props.setProfileVirgin(result.body.profile_virgin)
-				// this.props.setGeoVirgin(result.body.geo_virgin)
 				NavigationService.navigate('Main')
 			},
 			(error) => {
@@ -143,8 +143,7 @@ class Login extends React.Component {
 						<CustomButton
 							color={this.state.acceptButton ? this.props.userColor.pink : this.props.userColor.white}
 							handler={() => {
-								// this.newLogin()
-								this.whileNoCodeConfirm()
+								this.state.sms_active ? this.newLogin() : this.whileNoCodeConfirm()
 							}}
 							active={this.state.acceptButton}
 							title={I18n.t('SIGN_IN').toUpperCase()}

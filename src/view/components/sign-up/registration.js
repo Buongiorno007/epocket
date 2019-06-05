@@ -43,9 +43,12 @@ class Registration extends React.Component {
 		notCorrect: false,
 		gender: 0,
 		user_id: '',
+		sms_active: false,
 	}
 
 	componentDidMount() {
+		const { sms_active } = this.props.navigation.state.params
+		this.setState({ sms_active: sms_active })
 		this.props.loaderState(false)
 	}
 
@@ -60,6 +63,17 @@ class Registration extends React.Component {
 		) {
 			const check = phoneNumber.length === 12 && code && name.length >= 2 && age && gender
 			this.setState({ acceptButton: check })
+		}
+	}
+
+	addTextFirstName = (value) => {
+		let Reg61 = /^.*[^A-zА-яЁё ].*$/
+		if (Reg61.test(value)) {
+			console.log('Not only letters')
+		} else {
+			this.setState({
+				name: value,
+			})
 		}
 	}
 
@@ -84,17 +98,6 @@ class Registration extends React.Component {
 				this.props.loaderState(false)
 			},
 		)
-	}
-
-	addTextFirstName = (value) => {
-		let Reg61 = /^.*[^A-zА-яЁё ].*$/
-		if (Reg61.test(value)) {
-			console.log('Not only letters')
-		} else {
-			this.setState({
-				name: value,
-			})
-		}
 	}
 
 	whileNoCodeConfirm() {
@@ -210,8 +213,7 @@ class Registration extends React.Component {
 						<CustomButton
 							color={this.state.acceptButton ? this.props.userColor.pink : this.props.userColor.white}
 							handler={() => {
-								// this.newRegister()
-								this.whileNoCodeConfirm()
+								this.state.sms_active ? this.newRegister() : this.whileNoCodeConfirm()
 							}}
 							active={this.state.acceptButton}
 							title={I18n.t('SIGN_UP').toUpperCase()}
