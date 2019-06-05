@@ -1,7 +1,5 @@
 import { AppState } from 'react-native'
 import NetInfo from '@react-native-community/netinfo'
-import { httpGet } from '../services/http'
-import { urls } from '../constants/urls'
 
 export const UPDATE_CONNECTION = 'net-info/UPDATE_CONNECTION'
 

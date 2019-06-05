@@ -32,11 +32,24 @@ import { urls } from '../../../constants/urls'
 import { httpGet, httpPost } from '../../../services/http'
 import I18n from '@locales/I18n'
 import { toAge } from '@services/converteDate'
+import { updateServerRequest } from '@reducers/serverRequest'
 
 class Start extends React.Component {
+	state = {
+		sms_active: false,
+	}
 	componentDidMount = () => {
-		this.props.loaderState(true)
 		this.props.getConnection()
+		this.props.isConnected && this.startScreen()
+	}
+	componentDidUpdate(prevProps) {
+		if (prevProps.isConnected !== this.props.isConnected && this.props.isConnected) {
+			this.startScreen()
+		}
+	}
+
+	startScreen() {
+		this.props.loaderState(true)
 		this.props.setSounds()
 		this.props.locationStateListener()
 		this.props.locationCoordsListener()
@@ -63,11 +76,14 @@ class Start extends React.Component {
 		httpGet(urls.echo).then(
 			(result) => {
 				this.props.setCountries(result.body.c_list)
+				this.props.updateServerRequest(false)
+				this.setState({ sms_active: result.body.sms_active || false })
 				this.props.loaderState(false)
 			},
 			(error) => {
 				console.log(error, 'No server request')
-				this.props.loaderState(false)
+				this.props.updateServerRequest(true)
+				this.getCountries()
 			},
 		)
 	}
@@ -93,7 +109,7 @@ class Start extends React.Component {
 				let value = result[1]
 				switch (key) {
 					case 'game_status': {
-						value ? this.props.setGameStatus(value) : this.props.setGameStatus('start')
+						value && value !== 'game' ? this.props.setGameStatus(value) : this.props.setGameStatus('start')
 						break
 					}
 					case 'token': {
@@ -114,14 +130,13 @@ class Start extends React.Component {
 							}
 							httpPost(urls.get_user, JSON.stringify({}), value).then(
 								(result) => {
-									console.log(result.body, 'START SIGNIN')
 									this.props.setToken(value)
 									this.props.getPush(value)
 									this._getLocation()
 									this.saveData(result.body)
 								},
 								(error) => {
-									console.log(error, 'ERROR')
+									console.log(error, 'START get_user ERROR')
 									this.getCountries()
 								},
 							)
@@ -137,7 +152,8 @@ class Start extends React.Component {
 
 	goToSign = (value) => {
 		this.props.loaderState(true)
-		NavigationService.navigate(value)
+		// NavigationService.navigate(value, { sms_active: this.state.sms_active })
+		NavigationService.navigate(value, { sms_active: true })
 	}
 
 	render() {
@@ -158,10 +174,10 @@ class Start extends React.Component {
 							end={{ x: 1.0, y: 0.0 }}
 							style={styles.registration}
 						/>
-						<Text style={styles.registration_text}>{I18n.t('NEW_SIGN_UP_TITLE')}</Text>
+						<Text style={styles.registration_text}>{I18n.t('SIGN_UP_TITLE').toUpperCase()}</Text>
 					</Button>
 					<Button style={styles.login} onPress={() => this.goToSign('Login')}>
-						<Text style={styles.login_text}>{I18n.t('LOGIN')}</Text>
+						<Text style={styles.login_text}>{I18n.t('SIGN_IN_TITLE').toUpperCase()}</Text>
 					</Button>
 				</View>
 			</View>
@@ -169,7 +185,9 @@ class Start extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => ({})
+const mapStateToProps = (state) => ({
+	isConnected: state.isConnected,
+})
 
 const mapDispatchToProps = (dispatch) =>
 	bindActionCreators(
@@ -189,6 +207,7 @@ const mapDispatchToProps = (dispatch) =>
 			setGameStatus,
 			setCountries,
 			saveUser,
+			updateServerRequest,
 		},
 		dispatch,
 	)

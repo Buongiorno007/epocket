@@ -1,51 +1,36 @@
-import { StyleSheet, Dimensions } from 'react-native'
+import { StyleSheet, Dimensions, Platform } from 'react-native'
+import { Header } from 'react-navigation'
 import { colors } from '../../../constants/colors'
 const { width, height } = Dimensions.get('window')
+const iPhoneX = Platform.OS === 'ios' && (height === 812 || width === 812 || height === 896 || width === 896)
 
 export default StyleSheet.create({
+	headerTitle: {
+		fontWeight: 'bold',
+		color: '#fff',
+		fontSize: 18,
+	},
+	headerBackground: {
+		backgroundColor: 'rgba(255,255,255,.2)',
+	},
 	container: {
 		width: width,
 		height: height,
-		position: 'absolute',
-		top: 0,
-		left: 0,
-		right: 0,
-		bottom: 0,
-		alignItems: 'center',
-		justifyContent: 'center',
+		flex: 1,
 		backgroundColor: colors.backgroundForAnimated,
 		zIndex: 100,
 	},
 	grad: {
 		position: 'absolute',
-		height: height,
+		height: Platform.OS === 'ios' ? (iPhoneX ? height - Header.HEIGHT - 22 : height - Header.HEIGHT) : height - 62,
 		width: width,
+		top: Platform.OS === 'ios' ? (iPhoneX ? Header.HEIGHT + 22 : Header.HEIGHT) : 62,
 		flex: 1,
 		flexDirection: 'column',
 		paddingHorizontal: 16,
 	},
-	navigation_item: {
-		top: 20,
-	},
-	icon: {
-		width: 10,
-		height: 20,
-		marginRight: width * 0.02,
-	},
-	back: {
-		color: '#fff',
-		fontSize: 12,
-		lineHeight: 12,
-		fontFamily: 'Rubik-Medium',
-	},
-	avoiding: {
-		height: '100%',
-		// backgroundColor: '#fff'
-	},
 	scrollView: {
-		height: '100%',
-		// backgroundColor: '#fff',
-		flex: 1,
+		flexGrow: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
 	},

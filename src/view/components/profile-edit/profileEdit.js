@@ -9,7 +9,6 @@ import {
 	TouchableOpacity,
 	Platform,
 } from 'react-native'
-import FastImage from 'react-native-fast-image'
 
 import LinearGradient from 'react-native-linear-gradient'
 import { connect } from 'react-redux'
@@ -37,7 +36,6 @@ import { saveUser } from '../../../reducers/profile-state'
 import { setColor } from '../../../reducers/user-color'
 import { serializeJSON } from '../../../services/serialize-json'
 import CustomPhoto from '@containers/custom-photo/custom-photo'
-import { ageToDate } from '@services/converteDate'
 
 class ProfEdit extends React.Component {
 	static navigationOptions = () => ({
@@ -80,7 +78,7 @@ class ProfEdit extends React.Component {
 	}
 
 	addTextFirstName = (value) => {
-		let Reg61 = /^.*[^A-zА-яЁё].*$/
+		let Reg61 = /^.*[^A-zА-яЁё ].*$/
 		if (Reg61.test(value)) {
 			console.log('Not only letters')
 		} else {
@@ -95,7 +93,7 @@ class ProfEdit extends React.Component {
 		let body = {
 			name: this.state.name,
 			sex: this.state.gender - 1,
-			birthDay: ageToDate(this.state.age),
+			birth_year: this.state.age,
 			photo: 'data:image/jpeg;base64,' + this.state.photo,
 		}
 		console.log(body, 'BODY')
@@ -109,11 +107,8 @@ class ProfEdit extends React.Component {
 					phone: this.props.profileState.phone,
 					currency: this.props.profileState.currency,
 				}
-				if (user.sex) {
-					this.props.setColor(true)
-				} else {
-					this.props.setColor(false)
-				}
+				user.sex ? this.props.setColor(true) : this.props.setColor(false)
+
 				this.props.saveUser(user)
 				NavigationService.navigate('Main')
 			},

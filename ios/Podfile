@@ -60,6 +60,8 @@ target 'EpocketCash' do
 
   pod 'RNShare', :path => '../node_modules/react-native-share'
 
+  pod 'react-native-background-timer', :path => '../node_modules/react-native-background-timer'
+
 end
 
 post_install do |installer|

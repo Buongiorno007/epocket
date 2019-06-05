@@ -1,26 +1,28 @@
 import React from 'react'
 import { View, Text, Image } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage'
 import FastImage from 'react-native-fast-image'
 //constants
 import styles from './styles'
-import { ICONS } from './../../../constants/icons'
+import { ICONS } from '@constants/icons'
 //redux
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { loaderState } from '../../../reducers/loader'
+import { loaderState } from '@reducers/loader'
 //services
-import NavigationService from './../../../services/route'
+import NavigationService from '@services/route'
 import { Button } from 'native-base'
 import I18n from '@locales/I18n'
-import { urls } from '../../../constants/urls'
-import { httpGet } from '../../../services/http'
+import { urls } from '@constants/urls'
+import { httpGet } from '@services/http'
 
 class CashoutBalance extends React.Component {
 	state = {
 		currency: '',
 		maxValue: 0,
 		phone: '',
+		minValue: 0,
+		tax: 0,
+		currentValue: 0,
 	}
 	navigateBack = () => {
 		if (this.props.navigation) {
@@ -32,16 +34,21 @@ class CashoutBalance extends React.Component {
 	}
 	componentDidMount = () => {
 		this.props.loaderState(true)
-		AsyncStorage.getItem('user_info').then((value) => {
-			let object = JSON.parse(value)
-			this.setState({
-				currency: object.currency,
-				phone: `+${object.phone}`,
-			})
+		const { profileState } = this.props
+		this.setState({
+			currency: profileState.currency,
+			phone: profileState.phone,
 		})
+
 		httpGet(urls.get_received_bonuses, this.props.token).then(
 			(result) => {
-				this.setState({ maxValue: Number(result.body.refill) })
+				console.log(result, 'REFILL RESULT')
+				this.setState({
+					maxValue: Number(result.body.refill),
+					tax: Number(result.body.tax_amount),
+					minValue: Number(result.body.min_refill),
+					currentValue: Number(result.body.received_bonuses),
+				})
 				this.props.loaderState(false)
 			},
 			(error) => {
@@ -51,11 +58,19 @@ class CashoutBalance extends React.Component {
 	}
 	goRefill() {
 		this.props.loaderState(true)
-		NavigationService.navigate('RefillMobile', {
-			currency: this.state.currency,
-			maxValue: this.state.maxValue,
-			phone: this.state.phone,
-		})
+		const { maxValue, minValue, tax, currentValue, currency, phone } = this.state
+		if ((maxValue && minValue, tax, currentValue)) {
+			NavigationService.navigate('RefillMobile', {
+				currency: currency,
+				phone: phone,
+				maxValue: maxValue,
+				minValue: minValue,
+				tax: tax,
+				currentValue: currentValue,
+			})
+		} else {
+			console.log('error refill')
+		}
 	}
 	render = () => {
 		return (

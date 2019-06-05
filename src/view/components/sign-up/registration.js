@@ -43,9 +43,12 @@ class Registration extends React.Component {
 		notCorrect: false,
 		gender: 0,
 		user_id: '',
+		sms_active: false,
 	}
 
 	componentDidMount() {
+		const { sms_active } = this.props.navigation.state.params
+		this.setState({ sms_active: sms_active })
 		this.props.loaderState(false)
 	}
 
@@ -63,6 +66,17 @@ class Registration extends React.Component {
 		}
 	}
 
+	addTextFirstName = (value) => {
+		let Reg61 = /^.*[^A-zА-яЁё ].*$/
+		if (Reg61.test(value)) {
+			console.log('Not only letters')
+		} else {
+			this.setState({
+				name: value,
+			})
+		}
+	}
+
 	newRegister = () => {
 		this.props.loaderState(true)
 		let body = {
@@ -75,7 +89,7 @@ class Registration extends React.Component {
 					title: I18n.t('SIGN_UP_TITLE'),
 					phone: body.phone,
 					name: this.state.name,
-					gender: `${this.state.gender - 1}`,
+					gender: this.state.gender,
 					age: this.state.age,
 				})
 			},
@@ -84,17 +98,6 @@ class Registration extends React.Component {
 				this.props.loaderState(false)
 			},
 		)
-	}
-
-	addTextFirstName = (value) => {
-		let Reg61 = /^.*[^A-zА-яЁё].*$/
-		if (Reg61.test(value)) {
-			console.log('Not only letters')
-		} else {
-			this.setState({
-				name: value,
-			})
-		}
 	}
 
 	whileNoCodeConfirm() {
@@ -109,7 +112,6 @@ class Registration extends React.Component {
 			sex: `${gender - 1}`,
 			photo: 'data:image/png;base64,' + ICONS.TEST.SHOE_PHOTO,
 		}
-		console.log(body, 'BODYYY')
 		httpPost(urls.sign_up_confirm, JSON.stringify(body)).then(
 			(result) => {
 				const new_user = {
@@ -120,7 +122,6 @@ class Registration extends React.Component {
 					currency: I18n.locale === 'en' ? result.body.currency : result.body.currency_plural,
 					photo: ICONS.TEST.SHOE_PHOTO,
 				}
-				console.log(new_user, 'NEW USER REGISTRATION')
 				this.props.saveUser(new_user)
 				this.props.setToken(result.body.token)
 				this.props.setBalance(0)
@@ -212,8 +213,7 @@ class Registration extends React.Component {
 						<CustomButton
 							color={this.state.acceptButton ? this.props.userColor.pink : this.props.userColor.white}
 							handler={() => {
-								// this.newRegister()
-								this.whileNoCodeConfirm()
+								this.state.sms_active ? this.newRegister() : this.whileNoCodeConfirm()
 							}}
 							active={this.state.acceptButton}
 							title={I18n.t('SIGN_UP').toUpperCase()}

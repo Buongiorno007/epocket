@@ -13,9 +13,6 @@ import { bindActionCreators } from 'redux'
 import I18n from '@locales/I18n'
 
 class TRCMarker extends React.Component {
-	constructor(props) {
-		super(props)
-	}
 	ios = Platform.OS === 'ios' ? true : false
 	state = {
 		coordinate: {
