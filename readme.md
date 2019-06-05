@@ -3,20 +3,16 @@
 3) node node_modules/react-native-text-gradient/patch-rn.js
 4) cd ios && pod update && cd ../
 5) brew update && brew cask install react-native-debugger
-android studio react-native-google-analytics 15.0.0
 
-if FBSDK     /pod 'FBSDKCoreKit', '~> 4.42.0'   /
-            / pod 'FBSDKLoginKit', '~> 4.42.0' /
-           /  pod 'FBSDKShareKit', '~> 4.42.0'/
+TO REPLACE FILES
+7) rm -rf node_modules/react-native-instagram-story-share && rm -rf node_modules/react-native-maps-super-cluster && rm -rf node_modules/react-native-mock-location-detector
+8) cp -r src/native_modules/ node_modules/
 
-
-6) npm i && node node_modules/react-native-text-gradient/patch-rn.js && cd ios && pod update && cd ../ 
 
 NOTATION: then replace from native-modules in node-modules and react-native-google-analytics 15.0.0
 NOTATION: remove 'static' from 'static getDerivedStateFromProps'
 
 #EpocketCash
-cd ios && pod deintegrate && pod clean && pod install && cd ../
 
 maybe need remove :{
   react-native-crypto,<---- NEED FOR react-native-randombytes
