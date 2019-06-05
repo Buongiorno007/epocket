@@ -26,10 +26,7 @@ import { getPush } from '../../../reducers/push'
 import { setColor } from '../../../reducers/user-color'
 import { setToken } from '../../../reducers/token'
 import { setBalance } from '../../../reducers/user-balance'
-import { setProfileVirgin } from '../../../reducers/profile-virgin'
-import { setGeoVirgin } from '../../../reducers/geo-virgin'
-import { setInstaToken } from '../../../reducers/insta-token'
-import { setFacebookToken } from '../../../reducers/facebook-token'
+import { setInstaToken } from '@reducers/insta-token'
 
 class Login extends React.Component {
 	static navigationOptions = () => ({
@@ -102,6 +99,9 @@ class Login extends React.Component {
 				this.props.setColor(user_info.sex)
 				this.props.setToken(result.body.token)
 				this.props.setBalance(result.body.balance)
+				//WILL BE DEPRECATED>
+				this.props.setInstaToken(result.body.is_insta_logged)
+				//>
 				NavigationService.navigate('Main')
 			},
 			(error) => {
@@ -170,9 +170,6 @@ const mapDispatchToProps = (dispatch) =>
 			setColor,
 			setToken,
 			setBalance,
-			setProfileVirgin,
-			setGeoVirgin,
-			setFacebookToken,
 			setInstaToken,
 		},
 		dispatch,

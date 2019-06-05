@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux'
 //constants
 import styles from './styles'
 //redux
+import { setInstaToken } from '@reducers/insta-token'
 import { setGameStatus } from '../../../reducers/game-status'
 import { setBalance } from '../../../reducers/user-balance'
 import { getConnection } from '../../../reducers/net-info'
@@ -93,6 +94,7 @@ class Start extends React.Component {
 			currency: I18n.locale === 'ru' ? data.currency_plural : data.currency,
 			birthDay: toAge(data.birth_day),
 		}
+		this.props.setInstaToken(data.is_insta_logged)
 		this.props.saveUser(user)
 		this.props.setBalance(Number(data.balance))
 		NavigationService.navigate('Main')
@@ -203,6 +205,7 @@ const mapDispatchToProps = (dispatch) =>
 			setCountries,
 			saveUser,
 			updateServerRequest,
+			setInstaToken,
 		},
 		dispatch,
 	)

@@ -64,10 +64,10 @@ export default StyleSheet.create({
 		fontSize: 10,
 		lineHeight: 12,
 		color: 'rgba(255, 255, 255, .8)',
-		marginBottom: 30,
 	},
 	button: {
 		backgroundColor: '#fff',
+		marginTop: 30,
 	},
 	buttonText: {
 		fontSize: 12,

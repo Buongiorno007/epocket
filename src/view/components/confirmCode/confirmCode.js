@@ -9,6 +9,7 @@ import BackButton from '@containers/back/back'
 import Button from '@containers/custom-button/custom-button'
 import AndroidHeader from '@containers/androidHeader/androidHeader'
 //redux
+import { setInstaToken } from '@reducers/insta-token'
 import { setToken } from '@reducers/token'
 import { loaderState } from '@reducers/loader'
 import { setBalance } from '@reducers/user-balance'
@@ -178,6 +179,7 @@ class confirmCode extends React.Component<Props, State> {
 				this.props.setColor(user_info.sex)
 				this.props.setToken(result.body.token)
 				this.props.setBalance(result.body.balance)
+				this.props.setInstaToken(result.body.is_insta_logged)
 				NavigationService.navigate('CatCode')
 			},
 			(error) => {
@@ -264,17 +266,10 @@ const mapDispatchToProps = (dispatch) =>
 			setToken,
 			setBalance,
 			loaderState,
-			// setInstaToken,
-			// setFacebookToken,
+			setInstaToken,
 			setColor,
 			getPush,
 			saveUser,
-			// setProfileVirgin,
-			// setGeoVirgin,
-			// locationState,
-			// setLocation,
-			// locationStateListener,
-			// locationCoordsListener,
 		},
 		dispatch,
 	)
