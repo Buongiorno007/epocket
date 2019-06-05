@@ -59,7 +59,7 @@ export default StyleSheet.create({
 		width: width * 0.34,
 		height: width * 0.34,
 		borderRadius: width * 0.17,
-		// backgroundColor: '#000',
+		alignSelf: 'center',
 	},
 	text_container: {
 		justifyContent: 'flex-start',
