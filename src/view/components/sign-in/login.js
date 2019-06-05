@@ -12,7 +12,8 @@ import AndroidHeader from '@containers/androidHeader/androidHeader'
 import { loaderState } from '@reducers/loader'
 //services
 import NavigationService from '@services/route'
-import { httpPost } from '@services/http'
+import { httpPost, httpGet } from '@services/http'
+import { toAge } from '@services/converteDate'
 //constants
 import { urls } from '@constants/urls'
 //locales
@@ -29,7 +30,6 @@ import { setProfileVirgin } from '../../../reducers/profile-virgin'
 import { setGeoVirgin } from '../../../reducers/geo-virgin'
 import { setInstaToken } from '../../../reducers/insta-token'
 import { setFacebookToken } from '../../../reducers/facebook-token'
-import { toAge } from '@services/converteDate'
 
 class Login extends React.Component {
 	static navigationOptions = () => ({
@@ -47,8 +47,9 @@ class Login extends React.Component {
 	}
 
 	componentDidMount() {
-		const { sms_active } = this.props.navigation.state.params
-		this.setState({ sms_active: sms_active })
+		httpGet(urls.echo).then((result) => {
+			this.setState({ sms_active: result.body.sms_active || false })
+		})
 		this.props.loaderState(false)
 	}
 

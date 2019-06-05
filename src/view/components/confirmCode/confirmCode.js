@@ -29,7 +29,6 @@ import I18n from '@locales/I18n'
 import styles from './styles'
 
 class confirmCode extends React.Component {
-	interval
 	static navigationOptions = ({ navigation }) => ({
 		headerLeft: <BackButton title={I18n.t('BACK')} route={navigation.state.params.back} />,
 		title: navigation.state.params.title,
@@ -76,36 +75,31 @@ class confirmCode extends React.Component {
 	}
 
 	startInterval = () => {
-		console.log(this.state.seconds, 'SECONDS')
-		BackgroundTimer.backgroundClockMethod(this.interv, 1000)
+		BackgroundTimer.runBackgroundTimer(this.interv, 1000)
 	}
 
 	interv = () => {
 		if (this.state.seconds) {
-			console.log('IM HERE AFTER RUN')
 			this.setState({ seconds: this.state.seconds - 1 })
 		} else {
-			console.log('IM ON STOP')
 			BackgroundTimer.stopBackgroundTimer()
 		}
 	}
 
 	sendCodeAgain() {
-		// if (!this.state.seconds) {
-		// 	this.props.loaderState(true)
-		// 	httpPost(urls.re_send_code, JSON.stringify({ phone: this.state.phoneNumber })).then(
-		// 		(result) => {
-		// 			// this.restartInterval()
-		// 			this.setState({ seconds: 10 })
-		// 			this.props.loaderState(false)
-		// 		},
-		// 		(error) => {
-		// 			this.props.loaderState(false)
-		// 			console.log(error, 'ERROR')
-		// 		},
-		// 	)
-		// }
-		this.setState({ seconds: 10 })
+		if (!this.state.seconds) {
+			this.props.loaderState(true)
+			httpPost(urls.re_send_code, JSON.stringify({ phone: this.state.phoneNumber })).then(
+				(result) => {
+					this.setState({ seconds: 10 })
+					this.props.loaderState(false)
+				},
+				(error) => {
+					this.props.loaderState(false)
+					console.log(error, 'ERROR')
+				},
+			)
+		}
 	}
 
 	whileNoCodeConfirmRegistration() {
