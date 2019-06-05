@@ -76,12 +76,10 @@ class RefillMobile extends React.Component {
 				/>
 				<View>
 					<Text style={styles.subHead2}>
-						{`Максимальная сумма пополнения ${this.state.maxValue} ${this.state.currency}`}
+						{`Сумма пополнения ${this.state.minValue} - ${this.state.maxValue} ${this.state.currency}`}
 					</Text>
-					<Text style={styles.subHead2}>
-						{`Минимальная сумма пополнения ${this.state.minValue} ${this.state.currency}`}
-					</Text>
-					<Text style={styles.subHead2}>{`Комиссия ${this.state.tax} ${this.state.currency}`}</Text>
+
+					<Text style={styles.subHead2}>{`*Комиссия ${this.state.tax} ${this.state.currency}`}</Text>
 				</View>
 
 				<Button
