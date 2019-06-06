@@ -88,30 +88,25 @@ class confirmCode extends React.Component<Props, State> {
 		}
 	}
 
-	interval = () => {
-		BackgroundTimer.runBackgroundTimer(() => {
-			this.setState({ timer: this.state.timer - 1 })
-		})
-	}
-
 	startInterval = () => {
 		BackgroundTimer.runBackgroundTimer(this.interv, 1000)
 	}
 
 	interv = () => {
-		if (this.state.seconds) {
-			this.setState({ seconds: this.state.seconds - 1 })
+		if (this.state.timer) {
+			this.setState({ timer: this.state.timer - 1 })
 		} else {
 			BackgroundTimer.stopBackgroundTimer()
 		}
 	}
 
-	sendCodeAgain() {
-		if (!this.state.seconds) {
+	resend = () => {
+		// console.log(this.state, 'THIS STATE', this.state.timer)
+		if (!this.state.timer) {
 			this.props.loaderState(true)
 			httpPost(urls.re_send_code, JSON.stringify({ phone: this.state.phoneNumber })).then(
 				(result) => {
-					this.setState({ seconds: 10 })
+					this.setState({ timer: 10 })
 					this.props.loaderState(false)
 				},
 				(error) => {
