@@ -83,9 +83,9 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-share')
     implementation project(':react-native-background-timer')
     implementation project(':@react-native-community_async-storage')
-    implementation project(':react-native-share')
     implementation project(':react-native-webview')
     implementation project(':@react-native-community_blur')
     implementation project(':react-native-svg')

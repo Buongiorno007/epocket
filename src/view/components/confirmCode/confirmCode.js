@@ -101,7 +101,6 @@ class confirmCode extends React.Component<Props, State> {
 	}
 
 	resend = () => {
-		// console.log(this.state, 'THIS STATE', this.state.timer)
 		if (!this.state.timer) {
 			this.props.loaderState(true)
 			httpPost(urls.re_send_code, JSON.stringify({ phone: this.state.phoneNumber })).then(

@@ -14,6 +14,7 @@ import { setInstaToken } from '../../../reducers/insta-token'
 import { setFacebookToken } from '../../../reducers/facebook-token'
 import { loaderState } from '../../../reducers/loader'
 import { setBirthDay } from '../../../reducers/birthday'
+import { setTabState } from '../../../reducers/tabs'
 //constants
 import styles from './styles'
 import { ICONS } from '../../../constants/icons'
@@ -65,6 +66,7 @@ class ProfileSettings extends React.Component {
 				CookieManager.clearAll()
 			},
 		)
+		this.props.setTabState(1)
 	}
 	LoginFacebook = (token) => {
 		this.props.loaderState(true)
@@ -393,6 +395,7 @@ const mapDispatchToProps = (dispatch) =>
 			setGameStatus,
 			setInstaToken,
 			setFacebookToken,
+			setTabState,
 		},
 		dispatch,
 	)
