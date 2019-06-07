@@ -9,13 +9,11 @@ import BackButton from '@containers/back/back'
 import Button from '@containers/custom-button/custom-button'
 import AndroidHeader from '@containers/androidHeader/androidHeader'
 //redux
-import { setInstaToken } from '@reducers/insta-token'
 import { setToken } from '@reducers/token'
 import { loaderState } from '@reducers/loader'
 import { setBalance } from '@reducers/user-balance'
 import { setColor } from '@reducers/user-color'
 
-import { getPush } from '@reducers/push'
 import { saveUser } from '@reducers/profile-state'
 //services
 import NavigationService from '@services/route'
@@ -30,7 +28,6 @@ import I18n from '@locales/I18n'
 import styles from './styles'
 
 type Props = typeof initialProps
-
 type State = typeof initialState
 
 const initialState = {
@@ -51,24 +48,17 @@ const initialProps = {
 }
 
 class confirmCode extends React.Component<Props, State> {
-	static navigationOptions = ({ navigation }) => ({
-		title: navigation.state.params.title,
-		headerStyle: styles.background,
-		headerTitleStyle: styles.title,
-		headerLeft: <BackButton title={I18n.t('BACK')} route={navigation.state.params.back} />,
-	})
-
 	state = initialState
 	static defaultProps = initialProps
 
 	componentDidMount() {
-		const { params } = this.props.navigation.state
+		const { phone, name, gender, age, back } = this.props.navigation.state.params
 		this.setState({
-			phoneNumber: params.phone || '',
-			name: params.name || '',
-			gender: params.gender || '',
-			age: params.age || '',
-			route: params.back === 'Registration' ? true : false,
+			phoneNumber: phone || '',
+			name: name || '',
+			gender: gender || '',
+			age: age || '',
+			route: back === 'Registration',
 		})
 		this.startInterval()
 		this.props.loaderState(false)
@@ -139,7 +129,6 @@ class confirmCode extends React.Component<Props, State> {
 					photo: ICONS.TEST.SHOE_PHOTO,
 				}
 				this.props.saveUser(new_user)
-				this.props.getPush(result.body.token)
 				this.props.setColor(new_user.sex)
 				this.props.setToken(result.body.token)
 				this.props.setBalance(0)
@@ -169,11 +158,9 @@ class confirmCode extends React.Component<Props, State> {
 					currency: I18n.locale === 'en' ? result.body.currency : result.body.currency_plural,
 				}
 				this.props.saveUser(user_info)
-				this.props.getPush(result.body.token)
 				this.props.setColor(user_info.sex)
 				this.props.setToken(result.body.token)
 				this.props.setBalance(result.body.balance)
-				this.props.setInstaToken(result.body.is_insta_logged)
 				NavigationService.navigate('CatCode')
 			},
 			(error) => {
@@ -260,9 +247,7 @@ const mapDispatchToProps = (dispatch) =>
 			setToken,
 			setBalance,
 			loaderState,
-			setInstaToken,
 			setColor,
-			getPush,
 			saveUser,
 		},
 		dispatch,

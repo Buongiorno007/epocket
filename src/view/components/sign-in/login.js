@@ -10,6 +10,10 @@ import SignForm from '@containers/signForm/signForm'
 import AndroidHeader from '@containers/androidHeader/androidHeader'
 //reducers
 import { loaderState } from '@reducers/loader'
+import { saveUser } from '@reducers/profile-state'
+import { setColor } from '@reducers/user-color'
+import { setToken } from '@reducers/token'
+import { setBalance } from '@reducers/user-balance'
 //services
 import NavigationService from '@services/route'
 import { httpPost, httpGet } from '@services/http'
@@ -20,22 +24,8 @@ import { urls } from '@constants/urls'
 import I18n from '@locales/I18n'
 //style
 import styles from './style'
-//will be removed
-import { saveUser } from '../../../reducers/profile-state'
-import { getPush } from '../../../reducers/push'
-import { setColor } from '../../../reducers/user-color'
-import { setToken } from '../../../reducers/token'
-import { setBalance } from '../../../reducers/user-balance'
-import { setInstaToken } from '@reducers/insta-token'
 
 class Login extends React.Component {
-	static navigationOptions = () => ({
-		headerLeft: <BackButton title={I18n.t('BACK')} route='Start' />,
-		title: I18n.t('SIGN_IN_TITLE'),
-		headerStyle: styles.headerBackground,
-		headerTitleStyle: styles.headerTitle,
-	})
-
 	state = {
 		phoneNumber: '',
 		code: '',
@@ -94,14 +84,12 @@ class Login extends React.Component {
 					birthDay: toAge(result.body.birthDay),
 					currency: I18n.locale === 'en' ? result.body.currency : result.body.currency_plural,
 				}
-				this.props.getPush(result.body.token)
+				//NEED ADD PUSH
 				this.props.saveUser(user_info)
 				this.props.setColor(user_info.sex)
 				this.props.setToken(result.body.token)
-				this.props.setBalance(result.body.balance)
-				//WILL BE DEPRECATED>
-				this.props.setInstaToken(result.body.is_insta_logged)
-				//>
+				this.props.setBalance(Number(result.body.balance))
+				//NEED ADD INSTAGRAM
 				NavigationService.navigate('Main')
 			},
 			(error) => {
@@ -165,12 +153,10 @@ const mapDispatchToProps = (dispatch) =>
 	bindActionCreators(
 		{
 			loaderState,
-			getPush,
 			saveUser,
 			setColor,
 			setToken,
 			setBalance,
-			setInstaToken,
 		},
 		dispatch,
 	)

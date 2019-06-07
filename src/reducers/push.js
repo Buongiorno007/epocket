@@ -5,6 +5,7 @@ import { sendToTelegramm } from '../services/telegramm-notification'
 import { urls } from '../constants/urls'
 import Permissions from 'react-native-permissions'
 import { httpPost } from '../services/http'
+
 export default (state = false, action) => {
 	switch (action.type) {
 		default:
@@ -17,7 +18,17 @@ sendFiredaseToken = (app_token, firebase_token) => {
 		token: firebase_token,
 		platform: Platform.OS === 'ios' ? 2 : 1,
 	}
-	httpPost(urls.add_device, JSON.stringify(body), app_token).then((result) => {}, (error) => {})
+	try {
+		httpPost(urls.add_device, JSON.stringify(body), app_token).then(
+			(result) => {
+				console.log('push success', result)
+			},
+			(error) => {},
+		)
+	} catch (err) {
+		console.log('push err', err)
+		sendToTelegramm('CHECK FIREBASE')
+	}
 }
 
 export const getPush = (app_token) => async (dispatch) => {
