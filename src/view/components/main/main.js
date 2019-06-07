@@ -42,13 +42,26 @@ class Main extends React.Component {
 		// }
 	}
 
+	renderLastTab() {
+		let container
+		if (
+			this.props.game_status === 'start' ||
+			this.props.game_status === 'lock' ||
+			this.props.game_status === 'initial'
+		) {
+			container = <GameStart />
+		} else if (this.props.game_status === 'expired' || this.props.game_status === 'failed') {
+			container = <GameExpired />
+		} else {
+			container = <Game />
+		}
+		return container
+	}
 	render() {
-		const { game_status } = this.props
 		return (
 			<View style={styles.main_view}>
 				<View style={styles.content}>
-					{this.props.activeTab === 0 &&
-						(game_status === 'expired' || game_status === 'failed' ? <GameExpired /> : <GameStart />)}
+					{this.props.activeTab === 0 ? this.renderLastTab() : null}
 					{this.props.activeTab === 1 ? <Map /> : null}
 					{this.props.activeTab === 2 ? <History /> : null}
 					{this.props.activeTab === 3 ? <Profile /> : null}
@@ -64,7 +77,6 @@ class Main extends React.Component {
 					? !this.props.isLocation &&
 					  (this.props.activeTab === 1 || this.props.activeTab === 0) && <LocationDisabled />
 					: !this.props.isLocation && <LocationDisabled />}
-
 				<TimerModal />
 				<GeolocationService />
 			</View>
