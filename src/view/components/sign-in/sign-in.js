@@ -21,13 +21,10 @@ import { setProfileVirgin } from '../../../reducers/profile-virgin'
 import { setGeoVirgin } from '../../../reducers/geo-virgin'
 import { getPush } from '../../../reducers/push'
 import { saveUser } from '../../../reducers/profile-state'
-import { locationStateListener, locationState } from '../../../reducers/geolocation-status'
-import { locationCoordsListener, setLocation } from '../../../reducers/geolocation-coords'
 //services
 import NavigationService from '../../../services/route'
 import { httpPost } from '../../../services/http'
 import { handleError } from '../../../services/http-error-handler'
-import geo_config from '../start/geolocation-config'
 import BackgroundGeolocationModule from '../../../services/background-geolocation-picker'
 //constants
 import styles from './styles'
@@ -391,10 +388,6 @@ const mapDispatchToProps = (dispatch) =>
 			saveUser,
 			setProfileVirgin,
 			setGeoVirgin,
-			locationState,
-			setLocation,
-			locationStateListener,
-			locationCoordsListener,
 		},
 		dispatch,
 	)

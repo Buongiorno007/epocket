@@ -208,7 +208,7 @@ const mapStateToProps = (state) => {
 	return {
 		userColor: state.userColor,
 		token: state.token,
-		location: state.location,
+		location: state.location.coordinate,
 		loader: state.loader,
 		profileState: state.profileState,
 	}

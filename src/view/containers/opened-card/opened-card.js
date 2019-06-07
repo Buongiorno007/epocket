@@ -157,7 +157,7 @@ class OpenedCard extends React.Component {
 const mapStateToProps = (state) => ({
 	userColor: state.userColor,
 	selectedMission: state.selectedMission,
-	isLocation: state.isLocation,
+	isLocation: state.location.status,
 	distance: state.distance,
 })
 

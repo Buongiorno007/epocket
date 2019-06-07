@@ -16,7 +16,6 @@ import { loaderState } from '../../../reducers/loader'
 import { getGameInfo } from '../../../reducers/game-info'
 import { launchGameExpiredTimer } from '../../../reducers/game-expired-timer'
 import { errorState } from '../../../reducers/game-error'
-import { setLocation } from '../../../reducers/geolocation-coords'
 import { setDistance } from '../../../reducers/distance'
 import { updateMall } from '../../../reducers/selected-mall'
 import { setOutlets } from '../../../reducers/outlet-list'
@@ -79,16 +78,16 @@ class GameStart extends React.Component {
 	}
 
 	componentWillReceiveProps = (nextProps) => {
-		if (this.props.game_status === 'initial' && nextProps.game_status === 'start') {
-			this.props.getGameInfo(this.props.token, nextProps.location.lat, nextProps.location.lng)
-		} else if (
-			nextProps.location.lat.toFixed(3) !== this.props.location.lat.toFixed(3) &&
-			nextProps.location.lng.toFixed(3) !== this.props.location.lng.toFixed(3) &&
-			nextProps.appState === 'active'
-		) {
-			this.props.getGameInfo(this.props.token, nextProps.location.lat, nextProps.location.lng)
-			this.loadTRC()
-		}
+		// if (this.props.game_status === 'initial' && nextProps.game_status === 'start') {
+		// 	this.props.getGameInfo(this.props.token, nextProps.location.lat, nextProps.location.lng)
+		// } else if (
+		// 	nextProps.location.lat.toFixed(3) !== this.props.location.lat.toFixed(3) &&
+		// 	nextProps.location.lng.toFixed(3) !== this.props.location.lng.toFixed(3) &&
+		// 	nextProps.appState === 'active'
+		// ) {
+		// 	this.props.getGameInfo(this.props.token, nextProps.location.lat, nextProps.location.lng)
+		// 	this.loadTRC()
+		// }
 	}
 
 	updateGames = (id) => {
@@ -328,9 +327,7 @@ class GameStart extends React.Component {
 					title={this.state.errorText}
 					first_btn_title={I18n.t('REPEAT')}
 					visible={this.state.errorVisible}
-					first_btn_handler={() => {
-						if (this.props.dateAbuseStatus) this.loadTRC()
-					}}
+					first_btn_handler={this.loadTRC}
 					decline_btn_handler={() => {
 						this.setModalVisible(!this.state.errorVisible)
 					}}
@@ -493,10 +490,10 @@ class GameStart extends React.Component {
 //
 const mapStateToProps = (state) => {
 	return {
-		isLocation: state.isLocation,
+		isLocation: state.location.status,
 		game_info: state.game_info,
 		token: state.token,
-		location: state.location,
+		location: state.location.coordinate,
 		userColor: state.userColor,
 		game_error: state.game_error,
 		game_status: state.game_status,
@@ -504,7 +501,6 @@ const mapStateToProps = (state) => {
 		distance: state.distance,
 		activeTab: state.activeTab,
 		appState: state.appState,
-		dateAbuseStatus: state.dateAbuseStatus,
 		website_timer: state.website_timer,
 		game_ticker_data: state.game_ticker_data,
 		profileState: state.profileState,
@@ -517,11 +513,9 @@ const mapDispatchToProps = (dispatch) =>
 			getGameInfo,
 			setGameStatus,
 			errorState,
-			setLocation,
 			setAppState,
 			setInitialOutlets,
 			setOutlets,
-			setLocation,
 			setDistance,
 			setWebSiteTimer,
 			updateMall,
