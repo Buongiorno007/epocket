@@ -102,7 +102,6 @@ class Registration extends React.Component {
 			user_id: user_id,
 			birth_year: age,
 			sex: `${gender - 1}`,
-			photo: 'data:image/png;base64,' + ICONS.TEST.SHOE_PHOTO,
 		}
 		httpPost(urls.sign_up_confirm, JSON.stringify(body)).then(
 			(result) => {
@@ -112,7 +111,7 @@ class Registration extends React.Component {
 					sex: gender - 1,
 					birthDay: age,
 					currency: I18n.locale === 'en' ? result.body.currency : result.body.currency_plural,
-					photo: ICONS.TEST.SHOE_PHOTO,
+					photo: result.body.photo,
 				}
 				this.props.saveUser(new_user)
 				this.props.setToken(result.body.token)

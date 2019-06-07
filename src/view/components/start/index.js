@@ -39,24 +39,25 @@ class Start extends React.Component<Props> {
 
 	init = async () => {
 		await this.props.loaderState(true)
-		await this.props.list()
 		await this.props.setSounds()
 		await this.props.status()
 		await this.props.coordinate()
 		await this.getGame()
 		await this.getToken()
-		await this.props.loaderState(false)
 	}
 
 	getGame = async () => {
 		const game = await AsyncStorage.getItem('game_status')
-		this.props.setGameStatus(game && game !== 'game' ? game : 'start')
+		this.props.setGameStatus(game)
 	}
 
 	getToken = async () => {
 		const token = await AsyncStorage.getItem('token')
 		if (token) {
 			this.props.getUser(token)
+		} else {
+			this.props.list()
+			this.props.loaderState(false)
 		}
 	}
 
