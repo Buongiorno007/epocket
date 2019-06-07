@@ -16,8 +16,6 @@ const Navigator = createStackNavigator(
 	{
 		Start: { screen: require('@components/start').default },
 		Main: { screen: require('@components/main/main').default },
-		SignIn: { screen: require('@components/sign-in/sign-in').default },
-		SignUp: { screen: require('@components/sign-up/sign-up').default },
 		Dashboard: { screen: require('@components/dashboard/dashboard').default },
 		Scanner: { screen: require('@components/scanner/scanner').default },
 		Photograph: { screen: require('@components/photograph/photograph').default },
@@ -34,7 +32,7 @@ const Navigator = createStackNavigator(
 		Cashout: { screen: require('@components/cashout/cashout').default },
 		Partners: { screen: require('@components/partners/partners').default },
 		RefillMobile: { screen: require('@components/refillMobile/refillMobile').default },
-		Login: { screen: require('@components/sign-in/login').default },
+		Login: { screen: require('@components/sign-in').default },
 		Registration: { screen: require('@components/sign-up/registration').default },
 		ConfirmCode: { screen: require('@components/confirmCode/confirmCode').default },
 		CatCode: { screen: require('@components/catCode/catCode').default },

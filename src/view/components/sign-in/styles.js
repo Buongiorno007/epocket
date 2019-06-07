@@ -1,71 +1,24 @@
-import { StyleSheet, Dimensions } from 'react-native'
-import { colors } from '../../../constants/colors'
+import { StyleSheet, Dimensions, StatusBar, Platform } from 'react-native'
+import { Header } from 'react-navigation'
+import { colors } from '@constants/colors'
 
 const { width, height } = Dimensions.get('window')
+const iPhoneX = Platform.OS === 'ios' && (height === 812 || width === 812 || height === 896 || width === 896)
 
 export default StyleSheet.create({
-	main_view: {
-		height: height,
-		width: width,
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-	background: {
+	layout: {
+		width,
+		height,
 		position: 'absolute',
-		height: height,
-		width: width,
-	},
-	form: {
-		width: width * 0.85,
-		marginBottom: 45,
-	},
-	signInBtn: {
-		marginTop: 40,
-	},
-	bottom_image: {
-		position: 'absolute',
+		top: 0,
+		left: 0,
+		right: 0,
 		bottom: 0,
-		height: height * 0.45,
-		width: width,
+		backgroundColor: colors.backgroundForAnimated,
+		zIndex: 100,
 	},
-	grad: {
-		position: 'absolute',
-		height: height,
-		width: width,
-	},
-	code_sent: {
-		position: 'relative',
-		color: colors.white,
-		fontFamily: 'Rubik-Light',
-		fontSize: 16,
-		textAlign: 'center',
-	},
-	enter_code: {
-		position: 'relative',
-		color: colors.enter_code,
-		fontFamily: 'Rubik-Light',
-		fontSize: 12,
-		textAlign: 'center',
-		marginTop: 20,
-	},
-	check_code: {
-		position: 'relative',
-		color: colors.check_code,
-		fontFamily: 'Rubik-Light',
-		fontSize: 12,
-		textAlign: 'center',
-		marginTop: 10,
-	},
-	code_input: {
-		textAlign: 'center',
-	},
-	number_exists: {
-		color: colors.check_code,
-		fontFamily: 'Rubik-Light',
-		fontSize: 10,
-		textAlign: 'right',
-	},
-	disabled: {
-		display: 'none',
+	align: {
+		alignItems: 'center',
+		justifyContent: 'center',
 	},
 })
