@@ -22,11 +22,24 @@ export const internet = () => async (dispatch) => {
 	await dispatch(connect())
 }
 
-export const connect = () => async (dispatch) => {
-	NetInfo.isConnected.fetch().then((connection) => dispatch(result(connection)))
-	NetInfo.isConnected.addEventListener('connectionChange', (connection) => dispatch(result(connection)))
-	AppState.addEventListener('change', () => {
-		NetInfo.isConnected.addEventListener('connectionChange', (connection) => dispatch(result(connection)))
+export const connect = () => async (dispatch, getState) => {
+	NetInfo.isConnected.fetch().then((connected) => {
+		dispatch(result(connected))
+		NetInfo.isConnected.addEventListener('connectionChange', (state) => {
+			const { connection } = getState()
+			if (connection !== connected) {
+				dispatch(result(state))
+			}
+		})
+		AppState.addEventListener('change', (change) => {
+			const { connection } = getState()
+			NetInfo.isConnected.addEventListener('connectionChange', (state) => {
+				const { connection } = getState()
+				if (connection !== connected) {
+					dispatch(result(state))
+				}
+			})
+		})
 	})
 }
 
