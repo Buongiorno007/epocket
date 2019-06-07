@@ -16,7 +16,6 @@ import { loaderState } from '@reducers/loader'
 import { getGameInfo } from '@reducers/game-info'
 import { launchGameExpiredTimer } from '@reducers/game-expired-timer'
 import { errorState } from '@reducers/game-error'
-import { setLocation } from '@reducers/geolocation-coords'
 import { setDistance } from '@reducers/distance'
 import { updateMall } from '@reducers/selected-mall'
 import { setOutlets } from '@reducers/outlet-list'
@@ -82,10 +81,10 @@ class GameStart extends React.Component {
 //
 const mapStateToProps = (state) => {
 	return {
-		isLocation: state.isLocation,
+		isLocation: state.location.status,
 		game_info: state.game_info,
 		token: state.token,
-		location: state.location,
+		location: state.location.coordinate,
 		userColor: state.userColor,
 		game_error: state.game_error,
 		game_status: state.game_status,
@@ -93,7 +92,6 @@ const mapStateToProps = (state) => {
 		distance: state.distance,
 		activeTab: state.activeTab,
 		appState: state.appState,
-		dateAbuseStatus: state.dateAbuseStatus,
 		website_timer: state.website_timer,
 		game_ticker_data: state.game_ticker_data,
 		profileState: state.profileState,
@@ -106,11 +104,9 @@ const mapDispatchToProps = (dispatch) =>
 			getGameInfo,
 			setGameStatus,
 			errorState,
-			setLocation,
 			setAppState,
 			setInitialOutlets,
 			setOutlets,
-			setLocation,
 			setDistance,
 			setWebSiteTimer,
 			updateMall,

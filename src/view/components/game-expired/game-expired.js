@@ -382,7 +382,7 @@ const mapStateToProps = (state) => {
 		token: state.token,
 		appState: state.appState,
 		loader: state.loader,
-		location: state.location,
+		location: state.location.coordinate,
 		insta_token: state.insta_token,
 		game_error: state.game_error,
 		game_expired_img: state.game_expired_img,

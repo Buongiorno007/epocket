@@ -31,7 +31,6 @@ import { colors } from './../../../constants/colors'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { setNavigateToMall } from '../../../reducers/navigate-to-mall'
-import { setLocation } from '../../../reducers/geolocation-coords'
 import { setDistance } from '../../../reducers/distance'
 import { updateMall } from '../../../reducers/selected-mall'
 import { showDashboard } from '../../../reducers/show-dashboard'
@@ -1251,8 +1250,8 @@ class Map extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		isLocation: state.isLocation,
-		location: state.location,
+		isLocation: state.location.status,
+		location: state.location.coordinate,
 		userColor: state.userColor,
 		selectedMall: state.selectedMall,
 		dashboard: state.dashboard,
@@ -1266,7 +1265,6 @@ const mapStateToProps = (state) => {
 		insta_token: state.insta_token,
 		facebook_token: state.facebook_token,
 		timer_interval: state.timer_interval,
-		dateAbuseStatus: state.dateAbuseStatus,
 		closestMall: state.closestMall,
 	}
 }
@@ -1277,7 +1275,6 @@ const mapDispatchToProps = (dispatch) =>
 			updateMall,
 			showDashboard,
 			setInitialOutlets,
-			setLocation,
 			setDistance,
 			loaderState,
 			setOutlets,

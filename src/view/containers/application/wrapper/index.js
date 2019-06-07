@@ -5,9 +5,9 @@ import Loader from '@containers/application/loader'
 import styles from './styles'
 import NoInternet from '@containers/no-internet/no-internet'
 
-const Wrapper = ({ children, trigger, isConnected }) => (
+const Wrapper = ({ children, trigger, connection }) => (
 	<View style={styles.layout}>
-		{!isConnected && <NoInternet />}
+		{!connection && <NoInternet />}
 		{trigger && <Loader />}
 		{children}
 	</View>
@@ -15,7 +15,7 @@ const Wrapper = ({ children, trigger, isConnected }) => (
 
 const mapStateToProps = (state) => ({
 	trigger: state.loader,
-	isConnected: state.isConnected,
+	connection: state.connection,
 })
 
 export default connect(mapStateToProps)(Wrapper)
