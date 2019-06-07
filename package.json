@@ -64,7 +64,6 @@
     "react-native-masked-text": "^1.12.3",
     "react-native-material-textfield": "^0.12.0",
     "react-native-mauron85-background-geolocation": "git+https://github.com/kruyvanna/react-native-background-geolocation.git",
-    "react-native-ntp-client": "^0.5.5",
     "react-native-permissions": "^1.1.1",
     "react-native-qrcode-svg": "^5.1.2",
     "react-native-radial-gradient": "^1.0.5",

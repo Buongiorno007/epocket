@@ -14,7 +14,7 @@ console.ignoredYellowBox = ['Warning: ReactNative.createElement', 'Require cycle
 
 const Navigator = createStackNavigator(
 	{
-		Start: { screen: require('@components/start/start').default },
+		Start: { screen: require('@components/start').default },
 		Main: { screen: require('@components/main/main').default },
 		SignIn: { screen: require('@components/sign-in/sign-in').default },
 		SignUp: { screen: require('@components/sign-up/sign-up').default },
