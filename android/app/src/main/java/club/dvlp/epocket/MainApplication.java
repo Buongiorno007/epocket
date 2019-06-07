@@ -21,7 +21,6 @@ import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.tradle.react.UdpSocketsModule;
 import com.levelasquez.androidopensettings.AndroidOpenSettingsPackage;
-import com.mocklocation.reactnative.RNMockLocationDetectorPackage;
 import com.gantix.JailMonkey.JailMonkeyPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.rnfs.RNFSPackage;
@@ -90,7 +89,6 @@ public class MainApplication extends Application implements ShareApplication, Re
                     new LinearGradientPackage(),
                     new RNI18nPackage(),
                     new UdpSocketsModule(),
-                    new RNMockLocationDetectorPackage(),
                     new AndroidOpenSettingsPackage(),
                     new JailMonkeyPackage(),
                     new SvgPackage(),

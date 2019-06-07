@@ -12,8 +12,6 @@ import ReturnToMall from '../../containers/return-to-mall-timer/return-to-mall-t
 import NoInternet from '../../containers/no-internet/no-internet'
 import TimerModal from '../../containers/timer-modal/timer-modal'
 import LocationDisabled from '../../containers/location-disabled/location-disabled'
-import RootEnabled from '../../containers/root-enabled/root-enabled'
-import DateAbuseEnabled from '../../containers/date-abuse-enabled/date-abuse-enabled'
 //constants
 import styles from './styles'
 //redux
@@ -25,8 +23,6 @@ import { setActiveCard } from '../../../reducers/set-active-card'
 import { setColor } from '../../../reducers/user-color'
 import { getGameInfo } from '../../../reducers/game-info'
 import { loaderState } from '../../../reducers/loader'
-import { updateRootStatus } from '../../../reducers/root-status'
-import { loadNTPDate } from '../../../reducers/date-abuse-status'
 //services
 import GeolocationService from '../../../services/geolocation-service'
 
@@ -35,11 +31,7 @@ class Main extends React.Component {
 		develop: false,
 	}
 
-	componentWillUnmount() {
-		AppState.removeEventListener('change', this._handleAppStateChange)
-	}
 	componentDidMount() {
-		AppState.addEventListener('change', this._handleAppStateChange)
 		this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
 			this.props.setActiveCard(false)
 			return true
@@ -49,14 +41,7 @@ class Main extends React.Component {
 		//   this.setState({ develop: true });
 		// }
 	}
-	_handleAppStateChange = (nextAppState) => {
-		if (nextAppState === 'active') {
-			this.props.loaderState(true)
-			this.props.loadNTPDate()
-			this.props.updateRootStatus()
-			this.props.loaderState(false)
-		}
-	}
+
 	renderLastTab() {
 		let container
 		if (
@@ -93,18 +78,6 @@ class Main extends React.Component {
 					  (this.props.activeTab === 1 || this.props.activeTab === 0) && <LocationDisabled />
 					: !this.props.isLocation && <LocationDisabled />}
 
-				{!this.state.develop &&
-					(Platform.OS === 'ios'
-						? this.props.rootStatus &&
-						  this.props.isLocation &&
-						  (this.props.activeTab === 1 || this.props.activeTab === 0) && (
-								<RootEnabled />
-								// null
-						  )
-						: this.props.rootStatus && this.props.isLocation && <RootEnabled />)}
-
-				{!this.state.develop && !this.props.dateAbuseStatus ? <DateAbuseEnabled /> : null}
-
 				<TimerModal />
 				<GeolocationService />
 			</View>
@@ -121,12 +94,10 @@ const mapStateToProps = (state) => ({
 	doneNotification: state.doneNotification,
 	failedNotification: state.failedNotification,
 	game_status: state.game_status,
-	isLocation: state.isLocation,
+	isLocation: state.location.status,
 	timerShow: state.timerShow,
 	token: state.token,
-	location: state.location,
-	rootStatus: state.rootStatus,
-	dateAbuseStatus: state.dateAbuseStatus,
+	location: state.location.coordinate,
 	appState: state.appState,
 	selectedMall: state.selectedMall,
 	closestMall: state.closestMall,
@@ -140,9 +111,7 @@ const mapDispatchToProps = (dispatch) =>
 			showFailedNotification,
 			setActiveCard,
 			setColor,
-			updateRootStatus,
 			getGameInfo,
-			loadNTPDate,
 			loaderState,
 		},
 		dispatch,

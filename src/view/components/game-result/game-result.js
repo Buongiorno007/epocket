@@ -722,7 +722,7 @@ const mapStateToProps = (state) => {
 		appState: state.appState,
 		insta_token: state.insta_token,
 		loader: state.loader,
-		location: state.location,
+		location: state.location.coordinate,
 		postStatus: state.postStatus,
 		website_timer: state.website_timer,
 	}

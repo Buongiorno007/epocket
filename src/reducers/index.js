@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux'
-import isConnected from './net-info'
-import isLocation from './geolocation-status'
-import location from './geolocation-coords'
+import connection from './connection'
+import location from './location'
 import activeTab from './tabs'
 import selectedMall from './selected-mall'
 import closestMall from './closestMall'
@@ -50,17 +49,14 @@ import geolocationIsVirgin from './geo-virgin'
 import timerShow from './show-dashboard-timer'
 import sounds from './sounds'
 import postStatus from './post-status'
-import rootStatus from './root-status'
-import dateAbuseStatus from './date-abuse-status'
 import pushSendStaus from './push-send-status'
 import website_timer from './website-timer'
 import game_ticker_data from './game-ticker-data'
-import countries from './countries'
+import country from './country'
 import serverRequest from './serverRequest'
 
 export default combineReducers({
-	isConnected,
-	isLocation,
+	connection,
 	activeTab,
 	location,
 	selectedMall,
@@ -110,11 +106,9 @@ export default combineReducers({
 	doneMissionCost,
 	sounds,
 	postStatus,
-	rootStatus,
-	dateAbuseStatus,
 	pushSendStaus,
 	website_timer,
 	game_ticker_data,
-	countries,
+	country,
 	serverRequest,
 })

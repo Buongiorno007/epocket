@@ -10,14 +10,12 @@ import RNAndroidLocationEnabler from 'react-native-android-location-enabler'
 //redux
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { locationStateListener, locationState } from '../../../reducers/geolocation-status'
-import { locationCoordsListener, setLocation } from '../../../reducers/geolocation-coords'
+import { current } from '@reducers/location'
 import { setGeoVirgin } from '../../../reducers/geo-virgin'
-import { updateRootStatus } from '../../../reducers/root-status'
 //components
 import Blur from '../blur/blur'
 //services
-import geo_config from './geolocation-config'
+import config from '@constants/config'
 import BackgroundGeolocationModule from '../../../services/background-geolocation-picker'
 import I18n from '@locales/I18n'
 
@@ -28,54 +26,26 @@ class LocationDisabled extends React.Component {
 			fastInterval: 5000,
 		})
 			.then((data) => {
-				navigator.geolocation.getCurrentPosition(
-					(position) => {
-						this.props.locationState(true)
-						this.props.setLocation({
-							lng: position.coords.longitude,
-							lat: position.coords.latitude,
-						})
-						this.props.updateRootStatus()
-					},
-					(error) => {
-						this.props.locationState(false)
-					},
-					{ enableHighAccuracy: false, timeout: 20000, maximumAge: 10000 },
-				)
+				this.props.current()
 			})
 			.catch((err) => {})
-	}
-	_getLocation = () => {
-		navigator.geolocation.getCurrentPosition(
-			(position) => {
-				this.props.locationState(true)
-				this.props.setLocation({
-					lng: position.coords.longitude,
-					lat: position.coords.latitude,
-				})
-				this.props.updateRootStatus()
-			},
-			(error) => {
-				this.props.locationState(false)
-			},
-		)
 	}
 
 	connectGeolocation = () => {
 		try {
 			if (Platform.OS === 'ios') {
-				BackgroundGeolocationModule.ready(geo_config(), (state) => {
+				BackgroundGeolocationModule.ready(config(), (state) => {
 					if (!state.enabled) {
 						BackgroundGeolocationModule.start(function() {})
-						this._getLocation()
+						this.props.current()
 					}
 				})
 			} else {
-				BackgroundGeolocationModule.configure(geo_config())
+				BackgroundGeolocationModule.configure(config())
 				BackgroundGeolocationModule.checkStatus((status) => {
 					if (!status.isRunning) {
 						BackgroundGeolocationModule.start()
-						this._getLocation()
+						this.props.current()
 					}
 				})
 			}
@@ -86,23 +56,23 @@ class LocationDisabled extends React.Component {
 		try {
 			switch (Platform.OS) {
 				case 'android': {
-					BackgroundGeolocationModule.configure(geo_config())
+					BackgroundGeolocationModule.configure(config())
 					BackgroundGeolocationModule.checkStatus((status) => {
 						if (!status.isRunning) {
 							BackgroundGeolocationModule.start()
-							this._getLocation()
+							this.props.current()
 						}
 					})
 					this.checkIsLocation()
 					break
 				}
 				case 'ios': {
-					BackgroundGeolocationModule.ready(geo_config(), (state) => {
+					BackgroundGeolocationModule.ready(config(), (state) => {
 						if (!state.enabled) {
 							BackgroundGeolocationModule.start(function() {})
 						} else {
 							Permissions.openSettings()
-							this._getLocation()
+							this.props.current()
 						}
 					})
 					break
@@ -111,7 +81,7 @@ class LocationDisabled extends React.Component {
 		} catch (err) {}
 	}
 	render() {
-		return this.props.geolocationIsVirgin && this.props.geolocationIsVirgin != 'false' ? (
+		return this.props.geolocationIsVirgin && this.props.geolocationIsVirgin !== 'false' ? (
 			<View style={styles.main_view}>
 				<Blur dark />
 				<FastImage
@@ -183,12 +153,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) =>
 	bindActionCreators(
 		{
-			locationState,
-			setLocation,
-			locationStateListener,
-			locationCoordsListener,
+			current,
 			setGeoVirgin,
-			updateRootStatus,
 		},
 		dispatch,
 	)

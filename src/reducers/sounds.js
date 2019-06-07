@@ -1,5 +1,6 @@
-export const SET_SOUNDS = 'sounds/SET_SOUNDS'
-var Sound = require('react-native-sound')
+import Sound from 'react-native-sound'
+
+const SET_SOUNDS = 'sounds/SET_SOUNDS'
 
 export default (state = [{}, {}], action) => {
 	switch (action.type) {
@@ -12,17 +13,17 @@ export default (state = [{}, {}], action) => {
 export const setSounds = () => {
 	let sounds = []
 	Sound.setCategory('Playback')
-	let clock_tick = new Sound('clock_tick.wav', Sound.MAIN_BUNDLE, (error) => {
+	const clock_tick = new Sound('clock_tick.wav', Sound.MAIN_BUNDLE, (error) => {
 		if (error) {
 			return
 		}
 	})
-	let quest_complete = new Sound('quest_complete.mp3', Sound.MAIN_BUNDLE, (error) => {
+	const quest_complete = new Sound('quest_complete.mp3', Sound.MAIN_BUNDLE, (error) => {
 		if (error) {
 			return
 		}
 	})
-	let quest_fail = new Sound('quest_fail.wav', Sound.MAIN_BUNDLE, (error) => {
+	const quest_fail = new Sound('quest_fail.wav', Sound.MAIN_BUNDLE, (error) => {
 		if (error) {
 			return
 		}
@@ -37,35 +38,25 @@ export const setSounds = () => {
 }
 export const playClock = (clock_tick) => async (dispatch) => {
 	clock_tick.play((success) => {
-		if (success) {
-		} else {
-			// reset the player to its uninitialized state (android only)
-			// this is the only option to recover after an error occured and use the player again
+		if (!success) {
 			clock_tick.reset()
 		}
 	})
 }
 export const playQuestComplete = (quest_complete) => async (dispatch) => {
 	quest_complete.play((success) => {
-		if (success) {
-		} else {
-			// reset the player to its uninitialized state (android only)
-			// this is the only option to recover after an error occured and use the player again
+		if (!success) {
 			quest_complete.reset()
 		}
 	})
 }
 export const playQuestFail = (quest_fail) => async (dispatch) => {
 	quest_fail.play((success) => {
-		if (success) {
-		} else {
+		if (!success) {
 			quest_fail.reset()
 		}
 	})
 }
 export const stopClock = (clock_tick) => async (dispatch) => {
-	clock_tick.stop(() => {
-		// Note: If you want to play a sound after stopping and rewinding it,
-		// it is important to call play() in a callback.
-	})
+	clock_tick.stop(() => {})
 }

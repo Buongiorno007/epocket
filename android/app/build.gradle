@@ -95,7 +95,6 @@ dependencies {
     implementation project(':react-native-i18n')
     implementation project(':react-native-fbsdk')
     implementation project(':react-native-udp')
-    implementation project(':react-native-mock-location-detector')
     implementation project(':react-native-android-open-settings')
     implementation project(':jail-monkey')
     implementation project(':react-native-linear-gradient')

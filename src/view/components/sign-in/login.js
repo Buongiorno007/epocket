@@ -114,7 +114,7 @@ class Login extends React.Component {
 							<Text style={styles.textLeft}>{I18n.t('SIGN.ENTER_PHONE_NUMBER')}</Text>
 						</View>
 						<SignForm
-							data={this.props.countries}
+							data={this.props.country}
 							value={this.state.phoneNumber}
 							setPhoneNumber={(value) => this.setState({ phoneNumber: value.trim() })}
 							setCode={(value) => this.setState({ code: value })}
@@ -146,7 +146,7 @@ class Login extends React.Component {
 
 const mapStateToProps = (state) => ({
 	userColor: state.userColor,
-	countries: state.countries,
+	country: state.country,
 })
 
 const mapDispatchToProps = (dispatch) =>

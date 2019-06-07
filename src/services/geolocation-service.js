@@ -212,9 +212,9 @@ class GeolocationService extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		isLocation: state.isLocation,
+		isLocation: state.location.status,
 		userColor: state.userColor,
-		location: state.location,
+		location: state.location.coordinate,
 		selectedMall: state.selectedMall,
 		timer_status: state.timer_status,
 		distance: state.distance,
