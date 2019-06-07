@@ -1,6 +1,5 @@
 import React from 'react'
 import { View, Text, Animated } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage'
 import FastImage from 'react-native-fast-image'
 //constants
 import styles from './styles'
@@ -20,10 +19,7 @@ class DashTop extends React.Component {
 		currency: '',
 	}
 	componentDidMount() {
-		AsyncStorage.getItem('user_info').then((value) => {
-			let object = JSON.parse(value)
-			this.setState({ currency: object.currency })
-		})
+		this.setState({ currency: this.props.profileState.currency })
 	}
 
 	render() {
@@ -384,6 +380,7 @@ const mapStateToProps = (state) => ({
 	timer: state.timer,
 	timer_status: state.timer_status,
 	dashboardState: state.dashboardState,
+	profileState: state.profileState,
 })
 
 const mapDispatchToProps = (dispatch) =>

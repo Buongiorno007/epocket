@@ -1,6 +1,5 @@
 import React from 'react'
 import { View, Text, Platform } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage'
 import { Button } from 'native-base'
 import FastImage from 'react-native-fast-image'
 import LinearGradient from 'react-native-linear-gradient'
@@ -19,10 +18,7 @@ class TimerModal extends React.Component {
 		currency: '',
 	}
 	componentDidMount() {
-		AsyncStorage.getItem('user_info').then((value) => {
-			let object = JSON.parse(value)
-			this.setState({ currency: object.currency })
-		})
+		this.setState({ currency: this.props.profileState.currency })
 	}
 
 	render() {
@@ -118,6 +114,7 @@ const mapStateToProps = (state) => {
 		failedNotification: state.failedNotification,
 		activeTab: state.activeTab,
 		doneMissionCost: state.doneMissionCost,
+		profileState: state.profileState,
 	}
 }
 

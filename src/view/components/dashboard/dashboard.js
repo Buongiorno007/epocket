@@ -10,7 +10,6 @@ import {
 	UIManager,
 	Platform,
 } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage'
 import FastImage from 'react-native-fast-image'
 import LinearGradient from 'react-native-linear-gradient'
 import { LinearTextGradient } from 'react-native-text-gradient'
@@ -108,7 +107,7 @@ class Dashboard extends React.Component {
 		timerWidth: new Animated.Value(width * 0.85),
 		timerCounterWidth: new Animated.Value(width * 0.25),
 		textScale: new Animated.Value(1),
-		epcScale: new Animated.Value(Platform.OS == 'ios' ? 0 : 0.00001),
+		epcScale: new Animated.Value(Platform.OS === 'ios' ? 0 : 0.00001),
 		epcCounterContainerWidth: new Animated.Value(width * 0.85),
 		topPadding: new Animated.Value(-20),
 		listHeight: new Animated.Value(height * 0.65),
@@ -125,7 +124,7 @@ class Dashboard extends React.Component {
 	}
 	constructor(props) {
 		super(props)
-		if (Platform.OS != 'ios') {
+		if (Platform.OS !== 'ios') {
 			UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true)
 		}
 		this._panResponder = PanResponder.create({
@@ -152,7 +151,7 @@ class Dashboard extends React.Component {
 										duration: 100,
 									},
 									{
-										toValue: Platform.OS == 'ios' ? 0 : 0.00001,
+										toValue: Platform.OS === 'ios' ? 0 : 0.00001,
 										duration: 100,
 									},
 									{
@@ -207,7 +206,7 @@ class Dashboard extends React.Component {
 										easing: Easing.linear,
 									}),
 									Animated.timing(this.state.allScaleY, {
-										toValue: Platform.OS == 'ios' ? 0 : 0.00001,
+										toValue: Platform.OS === 'ios' ? 0 : 0.00001,
 										duration: 200,
 										easing: Easing.linear,
 									}),
@@ -232,7 +231,7 @@ class Dashboard extends React.Component {
 										duration: 100,
 									},
 									{
-										toValue: Platform.OS == 'ios' ? 0 : 0.0001,
+										toValue: Platform.OS === 'ios' ? 0 : 0.0001,
 										duration: 100,
 									},
 									{
@@ -281,7 +280,7 @@ class Dashboard extends React.Component {
 										duration: 100,
 									},
 									{
-										toValue: Platform.OS == 'ios' ? 0 : 0.001,
+										toValue: Platform.OS === 'ios' ? 0 : 0.001,
 										duration: 100,
 									},
 									{
@@ -332,12 +331,10 @@ class Dashboard extends React.Component {
 			this.props.setActiveCard(true)
 			this.props.selectMission(this._submissionOrder(this.props.navigation.state.params.cardToOpen))
 		}
-		AsyncStorage.getItem('user_info').then((value) => {
-			let object = JSON.parse(value)
-			this.setState({
-				sex: object.sex,
-				currency: object.currency,
-			})
+
+		this.setState({
+			currency: this.props.profileState.currency,
+			sex: this.props.profileState.sex,
 		})
 		let count = 0
 		this.props.navigation.state.params.dashboard_data.forEach((element) => {
@@ -368,7 +365,7 @@ class Dashboard extends React.Component {
 	) => {
 		Animated.parallel([
 			LayoutAnimation.configureNext(
-				Platform.OS == 'ios' ? CustomLayoutLinearFont : LayoutAnimation.Presets.linear,
+				Platform.OS === 'ios' ? CustomLayoutLinearFont : LayoutAnimation.Presets.linear,
 			),
 			this.setState({ epcСounterFontSize: epcСounterFontSizeProps.toValue }),
 			Animated.timing(this.state.topHeight, {
@@ -421,7 +418,7 @@ class Dashboard extends React.Component {
 				duration: allScaleYProps.duration,
 				easing: Easing.linear,
 			}),
-			LayoutAnimation.configureNext(Platform.OS == 'ios' ? CustomLayoutLinear : LayoutAnimation.Presets.linear),
+			LayoutAnimation.configureNext(Platform.OS === 'ios' ? CustomLayoutLinear : LayoutAnimation.Presets.linear),
 			this.setState({ flexDirection: flexDirectionProp }),
 		]).start()
 	}
@@ -476,7 +473,7 @@ class Dashboard extends React.Component {
 				if (result.status === 200) {
 					this.props.setInstaToken(String(instagram_token))
 					this.props.loaderState(false)
-				} else if (result.status == 201) {
+				} else if (result.status === 201) {
 					CookieManager.clearAll().then((res) => {
 						this.setModalVisible(true)
 						this.setState({ userCount: result.body.subsc_needed })
@@ -588,7 +585,7 @@ class Dashboard extends React.Component {
 				}
 				this.setState({ notInMallTimer })
 				this.props.updateTimer(notInMallTimer)
-				if (error.code == 415) {
+				if (error.code === 415) {
 					this.setState({ forceCloseHeader: true })
 					Animated.parallel([
 						Animated.timing(this.state.topHeight, {
@@ -607,13 +604,13 @@ class Dashboard extends React.Component {
 							easing: Easing.linear,
 						}),
 						Animated.timing(this.state.allScaleY, {
-							toValue: Platform.OS == 'ios' ? 0 : 0.00001,
+							toValue: Platform.OS === 'ios' ? 0 : 0.00001,
 							duration: 1,
 							easing: Easing.linear,
 						}),
 					]).start()
 				}
-				if (error.code != 416 && error.code != 418 && error.code != 415) {
+				if (error.code !== 416 && error.code !== 418 && error.code !== 415) {
 					this.setStartMissionErrorVisible(error_respons.error_modal)
 				} else {
 					this.setState({ finishMissionCalled: true })
@@ -627,7 +624,7 @@ class Dashboard extends React.Component {
 			let startTime = moment(item.date_start).format('HH:mm:ss')
 			let endTime = moment(item.date_end).format('HH:mm:ss')
 			item.active =
-				item.type != 'instagram_connect' && item.type != 'facebook_connect'
+				item.type !== 'instagram_connect' && item.type !== 'facebook_connect'
 					? currentTime > startTime && currentTime < endTime
 					: true
 		})
@@ -640,7 +637,7 @@ class Dashboard extends React.Component {
 			(result) => {
 				this.setMissionsErrorVisible(false)
 				this.setState({ load_missions: false })
-				if (result.status == 200) {
+				if (result.status === 200) {
 					this.props.setMissions(this.getActiveMissions(result.body.missions))
 				}
 			},
@@ -768,7 +765,7 @@ class Dashboard extends React.Component {
 					first_btn_title={I18n.t('REPEAT')}
 					visible={this.state.startMissionErrorVisible}
 					first_btn_handler={() => {
-						this.state.errorCode != 416 && this.state.errorCode != 418
+						this.state.errorCode !== 416 && this.state.errorCode !== 418
 							? this.callTimer()
 							: this.setStartMissionErrorVisible(!this.state.startMissionErrorVisible)
 					}}
@@ -1119,7 +1116,7 @@ class Dashboard extends React.Component {
 										style={styles_top.icon}
 										source={{
 											uri:
-												this.state.sex == 0
+												this.state.sex === 0
 													? ICONS.COMMON.LOCATION_PINK
 													: ICONS.COMMON.LOCATION_BLUE,
 										}}
@@ -1166,7 +1163,7 @@ class Dashboard extends React.Component {
 										style={styles_top.icon}
 										source={{
 											uri:
-												this.state.sex == 0
+												this.state.sex === 0
 													? ICONS.COMMON.CASH_EPC_PINK
 													: ICONS.COMMON.CASH_EPC_BLUE,
 										}}
@@ -1421,6 +1418,7 @@ const mapStateToProps = (state) => ({
 	socialCount: state.socialCount,
 	doneNotification: state.doneNotification,
 	failedNotification: state.failedNotification,
+	profileState: state.profileState,
 })
 
 const mapDispatchToProps = (dispatch) =>

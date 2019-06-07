@@ -1,6 +1,5 @@
 import React from 'react'
 import { View, Text, Platform } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage'
 import { Button } from 'native-base'
 //constants
 import styles from './styles'
@@ -18,10 +17,7 @@ class CardTask extends React.Component {
 		}
 	}
 	componentDidMount() {
-		AsyncStorage.getItem('user_info').then((value) => {
-			let object = JSON.parse(value)
-			this.setState({ currency: object.currency })
-		})
+		this.setState({ currency: this.props.profileState.currency })
 	}
 
 	_onPress = () => {
@@ -68,6 +64,7 @@ class CardTask extends React.Component {
 
 const mapStateToProps = (state) => ({
 	userColor: state.userColor,
+	profileState: state.profileState,
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch)
