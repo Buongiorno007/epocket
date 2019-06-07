@@ -21,13 +21,12 @@ export const list = () => async (dispatch, getState) => {
 	const { country } = getState()
 	if (country.length === 0) {
 		try {
-			await dispatch(updateServerRequest(false))
+			// await dispatch(updateServerRequest(false))
 			const response = await httpGet(urls.echo)
 			await dispatch(result(new COUNTRY(response.body)))
 		} catch (e) {
 			list()
-			dispatch(updateServerRequest(true))
-			dispatch(result(new COUNTRY(e)))
+			// dispatch(updateServerRequest(true))
 		}
 	}
 }

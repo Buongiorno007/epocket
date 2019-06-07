@@ -27,7 +27,7 @@ export const connect = () => async (dispatch, getState) => {
 		dispatch(result(connected))
 		NetInfo.isConnected.addEventListener('connectionChange', (state) => {
 			const { connection } = getState()
-			if (connection !== connected) {
+			if (connection !== state) {
 				dispatch(result(state))
 			}
 		})
@@ -35,7 +35,7 @@ export const connect = () => async (dispatch, getState) => {
 			const { connection } = getState()
 			NetInfo.isConnected.addEventListener('connectionChange', (state) => {
 				const { connection } = getState()
-				if (connection !== connected) {
+				if (connection !== state) {
 					dispatch(result(state))
 				}
 			})
