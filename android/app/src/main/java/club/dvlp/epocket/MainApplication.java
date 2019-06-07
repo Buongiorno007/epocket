@@ -6,10 +6,10 @@ import com.facebook.CallbackManager;
 import com.jobeso.RNInstagramStoryShare.RNInstagramStorySharePackage;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.ReactApplication;
+import cl.json.RNSharePackage;
 import com.ocetnik.timer.BackgroundTimerPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 
-import cl.json.RNSharePackage;
 
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.cmcewen.blurview.BlurViewPackage;

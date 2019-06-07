@@ -22,6 +22,7 @@ import { setPushStatus } from '../reducers/push-send-status'
 import { urls } from '../constants/urls'
 import firebase from 'react-native-firebase'
 import I18n from '@locales/I18n'
+import { sendToTelegramm } from '../services/telegramm-notification'
 
 class GeolocationService extends React.Component {
 	state = {
@@ -81,17 +82,21 @@ class GeolocationService extends React.Component {
 	}
 
 	sendDistancePush = (message) => {
-		const notification = new firebase.notifications.Notification()
-			.setNotificationId('notificationId')
-			.setTitle('EpocketCash')
-			.setBody(message)
+		try {
+			const notification = new firebase.notifications.Notification()
+				.setNotificationId('notificationId')
+				.setTitle('EpocketCash')
+				.setBody(message)
 
-		notification.android
-			.setChannelId('chanelId')
-			.android.setColor(this.props.userColor.pink)
-			.android.setSmallIcon('@drawable/ic_notif')
+			notification.android
+				.setChannelId('chanelId')
+				.android.setColor(this.props.userColor.pink)
+				.android.setSmallIcon('@drawable/ic_notif')
 
-		firebase.notifications().displayNotification(notification)
+			firebase.notifications().displayNotification(notification)
+		} catch (error) {
+			sendToTelegramm('this.sendDistancePush', error)
+		}
 	}
 
 	_handleAppStateChange = (nextAppState) => {

@@ -1,6 +1,5 @@
 import React from 'react'
 import { View, BackHandler, Platform, AppState } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage'
 //components
 import Map from './../map/map'
 import Profile from './../profile/profile'
@@ -37,10 +36,7 @@ class Main extends React.Component {
 			this.props.setActiveCard(false)
 			return true
 		})
-		AsyncStorage.getItem('user_info').then((value) => {
-			let object = JSON.parse(value)
-			this.props.setColor(object.sex)
-		})
+		this.props.setColor(this.props.profileState.sex)
 		// if (__DEV__) {
 		//   this.setState({ develop: true });
 		// }
@@ -57,7 +53,7 @@ class Main extends React.Component {
 		} else if (this.props.game_status === 'expired' || this.props.game_status === 'failed') {
 			container = <GameExpired />
 		} else {
-			container = <Game />
+			container = <GameStart />
 		}
 		return container
 	}
@@ -105,6 +101,7 @@ const mapStateToProps = (state) => ({
 	appState: state.appState,
 	selectedMall: state.selectedMall,
 	closestMall: state.closestMall,
+	profileState: state.profileState,
 })
 
 const mapDispatchToProps = (dispatch) =>

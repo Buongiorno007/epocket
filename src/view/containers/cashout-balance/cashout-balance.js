@@ -42,7 +42,6 @@ class CashoutBalance extends React.Component {
 
 		httpGet(urls.get_received_bonuses, this.props.token).then(
 			(result) => {
-				console.log(result, 'REFILL RESULT')
 				this.setState({
 					maxValue: Number(result.body.refill),
 					tax: Number(result.body.tax_amount),
