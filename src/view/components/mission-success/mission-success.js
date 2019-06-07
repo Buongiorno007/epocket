@@ -1,6 +1,5 @@
 import React from 'react'
 import { View, Text } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage'
 import FastImage from 'react-native-fast-image'
 import LinearGradient from 'react-native-linear-gradient'
 import { Button } from 'native-base'
@@ -29,10 +28,7 @@ class MissionSuccess extends React.Component {
 
 	componentDidMount = () => {
 		this.props.loaderState(false)
-		AsyncStorage.getItem('user_info').then((value) => {
-			let object = JSON.parse(value)
-			this.setState({ currency: object.currency })
-		})
+		this.setState({ currency: this.props.profileState.currency })
 	}
 
 	render = () => {
@@ -75,6 +71,7 @@ class MissionSuccess extends React.Component {
 
 const mapStateToProps = (state) => ({
 	userColor: state.userColor,
+	profileState: state.profileState,
 })
 
 const mapDispatchToProps = (dispatch) =>

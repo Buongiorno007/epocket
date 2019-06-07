@@ -1,6 +1,5 @@
 import React from 'react'
 import { View, Text, Platform, FlatList } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage'
 import FastImage from 'react-native-fast-image'
 import { Button } from 'native-base'
 import LinearGradient from 'react-native-linear-gradient'
@@ -24,10 +23,7 @@ class RefLink extends React.Component {
 	}
 
 	componentDidMount() {
-		AsyncStorage.getItem('user_info').then((value) => {
-			let object = JSON.parse(value)
-			this.setState({ currency: object.currency })
-		})
+		this.setState({ currency: this.props.profileState.currency })
 	}
 
 	componentWillReceiveProps = (nextProps) => {
@@ -179,6 +175,7 @@ class RefLink extends React.Component {
 
 const mapStateToProps = (state) => ({
 	userColor: state.userColor,
+	profileState: state.profileState,
 })
 const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch)
 

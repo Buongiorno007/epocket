@@ -1,6 +1,5 @@
 import React from 'react'
 import { View, Text, AppState, Platform } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage'
 import FastImage from 'react-native-fast-image'
 import LinearGradient from 'react-native-linear-gradient'
 import { Button } from 'native-base'
@@ -42,10 +41,7 @@ class EarnMore extends React.Component {
 	componentDidMount = () => {
 		this.props.loaderState(false)
 		AppState.addEventListener('change', this._handleAppStateChange)
-		AsyncStorage.getItem('user_info').then((value) => {
-			let object = JSON.parse(value)
-			this.setState({ currency: object.currency })
-		})
+		this.setState({ currency: this.props.profileState.currency })
 	}
 	componentWillUnmount = () => {
 		AppState.removeEventListener('change', this._handleAppStateChange)
@@ -233,6 +229,7 @@ const mapStateToProps = (state) => ({
 	userColor: state.userColor,
 	insta_post: state.insta_post,
 	appState: state.appState,
+	profileState: state.profileState,
 })
 
 const mapDispatchToProps = (dispatch) =>

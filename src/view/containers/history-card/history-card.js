@@ -1,6 +1,5 @@
 import React from 'react'
 import { View, Text } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage'
 import { Button } from 'native-base'
 import { LinearTextGradient } from 'react-native-text-gradient'
 //containers
@@ -42,10 +41,7 @@ class HistoryCard extends React.Component {
 				errorVisible: true,
 			})
 		}
-		AsyncStorage.getItem('user_info').then((value) => {
-			let object = JSON.parse(value)
-			this.setState({ currency: object.currency })
-		})
+		this.setState({ currency: this.props.profileState.currency })
 	}
 	setModalVisible = (visible) => {
 		this.setState({ errorVisible: visible })
@@ -162,6 +158,7 @@ const mapStateToProps = (state) => {
 		userColor: state.userColor,
 		receivedBonusesJSX: state.receivedBonusesJSX,
 		spentBonusesJSX: state.spentBonusesJSX,
+		profileState: state.profileState,
 	}
 }
 const mapDispatchToProps = (dispatch) => bindActionCreators({ getBonuses }, dispatch)

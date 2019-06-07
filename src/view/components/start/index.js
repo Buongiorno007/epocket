@@ -6,6 +6,7 @@ import Navigate from '@containers/start/navigate'
 import LinearGradient from 'react-native-linear-gradient'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+//reducers
 import { list } from '@reducers/country'
 import { internet } from '@reducers/connection'
 import { status, current, coordinate } from '@reducers/location'
@@ -48,7 +49,7 @@ class Start extends React.Component<Props> {
 
 	getGame = async () => {
 		const game = await AsyncStorage.getItem('game_status')
-		this.props.setGameStatus(game)
+		game && this.props.setGameStatus(game)
 	}
 
 	getToken = async () => {
