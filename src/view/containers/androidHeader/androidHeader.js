@@ -5,14 +5,14 @@ import BackButton from '@containers/back/back'
 
 export default class AndroidHeader extends Component {
 	render() {
-		return Platform.OS === 'android' ? (
+		return (
 			<View style={styles.headerBackground}>
 				<View style={styles.headerButton}>
 					<BackButton title={I18n.t('BACK')} route={this.props.route} />
 				</View>
 				<Text style={styles.headerTitle}>{this.props.title}</Text>
 			</View>
-		) : null
+		)
 	}
 }
 

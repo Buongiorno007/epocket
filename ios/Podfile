@@ -22,7 +22,6 @@ target 'EpocketCash' do
     pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
     pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-
     pod 'react-native-maps', path: '../node_modules/react-native-maps'
     pod 'react-native-google-maps', path: '../node_modules/react-native-maps'
     pod 'GoogleMaps'
@@ -57,10 +56,9 @@ target 'EpocketCash' do
     pod 'react-native-blur', :path => '../node_modules/@react-native-community/blur'
     pod 'react-native-webview', :path => '../node_modules/react-native-webview'
     pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+    pod 'react-native-background-timer', :path => '../node_modules/react-native-background-timer'
 
   pod 'RNShare', :path => '../node_modules/react-native-share'
-
-  pod 'react-native-background-timer', :path => '../node_modules/react-native-background-timer'
 
 end
 
