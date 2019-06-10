@@ -1,3 +1,8 @@
+export const DEFAULT = function(data: any = {}) {
+	this.code = data.code || null
+	this.message = data.message || null
+}
+
 export const COUNTRY = function(data = {}) {
 	this.list = data.c_list || []
 	this.sms = data.sms_active || false
@@ -16,3 +21,9 @@ export const PROFILE = function(data = {}) {
 	this.birthDay = data.birthDay || ''
 	this.currency = data.currency || ''
 }
+
+export const SIGN_IN = function(data = {}) {
+	DEFAULT.apply(this, arguments)
+	this.phone = data.phone || null
+}
+SIGN_IN.prototype = Object.create(DEFAULT.prototype)
