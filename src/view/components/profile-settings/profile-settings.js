@@ -13,7 +13,6 @@ import { bindActionCreators } from 'redux'
 import { setInstaToken } from '../../../reducers/insta-token'
 import { setFacebookToken } from '../../../reducers/facebook-token'
 import { loaderState } from '../../../reducers/loader'
-import { setBirthDay } from '../../../reducers/birthday'
 import { setTabState } from '../../../reducers/tabs'
 //constants
 import styles from './styles'
@@ -38,21 +37,11 @@ class ProfileSettings extends React.Component {
 		modalVisible: false,
 		errorVisible: false,
 		userCount: 0,
-		animationState: !this.props.facebook_token && !this.props.insta_token,
-	}
-	componentDidMount() {
-		setTimeout(() => {
-			this.setState({ animationState: false })
-		}, 5000)
 	}
 	LogOut = () => {
 		AsyncStorage.multiSet(
 			[
-				['user_info', ''],
-				['balance', ''],
 				['token', ''],
-				['insta_token', ''],
-				['facebook_token', ''],
 				['cashout_cart', ''],
 				['cashout_cart_time', ''],
 				['cashout_cart_id', ''],
@@ -61,12 +50,12 @@ class ProfileSettings extends React.Component {
 			() => {
 				NavigationService.navigate('Start')
 				this.props.setGameStatus('initial')
-				this.props.setInstaToken('')
-				this.props.setFacebookToken('')
+				// this.props.setInstaToken('')
+				// this.props.setFacebookToken('')
 				CookieManager.clearAll()
 			},
 		)
-		this.props.setTabState(1)
+		this.props.setTabState(0)
 	}
 	LoginFacebook = (token) => {
 		this.props.loaderState(true)
@@ -94,10 +83,6 @@ class ProfileSettings extends React.Component {
 				})
 			},
 		)
-	}
-
-	ToProfile = () => {
-		NavigationService.navigate('Main')
 	}
 
 	disConnectFacebook = () => {
@@ -183,23 +168,7 @@ class ProfileSettings extends React.Component {
 			modalVisible: visible,
 		})
 	}
-	ToProfileEdit = () => {
-		AsyncStorage.getItem('user_info').then((value) => {
-			let object = JSON.parse(value)
-			let async_storage_user = {
-				user_name: object.name,
-				user_phone: object.phone,
-				user_photo_url: object.photo,
-				user_sex: object.sex,
-				user_birthDay: object.birthDay,
-				user_currency: object.currency,
-			}
-			if (object.birthDay && object.birthDay !== '') {
-				this.props.setBirthDay(object.birthDay)
-			}
-			NavigationService.navigate('ProfileEdit', { async_storage_user })
-		})
-	}
+
 	render() {
 		return (
 			<View style={styles.main_view}>
@@ -286,7 +255,7 @@ class ProfileSettings extends React.Component {
 						rounded
 						style={styles.settings_btn}
 						onPress={() => {
-							this.ToProfile()
+							NavigationService.navigate('Main')
 						}}
 					>
 						<FastImage
@@ -303,7 +272,7 @@ class ProfileSettings extends React.Component {
 							transparent
 							style={styles.button}
 							onPress={() => {
-								this.ToProfileEdit()
+								NavigationService.navigate('ProfileEdit')
 							}}
 						>
 							<FastImage
@@ -383,14 +352,12 @@ const mapStateToProps = (state) => {
 		token: state.token,
 		insta_token: state.insta_token,
 		facebook_token: state.facebook_token,
-		loader: state.loader,
 	}
 }
 
 const mapDispatchToProps = (dispatch) =>
 	bindActionCreators(
 		{
-			setBirthDay,
 			loaderState,
 			setGameStatus,
 			setInstaToken,

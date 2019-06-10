@@ -495,21 +495,22 @@ class Map extends React.Component {
 						: I18n.t('MAP.LIST_PRODUCTS').toUpperCase()
 				}
 			/>
-		) : item.item.type === 'instagram_connect' || item.item.type === 'facebook_connect' ? (
-			<CardFirst
-				type={item.item.type}
-				item={item.item}
-				taskActive={this.state.taskActive}
-				onPressItem={() => {
-					if (item.item.type === 'facebook_connect') {
-						this.LoginFacebook()
-					} else if (item.item.type === 'instagram_connect') {
-						this.refs.instagramLogin.show()
-					}
-				}}
-				btnText={I18n.t('EXECUTE').toUpperCase()}
-			/>
-		) : this.state.taskActive ? (
+		) : // item.item.type === 'instagram_connect' || item.item.type === 'facebook_connect' ? (
+		// 	<CardFirst
+		// 		type={item.item.type}
+		// 		item={item.item}
+		// 		taskActive={this.state.taskActive}
+		// 		onPressItem={() => {
+		// 			if (item.item.type === 'facebook_connect') {
+		// 				this.LoginFacebook()
+		// 			} else if (item.item.type === 'instagram_connect') {
+		// 				this.refs.instagramLogin.show()
+		// 			}
+		// 		}}
+		// 		btnText={I18n.t('EXECUTE').toUpperCase()}
+		// 	/>
+		// ) :
+		this.state.taskActive ? (
 			//item.item.active && //uncomment this to show only active cards at map
 			<CardTask item={item.item} onPressItem={this.openTaskDetails} />
 		) : this.state.shopActive ? (
