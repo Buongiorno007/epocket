@@ -15,12 +15,16 @@ export default class SignForm extends Component {
 	}
 
 	componentDidMount() {
-		this.setState({
-			codeValue: this.props.data[0].phone_code || '',
-			imgUri: this.props.data[0].flag || '',
-			activeIndex: 0,
-		})
-		this.props.setCode(this.props.data[0].phone_code || '')
+		console.log(this.props.data, 'PROPS DATA')
+		if (this.props.data.length > 0) {
+			const { phone_code, flag } = this.props.data[0]
+			this.setState({
+				codeValue: phone_code || '',
+				imgUri: flag || '',
+				activeIndex: 0,
+			})
+			this.props.setCode(phone_code || '')
+		}
 	}
 
 	renderItem = (item) => {

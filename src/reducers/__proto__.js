@@ -1,5 +1,6 @@
 export const COUNTRY = function(data = {}) {
-	return data.c_list || []
+	this.list = data.c_list || []
+	this.sms = data.sms_active || false
 }
 
 export const LOCATION = function(data = {}) {
