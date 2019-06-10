@@ -37,10 +37,7 @@ class CardDiscount extends React.Component {
 					this.setState({ cartNumber: responseOrder.length })
 				}
 			})
-			AsyncStorage.getItem('user_info').then((value) => {
-				let object = JSON.parse(value)
-				this.setState({ currency: object.currency })
-			})
+			this.setState({ currency: this.props.profileState.currency })
 		}
 	}
 	render() {
@@ -163,6 +160,7 @@ const mapStateToProps = (state) => ({
 	timer_status: state.timer_status,
 	isLocation: state.location.status,
 	distance: state.distance,
+	profileState: state.profileState,
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch)

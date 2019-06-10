@@ -1,6 +1,5 @@
 import React from 'react'
 import { View, Text } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage'
 import FastImage from 'react-native-fast-image'
 import { Button } from 'native-base'
 //constants
@@ -19,10 +18,7 @@ class CartCard extends React.Component {
 	}
 	cardInfo = this.props.cardInfo
 	componentDidMount() {
-		AsyncStorage.getItem('user_info').then((value) => {
-			let object = JSON.parse(value)
-			this.setState({ currency: object.currency })
-		})
+		this.setState({ currency: this.props.profileState.currency })
 	}
 	deleteElement = () => {
 		this.props.deleteElem(this.cardInfo)
@@ -79,6 +75,7 @@ class CartCard extends React.Component {
 
 const mapStateToProps = (state) => ({
 	userColor: state.userColor,
+	profileState: state.profileState,
 })
 const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch)
 export default connect(

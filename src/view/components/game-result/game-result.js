@@ -1,6 +1,5 @@
 import React from 'react'
 import { View, Text, Platform, AppState, Image } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage'
 import FastImage from 'react-native-fast-image'
 import LinearGradient from 'react-native-linear-gradient'
 import { Button } from 'native-base'
@@ -57,10 +56,7 @@ class GameResult extends React.Component {
 	componentDidMount = () => {
 		AppState.addEventListener('change', this._handleAppStateChange)
 		this.props.setGameStatus(this.props.navigation.state.params.status)
-		AsyncStorage.getItem('user_info').then((value) => {
-			let object = JSON.parse(value)
-			this.setState({ currency: object.currency })
-		})
+		this.setState({ currency: this.props.profileState.currency })
 	}
 	startTimer = () => {
 		this.props.setWebSiteTimer(this.props.game_info.wait_timer_in_sec)
@@ -725,6 +721,7 @@ const mapStateToProps = (state) => {
 		location: state.location.coordinate,
 		postStatus: state.postStatus,
 		website_timer: state.website_timer,
+		profileState: state.profileState,
 	}
 }
 

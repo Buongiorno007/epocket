@@ -1,6 +1,5 @@
 import React from 'react'
 import { View, Text } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage'
 import { Button } from 'native-base'
 import FastImage from 'react-native-fast-image'
 import LinearGradient from 'react-native-linear-gradient'
@@ -24,10 +23,7 @@ class BrandWebsite extends React.Component {
 		currency: '',
 	}
 	componentDidMount() {
-		AsyncStorage.getItem('user_info').then((value) => {
-			let object = JSON.parse(value)
-			this.setState({ currency: object.currency })
-		})
+		this.setState({ currency: this.props.profileState.currency })
 	}
 	render() {
 		if (this.props.website_timer <= 0) {
@@ -194,6 +190,7 @@ const mapStateToProps = (state) => {
 		userColor: state.userColor,
 		game_info: state.game_info,
 		website_timer: state.website_timer,
+		profileState: state.profileState,
 	}
 }
 

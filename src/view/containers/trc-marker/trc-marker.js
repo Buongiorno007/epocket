@@ -1,6 +1,5 @@
 import React from 'react'
 import { View, Platform, Text, ImageBackground } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage'
 import MapView, { Marker, Circle } from 'react-native-maps'
 import LinearGradient from 'react-native-linear-gradient'
 //constants
@@ -23,10 +22,7 @@ class TRCMarker extends React.Component {
 		currency: '',
 	}
 	componentDidMount() {
-		AsyncStorage.getItem('user_info').then((value) => {
-			let object = JSON.parse(value)
-			this.setState({ currency: object.currency })
-		})
+		this.setState({ currency: this.props.profileState.currency })
 	}
 
 	render() {
@@ -166,6 +162,7 @@ class TRCMarker extends React.Component {
 
 const mapStateToProps = (state) => ({
 	userColor: state.userColor,
+	profileState: state.profileState,
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch)

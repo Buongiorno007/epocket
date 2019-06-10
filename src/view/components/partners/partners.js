@@ -1,6 +1,5 @@
 import React from 'react'
 import { View, Text } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage'
 import LinearGradient from 'react-native-linear-gradient'
 import { Button } from 'native-base'
 import FastImage from 'react-native-fast-image'
@@ -39,13 +38,11 @@ class Partners extends React.Component {
 		NavigationService.navigate('Main')
 	}
 	componentDidMount = () => {
-		AsyncStorage.getItem('user_info').then((value) => {
-			let object = JSON.parse(value)
-			this.setState({
-				phone: object.phone.replace(/\D/g, ''),
-				currency: object.currency,
-			})
+		this.setState({
+			currency: this.props.profileState.currency,
+			phone: this.props.profileState.phone,
 		})
+
 		this.props.loaderState(true)
 		let body = JSON.stringify({
 			latt: this.props.location.lat,
@@ -177,6 +174,7 @@ const mapStateToProps = (state) => {
 		userColor: state.userColor,
 		token: state.token,
 		location: state.location.coordinate,
+		profileState: state.profileState,
 	}
 }
 

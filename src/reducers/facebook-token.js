@@ -12,6 +12,5 @@ export default (state = '', action) => {
 }
 
 export const setFacebookToken = (token) => {
-	AsyncStorage.setItem('facebook_token', token)
 	return { type: FACEBOOK_TOKEN_UPDATE, token }
 }

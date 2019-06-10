@@ -1,6 +1,5 @@
 import React from 'react'
 import { View, Text, Dimensions, AppState } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage'
 import { Button } from 'native-base'
 import FastImage from 'react-native-fast-image'
 //redux
@@ -48,10 +47,7 @@ class Game extends React.Component {
 		if (this.props.tempTime >= 1) {
 			this.startTimer()
 		}
-		AsyncStorage.getItem('user_info').then((value) => {
-			let object = JSON.parse(value)
-			this.setState({ currency: object.currency })
-		})
+		this.setState({ currency: this.props.profileState.currency })
 	}
 	componentWillUnmount() {
 		AppState.removeEventListener('change', this._handleAppStateChange)
@@ -249,6 +245,7 @@ const mapStateToProps = (state) => {
 		appState: state.appState,
 		game_images: state.game_controller.game_images,
 		sounds: state.sounds,
+		profileState: state.profileState,
 	}
 }
 

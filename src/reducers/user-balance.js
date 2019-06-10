@@ -3,7 +3,7 @@ import { getBonuses } from './history-bonuses'
 
 export const BALANCE_CHANGE = 'user-balance/BALANCE_CHANGE'
 
-export default (state = false, action) => {
+export default (state = 0, action) => {
 	switch (action.type) {
 		case BALANCE_CHANGE:
 			return Number(action.balance)
@@ -13,16 +13,12 @@ export default (state = false, action) => {
 }
 
 export const setBalance = (balance) => async (dispatch) => {
-	AsyncStorage.getItem('token').then((value) => {
-		dispatch(getBonuses(value, 10, 10))
-	})
-	balance = Number(Number(balance).toFixed(2))
-	AsyncStorage.setItem('balance', String(balance))
-	dispatch(changeBalance(balance))
+	// AsyncStorage.getItem('token').then((value) => {
+	// 	dispatch(getBonuses(value, 10, 10))
+	// })
+	dispatch(changeBalance(Number(Number(balance).toFixed(2))))
 }
+
 export const changeBalance = (balance) => {
 	return { type: BALANCE_CHANGE, balance }
 }
-// ({
-// 	type: BALANCE_CHANGE, balance
-// })

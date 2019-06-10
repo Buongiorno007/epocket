@@ -1,6 +1,5 @@
 import React from 'react'
 import { Text, Dimensions, Platform } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage'
 import { Button } from 'native-base'
 //constants
 import styles from './styles'
@@ -20,10 +19,7 @@ class Card extends React.Component {
 		currency: '',
 	}
 	componentDidMount() {
-		AsyncStorage.getItem('user_info').then((value) => {
-			let object = JSON.parse(value)
-			this.setState({ currency: object.currency })
-		})
+		this.setState({ currency: this.props.profileState.currency })
 	}
 	_onPress = () => {
 		this.props.onPressItem(this.props.item)
@@ -122,6 +118,7 @@ const mapStateToProps = (state) => ({
 	timer_status: state.timer_status,
 	socialCount: state.socialCount,
 	missions: state.missions,
+	profileState: state.profileState,
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch)
