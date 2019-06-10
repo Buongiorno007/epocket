@@ -60,7 +60,6 @@ class Start extends React.Component<Props> {
 			this.props.getUser(token)
 		} else {
 			this.props.list()
-			this.props.loaderState(false)
 		}
 	}
 
