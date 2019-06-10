@@ -31,6 +31,7 @@ class Login extends React.Component {
 		code: '',
 		notCorrect: false,
 		sms_active: false,
+		maskLength: 0,
 	}
 
 	componentDidMount() {
@@ -42,7 +43,7 @@ class Login extends React.Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		if (prevState.phoneNumber !== this.state.phoneNumber || prevState.code !== this.state.code) {
-			this.state.phoneNumber.length === 12 && this.state.code
+			this.state.phoneNumber.length === this.state.maskLength && this.state.code
 				? this.setState({ acceptButton: true })
 				: this.setState({ acceptButton: false })
 		}
@@ -119,6 +120,7 @@ class Login extends React.Component {
 							setPhoneNumber={(value) => this.setState({ phoneNumber: value.trim() })}
 							setCode={(value) => this.setState({ code: value })}
 							onFocus={() => this.setState({ notCorrect: false })}
+							maskLength={(value) => this.setState({ maskLength: value })}
 						>
 							{this.state.notCorrect && (
 								<Image style={styles.eye} source={require('@assets/img/eyes.png')} />

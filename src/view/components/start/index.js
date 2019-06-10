@@ -51,7 +51,7 @@ class Start extends React.Component<Props> {
 
 	getGame = async () => {
 		const game = await AsyncStorage.getItem('game_status')
-		game && this.props.setGameStatus(game === 'game' ? 'start' : game)
+		game && this.props.setGameStatus(game === 'game' || game === 'success' ? 'start' : game)
 	}
 
 	getToken = async () => {

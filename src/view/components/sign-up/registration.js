@@ -35,6 +35,7 @@ class Registration extends React.Component {
 		gender: 0,
 		user_id: '',
 		sms_active: false,
+		maskLength: 0,
 	}
 
 	componentDidMount() {
@@ -53,7 +54,7 @@ class Registration extends React.Component {
 			prevState.age !== age ||
 			prevState.gender !== gender
 		) {
-			const check = phoneNumber.length === 12 && code && name.length >= 2 && age && gender
+			const check = phoneNumber.length === this.state.maskLength && code && name.length >= 2 && age && gender
 			this.setState({ acceptButton: check })
 		}
 	}
@@ -147,6 +148,7 @@ class Registration extends React.Component {
 							setPhoneNumber={(value) => this.setState({ phoneNumber: value })}
 							setCode={(value) => this.setState({ code: value })}
 							onFocus={() => this.setState({ notCorrect: false })}
+							maskLength={(value) => this.setState({ maskLength: value })}
 						>
 							{this.state.notCorrect && (
 								<Image style={styles.eye} source={require('@assets/img/eyes.png')} />
