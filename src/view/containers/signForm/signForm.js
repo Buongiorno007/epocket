@@ -12,6 +12,8 @@ export default class SignForm extends Component {
 		top: 0,
 		width: 0,
 		activeIndex: null,
+		mask: '99 999 99 99',
+		placeholder: '-- --- -- --',
 	}
 
 	componentDidMount() {
@@ -19,8 +21,11 @@ export default class SignForm extends Component {
 			codeValue: this.props.data[0].phone_code || '',
 			imgUri: this.props.data[0].flag || '',
 			activeIndex: 0,
+			mask: this.props.data[0].phone_mask.replace(/-/g, '9') || '99 999 99 99',
+			placeholder: this.props.data[0].phone_mask || '-- --- -- --',
 		})
 		this.props.setCode(this.props.data[0].phone_code || '')
+		this.props.maskLength(this.props.data[0].phone_mask.length || 12)
 	}
 
 	renderItem = (item) => {
@@ -33,8 +38,11 @@ export default class SignForm extends Component {
 						codeValue: item.item.phone_code,
 						imgUri: item.item.flag,
 						activeIndex: item.index,
-					}),
-						this.props.setCode(item.item.phone_code)
+						mask: item.item.phone_mask.replace(/-/g, '9'),
+						placeholder: item.item.phone_mask,
+					})
+					this.props.setCode(item.item.phone_code)
+					this.props.maskLength(item.item.phone_mask.length)
 				}}
 			>
 				<Image style={styles.imgStyle} source={{ uri: item.item.flag }} />
@@ -68,10 +76,10 @@ export default class SignForm extends Component {
 						onChangeText={(value) => this.props.setPhoneNumber(value)}
 						type={'custom'}
 						options={{
-							mask: '99 999 99 99',
+							mask: this.state.mask,
 						}}
-						maxLength={12}
-						placeholder={'- -   - - -   - -   - -'}
+						maxLength={this.state.mask.length}
+						placeholder={this.state.placeholder}
 						placeholderTextColor={'#fff'}
 						onFocus={() => this.props.onFocus()}
 					/>
