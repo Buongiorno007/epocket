@@ -12,6 +12,5 @@ export default (state = '', action) => {
 }
 
 export const setInstaToken = (insta_token) => {
-	AsyncStorage.setItem('insta_token', insta_token)
 	return { type: INSTA_TOKEN_UPDATE, insta_token }
 }
