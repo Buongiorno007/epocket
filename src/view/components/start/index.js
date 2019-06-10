@@ -1,11 +1,12 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
-import Logo from '@containers/start/logo'
-import Navigate from '@containers/start/navigate'
 import LinearGradient from 'react-native-linear-gradient'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+//containers
+import Logo from '@containers/start/logo'
+import Navigate from '@containers/start/navigate'
 //reducers
 import { list } from '@reducers/country'
 import { internet } from '@reducers/connection'
@@ -14,6 +15,7 @@ import { setSounds } from '@reducers/sounds'
 import { getUser } from '@reducers/profile-state'
 import { setGameStatus } from '@reducers/game-status'
 import { loaderState } from '@reducers/loader'
+//styles
 import styles from './styles'
 
 type Props = typeof defaultProps
@@ -49,7 +51,7 @@ class Start extends React.Component<Props> {
 
 	getGame = async () => {
 		const game = await AsyncStorage.getItem('game_status')
-		game && this.props.setGameStatus(game)
+		game && this.props.setGameStatus(game === 'game' ? 'start' : game)
 	}
 
 	getToken = async () => {
@@ -58,7 +60,6 @@ class Start extends React.Component<Props> {
 			this.props.getUser(token)
 		} else {
 			this.props.list()
-			this.props.loaderState(false)
 		}
 	}
 

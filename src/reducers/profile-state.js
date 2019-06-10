@@ -42,7 +42,7 @@ export const getUser = (token) => async (dispatch) => {
 		}
 		await dispatch(saveUser(user))
 		await dispatch(setToken(token))
-		await dispatch(getPush(token))
+		// await dispatch(getPush(token))
 		await dispatch(setInstaToken(response.body.is_insta_logged))
 		await dispatch(setBalance(Number(response.body.balance)))
 		await dispatch(current())
