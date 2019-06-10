@@ -219,7 +219,7 @@ class Registration extends React.Component {
 
 const mapStateToProps = (state) => ({
 	userColor: state.userColor,
-	country: state.country,
+	country: state.country.list,
 })
 
 const mapDispatchToProps = (dispatch) =>

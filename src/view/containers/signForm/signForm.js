@@ -24,38 +24,34 @@ export default class SignForm extends Component {
 				imgUri: flag || '',
 				activeIndex: 0,
 				mask: phone_mask.replace(/-/g, '9') || '99 999 99 99',
-				placeholder: phone_mask || '-- --- -- --'
+				placeholder: phone_mask || '-- --- -- --',
 			})
 			this.props.setCode(phone_code || '')
 			this.props.maskLength(phone_mask.length || 12)
 		}
 	}
 
-	renderItem = (item) => {
-		return (
-			<TouchableOpacity
-				style={item.index === this.state.activeIndex ? styles.activeItem : styles.item}
-				onPress={() => {
-					this.setState({
-						visible: false,
-						codeValue: item.item.phone_code,
-						imgUri: item.item.flag,
-						activeIndex: item.index,
-						mask: item.item.phone_mask.replace(/-/g, '9'),
-						placeholder: item.item.phone_mask,
-					})
-					this.props.setCode(item.item.phone_code)
-					this.props.maskLength(item.item.phone_mask.length)
-				}}
-			>
-				<Image style={styles.imgStyle} source={{ uri: item.item.flag }} />
-				<Text style={{ flexGrow: 1, color: '#404140', fontSize: 14 }}>
-					{I18n.t(`COUNTRY.${item.item.code}`)}
-				</Text>
-				<Text style={{ color: 'rgba(64, 65, 64, .55)', fontSize: 14 }}>{item.item.phone_code}</Text>
-			</TouchableOpacity>
-		)
-	}
+	renderItem = (item) => (
+		<TouchableOpacity
+			style={item.index === this.state.activeIndex ? styles.activeItem : styles.item}
+			onPress={() => {
+				this.setState({
+					visible: false,
+					codeValue: item.item.phone_code,
+					imgUri: item.item.flag,
+					activeIndex: item.index,
+					mask: item.item.phone_mask.replace(/-/g, '9'),
+					placeholder: item.item.phone_mask,
+				})
+				this.props.setCode(item.item.phone_code)
+				this.props.maskLength(item.item.phone_mask.length)
+			}}
+		>
+			<Image style={styles.imgStyle} source={{ uri: item.item.flag }} />
+			<Text style={{ flexGrow: 1, color: '#404140', fontSize: 14 }}>{I18n.t(`COUNTRY.${item.item.code}`)}</Text>
+			<Text style={{ color: 'rgba(64, 65, 64, .55)', fontSize: 14 }}>{item.item.phone_code}</Text>
+		</TouchableOpacity>
+	)
 
 	render() {
 		return (

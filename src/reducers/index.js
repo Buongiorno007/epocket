@@ -111,4 +111,6 @@ export default combineReducers({
 	game_ticker_data,
 	country,
 	serverRequest,
+	sign_in: require('./sign-in').default,
+	verify: require('./verify').default,
 })

@@ -1,16 +1,23 @@
 import React from 'react'
-import { View, KeyboardAvoidingView, ScrollView, Text, Keyboard } from 'react-native'
+import { View, KeyboardAvoidingView, ScrollView, Text, Keyboard, Image } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { request } from '@reducers/sign-in'
+import { confirm } from '@reducers/verify'
 import LinearGradient from 'react-native-linear-gradient'
-import FastImage from 'react-native-fast-image'
 import Header from '@containers/androidHeader/androidHeader'
 import TextInput from '@containers/signForm/signForm'
 import Button from '@containers/custom-button/custom-button'
 import I18n from '@locales/I18n'
 import styles from './styles'
 
-type Props = typeof defaultProps
+type Props = {
+	pink: string,
+	white: string,
+	country: any[],
+	sms: boolean,
+	sign_in: any,
+} & typeof defaultProps
 
 type State = typeof initialState
 
@@ -18,8 +25,8 @@ const initialState = {
 	phone: '',
 	code: '+380',
 	validate: false,
-	sms: false,
 	accept: false,
+	mask: 0,
 }
 
 const defaultProps = {
@@ -33,13 +40,21 @@ class SignIn extends React.Component<Props, State> {
 
 	state = initialState
 
-	componentDidMount = () => {}
-
 	componentDidUpdate = (prevProps, prevState) => {
 		const { phone, code } = this.state
 		if (prevState.phone !== phone || prevState.code !== code) {
 			const accept = phone.length === 12 && code
 			this.setState({ accept })
+		}
+		if (prevProps.sign_in.code !== this.props.sign_in.code && this.props.sign_in.code) {
+			if (this.props.sign_in.code === -1) {
+				this.setState({ validate: true })
+			}
+		}
+		if (prevProps.verify.code !== this.props.verify.code && this.props.verify.code) {
+			if (this.props.verify.code === -1) {
+				this.setState({ validate: true })
+			}
 		}
 	}
 
@@ -47,10 +62,19 @@ class SignIn extends React.Component<Props, State> {
 
 	handleChangeCode = (code) => this.setState({ code })
 
+	handleChangeMask = (mask) => this.setState({ mask })
+
 	handleFocusPhone = () => this.setState({ validate: false })
 
 	handleSignIn = () => {
 		Keyboard.dismiss()
+		const { code, phone } = this.state
+		const { sms } = this.props
+		if (sms) {
+			this.props.request(code, phone)
+		} else {
+			this.props.confirm(code, phone)
+		}
 	}
 
 	render = () => {
@@ -75,14 +99,9 @@ class SignIn extends React.Component<Props, State> {
 							setPhoneNumber={this.handleChangePhone}
 							setCode={this.handleChangeCode}
 							onFocus={this.handleFocusPhone}
+							maskLength={this.handleChangeMask}
 						>
-							{validate && (
-								<FastImage
-									style={styles.image}
-									source={require('@assets/img/eyes.png')}
-									resizeMode={FastImage.resizeMode.contain}
-								/>
-							)}
+							{validate && <Image style={styles.image} source={require('@assets/img/eyes.png')} />}
 						</TextInput>
 						<View style={styles.wrapper}>
 							<Text style={[styles.text, styles.right, { opacity: validate ? 1 : 0 }]}>
@@ -106,10 +125,20 @@ class SignIn extends React.Component<Props, State> {
 const mapStateToProps = (state) => ({
 	pink: state.userColor.pink,
 	white: state.userColor.white,
-	country: state.country,
+	country: state.country.list,
+	sms: state.country.sms,
+	sign_in: state.sign_in,
+	verify: state.verify,
 })
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch)
+const mapDispatchToProps = (dispatch) =>
+	bindActionCreators(
+		{
+			request,
+			confirm,
+		},
+		dispatch,
+	)
 
 export default connect(
 	mapStateToProps,
