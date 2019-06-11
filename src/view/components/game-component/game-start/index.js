@@ -15,51 +15,29 @@ import NoGames from '@containers/game-containers/game-start/no-games'
 //styles
 import styles from './styles'
 
-type Props = typeof defaultProps
-type State = typeof initialState
-
-const defaultProps = {
-	colors: ['#FF9950', '#F55890'],
-	start: { x: 0.0, y: 0.0 },
-	end: { x: 1.0, y: 0.0 },
-}
-const initialState = {
-	currency: 'UAH',
-}
-
-class GameStart extends React.Component<Props, State> {
-	static defaultProps = defaultProps
-	state = initialState
-
+class GameStart extends React.Component {
 	componentDidMount() {
 		this.props.loaderState(true)
-		const { profileState, location, token } = this.props
-		this.setState({
-			currency: profileState.currency || 'UAH',
-		})
+		const { location, token } = this.props
+
 		this.props.getGameStart(location.lat, location.lng, token)
 	}
 
 	render = () => {
-		const { gameStart, colors, start, end } = this.props
+		const { gameStart } = this.props
 		return (
 			<View style={styles.container}>
-				{gameStart.id ? (
-					<HaveGames gameStart={gameStart} currency={this.state.currency} />
-				) : (
-					<NoGames currency={this.state.currency} />
-				)}
+				{gameStart.id ? <HaveGames /> : <NoGames />}
 				<FooterNavigation />
 			</View>
 		)
 	}
 }
-//
+
 const mapStateToProps = (state) => {
 	return {
 		token: state.token,
 		location: state.location.coordinate,
-		profileState: state.profileState,
 		gameStart: state.gameStart,
 	}
 }

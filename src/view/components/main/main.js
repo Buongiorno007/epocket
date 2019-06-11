@@ -23,7 +23,7 @@ import { setActiveCard } from '../../../reducers/set-active-card'
 import { setColor } from '../../../reducers/user-color'
 import { getGameInfo } from '../../../reducers/game-info'
 import { loaderState } from '../../../reducers/loader'
-// import GameS from '@components/game-component/game-start'
+import GameS from '@components/game-component/game-start'
 //services
 import GeolocationService from '../../../services/geolocation-service'
 
