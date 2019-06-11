@@ -70,10 +70,11 @@ class SignIn extends React.Component<Props, State> {
 		Keyboard.dismiss()
 		const { code, phone } = this.state
 		const { sms } = this.props
+		const number = '+' + `${code}${phone}`.replace(/\D/g, '')
 		if (sms) {
-			this.props.signIn(code, phone)
+			this.props.signIn(number)
 		} else {
-			this.props.signInConfirm(code, phone)
+			this.props.signInConfirm(number)
 		}
 	}
 

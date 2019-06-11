@@ -1,73 +1,91 @@
-import { StyleSheet, Dimensions } from 'react-native'
-import { colors } from '../../../constants/colors'
+import { StyleSheet, Dimensions, StatusBar, Platform } from 'react-native'
+import { Header } from 'react-navigation'
+import { colors } from '@constants/colors'
+
 const { width, height } = Dimensions.get('window')
 
+const iPhoneX = Platform.OS === 'ios' && (height === 812 || width === 812 || height === 896 || width === 896)
+
+const toolbarHeight = Platform.OS === 'ios' ? 64 : 56
+
 export default StyleSheet.create({
-	registration_page: {
-		height: height,
-		width: width,
-		justifyContent: 'center',
-		alignItems: 'center',
+	layout: {
+		width,
+		height,
 	},
-	background: {
+	keyboard: {
 		position: 'absolute',
-		height: height,
-		width: width,
+		...Platform.select({
+			android: {
+				top: toolbarHeight + StatusBar.currentHeight,
+				height: height - toolbarHeight,
+			},
+			ios: {
+				top: toolbarHeight + (iPhoneX ? 34 : 0),
+				height: height - toolbarHeight,
+			},
+		}),
+		width,
+		flexDirection: 'column',
+		paddingHorizontal: 16,
 	},
-	form: {
-		width: width * 0.85,
-		//  marginBottom: 30
-	},
-	webView: {
+	scroll: {
 		flex: 1,
+		height,
 	},
-	signUpBtn: {
-		marginTop: 40,
+	wrapepr: {
+		width,
 	},
-	bottom_image: {
-		position: 'absolute',
-		bottom: 0,
-		height: height * 0.45,
-		width: width,
+	row: {
+		justifyContent: 'space-between',
+		flexDirection: 'row',
+		marginBottom: 32,
 	},
-	grad: {
-		position: 'absolute',
-		height: height,
-		width: width,
-	},
-	code_sent: {
-		position: 'relative',
-		color: colors.white,
-		fontFamily: 'Rubik-Light',
-		fontSize: 16,
-		textAlign: 'center',
-	},
-	enter_code: {
-		position: 'relative',
-		color: colors.enter_code,
-		fontFamily: 'Rubik-Light',
+	text: {
+		color: 'rgba(255, 255, 255, .75)',
+		marginBottom: 8,
 		fontSize: 12,
-		textAlign: 'center',
-		marginTop: 20,
 	},
-	code_input: {
-		textAlign: 'center',
+	left: {
+		textAlign: 'left',
 	},
-	check_code: {
-		position: 'relative',
-		color: colors.check_code,
-		fontFamily: 'Rubik-Light',
-		fontSize: 12,
-		textAlign: 'center',
-		marginTop: 10,
-	},
-	number_exists: {
-		color: colors.check_code,
-		fontFamily: 'Rubik-Light',
-		fontSize: 10,
+	right: {
 		textAlign: 'right',
 	},
-	disabled: {
-		display: 'none',
+	align: {
+		justifyContent: 'center',
+	},
+	image: {
+		right: 0,
+		top: 3,
+		zIndex: 100,
+		position: 'absolute',
+	},
+	text_input: {
+		width,
+		borderBottomColor: '#FFF',
+		borderBottomWidth: 1,
+		color: '#FFF',
+		paddingVertical: 10,
+		marginBottom: 32,
+	},
+	button: {
+		borderWidth: 1,
+		borderColor: '#fff',
+		height: 40,
+		width: width * 0.425,
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	active_button: {
+		borderWidth: 0,
+		backgroundColor: 'rgba(255, 255, 255, 0.45)',
+	},
+	title: {
+		fontSize: 16,
+		color: '#fff',
+	},
+	active_title: {
+		color: '#F63272',
 	},
 })
