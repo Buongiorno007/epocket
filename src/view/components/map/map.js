@@ -985,9 +985,8 @@ class Map extends React.Component {
 		return marker
 	}
 	renderMarker = (marker) => {
-		let markerComponent
 		if (marker.lat !== 'None' && marker.lng !== 'None') {
-			markerComponent = (
+			return (
 				<TRCMarker
 					marker={marker}
 					key={marker.id + '_' + marker.lat}
@@ -1005,9 +1004,8 @@ class Map extends React.Component {
 				/>
 			)
 		} else {
-			markerComponent = null
+			return null
 		}
-		return markerComponent
 	}
 	render() {
 		return (
