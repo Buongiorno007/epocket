@@ -1,40 +1,30 @@
-import React, { Component } from 'react'
-import { StyleSheet, Text, View, Platform } from 'react-native'
+import React from 'react'
+import { Text, View } from 'react-native'
 import I18n from '@locales/I18n'
 import BackButton from '@containers/back/back'
+import styles from './styles'
 
-export default class AndroidHeader extends Component {
-	render() {
-		return (
-			<View style={styles.headerBackground}>
-				<View style={styles.headerButton}>
-					<BackButton title={I18n.t('BACK')} route={this.props.route} />
-				</View>
-				<Text style={styles.headerTitle}>{this.props.title}</Text>
-			</View>
-		)
-	}
+type Props = {
+	route?: string,
+	title?: string,
 }
 
-const styles = StyleSheet.create({
-	headerTitle: {
-		fontWeight: 'bold',
-		color: '#fff',
-		fontSize: 18,
-	},
-	headerBackground: {
-		width: '100%',
-		top: 0,
-		paddingTop: 20,
-		flexDirection: 'row',
-		height: 62,
-		alignItems: 'center',
-		justifyContent: 'center',
-		backgroundColor: 'rgba(255,255,255,.2)',
-	},
-	headerButton: {
-		position: 'absolute',
-		left: 0,
-		top: 18,
-	},
-})
+const Header = ({ route, title }: Props) => {
+	return (
+		<View style={styles.layout}>
+			<View style={styles.wrapper}>
+				<View style={[styles.action, styles.left]}>
+					<BackButton title={I18n.t('BACK')} route={route} />
+				</View>
+				<View style={[styles.body]}>
+					<Text style={[styles.title]} numberOfLines={1}>
+						{title}
+					</Text>
+				</View>
+				<View style={[styles.action, styles.right]} />
+			</View>
+		</View>
+	)
+}
+
+export default Header

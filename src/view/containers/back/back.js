@@ -15,7 +15,7 @@ class BackButton extends React.Component {
 			<Button
 				transparent
 				onPress={() => {
-					this.props.loaderState(true), NavigationService.navigate(this.props.route)
+					NavigationService.navigate(this.props.route)
 				}}
 			>
 				<View style={styles.header}>

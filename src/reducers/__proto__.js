@@ -1,5 +1,10 @@
+export const DEFAULT = function(data: any = {}) {
+	this.code = data.code || null
+}
+
 export const COUNTRY = function(data = {}) {
-	return data.c_list || []
+	this.list = data.c_list || []
+	this.sms = data.sms_active || false
 }
 
 export const LOCATION = function(data = {}) {
@@ -22,3 +27,13 @@ export const GAME_START = function(data = {}) {
 	this.available_game_len = `${data.available_game_len}` || ''
 	this.award = `${data.award}` || ''
 }
+
+export const AUTH = function(data = {}) {
+	DEFAULT.apply(this, arguments)
+	this.phone = data.phone || null
+	this.gender = data.gender || null
+	this.name = data.name || null
+	this.age = data.age || null
+	this.user_id = data.user_id || null
+}
+AUTH.prototype = Object.create(DEFAULT.prototype)

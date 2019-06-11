@@ -58,7 +58,7 @@ class confirmCode extends React.Component<Props, State> {
 			name: name || '',
 			gender: gender || '',
 			age: age || '',
-			route: back === 'Registration',
+			route: back === 'SignUp',
 		})
 		this.startInterval()
 		this.props.loaderState(false)
