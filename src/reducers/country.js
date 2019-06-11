@@ -27,6 +27,8 @@ export const list = () => async (dispatch, getState) => {
 		} catch (e) {
 			list()
 		}
+	} else {
+		dispatch(loaderState(false))
 	}
 }
 
