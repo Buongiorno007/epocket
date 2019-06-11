@@ -54,6 +54,7 @@ import website_timer from './website-timer'
 import game_ticker_data from './game-ticker-data'
 import country from './country'
 import serverRequest from './serverRequest'
+import gameStart from './gameStart'
 
 export default combineReducers({
 	connection,
@@ -111,4 +112,5 @@ export default combineReducers({
 	game_ticker_data,
 	country,
 	serverRequest,
+	gameStart,
 })

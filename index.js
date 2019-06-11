@@ -40,7 +40,7 @@ const Navigator = createStackNavigator(
 		CatCode: { screen: require('@components/catCode/catCode').default },
 		ProfEdit: { screen: require('@components/profile-edit/profileEdit').default },
 		// Gamee: { screen: require('@components/game-component/game').default },
-		// GameStart: { screen: require('@components/game-component/game-start').default },
+		GameStart: { screen: require('@components/game-component/game-start').default },
 	},
 	{
 		initialRouteName: 'Start',

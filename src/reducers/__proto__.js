@@ -15,3 +15,10 @@ export const PROFILE = function(data = {}) {
 	this.birthDay = data.birthDay || ''
 	this.currency = data.currency || ''
 }
+
+export const GAME_START = function(data = {}) {
+	this.id = data.id || 0
+	this.games_count = `${data.games_count}` || ''
+	this.available_game_len = `${data.available_game_len}` || ''
+	this.award = `${data.award}` || ''
+}

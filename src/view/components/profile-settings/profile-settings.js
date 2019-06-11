@@ -55,7 +55,7 @@ class ProfileSettings extends React.Component {
 				CookieManager.clearAll()
 			},
 		)
-		this.props.setTabState(0)
+		this.props.setTabState(1)
 	}
 	LoginFacebook = (token) => {
 		this.props.loaderState(true)
@@ -272,7 +272,7 @@ class ProfileSettings extends React.Component {
 							transparent
 							style={styles.button}
 							onPress={() => {
-								NavigationService.navigate('ProfileEdit')
+								NavigationService.navigate('ProfEdit')
 							}}
 						>
 							<FastImage
