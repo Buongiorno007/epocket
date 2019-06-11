@@ -25,7 +25,7 @@ const Navigator = createStackNavigator(
 		Trade: { screen: require('@components/trade/trade').default },
 		MissionSuccess: { screen: require('@components/mission-success/mission-success').default },
 		EarnMore: { screen: require('@components/earn-more/earn-more').default },
-		ProfileEdit: { screen: require('@components/profile-edit/profile-edit').default },
+		// ProfileEdit: { screen: require('@components/profile-edit/profile-edit').default },
 		ProfileSettings: { screen: require('@components/profile-settings/profile-settings').default },
 		Game: { screen: require('@components/game/game').default },
 		GameResult: { screen: require('@components/game-result/game-result').default },
