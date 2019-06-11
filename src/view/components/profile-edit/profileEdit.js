@@ -9,41 +9,31 @@ import {
 	TouchableOpacity,
 	Platform,
 } from 'react-native'
-
 import LinearGradient from 'react-native-linear-gradient'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import ImagePicker from 'react-native-image-picker'
-
 //containers
-import BackButton from '@containers/back/back'
 import CustomButton from '@containers/custom-button/custom-button'
 import AndroidHeader from '@containers/androidHeader/androidHeader'
+import CustomPhoto from '@containers/custom-photo/custom-photo'
 //reducers
 import { loaderState } from '@reducers/loader'
+import { saveUser } from '@reducers/profile-state'
+import { setColor } from '@reducers/user-color'
 //services
+import { serializeJSON } from '@services/serialize-json'
 import NavigationService from '@services/route'
 import { httpPost } from '@services/http'
 //constants
 import { urls } from '@constants/urls'
+import { ICONS } from '@constants/icons'
 //locales
 import I18n from '@locales/I18n'
 //style
 import styles from './style'
-import { ICONS } from '@constants/icons'
-//will be removed
-import { saveUser } from '../../../reducers/profile-state'
-import { setColor } from '../../../reducers/user-color'
-import { serializeJSON } from '../../../services/serialize-json'
-import CustomPhoto from '@containers/custom-photo/custom-photo'
 
 class ProfEdit extends React.Component {
-	static navigationOptions = () => ({
-		headerLeft: <BackButton title={I18n.t('BACK')} route='Main' />,
-		title: I18n.t('PROFILE_SETTINGS.EDIT'),
-		headerStyle: styles.headerBackground,
-		headerTitleStyle: styles.headerTitle,
-	})
 	state = {
 		gender: 0,
 		name: '',
@@ -96,7 +86,6 @@ class ProfEdit extends React.Component {
 			birth_year: this.state.age,
 			photo: 'data:image/jpeg;base64,' + this.state.photo,
 		}
-		console.log(body, 'BODY')
 		httpPost(urls.edit_profile_data, serializeJSON(body), this.props.token, true).then(
 			(result) => {
 				let user = {
@@ -147,7 +136,6 @@ class ProfEdit extends React.Component {
 				style={styles.container}
 			>
 				<Image style={styles.img} source={require('@assets/img/bubles.png')} />
-
 				<AndroidHeader route='Main' title={I18n.t('PROFILE_SETTINGS.EDIT')} />
 				<KeyboardAvoidingView behavior='padding' style={styles.grad}>
 					<ScrollView contentContainerStyle={styles.scrollView}>
