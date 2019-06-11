@@ -112,5 +112,7 @@ export default combineReducers({
 	country,
 	serverRequest,
 	sign_in: require('./sign-in').default,
-	verify: require('./verify').default,
+	sign_in_confirm: require('./sign-in-confirm').default,
+	sign_up: require('./sign-up').default,
+	sign_up_confirm: require('./sign-up-confirm').default,
 })

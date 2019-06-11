@@ -1,4 +1,4 @@
-import { SIGN_IN } from './__proto__'
+import { AUTH } from './__proto__'
 import { urls } from '@constants/urls'
 import { loaderState } from '@reducers/loader'
 import { httpPost } from '@services/http'
@@ -9,30 +9,14 @@ const RESULT = '[sign-in] RESULT'
 const ERROR = '[sign-in] ERROR'
 const RESET = '[sign-in] RESET'
 
-const initialState = new SIGN_IN()
+const initialState = new AUTH()
 
 export default (state = initialState, action) => {
 	switch (action.type) {
 		case RESULT:
-			return Object.assign(
-				{},
-				{
-					...state,
-					code: 1,
-					message: action.payload.message,
-					phone: action.payload.phone,
-				},
-			)
+			return Object.assign({}, { ...state, code: 1, phone: action.payload.phone })
 		case ERROR:
-			return Object.assign(
-				{},
-				{
-					...state,
-					code: -1,
-					message: action.error.message,
-					phone: action.error.phone,
-				},
-			)
+			return Object.assign({}, { ...state, code: -1, phone: action.error.phone })
 		case RESET:
 			return Object.assign({}, { ...initialState })
 		default:
@@ -40,23 +24,22 @@ export default (state = initialState, action) => {
 	}
 }
 
-export const signIn = (mask, number) => async (dispatch) => {
+export const signIn = (phone) => async (dispatch) => {
 	dispatch(reset())
 	dispatch(loaderState(true))
 	try {
-		const phone = '+' + `${mask}${number}`.replace(/\D/g, '')
 		const body = JSON.stringify({ phone })
 		const response = await httpPost(urls.sing_in, body)
 		response.phone = phone
 		route.navigate('ConfirmCode', {
-			back: 'Login',
+			back: 'SignIn',
 			title: I18n.t('SIGN_IN_TITLE'),
 		})
-		dispatch(result(new SIGN_IN(response)))
+		dispatch(result(new AUTH(response)))
 		dispatch(loaderState(false))
 	} catch (e) {
 		e.code = -1
-		dispatch(error(new SIGN_IN(e)))
+		dispatch(error(new AUTH(e)))
 		dispatch(loaderState(false))
 	}
 }

@@ -11,8 +11,8 @@ const Navigate = () => {
 	const start = { x: 0.0, y: 0.0 }
 	const end = { x: 1.0, y: 0.0 }
 
-	const sign_in = () => route.navigate('Login')
-	const sign_up = () => route.navigate('Registration')
+	const sign_in = () => route.navigate('SignIn')
+	const sign_up = () => route.navigate('SignUp')
 
 	return (
 		<View style={styles.layout}>

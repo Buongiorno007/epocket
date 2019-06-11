@@ -10,9 +10,9 @@ import { toAge } from '@services/converteDate'
 import route from '@services/route'
 import I18n from '@locales/I18n'
 
-const RESULT = '[sign-in-confirm] RESULT'
-const ERROR = '[sign-in-confirm] ERROR'
-const RESET = '[sign-in-confirm] RESET'
+const RESULT = '[sign-up-confirm] RESULT'
+const ERROR = '[sign-up-confirm] ERROR'
+const RESET = '[sign-up-confirm] RESET'
 
 const initialState = new AUTH()
 
@@ -29,27 +29,34 @@ export default (state = initialState, action) => {
 	}
 }
 
-export const signInConfirm = (number, code = '123456') => async (dispatch, getState) => {
+export const signUpConfirm = (number, title, sex, birth_day, id, code = '123456') => async (dispatch, getState) => {
 	dispatch(reset())
 	dispatch(loaderState(true))
 	try {
-		const { phone } = getState().sign_in
-		const event = phone ? phone : number
-		const body = JSON.stringify({ phone: event, code })
-		const response = await httpPost(urls.sing_in_confirm, body)
+		const { phone, name, gender, age, user_id } = getState().sign_up
+		const body = JSON.stringify({
+			code,
+			phone: phone ? phone : number,
+			name: name ? name : title,
+			sex: gender ? `${gender - 1}` : `${sex - 1}`,
+			birth_year: age ? age : birth_day,
+			user_id: user_id ? user_id : '',
+		})
+		const response = await httpPost(urls.sign_up_confirm, body)
 		const user = {
-			name: response.body.user_name,
-			phone: event,
+			name: body.name,
+			phone: body.phone,
 			photo: response.body.photo,
-			sex: response.body.sex ? 1 : 0,
+			sex: body.sex,
 			currency: I18n.locale === 'ru' ? response.body.currency_plural : response.body.currency,
-			birthDay: toAge(response.body.birth_day),
+			birthDay: body.birth_day,
 		}
 		dispatch(saveUser(user))
 		dispatch(setToken(response.body.token))
 		dispatch(setColor(user.sex))
 		dispatch(setBalance(Number(response.body.balance)))
 		dispatch(result())
+		dispatch(loaderState(false))
 		route.navigate('Main')
 	} catch (e) {
 		e.code = -1
