@@ -1,6 +1,5 @@
 export const DEFAULT = function(data: any = {}) {
 	this.code = data.code || null
-	this.message = data.message || null
 }
 
 export const COUNTRY = function(data = {}) {
@@ -22,8 +21,12 @@ export const PROFILE = function(data = {}) {
 	this.currency = data.currency || ''
 }
 
-export const SIGN_IN = function(data = {}) {
+export const AUTH = function(data = {}) {
 	DEFAULT.apply(this, arguments)
 	this.phone = data.phone || null
+	this.gender = data.gender || null
+	this.name = data.name || null
+	this.age = data.age || null
+	this.user_id = data.user_id || null
 }
-SIGN_IN.prototype = Object.create(DEFAULT.prototype)
+AUTH.prototype = Object.create(DEFAULT.prototype)
