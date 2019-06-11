@@ -40,7 +40,7 @@ export default (state = initialState, action) => {
 	}
 }
 
-export const request = (mask, number) => async (dispatch) => {
+export const signIn = (mask, number) => async (dispatch) => {
 	dispatch(reset())
 	dispatch(loaderState(true))
 	try {

@@ -10,9 +10,9 @@ import { toAge } from '@services/converteDate'
 import route from '@services/route'
 import I18n from '@locales/I18n'
 
-const RESULT = '[verify] RESULT'
-const ERROR = '[verify] ERROR'
-const RESET = '[verify] RESET'
+const RESULT = '[sign-in-confirm] RESULT'
+const ERROR = '[sign-in-confirm] ERROR'
+const RESET = '[sign-in-confirm] RESET'
 
 const initialState = new DEFAULT()
 
@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
 	}
 }
 
-export const confirm = (mask, number) => async (dispatch) => {
+export const signInConfirm = (mask, number) => async (dispatch) => {
 	dispatch(reset())
 	dispatch(loaderState(true))
 	try {

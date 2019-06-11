@@ -3,7 +3,7 @@ import { View, Image, Text } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import LinearGradient from 'react-native-linear-gradient'
-import Button from '@containers/custom-button/custom-button'
+import Touchable from '@containers/custom-button/custom-button'
 import route from '@services/route'
 import I18n from '@locales/I18n'
 import styles from './styles'
@@ -33,7 +33,7 @@ class CatCode extends React.Component<Props> {
 			<LinearGradient colors={colors} start={start} end={end} style={styles.layout}>
 				<Image style={styles.image} source={require('@assets/img/cat.png')} />
 				<Text style={styles.title}>{'Поздравляем!\nЖелаем удачного полета вместе с EpocketCash'}</Text>
-				<Button color={color} handler={this.navigate} active={true} title={I18n.t('SIGN.START')} />
+				<Touchable color={color} handler={this.navigate} active={true} title={I18n.t('SIGN.START')} />
 			</LinearGradient>
 		)
 	}

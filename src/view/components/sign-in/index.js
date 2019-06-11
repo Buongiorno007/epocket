@@ -2,12 +2,12 @@ import React from 'react'
 import { View, KeyboardAvoidingView, ScrollView, Text, Keyboard, Image } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { request } from '@reducers/sign-in'
-import { confirm } from '@reducers/verify'
+import { signIn } from '@reducers/sign-in'
+import { signInConfirm } from '@reducers/sign-in-confirm'
 import LinearGradient from 'react-native-linear-gradient'
 import Header from '@containers/androidHeader/androidHeader'
-import TextInput from '@containers/signForm/signForm'
-import Button from '@containers/custom-button/custom-button'
+import Dropdown from '@containers/signForm/signForm'
+import Touchable from '@containers/custom-button/custom-button'
 import I18n from '@locales/I18n'
 import styles from './styles'
 
@@ -23,7 +23,7 @@ type State = typeof initialState
 
 const initialState = {
 	phone: '',
-	code: '+380',
+	code: '',
 	validate: false,
 	accept: false,
 	mask: 0,
@@ -51,8 +51,8 @@ class SignIn extends React.Component<Props, State> {
 				this.setState({ validate: true })
 			}
 		}
-		if (prevProps.verify.code !== this.props.verify.code && this.props.verify.code) {
-			if (this.props.verify.code === -1) {
+		if (prevProps.sign_in_confirm.code !== this.props.sign_in_confirm.code && this.props.sign_in_confirm.code) {
+			if (this.props.sign_in_confirm.code === -1) {
 				this.setState({ validate: true })
 			}
 		}
@@ -71,9 +71,9 @@ class SignIn extends React.Component<Props, State> {
 		const { code, phone } = this.state
 		const { sms } = this.props
 		if (sms) {
-			this.props.request(code, phone)
+			this.props.signIn(code, phone)
 		} else {
-			this.props.confirm(code, phone)
+			this.props.signInConfirm(code, phone)
 		}
 	}
 
@@ -83,17 +83,17 @@ class SignIn extends React.Component<Props, State> {
 		const color = accept ? pink : white
 		return (
 			<LinearGradient colors={colors} start={start} end={end} style={styles.layout}>
-				<Header route='Start' title={I18n.t('SIGN_IN_TITLE')} />
-				<KeyboardAvoidingView style={styles.keyboard} behavior='padding'>
+				<Header route={'Start'} title={I18n.t('SIGN_IN_TITLE')} />
+				<KeyboardAvoidingView style={styles.keyboard} behavior={'padding'}>
 					<ScrollView
 						contentContainerStyle={[styles.scroll, styles.align]}
-						keyboardShouldPersistTaps='handled'
+						keyboardShouldPersistTaps={'handled'}
 						scrollEnabled={false}
 					>
 						<View style={styles.wrapper}>
 							<Text style={[styles.text, styles.left]}>{I18n.t('SIGN.ENTER_PHONE_NUMBER')}</Text>
 						</View>
-						<TextInput
+						<Dropdown
 							data={country}
 							value={phone}
 							setPhoneNumber={this.handleChangePhone}
@@ -102,13 +102,13 @@ class SignIn extends React.Component<Props, State> {
 							maskLength={this.handleChangeMask}
 						>
 							{validate && <Image style={styles.image} source={require('@assets/img/eyes.png')} />}
-						</TextInput>
+						</Dropdown>
 						<View style={styles.wrapper}>
 							<Text style={[styles.text, styles.right, { opacity: validate ? 1 : 0 }]}>
 								{I18n.t('SIGN.CHECK_PHONE_NUMBER')}
 							</Text>
 						</View>
-						<Button
+						<Touchable
 							color={color}
 							active={accept}
 							disabled={!accept}
@@ -128,14 +128,14 @@ const mapStateToProps = (state) => ({
 	country: state.country.list,
 	sms: state.country.sms,
 	sign_in: state.sign_in,
-	verify: state.verify,
+	sign_in_confirm: state.sign_in_confirm,
 })
 
 const mapDispatchToProps = (dispatch) =>
 	bindActionCreators(
 		{
-			request,
-			confirm,
+			signIn,
+			signInConfirm,
 		},
 		dispatch,
 	)
