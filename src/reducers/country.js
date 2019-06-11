@@ -18,15 +18,13 @@ export default (state = initialState, action) => {
 }
 
 export const list = () => async (dispatch, getState) => {
-	const { country } = getState()
-	if (country.length === 0) {
+	const catalog = getState().country.list
+	if (catalog.length === 0) {
 		try {
 			const response = await httpGet(urls.echo)
-			await dispatch(result(new COUNTRY(response.body)))
-			await dispatch(loaderState(false))
-			// await dispatch(updateServerRequest(false))
+			dispatch(result(new COUNTRY(response.body)))
+			dispatch(loaderState(false))
 		} catch (e) {
-			// dispatch(updateServerRequest(true))
 			list()
 		}
 	}
