@@ -40,6 +40,7 @@ export default StyleSheet.create({
 		paddingHorizontal: 4,
 		justifyContent: 'center',
 		alignItems: 'center',
+		alignSelf: 'center',
 		flexDirection: 'row',
 		marginBottom: 24,
 	},

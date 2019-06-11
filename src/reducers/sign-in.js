@@ -14,9 +14,27 @@ const initialState = new AUTH()
 export default (state = initialState, action) => {
 	switch (action.type) {
 		case RESULT:
-			return Object.assign({}, { ...state, code: 1, phone: action.payload.phone })
+			return Object.assign(
+				{},
+				{
+					...state,
+					code: 1,
+					phone: action.payload.phone,
+					back: action.payload.back,
+					title: action.payload.title,
+				},
+			)
 		case ERROR:
-			return Object.assign({}, { ...state, code: -1, phone: action.error.phone })
+			return Object.assign(
+				{},
+				{
+					...state,
+					code: -1,
+					phone: action.error.phone,
+					back: action.error.back,
+					title: action.error.title,
+				},
+			)
 		case RESET:
 			return Object.assign({}, { ...initialState })
 		default:
@@ -31,14 +49,15 @@ export const signIn = (phone) => async (dispatch) => {
 		const body = JSON.stringify({ phone })
 		const response = await httpPost(urls.sing_in, body)
 		response.phone = phone
-		route.navigate('ConfirmCode', {
-			back: 'SignIn',
-			title: I18n.t('SIGN_IN_TITLE'),
-		})
+		response.back = 'SignIn'
+		response.title = I18n.t('SIGN_IN_TITLE')
+		route.navigate('ConfirmCode')
 		dispatch(result(new AUTH(response)))
 		dispatch(loaderState(false))
 	} catch (e) {
 		e.code = -1
+		e.back = 'SignIn'
+		e.title = I18n.t('SIGN_IN_TITLE')
 		dispatch(error(new AUTH(e)))
 		dispatch(loaderState(false))
 	}
