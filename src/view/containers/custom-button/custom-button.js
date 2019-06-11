@@ -42,6 +42,7 @@ class CustomButton extends React.Component {
 					this.props.long_75 && { width: width * 0.75 },
 					this.props.border && { borderWidth: 1, borderColor: this.props.color },
 					this.props.transparent && { backgroundColor: 'transparent' },
+					this.props.style,
 				]}
 				onPress={() => {
 					this.props.active && this.props.handler()

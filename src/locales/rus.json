@@ -225,6 +225,7 @@
     "CONFIRM" : "Применить"
   },
   "GAME": {
+    "GAME_COST":"ЗАДАНИЕ НА {{value}} {{currency}}",
     "ZIFI": {
       "MORE_GAMES": "Открой больше игр!",
       "PLAYFUL": "Zifi хочет играть!",

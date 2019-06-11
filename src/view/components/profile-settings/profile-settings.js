@@ -272,7 +272,7 @@ class ProfileSettings extends React.Component {
 							transparent
 							style={styles.button}
 							onPress={() => {
-								NavigationService.navigate('ProfileEdit')
+								NavigationService.navigate('ProfEdit')
 							}}
 						>
 							<FastImage
