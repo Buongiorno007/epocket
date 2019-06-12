@@ -1,6 +1,7 @@
 import { AUTH } from './__proto__'
 import { urls } from '@constants/urls'
 import { loaderState } from '@reducers/loader'
+import { resetSignIn } from '@reducers/sign-in'
 import { httpPost } from '@services/http'
 import I18n from '@locales/I18n'
 import route from '@services/route'
@@ -24,6 +25,8 @@ export default (state = initialState, action) => {
 					gender: action.payload.gender,
 					age: action.payload.age,
 					user_id: action.payload.user_id,
+					back: action.payload.back,
+					title: action.payload.title,
 				},
 			)
 		case ERROR:
@@ -37,6 +40,8 @@ export default (state = initialState, action) => {
 					gender: action.error.gender,
 					age: action.error.age,
 					user_id: action.error.user_id,
+					back: action.error.back,
+					title: action.error.title,
 				},
 			)
 		case RESET:
@@ -47,7 +52,8 @@ export default (state = initialState, action) => {
 }
 
 export const signUp = (number, name, gender, age, user_id = '') => async (dispatch) => {
-	dispatch(reset())
+	dispatch(resetSignIn())
+	dispatch(resetSignUp())
 	dispatch(loaderState(true))
 	try {
 		const body = JSON.stringify({ phone: number })
@@ -57,19 +63,21 @@ export const signUp = (number, name, gender, age, user_id = '') => async (dispat
 		response.gender = gender
 		response.age = age
 		response.user_id = user_id
-		route.navigate('ConfirmCode', {
-			back: 'SignIn',
-			title: I18n.t('SIGN_UP_TITLE'),
-		})
+		response.back = 'SignUp'
+		response.title = I18n.t('SIGN_UP_TITLE')
+		route.navigate('ConfirmCode')
 		dispatch(result(new AUTH(response)))
 		dispatch(loaderState(false))
 	} catch (e) {
 		e.code = -1
+		e.code = -1
+		e.back = 'SignUp'
+		e.title = I18n.t('SIGN_UP_TITLE')
 		dispatch(error(new AUTH(e)))
 		dispatch(loaderState(false))
 	}
 }
 
-const result = (payload) => ({ type: RESULT, payload })
-const error = (error) => ({ type: ERROR, error })
-const reset = () => ({ type: RESET })
+export const result = (payload) => ({ type: RESULT, payload })
+export const error = (error) => ({ type: ERROR, error })
+export const resetSignUp = () => ({ type: RESET })

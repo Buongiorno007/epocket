@@ -35,5 +35,7 @@ export const AUTH = function(data = {}) {
 	this.name = data.name || null
 	this.age = data.age || null
 	this.user_id = data.user_id || null
+	this.back = data.back || 'Start'
+	this.title = data.title || ''
 }
 AUTH.prototype = Object.create(DEFAULT.prototype)

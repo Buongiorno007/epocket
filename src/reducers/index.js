@@ -117,4 +117,5 @@ export default combineReducers({
 	sign_in_confirm: require('./sign-in-confirm').default,
 	sign_up: require('./sign-up').default,
 	sign_up_confirm: require('./sign-up-confirm').default,
+	send_code: require('./send-code').default,
 })

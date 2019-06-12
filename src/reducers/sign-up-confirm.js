@@ -29,18 +29,20 @@ export default (state = initialState, action) => {
 	}
 }
 
-export const signUpConfirm = (number, title, sex, birth_day, id, code = '123456') => async (dispatch, getState) => {
+export const signUpConfirm = (phone, name, gender, age, user_id = '', code = '123456') => async (
+	dispatch,
+	getState,
+) => {
 	dispatch(reset())
 	dispatch(loaderState(true))
 	try {
-		const { phone, name, gender, age, user_id } = getState().sign_up
 		const body = JSON.stringify({
 			code,
-			phone: phone ? phone : number,
-			name: name ? name : title,
-			sex: gender ? `${gender - 1}` : `${sex - 1}`,
-			birth_year: age ? age : birth_day,
-			user_id: user_id ? user_id : '',
+			phone,
+			name,
+			sex: `${gender - 1}`,
+			birth_year: age,
+			user_id: user_id,
 		})
 		const response = await httpPost(urls.sign_up_confirm, body)
 		const user = {

@@ -34,7 +34,7 @@ const Navigator = createStackNavigator(
 		RefillMobile: { screen: require('@components/refillMobile/refillMobile').default },
 		SignIn: { screen: require('@components/sign-in').default },
 		SignUp: { screen: require('@components/sign-up').default },
-		ConfirmCode: { screen: require('@components/confirmCode/confirmCode').default },
+		ConfirmCode: { screen: require('@components/confirm-code').default },
 		CatCode: { screen: require('@components/catCode').default },
 		ProfEdit: { screen: require('@components/profile-edit/profileEdit').default },
 		// Gamee: { screen: require('@components/game-component/game').default },

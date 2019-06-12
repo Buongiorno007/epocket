@@ -17,6 +17,7 @@ type Props = {
 	country: any[],
 	sms: boolean,
 	sign_in: any,
+	sign_in_confirm: any,
 } & typeof defaultProps
 
 type State = typeof initialState

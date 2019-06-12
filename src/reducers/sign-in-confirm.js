@@ -33,13 +33,11 @@ export const signInConfirm = (number, code = '123456') => async (dispatch, getSt
 	dispatch(reset())
 	dispatch(loaderState(true))
 	try {
-		const { phone } = getState().sign_in
-		const event = phone ? phone : number
-		const body = JSON.stringify({ phone: event, code })
+		const body = JSON.stringify({ phone: number, code })
 		const response = await httpPost(urls.sing_in_confirm, body)
 		const user = {
 			name: response.body.user_name,
-			phone: event,
+			phone: body.phone,
 			photo: response.body.photo,
 			sex: response.body.sex ? 1 : 0,
 			currency: I18n.locale === 'ru' ? response.body.currency_plural : response.body.currency,
