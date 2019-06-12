@@ -2,6 +2,9 @@ import React from 'react'
 import { View, KeyboardAvoidingView, ScrollView, Text, Keyboard, Image, TextInput } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { signInConfirm } from '@reducers/sign-in-confirm'
+import { signUpConfirm } from '@reducers/sign-up-confirm'
+import { sendCode } from '@reducers/send-code'
 import { Button } from 'native-base'
 import { AUTH } from '@reducers/__proto__'
 import BackgroundTimer from 'react-native-background-timer'
@@ -10,30 +13,6 @@ import Header from '@containers/androidHeader/androidHeader'
 import Touchable from '@containers/custom-button/custom-button'
 import I18n from '@locales/I18n'
 import styles from './styles'
-
-// import React from 'react'
-// import { View, Image, Text, ScrollView, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native'
-// import BackgroundTimer from 'react-native-background-timer'
-// //containers
-// import Button from '@containers/custom-button/custom-button'
-// //redux
-// import { setToken } from '@reducers/token'
-// import { loaderState } from '@reducers/loader'
-// import { setBalance } from '@reducers/user-balance'
-// import { setColor } from '@reducers/user-color'
-
-// import { saveUser } from '@reducers/profile-state'
-// //services
-// import NavigationService from '@services/route'
-// import { httpPost } from '@services/http'
-// import { toAge } from '@services/converteDate'
-// //constants
-// import { urls } from '@constants/urls'
-// import { ICONS } from '@constants/icons'
-// //locales
-// import I18n from '@locales/I18n'
-// //styles
-// import styles from './styles'
 
 type Props = {
 	sign_in: any,
@@ -68,17 +47,15 @@ class ConfirmCode extends React.Component<Props, State> {
 	state = initialState
 
 	componentDidMount() {
-		if (JSON.stringify(this.props.sign_in) !== JSON.stringify(new AUTH())) {
-			this.init(this.props.sign_in)
+		const sign_in = JSON.stringify(this.props.sign_in) !== JSON.stringify(new AUTH())
+		const sign_up = JSON.stringify(this.props.sign_up) !== JSON.stringify(new AUTH())
+		if (sign_in || sign_up) {
+			sign_in && this.init(this.props.sign_in)
+			sign_up && this.init(this.props.sign_up)
 		} else {
 			this.init(new AUTH())
 		}
-		if (JSON.stringify(this.props.sign_up) !== JSON.stringify(new AUTH())) {
-			this.init(this.props.sign_up)
-		} else {
-			this.init(new AUTH())
-		}
-		this.startInterval()
+		this.runBackgroundTimer()
 	}
 
 	componentWillUnmount() {
@@ -91,7 +68,22 @@ class ConfirmCode extends React.Component<Props, State> {
 		}
 		if (prevState.timer === 0 && this.state.timer === 10) {
 			BackgroundTimer.stopBackgroundTimer()
-			this.startInterval()
+			this.runBackgroundTimer()
+		}
+		if (prevProps.send_code.code !== this.props.send_code.code && this.props.send_code.code) {
+			if (this.props.send_code.code === 1) {
+				this.setState({ timer: 10 })
+			}
+		}
+		if (prevProps.sign_in_confirm.code !== this.props.sign_in_confirm.code && this.props.sign_in_confirm.code) {
+			if (this.props.sign_in_confirm.code === -1) {
+				this.setState({ validate: true })
+			}
+		}
+		if (prevProps.sign_up_confirm.code !== this.props.sign_up_confirm.code && this.props.sign_up_confirm.code) {
+			if (this.props.sign_up_confirm.code === -1) {
+				this.setState({ validate: true })
+			}
 		}
 	}
 
@@ -109,11 +101,11 @@ class ConfirmCode extends React.Component<Props, State> {
 		})
 	}
 
-	startInterval = () => {
-		BackgroundTimer.runBackgroundTimer(this.interv, 1000)
+	runBackgroundTimer = () => {
+		BackgroundTimer.runBackgroundTimer(this.checkBackgroundTimer, 1000)
 	}
 
-	interv = () => {
+	checkBackgroundTimer = () => {
 		let { timer } = this.state
 		if (timer) {
 			this.setState({ timer: timer - 1 })
@@ -122,93 +114,23 @@ class ConfirmCode extends React.Component<Props, State> {
 		}
 	}
 
-	resend = () => {
-		if (!this.state.timer) {
-			this.props.loaderState(true)
-			httpPost(urls.re_send_code, JSON.stringify({ phone: this.state.phone })).then(
-				(result) => {
-					this.setState({ timer: 10 })
-					this.props.loaderState(false)
-				},
-				(error) => {
-					this.props.loaderState(false)
-					console.log(error, 'ERROR')
-				},
-			)
-		}
-	}
-
-	// whileNoCodeConfirmRegistration() {
-	// 	this.props.loaderState(true)
-	// 	const { code, phone, name, age, gender, user_id } = this.state
-	// 	const body = {
-	// 		phone: phone,
-	// 		code: code,
-	// 		name: name,
-	// 		user_id: user_id,
-	// 		birth_year: age,
-	// 		sex: `${gender - 1}`,
-	// 		photo: 'data:image/png;base64,' + ICONS.TEST.SHOE_PHOTO,
-	// 	}
-	// 	httpPost(urls.sign_up_confirm, JSON.stringify(body)).then(
-	// 		(result) => {
-	// 			const new_user = {
-	// 				name: name,
-	// 				phone: body.phone,
-	// 				sex: gender - 1,
-	// 				birthDay: age,
-	// 				currency: I18n.locale === 'en' ? result.body.currency : result.body.currency_plural,
-	// 				photo: ICONS.TEST.SHOE_PHOTO,
-	// 			}
-	// 			this.props.saveUser(new_user)
-	// 			this.props.setColor(new_user.sex)
-	// 			this.props.setToken(result.body.token)
-	// 			this.props.setBalance(0)
-	// 			NavigationService.navigate('CatCode')
-	// 		},
-	// 		(error) => {
-	// 			this.setState({ validate: true })
-	// 			this.props.loaderState(false)
-	// 		},
-	// 	)
-	// }
-
-	// whileNoCodeConfirmLogin = () => {
-	// 	this.props.loaderState(true)
-	// 	let body = {
-	// 		phone: this.state.phone,
-	// 		code: this.state.code,
-	// 	}
-	// 	httpPost(urls.sing_in_confirm, JSON.stringify(body)).then(
-	// 		(result) => {
-	// 			const user_info = {
-	// 				name: result.body.user,
-	// 				phone: body.phone,
-	// 				photo: result.body.photo,
-	// 				sex: result.body.sex ? 1 : 0,
-	// 				birthDay: toAge(result.body.birthDay),
-	// 				currency: I18n.locale === 'en' ? result.body.currency : result.body.currency_plural,
-	// 			}
-	// 			this.props.saveUser(user_info)
-	// 			this.props.setColor(user_info.sex)
-	// 			this.props.setToken(result.body.token)
-	// 			this.props.setBalance(result.body.balance)
-	// 			NavigationService.navigate('CatCode')
-	// 		},
-	// 		(error) => {
-	// 			this.setState({ validate: true })
-	// 			this.props.loaderState(false)
-	// 		},
-	// 	)
-	// }
-
-	handleConfirm = () => {
-		// this.state.route ? this.whileNoCodeConfirmRegistration() : this.whileNoCodeConfirmLogin()
-	}
-
 	handleFocusCode = () => this.setState({ validate: false })
 
 	handleChangeCode = (code) => this.setState({ code })
+
+	handleSendCode = () => {
+		const { phone } = this.state
+		this.props.sendCode(phone)
+	}
+
+	handleConfirm = () => {
+		const { phone, name, gender, age, user_id, code, route } = this.state
+		if (route) {
+			this.props.signInConfirm(phone, code)
+		} else {
+			this.props.signUpConfirm(phone, name, gender, age, user_id, code)
+		}
+	}
 
 	render = () => {
 		const { colors, start, end, pink, white } = this.props
@@ -224,7 +146,7 @@ class ConfirmCode extends React.Component<Props, State> {
 							transparent
 							disabled={timer !== 0}
 							style={[styles.again_button, !timer && styles.again_button_active]}
-							onPress={this.resend}
+							onPress={this.handleSendCode}
 						>
 							<Text style={[styles.again_text, !timer && styles.again_text_active]}>
 								{I18n.t('SIGN.SEND_AGAIN')}
@@ -260,7 +182,7 @@ class ConfirmCode extends React.Component<Props, State> {
 							color={color}
 							active={accept}
 							disabled={!accept}
-							onPress={this.handleConfirm}
+							handler={this.handleConfirm}
 							title={I18n.t('ACCEPT').toUpperCase()}
 						/>
 					</ScrollView>
@@ -274,13 +196,18 @@ const mapStateToProps = (state) => ({
 	pink: state.userColor.pink,
 	white: state.userColor.white,
 	sign_in: state.sign_in,
+	sign_in_confirm: state.sign_in_confirm,
 	sign_up: state.sign_up,
+	sign_up_confirm: state.sign_up_confirm,
+	send_code: state.send_code,
 })
 
 const mapDispatchToProps = (dispatch) =>
 	bindActionCreators(
 		{
 			sendCode,
+			signInConfirm,
+			signUpConfirm,
 		},
 		dispatch,
 	)

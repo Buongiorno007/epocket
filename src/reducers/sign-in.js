@@ -1,6 +1,7 @@
 import { AUTH } from './__proto__'
 import { urls } from '@constants/urls'
 import { loaderState } from '@reducers/loader'
+import { resetSignUp } from '@reducers/sign-up'
 import { httpPost } from '@services/http'
 import I18n from '@locales/I18n'
 import route from '@services/route'
@@ -43,7 +44,8 @@ export default (state = initialState, action) => {
 }
 
 export const signIn = (phone) => async (dispatch) => {
-	dispatch(reset())
+	dispatch(resetSignUp())
+	dispatch(resetSignIn())
 	dispatch(loaderState(true))
 	try {
 		const body = JSON.stringify({ phone })
@@ -63,6 +65,6 @@ export const signIn = (phone) => async (dispatch) => {
 	}
 }
 
-const result = (payload) => ({ type: RESULT, payload })
-const error = (error) => ({ type: ERROR, error })
-const reset = () => ({ type: RESET })
+export const result = (payload) => ({ type: RESULT, payload })
+export const error = (error) => ({ type: ERROR, error })
+export const resetSignIn = () => ({ type: RESET })

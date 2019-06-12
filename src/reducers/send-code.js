@@ -1,4 +1,3 @@
-
 import { AUTH } from './__proto__'
 import { urls } from '@constants/urls'
 import { loaderState } from '@reducers/loader'
@@ -40,6 +39,6 @@ export const sendCode = (phone) => async (dispatch) => {
 	}
 }
 
-const result = (payload) => ({ type: RESULT, payload })
-const error = (error) => ({ type: ERROR, error })
+const result = () => ({ type: RESULT })
+const error = () => ({ type: ERROR })
 const reset = () => ({ type: RESET })

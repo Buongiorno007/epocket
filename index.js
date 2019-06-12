@@ -41,7 +41,7 @@ const Navigator = createStackNavigator(
 		GameStart: { screen: require('@components/game-component/game-start').default },
 	},
 	{
-		initialRouteName: 'ConfirmCode',
+		initialRouteName: 'Start',
 		defaultNavigationOptions: {
 			headerTransparent: true,
 			header: null,
