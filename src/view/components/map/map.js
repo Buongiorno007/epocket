@@ -4,7 +4,7 @@ import FastImage from 'react-native-fast-image'
 import { Button } from 'native-base'
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import ClusteredMapView from '../../../native_modules/react-native-maps-super-cluster'
-import * as geolib from 'geolib'
+import { findNearest, getDistance, getBounds, getCenter } from 'geolib'
 import { LinearTextGradient } from 'react-native-text-gradient'
 import LinearGradient from 'react-native-linear-gradient'
 import CookieManager from 'react-native-cookies'
@@ -162,7 +162,8 @@ class Map extends React.Component {
 		}
 	}
 	showNearestOne = (my_location, mall_array, outlets) => {
-		let newArr = {}
+		let newArr = []
+		console.log(my_location, mall_array, outlets, 'COLLECTION')
 		mall_array.forEach((item) => {
 			let newItem = {
 				latitude: item.lat,
@@ -170,17 +171,17 @@ class Map extends React.Component {
 			}
 			let name = item.id
 			if (!outlets && newItem.latitude !== 'None' && newItem.longitude !== 'None') {
-				newArr[name] = newItem
+				newArr.push(newItem)
 			} else if (
 				outlets &&
 				newItem.latitude !== 'None' &&
 				newItem.longitude !== 'None' &&
 				item.formated.money > 0
 			) {
-				newArr[name] = newItem
+				newArr.push(newItem)
 			}
 		})
-		let nearestMall = geolib.findNearest(my_location, newArr, 0)
+		let nearestMall = findNearest(my_location, newArr)
 		if (nearestMall) {
 			let latD = 0.00003212 * nearestMall.distance
 			let lngD = 0.00003381 * nearestMall.distance
@@ -460,7 +461,7 @@ class Map extends React.Component {
 		})
 	}
 	selectNearestMall = (my_location, mall_array, ANIMATE_MAP) => {
-		let newArr = {}
+		let newArr = []
 		mall_array.forEach((item) => {
 			let newItem = {
 				latitude: item.lat,
@@ -468,10 +469,10 @@ class Map extends React.Component {
 			}
 			let name = item.id
 			if (item.formated.money > 0) {
-				newArr[name] = newItem
+				newArr.push(newItem)
 			}
 		})
-		let nearestMall = geolib.findNearest(my_location, newArr, 0)
+		let nearestMall = findNearest(my_location, newArr)
 		if (nearestMall) {
 			let selectedTRC = mall_array.find((x) => x.id === Number(nearestMall.key))
 			try {
@@ -826,16 +827,16 @@ class Map extends React.Component {
 				longitude: Number(trc.lng).toFixed(5),
 			},
 		})
-		let bounds = geolib.getBounds([
+		let bounds = getBounds([
 			{ latitude: trc.lat, longitude: trc.lng },
 			{ latitude: this.props.location.lat, longitude: this.props.location.lng },
 		])
-		let center = geolib.getCenter([
+		let center = getCenter([
 			{ latitude: trc.lat, longitude: trc.lng },
 			{ latitude: this.props.location.lat, longitude: this.props.location.lng },
 		])
 		let distance =
-			geolib.getDistance(
+			getDistance(
 				{ latitude: trc.lat, longitude: trc.lng },
 				{
 					latitude: this.props.location.lat,
@@ -912,7 +913,7 @@ class Map extends React.Component {
 		let maxDistance = 0
 		if (this.state.discountActive) {
 			clusteredPoints.forEach((cluster) => {
-				let distanceToCenter = geolib.getDistance(cluster.properties.item.location, coordinate)
+				let distanceToCenter = getDistance(cluster.properties.item.location, coordinate)
 				if (distanceToCenter > maxDistance && cluster.properties.item.price !== 0) {
 					maxDistance = distanceToCenter
 				}
@@ -920,7 +921,7 @@ class Map extends React.Component {
 			})
 		} else {
 			clusteredPoints.forEach((cluster) => {
-				let distanceToCenter = geolib.getDistance(cluster.properties.item.location, coordinate)
+				let distanceToCenter = getDistance(cluster.properties.item.location, coordinate)
 				if (distanceToCenter > maxDistance && cluster.properties.item.price !== 0) {
 					maxDistance = distanceToCenter
 				}
