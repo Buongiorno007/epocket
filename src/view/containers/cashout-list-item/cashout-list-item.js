@@ -17,32 +17,28 @@ import I18n from '@locales/I18n'
 
 class CashoutList extends React.Component {
 	state = {
-		count: this.props.item.count ? this.props.item.count : 0,
+		count: 0,
 		currency: '',
 	}
 	item = this.props.item
 
 	componentDidMount() {
-		this.setState({ currency: this.props.profileState.currency })
+		this.setState({ currency: this.props.profileState.currency, count: this.props.item.count || 0 })
 	}
 
 	setItemCount = (count) => {
-		this.props.loaderState(true)
-		this.setState({ count }, () => {
-			this.item.count = count
-			if (count === 0) {
-				this.deleteElement()
-			} else {
-				this.props.addItemToOrder(this.item)
-			}
-			this.props.loaderState(false)
-		})
+		console.log(count, 'FUNCTION COUNT')
+		this.setState({ count })
+		this.item.count = count
+		if (count === 0) {
+			this.props.deleteElem(this.item)
+		} else {
+			this.props.addItemToOrder(this.item)
+		}
 	}
-	componentWillReceiveProps = (nextProps) => {}
-	deleteElement = () => {
-		this.props.deleteElem(this.item)
-	}
+
 	render = () => {
+		console.log(this.state.count, 'COUNT')
 		return (
 			<View style={styles.container}>
 				<View style={styles.info}>
@@ -82,7 +78,7 @@ class CashoutList extends React.Component {
 						transparent
 						androidRippleColor={this.props.userColor.card_shadow}
 						style={styles.calculate_button}
-						onPress={() => this.setItemCount(--this.state.count)}
+						onPress={() => this.setItemCount(this.state.count - 1)}
 					>
 						<FastImage
 							style={styles.icon}
@@ -98,7 +94,7 @@ class CashoutList extends React.Component {
 						transparent
 						androidRippleColor={this.props.userColor.card_shadow}
 						style={styles.calculate_button}
-						onPress={() => this.setItemCount(++this.state.count)}
+						onPress={() => this.setItemCount(this.state.count + 1)}
 					>
 						<FastImage
 							style={styles.icon}

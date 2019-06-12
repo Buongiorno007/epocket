@@ -163,7 +163,6 @@ class Map extends React.Component {
 	}
 	showNearestOne = (my_location, mall_array, outlets) => {
 		let newArr = []
-		console.log(my_location, mall_array, outlets, 'COLLECTION')
 		mall_array.forEach((item) => {
 			let newItem = {
 				latitude: item.lat,
