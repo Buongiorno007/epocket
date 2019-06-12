@@ -4,7 +4,7 @@ import { LinearTextGradient } from 'react-native-text-gradient'
 import LinearGradient from 'react-native-linear-gradient'
 import FastImage from 'react-native-fast-image'
 import { Button } from 'native-base'
-import geolib from 'geolib'
+import * as geolib from 'geolib'
 //redux
 import { setBalance } from '../../../reducers/user-balance'
 import { connect } from 'react-redux'
