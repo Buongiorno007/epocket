@@ -126,9 +126,9 @@ class ConfirmCode extends React.Component<Props, State> {
 	handleConfirm = () => {
 		const { phone, name, gender, age, user_id, code, route } = this.state
 		if (route) {
-			this.props.signInConfirm(phone, code)
-		} else {
 			this.props.signUpConfirm(phone, name, gender, age, user_id, code)
+		} else {
+			this.props.signInConfirm(phone, code)
 		}
 	}
 
