@@ -24,11 +24,11 @@ type Props = {
 type State = typeof initialState
 
 const initialState = {
-	phone: '681446360',
-	code: '+380',
-	name: 'Александр Билык',
-	age: '25',
-	gender: 2,
+	phone: '',
+	code: '',
+	name: '',
+	age: '',
+	gender: 0,
 	user_id: '',
 	validate: false,
 	accept: false,
