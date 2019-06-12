@@ -19,7 +19,6 @@ import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
-import com.tradle.react.UdpSocketsModule;
 import com.levelasquez.androidopensettings.AndroidOpenSettingsPackage;
 import com.gantix.JailMonkey.JailMonkeyPackage;
 import com.zmxv.RNSound.RNSoundPackage;
@@ -88,7 +87,6 @@ public class MainApplication extends Application implements ShareApplication, Re
                     new RNGestureHandlerPackage(),
                     new LinearGradientPackage(),
                     new RNI18nPackage(),
-                    new UdpSocketsModule(),
                     new AndroidOpenSettingsPackage(),
                     new JailMonkeyPackage(),
                     new SvgPackage(),
