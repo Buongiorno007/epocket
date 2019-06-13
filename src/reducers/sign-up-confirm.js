@@ -61,6 +61,7 @@ export const signUpConfirm = (phone, name, gender, age, user_id = '', code = '12
 		dispatch(loaderState(false))
 		route.navigate('Main')
 	} catch (e) {
+		console.log(e, 'EEEEEE')
 		e.code = -1
 		dispatch(error())
 		dispatch(loaderState(false))

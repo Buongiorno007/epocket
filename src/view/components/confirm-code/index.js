@@ -23,7 +23,7 @@ type State = typeof initialState
 const initialState = {
 	validate: false,
 	code: '',
-	timer: 10,
+	timer: 60,
 	phone: '',
 	name: '',
 	gender: '',
@@ -66,13 +66,13 @@ class ConfirmCode extends React.Component<Props, State> {
 		if (prevState.code !== this.state.code) {
 			this.setState({ accept: this.state.code.length === 6 })
 		}
-		if (prevState.timer === 0 && this.state.timer === 10) {
+		if (prevState.timer === 0 && this.state.timer === 60) {
 			BackgroundTimer.stopBackgroundTimer()
 			this.runBackgroundTimer()
 		}
 		if (prevProps.send_code.code !== this.props.send_code.code && this.props.send_code.code) {
 			if (this.props.send_code.code === 1) {
-				this.setState({ timer: 10 })
+				this.setState({ timer: 60 })
 			}
 		}
 		if (prevProps.sign_in_confirm.code !== this.props.sign_in_confirm.code && this.props.sign_in_confirm.code) {
@@ -126,9 +126,9 @@ class ConfirmCode extends React.Component<Props, State> {
 	handleConfirm = () => {
 		const { phone, name, gender, age, user_id, code, route } = this.state
 		if (route) {
-			this.props.signInConfirm(phone, code)
-		} else {
 			this.props.signUpConfirm(phone, name, gender, age, user_id, code)
+		} else {
+			this.props.signInConfirm(phone, code)
 		}
 	}
 
