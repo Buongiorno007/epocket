@@ -9,15 +9,15 @@ type Props = {
 	time: string,
 }
 
-function Title({ time }) {
+function Title({ time }: Props) {
 	return (
-		<View style={styles.container}>
-			<View style={styles.data}>
-				<Text style={[styles.text, styles.title]}>{I18n.t('TRADE.DATE')}</Text>
-				<Text style={[styles.text, styles.value]}>{formatDate(time)}</Text>
+		<React.Fragment>
+			<View style={styles.row}>
+				<Text style={styles.text}>{I18n.t('TRADE.DATE')}</Text>
+				<Text style={[styles.text, styles.price]}>{formatDate(time)}</Text>
 			</View>
 			<View style={styles.line} />
-		</View>
+		</React.Fragment>
 	)
 }
 
