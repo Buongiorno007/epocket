@@ -1,21 +1,18 @@
 import { StyleSheet, Dimensions, Platform } from 'react-native'
 
-const { width, height } = Dimensions.get('window')
+const { width } = Dimensions.get('window')
 
 export default StyleSheet.create({
-	container: {},
-	data: {
+	row: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 	},
 	text: {
 		fontSize: width * 0.045,
 		lineHeight: width * 0.12,
-	},
-	title: {
 		color: 'rgba(65, 65, 65, 1)',
 	},
-	value: {
+	price: {
 		color: 'rgba(65, 65, 65, 0.8)',
 	},
 	line: {
