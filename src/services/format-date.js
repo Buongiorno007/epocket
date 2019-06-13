@@ -1,5 +1,8 @@
 export function formatDate(value) {
-	return new Date(value)
+	const d = new Date(value)
+	const status = d instanceof Date && !isNaN(d)
+	const date = status ? d : new Date()
+	return date
 		.toLocaleString('en-GB', {
 			day: '2-digit',
 			month: '2-digit',
