@@ -5,13 +5,21 @@ import Loader from '@containers/application/loader'
 import styles from './styles'
 import NoInternet from '@containers/no-internet/no-internet'
 
-const Wrapper = ({ children, trigger, connection }) => (
-	<View style={styles.layout}>
-		{!connection && <NoInternet />}
-		{trigger && <Loader />}
-		{children}
-	</View>
-)
+type Props = {
+	children: React.ReactChildren,
+	trigger: Boolean,
+	connection: Boolean,
+}
+
+function Wrapper({ children, trigger, connection }: Props) {
+	return (
+		<View style={styles.layout}>
+			{!connection && <NoInternet />}
+			{trigger && <Loader />}
+			{children}
+		</View>
+	)
+}
 
 const mapStateToProps = (state) => ({
 	trigger: state.loader,

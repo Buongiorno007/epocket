@@ -22,7 +22,7 @@ const Navigator = createStackNavigator(
 		Photo: { screen: require('@components/photo/photo').default },
 		QrCode: { screen: require('@components/qr-code/qr-code').default },
 		Picture: { screen: require('@components/picture/picture').default },
-		Trade: { screen: require('@components/trade/trade').default },
+		Trade: { screen: require('@components/trade').default },
 		MissionSuccess: { screen: require('@components/mission-success/mission-success').default },
 		EarnMore: { screen: require('@components/earn-more/earn-more').default },
 		// ProfileEdit: { screen: require('@components/profile-edit/profile-edit').default },
