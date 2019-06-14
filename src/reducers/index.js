@@ -118,4 +118,5 @@ export default combineReducers({
 	sign_up: require('./sign-up').default,
 	sign_up_confirm: require('./sign-up-confirm').default,
 	send_code: require('./send-code').default,
+	gameProcess: require('./gameProcess').default,
 })

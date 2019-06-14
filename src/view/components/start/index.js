@@ -8,7 +8,7 @@ import Logo from '@containers/start/logo'
 import Navigate from '@containers/start/navigate'
 import { list } from '@reducers/country'
 import { internet } from '@reducers/connection'
-import { status, current, coordinate } from '@reducers/location'
+import { status, coordinate } from '@reducers/location'
 import { setSounds } from '@reducers/sounds'
 import { getUser } from '@reducers/profile-state'
 import { setGameStatus } from '@reducers/game-status'
@@ -85,7 +85,6 @@ const mapDispatchToProps = (dispatch) =>
 			list,
 			internet,
 			status,
-			current,
 			coordinate,
 			setSounds,
 			setGameStatus,
