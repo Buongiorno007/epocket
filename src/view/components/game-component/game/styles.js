@@ -6,10 +6,9 @@ import { colors } from '@constants/colors'
 export default StyleSheet.create({
 	main_view: {
 		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center',
-		// backgroundColor: colors.drag_panel_color,
 		paddingHorizontal: 16,
+		flexDirection: 'column',
+		justifyContent: 'space-between',
 	},
 	game_title: {
 		flexDirection: 'row',
@@ -39,13 +38,13 @@ export default StyleSheet.create({
 		textAlign: 'right',
 	},
 	btn_container: {
-		flex: 1,
-		marginTop: 24,
+		marginBottom: 24,
 	},
 	container: {
 		flexDirection: 'row',
 		flexWrap: 'wrap',
-		width: width - 34,
+		width: width - 32,
+		height: width - 32,
 	},
 	item: {
 		width: (width - 32) / 3,
@@ -75,7 +74,6 @@ export default StyleSheet.create({
 	},
 	custom_progress: {
 		transform: [{ rotate: '180deg' }],
-		marginBottom: 16,
 	},
 	game_description_text: {
 		textAlign: 'center',
@@ -95,6 +93,22 @@ export default StyleSheet.create({
 		borderRadius: 0,
 		justifyContent: 'center',
 		alignItems: 'center',
+		borderColor: colors.dark_pink,
+		backgroundColor: colors.dark_pink_o10,
+	},
+
+	itemmmm: {
+		width: (width - 32) / 3,
+		height: (width - 32) / 3,
+		borderRadius: 0,
+		borderWidth: 1,
+		borderColor: colors.black_o33,
+	},
+	itemmmm_pressed: {
+		width: (width - 32) / 3,
+		height: (width - 32) / 3,
+		borderWidth: 1,
+		borderRadius: 0,
 		borderColor: colors.dark_pink,
 		backgroundColor: colors.dark_pink_o10,
 	},

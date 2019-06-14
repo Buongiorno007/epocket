@@ -44,4 +44,5 @@ export const urls = {
 	get_user: devserver + '/sign-in/user-info',
 	new_game_get: devserver + '/brand/new_game',
 	get_a_game: devserver + '/brand/new_data',
+	game_result: devserver + '/brand/new_check',
 }

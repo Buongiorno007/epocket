@@ -18,9 +18,7 @@ import styles from './styles'
 class GameStart extends React.Component {
 	componentDidMount() {
 		this.props.loaderState(true)
-		const { location, token } = this.props
-
-		this.props.getGameStart(location.lat, location.lng, token)
+		this.props.getGameStart()
 	}
 
 	render = () => {
@@ -36,8 +34,6 @@ class GameStart extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		token: state.token,
-		location: state.location.coordinate,
 		gameStart: state.gameStart,
 	}
 }
