@@ -32,7 +32,6 @@ export default (state = initialState, action) => {
 export const signInConfirm = (number, code = '123456') => async (dispatch, getState) => {
 	dispatch(reset())
 	dispatch(loaderState(true))
-	const country = getState()
 	try {
 		const body = JSON.stringify({ phone: number, code })
 		const response = await httpPost(urls.sing_in_confirm, body)
@@ -49,12 +48,7 @@ export const signInConfirm = (number, code = '123456') => async (dispatch, getSt
 		dispatch(setColor(user.sex))
 		dispatch(setBalance(Number(response.body.balance)))
 		dispatch(result())
-		if (country.sms) {
-			route.navigate('CatCode')
-			dispatch(loaderState(false))
-		} else {
-			route.navigate('Main')
-		}
+		route.navigate('Main')
 	} catch (e) {
 		e.code = -1
 		dispatch(error())

@@ -35,7 +35,6 @@ export const signUpConfirm = (phone, name, gender, age, user_id = '', code = '12
 ) => {
 	dispatch(reset())
 	dispatch(loaderState(true))
-	const country = getState()
 	try {
 		const body = JSON.stringify({
 			code,
@@ -59,12 +58,8 @@ export const signUpConfirm = (phone, name, gender, age, user_id = '', code = '12
 		dispatch(setColor(gender - 1))
 		dispatch(setBalance(Number(response.body.balance)))
 		dispatch(result())
-		if (country.sms) {
-			route.navigate('CatCode')
-			dispatch(loaderState(false))
-		} else {
-			route.navigate('Main')
-		}
+		route.navigate('CatCode')
+		dispatch(loaderState(false))
 	} catch (e) {
 		console.log(e, 'EEEEEE')
 		e.code = -1
