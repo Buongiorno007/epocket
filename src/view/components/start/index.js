@@ -13,6 +13,7 @@ import { setSounds } from '@reducers/sounds'
 import { getUser } from '@reducers/profile-state'
 import { setGameStatus } from '@reducers/game-status'
 import { loaderState } from '@reducers/loader'
+import route from '@services/route'
 import styles from './styles'
 
 type Props = typeof defaultProps
@@ -27,6 +28,7 @@ class Start extends React.Component<Props> {
 	static defaultProps = defaultProps
 
 	componentDidMount() {
+		route.exit()
 		this.props.internet()
 		this.props.connection && this.init()
 	}
