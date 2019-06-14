@@ -5,9 +5,16 @@ import I18n from '@locales/I18n'
 import route from '@services/route'
 import styles from './styles'
 import CustomButton from '@containers/custom-button/custom-button'
+import { getGameProcess } from '@reducers/gameProcess'
+import { bindActionCreators } from 'redux'
+import { loaderState } from '@reducers/loader'
 
-const HaveGames = ({ profileState, gameStart }) => {
-	const game = () => route.navigate('Login')
+const HaveGames = ({ profileState, gameStart, loaderState, getGameProcess }) => {
+	const game = async () => {
+		await loaderState(true)
+		await getGameProcess()
+		route.navigate('Gamee')
+	}
 	return (
 		<View style={styles.grad}>
 			<Text>{`${gameStart.available_game_len}/${gameStart.games_count} ` + I18n.t('GAME.GAMES_FOR_TODAY')}</Text>
@@ -36,5 +43,16 @@ const mapStateToProps = (state) => {
 		gameStart: state.gameStart,
 	}
 }
+const mapDispatchToProps = (dispatch) =>
+	bindActionCreators(
+		{
+			loaderState,
+			getGameProcess,
+		},
+		dispatch,
+	)
 
-export default connect(mapStateToProps)(HaveGames)
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(HaveGames)

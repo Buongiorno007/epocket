@@ -617,7 +617,7 @@ class Map extends React.Component {
 					urls.missions,
 					this.props.token,
 					this.constructor.name,
-					'getMissions',
+					'loadTaskItems map.js',
 				)
 				this.setState({
 					errorText: error_respons.error_text,

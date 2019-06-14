@@ -18,35 +18,41 @@ export default (state = initialState, action) => {
 }
 
 export const internet = () => async (dispatch) => {
-	await dispatch(disconnect())
+	// await dispatch(disconnect())
 	await dispatch(connect())
 }
 
 export const connect = () => async (dispatch, getState) => {
-	NetInfo.isConnected.fetch().then((connected) => {
-		dispatch(result(connected))
-		NetInfo.isConnected.addEventListener('connectionChange', (state) => {
-			const { connection } = getState()
-			if (connection !== state) {
-				dispatch(result(state))
-			}
-		})
-		AppState.addEventListener('change', (change) => {
-			const { connection } = getState()
-			NetInfo.isConnected.addEventListener('connectionChange', (state) => {
-				const { connection } = getState()
-				if (connection !== state) {
-					dispatch(result(state))
-				}
-			})
-		})
+	// NetInfo.fetch().then((connected) => {
+	// 	dispatch(result(connected))
+	// 	NetInfo.addEventListener((state) => {
+	// 		const { connection } = getState()
+	// 		if (connection !== state) {
+	// 			dispatch(result(state))
+	// 		}
+	// 	})
+	// 	AppState.addEventListener('change', (change) => {
+	// 		const { connection } = getState()
+	// 		NetInfo.addEventListener((state) => {
+	// 			const { connection } = getState()
+	// 			if (connection !== state) {
+	// 				dispatch(result(state))
+	// 			}
+	// 		})
+	// 	})
+	// })
+	const unsubscribe = NetInfo.addEventListener((state) => {
+		const { connection } = getState()
+		if (connection !== state.isConnected) {
+			dispatch(result(state.isConnected))
+		}
 	})
 }
 
-export const disconnect = () => async (dispatch) => {
-	AppState.removeEventListener('change', () => {})
-	NetInfo.removeEventListener('connectionChange', () => {})
-}
+// export const disconnect = () => async (dispatch) => {
+// 	AppState.removeEventListener('change', () => {})
+// 	NetInfo.removeEventListener('connectionChange', () => {})
+// }
 
 export const result = (payload) => ({ type: CONNECT, payload })
 export const reset = () => ({ type: DISCONNECT })

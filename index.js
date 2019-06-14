@@ -37,7 +37,7 @@ const Navigator = createStackNavigator(
 		ConfirmCode: { screen: require('@components/confirm-code').default },
 		CatCode: { screen: require('@components/catCode').default },
 		ProfEdit: { screen: require('@components/profile-edit/profileEdit').default },
-		// Gamee: { screen: require('@components/game-component/game').default },
+		Gamee: { screen: require('@components/game-component/game').default },
 		GameStart: { screen: require('@components/game-component/game-start').default },
 	},
 	{

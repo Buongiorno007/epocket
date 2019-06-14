@@ -32,6 +32,23 @@ export const httpPost = (url, body, token, formData) => {
 
 	return sendRequest(url, OPTIONS)
 }
+export const httpPut = (url, body, token) => {
+	const defaultHeaders = {
+		'Content-Type': 'application/json',
+	}
+	const OPTIONS = {
+		method: 'PUT',
+		headers: token
+			? {
+					...defaultHeaders,
+					Authorization: `JWT ${token}`,
+			  }
+			: { ...defaultHeaders },
+		body: body,
+	}
+
+	return sendRequest(url, OPTIONS)
+}
 
 function sendRequestHTTP(url, OPTIONS) {
 	return new Promise((resolve, reject) => {

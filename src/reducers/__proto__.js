@@ -28,6 +28,16 @@ export const GAME_START = function(data = {}) {
 	this.award = `${data.award}` || ''
 }
 
+export const GAME_PROCESS = function(data = {}) {
+	this.id = data.id || 0
+	this.title = data.title || ''
+	this.descr = data.descr || ''
+	this.image = data.image || ''
+	this.amount = `${data.amount}` || ''
+	this.brand = data.brand || ''
+	this.time = Number(data.time) || 0
+}
+
 export const AUTH = function(data = {}) {
 	DEFAULT.apply(this, arguments)
 	this.phone = data.phone || null
