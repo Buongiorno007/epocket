@@ -42,7 +42,7 @@ export default StyleSheet.create({
 		backgroundColor: colors.black_50,
 	},
 	bottom_btn: {
-		alignSelf: 'flex-end',
+		alignSelf: 'center',
 	},
 	timer: {
 		height: width * 0.1,
