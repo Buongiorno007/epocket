@@ -8,7 +8,7 @@ import Logo from '@containers/start/logo'
 import Navigate from '@containers/start/navigate'
 import { list } from '@reducers/country'
 import { internet } from '@reducers/connection'
-import { status, coordinate } from '@reducers/location'
+import { status, current, coordinate } from '@reducers/location'
 import { setSounds } from '@reducers/sounds'
 import { getUser } from '@reducers/profile-state'
 import { setGameStatus } from '@reducers/game-status'
@@ -40,6 +40,7 @@ class Start extends React.Component<Props> {
 	init = async () => {
 		await this.props.loaderState(true)
 		await this.props.setSounds()
+		await this.props.current()
 		await this.props.status()
 		await this.props.coordinate()
 		await this.getGame()
@@ -90,6 +91,7 @@ const mapDispatchToProps = (dispatch) =>
 			setGameStatus,
 			getUser,
 			loaderState,
+			current,
 		},
 		dispatch,
 	)

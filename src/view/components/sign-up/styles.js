@@ -30,11 +30,13 @@ export default StyleSheet.create({
 		paddingHorizontal: 16,
 	},
 	scroll: {
-		flex: 1,
-		height,
+		flexGrow: 1,
+		alignItems: 'center',
+		justifyContent: 'center',
+		paddingBottom: 48,
 	},
-	wrapepr: {
-		width,
+	wrapper: {
+		width: '100%',
 	},
 	row: {
 		justifyContent: 'space-between',

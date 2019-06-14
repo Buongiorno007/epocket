@@ -27,7 +27,6 @@ class CashoutList extends React.Component {
 	}
 
 	setItemCount = (count) => {
-		console.log(count, 'FUNCTION COUNT')
 		this.setState({ count })
 		this.item.count = count
 		if (count === 0) {
@@ -38,7 +37,6 @@ class CashoutList extends React.Component {
 	}
 
 	render = () => {
-		console.log(this.state.count, 'COUNT')
 		return (
 			<View style={styles.container}>
 				<View style={styles.info}>

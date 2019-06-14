@@ -35,6 +35,7 @@ export const signUpConfirm = (phone, name, gender, age, user_id = '', code = '12
 ) => {
 	dispatch(reset())
 	dispatch(loaderState(true))
+	const country = getState()
 	try {
 		const body = JSON.stringify({
 			code,
@@ -46,20 +47,24 @@ export const signUpConfirm = (phone, name, gender, age, user_id = '', code = '12
 		})
 		const response = await httpPost(urls.sign_up_confirm, body)
 		const user = {
-			name: body.name,
-			phone: body.phone,
+			name: name,
+			phone: phone,
 			photo: response.body.photo,
-			sex: body.sex,
+			sex: gender - 1,
 			currency: I18n.locale === 'ru' ? response.body.currency_plural : response.body.currency,
-			birthDay: body.birth_day,
+			birthDay: age,
 		}
 		dispatch(saveUser(user))
 		dispatch(setToken(response.body.token))
-		dispatch(setColor(user.sex))
+		dispatch(setColor(gender - 1))
 		dispatch(setBalance(Number(response.body.balance)))
 		dispatch(result())
-		dispatch(loaderState(false))
-		route.navigate('Main')
+		if (country.sms) {
+			route.navigate('CatCode')
+			dispatch(loaderState(false))
+		} else {
+			route.navigate('Main')
+		}
 	} catch (e) {
 		console.log(e, 'EEEEEE')
 		e.code = -1

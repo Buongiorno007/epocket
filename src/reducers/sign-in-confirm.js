@@ -32,23 +32,29 @@ export default (state = initialState, action) => {
 export const signInConfirm = (number, code = '123456') => async (dispatch, getState) => {
 	dispatch(reset())
 	dispatch(loaderState(true))
+	const country = getState()
 	try {
 		const body = JSON.stringify({ phone: number, code })
 		const response = await httpPost(urls.sing_in_confirm, body)
 		const user = {
-			name: response.body.user_name,
-			phone: body.phone,
+			name: response.body.user,
+			phone: number,
 			photo: response.body.photo,
 			sex: response.body.sex ? 1 : 0,
 			currency: I18n.locale === 'ru' ? response.body.currency_plural : response.body.currency,
-			birthDay: toAge(response.body.birth_day),
+			birthDay: toAge(response.body.birthDay),
 		}
 		dispatch(saveUser(user))
 		dispatch(setToken(response.body.token))
 		dispatch(setColor(user.sex))
 		dispatch(setBalance(Number(response.body.balance)))
 		dispatch(result())
-		route.navigate('Main')
+		if (country.sms) {
+			route.navigate('CatCode')
+			dispatch(loaderState(false))
+		} else {
+			route.navigate('Main')
+		}
 	} catch (e) {
 		e.code = -1
 		dispatch(error())

@@ -43,7 +43,6 @@ const defaultProps = {
 
 class SignUp extends React.Component<Props, State> {
 	static defaultProps = defaultProps
-
 	state = initialState
 
 	componentDidUpdate = (prevProps, prevState) => {
@@ -55,7 +54,7 @@ class SignUp extends React.Component<Props, State> {
 			prevState.age !== age ||
 			prevState.gender !== gender
 		) {
-			const accept = phone.replace(/\D/g, '').length === mask && code && name.length >= 2 && age && gender
+			const accept = phone.length === mask && code && name.length >= 2 && age && gender
 			this.setState({ accept })
 		}
 		if (prevProps.sign_up.code !== this.props.sign_up.code && this.props.sign_up.code) {
@@ -111,7 +110,7 @@ class SignUp extends React.Component<Props, State> {
 			<LinearGradient colors={colors} start={start} end={end} style={styles.layout}>
 				<Header route={'Start'} title={I18n.t('SIGN_UP_TITLE')} />
 				<KeyboardAvoidingView style={styles.keyboard} behavior={'padding'}>
-					<ScrollView contentContainerStyle={[styles.scroll, styles.align]} scrollEnabled={false}>
+					<ScrollView contentContainerStyle={styles.scroll}>
 						<View style={styles.wrapper}>
 							<Text style={[styles.text, styles.left]}>{I18n.t('SIGN.ENTER_PHONE_NUMBER')}</Text>
 						</View>
