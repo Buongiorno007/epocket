@@ -32,7 +32,7 @@ class CatCode extends React.Component<Props> {
 		return (
 			<LinearGradient colors={colors} start={start} end={end} style={styles.layout}>
 				<Image style={styles.image} source={require('@assets/img/cat.png')} />
-				<Text style={styles.title}>{'Поздравляем!\nЖелаем удачного полета вместе с EpocketCash'}</Text>
+				<Text style={styles.title}>{I18n.t('SIGN.CONGRATULATION')}</Text>
 				<Touchable color={color} handler={this.navigate} active={true} title={I18n.t('SIGN.START')} />
 			</LinearGradient>
 		)

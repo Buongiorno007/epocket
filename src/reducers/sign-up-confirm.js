@@ -29,10 +29,7 @@ export default (state = initialState, action) => {
 	}
 }
 
-export const signUpConfirm = (phone, name, gender, age, user_id = '', code = '123456') => async (
-	dispatch,
-	getState,
-) => {
+export const signUpConfirm = (phone, name, gender, age, user_id = '', code = '123456') => async (dispatch) => {
 	dispatch(reset())
 	dispatch(loaderState(true))
 	try {
@@ -46,20 +43,20 @@ export const signUpConfirm = (phone, name, gender, age, user_id = '', code = '12
 		})
 		const response = await httpPost(urls.sign_up_confirm, body)
 		const user = {
-			name: body.name,
-			phone: body.phone,
+			name: name,
+			phone: phone,
 			photo: response.body.photo,
-			sex: body.sex,
+			sex: gender - 1,
 			currency: I18n.locale === 'ru' ? response.body.currency_plural : response.body.currency,
-			birthDay: body.birth_day,
+			birthDay: age,
 		}
 		dispatch(saveUser(user))
 		dispatch(setToken(response.body.token))
-		dispatch(setColor(user.sex))
+		dispatch(setColor(gender - 1))
 		dispatch(setBalance(Number(response.body.balance)))
 		dispatch(result())
+		route.navigate('CatCode')
 		dispatch(loaderState(false))
-		route.navigate('Main')
 	} catch (e) {
 		console.log(e, 'EEEEEE')
 		e.code = -1

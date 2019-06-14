@@ -65,11 +65,9 @@ class BarcodeView extends React.Component {
 					<View style={styles.barcode}>
 						{this.props.phone && (
 							<Barcode
-								width={2.5}
 								value={this.props.phone}
-								format='EAN13'
+								format='CODE128'
 								text={this.props.phone}
-								flat
 								onError={(e) => {}}
 							/>
 						)}

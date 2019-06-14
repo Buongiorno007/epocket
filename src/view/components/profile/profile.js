@@ -20,6 +20,7 @@ import { loaderState } from '../../../reducers/loader'
 import NavigationService from '../../../services/route'
 import { httpPost } from '../../../services/http'
 import I18n from '@locales/I18n'
+import { sendToTelegramm } from '@services/telegramm-notification'
 
 class Profile extends React.Component {
 	constructor(props) {
@@ -81,6 +82,7 @@ class Profile extends React.Component {
 					this.props.loaderState(false)
 				},
 				(error) => {
+					sendToTelegramm(error, get_referral_link, 'ERROR')
 					this.props.loaderState(false)
 				},
 			)
