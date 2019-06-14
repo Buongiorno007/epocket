@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
 	}
 }
 
-export const signInConfirm = (number, code = '123456') => async (dispatch, getState) => {
+export const signInConfirm = (number, code = '123456') => async (dispatch) => {
 	dispatch(reset())
 	dispatch(loaderState(true))
 	try {

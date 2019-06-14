@@ -29,10 +29,7 @@ export default (state = initialState, action) => {
 	}
 }
 
-export const signUpConfirm = (phone, name, gender, age, user_id = '', code = '123456') => async (
-	dispatch,
-	getState,
-) => {
+export const signUpConfirm = (phone, name, gender, age, user_id = '', code = '123456') => async (dispatch) => {
 	dispatch(reset())
 	dispatch(loaderState(true))
 	try {
