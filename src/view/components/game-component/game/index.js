@@ -17,6 +17,8 @@ import { toHHMMSS } from '@services/convert-time'
 import I18n from '@locales/I18n'
 import { setSounds } from '@reducers/sounds'
 import route from '@services/route'
+import { urls } from '@constants/urls'
+import { httpPost } from '@services/http'
 
 const { width } = Dimensions.get('window')
 
@@ -56,9 +58,9 @@ class Gamee extends React.Component {
 		if (this.state.tempTime) {
 			this.setState({ tempTime: this.state.tempTime - 1 })
 		} else {
-			if (this.state.buttonActive) {
-				this.submitGame()
-			}
+			// if (this.state.buttonActive) {
+			this.submitGame()
+			// }
 		}
 		if (this.state.tempTime === 5) {
 			this.props.playClock(this.props.sounds[0])
@@ -68,9 +70,25 @@ class Gamee extends React.Component {
 	submitGame() {
 		this.setState({ buttonActive: false })
 		BackgroundTimer.stopBackgroundTimer()
-		console.log(this.state.but, 'STATE BUT')
-		this.props.loaderState(true)
-		route.navigate('Main')
+		let answers = []
+		this.state.but.forEach((element, index) => {
+			if (element) answers.push(index + 1)
+		})
+		body = {
+			id: this.props.gameProcess.id,
+			answers: answers,
+		}
+		console.log(body, 'BODY')
+		// httpPost(urls.game_result, JSON.stringify(body), this.props.token).then(
+		// 	(result) => {
+		// 		console.log(result, 'RESULT')
+		// 	},
+		// 	(error) => {
+		// 		console.log(error, 'ERROR')
+		// 	},
+		// )
+		// this.props.loaderState(true)
+		// route.navigate('Main')
 	}
 
 	changeItem = (index) => {
@@ -82,53 +100,60 @@ class Gamee extends React.Component {
 		// console.log(this.props.gameProcess, 'GAMEPROCESS')
 		return (
 			<View style={styles.main_view}>
-				<View style={styles.game_title}>
-					<Text style={styles.game_cost_text}>
-						{this.props.gameProcess.amount} {I18n.t('EPC', { currency: this.props.profileState.currency })}
-					</Text>
-					<Text style={styles.game_title_text}>{this.props.gameProcess.title}</Text>
-					<Text style={styles.game_time_text}>{toHHMMSS(this.state.tempTime)}</Text>
+				<View>
+					<View style={styles.game_title}>
+						<Text style={styles.game_cost_text}>
+							{this.props.gameProcess.amount}{' '}
+							{I18n.t('EPC', { currency: this.props.profileState.currency })}
+						</Text>
+						<Text style={styles.game_title_text}>{this.props.gameProcess.title}</Text>
+						<Text style={styles.game_time_text}>{toHHMMSS(this.state.tempTime)}</Text>
+					</View>
+					<CustomProgressBar
+						style={styles.custom_progress}
+						gradient={this.state.progressGradient}
+						animationType={'timing'}
+						borderWidth={0}
+						borderRadius={12}
+						height={5}
+						animationConfig={{ duration: this.props.gameProcess.time * 1000 }}
+						progress={this.state.progress}
+						width={width - 32}
+						useNativeDriver={true}
+						unfilledColor={this.props.userColor.black_o90}
+					/>
 				</View>
-				<CustomProgressBar
-					style={styles.custom_progress}
-					gradient={this.state.progressGradient}
-					animationType={'timing'}
-					borderWidth={0}
-					borderRadius={12}
-					height={5}
-					animationConfig={{ duration: this.props.gameProcess.time * 1000 }}
-					progress={this.state.progress}
-					width={width - 32}
-					useNativeDriver={true}
-					unfilledColor={this.props.userColor.black_o90}
-				/>
-				<Text style={styles.game_description_text}>{this.props.gameProcess.descr}</Text>
-				<ImageBackground source={{ uri: this.props.gameProcess.image }} style={styles.container}>
-					{this.state.but.map((item, index) => {
-						return (
-							<Button
-								key={index}
-								transparent
-								bordered={false}
-								style={[
-									item
-										? index >= 6
-											? styles.pressed_button_last_line
-											: styles.pressed_button
-										: index >= 6
-										? styles.item_last_line
-										: styles.item,
-								]}
-								onPress={() => this.changeItem(index)}
-							/>
-						)
-					})}
-				</ImageBackground>
+				<View>
+					<Text style={styles.game_description_text}>{this.props.gameProcess.descr}</Text>
+					<ImageBackground source={{ uri: this.props.gameProcess.image }} style={styles.container}>
+						{this.state.but.map((item, index) => {
+							return (
+								<Button
+									key={index}
+									transparent
+									bordered={false}
+									// style={[
+									// 	item
+									// 		? index >= 6
+									// 			? styles.pressed_button_last_line
+									// 			: styles.pressed_button
+									// 		: index >= 6
+									// 		? styles.item_last_line
+									// 		: styles.item,
+									// ]}
+									style={[item ? styles.itemmmm_pressed : styles.itemmmm]}
+									onPress={() => this.changeItem(index)}
+								/>
+							)
+						})}
+					</ImageBackground>
+				</View>
 				<View style={styles.btn_container}>
 					<CustomButton
 						active={this.state.buttonActive}
 						short
 						gradient
+						disabled={!this.state.buttonActive}
 						title={I18n.t('GAME.CONFIRM').toUpperCase()}
 						color={this.props.userColor.white}
 						handler={() => {
@@ -147,6 +172,7 @@ const mapStateToProps = (state) => {
 		sounds: state.sounds,
 		profileState: state.profileState,
 		gameProcess: state.gameProcess,
+		token: state.token,
 	}
 }
 
