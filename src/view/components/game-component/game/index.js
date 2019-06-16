@@ -7,6 +7,7 @@ import BackgroundTimer from 'react-native-background-timer'
 //redux
 import { loaderState } from '@reducers/loader'
 import { playClock, stopClock, playQuestComplete, playQuestFail } from '@reducers/sounds'
+import { getGameResult } from '@reducers/gameResult'
 //constants
 import styles from './styles'
 //containers
@@ -68,6 +69,7 @@ class Gamee extends React.Component {
 	}
 
 	submitGame() {
+		this.props.loaderState(true)
 		this.setState({ buttonActive: false })
 		BackgroundTimer.stopBackgroundTimer()
 		let answers = []
@@ -78,17 +80,7 @@ class Gamee extends React.Component {
 			id: this.props.gameProcess.id,
 			answers: answers,
 		}
-		console.log(body, 'BODY')
-		// httpPost(urls.game_result, JSON.stringify(body), this.props.token).then(
-		// 	(result) => {
-		// 		console.log(result, 'RESULT')
-		// 	},
-		// 	(error) => {
-		// 		console.log(error, 'ERROR')
-		// 	},
-		// )
-		// this.props.loaderState(true)
-		// route.navigate('Main')
+		this.props.getGameResult(body)
 	}
 
 	changeItem = (index) => {
@@ -185,6 +177,7 @@ const mapDispatchToProps = (dispatch) =>
 			playQuestComplete,
 			playQuestFail,
 			setSounds,
+			getGameResult,
 		},
 		dispatch,
 	)

@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 //redux
@@ -16,8 +17,9 @@ import NoGames from '@containers/game-containers/game-start/no-games'
 import styles from './styles'
 
 class GameStart extends React.Component {
-	componentDidMount() {
+	componentDidMount = async () => {
 		this.props.loaderState(true)
+		const game = await AsyncStorage.getItem('game')
 		this.props.getGameStart()
 	}
 
