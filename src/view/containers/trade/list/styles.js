@@ -3,18 +3,23 @@ import { StyleSheet, Dimensions, Platform } from 'react-native'
 const { width, height } = Dimensions.get('window')
 
 export default StyleSheet.create({
-	container: {
+	layout: {
 		flex: 1,
-		paddingTop: width * 0.02,
-		paddingBottom: width * 0.02,
+		paddingVertical: width * 0.02,
 	},
-	hide: {
-		height: 0,
-	},
-	item: {
+	wrapper: {
 		flex: 1,
 		flexDirection: 'row',
 		justifyContent: 'space-between',
+	},
+	product: {
+		flex: 1,
+		height: width * 0.12,
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+	},
+	hidden: {
+		height: 0,
 	},
 	text: {
 		fontSize: width * 0.035,
@@ -36,12 +41,6 @@ export default StyleSheet.create({
 	},
 	error: {
 		flex: 2,
-	},
-	one_product: {
-		flex: 1,
-		height: width * 0.12,
-		flexDirection: 'row',
-		justifyContent: 'space-between',
 	},
 	data: {
 		flex: 1,

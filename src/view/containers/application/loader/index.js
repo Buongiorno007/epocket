@@ -4,7 +4,7 @@ import FastImage from 'react-native-fast-image'
 import styles from './styles'
 import { BlurView } from '@react-native-community/blur'
 
-const Loader = () => {
+function Loader() {
 	const pic = require('@assets/img/preloader_nobg.gif')
 	return (
 		<View style={styles.layout}>

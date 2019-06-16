@@ -3,7 +3,7 @@ import { StyleSheet, Dimensions, Platform } from 'react-native'
 const { width, height } = Dimensions.get('window')
 
 export default StyleSheet.create({
-	container: {
+	layout: {
 		paddingTop: width * 0.05,
 		paddingBottom: width * 0.02,
 	},
