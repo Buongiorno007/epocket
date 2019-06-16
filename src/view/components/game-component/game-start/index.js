@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux'
 import { setGameStatus } from '@reducers/game-status'
 import { loaderState } from '@reducers/loader'
 import { getGameStart } from '@reducers/gameStart'
+import { saveGameResult } from '@reducers/gameResult'
 //constants
 import { colors } from '@constants/colors'
 //containers
@@ -20,7 +21,12 @@ class GameStart extends React.Component {
 	componentDidMount = async () => {
 		this.props.loaderState(true)
 		const game = await AsyncStorage.getItem('game')
+		// if (game) {
+		// 	await this.props.saveGameResult(JSON.parse(game))
+		// 	this.props.loaderState(false)
+		// } else {
 		this.props.getGameStart()
+		// }
 	}
 
 	render = () => {

@@ -68,12 +68,10 @@ class Start extends React.Component<Props> {
 	render = () => {
 		const { colors, start, end } = this.props
 		return (
-			<View style={[styles.layout, styles.align]}>
-				<LinearGradient colors={colors} start={start} end={end} style={[styles.layout, styles.padding]}>
-					<Logo />
-					<Navigate />
-				</LinearGradient>
-			</View>
+			<LinearGradient colors={colors} start={start} end={end} style={styles.container}>
+				<Logo />
+				<Navigate />
+			</LinearGradient>
 		)
 	}
 }

@@ -29,9 +29,9 @@ export const getGameResult = (body) => async (dispatch, getState) => {
 			await dispatch(saveGameResult(new GAME_SUCCESS(response.body)))
 			route.navigate('Main')
 		} else {
-			console.log('IM HERE')
-			await dispatch(saveGameResult(new GAME_FAILED(response.body)))
-			await AsyncStorage.setItem('game', new GAME_FAILED(response.body))
+			const gameFailed = new GAME_FAILED(response.body)
+			await dispatch(saveGameResult(gameFailed))
+			await AsyncStorage.setItem('game', JSON.stringify(gameFailed))
 			route.navigate('Main')
 		}
 	} catch (error) {
