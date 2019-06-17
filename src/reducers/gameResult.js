@@ -25,6 +25,8 @@ export const getGameResult = (body) => async (dispatch, getState) => {
 	const { token } = getState()
 	try {
 		const response = await httpPost(urls.game_result, JSON.stringify(body), token)
+		// console.log(JSON.stringify(response), 'RESPONSE')
+		// console.log(response, 'RESPONSE')
 		if (response.body.award) {
 			await dispatch(saveGameResult(new GAME_SUCCESS(response.body)))
 			route.navigate('Main')
