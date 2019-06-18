@@ -12,7 +12,7 @@ export default StyleSheet.create({
 		backgroundColor: 'rgba(255,255,255,.2)',
 	},
 	wrapper: {
-		alignItems: 'center',
+		alignItems: 'flex-end',
 		flexDirection: 'row',
 		...Platform.select({
 			android: {
@@ -24,6 +24,10 @@ export default StyleSheet.create({
 				height: toolbarHeight,
 			},
 		}),
+	},
+	body: {
+		alignSelf: 'flex-end',
+		justifyContent: 'center',
 	},
 	action: {
 		flex: 1,

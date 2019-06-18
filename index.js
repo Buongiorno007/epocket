@@ -17,7 +17,7 @@ const Navigator = createStackNavigator(
 		Start: { screen: require('@components/start').default },
 		Main: { screen: require('@components/main/main').default },
 		Dashboard: { screen: require('@components/dashboard/dashboard').default },
-		Scanner: { screen: require('@components/scanner/scanner').default },
+		Scanner: { screen: require('@components/scanner').default },
 		Photograph: { screen: require('@components/photograph/photograph').default },
 		Photo: { screen: require('@components/photo/photo').default },
 		QrCode: { screen: require('@components/qr-code/qr-code').default },

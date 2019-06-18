@@ -1,17 +1,26 @@
 import { StyleSheet, Dimensions, Platform } from 'react-native'
 
-const { width, height } = Dimensions.get('window')
+const { width } = Dimensions.get('window')
 
 export default StyleSheet.create({
-	container: {
-		marginTop: width * 0.05,
-		height: Platform.OS == 'android' ? width * 0.15 : width * 0.2,
+	layout: {
+		...Platform.select({
+			android: {
+				height: width * 0.15,
+			},
+			ios: {
+				height: width * 0.2,
+			},
+		}),
 		flexDirection: 'row',
 		justifyContent: 'space-between',
-		paddingTop: Platform.OS == 'android' ? 0 : width * 0.05,
 	},
-	item: {
+	wrapper: {
 		flex: 1,
+	},
+	size: {
+		height: 40,
+		justifyContent: 'center',
 	},
 	text: {
 		fontSize: width * 0.04,
@@ -30,7 +39,6 @@ export default StyleSheet.create({
 		justifyContent: 'space-between',
 	},
 	button: {
-		marginTop: -10,
 		alignSelf: 'flex-end',
 		alignItems: 'center',
 		justifyContent: 'center',
