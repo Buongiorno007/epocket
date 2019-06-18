@@ -1,7 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
 //containers
-import Mission from './../../containers/scanner-mission/scanner-mission'
+import Mission from '@containers/scanner/mission'
 import Camera from './../../containers/photo-camera/photo-camera'
 import Footer from './../../containers/photo-footer/photo-footer'
 //constants
