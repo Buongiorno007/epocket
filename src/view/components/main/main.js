@@ -50,8 +50,8 @@ class Main extends React.Component {
 			this.props.game_status === 'lock' ||
 			this.props.game_status === 'initial'
 		) {
-			// container = <GameStart />
-			container = <GameS />
+			container = <GameStart />
+			// container = <GameS />
 		} else if (this.props.game_status === 'expired' || this.props.game_status === 'failed') {
 			container = <GameExpired />
 		} else {
