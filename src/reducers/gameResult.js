@@ -10,12 +10,23 @@ import route from '@services/route'
 
 const GAMERESULT = '[game resutl] GAMERESULT'
 
-const initialState = {}
+const initialState = new GAME_RESULT()
 
 export default (state = initialState, action) => {
 	switch (action.type) {
 		case GAMERESULT:
-			return action.game
+			return Object.assign(
+				{},
+				{
+					...state,
+					ticker: action.game.tiker,
+					award: action.game.award,
+					insta_img: action.game.insta_img,
+					video: action.game.video,
+					link: action.game.brand_link,
+					timer: action.game.timer,
+				},
+			)
 		default:
 			return state
 	}
@@ -26,13 +37,12 @@ export const getGameResult = (body) => async (dispatch, getState) => {
 	try {
 		const response = await httpPost(urls.game_result, JSON.stringify(body), token)
 		console.log(response, 'RESPONSE')
+		const gameResult = new GAME_RESULT(response.body)
+		await dispatch(saveGameResult(gameResult))
 		if (response.body.message) {
-			await dispatch(saveGameResult(new GAME_SUCCESS(response.body)))
 			route.navigate('GameSuccess')
 		} else {
-			const gameFailed = new GAME_FAILED(response.body)
-			await dispatch(saveGameResult(gameFailed))
-			await AsyncStorage.setItem('game', JSON.stringify(gameFailed))
+			await AsyncStorage.setItem('game', JSON.stringify(gameResult))
 			route.navigate('Main')
 		}
 	} catch (error) {
