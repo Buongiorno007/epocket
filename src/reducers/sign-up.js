@@ -65,9 +65,9 @@ export const signUp = (number, name, gender, age, user_id = '') => async (dispat
 		response.user_id = user_id
 		response.back = 'SignUp'
 		response.title = I18n.t('SIGN_UP_TITLE')
-		route.navigate('ConfirmCode')
 		dispatch(result(new AUTH(response)))
 		dispatch(loaderState(false))
+		route.navigate('ConfirmCode')
 	} catch (e) {
 		e.code = -1
 		e.code = -1
