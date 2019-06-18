@@ -1,4 +1,4 @@
-import { GAME_SUCCESS, GAME_FAILED } from './__proto__'
+import { GAME_RESULT } from './__proto__'
 import AsyncStorage from '@react-native-community/async-storage'
 //constants
 import { urls } from '@constants/urls'
