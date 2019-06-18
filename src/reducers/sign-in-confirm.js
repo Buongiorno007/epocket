@@ -4,6 +4,7 @@ import { loaderState } from '@reducers/loader'
 import { setBalance } from '@reducers/user-balance'
 import { setToken } from '@reducers/token'
 import { saveUser } from '@reducers/profile-state'
+import { setInstaToken } from '@reducers/insta-token'
 import { setColor } from '@reducers/user-color'
 import { httpPost } from '@services/http'
 import { toAge } from '@services/converteDate'
@@ -44,6 +45,7 @@ export const signInConfirm = (number, code = '123456') => async (dispatch) => {
 			birthDay: toAge(response.body.birthDay),
 		}
 		dispatch(saveUser(user))
+		dispatch(setInstaToken(response.body.is_insta_logged))
 		dispatch(setToken(response.body.token))
 		dispatch(setColor(user.sex))
 		dispatch(setBalance(Number(response.body.balance)))
