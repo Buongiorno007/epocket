@@ -38,6 +38,15 @@ export const GAME_PROCESS = function(data = {}) {
 	this.time = Number(data.time) || 0
 }
 
+export const GAME_RESULT = function(data = {}) {
+	this.ticker = data.tiker || ''
+	this.award = `${data.award}` || ''
+	this.insta_img = data.insta_img || ''
+	this.video = data.video || ''
+	this.link = data.game_link || data.brand_link || ''
+	this.timer = data.timer || 0
+}
+
 export const AUTH = function(data = {}) {
 	DEFAULT.apply(this, arguments)
 	this.phone = data.phone || null

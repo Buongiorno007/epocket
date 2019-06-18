@@ -1,11 +1,13 @@
 import React from 'react'
 import { View, Text } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 //redux
 import { setGameStatus } from '@reducers/game-status'
 import { loaderState } from '@reducers/loader'
 import { getGameStart } from '@reducers/gameStart'
+import { saveGameResult } from '@reducers/gameResult'
 //constants
 import { colors } from '@constants/colors'
 //containers
@@ -16,9 +18,15 @@ import NoGames from '@containers/game-containers/game-start/no-games'
 import styles from './styles'
 
 class GameStart extends React.Component {
-	componentDidMount() {
+	componentDidMount = async () => {
 		this.props.loaderState(true)
+		const game = await AsyncStorage.getItem('game')
+		// if (game) {
+		// 	await this.props.saveGameResult(JSON.parse(game))
+		// 	this.props.loaderState(false)
+		// } else {
 		this.props.getGameStart()
+		// }
 	}
 
 	render = () => {
