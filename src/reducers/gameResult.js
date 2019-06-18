@@ -25,11 +25,10 @@ export const getGameResult = (body) => async (dispatch, getState) => {
 	const { token } = getState()
 	try {
 		const response = await httpPost(urls.game_result, JSON.stringify(body), token)
-		// console.log(JSON.stringify(response), 'RESPONSE')
-		// console.log(response, 'RESPONSE')
-		if (response.body.award) {
+		console.log(response, 'RESPONSE')
+		if (response.body.message) {
 			await dispatch(saveGameResult(new GAME_SUCCESS(response.body)))
-			route.navigate('Main')
+			route.navigate('GameSuccess')
 		} else {
 			const gameFailed = new GAME_FAILED(response.body)
 			await dispatch(saveGameResult(gameFailed))

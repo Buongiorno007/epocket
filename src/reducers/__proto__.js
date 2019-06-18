@@ -42,6 +42,7 @@ export const GAME_SUCCESS = function(data = {}) {
 	this.ticker = data.ticker || ''
 	this.award = data.award || ''
 }
+
 export const GAME_FAILED = function(data = {}) {
 	this.ticker = data.tiker || ''
 	this.insta_img = data.insta_img || ''
