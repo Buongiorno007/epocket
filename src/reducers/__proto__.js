@@ -1,5 +1,6 @@
 export const DEFAULT = function(data: any = {}) {
 	this.code = data.code || null
+	this.message = data.message || null
 }
 
 export const COUNTRY = function(data = {}) {

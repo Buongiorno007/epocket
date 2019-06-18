@@ -53,9 +53,9 @@ export const signIn = (phone) => async (dispatch) => {
 		response.phone = phone
 		response.back = 'SignIn'
 		response.title = I18n.t('SIGN_IN_TITLE')
-		route.navigate('ConfirmCode')
 		dispatch(result(new AUTH(response)))
 		dispatch(loaderState(false))
+		route.navigate('ConfirmCode')
 	} catch (e) {
 		e.code = -1
 		e.back = 'SignIn'
