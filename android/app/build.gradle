@@ -32,7 +32,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 35
         versionName "2.5"
-        multiDexEnabled true
+        // multiDexEnabled true
         missingDimensionStrategy 'react-native-camera', 'general'
         renderscriptTargetApi 27
         renderscriptSupportModeEnabled true
@@ -120,7 +120,7 @@ dependencies {
     implementation project(':react-native-maps')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleCompatible
-    implementation 'androidx.appcompat:appcompat:1.0.0'
+//    implementation 'androidx.appcompat:npm :1.0.0'
     implementation 'com.facebook.fresco:animated-webp:1.10.0'
     implementation 'com.facebook.fresco:webpsupport:1.10.0'
     implementation 'com.facebook.fresco:fresco:1.12.1'
