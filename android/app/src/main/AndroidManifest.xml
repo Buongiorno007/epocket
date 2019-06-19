@@ -27,8 +27,9 @@
         android:screenOrientation="portrait"
         android:theme="@style/SplashTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <!--android:name="androidx.core.content.FileProvider"-->
         <provider
-            android:name="androidx.core.content.FileProvider"
+            android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
