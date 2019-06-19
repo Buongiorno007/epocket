@@ -1,12 +1,11 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
-import Logo from '@containers/start/logo'
-import Navigate from '@containers/start/navigate'
 import LinearGradient from 'react-native-linear-gradient'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-//reducers
+import Logo from '@containers/start/logo'
+import Navigate from '@containers/start/navigate'
 import { list } from '@reducers/country'
 import { internet } from '@reducers/connection'
 import { status, current, coordinate } from '@reducers/location'
@@ -14,6 +13,7 @@ import { setSounds } from '@reducers/sounds'
 import { getUser } from '@reducers/profile-state'
 import { setGameStatus } from '@reducers/game-status'
 import { loaderState } from '@reducers/loader'
+import route from '@services/route'
 import styles from './styles'
 
 type Props = typeof defaultProps
@@ -28,6 +28,7 @@ class Start extends React.Component<Props> {
 	static defaultProps = defaultProps
 
 	componentDidMount() {
+		route.exit()
 		this.props.internet()
 		this.props.connection && this.init()
 	}
@@ -41,6 +42,7 @@ class Start extends React.Component<Props> {
 	init = async () => {
 		await this.props.loaderState(true)
 		await this.props.setSounds()
+		await this.props.current()
 		await this.props.status()
 		await this.props.coordinate()
 		await this.getGame()
@@ -49,7 +51,9 @@ class Start extends React.Component<Props> {
 
 	getGame = async () => {
 		const game = await AsyncStorage.getItem('game_status')
-		game && this.props.setGameStatus(game)
+		if (game) {
+			this.props.setGameStatus(game === 'game' || game === 'success' ? 'start' : game)
+		}
 	}
 
 	getToken = async () => {
@@ -58,19 +62,16 @@ class Start extends React.Component<Props> {
 			this.props.getUser(token)
 		} else {
 			this.props.list()
-			this.props.loaderState(false)
 		}
 	}
 
 	render = () => {
 		const { colors, start, end } = this.props
 		return (
-			<View style={[styles.layout, styles.align]}>
-				<LinearGradient colors={colors} start={start} end={end} style={[styles.layout, styles.padding]}>
-					<Logo />
-					<Navigate />
-				</LinearGradient>
-			</View>
+			<LinearGradient colors={colors} start={start} end={end} style={styles.container}>
+				<Logo />
+				<Navigate />
+			</LinearGradient>
 		)
 	}
 }
@@ -85,12 +86,12 @@ const mapDispatchToProps = (dispatch) =>
 			list,
 			internet,
 			status,
-			current,
 			coordinate,
 			setSounds,
 			setGameStatus,
 			getUser,
 			loaderState,
+			current,
 		},
 		dispatch,
 	)

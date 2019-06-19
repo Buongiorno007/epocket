@@ -23,6 +23,7 @@ import { setActiveCard } from '../../../reducers/set-active-card'
 import { setColor } from '../../../reducers/user-color'
 import { getGameInfo } from '../../../reducers/game-info'
 import { loaderState } from '../../../reducers/loader'
+import GameS from '@components/game-component/game-start'
 //services
 import GeolocationService from '../../../services/geolocation-service'
 
@@ -50,6 +51,7 @@ class Main extends React.Component {
 			this.props.game_status === 'initial'
 		) {
 			container = <GameStart />
+			// container = <GameS />
 		} else if (this.props.game_status === 'expired' || this.props.game_status === 'failed') {
 			container = <GameExpired />
 		} else {

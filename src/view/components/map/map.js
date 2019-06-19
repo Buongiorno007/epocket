@@ -4,7 +4,7 @@ import FastImage from 'react-native-fast-image'
 import { Button } from 'native-base'
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import ClusteredMapView from '../../../native_modules/react-native-maps-super-cluster'
-import geolib from 'geolib'
+import { findNearest, getDistance, getBounds, getCenter } from 'geolib'
 import { LinearTextGradient } from 'react-native-text-gradient'
 import LinearGradient from 'react-native-linear-gradient'
 import CookieManager from 'react-native-cookies'
@@ -162,25 +162,25 @@ class Map extends React.Component {
 		}
 	}
 	showNearestOne = (my_location, mall_array, outlets) => {
-		let newArr = {}
+		let newArr = []
 		mall_array.forEach((item) => {
 			let newItem = {
 				latitude: item.lat,
 				longitude: item.lng,
 			}
 			let name = item.id
-			if (!outlets && newItem.latitude != 'None' && newItem.longitude != 'None') {
-				newArr[name] = newItem
+			if (!outlets && newItem.latitude !== 'None' && newItem.longitude !== 'None') {
+				newArr.push(newItem)
 			} else if (
 				outlets &&
-				newItem.latitude != 'None' &&
-				newItem.longitude != 'None' &&
+				newItem.latitude !== 'None' &&
+				newItem.longitude !== 'None' &&
 				item.formated.money > 0
 			) {
-				newArr[name] = newItem
+				newArr.push(newItem)
 			}
 		})
-		let nearestMall = geolib.findNearest(my_location, newArr, 0)
+		let nearestMall = findNearest(my_location, newArr)
 		if (nearestMall) {
 			let latD = 0.00003212 * nearestMall.distance
 			let lngD = 0.00003381 * nearestMall.distance
@@ -193,7 +193,7 @@ class Map extends React.Component {
 	}
 	toggleTab = (tab) => {
 		this.setState({ mapKey: Math.random() })
-		if (tab == 'shop') {
+		if (tab === 'shop') {
 			this.setState({
 				shopActive: true,
 				taskActive: false,
@@ -209,7 +209,7 @@ class Map extends React.Component {
 				},
 				allShops,
 			)
-		} else if (tab == 'task') {
+		} else if (tab === 'task') {
 			if (this.props.isLocation && this.props.distance < 0) {
 				this.selectNearestMall(
 					{
@@ -236,7 +236,7 @@ class Map extends React.Component {
 				focusedOnMark: false,
 			})
 			this.props.setOutlets(this.props.initial_outlets.outlets)
-		} else if (tab == 'discount') {
+		} else if (tab === 'discount') {
 			this.setState({
 				shopActive: false,
 				taskActive: false,
@@ -281,7 +281,7 @@ class Map extends React.Component {
 				if (result.status === 200) {
 					this.props.setInstaToken(String(instagram_token))
 					this.props.loaderState(false)
-				} else if (result.status == 201) {
+				} else if (result.status === 201) {
 					CookieManager.clearAll().then((res) => {
 						this.setModalVisible(true)
 						this.setState({ userCount: result.body.subsc_needed })
@@ -375,7 +375,7 @@ class Map extends React.Component {
 		httpPost(
 			urls.outlets,
 			JSON.stringify({
-				geolocation_status: this.props.location.lat != 0 && this.props.location.lng != 0,
+				geolocation_status: this.props.location.lat !== 0 && this.props.location.lng !== 0,
 				tzone: {
 					timezone: moment.tz.guess(),
 					timedelta: moment().format('Z'),
@@ -431,7 +431,7 @@ class Map extends React.Component {
 				let error_respons = handleError(
 					error,
 					{
-						geolocation_status: this.props.location.lat != 0 && this.props.location.lng != 0,
+						geolocation_status: this.props.location.lat !== 0 && this.props.location.lng !== 0,
 						tzone: {
 							timezone: moment.tz.guess(),
 							timedelta: moment().format('Z'),
@@ -460,7 +460,7 @@ class Map extends React.Component {
 		})
 	}
 	selectNearestMall = (my_location, mall_array, ANIMATE_MAP) => {
-		let newArr = {}
+		let newArr = []
 		mall_array.forEach((item) => {
 			let newItem = {
 				latitude: item.lat,
@@ -468,10 +468,10 @@ class Map extends React.Component {
 			}
 			let name = item.id
 			if (item.formated.money > 0) {
-				newArr[name] = newItem
+				newArr.push(newItem)
 			}
 		})
-		let nearestMall = geolib.findNearest(my_location, newArr, 0)
+		let nearestMall = findNearest(my_location, newArr)
 		if (nearestMall) {
 			let selectedTRC = mall_array.find((x) => x.id === Number(nearestMall.key))
 			try {
@@ -481,7 +481,7 @@ class Map extends React.Component {
 	}
 
 	_renderItem = (item) => {
-		item.item.adress ? (
+		return item.item.adress ? (
 			<CardFirst
 				item={item.item}
 				onPressItem={this.openNext}
@@ -578,7 +578,7 @@ class Map extends React.Component {
 		httpPost(urls.missions, JSON.stringify(body), this.props.token).then(
 			(result) => {
 				this.setErrorVisible(false)
-				if (result.status == 200) {
+				if (result.status === 200) {
 					this.setState({ posts: result.body.posts })
 					let cards = this.getActiveMissions(result.body.missions)
 					if (!this.props.insta_token) {
@@ -617,7 +617,7 @@ class Map extends React.Component {
 					urls.missions,
 					this.props.token,
 					this.constructor.name,
-					'getMissions',
+					'loadTaskItems map.js',
 				)
 				this.setState({
 					errorText: error_respons.error_text,
@@ -708,13 +708,13 @@ class Map extends React.Component {
 	}
 	onRegionChange = (region) => {
 		if (
-			(this.state.pickedMark.latitude == 0 && this.state.pickedMark.longitude == 0) ||
+			(this.state.pickedMark.latitude === 0 && this.state.pickedMark.longitude === 0) ||
 			(region.longitudeDelta &&
-				Number(region.latitude).toFixed(3) == this.state.pickedMark.latitude &&
-				Number(region.longitude).toFixed(5) == this.state.pickedMark.longitude) ||
+				Number(region.latitude).toFixed(3) === this.state.pickedMark.latitude &&
+				Number(region.longitude).toFixed(5) === this.state.pickedMark.longitude) ||
 			(region.nativeEvent &&
-				Number(region.nativeEvent.coordinate.latitude).toFixed(3) == this.state.pickedMark.latitude &&
-				Number(region.nativeEvent.coordinate.longitude).toFixed(5) == this.state.pickedMark.longitude)
+				Number(region.nativeEvent.coordinate.latitude).toFixed(3) === this.state.pickedMark.latitude &&
+				Number(region.nativeEvent.coordinate.longitude).toFixed(5) === this.state.pickedMark.longitude)
 		) {
 		} else {
 			this.setState({ focusedOnMark: false, cards: [] })
@@ -812,7 +812,7 @@ class Map extends React.Component {
 					errorText: error_respons.error_text,
 					errorCode: error_respons.error_code,
 				})
-				if (error.code != 416 && error.code != 418 && error.code != 415) {
+				if (error.code !== 416 && error.code !== 418 && error.code !== 415) {
 					this.setErrorVisible(error_respons.error_modal)
 				}
 			},
@@ -826,16 +826,16 @@ class Map extends React.Component {
 				longitude: Number(trc.lng).toFixed(5),
 			},
 		})
-		let bounds = geolib.getBounds([
+		let bounds = getBounds([
 			{ latitude: trc.lat, longitude: trc.lng },
 			{ latitude: this.props.location.lat, longitude: this.props.location.lng },
 		])
-		let center = geolib.getCenter([
+		let center = getCenter([
 			{ latitude: trc.lat, longitude: trc.lng },
 			{ latitude: this.props.location.lat, longitude: this.props.location.lng },
 		])
 		let distance =
-			geolib.getDistance(
+			getDistance(
 				{ latitude: trc.lat, longitude: trc.lng },
 				{
 					latitude: this.props.location.lat,
@@ -912,16 +912,16 @@ class Map extends React.Component {
 		let maxDistance = 0
 		if (this.state.discountActive) {
 			clusteredPoints.forEach((cluster) => {
-				let distanceToCenter = geolib.getDistance(cluster.properties.item.location, coordinate)
-				if (distanceToCenter > maxDistance && cluster.properties.item.price != 0) {
+				let distanceToCenter = getDistance(cluster.properties.item.location, coordinate)
+				if (distanceToCenter > maxDistance && cluster.properties.item.price !== 0) {
 					maxDistance = distanceToCenter
 				}
 				clusterValue = clusterValue + Number(cluster.properties.item.discount)
 			})
 		} else {
 			clusteredPoints.forEach((cluster) => {
-				let distanceToCenter = geolib.getDistance(cluster.properties.item.location, coordinate)
-				if (distanceToCenter > maxDistance && cluster.properties.item.price != 0) {
+				let distanceToCenter = getDistance(cluster.properties.item.location, coordinate)
+				if (distanceToCenter > maxDistance && cluster.properties.item.price !== 0) {
 					maxDistance = distanceToCenter
 				}
 				if (isNaN(Number(cluster.properties.item.formated.money))) {
@@ -985,9 +985,8 @@ class Map extends React.Component {
 		return marker
 	}
 	renderMarker = (marker) => {
-		let markerComponent
-		if (marker.lat != 'None' && marker.lng != 'None') {
-			markerComponent = (
+		if (marker.lat !== 'None' && marker.lng !== 'None') {
+			return (
 				<TRCMarker
 					marker={marker}
 					key={marker.id + '_' + marker.lat}
@@ -1005,9 +1004,8 @@ class Map extends React.Component {
 				/>
 			)
 		} else {
-			markerComponent = null
+			return null
 		}
-		return markerComponent
 	}
 	render() {
 		return (
@@ -1078,7 +1076,7 @@ class Map extends React.Component {
 						})
 					}}
 				/>
-				{Platform.OS == 'ios'
+				{Platform.OS === 'ios'
 					? this.state.location_loader && this.props.isLocation && <Loader />
 					: this.state.location_loader && <Loader />}
 				<Animated.View
@@ -1199,7 +1197,7 @@ class Map extends React.Component {
 					>
 						<FlatList
 							listKey={'cards'}
-							scrollEnabled={this.state.cards.length != 1}
+							scrollEnabled={this.state.cards.length !== 1}
 							contentContainerStyle={styles.horizontal_list_content}
 							horizontal={true}
 							showsHorizontalScrollIndicator={false}
@@ -1216,7 +1214,7 @@ class Map extends React.Component {
 					style={styles.map_view}
 					data={this.props.outlets}
 					initialRegion={this.state.region}
-					provider={Platform.OS == 'ios' ? PROVIDER_GOOGLE : null}
+					provider={Platform.OS === 'ios' ? PROVIDER_GOOGLE : null}
 					ref={(r) => {
 						this.map = r
 					}}

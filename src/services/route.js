@@ -1,49 +1,43 @@
+/** @flow */
 import { Alert, BackHandler } from 'react-native'
 import { StackActions, NavigationActions } from 'react-navigation'
+import I18n from '@locales/I18n'
 
 let navigation
 
-function setRoot(navigatorRef) {
+function setRoot(navigatorRef: any) {
 	navigation = navigatorRef
 }
 
-function navigate(url, params = undefined) {
-	setTimeout(() => {
-		let navigationAction
-		navigationAction = { key: url, routeName: url, params: params }
-		navigation.dispatch(
-			StackActions.reset({
-				index: 0,
-				actions: [NavigationActions.navigate(navigationAction)],
-			}),
-		)
-	}, 200)
+function navigate(url: string, params: any = undefined) {
+	navigation.dispatch(
+		StackActions.reset({
+			index: 0,
+			actions: [NavigationActions.navigate({ key: url, routeName: url, params })],
+		}),
+	)
 }
 
-function goBackPress(url, params = {}) {
-	BackHandler.addEventListener('hardwareBackPress', () => {
+function goBackPress(url: string, params: any = undefined) {
+	BackHandler.addEventListener('hardwareBackPress', (): any => {
 		navigate(url, params)
 		return true
 	})
 }
 
 function exit() {
-	doubleClick = 0
 	BackHandler.addEventListener('hardwareBackPress', () => {
-		if (doubleClick === 0) {
-			doubleClick = 1
-			setTimeout(() => {
-				doubleClick = 0
-			}, 200)
-			return true
-		} else if (doubleClick === 1) {
+		const { nav } = navigation.state
+		if (nav.index === 0) {
 			Alert.alert(
-				'EpocketCash',
-				'Вы хотите выйти из приложения?',
-				[{ text: 'Cancel', onPress: () => void 0 }, { text: 'OK', onPress: () => BackHandler.exitApp() }],
+				I18n.t('TITLE'),
+				I18n.t('EXIT'),
+				[
+					{ text: I18n.t('CANCEL'), onPress: () => {} },
+					{ text: I18n.t('OK'), onPress: (): any => BackHandler.exitApp() },
+				],
 				{ cancelable: false },
 			)
-			doubleClick === 0
 			return true
 		}
 	})

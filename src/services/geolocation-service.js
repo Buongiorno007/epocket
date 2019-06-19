@@ -1,6 +1,6 @@
 import React from 'react'
 import { Platform, AppState } from 'react-native'
-import geolib from 'geolib'
+import { getDistance } from 'geolib'
 import BackgroundFetch from 'react-native-background-fetch'
 import BackgroundTimer from 'react-native-background-timer'
 import { httpPost } from './http'
@@ -134,8 +134,9 @@ class GeolocationService extends React.Component {
 			nextLocation.latitude !== 0 &&
 			nextLocation.longitude !== 0
 		) {
+			console.log(currentLocation, 'CURRENT LOCATION')
 			let distance =
-				geolib.getDistance(
+				getDistance(
 					{
 						latitude: currentLocation.latitude,
 						longitude: currentLocation.longitude,

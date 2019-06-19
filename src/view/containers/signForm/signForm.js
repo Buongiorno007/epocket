@@ -12,39 +12,46 @@ export default class SignForm extends Component {
 		top: 0,
 		width: 0,
 		activeIndex: null,
+		mask: '99 999 99 99',
+		placeholder: '-- --- -- --',
 	}
 
 	componentDidMount() {
-		this.setState({
-			codeValue: this.props.data[0].phone_code || '',
-			imgUri: this.props.data[0].flag || '',
-			activeIndex: 0,
-		})
-		this.props.setCode(this.props.data[0].phone_code || '')
+		if (this.props.data.length > 0) {
+			const { phone_code, flag, phone_mask } = this.props.data[0]
+			this.setState({
+				codeValue: phone_code || '',
+				imgUri: flag || '',
+				activeIndex: 0,
+				mask: phone_mask.replace(/-/g, '9') || '99 999 99 99',
+				placeholder: phone_mask || '-- --- -- --',
+			})
+			this.props.setCode(phone_code || '')
+			this.props.maskLength(phone_mask.length || 12)
+		}
 	}
 
-	renderItem = (item) => {
-		return (
-			<TouchableOpacity
-				style={item.index === this.state.activeIndex ? styles.activeItem : styles.item}
-				onPress={() => {
-					this.setState({
-						visible: false,
-						codeValue: item.item.phone_code,
-						imgUri: item.item.flag,
-						activeIndex: item.index,
-					}),
-						this.props.setCode(item.item.phone_code)
-				}}
-			>
-				<Image style={styles.imgStyle} source={{ uri: item.item.flag }} />
-				<Text style={{ flexGrow: 1, color: '#404140', fontSize: 14 }}>
-					{I18n.t(`COUNTRY.${item.item.code}`)}
-				</Text>
-				<Text style={{ color: 'rgba(64, 65, 64, .55)', fontSize: 14 }}>{item.item.phone_code}</Text>
-			</TouchableOpacity>
-		)
-	}
+	renderItem = (item) => (
+		<TouchableOpacity
+			style={item.index === this.state.activeIndex ? styles.activeItem : styles.item}
+			onPress={() => {
+				this.setState({
+					visible: false,
+					codeValue: item.item.phone_code,
+					imgUri: item.item.flag,
+					activeIndex: item.index,
+					mask: item.item.phone_mask.replace(/-/g, '9'),
+					placeholder: item.item.phone_mask,
+				})
+				this.props.setCode(item.item.phone_code)
+				this.props.maskLength(item.item.phone_mask.length)
+			}}
+		>
+			<Image style={styles.imgStyle} source={{ uri: item.item.flag }} />
+			<Text style={{ flexGrow: 1, color: '#404140', fontSize: 14 }}>{I18n.t(`COUNTRY.${item.item.code}`)}</Text>
+			<Text style={{ color: 'rgba(64, 65, 64, .55)', fontSize: 14 }}>{item.item.phone_code}</Text>
+		</TouchableOpacity>
+	)
 
 	render() {
 		return (
@@ -68,10 +75,10 @@ export default class SignForm extends Component {
 						onChangeText={(value) => this.props.setPhoneNumber(value)}
 						type={'custom'}
 						options={{
-							mask: '99 999 99 99',
+							mask: this.state.mask,
 						}}
-						maxLength={12}
-						placeholder={'- -   - - -   - -   - -'}
+						maxLength={this.state.mask.length}
+						placeholder={this.state.placeholder}
 						placeholderTextColor={'#fff'}
 						onFocus={() => this.props.onFocus()}
 					/>

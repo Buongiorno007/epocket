@@ -14,13 +14,13 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 {
-	/* 
+	/*
 call example
 active - default false
 short - default false
 title - default OK
 
-<CustomButton active short handler={() => navigation.navigate("Start")} title={'Регистрация'} /> 
+<CustomButton active short handler={() => navigation.navigate("Start")} title={'Регистрация'} />
 
 */
 }
@@ -32,6 +32,7 @@ class CustomButton extends React.Component {
 				transparent
 				block
 				rounded
+				disabled={this.props.disabled}
 				color={this.props.color ? this.props.color : 'transparent'}
 				style={[
 					styles.button_container,
@@ -42,6 +43,7 @@ class CustomButton extends React.Component {
 					this.props.long_75 && { width: width * 0.75 },
 					this.props.border && { borderWidth: 1, borderColor: this.props.color },
 					this.props.transparent && { backgroundColor: 'transparent' },
+					this.props.style,
 				]}
 				onPress={() => {
 					this.props.active && this.props.handler()

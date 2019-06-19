@@ -4,7 +4,7 @@ import { LinearTextGradient } from 'react-native-text-gradient'
 import LinearGradient from 'react-native-linear-gradient'
 import FastImage from 'react-native-fast-image'
 import { Button } from 'native-base'
-import geolib from 'geolib'
+import { getDistance, findNearest } from 'geolib'
 //redux
 import { setBalance } from '../../../reducers/user-balance'
 import { connect } from 'react-redux'
@@ -129,7 +129,7 @@ class GameStart extends React.Component {
 			},
 		})
 		let distance =
-			geolib.getDistance(
+			getDistance(
 				{ latitude: trc.lat, longitude: trc.lng },
 				{
 					latitude: this.props.location.lat,
@@ -150,8 +150,9 @@ class GameStart extends React.Component {
 		this.updateGames(curr_trc.id)
 		this.props.setDistance(distance)
 	}
+
 	selectNearestMall = (my_location, mall_array, ANIMATE_MAP) => {
-		let newArr = {}
+		let newArr = []
 		mall_array.forEach((item) => {
 			let newItem = {
 				latitude: item.lat,
@@ -159,10 +160,10 @@ class GameStart extends React.Component {
 			}
 			let name = item.id
 			if (item.formated.money > 0) {
-				newArr[name] = newItem
+				newArr.push(newItem)
 			}
 		})
-		let nearestMall = geolib.findNearest(my_location, newArr, 0)
+		let nearestMall = findNearest(my_location, newArr)
 		if (nearestMall) {
 			let selectedTRC = mall_array.find((x) => x.id === Number(nearestMall.key))
 			try {
@@ -170,6 +171,7 @@ class GameStart extends React.Component {
 			} catch (e) {}
 		}
 	}
+
 	loadTRC = () => {
 		this.setModalVisible(false)
 		httpPost(

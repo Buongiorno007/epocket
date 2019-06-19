@@ -22,7 +22,7 @@ export default StyleSheet.create({
 		height: height * 0.1,
 		alignItems: 'flex-end',
 		justifyContent: 'flex-end',
-		marginTop: 50,
+		marginTop: 10,
 	},
 	settings_btn: {
 		height: 50,

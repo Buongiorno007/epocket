@@ -54,6 +54,7 @@ import website_timer from './website-timer'
 import game_ticker_data from './game-ticker-data'
 import country from './country'
 import serverRequest from './serverRequest'
+import gameStart from './gameStart'
 
 export default combineReducers({
 	connection,
@@ -111,4 +112,12 @@ export default combineReducers({
 	game_ticker_data,
 	country,
 	serverRequest,
+	gameStart,
+	sign_in: require('./sign-in').default,
+	sign_in_confirm: require('./sign-in-confirm').default,
+	sign_up: require('./sign-up').default,
+	sign_up_confirm: require('./sign-up-confirm').default,
+	send_code: require('./send-code').default,
+	gameProcess: require('./gameProcess').default,
+	gameResult: require('./gameResult').default,
 })
