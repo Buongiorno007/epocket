@@ -110,7 +110,7 @@ class SignUp extends React.Component<Props, State> {
 			<LinearGradient colors={colors} start={start} end={end} style={styles.layout}>
 				<Header route={'Start'} title={I18n.t('SIGN_UP_TITLE')} />
 				<KeyboardAvoidingView style={styles.keyboard} behavior={'padding'}>
-					<ScrollView contentContainerStyle={styles.scroll}>
+					<ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
 						<View style={styles.wrapper}>
 							<Text style={[styles.text, styles.left]}>{I18n.t('SIGN.ENTER_PHONE_NUMBER')}</Text>
 						</View>

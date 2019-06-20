@@ -27,12 +27,12 @@ export default StyleSheet.create({
 		}),
 		width,
 		flexDirection: 'column',
-		paddingHorizontal: 16,
 	},
 	scroll: {
 		flexGrow: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
+		marginHorizontal: 16,
 		paddingBottom: 48,
 	},
 	wrapper: {

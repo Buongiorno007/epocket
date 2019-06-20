@@ -27,10 +27,10 @@ export default StyleSheet.create({
 		}),
 		width,
 		flexDirection: 'column',
-		paddingHorizontal: 16,
 	},
 	scroll: {
 		flex: 1,
+		marginHorizontal: 16,
 		height,
 	},
 	wrapepr: {

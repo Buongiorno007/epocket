@@ -25,11 +25,11 @@ export default StyleSheet.create({
 		top: Platform.OS === 'ios' ? (iPhoneX ? Header.HEIGHT + 22 : Header.HEIGHT) : 62,
 		flex: 1,
 		flexDirection: 'column',
-		paddingHorizontal: 16,
 	},
 	scroll: {
 		height: '100%',
 		flex: 1,
+		paddingHorizontal: 16,
 		alignItems: 'center',
 		justifyContent: 'center',
 	},
