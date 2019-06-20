@@ -40,7 +40,7 @@ export const GAME_PROCESS = function(data = {}) {
 }
 
 export const GAME_RESULT = function(data = {}) {
-	this.ticker = data.tiker || ''
+	this.ticker = data.ticker || ''
 	this.award = data.award || ''
 	this.insta_img = data.insta_img || ''
 	this.video = data.video || ''

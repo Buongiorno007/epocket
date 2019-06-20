@@ -2,18 +2,37 @@ import React, { useState, useEffect } from 'react'
 import { View, ImageBackground, Image } from 'react-native'
 import { Button, Text } from 'native-base'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { loaderState } from '@reducers/loader'
 import styles from './styles'
 import FailerButtons from '@containers/game-containers/game-result/game-failed-buttons'
 import LinearGradient from 'react-native-linear-gradient'
 import FastImage from 'react-native-fast-image'
 import I18n from '@locales/I18n'
 
-function GameFailed({ gameResult }) {
+function GameFailed({ gameResult, loaderState }) {
 	const [timer, setTimer] = useState(gameResult.timer)
 	const [ticker, setTicker] = useState(false)
 	const colors = ['#9B45F0', '#D833C8', '#F55890', '#FF8D50', '#F7BB42']
 	const start = { x: 1.0, y: 0.0 }
 	const end = { x: 0.0, y: 1.0 }
+
+	useEffect(() => {
+		loaderState(false)
+	}, [])
+
+	useEffect(() => {
+		if (ticker && timer) {
+			const intervalId = setTimeout(() => {
+				if (timer) {
+					setTimer(timer - 1)
+				} else {
+					console.log('finished')
+				}
+			}, 1000)
+		}
+	})
+
 	const publish = () => {
 		console.log('publish')
 	}
@@ -22,18 +41,9 @@ function GameFailed({ gameResult }) {
 	}
 	const wait = () => {
 		setTicker(!ticker)
-		startTimer()
 	}
-	startTimer = () => {
-		let intervalId = setInterval(function() {
-			// console.log(timer, 'TIMER')
-			// if (timer > 1) {
-			// 	setTimer((timer) => timer - 1)
-			// } else {
-			// 	clearInterval(intervalId)
-			// }
-		}, 1000)
-	}
+
+	console.log(gameResult, 'GAMERESULT')
 	return (
 		<View style={styles.container}>
 			<LinearGradient colors={colors} start={start} end={end} style={styles.gradient}></LinearGradient>
@@ -73,5 +83,15 @@ const mapStateToProps = (state) => {
 		gameResult: state.gameResult,
 	}
 }
+const mapDispatchToProps = (dispatch) =>
+	bindActionCreators(
+		{
+			loaderState,
+		},
+		dispatch,
+	)
 
-export default connect(mapStateToProps)(GameFailed)
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(GameFailed)
