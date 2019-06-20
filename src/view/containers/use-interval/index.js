@@ -1,27 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
-function useInterval(callback, delay) {
+const useInterval = (callback, delay) => {
 	const savedCallback = useRef()
 
-	// Remember the latest callback.
 	useEffect(() => {
 		savedCallback.current = callback
 	}, [callback])
 
-	// Set up the interval.
 	useEffect(() => {
-		function tick() {
-			savedCallback.current()
-		}
+		const handler = (...args) => savedCallback.current(...args)
+
 		if (delay !== null) {
-			let id = setInterval(tick, delay)
+			const id = setInterval(handler, delay)
 			return () => clearInterval(id)
 		}
 	}, [delay])
 }
 
-//usage
-useInterval(() => {
-	// Your custom logic here
-	setCount(count + 1)
-}, 1000)
+export default useInterval

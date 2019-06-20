@@ -230,7 +230,7 @@ class ProfileSettings extends React.Component {
 						}}
 					/>
 				</View>
-				<View style={[styles.image_block_button, styles.top_facebook]}>
+				{/* <View style={[styles.image_block_button, styles.top_facebook]}>
 					<View>
 						<LoginButton
 							onLoginFinished={(error, result) => {
@@ -245,7 +245,7 @@ class ProfileSettings extends React.Component {
 							onLogoutFinished={() => this.disConnectFacebook()}
 						/>
 					</View>
-				</View>
+				</View> */}
 				<View style={styles.header}>
 					<Text style={[styles.header_text, styles.image_block_text_big]}>
 						{I18n.t('PROFILE_SETTINGS.SETTINGS')}
@@ -301,12 +301,12 @@ class ProfileSettings extends React.Component {
 							</Text>
 						</View>
 					</View>
-					<View style={[styles.image_block, styles.image_block_with_border]}>
+					{/* <View style={[styles.image_block, styles.image_block_with_border]}>
 						<FastImage style={styles.settings_img} source={require('../../../assets/img/facebook.png')} />
 						<View style={styles.image_block_text}>
 							<Text style={styles.image_block_text_big} />
 						</View>
-					</View>
+					</View> */}
 					<View style={[styles.image_block_with_button, styles.image_block_with_top_border]}>
 						<Button
 							transparent
