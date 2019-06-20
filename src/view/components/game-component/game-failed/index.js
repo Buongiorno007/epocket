@@ -9,9 +9,10 @@ import FailerButtons from '@containers/game-containers/game-result/game-failed-b
 import LinearGradient from 'react-native-linear-gradient'
 import FastImage from 'react-native-fast-image'
 import I18n from '@locales/I18n'
+import { toHHMMSS } from '@services/convert-time'
 
 function GameFailed({ gameResult, loaderState }) {
-	const [timer, setTimer] = useState(gameResult.timer)
+	const [timer, setTimer] = useState(60)
 	const [ticker, setTicker] = useState(false)
 	const colors = ['#9B45F0', '#D833C8', '#F55890', '#FF8D50', '#F7BB42']
 	const start = { x: 1.0, y: 0.0 }
@@ -61,9 +62,9 @@ function GameFailed({ gameResult, loaderState }) {
 						}
 					/>
 				</View>
-				{ticker && (
+				{!ticker && (
 					<View style={styles.timer}>
-						<Text style={styles.timer_text}>{`${timer}`}</Text>
+						<Text style={styles.timer_text}>{toHHMMSS(timer)}</Text>
 					</View>
 				)}
 				<View style={styles.img_container}>

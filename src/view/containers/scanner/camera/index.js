@@ -36,10 +36,10 @@ class Camera extends React.Component<Props, State> {
 
 	componentDidUpdate(prevProps) {
 		if (prevProps.scanner.code !== this.props.scanner.code && this.props.scanner.code) {
-			if (this.props.scanner.code !== -1) {
+			if (this.props.scanner.code !== 1) {
 				const { message } = this.props.scanner
-				this.setState({ error: message.error_text })
-				this.setModalVisible(message.error_modal)
+				this.setState({ error: message })
+				this.setAlert(true)
 			}
 		}
 	}

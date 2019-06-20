@@ -76,8 +76,8 @@ class Map extends React.Component {
 		region: {
 			latitude: this.props.location.lat,
 			longitude: this.props.location.lng,
-			latitudeDelta: 0.04323,
-			longitudeDelta: 0.04028,
+			latitudeDelta: 0.00273,
+			longitudeDelta: 0.00028,
 		},
 		distance: 0,
 		shopActive: false,
@@ -182,8 +182,8 @@ class Map extends React.Component {
 		})
 		let nearestMall = findNearest(my_location, newArr)
 		if (nearestMall) {
-			let latD = 0.00003212 * nearestMall.distance
-			let lngD = 0.00003381 * nearestMall.distance
+			let latD = 0.00000212 * nearestMall.distance
+			let lngD = 0.00000381 * nearestMall.distance
 			if (latD > this.state.region.latitudeDelta && lngD > this.state.region.longitudeDelta) {
 				setTimeout(() => {
 					this.moveMapTo(Number(this.props.location.lat), Number(this.props.location.lng), latD, lngD)
@@ -321,8 +321,8 @@ class Map extends React.Component {
 					{
 						latitude: parseFloat(lat),
 						longitude: parseFloat(lng),
-						latitudeDelta: parseFloat(latD) || 0.04323,
-						longitudeDelta: parseFloat(lngD) || 0.04028,
+						latitudeDelta: parseFloat(latD) || 0.00023,
+						longitudeDelta: parseFloat(lngD) || 0.00028,
 					},
 					animation_time || 450,
 				)
@@ -751,6 +751,7 @@ class Map extends React.Component {
 				? false
 				: true,
 		}
+		console.log(body, 'CALLTIMER MAP')
 		httpPost(urls.start_mission, JSON.stringify(body), this.props.token).then(
 			(result) => {
 				this.setErrorVisible(false)
@@ -799,6 +800,7 @@ class Map extends React.Component {
 				)
 			},
 			(error) => {
+				console.log('ERROR MAP CALLTIMER')
 				this.setState({ load_timer: false })
 				let error_respons = handleError(
 					error,
@@ -819,7 +821,7 @@ class Map extends React.Component {
 		)
 	}
 	selectMark = (trc, ANIMATE_MAP, mark_type) => {
-		ANIMATE_MAP && this.moveMapTo(Number(trc.lat), Number(trc.lng), 0.0058, 0.0058)
+		ANIMATE_MAP && this.moveMapTo(Number(trc.lat), Number(trc.lng), 0.0008, 0.0008)
 		this.setState({
 			pickedMark: {
 				latitude: Number(trc.lat).toFixed(3),

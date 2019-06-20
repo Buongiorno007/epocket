@@ -113,6 +113,7 @@ export default combineReducers({
 	country,
 	serverRequest,
 	gameStart,
+	scanner: require('./scanner').default,
 	sign_in: require('./sign-in').default,
 	sign_in_confirm: require('./sign-in-confirm').default,
 	sign_up: require('./sign-up').default,
