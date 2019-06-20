@@ -140,7 +140,11 @@ class ConfirmCode extends React.Component<Props, State> {
 			<LinearGradient colors={colors} start={start} end={end} style={styles.layout}>
 				<Header route={back} title={title} />
 				<KeyboardAvoidingView style={styles.keyboard} behavior={'padding'}>
-					<ScrollView contentContainerStyle={styles.scroll} scrollEnabled={false}>
+					<ScrollView
+						contentContainerStyle={styles.scroll}
+						scrollEnabled={false}
+						showsVerticalScrollIndicator={false}
+					>
 						<Button
 							rounded
 							transparent
