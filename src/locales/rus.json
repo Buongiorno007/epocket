@@ -229,6 +229,10 @@
   "GAME": {
     "GAME_COST":"ЗАДАНИЕ НА {{value}} {{currency}}",
     "CONGRATULATION":"Поздравляем!\nВы выиграли {{value}} {{currency}} ",
+    "WAIT_SEC":"ПОДОЖДАТЬ {{value}} СЕК",
+    "WAIT_MIN":"ПОДОЖДАТЬ {{value}} МИН",
+    "PUBLISH_AND_CONTINUE": "ОПУБЛИКОВАТЬ И ПРОДОЛЖИТЬ",
+    "VISIT_WEBSITE": "ПОСЕТИТЬ САЙТ И ПРОДОЛЖИТЬ",
     "ZIFI": {
       "MORE_GAMES": "Открой больше игр!",
       "PLAYFUL": "Zifi хочет играть!",

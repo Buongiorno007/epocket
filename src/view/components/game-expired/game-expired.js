@@ -103,6 +103,7 @@ class GameStart extends React.Component {
 		}
 		setTimeout(() => {
 			this.setState({ buttonActive: true })
+			this.props.loaderState(false)
 		}, 5000)
 	}
 	connectInsta = (instagram_token) => {
@@ -125,6 +126,7 @@ class GameStart extends React.Component {
 				} else {
 					CookieManager.clearAll().then((res) => {
 						this.setErrorVisible(true)
+						this.props.loaderState(false)
 					})
 				}
 			},
@@ -154,6 +156,7 @@ class GameStart extends React.Component {
 					this.props.location.lng,
 				)
 		}
+		this.props.loaderState(false)
 	}
 	shareToInsta = () => {
 		this.props.loaderState(true)
@@ -167,6 +170,7 @@ class GameStart extends React.Component {
 		} else {
 			postToSocial(this.props.game_expired_img, 'https://www.instagram.com/epocketapp/', this.confirmPost)
 		}
+		this.props.loaderState(false)
 	}
 	startTimerWebsite = () => {
 		this.setState({

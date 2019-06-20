@@ -20,13 +20,7 @@ import styles from './styles'
 class GameStart extends React.Component {
 	componentDidMount = async () => {
 		this.props.loaderState(true)
-		const game = await AsyncStorage.getItem('game')
-		// if (game) {
-		// 	await this.props.saveGameResult(JSON.parse(game))
-		// 	this.props.loaderState(false)
-		// } else {
 		this.props.getGameStart()
-		// }
 	}
 
 	render = () => {

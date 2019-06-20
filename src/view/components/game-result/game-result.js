@@ -38,7 +38,6 @@ import CustomButton from '../../containers/custom-button/custom-button'
 import BrandWebsite from '../../containers/brand-website/brand-website'
 import { PermissionsAndroid } from 'react-native'
 import I18n from '@locales/I18n'
-// import console = require('console');
 
 class GameResult extends React.Component {
 	state = {
@@ -97,7 +96,6 @@ class GameResult extends React.Component {
 					switch (next_navigation) {
 						case 'insta':
 							this.goInst()
-							this.props.loaderState(true)
 							break
 						case 'home':
 							this.goHome()
@@ -152,9 +150,11 @@ class GameResult extends React.Component {
 				}
 			},
 		)
+		this.props.loaderState(false)
 	}
 	goInst = () => {
 		this.setState({ buttonActive: false })
+		console.log('IM HERE')
 		if (!this.props.insta_token) {
 			this.refs.instagramLogin.show()
 		} else {
@@ -162,6 +162,7 @@ class GameResult extends React.Component {
 		}
 		setTimeout(() => {
 			this.setState({ buttonActive: true })
+			this.props.loaderState(false)
 		}, 5000)
 	}
 
