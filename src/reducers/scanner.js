@@ -26,12 +26,12 @@ export default (state = initialState, action) => {
 	}
 }
 
-export const sendCode = (missin_id, qrCode) => async (dispatch, getState) => {
+export const sendCode = (mission_id, qrCode) => async (dispatch, getState) => {
 	dispatch(reset())
 	dispatch(loaderState(true))
 	dispatch(setShowQR(false))
 	const { token } = getState()
-	const body = JSON.stringify({ missin_id, qrCode })
+	const body = JSON.stringify({ mission_id, qrCode })
 	try {
 		const response = await httpPost(urls.send_qr_code, body, token)
 		dispatch(result())

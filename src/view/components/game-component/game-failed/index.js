@@ -5,15 +5,19 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { loaderState } from '@reducers/loader'
 import styles from './styles'
-import FailerButtons from '@containers/game-containers/game-result/game-failed-buttons'
+import GameSite from '@components/game-component/game-site'
+import FailedButtons from '@containers/game-containers/game-result/game-failed-buttons'
 import LinearGradient from 'react-native-linear-gradient'
 import FastImage from 'react-native-fast-image'
 import I18n from '@locales/I18n'
 import { toHHMMSS } from '@services/convert-time'
+import route from '@services/route'
 
 function GameFailed({ gameResult, loaderState }) {
-	const [timer, setTimer] = useState(60)
+	const [timer, setTimer] = useState(gameResult.timer)
 	const [ticker, setTicker] = useState(false)
+	const [site, setSite] = useState(false)
+	const [visitSiteTimer, setVisitSiteTimer] = useState(gameResult.timer)
 	const colors = ['#9B45F0', '#D833C8', '#F55890', '#FF8D50', '#F7BB42']
 	const start = { x: 1.0, y: 0.0 }
 	const end = { x: 0.0, y: 1.0 }
@@ -28,7 +32,7 @@ function GameFailed({ gameResult, loaderState }) {
 				if (timer) {
 					setTimer(timer - 1)
 				} else {
-					console.log('finished')
+					route.navigate('Main')
 				}
 			}, 1000)
 		}
@@ -38,13 +42,12 @@ function GameFailed({ gameResult, loaderState }) {
 		console.log('publish')
 	}
 	const visitSite = () => {
-		console.log('visitSite')
+		setSite(!site)
 	}
 	const wait = () => {
 		setTicker(!ticker)
 	}
 
-	console.log(gameResult, 'GAMERESULT')
 	return (
 		<View style={styles.container}>
 			<LinearGradient colors={colors} start={start} end={end} style={styles.gradient}></LinearGradient>
@@ -62,7 +65,7 @@ function GameFailed({ gameResult, loaderState }) {
 						}
 					/>
 				</View>
-				{!ticker && (
+				{ticker && (
 					<View style={styles.timer}>
 						<Text style={styles.timer_text}>{toHHMMSS(timer)}</Text>
 					</View>
@@ -71,11 +74,18 @@ function GameFailed({ gameResult, loaderState }) {
 					<FastImage
 						style={styles.correct}
 						resizeMode={FastImage.resizeMode.contain}
-						source={require('@assets/instagram-logo.png')}
+						source={{ uri: gameResult.insta_img }}
 					/>
 				</View>
-				<FailerButtons ticker={ticker} publish={() => publish} visitSite={() => visitSite} wait={() => wait} />
+				<FailedButtons ticker={ticker} publish={() => publish} visitSite={() => visitSite} wait={() => wait} />
 			</View>
+			{site && (
+				<GameSite
+					timing={visitSiteTimer}
+					changeTimer={(value) => setVisitSiteTimer(value)}
+					setSite={() => setSite(!site)}
+				/>
+			)}
 		</View>
 	)
 }

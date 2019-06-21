@@ -41,6 +41,7 @@ const Navigator = createStackNavigator(
 		GameStart: { screen: require('@components/game-component/game-start').default },
 		GameSuccess: { screen: require('@components/game-component/game-success').default },
 		GameFailed: { screen: require('@components/game-component/game-failed').default },
+		GameSite: { screen: require('@components/game-component/game-site').default },
 	},
 	{
 		initialRouteName: 'Start',
