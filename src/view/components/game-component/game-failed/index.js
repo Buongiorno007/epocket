@@ -84,6 +84,7 @@ function GameFailed({ gameResult, loaderState }) {
 					timing={visitSiteTimer}
 					changeTimer={(value) => setVisitSiteTimer(value)}
 					setSite={() => setSite(!site)}
+					link={gameResult.link}
 				/>
 			)}
 		</View>

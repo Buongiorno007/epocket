@@ -105,7 +105,7 @@ class PhotoCamera extends React.Component {
 								androidRippleColor={this.props.userColor.card_shadow}
 								onPress={() => this.setState({ type: !this.state.type })}
 							>
-								<Refresh name='refresh' style={styles.icon_refresh} />
+								<Refresh name='refresh' size={20} color={'#000'} />
 							</Button>
 						</View>
 						<View>
@@ -117,7 +117,7 @@ class PhotoCamera extends React.Component {
 								androidRippleColor={this.props.userColor.card_shadow}
 								onPress={this.takePicture}
 							>
-								<Circle name='circle' style={styles.icon_circle} />
+								<Circle name='circle' size={20} color={'#000'} />
 							</Button>
 						</View>
 						<View>

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { View, WebView } from 'react-native'
 import { Button, Text } from 'native-base'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import styles from './styles'
 import FailerButtons from '@containers/game-containers/game-result/game-failed-buttons'
 import LinearGradient from 'react-native-linear-gradient'
@@ -12,7 +10,7 @@ import { toHHMMSS } from '@services/convert-time'
 import { ICONS } from '@constants/icons'
 import route from '@services/route'
 
-function GameSite({ gameResult, timing, setSite, changeTimer }) {
+export default function GameSite({ link, timing, changeTimer, setSite }) {
 	const [timer, setTimer] = useState(timing)
 	const colors = ['#FF9950', '#F55890']
 	const start = { x: 0.0, y: 0.0 }
@@ -80,14 +78,7 @@ function GameSite({ gameResult, timing, setSite, changeTimer }) {
 					/>
 				)}
 			</LinearGradient>
-			<WebView style={styles.container} source={{ uri: gameResult.link }}></WebView>
+			<WebView style={styles.container} source={{ uri: link }}></WebView>
 		</View>
 	)
 }
-const mapStateToProps = (state) => {
-	return {
-		gameResult: state.gameResult,
-	}
-}
-
-export default connect(mapStateToProps)(GameSite)
