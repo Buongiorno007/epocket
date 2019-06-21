@@ -8,6 +8,7 @@
         "ios": "react-native run-ios",
         "android:release": "cd android && ./gradlew clean && ./gradlew assembleRelease && cd ../",
         "android:clean": "cd android && ./gradlew clean && cd ../",
+        "android_bundleRelease": "cd android && ./gradlew clean && ./gradlew bundleRelease && cd ../",
         "js-check": "eslint --print-config .eslintrc | eslint-config-prettier-check --fix",
         "prettier": "prettier --write './src/**/*.js'",
         "text-gradient": "node node_modules/react-native-text-gradient/patch-rn.js",

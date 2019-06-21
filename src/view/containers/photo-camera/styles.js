@@ -56,7 +56,7 @@ export default StyleSheet.create({
 		width: width * 0.7,
 		alignItems: 'center',
 		flexDirection: 'row',
-		justifyContent: 'space-between',
+		justifyContent: 'space-around',
 	},
 	button: {
 		width: width * 0.12,
@@ -69,6 +69,8 @@ export default StyleSheet.create({
 		width: width * 0.2,
 		height: width * 0.2,
 		borderRadius: width * 0.1,
+		borderWidth: 1,
+		borderColor: 'gray',
 	},
 	icon_circle: {
 		color: '#000',

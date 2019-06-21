@@ -82,11 +82,15 @@ class Camera extends React.Component<Props, State> {
 				<View style={styles.frame}>
 					<RNCamera
 						captureAudio={false}
-						ratio={'1:1'}
-						ref={this.setRef}
+						// ratio={'1:1'}
 						style={styles.camera}
 						onBarCodeRead={this.send}
+						// onBarCodeRead={() => console.log('LOG')}
 						barCodeTypes={[RNCamera.Constants.BarCodeType.qr]}
+						// onGoogleVisionBarcodesDetected={() => console.log('LOG')}
+						// googleVisionBarcodeType={
+						// 	RNCamera.Constants.GoogleVisionBarcodeDetection.BarcodeType.DATA_MATRIX
+						// }
 						androidCameraPermissionOptions={{
 							title: I18n.t('TITLE'),
 							message: I18n.t('CAMERA_PERMISSION'),
