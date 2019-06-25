@@ -120,4 +120,6 @@ export default combineReducers({
 	send_code: require('./send-code').default,
 	gameProcess: require('./gameProcess').default,
 	gameResult: require('./gameResult').default,
+	bonuses: require('./bonuses').default,
+	refill: require('./refill').default,
 })
