@@ -1,6 +1,5 @@
 import { StyleSheet, Dimensions, StatusBar, Platform } from 'react-native'
 import { Header } from 'react-navigation'
-import { colors } from '@constants/colors'
 
 const { width, height } = Dimensions.get('window')
 
@@ -33,61 +32,47 @@ export default StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		marginHorizontal: 16,
-		paddingBottom: 48,
 	},
-	wrapper: {
+	field: {
 		width: '100%',
-	},
-	row: {
-		justifyContent: 'space-between',
-		flexDirection: 'row',
-		marginBottom: 32,
-	},
-	text: {
-		color: 'rgba(255, 255, 255, .75)',
-		marginBottom: 8,
-		fontSize: 12,
-	},
-	left: {
-		textAlign: 'left',
-	},
-	right: {
-		textAlign: 'right',
-	},
-	align: {
-		justifyContent: 'center',
-	},
-	image: {
-		right: 0,
-		top: 3,
-		zIndex: 100,
-		position: 'absolute',
-	},
-	text_input: {
-		width,
-		borderBottomColor: '#FFF',
 		borderBottomWidth: 1,
-		color: '#FFF',
-		paddingVertical: 10,
-		marginBottom: 32,
-	},
-	button: {
-		borderWidth: 1,
-		borderColor: '#fff',
-		height: 40,
-		width: width * 0.425,
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-	active_button: {
-		borderWidth: 0,
-		backgroundColor: 'rgba(255, 255, 255, 0.45)',
+		borderBottomColor: '#fff',
+		fontSize: 14,
+		fontFamily: 'Rubik-Regular',
+		lineHeight: 17,
+		color: '#fff',
+		textAlign: 'center',
+		padding: 10,
+		marginBottom: 10,
 	},
 	title: {
-		fontSize: 16,
+		fontSize: 15,
+		fontFamily: 'Rubik-Bold',
+		lineHeight: 18,
 		color: '#fff',
+		marginBottom: 20,
 	},
-	active_title: {
-		color: '#F63272',
+	sub_title: {
+		fontSize: 12,
+		fontFamily: 'Rubik-Regular',
+		lineHeight: 14,
+		color: 'rgba(255, 255, 255, .6)',
+		marginBottom: 10,
+	},
+	description: {
+		fontSize: 10,
+		lineHeight: 12,
+		textAlign: 'center',
+		color: 'rgba(255, 255, 255, .8)',
+	},
+	button: {
+		backgroundColor: '#fff',
+		marginTop: 30,
+	},
+	text: {
+		fontSize: 12,
+		lineHeight: 12,
+		fontFamily: 'Rubik-Medium',
+		letterSpacing: 2,
 	},
 })

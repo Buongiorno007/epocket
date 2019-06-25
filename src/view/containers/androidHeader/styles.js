@@ -1,10 +1,11 @@
-import { StyleSheet, StatusBar, Dimensions, Platform } from 'react-native'
+import { StyleSheet, Dimensions, StatusBar, Platform } from 'react-native'
+import { Header } from 'react-navigation'
 
 const { width, height } = Dimensions.get('window')
 
 const iPhoneX = Platform.OS === 'ios' && (height === 812 || width === 812 || height === 896 || width === 896)
 
-const toolbarHeight = Platform.OS === 'ios' ? 64 : 56
+const toolbarHeight = Platform.OS === 'ios' ? 64 : Header.HEIGHT
 
 export default StyleSheet.create({
 	layout: {
