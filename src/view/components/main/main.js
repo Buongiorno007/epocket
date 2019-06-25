@@ -27,6 +27,7 @@ import GameS from '@components/game-component/game-start'
 import GamePartners from '@components/game-component/game-partners'
 //services
 import GeolocationService from '../../../services/geolocation-service'
+import { getGameStart } from '@reducers/gameStart'
 
 class Main extends React.Component {
 	state = {
@@ -39,26 +40,15 @@ class Main extends React.Component {
 			return true
 		})
 		this.props.setColor(this.props.profileState.sex)
-		// if (__DEV__) {
-		//   this.setState({ develop: true });
-		// }
+		this.props.getGameStart()
+	}
+	componentDidUpdate(prevProps) {
+		if (prevProps.activeTab !== 0 && this.props.activeTab === 0) this.props.getGameStart()
+		if (prevProps.game_status === 'ticker' && this.props.game_status !== 'ticker') this.props.getGameStart()
 	}
 
 	renderLastTab() {
 		let container
-		// if (
-		// 	this.props.game_status === 'start' ||
-		// 	this.props.game_status === 'lock' ||
-		// 	this.props.game_status === 'initial'
-		// ) {
-		// 	// container = <GameStart />
-		// 	container = <GameS />
-		// } else if (this.props.game_status === 'expired' || this.props.game_status === 'failed') {
-		// 	container = <GameExpired />
-		// } else {
-		// 	container = <Game />
-		// }
-		console.log(this.props.game_status, 'GAME_STATUS')
 		if (this.props.game_status === 'ticker') {
 			container = <GamePartners />
 		} else {
@@ -111,6 +101,7 @@ const mapStateToProps = (state) => ({
 	selectedMall: state.selectedMall,
 	closestMall: state.closestMall,
 	profileState: state.profileState,
+	distance: state.distance,
 })
 
 const mapDispatchToProps = (dispatch) =>
@@ -122,6 +113,7 @@ const mapDispatchToProps = (dispatch) =>
 			setColor,
 			getGameInfo,
 			loaderState,
+			getGameStart,
 		},
 		dispatch,
 	)

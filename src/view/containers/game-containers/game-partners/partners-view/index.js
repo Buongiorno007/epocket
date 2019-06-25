@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { View, Text, TouchableOpacity, Image } from 'react-native'
-import { Button, Item } from 'native-base'
+import React, { useState } from 'react'
+import { View, Text, TouchableOpacity, Image, FlatList } from 'react-native'
 import { connect } from 'react-redux'
 import I18n from '@locales/I18n'
 import styles from './styles'
@@ -20,6 +19,23 @@ function PartnersView({ gameTicker }) {
 		await setLink(link)
 		await setSite(!site)
 	}
+	keyExtractor = (item, index) => {
+		return index.toString()
+	}
+
+	renderItem = ({ item, index }) => {
+		return (
+			<TouchableOpacity
+				key={index}
+				style={styles.each_brand}
+				onPress={() => {
+					setVisitLink(item.link)
+				}}
+			>
+				<Card image={item.image} name={item.name} />
+			</TouchableOpacity>
+		)
+	}
 
 	return (
 		<LinearGradient colors={colors} start={start} end={end} style={styles.gradient}>
@@ -27,22 +43,14 @@ function PartnersView({ gameTicker }) {
 			<Image style={styles.zifi} source={require('@assets/img/zifi/playful.gif')} />
 			<View style={styles.container}>
 				<Text style={styles.visit_partners}>{I18n.t('GAME.VISIT_PARTNERS')}</Text>
-				<View style={styles.brands}>
-					{gameTicker.partners &&
-						gameTicker.partners.map((item, index) => {
-							return (
-								<TouchableOpacity
-									key={index}
-									style={styles.each_brand}
-									onPress={() => {
-										setVisitLink(item.link)
-									}}
-								>
-									<Card image={item.image} name={item.name} />
-								</TouchableOpacity>
-							)
-						})}
-				</View>
+				<FlatList
+					style={styles.brands}
+					columnWrapperStyle={{ justifyContent: 'space-between' }}
+					numColumns={2}
+					keyExtractor={this.keyExtractor}
+					renderItem={this.renderItem}
+					data={gameTicker.partners}
+				/>
 				<TouchableOpacity style={styles.visit_trc}>
 					<Text style={styles.visit_trc_text}>{I18n.t('GAME.VISIT_NEAREST_ONE')}</Text>
 				</TouchableOpacity>

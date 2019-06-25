@@ -11,6 +11,7 @@ import { setTabState } from '../../../reducers/tabs'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { showDashboard } from '../../../reducers/show-dashboard'
+import { loaderState } from '@reducers/loader'
 import I18n from '@locales/I18n'
 
 class FooterNavigation extends React.Component {
@@ -29,6 +30,7 @@ class FooterNavigation extends React.Component {
 					transparent
 					style={[styles.footer_tab]}
 					onPress={() => {
+						this.props.loaderState(true)
 						this.props.setTabState(0)
 					}}
 				>
@@ -88,7 +90,7 @@ class FooterNavigation extends React.Component {
 				<Button transparent style={[styles.footer_tab]} onPress={() => this.props.setTabState(3)}>
 					<FastImage
 						resizeMode={FastImage.resizeMode.contain}
-						style={this.props.activeTab == 3 ? styles.footer_tab_icon_active : styles.footer_tab_icon}
+						style={this.props.activeTab === 3 ? styles.footer_tab_icon_active : styles.footer_tab_icon}
 						source={
 							this.props.activeTab === 3
 								? { uri: ICONS.FOOTER_TABS.PROFILE_ACTIVE }
@@ -118,6 +120,7 @@ const mapDispatchToProps = (dispatch) =>
 		{
 			setTabState,
 			showDashboard,
+			loaderState,
 		},
 		dispatch,
 	)

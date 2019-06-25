@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { View, ImageBackground, Image } from 'react-native'
-import { Button, Text } from 'native-base'
+import { View, Image } from 'react-native'
+import { Text } from 'native-base'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { loaderState } from '@reducers/loader'
@@ -50,7 +50,7 @@ function GameFailed({ gameResult, loaderState }) {
 
 	return (
 		<View style={styles.container}>
-			<LinearGradient colors={colors} start={start} end={end} style={styles.gradient}></LinearGradient>
+			<LinearGradient colors={colors} start={start} end={end} style={styles.gradient} />
 			<View style={styles.layout}>
 				<View style={styles.zifi_layout}>
 					<Text style={styles.zifi_text}>

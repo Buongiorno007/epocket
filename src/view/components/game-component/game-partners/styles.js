@@ -1,21 +1,13 @@
 import { StyleSheet, Dimensions, Platform } from 'react-native'
-import { Header } from 'react-navigation'
-import { colors } from '@constants/colors'
-const { width, height } = Dimensions.get('window')
-const iPhoneX = Platform.OS === 'ios' && (height === 812 || width === 812 || height === 896 || width === 896)
+const { width } = Dimensions.get('window')
 
 export default StyleSheet.create({
-	container: {
-		width,
-		height,
-		// position: 'absolute',
-	},
 	gradient: {
-		width,
 		flex: 1,
 		alignItems: 'center',
 		paddingBottom: 60,
 		paddingTop: 40,
+		zIndex: 3,
 	},
 	zifi_text: {
 		fontFamily: 'Rubik-BoldItalic',
@@ -28,50 +20,34 @@ export default StyleSheet.create({
 		marginTop: 8,
 		alignSelf: 'center',
 	},
-	timer: {
-		width: width * 0.3,
-		marginVertical: 16,
-		marginTop: 40,
-		height: 40,
-		borderRadius: 20,
-		backgroundColor: 'rgba(255, 255, 255, 0.25)',
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-	button: {
-		width: width * 0.6,
-		marginVertical: 16,
-		marginTop: 40,
-		height: 40,
-		borderRadius: 20,
-		backgroundColor: '#fff',
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-	timer_text: {
-		color: '#fff',
-		fontSize: 15,
-		fontFamily: 'Rubik-Bold',
-	},
-	button_text: {
-		color: '#F63272',
-		fontSize: 12,
-		fontFamily: 'Rubik-Medium',
-	},
-	img_container: {
+	container: {
 		flex: 1,
-		justifyContent: 'center',
+		width,
+		paddingHorizontal: 16,
 	},
-	icon: {
-		width: 27,
-		height: 27,
+	visit_partners: {
+		color: '#fff',
+		marginTop: 16,
+		marginBottom: 8,
 		alignSelf: 'center',
-		marginVertical: 16,
-		marginTop: 40,
-		justifyContent: 'center',
 	},
-	icon_img: {
-		width: 27,
-		height: 27,
+	brands: {
+		flex: 1,
+		paddingVertical: 8,
+		borderTopWidth: 1,
+		borderTopColor: 'rgba(255,255,255, 0.26)',
+		borderBottomWidth: 1,
+		borderBottomColor: 'rgba(255,255,255, 0.26)',
+	},
+	visit_trc: {
+		paddingVertical: 16,
+	},
+	visit_trc_text: {
+		color: '#fff',
+		alignSelf: 'center',
+	},
+	each_brand: {
+		width: width * 0.42,
+		marginBottom: width * 0.16 - 32,
 	},
 })

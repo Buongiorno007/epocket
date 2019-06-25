@@ -42,9 +42,6 @@ export default StyleSheet.create({
 		borderTopColor: 'rgba(255,255,255, 0.26)',
 		borderBottomWidth: 1,
 		borderBottomColor: 'rgba(255,255,255, 0.26)',
-		flexWrap: 'wrap',
-		flexDirection: 'row',
-		justifyContent: 'space-between',
 	},
 	visit_trc: {
 		paddingVertical: 16,
@@ -54,7 +51,7 @@ export default StyleSheet.create({
 		alignSelf: 'center',
 	},
 	each_brand: {
-		marginBottom: 16,
-		width: width * 0.4,
+		width: width * 0.42,
+		marginBottom: width * 0.16 - 32,
 	},
 })

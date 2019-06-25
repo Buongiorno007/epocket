@@ -56,7 +56,7 @@ function GameTimer({ gameProcess, profileState, userColor, finished }) {
 				borderWidth={0}
 				borderRadius={12}
 				height={5}
-				animationConfig={{ duration: gameProcess.time * 1000 }}
+				animationConfig={{ duration: gameProcess.time * 100 }}
 				progress={progress}
 				width={width - 32}
 				useNativeDriver={true}

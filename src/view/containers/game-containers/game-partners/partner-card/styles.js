@@ -12,6 +12,7 @@ export default StyleSheet.create({
 	},
 	image: {
 		flex: 1,
+		resizeMode: 'contain',
 	},
 	text_view: {
 		marginHorizontal: 8,
