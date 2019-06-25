@@ -8,7 +8,7 @@ export default StyleSheet.create({
 	container: {
 		width,
 		height,
-		position: 'absolute',
+		// position: 'absolute',
 	},
 	gradient: {
 		width,

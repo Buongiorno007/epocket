@@ -121,4 +121,5 @@ export default combineReducers({
 	send_code: require('./send-code').default,
 	gameProcess: require('./gameProcess').default,
 	gameResult: require('./gameResult').default,
+	gameTicker: require('./gameTicker').default,
 })

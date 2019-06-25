@@ -4,11 +4,30 @@ const { width, height } = Dimensions.get('window')
 import { colors } from '@constants/colors'
 
 export default StyleSheet.create({
+	gradient: {
+		// width,
+		flex: 1,
+		// height: height - 60,
+		alignItems: 'center',
+		paddingBottom: 60,
+		paddingTop: 40,
+		zIndex: 3,
+	},
+	zifi_text: {
+		fontFamily: 'Rubik-BoldItalic',
+		color: '#fff',
+		fontSize: 15,
+	},
+	zifi: {
+		width: width * 0.35,
+		height: width * 0.35,
+		marginTop: 8,
+		alignSelf: 'center',
+	},
 	container: {
 		flex: 1,
 		width,
 		paddingHorizontal: 16,
-		backgroundColor: 'pink',
 	},
 	visit_partners: {
 		color: '#fff',
@@ -19,13 +38,23 @@ export default StyleSheet.create({
 	brands: {
 		flex: 1,
 		paddingVertical: 8,
-		backgroundColor: 'yellow',
+		borderTopWidth: 1,
+		borderTopColor: 'rgba(255,255,255, 0.26)',
+		borderBottomWidth: 1,
+		borderBottomColor: 'rgba(255,255,255, 0.26)',
+		flexWrap: 'wrap',
+		flexDirection: 'row',
+		justifyContent: 'space-between',
 	},
 	visit_trc: {
 		paddingVertical: 16,
-		backgroundColor: 'blue',
 	},
 	visit_trc_text: {
 		color: '#fff',
+		alignSelf: 'center',
+	},
+	each_brand: {
+		marginBottom: 16,
+		width: width * 0.4,
 	},
 })

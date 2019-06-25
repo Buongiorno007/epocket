@@ -31,7 +31,7 @@ export const getGameResult = (body) => async (dispatch, getState) => {
 		if (response.body.message) {
 			route.navigate('GameSuccess')
 		} else {
-			route.navigate('GameFailed')
+			route.navigate('Main')
 		}
 	} catch (error) {
 		//NEED ADD SOMETHING IF NO GAME RESULT

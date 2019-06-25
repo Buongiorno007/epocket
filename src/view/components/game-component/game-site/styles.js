@@ -6,9 +6,12 @@ const iPhoneX = Platform.OS === 'ios' && (height === 812 || width === 812 || hei
 
 export default StyleSheet.create({
 	container: {
+		top: 0,
+		left: 0,
 		width,
 		height,
 		position: 'absolute',
+		zIndex: 100,
 	},
 	gradient: {
 		width,

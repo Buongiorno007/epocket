@@ -20,7 +20,7 @@ export default StyleSheet.create({
 				height: toolbarHeight,
 			},
 			ios: {
-				marginTop: iPhoneX ? 34 : 0,
+				marginTop: iPhoneX ? 8 : 0,
 				height: toolbarHeight,
 			},
 		}),

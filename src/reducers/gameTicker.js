@@ -1,46 +1,15 @@
-import { GAME_RESULT } from './__proto__'
-import AsyncStorage from '@react-native-community/async-storage'
-//constants
-import { urls } from '@constants/urls'
-//services
-import { httpPost } from '@services/http'
-//reducers
-import { loaderState } from '@reducers/loader'
-import route from '@services/route'
+import { GAME_TICKER } from './__proto__'
 
-const GAMERESULT = '[game resutl] GAMERESULT'
-
-const initialState = new GAME_RESULT()
+const TICKER = '[ticker] TICKER'
+const initialState = new GAME_TICKER()
 
 export default (state = initialState, action) => {
 	switch (action.type) {
-		case GAMERESULT:
-			return Object.assign(
-				{},
-				{
-					...state,
-					ticker: action.game.tiker,
-					award: action.game.award,
-					insta_img: action.game.insta_img,
-					video: action.game.video,
-					link: action.game.brand_link,
-					timer: action.game.timer,
-				},
-			)
+		case TICKER:
+			return action.ticker
 		default:
 			return state
 	}
 }
 
-export const getGameResult = (body) => async (dispatch, getState) => {
-	const { token } = getState()
-	try {
-		// const response = await httpPost(urls.game_result, JSON.stringify(body), token)
-	} catch (error) {
-		//NEED ADD SOMETHING IF NO GAME RESULT
-		console.log(error, 'getGameResult ERROR')
-		dispatch(loaderState(false))
-	}
-}
-
-export const saveGameTicker = (game) => ({ type: GAMERESULT, game })
+export const saveGameTicker = (ticker) => ({ type: TICKER, ticker })

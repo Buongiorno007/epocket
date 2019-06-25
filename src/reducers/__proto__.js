@@ -47,6 +47,10 @@ export const GAME_RESULT = function(data = {}) {
 	this.link = data.game_link || data.brand_link || ''
 	this.timer = data.timer || 20
 }
+export const GAME_TICKER = function(data = {}) {
+	this.partners = data.brand_partners || data.base_partners || []
+	this.timer = data.base_time || 0
+}
 
 export const AUTH = function(data = {}) {
 	DEFAULT.apply(this, arguments)

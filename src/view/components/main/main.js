@@ -24,6 +24,7 @@ import { setColor } from '../../../reducers/user-color'
 import { getGameInfo } from '../../../reducers/game-info'
 import { loaderState } from '../../../reducers/loader'
 import GameS from '@components/game-component/game-start'
+import GamePartners from '@components/game-component/game-partners'
 //services
 import GeolocationService from '../../../services/geolocation-service'
 
@@ -45,18 +46,25 @@ class Main extends React.Component {
 
 	renderLastTab() {
 		let container
-		if (
-			this.props.game_status === 'start' ||
-			this.props.game_status === 'lock' ||
-			this.props.game_status === 'initial'
-		) {
-			container = <GameStart />
-			// container = <GameS />
-		} else if (this.props.game_status === 'expired' || this.props.game_status === 'failed') {
-			container = <GameExpired />
+		// if (
+		// 	this.props.game_status === 'start' ||
+		// 	this.props.game_status === 'lock' ||
+		// 	this.props.game_status === 'initial'
+		// ) {
+		// 	// container = <GameStart />
+		// 	container = <GameS />
+		// } else if (this.props.game_status === 'expired' || this.props.game_status === 'failed') {
+		// 	container = <GameExpired />
+		// } else {
+		// 	container = <Game />
+		// }
+		console.log(this.props.game_status, 'GAME_STATUS')
+		if (this.props.game_status === 'ticker') {
+			container = <GamePartners />
 		} else {
-			container = <Game />
+			container = <GameS />
 		}
+
 		return container
 	}
 	render() {

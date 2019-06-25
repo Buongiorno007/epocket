@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { View, WebView } from 'react-native'
+import { View } from 'react-native'
 import { Button, Text } from 'native-base'
-import styles from './styles'
+import { WebView } from 'react-native-webview'
 import FailerButtons from '@containers/game-containers/game-result/game-failed-buttons'
 import LinearGradient from 'react-native-linear-gradient'
 import FastImage from 'react-native-fast-image'
@@ -9,8 +9,12 @@ import I18n from '@locales/I18n'
 import { toHHMMSS } from '@services/convert-time'
 import { ICONS } from '@constants/icons'
 import route from '@services/route'
+import { urls } from '@constants/urls'
+import { httpPost } from '@services/http'
+import { connect } from 'react-redux'
+import styles from './styles'
 
-export default function GameSite({ link, timing, changeTimer, setSite }) {
+function GameSite({ link, timing, changeTimer, setSite, token }) {
 	const [timer, setTimer] = useState(timing)
 	const colors = ['#FF9950', '#F55890']
 	const start = { x: 0.0, y: 0.0 }
@@ -29,7 +33,14 @@ export default function GameSite({ link, timing, changeTimer, setSite }) {
 		}
 	})
 
-	const main = () => route.navigate('Main')
+	const main = () => {
+		httpPost(urls.game_result, JSON.stringify({ status: true }), token).then(
+			(result) => {
+				route.navigate('Main')
+			},
+			(error) => {},
+		)
+	}
 
 	return (
 		<View style={styles.container}>
@@ -82,3 +93,10 @@ export default function GameSite({ link, timing, changeTimer, setSite }) {
 		</View>
 	)
 }
+const mapStateToProps = (state) => {
+	return {
+		token: state.token,
+	}
+}
+
+export default connect(mapStateToProps)(GameSite)
