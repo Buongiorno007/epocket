@@ -59,3 +59,14 @@ export const AUTH = function(data = {}) {
 	this.title = data.title || ''
 }
 AUTH.prototype = Object.create(DEFAULT.prototype)
+
+export const BONUSES = function(data = {}) {
+	DEFAULT.apply(this, arguments)
+	this.currency = data.currency || 'UAH'
+	this.phone = data.phone || ''
+	this.max = Number(data.refill) || 0
+	this.min = Number(data.min_refill) || 0
+	this.tax = Number(data.tax_amount) || 0
+	this.value = Number(data.received_bonuses) || 0
+}
+BONUSES.prototype = Object.create(DEFAULT.prototype)
