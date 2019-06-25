@@ -23,6 +23,7 @@ maybe need remove :{
   react-native-safe-area-view,
   react-native-screens,
   react-native-tab-view,
+  
   react-native-udp
 }
 

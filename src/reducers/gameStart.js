@@ -37,6 +37,7 @@ export const getGameStart = () => async (dispatch, getState) => {
 			await dispatch(setGameStatus('ticker'))
 		} else {
 			await dispatch(saveGameStart(new GAME_START(response.body)))
+			await dispatch(setGameStatus(''))
 		}
 		dispatch(loaderState(false))
 	} catch (error) {

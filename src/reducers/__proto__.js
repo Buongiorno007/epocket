@@ -40,6 +40,7 @@ export const GAME_PROCESS = function(data = {}) {
 }
 
 export const GAME_RESULT = function(data = {}) {
+	this.game_id = data.game_id || 0
 	this.ticker = data.ticker || ''
 	this.award = data.award || ''
 	this.insta_img = data.insta_img || ''

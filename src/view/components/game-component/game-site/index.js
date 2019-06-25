@@ -95,7 +95,7 @@ function GameSite({ link, timing, changeTimer, setSite, token, setGameStatus, lo
 					/>
 				)}
 			</LinearGradient>
-			<WebView style={styles.container} source={{ uri: link }}></WebView>
+			<WebView style={styles.container} source={{ uri: link }} />
 		</View>
 	)
 }
