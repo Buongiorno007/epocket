@@ -47,6 +47,7 @@ export const GAME_RESULT = function(data = {}) {
 	this.video = data.video || ''
 	this.link = data.game_link || data.brand_link || ''
 	this.timer = data.timer || 20
+	// this.timer = 10
 }
 export const GAME_TICKER = function(data = {}) {
 	this.partners = data.brand_partners || data.base_partners || []

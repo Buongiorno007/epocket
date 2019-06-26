@@ -36,15 +36,17 @@ function GameSite({ link, timing, changeTimer, setSite, token, setGameStatus, lo
 	})
 
 	const main = () => {
+		loaderState(true)
 		httpPost(urls.game_result, JSON.stringify({ status: true, ticker: true }), token).then(
 			(result) => {
-				loaderState(true)
 				clearTimeout(intervalId)
 				setGameStatus('')
 				setSite()
 				route.navigate('Main')
 			},
-			(error) => {},
+			(error) => {
+				loaderState(false)
+			},
 		)
 	}
 

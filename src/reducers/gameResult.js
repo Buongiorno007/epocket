@@ -36,7 +36,8 @@ export const getGameResult = (body) => async (dispatch, getState) => {
 	} catch (error) {
 		//NEED ADD SOMETHING IF NO GAME RESULT
 		console.log(error, 'getGameResult ERROR')
-		dispatch(loaderState(false))
+		route.navigate('Main')
+		// dispatch(loaderState(false))
 	}
 }
 

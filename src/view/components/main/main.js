@@ -40,7 +40,7 @@ class Main extends React.Component {
 			return true
 		})
 		this.props.setColor(this.props.profileState.sex)
-		this.props.getGameStart()
+		this.props.activeTab === 0 && this.props.getGameStart()
 	}
 	componentDidUpdate(prevProps) {
 		if (prevProps.activeTab !== 0 && this.props.activeTab === 0) this.props.getGameStart()

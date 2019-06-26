@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { View, Image } from 'react-native'
+import { View, Image, Platform } from 'react-native'
 import { Text } from 'native-base'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { loaderState } from '@reducers/loader'
 import styles from './styles'
 import GameSite from '@components/game-component/game-site'
 import FailedButtons from '@containers/game-containers/game-result/game-failed-buttons'
@@ -12,8 +11,11 @@ import FastImage from 'react-native-fast-image'
 import I18n from '@locales/I18n'
 import { toHHMMSS } from '@services/convert-time'
 import route from '@services/route'
+import { postToSocial } from '@services/post-to-social'
+import { setTabState } from '@reducers/tabs'
+import { checkPostStatus } from '@reducers/post-status'
 
-function GameFailed({ gameResult, loaderState }) {
+function GameFailed({ gameResult, insta_token, setTabState, checkPostStatus }) {
 	const [timer, setTimer] = useState(gameResult.timer)
 	const [ticker, setTicker] = useState(false)
 	const [site, setSite] = useState(false)
@@ -23,23 +25,41 @@ function GameFailed({ gameResult, loaderState }) {
 	const end = { x: 0.0, y: 1.0 }
 
 	useEffect(() => {
-		loaderState(false)
-	}, [])
-
-	useEffect(() => {
 		if (ticker && timer) {
 			const intervalId = setTimeout(() => {
 				if (timer) {
 					setTimer(timer - 1)
 				} else {
+					clearTimeout(intervalId)
 					route.navigate('Main')
 				}
 			}, 1000)
 		}
 	})
 
-	const publish = () => {
-		console.log('publish')
+	shareToInsta = () => {
+		if (Platform.OS === 'ios') {
+			postToSocial(gameResult, 'https://www.instagram.com/epocketapp/', this.confirmPost, gameResult.video)
+		} else {
+			postToSocial(gameResult.insta_img, 'https://www.instagram.com/epocketapp/', this.confirmPost)
+		}
+	}
+
+	confirmPost = () => {
+		if (gameResult.game_id) {
+			setTimeout(() => {
+				checkPostStatus()
+			}, 5000)
+		}
+	}
+
+	const publish = async () => {
+		if (insta_token) {
+			this.shareToInsta()
+		} else {
+			await setTabState(3)
+			await route.navigate('ProfileSettings')
+		}
 	}
 	const visitSite = () => {
 		setSite(!site)
@@ -47,6 +67,8 @@ function GameFailed({ gameResult, loaderState }) {
 	const wait = () => {
 		setTicker(!ticker)
 	}
+
+	console.log(insta_token, 'INSTATOKEN')
 
 	return (
 		<View style={styles.container}>
@@ -93,12 +115,14 @@ function GameFailed({ gameResult, loaderState }) {
 const mapStateToProps = (state) => {
 	return {
 		gameResult: state.gameResult,
+		insta_token: state.insta_token,
 	}
 }
 const mapDispatchToProps = (dispatch) =>
 	bindActionCreators(
 		{
-			loaderState,
+			setTabState,
+			checkPostStatus,
 		},
 		dispatch,
 	)
