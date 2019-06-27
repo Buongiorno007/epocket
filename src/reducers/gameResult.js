@@ -15,18 +15,7 @@ const initialState = new GAME_RESULT()
 export default (state = initialState, action) => {
 	switch (action.type) {
 		case GAMERESULT:
-			return Object.assign(
-				{},
-				{
-					...state,
-					ticker: action.game.tiker,
-					award: action.game.award,
-					insta_img: action.game.insta_img,
-					video: action.game.video,
-					link: action.game.brand_link,
-					timer: action.game.timer,
-				},
-			)
+			return action.game
 		default:
 			return state
 	}
@@ -42,13 +31,13 @@ export const getGameResult = (body) => async (dispatch, getState) => {
 		if (response.body.message) {
 			route.navigate('GameSuccess')
 		} else {
-			await AsyncStorage.setItem('game', JSON.stringify(gameResult))
 			route.navigate('Main')
 		}
 	} catch (error) {
 		//NEED ADD SOMETHING IF NO GAME RESULT
 		console.log(error, 'getGameResult ERROR')
-		dispatch(loaderState(false))
+		route.navigate('Main')
+		// dispatch(loaderState(false))
 	}
 }
 

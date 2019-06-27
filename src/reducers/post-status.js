@@ -30,6 +30,22 @@ export const changePostStatus = (status) => {
 		status,
 	}
 }
+
+export const checkPostStatus = () => async (dispatch, getState) => {
+	const { token, gameResult } = getState()
+	let body = JSON.stringify({
+		game_id: gameResult.game_id,
+	})
+	httpPost(urls.post_game, body, token).then(
+		(result) => {
+			console.log('RESULT POST STATUS')
+		},
+		(error) => {
+			console.log('ERROR POST STATUS')
+		},
+	)
+}
+
 export const checkForPostStatus = (game_id, token, lat, lng, game_expired_timer) => async (dispatch) => {
 	dispatch(loaderState(true))
 	let body = JSON.stringify({

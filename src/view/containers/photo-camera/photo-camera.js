@@ -80,7 +80,7 @@ class PhotoCamera extends React.Component {
 				<View style={[styles.camera, styles.size]}>
 					<RNCamera
 						captureAudio={false}
-						ratio={'1:1'}
+						// ratio={'1:1'}
 						ref={(ref) => (this.camera = ref)}
 						style={styles.preview}
 						type={!this.state.type ? RNCamera.Constants.Type.back : RNCamera.Constants.Type.front}
@@ -96,7 +96,7 @@ class PhotoCamera extends React.Component {
 				</View>
 				<View style={[styles.settings, styles.size]}>
 					<View style={styles.photo_button}>
-						<View>
+						{/* <View>
 							<Button
 								rounded
 								transparent
@@ -105,9 +105,9 @@ class PhotoCamera extends React.Component {
 								androidRippleColor={this.props.userColor.card_shadow}
 								onPress={() => this.setState({ type: !this.state.type })}
 							>
-								<Refresh name='refresh' style={styles.icon_refresh} />
+								<Refresh name='refresh' size={20} color={'#000'} />
 							</Button>
-						</View>
+						</View> */}
 						<View>
 							<Button
 								rounded
@@ -117,10 +117,10 @@ class PhotoCamera extends React.Component {
 								androidRippleColor={this.props.userColor.card_shadow}
 								onPress={this.takePicture}
 							>
-								<Circle name='circle' style={styles.icon_circle} />
+								{/* <Circle name='circle' size={20} color={'#000'} /> */}
 							</Button>
 						</View>
-						<View>
+						{/* <View>
 							<Button
 								rounded
 								transparent
@@ -135,7 +135,7 @@ class PhotoCamera extends React.Component {
 									style={styles.icon_flash}
 								/>
 							</Button>
-						</View>
+						</View> */}
 					</View>
 				</View>
 			</View>

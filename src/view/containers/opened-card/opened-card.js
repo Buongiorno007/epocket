@@ -89,31 +89,31 @@ class OpenedCard extends React.Component {
 							</ScrollView>
 							<View style={styles.my_button}>
 								{this.props.selectedMission.active ? (
-									this.state.notInMall ? (
-										<Button
-											transparent
-											block
-											rounded
-											bordered
-											light
-											style={styles.notInMall}
-											onPress={() => {}}
-										>
-											<Text style={styles.notInMall_text}>
-												{I18n.t('NOT_IN_ZONE').toUpperCase()}
-											</Text>
-										</Button>
-									) : (
-										<CustomButton
-											handler={() => {
-												this.executeTask()
-											}}
-											active
-											title={I18n.t('EXECUTE')}
-											color={this.props.selectedMission.color}
-										/>
-									)
+									// this.state.notInMall ? (
+									// 	<Button
+									// 		transparent
+									// 		block
+									// 		rounded
+									// 		bordered
+									// 		light
+									// 		style={styles.notInMall}
+									// 		onPress={() => {}}
+									// 	>
+									// 		<Text style={styles.notInMall_text}>
+									// 			{I18n.t('NOT_IN_ZONE').toUpperCase()}
+									// 		</Text>
+									// 	</Button>
+									// ) : (
+									<CustomButton
+										handler={() => {
+											this.executeTask()
+										}}
+										active
+										title={I18n.t('EXECUTE')}
+										color={this.props.selectedMission.color}
+									/>
 								) : (
+									// )
 									<Button
 										transparent
 										block

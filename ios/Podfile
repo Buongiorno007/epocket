@@ -57,8 +57,7 @@ target 'EpocketCash' do
     pod 'react-native-webview', :path => '../node_modules/react-native-webview'
     pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
     pod 'react-native-background-timer', :path => '../node_modules/react-native-background-timer'
-
-  pod 'RNShare', :path => '../node_modules/react-native-share'
+    pod 'RNShare', :path => '../node_modules/react-native-share'
 
 end
 

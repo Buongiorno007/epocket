@@ -40,12 +40,18 @@ export const GAME_PROCESS = function(data = {}) {
 }
 
 export const GAME_RESULT = function(data = {}) {
-	this.ticker = data.tiker || ''
-	this.award = `${data.award}` || ''
+	this.game_id = data.game_id || 0
+	this.ticker = data.ticker || ''
+	this.award = data.award || ''
 	this.insta_img = data.insta_img || ''
 	this.video = data.video || ''
 	this.link = data.game_link || data.brand_link || ''
-	this.timer = data.timer || 0
+	this.timer = data.timer || 20
+	// this.timer = 10
+}
+export const GAME_TICKER = function(data = {}) {
+	this.partners = data.brand_partners || data.base_partners || []
+	this.timer = data.base_time || 0
 }
 
 export const AUTH = function(data = {}) {

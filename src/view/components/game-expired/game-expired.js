@@ -94,17 +94,7 @@ class GameStart extends React.Component {
 		clearCorrectingInterval(this.state.interval)
 		AppState.removeEventListener('change', this._handleAppStateChange)
 	}
-	goInst = () => {
-		this.setState({ buttonActive: false })
-		if (!this.props.insta_token) {
-			this.refs.instagramLogin.show()
-		} else {
-			this.shareToInsta()
-		}
-		setTimeout(() => {
-			this.setState({ buttonActive: true })
-		}, 5000)
-	}
+
 	connectInsta = (instagram_token) => {
 		this.props.loaderState(true)
 		let body = JSON.stringify({
@@ -125,6 +115,7 @@ class GameStart extends React.Component {
 				} else {
 					CookieManager.clearAll().then((res) => {
 						this.setErrorVisible(true)
+						this.props.loaderState(false)
 					})
 				}
 			},
@@ -134,6 +125,32 @@ class GameStart extends React.Component {
 				})
 			},
 		)
+	}
+	goInst = () => {
+		this.setState({ buttonActive: false })
+		if (!this.props.insta_token) {
+			this.refs.instagramLogin.show()
+		} else {
+			this.shareToInsta()
+		}
+		setTimeout(() => {
+			this.setState({ buttonActive: true })
+			this.props.loaderState(false)
+		}, 5000)
+	}
+	shareToInsta = () => {
+		this.props.loaderState(true)
+		if (Platform.OS === 'ios') {
+			postToSocial(
+				this.props.game_expired_img,
+				'https://www.instagram.com/epocketapp/',
+				this.confirmPost,
+				this.props.game_expired_img.video,
+			)
+		} else {
+			postToSocial(this.props.game_expired_img, 'https://www.instagram.com/epocketapp/', this.confirmPost)
+		}
+		this.props.loaderState(false)
 	}
 	confirmPost = () => {
 		if (this.props.game_expired_img.id) {
@@ -154,19 +171,7 @@ class GameStart extends React.Component {
 					this.props.location.lng,
 				)
 		}
-	}
-	shareToInsta = () => {
-		this.props.loaderState(true)
-		if (Platform.OS === 'ios') {
-			postToSocial(
-				this.props.game_expired_img,
-				'https://www.instagram.com/epocketapp/',
-				this.confirmPost,
-				this.props.game_expired_img.video,
-			)
-		} else {
-			postToSocial(this.props.game_expired_img, 'https://www.instagram.com/epocketapp/', this.confirmPost)
-		}
+		this.props.loaderState(false)
 	}
 	startTimerWebsite = () => {
 		this.setState({

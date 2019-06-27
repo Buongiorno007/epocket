@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { View, Dimensions } from 'react-native'
 import { Button, Text } from 'native-base'
 import { connect } from 'react-redux'
-import styles from './styles'
+import BackgroundTimer from 'react-native-background-timer'
+import CustomProgressBar from '@containers/custom-progress-bar/custom-progress-bar'
 import { toHHMMSS } from '@services/convert-time'
 import I18n from '@locales/I18n'
-import CustomProgressBar from '@containers/custom-progress-bar/custom-progress-bar'
-import BackgroundTimer from 'react-native-background-timer'
+import styles from './styles'
 
 const { width } = Dimensions.get('window')
 

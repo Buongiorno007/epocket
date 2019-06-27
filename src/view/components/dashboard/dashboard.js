@@ -984,13 +984,11 @@ class Dashboard extends React.Component {
 											style={[
 												styles_top.epc_counter,
 												{
-													fontSize: 18,
+													fontSize: 80,
 												},
 											]}
 										>
-											{/* <Text> */}
 											{Number(this.state.mainMissionPrice).toFixed()}
-											{/* </Text> */}
 										</LinearTextGradient>
 										<Animated.Text
 											style={[

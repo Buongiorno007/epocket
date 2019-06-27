@@ -7,6 +7,7 @@ import qs from 'qs'
 import { Button } from 'native-base'
 import Icon from 'react-native-vector-icons/EvilIcons'
 const { width, height } = Dimensions.get('window')
+/* eslint-disable */
 const patchPostMessageJsCode = `(${String(function() {
 	var originalPostMessage = window.postMessage
 	var patchedPostMessage = function(message, targetOrigin, transfer) {
@@ -17,17 +18,18 @@ const patchPostMessageJsCode = `(${String(function() {
 	}
 	window.postMessage = patchedPostMessage
 })})();`
+/* eslint-enable */
 export default class Instagram extends Component {
 	constructor(props) {
 		super(props)
 		this.state = { modalVisible: false }
 	}
 
-	show() {
+	show = () => {
 		this.setState({ modalVisible: true })
 	}
 
-	hide() {
+	hide = () => {
 		this.setState({ modalVisible: false })
 	}
 
@@ -74,8 +76,9 @@ export default class Instagram extends Component {
 			<Modal
 				animationType={'slide'}
 				visible={this.state.modalVisible}
-				onRequestClose={this.hide.bind(this)}
+				onRequestClose={this.hide}
 				transparent
+				style={{ zIndex: 5 }}
 			>
 				<KeyboardAvoidingView
 					behavior='padding'
@@ -90,7 +93,7 @@ export default class Instagram extends Component {
 								'+',
 							)}`,
 						}}
-						scalesPageToFit
+						// scalesPageToFit
 						mixedContentMode={'compatibility'}
 						startInLoadingState
 						onNavigationStateChange={this._onNavigationStateChange.bind(this)}
@@ -101,7 +104,7 @@ export default class Instagram extends Component {
 						}}
 						injectedJavaScript={patchPostMessageJsCode}
 					/>
-					{!hideCloseButton ? (
+					{!hideCloseButton && (
 						<Button
 							transparent
 							rounded
@@ -111,7 +114,7 @@ export default class Instagram extends Component {
 						>
 							<Icon name='close' style={[styles.closeStyle, this.props.styles.closeStyle]} />
 						</Button>
-					) : null}
+					)}
 				</KeyboardAvoidingView>
 			</Modal>
 		)
@@ -158,7 +161,7 @@ const styles = StyleSheet.create({
 		position: 'relative',
 		height: height,
 		width: width,
-		paddingTop: 50,
+		paddingTop: 65,
 		backgroundColor: 'rgba(255,255,255,1)',
 	},
 
@@ -169,7 +172,7 @@ const styles = StyleSheet.create({
 		width: 40,
 		height: 40,
 		position: 'absolute',
-		top: 15,
+		top: 30,
 		right: 5,
 		alignItems: 'center',
 		justifyContent: 'center',

@@ -9,8 +9,6 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 class UserMarker extends React.Component {
-	componentDidMount() {}
-
 	render() {
 		return (
 			<View style={styles.main_view}>

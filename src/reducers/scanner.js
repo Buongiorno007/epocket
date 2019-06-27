@@ -4,6 +4,7 @@ import { loaderState } from '@reducers/loader'
 import { setShowQR } from '@reducers/set-show-qr'
 import { httpPost } from '@services/http'
 import { handleError } from '@services/http-error-handler'
+import I18n from '@locales/I18n'
 import route from '@services/route'
 
 const RESULT = '[scanner] RESULT'
@@ -17,7 +18,7 @@ export default (state = initialState, action) => {
 		case RESULT:
 			return Object.assign({}, { ...state, code: 1 })
 		case ERROR:
-			return Object.assign({}, { ...state, code: -1, message: action.error.message })
+			return Object.assign({}, { ...state, code: -1, message: I18n.t('HTTP_ERRORS.NOT_FOUND') })
 		case RESET:
 			return Object.assign({}, { ...initialState })
 		default:
@@ -25,27 +26,25 @@ export default (state = initialState, action) => {
 	}
 }
 
-export const sendCode = (missin_id, qrCode) => async (dispatch, getState) => {
+export const sendCode = (mission_id, qrCode) => async (dispatch, getState) => {
 	dispatch(reset())
 	dispatch(loaderState(true))
 	dispatch(setShowQR(false))
 	const { token } = getState()
-	const body = JSON.stringify({ missin_id, qrCode })
+	const body = JSON.stringify({ mission_id, qrCode })
 	try {
 		const response = await httpPost(urls.send_qr_code, body, token)
 		dispatch(result())
 		dispatch(loaderState(false))
 		dispatch(setShowQR(true))
 		route.navigate('Photograph')
-	} catch (error) {
-		error.code = -1
-		error.message = handleError(error, body, urls.send_qr_code, token, '', 'sendQRCode')
-		dispatch(error(new DEFAULT(error)))
+	} catch (e) {
+		dispatch(error())
 		dispatch(loaderState(false))
 		dispatch(setShowQR(true))
 	}
 }
 
 const result = () => ({ type: RESULT })
-const error = (error) => ({ type: ERROR, error })
+const error = () => ({ type: ERROR })
 const reset = () => ({ type: RESET })

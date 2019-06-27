@@ -66,9 +66,9 @@ class CardDiscount extends React.Component {
 						/>
 						<Text numberOfLines={3} style={styles.social_text}>
 							{this.props.type === 'instagram_connect'
-								? I18n.t('MAP.CONNECT_INSTA') + '10' + I18n.t('EPC', { currency: this.state.currency })
+								? I18n.t('MAP.CONNECT_INSTA') + '1' + I18n.t('EPC', { currency: this.state.currency })
 								: I18n.t('MAP.CONNECT_FACEBOOK') +
-								  '10' +
+								  '1' +
 								  I18n.t('EPC', { currency: this.state.currency })}
 						</Text>
 						<CustomButton

@@ -36,10 +36,10 @@ class Camera extends React.Component<Props, State> {
 
 	componentDidUpdate(prevProps) {
 		if (prevProps.scanner.code !== this.props.scanner.code && this.props.scanner.code) {
-			if (this.props.scanner.code !== -1) {
+			if (this.props.scanner.code !== 1) {
 				const { message } = this.props.scanner
-				this.setState({ error: message.error_text })
-				this.setModalVisible(message.error_modal)
+				this.setState({ error: message })
+				this.setAlert(true)
 			}
 		}
 	}
@@ -82,11 +82,15 @@ class Camera extends React.Component<Props, State> {
 				<View style={styles.frame}>
 					<RNCamera
 						captureAudio={false}
-						ratio={'1:1'}
-						ref={this.setRef}
+						// ratio={'1:1'}
 						style={styles.camera}
 						onBarCodeRead={this.send}
+						// onBarCodeRead={() => console.log('LOG')}
 						barCodeTypes={[RNCamera.Constants.BarCodeType.qr]}
+						// onGoogleVisionBarcodesDetected={() => console.log('LOG')}
+						// googleVisionBarcodeType={
+						// 	RNCamera.Constants.GoogleVisionBarcodeDetection.BarcodeType.DATA_MATRIX
+						// }
 						androidCameraPermissionOptions={{
 							title: I18n.t('TITLE'),
 							message: I18n.t('CAMERA_PERMISSION'),

@@ -54,7 +54,7 @@ class LongCard extends React.Component {
 					</View>
 					<Text style={styles.social_text}>
 						{I18n.t('DASHBOARD_LIST.ACCOUNT_AND_GET') +
-							' 10 ' +
+							' 1 ' +
 							I18n.t('EPC', { currency: this.state.currency })}
 					</Text>
 				</View>

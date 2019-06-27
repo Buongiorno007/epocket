@@ -49,13 +49,13 @@ class ProfileSettings extends React.Component {
 			],
 			() => {
 				NavigationService.navigate('Start')
-				this.props.setGameStatus('initial')
+				// this.props.setGameStatus('initial')
 				// this.props.setInstaToken('')
 				// this.props.setFacebookToken('')
 				CookieManager.clearAll()
 			},
 		)
-		this.props.setTabState(1)
+		this.props.setTabState(0)
 	}
 	LoginFacebook = (token) => {
 		this.props.loaderState(true)
@@ -113,15 +113,11 @@ class ProfileSettings extends React.Component {
 		httpPost(urls.insta_logout, body, this.props.token).then(
 			(result) => {
 				this.props.loaderState(false)
-				CookieManager.clearAll().then((res) => {
-					this.props.loaderState(false)
-				})
+				CookieManager.clearAll()
 			},
 			(error) => {
 				this.props.loaderState(false)
-				CookieManager.clearAll().then((res) => {
-					this.props.loaderState(false)
-				})
+				CookieManager.clearAll()
 			},
 		)
 	}
@@ -135,7 +131,7 @@ class ProfileSettings extends React.Component {
 		})
 		httpPost(urls.insta_login, body, this.props.token).then(
 			(result) => {
-				if (result.status === 200) {
+				if (result.status === 202 || result.status === 200) {
 					this.props.setInstaToken(String(instagram_token))
 					this.props.loaderState(false)
 				} else if (result.status === 201) {
@@ -193,6 +189,7 @@ class ProfileSettings extends React.Component {
 				<InstagramLogin
 					ref='instagramLogin'
 					clientId='7df789fc907d4ffbbad30b7e25ba3933'
+					redirectUrl='https://epocket.dev.splinestudio.com'
 					scopes={['basic']}
 					onLoginSuccess={(token) => this.connectInsta(token)}
 					onLoginFailure={(data) => {
