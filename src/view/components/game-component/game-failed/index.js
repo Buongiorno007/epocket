@@ -14,8 +14,11 @@ import route from '@services/route'
 import { postToSocial } from '@services/post-to-social'
 import { setTabState } from '@reducers/tabs'
 import { checkPostStatus } from '@reducers/post-status'
+import { urls } from '@constants/urls'
+import { httpPost } from '@services/http'
+import { loaderState } from '@reducers/loader'
 
-function GameFailed({ gameResult, insta_token, setTabState, checkPostStatus }) {
+function GameFailed({ gameResult, insta_token, setTabState, checkPostStatus, loaderState, token }) {
 	const [timer, setTimer] = useState(gameResult.timer)
 	const [ticker, setTicker] = useState(false)
 	const [site, setSite] = useState(false)
@@ -31,17 +34,30 @@ function GameFailed({ gameResult, insta_token, setTabState, checkPostStatus }) {
 					setTimer(timer - 1)
 				} else {
 					clearTimeout(intervalId)
-					route.navigate('Main')
 				}
 			}, 1000)
+		} else if (!timer) {
+			this.waitDone()
 		}
 	})
+
+	waitDone = () => {
+		loaderState(true)
+		httpPost(urls.game_result, JSON.stringify({ status: true, ticker: true }), token).then(
+			(result) => {
+				route.navigate('Main')
+			},
+			(error) => {
+				route.navigate('Main')
+			},
+		)
+	}
 
 	shareToInsta = () => {
 		if (Platform.OS === 'ios') {
 			postToSocial(gameResult, 'https://www.instagram.com/epocketapp/', this.confirmPost, gameResult.video)
 		} else {
-			postToSocial(gameResult.insta_img, 'https://www.instagram.com/epocketapp/', this.confirmPost)
+			postToSocial(gameResult, 'https://www.instagram.com/epocketapp/', this.confirmPost)
 		}
 	}
 
@@ -116,6 +132,7 @@ const mapStateToProps = (state) => {
 	return {
 		gameResult: state.gameResult,
 		insta_token: state.insta_token,
+		token: state.token,
 	}
 }
 const mapDispatchToProps = (dispatch) =>
@@ -123,6 +140,7 @@ const mapDispatchToProps = (dispatch) =>
 		{
 			setTabState,
 			checkPostStatus,
+			loaderState,
 		},
 		dispatch,
 	)
