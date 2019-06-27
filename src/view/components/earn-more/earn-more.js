@@ -122,9 +122,11 @@ class EarnMore extends React.Component {
 			(result) => {
 				this.props.setBalance(result.body.media.status.balance)
 				this.skip()
+				this.props.loaderState(false)
 			},
 			(error) => {
 				this.skip()
+				this.props.loaderState(false)
 			},
 		)
 	}
