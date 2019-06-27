@@ -70,6 +70,7 @@ function GameFailed({ gameResult, insta_token, setTabState, checkPostStatus, loa
 	}
 
 	const publish = async () => {
+		loaderState(true)
 		if (insta_token) {
 			this.shareToInsta()
 		} else {

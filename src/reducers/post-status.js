@@ -15,6 +15,7 @@ import { errorState } from './game-error'
 import { setTempTime } from './tempTime'
 import { setGameStatus } from './game-status'
 import { setGameInfo } from './game-info'
+import route from '@services/route'
 
 export default (state = false, action) => {
 	switch (action.type) {
@@ -38,10 +39,11 @@ export const checkPostStatus = () => async (dispatch, getState) => {
 	})
 	httpPost(urls.post_game, body, token).then(
 		(result) => {
-			console.log('RESULT POST STATUS')
+			route.navigate('Main')
 		},
 		(error) => {
-			console.log('ERROR POST STATUS')
+			console.log(error, 'ERROR POST STATUS')
+			dispatch(loaderState(false))
 		},
 	)
 }

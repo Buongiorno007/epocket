@@ -38,6 +38,9 @@ class ProfileSettings extends React.Component {
 		errorVisible: false,
 		userCount: 0,
 	}
+	componentDidMount() {
+		this.props.loaderState(false)
+	}
 	LogOut = () => {
 		AsyncStorage.multiSet(
 			[

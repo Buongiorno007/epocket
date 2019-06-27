@@ -6,7 +6,6 @@ import com.facebook.CallbackManager;
 import com.jobeso.RNInstagramStoryShare.RNInstagramStorySharePackage;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.ReactApplication;
-import com.RNTextInputMask.RNTextInputMaskPackage;
 import cl.json.RNSharePackage;
 import com.ocetnik.timer.BackgroundTimerPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
@@ -81,7 +80,6 @@ public class MainApplication extends Application implements ShareApplication, Re
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-                    new RNTextInputMaskPackage(),
                     new AsyncStoragePackage(),
                     new RNCWebViewPackage(),
                     new BlurViewPackage(),

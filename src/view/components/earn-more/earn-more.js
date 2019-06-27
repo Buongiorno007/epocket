@@ -189,16 +189,16 @@ class EarnMore extends React.Component {
 					}}
 				/>
 				<View style={styles.success}>
-					<Text style={[styles.more_money, styles.text_common]}>
+					{/* <Text style={[styles.more_money, styles.text_common]}>
 						{I18n.t('MISSION.MORE_MONEY', { currency: this.state.currency })}
-					</Text>
+					</Text> */}
 					<Text style={[styles.more_text, styles.text_common]}>{I18n.t('MISSION.MORE_TEXT')}</Text>
 					<Text style={[styles.more_deck, styles.text_common]}>{I18n.t('MISSION.MORE_DESC')}</Text>
 					<CustomButton
 						style={styles.earn_more_btn}
 						active
 						short
-						title={I18n.t('MISSION.EARN_MORE').toUpperCase()}
+						title={I18n.t('MISSION.SHARE').toUpperCase()}
 						color={this.props.userColor.pink_blue}
 						handler={() => {
 							this.earnMore()

@@ -4,6 +4,7 @@ import RNFetchBlob from 'rn-fetch-blob'
 import RNFS from 'react-native-fs'
 import Share from 'react-native-share'
 import I18n from '@locales/I18n'
+import { convertToBase64 } from './convert-to-base64'
 
 confirmFuction = () => {
 	//this func will be overrided for iOS for callBack
@@ -79,7 +80,7 @@ callCallback = (callback) => {
 //       });
 //   }
 // }
-export function postToSocial(postData, deepLink, confirmFuction, video_status) {
+export async function postToSocial(postData, deepLink, confirmFuction, video_status) {
 	let base64Prefix = 'data:image/jpg;base64,'
 	const dirs = RNFetchBlob.fs.dirs
 	let file_path
@@ -147,6 +148,9 @@ export function postToSocial(postData, deepLink, confirmFuction, video_status) {
 			requestStoragePermission(post_data, file_path, deepLink, confirmFuction, type, video_status)
 		} else {
 			type = 'base64'
+			if (postData.insta_img) {
+				postData.base64 = await convertToBase64(postData.insta_img)
+			}
 			if (postData.base64 && postData.base64.includes(base64Prefix)) {
 				post_data = postData.base64.split('data:image/jpg;base64,')[1]
 			} else {
