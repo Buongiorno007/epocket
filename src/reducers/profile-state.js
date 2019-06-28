@@ -49,7 +49,7 @@ export const getUser = (token) => async (dispatch) => {
 		// await dispatch(getPush(token))
 		await dispatch(setInstaToken(response.body.is_insta_logged))
 		await dispatch(setBalance(Number(response.body.balance)))
-		await dispatch(current())
+		// await dispatch(current())
 		route.navigate('Main')
 	} catch (error) {}
 }
