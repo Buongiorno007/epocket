@@ -18,7 +18,6 @@ export default combineReducers({
 	//HISTORY BONUSES to services
 	receivedBonusesJSX: require('./history-received-success').default,
 	spentBonusesJSX: require('./history-sent-success').default,
-	info: require('./info').default,
 	initial_outlets: require('./initial-outlets').default,
 	insta_token: require('./insta-token').default,
 	loader: require('./loader').default,

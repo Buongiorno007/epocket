@@ -36,11 +36,10 @@ const Navigator = createStackNavigator(
 		Partners: { screen: require('@components/partners/partners').default },
 		ProfEdit: { screen: require('@components/profile-edit/profileEdit').default },
 		Gamee: { screen: require('@components/game-component/game').default },
-		GameStart: { screen: require('@components/game-component/game-start').default },
+		// GameStart: { screen: require('@components/game-component/game-start').default },
 		GameSuccess: { screen: require('@components/game-component/game-success').default },
 		GameFailed: { screen: require('@components/game-component/game-failed').default },
-		// GameSite: { screen: require('@components/game-component/game-site').default },
-		GamePartners: { screen: require('@components/game-component/game-partners').default },
+		// GamePartners: { screen: require('@components/game-component/game-partners').default },
 	},
 	{
 		initialRouteName: 'Start',

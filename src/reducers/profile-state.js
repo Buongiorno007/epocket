@@ -16,6 +16,7 @@ import { setBalance } from '@reducers/user-balance'
 import { setToken } from '@reducers/token'
 import { getPush } from '@reducers/push'
 import { current } from '@reducers/location'
+import { setColor } from '@reducers/user-color'
 //locales
 import I18n from '@locales/I18n'
 
@@ -47,6 +48,7 @@ export const getUser = (token) => async (dispatch) => {
 		await dispatch(saveUser(user))
 		await dispatch(setToken(token))
 		// await dispatch(getPush(token))
+		await dispatch(setColor(user.sex))
 		await dispatch(setInstaToken(response.body.is_insta_logged))
 		await dispatch(setBalance(Number(response.body.balance)))
 		// await dispatch(current())

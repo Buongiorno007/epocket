@@ -3,23 +3,22 @@ import { View, BackHandler, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 //components
-import Map from './../map/map'
-import Profile from './../profile/profile'
-import History from './../history/history'
-//containers
-import ReturnToMall from '../../containers/return-to-mall-timer/return-to-mall-timer'
-import TimerModal from '../../containers/timer-modal/timer-modal'
-import LocationDisabled from '../../containers/location-disabled/location-disabled'
-//constants
-import styles from './styles'
-//redux
-import { setActiveCard } from '../../../reducers/set-active-card'
-import { setColor } from '../../../reducers/user-color'
+import Map from '@componentsmap/map'
+import Profile from '@componentsprofile/profile'
+import History from '@componentshistory/history'
 import GameS from '@components/game-component/game-start'
 import GamePartners from '@components/game-component/game-partners'
-//services
-import GeolocationService from '../../../services/geolocation-service'
+//containers
+import ReturnToMall from '@containers/return-to-mall-timer/return-to-mall-timer'
+import TimerModal from '@containers/timer-modal/timer-modal'
+import LocationDisabled from '@containers/location-disabled/location-disabled'
+//reducers
+import { setActiveCard } from '@reducers/set-active-card'
 import { getGameStart } from '@reducers/gameStart'
+//services
+import GeolocationService from '@services/geolocation-service'
+//styles
+import styles from './styles'
 
 class Main extends React.Component {
 	componentDidMount() {
@@ -27,7 +26,6 @@ class Main extends React.Component {
 			this.props.setActiveCard(false)
 			return true
 		})
-		this.props.setColor(this.props.profileState.sex)
 		this.props.activeTab === 0 && this.props.getGameStart()
 	}
 
@@ -43,9 +41,9 @@ class Main extends React.Component {
 		} else {
 			container = <GameS />
 		}
-
 		return container
 	}
+
 	render() {
 		return (
 			<View style={styles.main_view}>
@@ -88,7 +86,6 @@ const mapDispatchToProps = (dispatch) =>
 	bindActionCreators(
 		{
 			setActiveCard,
-			setColor,
 			getGameStart,
 		},
 		dispatch,

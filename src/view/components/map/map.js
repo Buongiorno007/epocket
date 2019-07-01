@@ -37,7 +37,6 @@ import { showDashboard } from '../../../reducers/show-dashboard'
 import { loaderState } from '../../../reducers/loader'
 import { setOutlets } from '../../../reducers/outlet-list'
 import { setInitialOutlets } from '../../../reducers/initial-outlets'
-import { setInfo } from '../../../reducers/info'
 import { setInstaToken } from '../../../reducers/insta-token'
 import { setFacebookToken } from '../../../reducers/facebook-token'
 import { showTimer } from '../../../reducers/show-dashboard-timer'
@@ -1278,7 +1277,6 @@ const mapDispatchToProps = (dispatch) =>
 			loaderState,
 			setOutlets,
 			setNavigateToMall,
-			setInfo,
 			setInstaToken,
 			setFacebookToken,
 			loaderState,
