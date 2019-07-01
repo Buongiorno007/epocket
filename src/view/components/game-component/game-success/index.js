@@ -3,19 +3,18 @@ import { Text, Image } from 'react-native'
 import { Button } from 'native-base'
 import LinearGradient from 'react-native-linear-gradient'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { loaderState } from '@reducers/loader'
 import route from '@services/route'
 import styles from './styles'
 import I18n from '@locales/I18n'
 
-function GameSuccess({ profileState, gameResult, loaderState }) {
+function GameSuccess({ profileState, gameResult, dispatch }) {
 	const colors = ['#770CE1', '#D629C5', '#F55890', '#FF8D50', '#F7BB42']
 	const start = { x: 1.0, y: 0.0 }
 	const end = { x: 0.0, y: 1.0 }
 
 	useEffect(() => {
-		loaderState(false)
+		dispatch(loaderState(false))
 	}, [])
 
 	const navigate = () => {
@@ -44,15 +43,4 @@ const mapStateToProps = (state) => ({
 	gameResult: state.gameResult,
 })
 
-const mapDispatchToProps = (dispatch) =>
-	bindActionCreators(
-		{
-			loaderState,
-		},
-		dispatch,
-	)
-
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps,
-)(GameSuccess)
+export default connect(mapStateToProps)(GameSuccess)

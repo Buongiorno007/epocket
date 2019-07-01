@@ -21,7 +21,7 @@ import I18n from '@locales/I18n'
 //styles
 import styles from './styles'
 
-function GameFailed({ gameResult, publish, waited }) {
+function GameFailed({ gameResult, dispatch }) {
 	const [timer, setTimer] = useState(gameResult.timer)
 	const [ticker, setTicker] = useState(false)
 	const [site, setSite] = useState(false)
@@ -40,12 +40,12 @@ function GameFailed({ gameResult, publish, waited }) {
 				}
 			}, 1000)
 		} else if (!timer) {
-			waited()
+			dispatch(waited())
 		}
 	})
 
 	const publicToInst = () => {
-		publish()
+		dispatch(publish())
 	}
 	const visitSite = () => {
 		setSite(!site)
@@ -106,16 +106,5 @@ const mapStateToProps = (state) => {
 		gameResult: state.gameResult,
 	}
 }
-const mapDispatchToProps = (dispatch) =>
-	bindActionCreators(
-		{
-			waited,
-			publish,
-		},
-		dispatch,
-	)
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps,
-)(GameFailed)
+export default connect(mapStateToProps)(GameFailed)

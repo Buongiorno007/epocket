@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { View } from 'react-native'
 import { Button, Text } from 'native-base'
 import { WebView } from 'react-native-webview'
-import { bindActionCreators } from 'redux'
 import LinearGradient from 'react-native-linear-gradient'
 import FastImage from 'react-native-fast-image'
 import I18n from '@locales/I18n'
@@ -16,7 +15,7 @@ import styles from './styles'
 import { setGameStatus } from '@reducers/game-status'
 import { loaderState } from '@reducers/loader'
 
-function GameSite({ link, timing, changeTimer, setSite, token, setGameStatus, loaderState }) {
+function GameSite({ link, timing, changeTimer, setSite, token, dispatch }) {
 	const [timer, setTimer] = useState(timing)
 	const colors = ['#FF9950', '#F55890']
 	const start = { x: 0.0, y: 0.0 }
@@ -26,26 +25,22 @@ function GameSite({ link, timing, changeTimer, setSite, token, setGameStatus, lo
 	useEffect(() => {
 		if (timer) {
 			intervalId = setTimeout(() => {
-				if (timer) {
-					setTimer(timer - 1)
-				} else {
-					console.log('finished')
-				}
+				setTimer(timer - 1)
 			}, 1000)
 		}
 	}, [timer])
 
 	const main = async () => {
-		loaderState(true)
+		dispatch(loaderState(true))
 		try {
 			await httpPost(urls.game_result, JSON.stringify({ status: true, ticker: true }), token)
 			await clearTimeout(intervalId)
-			await setGameStatus('')
+			await dispatch(setGameStatus(''))
 			await setSite()
 			await route.navigate('Main')
 		} catch (error) {
 			console.log(error, 'game-site main ERROR')
-			loaderState(false)
+			dispatch(loaderState(false))
 		}
 	}
 
@@ -105,16 +100,5 @@ const mapStateToProps = (state) => {
 		token: state.token,
 	}
 }
-const mapDispatchToProps = (dispatch) =>
-	bindActionCreators(
-		{
-			setGameStatus,
-			loaderState,
-		},
-		dispatch,
-	)
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps,
-)(GameSite)
+export default connect(mapStateToProps)(GameSite)
