@@ -41,13 +41,9 @@ class ProfileSettings extends React.Component {
 		this.props.loaderState(false)
 	}
 	LogOut = () => {
-		AsyncStorage.multiSet(
-			[['token', ''], ['cashout_cart', ''], ['cashout_cart_time', ''], ['cashout_cart_id', '']],
-			() => {
-				NavigationService.navigate('Start')
-				CookieManager.clearAll()
-			},
-		)
+		AsyncStorage.setItem('token', '')
+		NavigationService.navigate('Start')
+		CookieManager.clearAll()
 		this.props.setTabState(0)
 	}
 	LoginFacebook = (token) => {

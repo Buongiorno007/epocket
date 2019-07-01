@@ -1,5 +1,3 @@
-import AsyncStorage from '@react-native-community/async-storage'
-
 export const FACEBOOK_TOKEN_UPDATE = 'facebook-token/FACEBOOK_TOKEN_UPDATE'
 
 export default (state = true, action) => {

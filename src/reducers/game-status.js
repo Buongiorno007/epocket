@@ -1,5 +1,3 @@
-import AsyncStorage from '@react-native-community/async-storage'
-// import console = require("console");
 export const GAME_STATUS = 'game-status/GAME_STATUS'
 
 export default (state = '', action) => {

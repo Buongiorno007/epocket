@@ -26,20 +26,18 @@ export const coordinate = () => async (dispatch) => {
 				lat: Number(location.coords.latitude),
 			}
 			dispatch(setCoordinate(response))
-			dispatch(setStatus(true))
 		} else {
 			if (location.lng) {
 				dispatch(setCoordinate(location))
-				dispatch(setStatus(true))
 			} else {
 				const response = {
 					lat: location.latitude || 0,
 					lng: location.longitude || 0,
 				}
 				dispatch(setCoordinate(response))
-				dispatch(setStatus(true))
 			}
 		}
+		dispatch(setStatus(true))
 	})
 }
 

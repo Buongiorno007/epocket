@@ -1,6 +1,5 @@
 import { Platform } from 'react-native'
 import { PROFILE } from './__proto__'
-import AsyncStorage from '@react-native-community/async-storage'
 //constants
 import { urls } from '@constants/urls'
 import config from '@constants/config'
@@ -51,7 +50,6 @@ export const getUser = (token) => async (dispatch) => {
 		await dispatch(setColor(user.sex))
 		await dispatch(setInstaToken(response.body.is_insta_logged))
 		await dispatch(setBalance(Number(response.body.balance)))
-		// await dispatch(current())
 		route.navigate('Main')
 	} catch (error) {}
 }

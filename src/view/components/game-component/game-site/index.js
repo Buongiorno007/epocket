@@ -35,19 +35,18 @@ function GameSite({ link, timing, changeTimer, setSite, token, setGameStatus, lo
 		}
 	}, [timer])
 
-	const main = () => {
+	const main = async () => {
 		loaderState(true)
-		httpPost(urls.game_result, JSON.stringify({ status: true, ticker: true }), token).then(
-			async (result) => {
-				await clearTimeout(intervalId)
-				await setGameStatus('')
-				await setSite()
-				route.navigate('Main')
-			},
-			(error) => {
-				loaderState(false)
-			},
-		)
+		try {
+			await httpPost(urls.game_result, JSON.stringify({ status: true, ticker: true }), token)
+			await clearTimeout(intervalId)
+			await setGameStatus('')
+			await setSite()
+			await route.navigate('Main')
+		} catch (error) {
+			console.log(error, 'game-site ERROR')
+			loaderState(false)
+		}
 	}
 
 	return (

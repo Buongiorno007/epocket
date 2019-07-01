@@ -1,5 +1,4 @@
 import { GAME_RESULT } from './__proto__'
-import AsyncStorage from '@react-native-community/async-storage'
 //constants
 import { urls } from '@constants/urls'
 //services
@@ -25,7 +24,6 @@ export const getGameResult = (body) => async (dispatch, getState) => {
 	const { token } = getState()
 	try {
 		const response = await httpPost(urls.game_result, JSON.stringify(body), token)
-		console.log(response, 'RESPONSE')
 		const gameResult = new GAME_RESULT(response.body)
 		await dispatch(saveGameResult(gameResult))
 		if (response.body.message) {
@@ -37,7 +35,6 @@ export const getGameResult = (body) => async (dispatch, getState) => {
 		//NEED ADD SOMETHING IF NO GAME RESULT
 		console.log(error, 'getGameResult ERROR')
 		route.navigate('Main')
-		// dispatch(loaderState(false))
 	}
 }
 

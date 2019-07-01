@@ -1,5 +1,3 @@
-import AsyncStorage from '@react-native-community/async-storage'
-
 export const INSTA_TOKEN_UPDATE = 'insta-token/INSTA_TOKEN_UPDATE'
 
 export default (state = '', action) => {
