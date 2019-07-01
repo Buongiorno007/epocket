@@ -3,9 +3,9 @@ import { View, BackHandler, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 //components
-import Map from '@componentsmap/map'
-import Profile from '@componentsprofile/profile'
-import History from '@componentshistory/history'
+import Map from '@components/map/map'
+import Profile from '@components/profile/profile'
+import History from '@components/history/history'
 import GameS from '@components/game-component/game-start'
 import GamePartners from '@components/game-component/game-partners'
 //containers
@@ -79,7 +79,6 @@ const mapStateToProps = (state) => ({
 	timerShow: state.timerShow,
 	selectedMall: state.selectedMall,
 	closestMall: state.closestMall,
-	profileState: state.profileState,
 })
 
 const mapDispatchToProps = (dispatch) =>

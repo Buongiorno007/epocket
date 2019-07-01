@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from 'react'
-import { View, Image, Platform } from 'react-native'
-import { Text } from 'native-base'
+import { View, Image, Platform, Text } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import styles from './styles'
-import GameSite from '@components/game-component/game-site'
-import FailedButtons from '@containers/game-containers/game-result/game-failed-buttons'
 import LinearGradient from 'react-native-linear-gradient'
 import FastImage from 'react-native-fast-image'
-import I18n from '@locales/I18n'
+//services
 import { toHHMMSS } from '@services/convert-time'
 import route from '@services/route'
 import { postToSocial } from '@services/post-to-social'
-import { setTabState } from '@reducers/tabs'
-import { checkPostStatus } from '@reducers/post-status'
 import { urls } from '@constants/urls'
 import { httpPost } from '@services/http'
-import { loaderState } from '@reducers/loader'
-import { publish } from '../../../../reducers/post-status'
+//reducers
+import { publish, waited } from '@reducers/post-status'
+//components
+import GameSite from '@components/game-component/game-site'
+//containers
+import FailedButtons from '@containers/game-containers/game-result/game-failed-buttons'
+//locales
+import I18n from '@locales/I18n'
+//styles
+import styles from './styles'
 
-function GameFailed({ gameResult, insta_token, setTabState, checkPostStatus, loaderState, publish, token }) {
+function GameFailed({ gameResult, publish, waited }) {
 	const [timer, setTimer] = useState(gameResult.timer)
 	const [ticker, setTicker] = useState(false)
 	const [site, setSite] = useState(false)
@@ -38,20 +40,18 @@ function GameFailed({ gameResult, insta_token, setTabState, checkPostStatus, loa
 				}
 			}, 1000)
 		} else if (!timer) {
-			this.waitDone()
+			waited()
 		}
 	})
 
-	waitDone = () => {
-		loaderState(true)
-		httpPost(urls.game_result, JSON.stringify({ status: true, ticker: true }), token).then(
-			(result) => {
-				route.navigate('Main')
-			},
-			(error) => {
-				route.navigate('Main')
-			},
-		)
+	const publicToInst = () => {
+		publish()
+	}
+	const visitSite = () => {
+		setSite(!site)
+	}
+	const wait = () => {
+		setTicker(!ticker)
 	}
 
 	return (
@@ -85,16 +85,16 @@ function GameFailed({ gameResult, insta_token, setTabState, checkPostStatus, loa
 				</View>
 				<FailedButtons
 					ticker={ticker}
-					publish={() => publish()}
-					visitSite={() => setSite(!site)}
-					wait={() => setTicker(!ticker)}
+					publish={() => publicToInst}
+					visitSite={() => visitSite}
+					wait={() => wait}
 				/>
 			</View>
 			{site && (
 				<GameSite
 					timing={visitSiteTimer}
 					changeTimer={(value) => setVisitSiteTimer(value)}
-					setSite={() => setSite(!site)}
+					setSite={() => visitSite}
 					link={gameResult.link}
 				/>
 			)}
@@ -104,16 +104,12 @@ function GameFailed({ gameResult, insta_token, setTabState, checkPostStatus, loa
 const mapStateToProps = (state) => {
 	return {
 		gameResult: state.gameResult,
-		insta_token: state.insta_token,
-		token: state.token,
 	}
 }
 const mapDispatchToProps = (dispatch) =>
 	bindActionCreators(
 		{
-			setTabState,
-			checkPostStatus,
-			loaderState,
+			waited,
 			publish,
 		},
 		dispatch,

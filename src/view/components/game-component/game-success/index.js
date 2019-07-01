@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Text, Image } from 'react-native'
 import { Button } from 'native-base'
 import LinearGradient from 'react-native-linear-gradient'
@@ -9,43 +9,34 @@ import route from '@services/route'
 import styles from './styles'
 import I18n from '@locales/I18n'
 
-type Props = typeof defaultProps
+function GameSuccess({ profileState, gameResult, loaderState }) {
+	const colors = ['#770CE1', '#D629C5', '#F55890', '#FF8D50', '#F7BB42']
+	const start = { x: 1.0, y: 0.0 }
+	const end = { x: 0.0, y: 1.0 }
 
-const defaultProps = {
-	colors: ['#770CE1', '#D629C5', '#F55890', '#FF8D50', '#F7BB42'],
-	start: { x: 1.0, y: 0.0 },
-	end: { x: 0.0, y: 1.0 },
-}
+	useEffect(() => {
+		loaderState(false)
+	}, [])
 
-class GameSuccess extends React.Component<Props> {
-	static defaultProps = defaultProps
-
-	componentDidMount() {
-		this.props.loaderState(false)
-	}
-
-	navigate = () => {
-		this.props.loaderState(true)
+	const navigate = () => {
+		loaderState(true)
 		route.navigate('Main')
 	}
 
-	render = () => {
-		const { colors, start, end, profileState, gameResult } = this.props
-		return (
-			<LinearGradient colors={colors} start={start} end={end} style={styles.container}>
-				<Text style={styles.zifi_text}>{I18n.t('GAME.ZIFI.SHOCKED')}</Text>
-				<Image style={styles.zifi} source={require('@assets/img/zifi/shocked.gif')} />
-				<Text style={styles.title}>
-					{I18n.t('GAME.CONGRATULATION', { value: gameResult.award, currency: profileState.currency })}
+	return (
+		<LinearGradient colors={colors} start={start} end={end} style={styles.container}>
+			<Text style={styles.zifi_text}>{I18n.t('GAME.ZIFI.SHOCKED')}</Text>
+			<Image style={styles.zifi} source={require('@assets/img/zifi/shocked.gif')} />
+			<Text style={styles.title}>
+				{I18n.t('GAME.CONGRATULATION', { value: gameResult.award, currency: profileState.currency })}
+			</Text>
+			<Button full rounded style={styles.button} onPress={navigate}>
+				<Text uppercase style={[styles.text]}>
+					{I18n.t('GAME.RESULT.CONTINUE')}
 				</Text>
-				<Button full rounded style={styles.button} onPress={this.navigate}>
-					<Text uppercase style={[styles.text]}>
-						{I18n.t('GAME.RESULT.CONTINUE')}
-					</Text>
-				</Button>
-			</LinearGradient>
-		)
-	}
+			</Button>
+		</LinearGradient>
+	)
 }
 
 const mapStateToProps = (state) => ({

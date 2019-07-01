@@ -44,7 +44,7 @@ function GameSite({ link, timing, changeTimer, setSite, token, setGameStatus, lo
 			await setSite()
 			await route.navigate('Main')
 		} catch (error) {
-			console.log(error, 'game-site ERROR')
+			console.log(error, 'game-site main ERROR')
 			loaderState(false)
 		}
 	}
@@ -96,7 +96,7 @@ function GameSite({ link, timing, changeTimer, setSite, token, setGameStatus, lo
 					/>
 				)}
 			</LinearGradient>
-			<WebView style={styles.container} source={{ uri: link }} />
+			<WebView style={styles.web_site} source={{ uri: link }} />
 		</View>
 	)
 }

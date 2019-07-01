@@ -19,6 +19,14 @@ export default StyleSheet.create({
 		justifyContent: 'space-between',
 		paddingHorizontal: 16,
 	},
+	web_site: {
+		top: 0,
+		left: 0,
+		width,
+		height,
+		position: 'absolute',
+		zIndex: 100,
+	},
 	timer: {
 		width: width * 0.3,
 		marginVertical: 16,
