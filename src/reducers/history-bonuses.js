@@ -1,12 +1,8 @@
-const GET_BONUSES = 'GET_BONUSES'
 import { httpGet } from '../services/http'
 import { urls } from '../constants/urls'
-//reducers
-import createReceivedJSX from './history-received-success'
-import createSpentJSX from './history-sent-success'
 //react
 import React from 'react'
-import HistoryCard from '../view/containers/history-card/history-card'
+import HistoryCard from '@containers/history-card/history-card'
 
 export const getBonuses = (token, limitReceived, limitSpent) => {
 	return (dispatch) => {

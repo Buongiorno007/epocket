@@ -1259,7 +1259,6 @@ const mapStateToProps = (state) => {
 		loader: state.loader,
 		token: state.token,
 		outlets: state.outlets,
-		timer_status: state.timer_status,
 		navigateToMall: state.navigateToMall,
 		initial_outlets: state.initial_outlets,
 		insta_token: state.insta_token,

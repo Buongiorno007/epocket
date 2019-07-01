@@ -11,7 +11,6 @@ import { internet } from '@reducers/connection'
 import { status, current, coordinate } from '@reducers/location'
 import { setSounds } from '@reducers/sounds'
 import { getUser } from '@reducers/profile-state'
-import { setGameStatus } from '@reducers/game-status'
 import { loaderState } from '@reducers/loader'
 import route from '@services/route'
 import styles from './styles'
@@ -45,15 +44,7 @@ class Start extends React.Component<Props> {
 		await this.props.current()
 		await this.props.status()
 		await this.props.coordinate()
-		await this.getGame()
 		await this.getToken()
-	}
-
-	getGame = async () => {
-		const game = await AsyncStorage.getItem('game_status')
-		if (game) {
-			this.props.setGameStatus(game === 'game' || game === 'success' ? 'start' : game)
-		}
 	}
 
 	getToken = async () => {
@@ -88,7 +79,6 @@ const mapDispatchToProps = (dispatch) =>
 			status,
 			coordinate,
 			setSounds,
-			setGameStatus,
 			getUser,
 			loaderState,
 			current,

@@ -12,7 +12,6 @@ import { bindActionCreators } from 'redux'
 import { showDashboard } from '../reducers/show-dashboard'
 import { setDistance } from '../reducers/distance'
 import { setAppState } from '../reducers/app-state'
-import { setGameStatus } from '../reducers/game-status'
 import { setMainTaskId } from '../reducers/main-task-id'
 import { setSheduleRequestStart } from '../reducers/set-shedule-request-start'
 import { showDoneNotification } from '../reducers/main-task-done-notification'
@@ -224,7 +223,6 @@ const mapStateToProps = (state) => {
 		sheduleRequestStart: state.sheduleRequestStart,
 		appState: state.appState,
 		mainTaskId: state.mainTaskId,
-		game_status: state.game_status,
 		pushSendStaus: state.pushSendStaus,
 		closestMall: state.closestMall,
 	}
@@ -239,7 +237,6 @@ const mapDispatchToProps = (dispatch) =>
 			setSheduleRequestStart,
 			setAppState,
 			setMainTaskId,
-			setGameStatus,
 			showTimer,
 			setPushStatus,
 		},

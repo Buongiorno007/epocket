@@ -8,7 +8,6 @@ import Blur from '../../containers/blur/blur'
 import { LoginButton, AccessToken, LoginManager } from 'react-native-fbsdk'
 //redux
 import { connect } from 'react-redux'
-import { setGameStatus } from '../../../reducers/game-status'
 import { bindActionCreators } from 'redux'
 import { setInstaToken } from '../../../reducers/insta-token'
 import { setFacebookToken } from '../../../reducers/facebook-token'
@@ -43,18 +42,9 @@ class ProfileSettings extends React.Component {
 	}
 	LogOut = () => {
 		AsyncStorage.multiSet(
-			[
-				['token', ''],
-				['cashout_cart', ''],
-				['cashout_cart_time', ''],
-				['cashout_cart_id', ''],
-				['game_status', 'initial'],
-			],
+			[['token', ''], ['cashout_cart', ''], ['cashout_cart_time', ''], ['cashout_cart_id', '']],
 			() => {
 				NavigationService.navigate('Start')
-				// this.props.setGameStatus('initial')
-				// this.props.setInstaToken('')
-				// this.props.setFacebookToken('')
 				CookieManager.clearAll()
 			},
 		)
@@ -359,7 +349,6 @@ const mapDispatchToProps = (dispatch) =>
 	bindActionCreators(
 		{
 			loaderState,
-			setGameStatus,
 			setInstaToken,
 			setFacebookToken,
 			setTabState,

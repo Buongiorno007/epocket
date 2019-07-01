@@ -8,7 +8,6 @@ import { loaderState } from '@reducers/loader'
 import route from '@services/route'
 import styles from './styles'
 import I18n from '@locales/I18n'
-import { setGameStatus } from '@reducers/game-status'
 
 type Props = typeof defaultProps
 
@@ -26,10 +25,8 @@ class GameSuccess extends React.Component<Props> {
 	}
 
 	navigate = () => {
-		if (false) {
-		} else {
-			route.navigate('Main')
-		}
+		this.props.loaderState(true)
+		route.navigate('Main')
 	}
 
 	render = () => {

@@ -14,7 +14,6 @@ import RefLink from '../../containers/ref-link/ref-link'
 //redux
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { setBirthDay } from '../../../reducers/birthday'
 import { loaderState } from '../../../reducers/loader'
 //service
 import NavigationService from '../../../services/route'
@@ -36,7 +35,6 @@ class Profile extends React.Component {
 		refferal_link: urls.blank,
 		refferal_price: 0,
 		modalVisible: false,
-		animationVisible: this.props.profileIsVirgin && this.props.profileIsVirgin !== 'false',
 	}
 	componentDidMount() {
 		this.props.loaderState(true)
@@ -51,12 +49,6 @@ class Profile extends React.Component {
 				currency: profileState.currency,
 			},
 		})
-
-		if (this.state.animationVisible) {
-			setTimeout(() => {
-				this.setState({ animationVisible: false })
-			}, 5000)
-		}
 		httpPost(urls.get_referral_link, JSON.stringify({}), this.props.token).then(
 			(result) => {
 				this.setState({
@@ -110,29 +102,6 @@ class Profile extends React.Component {
 	render() {
 		return (
 			<View style={styles.main_view}>
-				{/* {this.state.modalVisible ? <Blur /> : null}
-				{this.state.animationVisible ? <Blur dark paddingBottom /> : null}
-				{this.state.animationVisible ? (
-					<FastImage
-						style={styles.animation}
-						resizeMode={FastImage.resizeMode.contain}
-						source={require('../../../assets/img/smile.gif')}
-					/>
-				) : null}
-				{(this.state.user.sex !== 0 && this.state.user.sex !== 1) ||
-				!this.state.user.birthDay ||
-				this.state.animationVisible ? (
-					<View style={styles.btn_container_absolute}>
-						<CustomButton
-							active
-							short
-							gradient
-							title={I18n.t('PROFILE_PAGE.ADD_DATA').toUpperCase()}
-							color={this.props.userColor.white}
-							handler={() => this.ToEdit()}
-						/>
-					</View>
-				) : null} */}
 				<View style={styles.header}>
 					<Button
 						transparent
@@ -223,7 +192,6 @@ const mapStateToProps = (state) => {
 		user: state.profileState,
 		userColor: state.userColor,
 		userColor: state.userColor,
-		profileIsVirgin: state.profileIsVirgin,
 		token: state.token,
 		profileState: state.profileState,
 	}
@@ -232,7 +200,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) =>
 	bindActionCreators(
 		{
-			setBirthDay,
 			loaderState,
 		},
 		dispatch,

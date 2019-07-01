@@ -1,5 +1,3 @@
-import { setGameStatus } from './game-status'
-
 export const CHANGE_ACTIVE_TAB = 'tabs/CHANGE_ACTIVE_TAB'
 
 export default (state = 0, action) => {
@@ -12,9 +10,6 @@ export default (state = 0, action) => {
 }
 
 export const setTabState = (activeTab) => async (dispatch) => {
-	if (activeTab > 0) {
-		dispatch(setGameStatus('initial'))
-	}
 	dispatch(setTab(activeTab))
 }
 

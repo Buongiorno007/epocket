@@ -73,7 +73,6 @@ class LongCard extends React.Component {
 const mapStateToProps = (state) => ({
 	userColor: state.userColor,
 	timer: state.timer,
-	timer_status: state.timer_status,
 	profileState: state.profileState,
 })
 

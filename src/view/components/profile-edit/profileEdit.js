@@ -31,7 +31,7 @@ import { ICONS } from '@constants/icons'
 //locales
 import I18n from '@locales/I18n'
 //style
-import styles from './style'
+import styles from './styles'
 
 class ProfEdit extends React.Component {
 	state = {

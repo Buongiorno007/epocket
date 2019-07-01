@@ -85,8 +85,6 @@ function GameFailed({ gameResult, insta_token, setTabState, checkPostStatus, loa
 		setTicker(!ticker)
 	}
 
-	console.log(insta_token, 'INSTATOKEN')
-
 	return (
 		<View style={styles.container}>
 			<LinearGradient colors={colors} start={start} end={end} style={styles.gradient} />
