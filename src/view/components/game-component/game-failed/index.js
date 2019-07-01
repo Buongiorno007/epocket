@@ -17,8 +17,9 @@ import { checkPostStatus } from '@reducers/post-status'
 import { urls } from '@constants/urls'
 import { httpPost } from '@services/http'
 import { loaderState } from '@reducers/loader'
+import { publish } from '../../../../reducers/post-status'
 
-function GameFailed({ gameResult, insta_token, setTabState, checkPostStatus, loaderState, token }) {
+function GameFailed({ gameResult, insta_token, setTabState, checkPostStatus, loaderState, publish, token }) {
 	const [timer, setTimer] = useState(gameResult.timer)
 	const [ticker, setTicker] = useState(false)
 	const [site, setSite] = useState(false)
@@ -53,39 +54,6 @@ function GameFailed({ gameResult, insta_token, setTabState, checkPostStatus, loa
 		)
 	}
 
-	shareToInsta = () => {
-		if (Platform.OS === 'ios') {
-			postToSocial(gameResult, 'https://www.instagram.com/epocketapp/', this.confirmPost, gameResult.video)
-		} else {
-			postToSocial(gameResult, 'https://www.instagram.com/epocketapp/', this.confirmPost)
-		}
-	}
-
-	confirmPost = () => {
-		if (gameResult.game_id) {
-			setTimeout(() => {
-				checkPostStatus()
-			}, 5000)
-		}
-	}
-
-	const publish = async () => {
-		if (insta_token) {
-			this.shareToInsta()
-		} else {
-			await setTabState(3)
-			await route.navigate('ProfileSettings')
-		}
-	}
-	const visitSite = () => {
-		setSite(!site)
-	}
-	const wait = () => {
-		setTicker(!ticker)
-	}
-
-	console.log(insta_token, 'INSTATOKEN')
-
 	return (
 		<View style={styles.container}>
 			<LinearGradient colors={colors} start={start} end={end} style={styles.gradient} />
@@ -115,7 +83,12 @@ function GameFailed({ gameResult, insta_token, setTabState, checkPostStatus, loa
 						source={{ uri: gameResult.insta_img }}
 					/>
 				</View>
-				<FailedButtons ticker={ticker} publish={() => publish} visitSite={() => visitSite} wait={() => wait} />
+				<FailedButtons
+					ticker={ticker}
+					publish={() => publish()}
+					visitSite={() => setSite(!site)}
+					wait={() => setTicker(!ticker)}
+				/>
 			</View>
 			{site && (
 				<GameSite
@@ -141,6 +114,7 @@ const mapDispatchToProps = (dispatch) =>
 			setTabState,
 			checkPostStatus,
 			loaderState,
+			publish,
 		},
 		dispatch,
 	)

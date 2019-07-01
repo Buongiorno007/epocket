@@ -83,7 +83,6 @@ android {
 }
 
 dependencies {
-    implementation project(':react-native-text-input-mask')
     implementation project(':react-native-share')
     implementation project(':react-native-background-timer')
     implementation project(':@react-native-community_async-storage')

@@ -51,7 +51,7 @@ class Refill extends React.Component<Props, State> {
 		const value = Number(amount)
 		const response = { status: false, message: '' }
 		if (value >= min) {
-			if (value <= tax + currency) {
+			if (value <= this.props.bonuses.value - tax) {
 				if (value <= max) {
 					response.status = true
 				} else {

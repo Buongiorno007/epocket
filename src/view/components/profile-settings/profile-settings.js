@@ -8,7 +8,6 @@ import Blur from '../../containers/blur/blur'
 import { LoginButton, AccessToken, LoginManager } from 'react-native-fbsdk'
 //redux
 import { connect } from 'react-redux'
-import { setGameStatus } from '../../../reducers/game-status'
 import { bindActionCreators } from 'redux'
 import { setInstaToken } from '../../../reducers/insta-token'
 import { setFacebookToken } from '../../../reducers/facebook-token'
@@ -38,23 +37,13 @@ class ProfileSettings extends React.Component {
 		errorVisible: false,
 		userCount: 0,
 	}
+	componentDidMount() {
+		this.props.loaderState(false)
+	}
 	LogOut = () => {
-		AsyncStorage.multiSet(
-			[
-				['token', ''],
-				['cashout_cart', ''],
-				['cashout_cart_time', ''],
-				['cashout_cart_id', ''],
-				['game_status', 'initial'],
-			],
-			() => {
-				NavigationService.navigate('Start')
-				// this.props.setGameStatus('initial')
-				// this.props.setInstaToken('')
-				// this.props.setFacebookToken('')
-				CookieManager.clearAll()
-			},
-		)
+		AsyncStorage.setItem('token', '')
+		NavigationService.navigate('Start')
+		CookieManager.clearAll()
 		this.props.setTabState(0)
 	}
 	LoginFacebook = (token) => {
@@ -356,7 +345,6 @@ const mapDispatchToProps = (dispatch) =>
 	bindActionCreators(
 		{
 			loaderState,
-			setGameStatus,
 			setInstaToken,
 			setFacebookToken,
 			setTabState,

@@ -42,6 +42,7 @@ export default StyleSheet.create({
 		fontSize: width * 0.045,
 		lineHeight: width * 0.08,
 		color: colors.white_o74,
+		textAlign: 'center',
 	},
 	button: {
 		backgroundColor: colors.white,

@@ -1,47 +1,34 @@
 import React from 'react'
-import { View, BackHandler, Platform, AppState } from 'react-native'
-//components
-import Map from './../map/map'
-import Profile from './../profile/profile'
-import History from './../history/history'
-import GameStart from './../game-start/game-start'
-import Game from './../game/game'
-import GameExpired from './../game-expired/game-expired'
-//containers
-import ReturnToMall from '../../containers/return-to-mall-timer/return-to-mall-timer'
-import NoInternet from '../../containers/no-internet/no-internet'
-import TimerModal from '../../containers/timer-modal/timer-modal'
-import LocationDisabled from '../../containers/location-disabled/location-disabled'
-//constants
-import styles from './styles'
-//redux
+import { View, BackHandler, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { showDoneNotification } from '../../../reducers/main-task-done-notification'
-import { showFailedNotification } from '../../../reducers/main-task-failed-notification'
-import { setActiveCard } from '../../../reducers/set-active-card'
-import { setColor } from '../../../reducers/user-color'
-import { getGameInfo } from '../../../reducers/game-info'
-import { loaderState } from '../../../reducers/loader'
+//components
+import Map from '@componentsmap/map'
+import Profile from '@componentsprofile/profile'
+import History from '@componentshistory/history'
 import GameS from '@components/game-component/game-start'
 import GamePartners from '@components/game-component/game-partners'
-//services
-import GeolocationService from '../../../services/geolocation-service'
+//containers
+import ReturnToMall from '@containers/return-to-mall-timer/return-to-mall-timer'
+import TimerModal from '@containers/timer-modal/timer-modal'
+import LocationDisabled from '@containers/location-disabled/location-disabled'
+//reducers
+import { setActiveCard } from '@reducers/set-active-card'
 import { getGameStart } from '@reducers/gameStart'
+//services
+import GeolocationService from '@services/geolocation-service'
+//styles
+import styles from './styles'
 
 class Main extends React.Component {
-	state = {
-		develop: false,
-	}
-
 	componentDidMount() {
 		this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
 			this.props.setActiveCard(false)
 			return true
 		})
-		this.props.setColor(this.props.profileState.sex)
 		this.props.activeTab === 0 && this.props.getGameStart()
 	}
+
 	componentDidUpdate(prevProps) {
 		if (prevProps.activeTab !== 0 && this.props.activeTab === 0) this.props.getGameStart()
 		if (prevProps.game_status === 'ticker' && this.props.game_status !== 'ticker') this.props.getGameStart()
@@ -54,9 +41,9 @@ class Main extends React.Component {
 		} else {
 			container = <GameS />
 		}
-
 		return container
 	}
+
 	render() {
 		return (
 			<View style={styles.main_view}>
@@ -83,36 +70,22 @@ class Main extends React.Component {
 		)
 	}
 }
+
 const mapStateToProps = (state) => ({
 	activeTab: state.activeTab,
-	loader: state.loader,
-	userColor: state.userColor,
-	dashboard: state.dashboard,
-	info: state.info,
 	timer_status: state.timer_status,
-	doneNotification: state.doneNotification,
-	failedNotification: state.failedNotification,
 	game_status: state.game_status,
 	isLocation: state.location.status,
 	timerShow: state.timerShow,
-	token: state.token,
-	location: state.location.coordinate,
-	appState: state.appState,
 	selectedMall: state.selectedMall,
 	closestMall: state.closestMall,
 	profileState: state.profileState,
-	distance: state.distance,
 })
 
 const mapDispatchToProps = (dispatch) =>
 	bindActionCreators(
 		{
-			showDoneNotification,
-			showFailedNotification,
 			setActiveCard,
-			setColor,
-			getGameInfo,
-			loaderState,
 			getGameStart,
 		},
 		dispatch,

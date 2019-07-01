@@ -46,10 +46,14 @@ class MissionSuccess extends React.Component {
 					style={styles.grad}
 				/>
 				<View style={styles.success}>
-					<Text style={styles.congratulation}>{I18n.t('MISSION.SUCCESS')}</Text>
+					{/* <Text style={styles.congratulation}>{I18n.t('MISSION.SUCCESS')}</Text> */}
 					<Text style={styles.cash}>
-						{I18n.t('MISSION.CASH')} {this.props.navigation.state.params.price}{' '}
-						{I18n.t('EPC', { currency: this.state.currency })}
+						{/* {I18n.t('MISSION.CASH')} {this.props.navigation.state.params.price}{' '} */}
+						{/* {I18n.t('EPC', { currency: this.state.currency })} */}
+						{I18n.t('MISSION.FOR_CASH', {
+							value: this.props.navigation.state.params.price,
+							currency: this.state.currency,
+						})}
 					</Text>
 					<Button
 						rounded

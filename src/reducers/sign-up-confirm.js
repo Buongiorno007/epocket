@@ -6,7 +6,6 @@ import { setToken } from '@reducers/token'
 import { saveUser } from '@reducers/profile-state'
 import { setColor } from '@reducers/user-color'
 import { httpPost } from '@services/http'
-import { toAge } from '@services/converteDate'
 import route from '@services/route'
 import I18n from '@locales/I18n'
 

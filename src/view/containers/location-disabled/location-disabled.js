@@ -11,7 +11,6 @@ import RNAndroidLocationEnabler from 'react-native-android-location-enabler'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { current } from '@reducers/location'
-import { setGeoVirgin } from '../../../reducers/geo-virgin'
 //components
 import Blur from '../blur/blur'
 //services
@@ -49,7 +48,6 @@ class LocationDisabled extends React.Component {
 					}
 				})
 			}
-			this.props.setGeoVirgin(false)
 		} catch (err) {}
 	}
 	_requestLocation = () => {
@@ -146,7 +144,6 @@ class LocationDisabled extends React.Component {
 
 const mapStateToProps = (state) => ({
 	userColor: state.userColor,
-	timer_status: state.timer_status,
 	geolocationIsVirgin: state.geolocationIsVirgin,
 })
 
@@ -154,7 +151,6 @@ const mapDispatchToProps = (dispatch) =>
 	bindActionCreators(
 		{
 			current,
-			setGeoVirgin,
 		},
 		dispatch,
 	)

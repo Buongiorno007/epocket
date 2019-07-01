@@ -37,6 +37,7 @@ export const coordinate = () => async (dispatch) => {
 				dispatch(setCoordinate(response))
 			}
 		}
+		dispatch(setStatus(true))
 	})
 }
 

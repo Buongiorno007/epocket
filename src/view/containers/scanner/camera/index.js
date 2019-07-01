@@ -84,7 +84,7 @@ class Camera extends React.Component<Props, State> {
 						captureAudio={false}
 						// ratio={'1:1'}
 						style={styles.camera}
-						onBarCodeRead={this.send}
+						onBarCodeRead={!visible && this.send}
 						// onBarCodeRead={() => console.log('LOG')}
 						barCodeTypes={[RNCamera.Constants.BarCodeType.qr]}
 						// onGoogleVisionBarcodesDetected={() => console.log('LOG')}

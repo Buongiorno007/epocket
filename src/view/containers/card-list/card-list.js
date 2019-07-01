@@ -18,7 +18,7 @@ import I18n from '@locales/I18n'
 
 class CardList extends React.Component {
 	_renderItem = (item) =>
-		item.item.type != 'instagram_connect' && item.item.type != 'facebook_connect' ? (
+		item.item.type !== 'instagram_connect' && item.item.type !== 'facebook_connect' ? (
 			<Card item={item.item} onPressItem={this._showSelectedCard} />
 		) : (
 			<LongCard item={item.item} onPressItem={this.props.connectSocial} />
@@ -55,7 +55,7 @@ class CardList extends React.Component {
 				{!this.props.activeCard ? (
 					<View style={styles.list_view}>
 						{this.props.missions.length > 0 ? (
-							this.props.missions.length - this.props.socialCount == 1 ? (
+							this.props.missions.length - this.props.socialCount === 1 ? (
 								<View style={styles.list_view}>
 									<FlatList
 										key={'solo_mission'}
