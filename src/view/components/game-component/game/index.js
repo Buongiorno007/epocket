@@ -47,9 +47,7 @@ function Gamee({ gameProcess, dispatch }) {
 					disabled={!buttonActive}
 					title={I18n.t('GAME.CONFIRM').toUpperCase()}
 					color={'#fff'}
-					handler={() => {
-						this.submitGame
-					}}
+					handler={this.submitGame}
 				/>
 			</View>
 		</View>

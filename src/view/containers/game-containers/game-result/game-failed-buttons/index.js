@@ -16,7 +16,7 @@ function GameFailedButtons({ gameResult, ticker, visitSite, wait, publish }) {
 
 	return (
 		<View style={styles.container}>
-			<Button full rounded style={styles.button} onPress={publish()}>
+			<Button full rounded style={styles.button} onPress={publish}>
 				<LinearGradient colors={colors} start={start} end={end} style={styles.gradient}>
 					<FastImage
 						style={styles.insta_logo}
@@ -30,13 +30,13 @@ function GameFailedButtons({ gameResult, ticker, visitSite, wait, publish }) {
 			</Button>
 			{!ticker &&
 				(gameResult.link ? (
-					<Button full rounded style={styles.button_white} onPress={visitSite()}>
+					<Button full rounded style={styles.button_white} onPress={visitSite}>
 						<Text uppercase style={styles.button_white_text}>
 							{I18n.t('GAME.VISIT_WEBSITE')}
 						</Text>
 					</Button>
 				) : (
-					<Button full rounded style={styles.button_white} onPress={wait()}>
+					<Button full rounded style={styles.button_white} onPress={wait}>
 						<Text uppercase style={styles.button_white_text}>
 							{gameResult.timer > 60
 								? I18n.t('GAME.WAIT_MIN', { value: toHHMMSS(gameResult.timer) })

@@ -23,11 +23,11 @@ function GamePartners({ gameTicker }) {
 		await setLink(link)
 		await setSite(!site)
 	}
-	keyExtractor = (item, index) => {
+	const keyExtractor = (item, index) => {
 		return index.toString()
 	}
 
-	renderItem = ({ item, index }) => {
+	const renderItem = ({ item, index }) => {
 		return (
 			<TouchableOpacity
 				key={index}
@@ -51,8 +51,8 @@ function GamePartners({ gameTicker }) {
 					style={styles.brands}
 					columnWrapperStyle={{ justifyContent: 'space-between' }}
 					numColumns={2}
-					keyExtractor={this.keyExtractor}
-					renderItem={this.renderItem}
+					keyExtractor={keyExtractor}
+					renderItem={renderItem}
 					data={gameTicker.partners}
 				/>
 				<TouchableOpacity style={styles.visit_trc}>

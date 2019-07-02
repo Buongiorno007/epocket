@@ -78,18 +78,13 @@ function GameFailed({ gameResult, dispatch }) {
 						source={{ uri: gameResult.insta_img }}
 					/>
 				</View>
-				<FailedButtons
-					ticker={ticker}
-					publish={() => publicToInst}
-					visitSite={() => visitSite}
-					wait={() => wait}
-				/>
+				<FailedButtons ticker={ticker} publish={publicToInst} visitSite={visitSite} wait={wait} />
 			</View>
 			{site && (
 				<GameSite
 					timing={visitSiteTimer}
 					changeTimer={(value) => setVisitSiteTimer(value)}
-					setSite={() => visitSite}
+					setSite={visitSite}
 					link={gameResult.link}
 				/>
 			)}
