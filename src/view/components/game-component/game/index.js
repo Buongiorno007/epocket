@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { View, Dimensions } from 'react-native'
-import { Button } from 'native-base'
+import { View } from 'react-native'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 //reducers
 import { loaderState } from '@reducers/loader'
 import { getGameResult } from '@reducers/gameResult'
@@ -50,7 +48,7 @@ function Gamee({ gameProcess, dispatch }) {
 					title={I18n.t('GAME.CONFIRM').toUpperCase()}
 					color={'#fff'}
 					handler={() => {
-						this.submitGame()
+						this.submitGame
 					}}
 				/>
 			</View>
@@ -64,7 +62,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps,
-)(Gamee)
+export default connect(mapStateToProps)(Gamee)

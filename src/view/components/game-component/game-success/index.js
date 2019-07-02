@@ -3,10 +3,14 @@ import { Text, Image } from 'react-native'
 import { Button } from 'native-base'
 import LinearGradient from 'react-native-linear-gradient'
 import { connect } from 'react-redux'
+//reducers
 import { loaderState } from '@reducers/loader'
+//services
 import route from '@services/route'
-import styles from './styles'
+//locales
 import I18n from '@locales/I18n'
+//styles
+import styles from './styles'
 
 function GameSuccess({ profileState, gameResult, dispatch }) {
 	const colors = ['#770CE1', '#D629C5', '#F55890', '#FF8D50', '#F7BB42']

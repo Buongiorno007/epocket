@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { View, Image, Platform, Text } from 'react-native'
+import { View, Image, Text } from 'react-native'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import LinearGradient from 'react-native-linear-gradient'
 import FastImage from 'react-native-fast-image'
 //services
 import { toHHMMSS } from '@services/convert-time'
-import route from '@services/route'
-import { postToSocial } from '@services/post-to-social'
-import { urls } from '@constants/urls'
-import { httpPost } from '@services/http'
 //reducers
 import { publish, waited } from '@reducers/post-status'
 //components

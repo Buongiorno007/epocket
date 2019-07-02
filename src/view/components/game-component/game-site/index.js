@@ -4,16 +4,21 @@ import { Button, Text } from 'native-base'
 import { WebView } from 'react-native-webview'
 import LinearGradient from 'react-native-linear-gradient'
 import FastImage from 'react-native-fast-image'
-import I18n from '@locales/I18n'
-import { toHHMMSS } from '@services/convert-time'
-import { ICONS } from '@constants/icons'
-import route from '@services/route'
-import { urls } from '@constants/urls'
-import { httpPost } from '@services/http'
 import { connect } from 'react-redux'
-import styles from './styles'
+//reducers
 import { setGameStatus } from '@reducers/game-status'
 import { loaderState } from '@reducers/loader'
+//services
+import { toHHMMSS } from '@services/convert-time'
+import route from '@services/route'
+import { httpPost } from '@services/http'
+//constants
+import { ICONS } from '@constants/icons'
+import { urls } from '@constants/urls'
+//locales
+import I18n from '@locales/I18n'
+//styles
+import styles from './styles'
 
 function GameSite({ link, timing, changeTimer, setSite, token, dispatch }) {
 	const [timer, setTimer] = useState(timing)

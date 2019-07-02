@@ -8,7 +8,8 @@ import NoGames from '@containers/game-containers/game-start/no-games'
 //styles
 import styles from './styles'
 
-function GameStart({ gameStart }) {
+function GameStart({ gameStart }, props) {
+	console.log(props, '????????????????')
 	return (
 		<View style={styles.container}>
 			{gameStart.id ? <HaveGames /> : <NoGames />}
