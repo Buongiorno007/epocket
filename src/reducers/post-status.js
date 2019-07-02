@@ -41,7 +41,13 @@ export const publish = () => async (dispatch, getState) => {
 		postToSocial(
 			gameResult,
 			'https://www.instagram.com/epocketapp/',
-			confirmPost(gameResult.game_id),
+			() => {
+				if (gameResult.game_id) {
+					setTimeout(() => {
+						dispatch(checkPostStatus())
+					}, 5000)
+				}
+			},
 			Platform.OS === 'ios' && gameResult.video,
 		)
 	}

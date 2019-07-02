@@ -28,7 +28,7 @@ const initialState = {
 	code: '',
 	name: '',
 	age: '',
-	gender: 0,
+	gender: 1,
 	user_id: '',
 	validate: false,
 	accept: false,

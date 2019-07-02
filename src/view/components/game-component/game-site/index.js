@@ -20,7 +20,7 @@ import I18n from '@locales/I18n'
 //styles
 import styles from './styles'
 
-function GameSite({ link, timing, changeTimer, setSite, token, dispatch }) {
+function GameSite({ link, timing, changeTimer = () => {}, setSite, token, dispatch }) {
 	const [timer, setTimer] = useState(timing)
 	const colors = ['#FF9950', '#F55890']
 	const start = { x: 0.0, y: 0.0 }

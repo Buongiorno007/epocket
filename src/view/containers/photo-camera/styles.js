@@ -56,7 +56,7 @@ export default StyleSheet.create({
 		width: width * 0.7,
 		alignItems: 'center',
 		flexDirection: 'row',
-		justifyContent: 'space-around',
+		justifyContent: 'space-between',
 	},
 	button: {
 		width: width * 0.12,

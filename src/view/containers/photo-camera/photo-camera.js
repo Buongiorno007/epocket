@@ -96,7 +96,7 @@ class PhotoCamera extends React.Component {
 				</View>
 				<View style={[styles.settings, styles.size]}>
 					<View style={styles.photo_button}>
-						{/* <View>
+						<View>
 							<Button
 								rounded
 								transparent
@@ -107,7 +107,7 @@ class PhotoCamera extends React.Component {
 							>
 								<Refresh name='refresh' size={20} color={'#000'} />
 							</Button>
-						</View> */}
+						</View>
 						<View>
 							<Button
 								rounded
@@ -136,6 +136,7 @@ class PhotoCamera extends React.Component {
 								/>
 							</Button>
 						</View> */}
+						<View style={styles.button}></View>
 					</View>
 				</View>
 			</View>
