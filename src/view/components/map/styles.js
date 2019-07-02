@@ -14,11 +14,7 @@ export default StyleSheet.create({
 		justifyContent: 'center',
 	},
 	map_view: {
-		position: 'absolute',
-		top: 0,
-		width: width,
-		height: height - 60,
-		position: 'absolute',
+		flex: 1,
 		zIndex: 1,
 	},
 	trc_info: {

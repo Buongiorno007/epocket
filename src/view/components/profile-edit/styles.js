@@ -29,10 +29,17 @@ export default StyleSheet.create({
 		top: Platform.OS === 'ios' ? (iPhoneX ? Header.HEIGHT + 22 : Header.HEIGHT) : 62,
 	},
 	grad: {
-		position: 'absolute',
-		height: Platform.OS === 'ios' ? (iPhoneX ? height - Header.HEIGHT - 22 : height - Header.HEIGHT) : height - 62,
-		width: width,
-		top: Platform.OS === 'ios' ? (iPhoneX ? Header.HEIGHT + 22 : Header.HEIGHT) : 62,
+		// position: 'absolute',
+		// height: Platform.OS === 'ios' ? (iPhoneX ? height - Header.HEIGHT - 22 : height - Header.HEIGHT) : height - 62,
+		// width: width,
+		// top:
+		// 	Platform.OS === 'ios'
+		// 		? iPhoneX
+		// 			? Header.HEIGHT + 22
+		// 			: Header.HEIGHT
+		// 		: Platform.OS === 'android' && Platform.Version > 26
+		// 		? 85
+		// 		: 62,
 		flex: 1,
 		flexDirection: 'column',
 		paddingHorizontal: 16,
