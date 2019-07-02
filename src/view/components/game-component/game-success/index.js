@@ -22,7 +22,7 @@ function GameSuccess({ profileState, gameResult, dispatch }) {
 	}, [])
 
 	const navigate = () => {
-		loaderState(true)
+		dispatch(loaderState(true))
 		route.navigate('Main')
 	}
 
