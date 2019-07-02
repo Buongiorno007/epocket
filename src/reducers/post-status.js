@@ -23,6 +23,14 @@ export const checkPostStatus = () => async (dispatch, getState) => {
 	}
 }
 
+const confirmPost = (bool) => {
+	if (bool) {
+		setTimeout(() => {
+			dispatch(checkPostStatus())
+		}, 5000)
+	}
+}
+
 export const publish = () => async (dispatch, getState) => {
 	const { insta_token, gameResult } = getState()
 	dispatch(loaderState(true))
@@ -38,10 +46,13 @@ export const publish = () => async (dispatch, getState) => {
 		)
 	}
 }
-const confirmPost = (bool) => {
-	if (bool) {
-		setTimeout(() => {
-			dispatch(checkPostStatus())
-		}, 5000)
+
+export const waited = () => async (dispatch) => {
+	dispatch(loaderState(true))
+	try {
+		await httpPost(urls.game_result, JSON.stringify({ status: true, ticker: true }), token)
+	} catch (error) {
+		console.log(error, 'waited ERROR')
 	}
+	await route.navigate('Main')
 }

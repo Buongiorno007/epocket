@@ -1,4 +1,4 @@
-export const DEFAULT = function(data: any = {}) {
+export const DEFAULT = function(data = {}) {
 	this.code = data.code || null
 	this.message = data.message || null
 }

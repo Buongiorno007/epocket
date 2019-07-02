@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, Image, FlatList } from 'react-native'
 import { connect } from 'react-redux'
-import I18n from '@locales/I18n'
-import styles from './styles'
-import Card from '@containers/game-containers/game-partners/partner-card'
-import GameSite from '@components/game-component/game-site'
 import LinearGradient from 'react-native-linear-gradient'
+//containers
+import Card from '@containers/game-containers/game-partners/partner-card'
 import FooterNavigation from '@containers/footer-navigator/footer-navigator'
+//components
+import GameSite from '@components/game-component/game-site'
+//locales
+import I18n from '@locales/I18n'
+//styles
+import styles from './styles'
 
 function GamePartners({ gameTicker }) {
 	const [link, setLink] = useState('')
@@ -19,11 +23,11 @@ function GamePartners({ gameTicker }) {
 		await setLink(link)
 		await setSite(!site)
 	}
-	keyExtractor = (item, index) => {
+	const keyExtractor = (item, index) => {
 		return index.toString()
 	}
 
-	renderItem = ({ item, index }) => {
+	const renderItem = ({ item, index }) => {
 		return (
 			<TouchableOpacity
 				key={index}
@@ -47,8 +51,8 @@ function GamePartners({ gameTicker }) {
 					style={styles.brands}
 					columnWrapperStyle={{ justifyContent: 'space-between' }}
 					numColumns={2}
-					keyExtractor={this.keyExtractor}
-					renderItem={this.renderItem}
+					keyExtractor={keyExtractor}
+					renderItem={renderItem}
 					data={gameTicker.partners}
 				/>
 				<TouchableOpacity style={styles.visit_trc}>
