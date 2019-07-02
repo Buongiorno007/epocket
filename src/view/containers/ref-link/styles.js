@@ -1,8 +1,10 @@
-import { StyleSheet, Dimensions } from 'react-native'
-
+import { StyleSheet, Dimensions, Platform } from 'react-native'
 import { colors } from './../../../constants/colors'
-
-const { width, height } = Dimensions.get('window')
+const { width } = Dimensions.get('window')
+const height =
+	Platform.OS === 'android' && Platform.Version > 26
+		? Dimensions.get('screen').height
+		: Dimensions.get('window').height
 
 export default StyleSheet.create({
 	container: {
