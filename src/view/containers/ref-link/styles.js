@@ -58,14 +58,14 @@ export default StyleSheet.create({
 	},
 	top_container: {
 		width: width,
-		height: height * 0.2,
+		height: height * 0.35,
 		justifyContent: 'center',
 		alignItems: 'center',
 		zIndex: 1003,
 	},
 	top_container_gradient_background: {
 		width: width,
-		height: height * 0.2,
+		height: height * 0.35,
 		position: 'absolute',
 		top: 0,
 	},
@@ -86,8 +86,7 @@ export default StyleSheet.create({
 		height: 40,
 	},
 	share_list: {
-		width: width,
-		height: height * 0.8,
+		flex: 1,
 	},
 	opened_share_title: {
 		color: colors.white,
@@ -95,6 +94,7 @@ export default StyleSheet.create({
 		textAlign: 'center',
 		fontFamily: 'Rubik-Medium',
 		width: width * 0.8,
+		marginBottom: 24,
 	},
 	list: {
 		width: width,
