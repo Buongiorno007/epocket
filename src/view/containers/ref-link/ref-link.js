@@ -155,7 +155,7 @@ class RefLink extends React.Component {
 									currency: this.state.currency,
 								})}
 							</Text>
-							<QRCode value={this.props.link} logoBackgroundColor='transparent' />
+							<QRCode value={this.props.link} backgroundColor='transparent' />
 						</View>
 						<View style={styles.share_list}>
 							<FlatList
