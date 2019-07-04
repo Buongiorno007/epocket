@@ -91,7 +91,6 @@ class RefLink extends React.Component {
 			</Button>
 		) : null
 	render = () => {
-		console.log(this.props, 'PROPS')
 		return (
 			<View style={this.props.toogle ? styles.opened_share_menu : styles.container}>
 				<Button

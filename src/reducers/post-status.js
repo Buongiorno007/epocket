@@ -23,7 +23,7 @@ export const checkPostStatus = () => async (dispatch, getState) => {
 	}
 }
 
-const confirmPost = (bool) => {
+const confirmPost = (bool) => async (dispatch) => {
 	if (bool) {
 		setTimeout(() => {
 			dispatch(checkPostStatus())

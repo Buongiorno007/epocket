@@ -18,13 +18,14 @@ export default StyleSheet.create({
 	preview: {
 		flex: 1,
 		width: width * 0.7,
+		height: width * 0.7,
 		justifyContent: 'flex-end',
 		alignItems: 'center',
 		zIndex: 0,
 	},
 	camera: {
 		backgroundColor: '#fff',
-		marginTop: width * 0.1,
+		marginTop: width * 0.2,
 		width: width * 0.7,
 		height: width * 0.7,
 		borderWidth: 1,

@@ -3,7 +3,7 @@ import { Header } from 'react-navigation'
 import { colors } from '../../../constants/colors'
 const { width } = Dimensions.get('window')
 const height =
-	Platform.OS === 'android' && Platform.Version > 26
+	Platform.OS === 'android' && Platform.Version > 28
 		? Dimensions.get('screen').height
 		: Dimensions.get('window').height
 const iPhoneX = Platform.OS === 'ios' && (height === 812 || width === 812 || height === 896 || width === 896)
@@ -37,7 +37,7 @@ export default StyleSheet.create({
 		// 		? iPhoneX
 		// 			? Header.HEIGHT + 22
 		// 			: Header.HEIGHT
-		// 		: Platform.OS === 'android' && Platform.Version > 26
+		// 		: Platform.OS === 'android' && Platform.Version > 28
 		// 		? 85
 		// 		: 62,
 		flex: 1,

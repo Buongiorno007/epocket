@@ -1,7 +1,7 @@
 import { StyleSheet, Dimensions, Platform } from 'react-native'
 const { width } = Dimensions.get('window')
 const height =
-	Platform.OS === 'android' && Platform.Version > 26
+	Platform.OS === 'android' && Platform.Version > 28
 		? Dimensions.get('screen').height
 		: Dimensions.get('window').height
 
