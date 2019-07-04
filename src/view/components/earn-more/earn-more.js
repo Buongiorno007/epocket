@@ -183,18 +183,20 @@ class EarnMore extends React.Component {
 					end={{ x: 1.0, y: 0.0 }}
 					style={styles.grad}
 				/>
-				<FastImage
-					resizeMode={FastImage.resizeMode.contain}
-					style={styles.image_template}
-					source={{
-						uri: this.props.navigation.state.params.insta_data.img_watermark,
-					}}
-				/>
+
 				<View style={styles.success}>
 					{/* <Text style={[styles.more_money, styles.text_common]}>
 						{I18n.t('MISSION.MORE_MONEY', { currency: this.state.currency })}
 					</Text> */}
 					<Text style={[styles.more_text, styles.text_common]}>{I18n.t('MISSION.MORE_TEXT')}</Text>
+					<FastImage
+						resizeMode={FastImage.resizeMode.contain}
+						style={styles.image_template}
+						source={{
+							uri: this.props.navigation.state.params.insta_data.img_watermark,
+						}}
+					/>
+					<Text style={[styles.more_subtext, styles.text_common]}>{I18n.t('MISSION.MANDATORY')}</Text>
 					<Text style={[styles.more_deck, styles.text_common]}>{I18n.t('MISSION.MORE_DESC')}</Text>
 					<CustomButton
 						style={styles.earn_more_btn}

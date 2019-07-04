@@ -1,5 +1,6 @@
 //constants
 import { Platform } from 'react-native'
+import { Toast } from 'native-base'
 import I18n from '@locales/I18n'
 import { sendToTelegramm } from '@services/telegramm-notification'
 const defaultError = 'code : 500. Internal Server Error'
@@ -77,6 +78,12 @@ export const handleError = (
 	return error
 }
 export const checkError = (error, body, url, func) => {
+	Toast.show({
+		text: I18n.t('REF_LINK.COPY_MESSAGE'),
+		buttonText: 'ok',
+		duration: 3000,
+		onClose: () => {},
+	})
 	if (!__DEV__) {
 		sendToTelegramm(
 			`!!!!FUNCTION NAME: ${func}

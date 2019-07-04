@@ -26,7 +26,6 @@ export default StyleSheet.create({
 	image_template: {
 		zIndex: 1,
 		alignSelf: 'center',
-		top: width * 0.2,
 		height: 165,
 		width: width,
 		// backgroundColor :  colors.white,
@@ -50,6 +49,10 @@ export default StyleSheet.create({
 	},
 	more_text: {
 		fontSize: 18,
+		color: colors.white,
+	},
+	more_subtext: {
+		fontSize: 15,
 		color: colors.white,
 	},
 	more_deck: {
