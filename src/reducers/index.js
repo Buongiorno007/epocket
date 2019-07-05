@@ -58,4 +58,5 @@ export default combineReducers({
 	token: require('./token').default,
 	balance: require('./user-balance').default,
 	userColor: require('./user-color').default,
+	wallet: require('./wallet').default,
 })

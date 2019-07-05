@@ -74,6 +74,6 @@ export default StyleSheet.create({
 		fontSize: 12,
 		lineHeight: 12,
 		fontFamily: 'Rubik-Medium',
-		letterSpacing: 2,
+		letterSpacing: 1.5,
 	},
 })
