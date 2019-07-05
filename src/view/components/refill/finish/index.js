@@ -34,7 +34,7 @@ class RefillFinish extends React.Component<Props, State> {
 		const { condition } = this.props.navigation.state.params
 		return (
 			<LinearGradient colors={colors} start={start} end={end} style={styles.layout}>
-				<Header route={'Main'} title={I18n.t('REFILL.HEADER')} />
+				<Header />
 				{condition === 'success' ? <Success /> : <Fail />}
 			</LinearGradient>
 		)

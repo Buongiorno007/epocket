@@ -36,6 +36,7 @@ export const payment = (amount, type = 'true') => async (dispatch, getState) => 
 		dispatch(setBalance(response.body.user_wallet_amount))
 		dispatch(result())
 		route.navigate('RefillFinish', { condition: 'success' })
+		dispatch(loaderState(false))
 	} catch (e) {
 		dispatch(error(new DEFAULT(e)))
 		dispatch(loaderState(false))
