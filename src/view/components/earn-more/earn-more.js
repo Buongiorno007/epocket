@@ -147,6 +147,7 @@ class EarnMore extends React.Component {
 	}
 
 	render = () => {
+		const { insta_data } = this.props.navigation.state.params
 		return (
 			<View style={styles.container}>
 				<CustomAlert
@@ -197,7 +198,12 @@ class EarnMore extends React.Component {
 						}}
 					/>
 					<Text style={[styles.more_subtext, styles.text_common]}>{I18n.t('MISSION.MANDATORY')}</Text>
-					<Text style={[styles.more_deck, styles.text_common]}>{I18n.t('MISSION.MORE_DESC')}</Text>
+					<Text style={[styles.more_deck, styles.text_desc]}>{I18n.t('MISSION.MORE_DESC')}</Text>
+					<Text style={[styles.more_deck, styles.text_desc]}>
+						{I18n.t('MISSION.MORE_DESC1', { count: insta_data.timer.count }) +
+							' ' +
+							I18n.t(`MISSION.${insta_data.timer.mhd}`)}
+					</Text>
 					<CustomButton
 						style={styles.earn_more_btn}
 						active

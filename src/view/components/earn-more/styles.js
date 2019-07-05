@@ -43,6 +43,10 @@ export default StyleSheet.create({
 		textAlign: 'center',
 		marginBottom: 25,
 	},
+	text_desc: {
+		width: width * 0.85,
+		textAlign: 'center',
+	},
 	more_money: {
 		fontSize: 30,
 		color: colors.white,
@@ -71,7 +75,9 @@ export default StyleSheet.create({
 		fontSize: 14,
 		color: colors.white,
 	},
-	earn_more_btn: {},
+	earn_more_btn: {
+		marginTop: 24,
+	},
 	toast: {
 		alignItems: 'center',
 		justifyContent: 'center',

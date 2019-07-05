@@ -51,14 +51,14 @@ class PhotoView extends React.Component {
 		httpPost(urls.insta_upload_photo, serializeJSON(body), this.props.token, true).then(
 			(result) => {
 				this.setErrorPhotoVisible(false)
-				if (__DEV__) {
-					NavigationService.navigate('MissionSuccess', {
-						price: this.props.selectedMission.price,
-						insta_data: result.body,
-					})
-				} else {
-					this.finishMission(result.body)
-				}
+				// if (__DEV__) {
+				NavigationService.navigate('MissionSuccess', {
+					price: this.props.selectedMission.price,
+					insta_data: result.body,
+				})
+				// } else {
+				// 	this.finishMission(result.body)
+				// }
 			},
 			(error) => {
 				let error_respons = handleError(
@@ -111,7 +111,6 @@ class PhotoView extends React.Component {
 	}
 
 	render = () => {
-		console.log(this.props.navigation.state.params, 'THIS PROPPP')
 		return (
 			<View style={styles.container}>
 				<CustomAlert

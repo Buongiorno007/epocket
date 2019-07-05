@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 import { request } from '@reducers/bonuses'
 import { payment } from '@reducers/refill'
 import LinearGradient from 'react-native-linear-gradient'
-import Header from '@containers/androidHeader/androidHeader'
+import Header from '@containers/header'
 import I18n from '@locales/I18n'
 import route from '@services/route'
 import styles from './styles'
@@ -87,7 +87,7 @@ class Refill extends React.Component<Props, State> {
 			<LinearGradient colors={colors} start={start} end={end} style={styles.layout}>
 				{code && (
 					<React.Fragment>
-						<Header route={'Main'} title={I18n.t('REFILL.HEADER')} />
+						<Header />
 						<KeyboardAvoidingView behavior='padding' style={styles.keyboard}>
 							<ScrollView
 								contentContainerStyle={styles.scroll}
