@@ -1,5 +1,5 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, Platform } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { Button, Text } from 'native-base'
 import NavigationService from './../../../services/route'
@@ -46,18 +46,19 @@ class PhotoView extends React.Component {
 			outlet_id: this.props.selectedMall.id,
 			photo: this.props.navigation.state.params.image,
 			mission_id: this.props.selectedMission.id,
+			device: Platform.OS === 'android',
 		}
 		httpPost(urls.insta_upload_photo, serializeJSON(body), this.props.token, true).then(
 			(result) => {
 				this.setErrorPhotoVisible(false)
-				if (__DEV__) {
-					NavigationService.navigate('MissionSuccess', {
-						price: this.props.selectedMission.price,
-						insta_data: result.body,
-					})
-				} else {
-					this.finishMission(result.body)
-				}
+				// if (__DEV__) {
+				NavigationService.navigate('MissionSuccess', {
+					price: this.props.selectedMission.price,
+					insta_data: result.body,
+				})
+				// } else {
+				// 	this.finishMission(result.body)
+				// }
 			},
 			(error) => {
 				let error_respons = handleError(

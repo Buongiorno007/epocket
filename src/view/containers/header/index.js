@@ -10,7 +10,7 @@ type Props = {
 	title?: string,
 }
 
-const Header = ({ route, title }: Props) => {
+export default function Header({ route = 'Main', title = '' }: Props) {
 	return (
 		<View style={styles.layout}>
 			<View style={styles.wrapper}>
@@ -27,5 +27,3 @@ const Header = ({ route, title }: Props) => {
 		</View>
 	)
 }
-
-export default Header

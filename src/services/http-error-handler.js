@@ -1,5 +1,6 @@
 //constants
 import { Platform } from 'react-native'
+import { Toast } from 'native-base'
 import I18n from '@locales/I18n'
 import { sendToTelegramm } from '@services/telegramm-notification'
 const defaultError = 'code : 500. Internal Server Error'
@@ -63,24 +64,33 @@ export const handleError = (
 	if (!__DEV__) {
 		sendToTelegramm(
 			`---FRONT INFO---:
-			!!! Rejected request at Constructor:
-			${constructor_name}
-			!!! Function name:
-			${function_name}
-			!!! Generated error:
-			${JSON.stringify(error)}
-			!!! Platform:
-			${Platform.OS}
+			!!! Rejected request at Constructor: ${constructor_name}
+			!!! Function name: ${function_name}
+			!!! Generated error: ${error.error_text}, errorCode: ${error.error_code}
+			!!! Platform: ${Platform.OS}
 			---BACK INFO---:
-			!!! Error all:
-			${JSON.stringify(errorAll)}
-			!!! Request body:
-			${JSON.stringify(request_body)}
-			!!! Request url:
-			${request_url}
-			!!! Request token:
-			${request_token}`,
+			!!! Error all: ${JSON.stringify(errorAll)}
+			!!! Request body: ${JSON.stringify(request_body)}
+			!!! Request url: ${request_url}
+			!!! Request token: ${request_token}`,
 		)
 	}
 	return error
+}
+export const checkError = (error, body, url, func) => {
+	Toast.show({
+		text: I18n.t('REF_LINK.COPY_MESSAGE'),
+		buttonText: 'ok',
+		duration: 3000,
+		onClose: () => {},
+	})
+	if (!__DEV__) {
+		sendToTelegramm(
+			`!!!!FUNCTION NAME: ${func}
+			 !!!!ERROR CODE: ${error}
+			 !!!!PLATFORM: ${Platform.OS}
+			 !!!!URL: ${url}
+			 !!!!BODY: ${JSON.stringify(body)}`,
+		)
+	}
 }

@@ -1,8 +1,10 @@
-import { StyleSheet, Dimensions } from 'react-native'
-
+import { StyleSheet, Dimensions, Platform } from 'react-native'
 import { colors } from './../../../constants/colors'
-
-const { width, height } = Dimensions.get('window')
+const { width } = Dimensions.get('window')
+const height =
+	Platform.OS === 'android' && Platform.Version > 28
+		? Dimensions.get('screen').height
+		: Dimensions.get('window').height
 
 export default StyleSheet.create({
 	container: {
@@ -56,14 +58,14 @@ export default StyleSheet.create({
 	},
 	top_container: {
 		width: width,
-		height: height * 0.2,
+		height: height * 0.35,
 		justifyContent: 'center',
 		alignItems: 'center',
 		zIndex: 1003,
 	},
 	top_container_gradient_background: {
 		width: width,
-		height: height * 0.2,
+		height: height * 0.35,
 		position: 'absolute',
 		top: 0,
 	},
@@ -84,8 +86,7 @@ export default StyleSheet.create({
 		height: 40,
 	},
 	share_list: {
-		width: width,
-		height: height * 0.8,
+		flex: 1,
 	},
 	opened_share_title: {
 		color: colors.white,
@@ -93,6 +94,7 @@ export default StyleSheet.create({
 		textAlign: 'center',
 		fontFamily: 'Rubik-Medium',
 		width: width * 0.8,
+		marginBottom: 24,
 	},
 	list: {
 		width: width,

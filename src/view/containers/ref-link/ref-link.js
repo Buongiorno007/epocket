@@ -6,13 +6,13 @@ import LinearGradient from 'react-native-linear-gradient'
 //constants
 import styles from './styles'
 import { ICONS } from '../../../constants/icons'
-import { colors } from './../../../constants/colors'
 //services
-import { shareToAllSocial, shareToOneSocial } from './../../../services/share-ref-link'
+import { shareToOneSocial } from './../../../services/share-ref-link'
 //redux
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import I18n from '@locales/I18n'
+import QRCode from 'react-native-qrcode-svg'
 
 class RefLink extends React.Component {
 	state = {
@@ -154,6 +154,7 @@ class RefLink extends React.Component {
 									currency: this.state.currency,
 								})}
 							</Text>
+							<QRCode value={this.props.link} backgroundColor='transparent' />
 						</View>
 						<View style={styles.share_list}>
 							<FlatList

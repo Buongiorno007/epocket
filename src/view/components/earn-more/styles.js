@@ -1,11 +1,14 @@
-import { StyleSheet, Dimensions } from 'react-native'
-
-const { width, height } = Dimensions.get('window')
+import { StyleSheet, Dimensions, Platform } from 'react-native'
 import { colors } from '../../../constants/colors'
-
+const { width } = Dimensions.get('window')
+const height =
+	Platform.OS === 'android' && Platform.Version > 28
+		? Dimensions.get('screen').height
+		: Dimensions.get('window').height
 export default StyleSheet.create({
 	container: {
-		flex: 1,
+		width,
+		height,
 		alignItems: 'center',
 		backgroundColor: colors.backgroundForAnimated,
 	},
@@ -23,7 +26,6 @@ export default StyleSheet.create({
 	image_template: {
 		zIndex: 1,
 		alignSelf: 'center',
-		top: width * 0.2,
 		height: 165,
 		width: width,
 		// backgroundColor :  colors.white,
@@ -41,12 +43,20 @@ export default StyleSheet.create({
 		textAlign: 'center',
 		marginBottom: 25,
 	},
+	text_desc: {
+		width: width * 0.85,
+		textAlign: 'center',
+	},
 	more_money: {
 		fontSize: 30,
 		color: colors.white,
 	},
 	more_text: {
 		fontSize: 18,
+		color: colors.white,
+	},
+	more_subtext: {
+		fontSize: 15,
 		color: colors.white,
 	},
 	more_deck: {
@@ -65,7 +75,9 @@ export default StyleSheet.create({
 		fontSize: 14,
 		color: colors.white,
 	},
-	earn_more_btn: {},
+	earn_more_btn: {
+		marginTop: 24,
+	},
 	toast: {
 		alignItems: 'center',
 		justifyContent: 'center',

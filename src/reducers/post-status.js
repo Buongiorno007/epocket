@@ -23,7 +23,7 @@ export const checkPostStatus = () => async (dispatch, getState) => {
 	}
 }
 
-const confirmPost = (bool) => {
+const confirmPost = (bool) => async (dispatch) => {
 	if (bool) {
 		setTimeout(() => {
 			dispatch(checkPostStatus())
@@ -41,7 +41,7 @@ export const publish = () => async (dispatch, getState) => {
 		postToSocial(
 			gameResult,
 			'https://www.instagram.com/epocketapp/',
-			confirmPost(gameResult.game_id),
+			dispatch(confirmPost(gameResult.game_id)),
 			Platform.OS === 'ios' && gameResult.video,
 		)
 	}

@@ -10,8 +10,7 @@ const toolbarHeight = Platform.OS === 'ios' ? 64 : Header.HEIGHT
 
 export default StyleSheet.create({
 	layout: {
-		width,
-		height,
+		flex: 1,
 	},
 	keyboard: {
 		position: 'absolute',

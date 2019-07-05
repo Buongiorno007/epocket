@@ -1,9 +1,14 @@
 import { StyleSheet, Dimensions, Platform } from 'react-native'
 const { width } = Dimensions.get('window')
+const height =
+	Platform.OS === 'android' && Platform.Version > 28
+		? Dimensions.get('screen').height
+		: Dimensions.get('window').height
 
 export default StyleSheet.create({
 	gradient: {
-		flex: 1,
+		width,
+		height,
 		alignItems: 'center',
 		paddingBottom: 60,
 		paddingTop: 40,

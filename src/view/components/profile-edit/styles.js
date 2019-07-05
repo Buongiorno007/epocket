@@ -1,7 +1,11 @@
 import { StyleSheet, Dimensions, StatusBar, Platform } from 'react-native'
 import { Header } from 'react-navigation'
 import { colors } from '../../../constants/colors'
-const { width, height } = Dimensions.get('window')
+const { width } = Dimensions.get('window')
+const height =
+	Platform.OS === 'android' && Platform.Version > 28
+		? Dimensions.get('screen').height
+		: Dimensions.get('window').height
 const iPhoneX = Platform.OS === 'ios' && (height === 812 || width === 812 || height === 896 || width === 896)
 
 export default StyleSheet.create({
@@ -14,13 +18,8 @@ export default StyleSheet.create({
 		backgroundColor: 'rgba(255,255,255,.2)',
 	},
 	container: {
-		width: width,
-		height: height,
-		position: 'absolute',
-		top: 0,
-		left: 0,
-		right: 0,
-		bottom: 0,
+		width,
+		height,
 		backgroundColor: colors.backgroundForAnimated,
 		zIndex: 100,
 	},
@@ -30,10 +29,17 @@ export default StyleSheet.create({
 		top: Platform.OS === 'ios' ? (iPhoneX ? Header.HEIGHT + 22 : Header.HEIGHT) : 62,
 	},
 	grad: {
-		position: 'absolute',
-		height: Platform.OS === 'ios' ? (iPhoneX ? height - Header.HEIGHT - 22 : height - Header.HEIGHT) : height - 62,
-		width: width,
-		top: Platform.OS === 'ios' ? (iPhoneX ? Header.HEIGHT + 22 : Header.HEIGHT) : 62,
+		// position: 'absolute',
+		// height: Platform.OS === 'ios' ? (iPhoneX ? height - Header.HEIGHT - 22 : height - Header.HEIGHT) : height - 62,
+		// width: width,
+		// top:
+		// 	Platform.OS === 'ios'
+		// 		? iPhoneX
+		// 			? Header.HEIGHT + 22
+		// 			: Header.HEIGHT
+		// 		: Platform.OS === 'android' && Platform.Version > 28
+		// 		? 85
+		// 		: 62,
 		flex: 1,
 		flexDirection: 'column',
 		paddingHorizontal: 16,

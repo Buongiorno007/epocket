@@ -60,9 +60,7 @@ function GamePartners({ gameTicker }) {
 				</TouchableOpacity>
 			</View>
 			<FooterNavigation />
-			{site && (
-				<GameSite timing={gameTicker.timer} changeTimer={() => {}} setSite={() => setSite(!site)} link={link} />
-			)}
+			{site && <GameSite timing={gameTicker.timer} setSite={() => setSite(!site)} link={link} />}
 		</LinearGradient>
 	)
 }

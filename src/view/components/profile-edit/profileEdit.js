@@ -15,7 +15,7 @@ import { bindActionCreators } from 'redux'
 import ImagePicker from 'react-native-image-picker'
 //containers
 import CustomButton from '@containers/custom-button/custom-button'
-import AndroidHeader from '@containers/androidHeader/androidHeader'
+import Header from '@containers/header'
 import CustomPhoto from '@containers/custom-photo/custom-photo'
 //reducers
 import { loaderState } from '@reducers/loader'
@@ -136,7 +136,7 @@ class ProfEdit extends React.Component {
 				style={styles.container}
 			>
 				<Image style={styles.img} source={require('@assets/img/bubles.png')} />
-				<AndroidHeader route='Main' title={I18n.t('PROFILE_SETTINGS.EDIT')} />
+				<Header route='Main' title={I18n.t('PROFILE_SETTINGS.EDIT')} />
 				<KeyboardAvoidingView behavior='padding' style={styles.grad}>
 					<ScrollView contentContainerStyle={styles.scrollView}>
 						<View style={styles.photo_container}>

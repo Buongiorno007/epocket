@@ -1,17 +1,15 @@
 import { StyleSheet, Dimensions, Platform } from 'react-native'
-
-const { width, height } = Dimensions.get('window')
 import { colors } from '../../../constants/colors'
+const { width } = Dimensions.get('window')
+const height =
+	Platform.OS === 'android' && Platform.Version > 28
+		? Dimensions.get('screen').height
+		: Dimensions.get('window').height
 
 export default StyleSheet.create({
 	main_view: {
-		// position: 'absolute',
-		// top: 0,
-		// left: 0,
-		// right: 0,
-		// height: height,
-		// width: width,
-		flex: 1,
+		width,
+		height,
 		alignItems: 'center',
 		justifyContent: 'center',
 		backgroundColor: colors.drag_panel_color,

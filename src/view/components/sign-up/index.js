@@ -6,7 +6,7 @@ import { Button } from 'native-base'
 import { signUp } from '@reducers/sign-up'
 import { signUpConfirm } from '@reducers/sign-up-confirm'
 import LinearGradient from 'react-native-linear-gradient'
-import Header from '@containers/androidHeader/androidHeader'
+import Header from '@containers/header'
 import Dropdown from '@containers/signForm/signForm'
 import Touchable from '@containers/custom-button/custom-button'
 import I18n from '@locales/I18n'
@@ -28,7 +28,7 @@ const initialState = {
 	code: '',
 	name: '',
 	age: '',
-	gender: 0,
+	gender: 1,
 	user_id: '',
 	validate: false,
 	accept: false,

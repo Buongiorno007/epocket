@@ -1,7 +1,9 @@
-import { StyleSheet, Dimensions, Platform } from 'react-native'
-
-const { width, height } = Dimensions.get('window')
-
+import { StyleSheet, Dimensions, Platform, StatusBar } from 'react-native'
+const { width } = Dimensions.get('window')
+const height =
+	Platform.OS === 'android' && Platform.Version > 28
+		? Dimensions.get('screen').height
+		: Dimensions.get('window').height
 export default StyleSheet.create({
 	layout: {
 		position: 'absolute',

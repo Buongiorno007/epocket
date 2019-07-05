@@ -1,19 +1,20 @@
-import { StyleSheet, Dimensions } from 'react-native'
+import { StyleSheet, Dimensions, Platform } from 'react-native'
+import { colors } from '@constants/colors'
+const { width } = Dimensions.get('window')
+const height =
+	Platform.OS === 'android' && Platform.Version > 28
+		? Dimensions.get('screen').height
+		: Dimensions.get('window').height
 
-const { width, height } = Dimensions.get('window')
-import { colors } from '../../../constants/colors'
 export default StyleSheet.create({
 	main_view: {
-		flex: 1,
+		width,
+		height,
 		alignItems: 'center',
 		justifyContent: 'center',
 	},
 	map_view: {
-		position: 'absolute',
-		top: 0,
-		width: width,
-		height: height - 60,
-		position: 'absolute',
+		flex: 1,
 		zIndex: 1,
 	},
 	trc_info: {

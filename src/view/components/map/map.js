@@ -160,36 +160,7 @@ class Map extends React.Component {
 			)
 		}
 	}
-	showNearestOne = (my_location, mall_array, outlets) => {
-		let newArr = []
-		mall_array.forEach((item) => {
-			let newItem = {
-				latitude: item.lat,
-				longitude: item.lng,
-			}
-			let name = item.id
-			if (!outlets && newItem.latitude !== 'None' && newItem.longitude !== 'None') {
-				newArr.push(newItem)
-			} else if (
-				outlets &&
-				newItem.latitude !== 'None' &&
-				newItem.longitude !== 'None' &&
-				item.formated.money > 0
-			) {
-				newArr.push(newItem)
-			}
-		})
-		let nearestMall = findNearest(my_location, newArr)
-		if (nearestMall) {
-			let latD = 0.00000212 * nearestMall.distance
-			let lngD = 0.00000381 * nearestMall.distance
-			if (latD > this.state.region.latitudeDelta && lngD > this.state.region.longitudeDelta) {
-				setTimeout(() => {
-					this.moveMapTo(Number(this.props.location.lat), Number(this.props.location.lng), latD, lngD)
-				}, 1000)
-			}
-		}
-	}
+
 	toggleTab = (tab) => {
 		this.setState({ mapKey: Math.random() })
 		if (tab === 'shop') {
@@ -359,13 +330,23 @@ class Map extends React.Component {
 			this.props.setNavigateToMall(false)
 		}
 	}
+
+	getFirstDistance = (out) => {
+		let me = {
+			latitude: this.props.location.lat,
+			longitude: this.props.location.lng,
+		}
+		let mall = findNearest(me, out)
+		this.props.setDistance(getDistance(me, mall))
+	}
+
 	componentDidMount = () => {
-		this.loadTRC()
 		if (this.props.location.lat === 0 && this.props.location.lng === 0) {
 			this.setState({ location_loader: true })
 		} else {
 			this.setState({ location_loader: false })
 		}
+		this.loadTRC()
 	}
 
 	loadTRC = () => {
@@ -383,11 +364,24 @@ class Map extends React.Component {
 			this.props.token,
 		).then(
 			(result) => {
+				let out = []
 				result.body.outlets.forEach((elem) => {
 					elem.location = {
 						latitude: elem.lat,
 						longitude: elem.lng,
 					}
+					let distance =
+						getDistance(
+							{
+								latitude: this.props.location.lat,
+								longitude: this.props.location.lng,
+							},
+							{
+								latitude: elem.lat,
+								longitude: elem.lng,
+							},
+						) - elem.rad
+					if (distance < 0) this.props.setDistance(distance)
 				})
 				result.body.discounts.forEach((elem) => {
 					elem.location = {
@@ -447,6 +441,37 @@ class Map extends React.Component {
 			},
 		)
 	}
+	showNearestOne = (my_location, mall_array, outlets) => {
+		let newArr = []
+		mall_array.forEach((item) => {
+			let newItem = {
+				latitude: item.lat,
+				longitude: item.lng,
+			}
+			let name = item.id
+			if (!outlets && newItem.latitude !== 'None' && newItem.longitude !== 'None') {
+				newArr.push(newItem)
+			} else if (
+				outlets &&
+				newItem.latitude !== 'None' &&
+				newItem.longitude !== 'None' &&
+				item.formated.money > 0
+			) {
+				newArr.push(newItem)
+			}
+		})
+		let nearestMall = findNearest(my_location, newArr)
+		let distance = getDistance(my_location, nearestMall)
+		if (nearestMall) {
+			let latD = 0.00005212 * distance
+			let lngD = 0.00005381 * distance
+			if (latD > this.state.region.latitudeDelta && lngD > this.state.region.longitudeDelta) {
+				setTimeout(() => {
+					this.moveMapTo(Number(this.props.location.lat), Number(this.props.location.lng), latD, lngD)
+				}, 1000)
+			}
+		}
+	}
 	checkLat(lat) {
 		return lat > -90 && lat < 90 ? true : false
 	}
@@ -471,11 +496,96 @@ class Map extends React.Component {
 			}
 		})
 		let nearestMall = findNearest(my_location, newArr)
+		nearestMall.lat = nearestMall.latitude
+		nearestMall.lng = nearestMall.longitude
 		if (nearestMall) {
-			let selectedTRC = mall_array.find((x) => x.id === Number(nearestMall.key))
+			let selectedTRC = mall_array.find((x) => x.lat === nearestMall.lat && x.lng === nearestMall.lng)
 			try {
 				this.selectMark(selectedTRC, ANIMATE_MAP, 'task')
-			} catch (e) {}
+			} catch (e) {
+				console.log(e, 'WAT')
+			}
+		}
+	}
+
+	selectMark = (trc, ANIMATE_MAP, mark_type) => {
+		ANIMATE_MAP && this.moveMapTo(Number(trc.lat), Number(trc.lng), 0.0028, 0.0028)
+		this.setState({
+			pickedMark: {
+				latitude: Number(trc.lat).toFixed(3),
+				longitude: Number(trc.lng).toFixed(5),
+			},
+		})
+		let bounds = getBounds([
+			{ latitude: trc.lat, longitude: trc.lng },
+			{ latitude: this.props.location.lat, longitude: this.props.location.lng },
+		])
+		let center = getCenter([
+			{ latitude: trc.lat, longitude: trc.lng },
+			{ latitude: this.props.location.lat, longitude: this.props.location.lng },
+		])
+		let distance =
+			getDistance(
+				{ latitude: trc.lat, longitude: trc.lng },
+				{
+					latitude: this.props.location.lat,
+					longitude: this.props.location.lng,
+				},
+			) - trc.rad
+		let curr_trc = {
+			active: true,
+			name: trc.name,
+			adress: trc.adress,
+			lat: Number(trc.lat),
+			lng: Number(trc.lng),
+			distance: distance,
+			id: trc.id,
+			rad: trc.rad,
+		}
+		this.props.updateMall(curr_trc)
+		this.props.setDistance(distance)
+		// use JSON.stringify because js copies array with link, so changes applied to the new array applies to the old one
+		if (mark_type === 'task') {
+			this.props.loaderState(true)
+			this.loadTaskItems(trc)
+			this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets])
+			let new_outlets = JSON.parse(
+				JSON.stringify([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]),
+			)
+			let id = this.props.outlets.indexOf(trc)
+			if (new_outlets[id]) {
+				new_outlets[id].active = true
+				this.props.setOutlets(new_outlets)
+			}
+			if (distance <= 0 && this.props.isLocation) {
+				//start timer
+				this.props.showTimer(false)
+				if (!this.props.selectedMall.outlet) {
+					this.callTimer(trc.id, distance)
+				}
+			}
+		} else if (mark_type === 'shop') {
+			this.props.loaderState(true)
+			this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets])
+			this.loadCashoutItems(trc)
+			let new_outlets = JSON.parse(
+				JSON.stringify([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]),
+			)
+			let id = this.props.outlets.indexOf(trc)
+			if (new_outlets[id]) {
+				new_outlets[id].active = true
+				this.props.setOutlets(new_outlets)
+			}
+		} else {
+			this.props.loaderState(true)
+			this.props.setOutlets(this.props.initial_outlets.discounts)
+			this.loadDiscountItems(trc)
+			let new_outlets = JSON.parse(JSON.stringify(this.props.initial_outlets.discounts))
+			let id = this.props.outlets.indexOf(trc)
+			if (new_outlets[id]) {
+				new_outlets[id].active = true
+				this.props.setOutlets(new_outlets)
+			}
 		}
 	}
 
@@ -750,7 +860,6 @@ class Map extends React.Component {
 				? false
 				: true,
 		}
-		console.log(body, 'CALLTIMER MAP')
 		httpPost(urls.start_mission, JSON.stringify(body), this.props.token).then(
 			(result) => {
 				this.setErrorVisible(false)
@@ -819,86 +928,7 @@ class Map extends React.Component {
 			},
 		)
 	}
-	selectMark = (trc, ANIMATE_MAP, mark_type) => {
-		ANIMATE_MAP && this.moveMapTo(Number(trc.lat), Number(trc.lng), 0.0008, 0.0008)
-		this.setState({
-			pickedMark: {
-				latitude: Number(trc.lat).toFixed(3),
-				longitude: Number(trc.lng).toFixed(5),
-			},
-		})
-		let bounds = getBounds([
-			{ latitude: trc.lat, longitude: trc.lng },
-			{ latitude: this.props.location.lat, longitude: this.props.location.lng },
-		])
-		let center = getCenter([
-			{ latitude: trc.lat, longitude: trc.lng },
-			{ latitude: this.props.location.lat, longitude: this.props.location.lng },
-		])
-		let distance =
-			getDistance(
-				{ latitude: trc.lat, longitude: trc.lng },
-				{
-					latitude: this.props.location.lat,
-					longitude: this.props.location.lng,
-				},
-			) - trc.rad
-		let curr_trc = {
-			active: true,
-			name: trc.name,
-			adress: trc.adress,
-			lat: Number(trc.lat),
-			lng: Number(trc.lng),
-			distance: distance,
-			id: trc.id,
-			rad: trc.rad,
-		}
-		this.props.updateMall(curr_trc)
-		this.props.setDistance(distance)
-		// use JSON.stringify because js copies array with link, so changes applied to the new array applies to the old one
-		if (mark_type === 'task') {
-			this.props.loaderState(true)
-			this.loadTaskItems(trc)
-			this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets])
-			let new_outlets = JSON.parse(
-				JSON.stringify([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]),
-			)
-			let id = this.props.outlets.indexOf(trc)
-			if (new_outlets[id]) {
-				new_outlets[id].active = true
-				this.props.setOutlets(new_outlets)
-			}
-			if (distance <= 0 && this.props.isLocation) {
-				//start timer
-				this.props.showTimer(false)
-				if (!this.props.selectedMall.outlet) {
-					this.callTimer(trc.id, distance)
-				}
-			}
-		} else if (mark_type === 'shop') {
-			this.props.loaderState(true)
-			this.props.setOutlets([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets])
-			this.loadCashoutItems(trc)
-			let new_outlets = JSON.parse(
-				JSON.stringify([...this.props.initial_outlets.cashouts, ...this.props.initial_outlets.outlets]),
-			)
-			let id = this.props.outlets.indexOf(trc)
-			if (new_outlets[id]) {
-				new_outlets[id].active = true
-				this.props.setOutlets(new_outlets)
-			}
-		} else {
-			this.props.loaderState(true)
-			this.props.setOutlets(this.props.initial_outlets.discounts)
-			this.loadDiscountItems(trc)
-			let new_outlets = JSON.parse(JSON.stringify(this.props.initial_outlets.discounts))
-			let id = this.props.outlets.indexOf(trc)
-			if (new_outlets[id]) {
-				new_outlets[id].active = true
-				this.props.setOutlets(new_outlets)
-			}
-		}
-	}
+
 	_keyExtractor = (item, index) => {
 		let key = item.id + '_' + item.name
 		return key
