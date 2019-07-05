@@ -30,7 +30,6 @@ class FooterNavigation extends React.Component {
 					transparent
 					style={[styles.footer_tab]}
 					onPress={() => {
-						this.props.loaderState(true)
 						this.props.setTabState(0)
 					}}
 				>

@@ -14,14 +14,12 @@ type Props = {
 	second: string,
 } & typeof defaultProps
 
-type State = {}
-
 const defaultProps = {
 	start: { x: 1.0, y: 0.0 },
 	end: { x: 0.0, y: 1.0 },
 }
 
-class RefillFinish extends React.Component<Props, State> {
+class RefillFinish extends React.Component<Props> {
 	static defaultProps = defaultProps
 
 	componentDidMount() {
