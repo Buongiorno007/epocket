@@ -142,9 +142,10 @@ class PhotoView extends React.Component {
 					<FastImage source={{ uri: this.props.navigation.state.params.url }} style={styles.image} />
 				</View>
 
-				<View style={styles.template_hashtags}>
+				{/* <View style={styles.template_hashtags}>
 					<InstaHashTags hashtags={this.props.navigation.state.params.template_info.hashtags} />
-				</View>
+				</View> */}
+				<Text>{this.props.navigation.state.params.template_info.hashtags}</Text>
 				<View style={[styles.navigation, styles.size]}>
 					<View style={[styles.button_container, styles.size]}>
 						<Button

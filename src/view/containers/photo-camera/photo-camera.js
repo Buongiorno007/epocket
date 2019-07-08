@@ -1,9 +1,7 @@
 import React from 'react'
-import { View } from 'react-native'
-import FastImage from 'react-native-fast-image'
+import { View, Clipboard } from 'react-native'
 import { RNCamera } from 'react-native-camera'
 import Refresh from 'react-native-vector-icons/SimpleLineIcons'
-import Circle from 'react-native-vector-icons/Entypo'
 import { Button } from 'native-base'
 //containers
 import TemplateInstagramPhoto from '../template-insta-photo/template-insta-photo'
@@ -11,7 +9,6 @@ import InstaHashTags from '../insta-hashtags/insta-hashtags'
 //constants
 import styles from './styles'
 import { urls } from '../../../constants/urls'
-import { ICONS } from './../../../constants/icons'
 //services
 import NavigationService from './../../../services/route'
 import { httpPost } from '../../../services/http'
@@ -45,6 +42,7 @@ class PhotoCamera extends React.Component {
 						hashtags: result.body.hash_tag,
 					},
 				})
+				Clipboard.setString(result.body.hash_tag)
 			},
 			(error) => {},
 		)
@@ -91,9 +89,10 @@ class PhotoCamera extends React.Component {
 						permissionDialogMessage={I18n.t('CAMERA_PERMISSION')}
 					/>
 				</View>
-				<View style={styles.template_hashtags}>
+				{/* <View style={styles.template_hashtags}>
 					<InstaHashTags hashtags={this.state.template_info.hashtags} />
-				</View>
+				</View> */}
+				<Text>{this.state.template_info.hashtags}</Text>
 				<View style={[styles.settings, styles.size]}>
 					<View style={styles.photo_button}>
 						<View>
