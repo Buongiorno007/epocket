@@ -26,15 +26,7 @@ function GameField({ gameProcess, showChanges }) {
 						<Button
 							key={index}
 							transparent
-							style={[
-								item
-									? index < 3 && index > 5
-										? styles.itemmmm_pressed
-										: styles.it_pressed
-									: index < 3 && index > 5
-									? styles.itemmmm
-									: styles.it,
-							]}
+							style={[styles.it, item ? styles.item_pressed : styles.item]}
 							onPress={() => changeItem(index)}
 						/>
 					)
