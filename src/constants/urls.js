@@ -1,5 +1,6 @@
-export const devserver = 'https://epocket.dev.splinestudio.com'
-export const devserver2 = 'http://epocket.dev.splinestudio.com'
+const server = 'https://epocket.dev.splinestudio.com'
+const server2 = 'http://epocket.dev.splinestudio.com'
+const devserver = true ? server : server2
 
 export const urls = {
 	sign_up: devserver + '/sign-in/registration/',
@@ -14,29 +15,29 @@ export const urls = {
 	finish_mission: devserver + '/mission/finish-mission/',
 	close_mission: devserver + '/mission/close-mission/',
 	send_qr_code: devserver + '/mission/send-qr-code/',
-	send_photo: devserver + '/mission/send-photo/',
+	send_photo: devserver + '/mission/send-photo/', //MAYBE DEPRECATED
 	get_received_bonuses: devserver + '/history/wallet-in/',
 	get_spent_bonuses: devserver + '/history/wallet-out/',
 	get_partners: devserver + '/history/partners',
 	get_outlet_products: devserver + '/order/get-outlet-products/',
 	create_order: devserver + '/order/create-order/',
 	add_device: devserver + '/push-notification/add-device/',
-	send_push_all: devserver + '/push-notification/send-push/all',
-	send_push_single: devserver + '/push-notification/send-push/single',
+	send_push_all: devserver + '/push-notification/send-push/all', //MAYBE DEPRECATED
+	send_push_single: devserver + '/push-notification/send-push/single', //MAYBE DEPRECATED
 	insta_login: devserver + '/instagram/api/authorization',
 	insta_logout: devserver + '/instagram/api/deleteuser',
 	insta_outlet_template: devserver + '/instagram/api/outlet_template',
 	insta_upload_photo: devserver + '/instagram/api/upload_photo',
-	insta_is_logged: devserver + '/instagram/api/islogged',
+	insta_is_logged: devserver + '/instagram/api/islogged', //MAYBE DEPRECATED
 	insta_getmedia: devserver + '/instagram/api/getmedia',
 	post_game: devserver + '/instagram/api/post_game',
 	facebook_login: devserver + '/facebook/api/authorization',
 	facebook_logout: devserver + '/facebook/api/deleteuser',
-	facebook_is_logged: devserver + '/facebook/api/islogged',
+	facebook_is_logged: devserver + '/facebook/api/islogged', //MAYBE DEPRECATED
 	socket: 'ws://epocket.dev.splinestudio.com/order/',
-	game_get: devserver + '/brand/game',
-	game_expired_timer: devserver + '/brand/time',
-	force_remove_ticker: devserver + '/brand/reset',
+	game_get: devserver + '/brand/game', //MAYBE DEPRECATED
+	game_expired_timer: devserver + '/brand/time', //MAYBE DEPRECATED
+	force_remove_ticker: devserver + '/brand/reset', //MAYBE DEPRECATED
 	get_referral_link: devserver + '/link',
 	ref_link: devserver + '/reflink?code=',
 	echo: devserver + '/echo',

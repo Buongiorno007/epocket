@@ -1,4 +1,5 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
+const { width } = Dimensions.get('window')
 
 export default StyleSheet.create({
 	layout: {
@@ -23,8 +24,10 @@ export default StyleSheet.create({
 		textAlign: 'center',
 	},
 	button: {
+		width: width * 0.5,
 		backgroundColor: '#fff',
 		marginTop: 30,
+		alignSelf: 'center',
 	},
 	text: {
 		fontSize: 12,
