@@ -32,5 +32,13 @@ export default StyleSheet.create({
 		borderTopLeftRadius: 24,
 		borderTopRightRadius: 24,
 		paddingTop: 16,
+		paddingHorizontal: 16,
+	},
+	scroll: {
+		flex: 1,
+	},
+	date: {
+		marginTop: 24,
+		width: '100%',
 	},
 })

@@ -8,6 +8,7 @@ import Profile from '@components/profile/profile'
 import History from '@components/history/history'
 import GameS from '@components/game-component/game-start'
 import GamePartners from '@components/game-component/game-partners'
+import Wallet from '@components/wallet'
 //containers
 import ReturnToMall from '@containers/return-to-mall-timer/return-to-mall-timer'
 import TimerModal from '@containers/timer-modal/timer-modal'
@@ -51,6 +52,7 @@ class Main extends React.Component {
 					{this.props.activeTab === 0 ? this.renderLastTab() : null}
 					{this.props.activeTab === 1 ? <Map /> : null}
 					{this.props.activeTab === 2 ? <History /> : null}
+					{/* {this.props.activeTab === 2 && <Wallet />} */}
 					{this.props.activeTab === 3 ? <Profile /> : null}
 				</View>
 
