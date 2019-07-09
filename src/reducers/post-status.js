@@ -47,7 +47,8 @@ export const publish = () => async (dispatch, getState) => {
 	}
 }
 
-export const waited = () => async (dispatch) => {
+export const waited = () => async (dispatch, getState) => {
+	const { token } = getState()
 	dispatch(loaderState(true))
 	try {
 		await httpPost(urls.game_result, JSON.stringify({ status: true, ticker: true }), token)

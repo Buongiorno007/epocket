@@ -61,6 +61,7 @@ class CashoutBalance extends React.Component {
 		if ((maxValue && minValue, tax, currentValue)) {
 			NavigationService.navigate('Refill')
 		} else {
+			this.props.loaderState(false)
 			console.log('error refill')
 		}
 	}

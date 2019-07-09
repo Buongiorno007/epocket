@@ -76,3 +76,8 @@ export const BONUSES = function(data = {}) {
 	this.value = Number(data.received_bonuses) || 0
 }
 BONUSES.prototype = Object.create(DEFAULT.prototype)
+
+export const WALLET = function(data = {}) {
+	this.value = data.value || 0
+	this.history = data.history || []
+}

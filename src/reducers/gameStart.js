@@ -27,6 +27,7 @@ export default (state = initialState, action) => {
 export const getGameStart = () => async (dispatch, getState) => {
 	const { token } = getState()
 	const { lat, lng } = getState().location.coordinate
+	dispatch(loaderState(true))
 	try {
 		const response = await httpGet(urls.new_game_get + '?coords=' + lat + '%2C' + lng, token)
 		if (response.body.type === 'game') {
