@@ -79,5 +79,19 @@ BONUSES.prototype = Object.create(DEFAULT.prototype)
 
 export const WALLET = function(data = {}) {
 	this.value = data.value || 0
-	this.history = data.history || []
+	this.history = data.history || [
+		{
+			date: '12.04.1995',
+			data: [
+				{
+					id: 0,
+					img: 'https://24tv.ua/resources/photos/news/610x344_DIR/201906/1161576.jpg?201906162833',
+					title: 'MOBILE',
+					description: 'buy phone',
+					price: '+15000',
+					status: 'IN_PROCESS',
+				},
+			],
+		},
+	]
 }

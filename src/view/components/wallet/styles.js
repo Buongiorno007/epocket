@@ -31,7 +31,6 @@ export default StyleSheet.create({
 		backgroundColor: '#F5F9FE',
 		borderTopLeftRadius: 24,
 		borderTopRightRadius: 24,
-		paddingTop: 16,
 		paddingHorizontal: 16,
 	},
 	scroll: {

@@ -17,9 +17,11 @@ function Wallet({ wallet, profileState }) {
 		//some getWallet function
 	}, [])
 
-	const renderItem = (item) => {
+	const renderItem = ({ item }) => {
 		return <WalletDate item={item} />
 	}
+
+	const keyExtractor = (item) => item.date
 
 	return (
 		<View style={styles.container}>
@@ -34,14 +36,14 @@ function Wallet({ wallet, profileState }) {
 							// horizontal={false}
 							// removeClippedSubviews={true}
 							// contentContainerStyle={styles.contentContainerStyle}
-							keyExtractor={(item) => item.id}
+							keyExtractor={keyExtractor}
 							renderItem={renderItem}
 							// onScrollBeginDrag={() => {
 							// 	let old_limitShops = this.state.limitShops
 							// 	this.setState({ limitShops: old_limitShops + 10 })
 							// 	this.refreshList()
 							// }}
-						></FlatList>
+						/>
 					</View>
 				</LinearGradient>
 			</View>

@@ -2,16 +2,25 @@ import React from 'react'
 import { View, Text } from 'react-native'
 import WalletItem from '../wallet-item'
 //styles
+import I18n from '@locales/I18n'
 import styles from './styles'
 
-export default function WalletDate(item) {
+export default function WalletDate({ item }) {
 	const returnItem = (item) => {
-		return <WalletItem item={item} />
+		return <WalletItem key={item.id} item={item} />
 	}
 
+	const splitDate = (date) => {
+		const day = date.split('.')[0]
+		const month = date.split('.')[1]
+		const year = date.split('.')[2]
+		return { day, month, year }
+	}
+
+	const { day, month, year } = splitDate(item.date)
 	return (
 		<View style={styles.view}>
-			<Text>{item.date}</Text>
+			<Text style={styles.date}>{`${day}  ${I18n.t('MONTH.' + month)} ${year}`} </Text>
 			{item.data.map(returnItem)}
 		</View>
 	)

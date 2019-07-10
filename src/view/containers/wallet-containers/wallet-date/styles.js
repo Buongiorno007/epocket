@@ -3,6 +3,11 @@ const { width, height } = Dimensions.get('window')
 
 export default StyleSheet.create({
 	view: {
-		flex: 1,
+		width: '100%',
+		marginTop: 24,
+	},
+	date: {
+		color: 'rgba(0,0,0,0.4)',
+		alignSelf: 'center',
 	},
 })
