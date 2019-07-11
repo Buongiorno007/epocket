@@ -111,6 +111,7 @@ class EarnMore extends React.Component {
 				)
 			})
 		}
+		this.props.loaderState(false)
 	}
 
 	confirmPost = () => {
