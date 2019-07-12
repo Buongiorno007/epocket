@@ -23,16 +23,9 @@ export const checkPostStatus = () => async (dispatch, getState) => {
 	}
 }
 
-const confirmPost = (bool) => async (dispatch) => {
-	if (bool) {
-		setTimeout(() => {
-			dispatch(checkPostStatus())
-		}, 5000)
-	}
-}
-
 export const publish = () => async (dispatch, getState) => {
 	const { insta_token, gameResult } = getState()
+	console.log(gameResult, 'GAME RESULTTTTTT')
 	dispatch(loaderState(true))
 	if (!insta_token) {
 		await dispatch(setTabState(3))
@@ -41,7 +34,14 @@ export const publish = () => async (dispatch, getState) => {
 		postToSocial(
 			gameResult,
 			'https://www.instagram.com/epocketapp/',
-			dispatch(confirmPost(gameResult.game_id)),
+			// dispatch(confirmPost(gameResult.game_id))
+			() => {
+				if (gameResult.game_id) {
+					setTimeout(() => {
+						dispatch(checkPostStatus())
+					}, 5000)
+				}
+			},
 			Platform.OS === 'ios' && gameResult.video,
 		)
 	}
