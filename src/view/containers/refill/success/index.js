@@ -16,7 +16,8 @@ function Success({ phone, color }: Props) {
 	return (
 		<View style={styles.layout}>
 			<Text style={styles.thanks}>{I18n.t('REFILL.THANKS')}</Text>
-			<Text style={styles.result}>{I18n.t('REFILL.SUCCESS', { phone })}</Text>
+			<Text style={styles.result}>{I18n.t('REFILL.SUCCESS')}</Text>
+			<Text style={styles.phone}>{`${phone}`}</Text>
 			<Button rounded block style={styles.button} onPress={navigate}>
 				<Text style={[styles.text, { color }]}>{I18n.t('OK')}</Text>
 			</Button>
