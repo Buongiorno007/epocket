@@ -47,4 +47,5 @@ export const urls = {
 	new_game_get: devserver + '/brand/new_game',
 	get_a_game: devserver + '/brand/new_data',
 	game_result: devserver + '/brand/new_check',
+	get_wallet_history: devserver + '/history/new_wallet?page=',
 }

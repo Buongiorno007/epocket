@@ -94,6 +94,7 @@ class EarnMore extends React.Component {
 	shareToInsta = () => {
 		let new_insta_data = this.props.navigation.state.params.insta_data
 		this.props.loaderState(true)
+		console.log(new_insta_data, 'VIDEo')
 		if (new_insta_data.video && Platform.OS === 'ios') {
 			postToSocial(
 				this.props.navigation.state.params.insta_data,

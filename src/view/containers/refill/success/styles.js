@@ -16,11 +16,12 @@ export default StyleSheet.create({
 		marginBottom: 20,
 	},
 	result: {
-		fontSize: 14,
+		fontSize: 16,
 		lineHeight: 16,
 		fontFamily: 'Rubik-Regular',
 		color: '#fff',
-		marginBottom: 20,
+		marginTop: 8,
+		marginBottom: 16,
 		textAlign: 'center',
 	},
 	button: {

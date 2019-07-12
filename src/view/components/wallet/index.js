@@ -5,16 +5,17 @@ import LinearGradient from 'react-native-linear-gradient'
 //containers
 import FooterNavigation from '@containers/footer-navigator/footer-navigator'
 import WalletDate from '@containers/wallet-containers/wallet-date'
+import { getHistory } from '@reducers/wallet'
 //styles
 import styles from './styles'
 
-function Wallet({ wallet, profileState }) {
+function Wallet({ wallet, profileState, dispatch }) {
 	const colors = ['#F55890', '#FF9950']
 	const start = { x: 0.0, y: 0.0 }
 	const end = { x: 0.0, y: 1.0 }
 
 	useEffect(() => {
-		//some getWallet function
+		dispatch(getHistory())
 	}, [])
 
 	const renderItem = ({ item }) => {
