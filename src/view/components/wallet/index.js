@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, Image, FlatList } from 'react-native'
 import { connect } from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
@@ -10,12 +10,13 @@ import { getHistory } from '@reducers/wallet'
 import styles from './styles'
 
 function Wallet({ wallet, profileState, dispatch }) {
+	const [count, setCount] = useState(6)
 	const colors = ['#F55890', '#FF9950']
 	const start = { x: 0.0, y: 0.0 }
 	const end = { x: 0.0, y: 1.0 }
 
 	useEffect(() => {
-		dispatch(getHistory())
+		dispatch(getHistory(count))
 	}, [])
 
 	const renderItem = ({ item }) => {
@@ -24,26 +25,27 @@ function Wallet({ wallet, profileState, dispatch }) {
 
 	const keyExtractor = (item) => item.date
 
+	const loadMore = () => {
+		if (count < 30) {
+			dispatch(getHistory(count + 1))
+			setCount(count + 1)
+		}
+	}
+
 	return (
 		<View style={styles.container}>
 			<View style={styles.content}>
 				<LinearGradient start={start} end={end} colors={colors} style={styles.container}>
 					<Image style={styles.circles} source={require('@assets/img/circles.png')} />
-					<Text style={styles.wallet}>{`${wallet.value} ${profileState.currency}`}</Text>
+					<Text style={styles.wallet}>{`${wallet.balance} ${profileState.currency}`}</Text>
 					<View style={styles.history}>
 						<FlatList
 							style={styles.scroll}
 							data={wallet.history}
-							// horizontal={false}
-							// removeClippedSubviews={true}
-							// contentContainerStyle={styles.contentContainerStyle}
 							keyExtractor={keyExtractor}
 							renderItem={renderItem}
-							// onScrollBeginDrag={() => {
-							// 	let old_limitShops = this.state.limitShops
-							// 	this.setState({ limitShops: old_limitShops + 10 })
-							// 	this.refreshList()
-							// }}
+							onEndReachedThreshold={0.1}
+							onEndReached={loadMore}
 						/>
 					</View>
 				</LinearGradient>

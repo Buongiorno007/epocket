@@ -7,13 +7,13 @@ import styles from './styles'
 
 export default function WalletDate({ item }) {
 	const returnItem = (item) => {
-		return <WalletItem key={item.id} item={item} />
+		return <WalletItem key={item.date} item={item} />
 	}
 
 	const splitDate = (date) => {
-		const day = date.split('.')[0]
-		const month = date.split('.')[1]
-		const year = date.split('.')[2]
+		const year = date.split('-')[0]
+		const month = date.split('-')[1]
+		const day = date.split('-')[2]
 		return { day, month, year }
 	}
 

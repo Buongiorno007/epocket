@@ -47,7 +47,7 @@ export const GAME_RESULT = function(data = {}) {
 	this.video = data.video || ''
 	this.link = data.game_link || data.brand_link || ''
 	this.timer = data.timer || 20
-	// this.timer = 10
+	// this.timer = 5
 }
 export const GAME_TICKER = function(data = {}) {
 	this.partners = data.brand_partners || data.base_partners || []
@@ -78,20 +78,6 @@ export const BONUSES = function(data = {}) {
 BONUSES.prototype = Object.create(DEFAULT.prototype)
 
 export const WALLET = function(data = {}) {
-	this.value = data.value || 0
-	this.history = data.body || [
-		{
-			date: '12.04.1995',
-			data: [
-				{
-					id: 0,
-					img: 'https://24tv.ua/resources/photos/news/610x344_DIR/201906/1161576.jpg?201906162833',
-					title: 'MOBILE',
-					description: 'buy phone',
-					price: '-15000',
-					status: 'IN_PROCESS',
-				},
-			],
-		},
-	]
+	this.balance = data.balance || 0
+	this.history = data.data || []
 }
