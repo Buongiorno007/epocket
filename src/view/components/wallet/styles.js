@@ -31,11 +31,11 @@ export default StyleSheet.create({
 		backgroundColor: '#F5F9FE',
 		borderTopLeftRadius: 24,
 		borderTopRightRadius: 24,
-		paddingHorizontal: 16,
 		marginBottom: 60,
 		paddingVertical: 16,
 	},
 	scroll: {
+		paddingHorizontal: 16,
 		paddingVertical: 8,
 		flex: 1,
 	},

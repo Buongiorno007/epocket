@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, Image, FlatList } from 'react-native'
+import { View, Text, Image, FlatList, ActivityIndicator } from 'react-native'
 import { connect } from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
 //containers
 import FooterNavigation from '@containers/footer-navigator/footer-navigator'
 import WalletDate from '@containers/wallet-containers/wallet-date'
 import { getHistory } from '@reducers/wallet'
+import { loaderState } from '@reducers/loader'
 //styles
 import styles from './styles'
 
@@ -16,6 +17,7 @@ function Wallet({ wallet, profileState, dispatch }) {
 	const end = { x: 0.0, y: 1.0 }
 
 	useEffect(() => {
+		dispatch(loaderState(true))
 		dispatch(getHistory(count))
 	}, [])
 
@@ -26,10 +28,14 @@ function Wallet({ wallet, profileState, dispatch }) {
 	const keyExtractor = (item) => item.date
 
 	const loadMore = () => {
-		if (count < 30) {
+		if (count <= 30) {
 			dispatch(getHistory(count + 1))
 			setCount(count + 1)
 		}
+	}
+	const renderFooter = () => {
+		if (count > 30) return null
+		return <ActivityIndicator style={{ color: '#000', marginBottom: 16 }} />
 	}
 
 	return (
@@ -44,8 +50,9 @@ function Wallet({ wallet, profileState, dispatch }) {
 							data={wallet.history}
 							keyExtractor={keyExtractor}
 							renderItem={renderItem}
-							onEndReachedThreshold={0.1}
+							onEndReachedThreshold={0.4}
 							onEndReached={loadMore}
+							ListFooterComponent={renderFooter}
 						/>
 					</View>
 				</LinearGradient>

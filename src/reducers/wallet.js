@@ -20,7 +20,6 @@ export default (state = initialState, action) => {
 
 export const getHistory = (count = 1) => async (dispatch, getState) => {
 	const { token } = getState()
-	dispatch(loaderState(true))
 	try {
 		const response = await httpGet(urls.get_wallet_history + `${count}`, token)
 		console.log(response.body, 'RESPONSE')
