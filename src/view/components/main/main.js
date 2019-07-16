@@ -51,8 +51,8 @@ class Main extends React.Component {
 				<View style={styles.content}>
 					{this.props.activeTab === 0 ? this.renderLastTab() : null}
 					{this.props.activeTab === 1 ? <Map /> : null}
-					{this.props.activeTab === 2 ? <History /> : null}
-					{/* {this.props.activeTab === 2 && <Wallet />} */}
+					{/* {this.props.activeTab === 2 ? <History /> : null} */}
+					{this.props.activeTab === 2 && <Wallet />}
 					{this.props.activeTab === 3 ? <Profile /> : null}
 				</View>
 
