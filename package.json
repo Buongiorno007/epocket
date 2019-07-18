@@ -16,7 +16,7 @@
     "postinstall": "npm run text-gradient && npm run module && npx jetify",
     "pod:clean": "cd ios && pod deintegrate && pod clean && pod install && cd ../",
     "watchman": "watchman watch-del-all && rm -rf $TMPDIR/react-* && rm -rf node_modules/ && npm cache verify && npm install && npm start -- --reset-cache",
-    "watchman2": "watchman watch-del-all && rm -rf $TMPDIR/react-* && rm -rf node_modules/ && rm -rf package-lock.json && npm cache verify && npm install && cd ios && pod deintegrate && pod clean && pod install && cd ../ && npm start -- --reset-cache",
+    "watchman2": "watchman watch-del-all && rm -rf $TMPDIR/react-* && rm -rf node_modules/ && rm -rf package-lock.json && npm cache verify && npm install && npm run pod:clean && npm start -- --reset-cache",
     "xcode": "open ios/EpocketCash.xcworkspace"
   },
   "rnpm": {

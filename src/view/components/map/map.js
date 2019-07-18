@@ -2,19 +2,14 @@ import React from 'react'
 import { View, Platform, FlatList, Animated, Easing, Dimensions, Text } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { Button } from 'native-base'
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
+import { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import ClusteredMapView from '../../../native_modules/react-native-maps-super-cluster'
 import { findNearest, getDistance, getBounds, getCenter } from 'geolib'
-import { LinearTextGradient } from 'react-native-text-gradient'
-import LinearGradient from 'react-native-linear-gradient'
 import CookieManager from 'react-native-cookies'
 //containers
-import TrcInformation from '../../containers/trc-information/trc-information'
 import UserMarker from '../../containers/user-marker/user-marker'
 import TRCMarker from '../../containers/trc-marker/trc-marker'
-import LocationDisabled from '../../containers/location-disabled/location-disabled'
 import FooterNavigation from '../../containers/footer-navigator/footer-navigator'
-import CurrentGeolocation from '../../containers/current-geolocation/current-geolocation'
 import CustomAlert from '../../containers/custom-alert/custom-alert'
 import Loader from '@containers/application/loader'
 import CardTask from '../../containers/map-card-task/map-card-task'
@@ -26,7 +21,6 @@ import { mapStyle } from './mapCustomStyle'
 import styles from './styles'
 import { ICONS } from '../../../constants/icons'
 import { urls } from '../../../constants/urls'
-import { colors } from './../../../constants/colors'
 //redux
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -51,7 +45,6 @@ import { setMainMissionCost } from '../../../reducers/main-task-cost'
 import { httpPost } from '../../../services/http'
 import { handleError } from '../../../services/http-error-handler'
 import NavigationService from '../../../services/route'
-import getCurrentGeolocation from '../../../services/get-location'
 // import { sendToTelegramm } from '../../../services/telegramm-notification'
 import InstagramLogin from '../../../services/Instagram'
 import FacebookLogin from '../../../services/Facebook'
@@ -1143,18 +1136,18 @@ class Map extends React.Component {
 								uri: this.state.shopActive ? ICONS.MAP_TABS.SHOP_ACTIVE : ICONS.MAP_TABS.SHOP_INACTIVE,
 							}}
 						/>
-						<LinearTextGradient
-							locations={[0, 1]}
-							colors={[
-								this.state.shopActive ? this.props.userColor.map_blue : this.props.userColor.gray,
-								this.state.shopActive ? this.props.userColor.map_blue : this.props.userColor.gray,
+						<Text
+							style={[
+								styles.state_change_block_text,
+								{
+									color: this.state.shopActive
+										? this.props.userColor.map_blue
+										: this.props.userColor.gray,
+								},
 							]}
-							start={{ x: 0, y: 0 }}
-							end={{ x: 1, y: 0 }}
-							style={styles.state_change_block_text}
 						>
 							{I18n.t('MAP_TABS.SHOP').toUpperCase()}
-						</LinearTextGradient>
+						</Text>
 					</Button>
 					<Button style={styles.state_change_block_btn} transparent onPress={() => this.toggleTab('task')}>
 						{this.state.taskActive && <View style={[styles.state_change_block_btn, styles.pink_bg]} />}
@@ -1165,18 +1158,18 @@ class Map extends React.Component {
 								uri: this.state.taskActive ? ICONS.MAP_TABS.TASK_ACTIVE : ICONS.MAP_TABS.TASK_INACTIVE,
 							}}
 						/>
-						<LinearTextGradient
-							locations={[0, 1]}
-							colors={[
-								this.state.taskActive ? this.props.userColor.pink : this.props.userColor.gray,
-								this.state.taskActive ? this.props.userColor.pink : this.props.userColor.gray,
+						<Text
+							style={[
+								styles.state_change_block_text,
+								{
+									color: this.state.taskActive
+										? this.props.userColor.pink
+										: this.props.userColor.gray,
+								},
 							]}
-							start={{ x: 0, y: 0 }}
-							end={{ x: 1, y: 0 }}
-							style={styles.state_change_block_text}
 						>
 							{I18n.t('MAP_TABS.TASK').toUpperCase()}
-						</LinearTextGradient>
+						</Text>
 					</Button>
 					<Button
 						style={[styles.state_change_block_btn, styles.state_change_block_btn_right]}
@@ -1201,18 +1194,18 @@ class Map extends React.Component {
 									: ICONS.MAP_TABS.DISCOUNT_INACTIVE,
 							}}
 						/>
-						<LinearTextGradient
-							locations={[0, 1]}
-							colors={[
-								this.state.discountActive ? this.props.userColor.map_violet : this.props.userColor.gray,
-								this.state.discountActive ? this.props.userColor.map_violet : this.props.userColor.gray,
+						<Text
+							style={[
+								styles.state_change_block_text,
+								{
+									color: this.state.discountActive
+										? this.props.userColor.map_violet
+										: this.props.userColor.gray,
+								},
 							]}
-							start={{ x: 0, y: 0 }}
-							end={{ x: 1, y: 0 }}
-							style={styles.state_change_block_text}
 						>
 							{I18n.t('MAP_TABS.DISCOUNT').toUpperCase()}
-						</LinearTextGradient>
+						</Text>
 					</Button>
 				</Animated.View>
 

@@ -1,20 +1,13 @@
 import React from 'react'
 import { View, Text } from 'react-native'
-import { Button } from 'native-base'
-import { LinearTextGradient } from 'react-native-text-gradient'
-//containers
 import CustomAlert from '../custom-alert/custom-alert'
-//constants
-import styles from './styles'
-import { colors } from './../../../constants/colors'
-//redux
 import { getBonuses } from '../../../reducers/history-bonuses'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { handleError } from '../../../services/http-error-handler'
-//services
 import moment from 'moment'
 import I18n from '@locales/I18n'
+import styles from './styles'
 
 class HistoryCard extends React.Component {
 	constructor(props) {
@@ -79,19 +72,14 @@ class HistoryCard extends React.Component {
 									</Text>
 								</View>
 								<View style={styles.name}>
-									<LinearTextGradient
-										numberOfLines={1}
-										locations={[0, 1]}
-										colors={[
-											this.props.userColor.second_gradient_color,
-											this.props.userColor.first_gradient_color,
+									<Text
+										style={[
+											styles.name_text,
+											{ color: this.props.userColor.second_gradient_color },
 										]}
-										start={{ x: 0.0, y: 1.0 }}
-										end={{ x: 1.0, y: 1.0 }}
-										style={styles.name_text}
 									>
 										{this.props.info.trade_point_name.toUpperCase()}
-									</LinearTextGradient>
+									</Text>
 								</View>
 								<View style={styles.date}>
 									<Text style={styles.date_text}>
@@ -111,19 +99,14 @@ class HistoryCard extends React.Component {
 						) : (
 							<View style={styles.spent_card}>
 								<View style={styles.name_and_price}>
-									<LinearTextGradient
-										numberOfLines={2}
-										locations={[0, 1]}
-										colors={[
-											this.props.userColor.first_gradient_color,
-											this.props.userColor.second_gradient_color,
+									<Text
+										style={[
+											styles.item_name_text,
+											{ color: this.props.userColor.second_gradient_color },
 										]}
-										start={{ x: 0.0, y: 1.0 }}
-										end={{ x: 1.0, y: 1.0 }}
-										style={styles.item_name_text}
 									>
 										{this.props.info.product_name}
-									</LinearTextGradient>
+									</Text>
 									<Text style={styles.amount}>
 										{Number(this.props.info.price)} x {this.props.info.amount} ={' '}
 										{Number(this.props.info.price * this.props.info.amount)}{' '}
