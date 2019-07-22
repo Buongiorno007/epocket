@@ -7,6 +7,7 @@ import com.jobeso.RNInstagramStoryShare.RNInstagramStorySharePackage;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.ReactApplication;
 import cl.json.RNSharePackage;
+import com.dylanvann.fastimage.FastImageViewPackage;
 import com.ocetnik.timer.BackgroundTimerPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 
@@ -25,7 +26,6 @@ import com.zmxv.RNSound.RNSoundPackage;
 import com.rnfs.RNFSPackage;
 import com.psykar.cookiemanager.CookieManagerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
-import com.dylanvann.fastimage.FastImageViewPackage;
 import com.marianhello.bgloc.react.BackgroundGeolocationPackage;
 
 

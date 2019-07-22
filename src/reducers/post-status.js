@@ -30,7 +30,7 @@ export const publish = () => async (dispatch, getState) => {
 		await dispatch(setTabState(3))
 		await route.navigate('ProfileSettings')
 	} else {
-		postToSocial(
+		await postToSocial(
 			gameResult,
 			'https://www.instagram.com/epocketapp/',
 			() => {
@@ -41,6 +41,9 @@ export const publish = () => async (dispatch, getState) => {
 				}
 			},
 			Platform.OS === 'ios' && gameResult.video,
+			() => {
+				dispatch(loaderState(false))
+			},
 		)
 	}
 }

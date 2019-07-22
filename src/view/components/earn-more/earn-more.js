@@ -101,6 +101,9 @@ class EarnMore extends React.Component {
 				'https://www.instagram.com/epocketapp/',
 				this.confirmPost,
 				new_insta_data.video,
+				() => {
+					this.props.loaderState(false)
+				},
 			)
 		} else {
 			convertToBase64(new_insta_data.img_url).then((result) => {
@@ -109,10 +112,13 @@ class EarnMore extends React.Component {
 					this.props.navigation.state.params.insta_data,
 					'https://www.instagram.com/epocketapp/',
 					this.confirmPost,
+					false,
+					() => {
+						this.props.loaderState(false)
+					},
 				)
 			})
 		}
-		this.props.loaderState(false)
 	}
 
 	confirmPost = () => {
