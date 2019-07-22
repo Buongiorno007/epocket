@@ -1,13 +1,12 @@
 import { WALLET } from './__proto__'
 //constants
-// import { urls } from '@constants/urls'
+import { urls } from '@constants/urls'
 //services
-// import { httpPost } from '@services/http'
+import { httpGet } from '@services/http'
 //reducers
-// import route from '@services/route'
+import { loaderState } from '@reducers/loader'
 
 const GETWALLET = '[get wallet] GETWALLET'
-
 const initialState = new WALLET()
 
 export default (state = initialState, action) => {
@@ -17,6 +16,18 @@ export default (state = initialState, action) => {
 		default:
 			return state
 	}
+}
+
+export const getHistory = (count = 1) => async (dispatch, getState) => {
+	const { token } = getState()
+	try {
+		const response = await httpGet(urls.get_wallet_history + `${count}`, token)
+		console.log(response.body, 'RESPONSE')
+		await dispatch(saveWallet(new WALLET(response.body)))
+	} catch (e) {
+		console.log(e, 'getHistory error')
+	}
+	dispatch(loaderState(false))
 }
 
 export const saveWallet = (wallet) => ({ type: GETWALLET, wallet })

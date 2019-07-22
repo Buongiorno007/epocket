@@ -20,7 +20,13 @@ export default StyleSheet.create({
 		lineHeight: 16,
 		fontFamily: 'Rubik-Regular',
 		color: '#fff',
-		marginBottom: 20,
+		marginBottom: 8,
+		textAlign: 'center',
+	},
+	phone: {
+		fontSize: 16,
+		fontFamily: 'Rubik-Regular',
+		color: '#fff',
 		textAlign: 'center',
 	},
 	button: {

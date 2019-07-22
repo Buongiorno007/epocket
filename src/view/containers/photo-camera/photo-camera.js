@@ -1,8 +1,8 @@
 import React from 'react'
-import { View, Clipboard } from 'react-native'
+import { View, Clipboard, Text } from 'react-native'
 import { RNCamera } from 'react-native-camera'
 import Refresh from 'react-native-vector-icons/SimpleLineIcons'
-import { Button } from 'native-base'
+import { Button, Toast } from 'native-base'
 //containers
 import TemplateInstagramPhoto from '../template-insta-photo/template-insta-photo'
 import InstaHashTags from '../insta-hashtags/insta-hashtags'
@@ -43,6 +43,16 @@ class PhotoCamera extends React.Component {
 					},
 				})
 				Clipboard.setString(result.body.hash_tag)
+				Toast.show({
+					text: 'Hashtags copied',
+					buttonText: '',
+					duration: 3000,
+					style: {
+						alignItems: 'center',
+						justifyContent: 'center',
+					},
+					onClose: () => {},
+				})
 			},
 			(error) => {},
 		)

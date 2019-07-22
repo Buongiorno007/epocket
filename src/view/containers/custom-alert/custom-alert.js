@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, Modal } from 'react-native'
 import FastImage from 'react-native-fast-image'
-import { LinearTextGradient } from 'react-native-text-gradient'
 import { Button } from 'native-base'
 //redux
 import { connect } from 'react-redux'
@@ -34,18 +33,14 @@ class CustomAlert extends Component {
 						<View style={styles.modal_title}>
 							<Text style={styles.modal_title_text}>{this.props.title}</Text>
 							{this.props.subtitle && (
-								<LinearTextGradient
-									locations={[0, 1]}
-									colors={[
-										this.props.userColor.first_gradient_color,
-										this.props.userColor.second_gradient_color,
+								<Text
+									style={[
+										styles.modal_title_text,
+										{ color: this.props.userColor.first_gradient_color },
 									]}
-									start={{ x: 0.0, y: 1.0 }}
-									end={{ x: 1.0, y: 1.0 }}
-									style={styles.modal_title_text}
 								>
 									{this.props.subtitle}
-								</LinearTextGradient>
+								</Text>
 							)}
 						</View>
 						{this.props.second_btn_title ? (
@@ -55,18 +50,14 @@ class CustomAlert extends Component {
 									style={styles.fisrt_small_btn}
 									onPress={() => this.props.first_btn_handler()}
 								>
-									<LinearTextGradient
-										locations={[0, 1]}
-										colors={[
-											this.props.userColor.first_gradient_color,
-											this.props.userColor.second_gradient_color,
+									<Text
+										style={[
+											styles.alert_text,
+											{ color: this.props.userColor.first_gradient_color },
 										]}
-										start={{ x: 0.0, y: 1.0 }}
-										end={{ x: 1.0, y: 1.0 }}
-										style={styles.alert_text}
 									>
 										{this.props.first_btn_title}
-									</LinearTextGradient>
+									</Text>
 								</Button>
 								<Button
 									transparent
@@ -86,18 +77,14 @@ class CustomAlert extends Component {
 									}}
 								>
 									{this.props.subtitle ? (
-										<LinearTextGradient
-											locations={[0, 1]}
-											colors={[
-												this.props.userColor.first_gradient_color,
-												this.props.userColor.second_gradient_color,
+										<Text
+											style={[
+												styles.alert_text,
+												{ color: this.props.userColor.first_gradient_color },
 											]}
-											start={{ x: 0.0, y: 1.0 }}
-											end={{ x: 1.0, y: 1.0 }}
-											style={styles.alert_text}
 										>
 											{this.props.first_btn_title}
-										</LinearTextGradient>
+										</Text>
 									) : (
 										<Text style={styles.alert_text}>{this.props.first_btn_title}</Text>
 									)}

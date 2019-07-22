@@ -50,29 +50,29 @@ export const httpPut = (url, body, token) => {
 	return sendRequest(url, OPTIONS)
 }
 
-function sendRequestHTTP(url, OPTIONS) {
-	return new Promise((resolve, reject) => {
-		setTimeout(() => {
-			reject({ code: 408, statusText: 'Request Timeout' })
-		}, 45000)
-		fetch(url, OPTIONS).then((response) => {
-			if (response.status >= 200 && response.status < 300) {
-				response.json().then((body) => {
-					resolve({
-						body,
-						status: response.status,
-						statusText: response.statusText,
-					})
-				})
-			} else {
-				reject({
-					body: [],
-					code: parseInt(`${response.status}`),
-				})
-			}
-		})
-	})
-}
+// function sendRequestHTTP(url, OPTIONS) {
+// 	return new Promise((resolve, reject) => {
+// 		setTimeout(() => {
+// 			reject({ code: 408, statusText: 'Request Timeout' })
+// 		}, 45000)
+// 		fetch(url, OPTIONS).then((response) => {
+// 			if (response.status >= 200 && response.status < 300) {
+// 				response.json().then((body) => {
+// 					resolve({
+// 						body,
+// 						status: response.status,
+// 						statusText: response.statusText,
+// 					})
+// 				})
+// 			} else {
+// 				reject({
+// 					body: [],
+// 					code: parseInt(`${response.status}`),
+// 				})
+// 			}
+// 		})
+// 	})
+// }
 function sendRequest(url, OPTIONS) {
 	return new Promise((resolve, reject) => {
 		setTimeout(() => {

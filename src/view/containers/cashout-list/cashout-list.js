@@ -3,6 +3,7 @@ import { View, ScrollView, Text, TouchableOpacity, FlatList, Animated, Image, Ea
 import AsyncStorage from '@react-native-community/async-storage'
 import Accordion from 'react-native-collapsible/Accordion'
 import FastImage from 'react-native-fast-image'
+import { Toast } from 'native-base'
 //containers
 import Item from './../../containers/cashout-list-item/cashout-list-item'
 import CustomButton from './../../containers/custom-button/custom-button'
@@ -124,7 +125,7 @@ class CashoutList extends React.Component {
 			item.amount = item.count
 			total_price += item.count * item.formated_price.amount
 		})
-		if (total_price) {
+		if (total_price && total_price <= this.props.balance) {
 			this.setModalVisible(false)
 			this.props.loaderState(true)
 			let body = {
@@ -160,6 +161,13 @@ class CashoutList extends React.Component {
 					//this.setState({ orderCopy: [] })
 				},
 			)
+		} else {
+			Toast.show({
+				text: 'Не достаточно средств',
+				buttonText: 'Х',
+				duration: 3000,
+				onClose: () => {},
+			})
 		}
 	}
 	checkForActive = (section, isActive) => {
@@ -352,6 +360,7 @@ const mapStateToProps = (state) => ({
 	userColor: state.userColor,
 	token: state.token,
 	loader: state.loader,
+	balance: state.balance,
 })
 const mapDispatchToProps = (dispatch) =>
 	bindActionCreators(

@@ -5,6 +5,7 @@ import LinearGradient from 'react-native-linear-gradient'
 //containers
 import Card from '@containers/game-containers/game-partners/partner-card'
 import FooterNavigation from '@containers/footer-navigator/footer-navigator'
+import { setTabState } from '@reducers/tabs'
 //components
 import GameSite from '@components/game-component/game-site'
 //locales
@@ -12,7 +13,7 @@ import I18n from '@locales/I18n'
 //styles
 import styles from './styles'
 
-function GamePartners({ gameTicker }) {
+function GamePartners({ gameTicker, dispatch }) {
 	const [link, setLink] = useState('')
 	const [site, setSite] = useState(false)
 	const colors = ['#770CE1', '#D629C5', '#F55890', '#FF8D50', '#F7BB42']
@@ -55,7 +56,12 @@ function GamePartners({ gameTicker }) {
 					renderItem={renderItem}
 					data={gameTicker.partners}
 				/>
-				<TouchableOpacity style={styles.visit_trc}>
+				<TouchableOpacity
+					onPress={() => {
+						dispatch(setTabState(1))
+					}}
+					style={styles.visit_trc}
+				>
 					<Text style={styles.visit_trc_text}>{I18n.t('GAME.VISIT_NEAREST_ONE')}</Text>
 				</TouchableOpacity>
 			</View>

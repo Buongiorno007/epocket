@@ -47,7 +47,7 @@ export const GAME_RESULT = function(data = {}) {
 	this.video = data.video || ''
 	this.link = data.game_link || data.brand_link || ''
 	this.timer = data.timer || 20
-	// this.timer = 10
+	// this.timer = 5
 }
 export const GAME_TICKER = function(data = {}) {
 	this.partners = data.brand_partners || data.base_partners || []
@@ -78,6 +78,6 @@ export const BONUSES = function(data = {}) {
 BONUSES.prototype = Object.create(DEFAULT.prototype)
 
 export const WALLET = function(data = {}) {
-	this.value = data.value || 0
-	this.history = data.history || []
+	this.balance = data.balance || 0
+	this.history = data.data || []
 }

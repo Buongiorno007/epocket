@@ -17,7 +17,7 @@ export default StyleSheet.create({
 		left: 0,
 		width: width,
 		height: 120,
-		zIndex: 10,
+		zIndex: 0,
 	},
 	wallet: {
 		marginTop: 48,
@@ -31,6 +31,16 @@ export default StyleSheet.create({
 		backgroundColor: '#F5F9FE',
 		borderTopLeftRadius: 24,
 		borderTopRightRadius: 24,
-		paddingTop: 16,
+		marginBottom: 60,
+		paddingVertical: 16,
+	},
+	scroll: {
+		paddingHorizontal: 16,
+		paddingVertical: 8,
+		flex: 1,
+	},
+	date: {
+		marginTop: 24,
+		width: '100%',
 	},
 })
