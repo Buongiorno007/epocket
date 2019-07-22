@@ -901,7 +901,7 @@ class Map extends React.Component {
 				)
 			},
 			(error) => {
-				console.log('ERROR MAP CALLTIMER')
+				console.log(error, 'ERROR MAP CALLTIMER')
 				this.setState({ load_timer: false })
 				let error_respons = handleError(
 					error,

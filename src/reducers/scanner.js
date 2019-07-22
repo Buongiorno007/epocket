@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
 		case RESULT:
 			return Object.assign({}, { ...state, code: 1 })
 		case ERROR:
-			return Object.assign({}, { ...state, code: -1, message: I18n.t('HTTP_ERRORS.NOT_FOUND') })
+			return Object.assign({}, { ...state, code: -1, message: I18n.t('HTTP_ERRORS.INVALID_QR') })
 		case RESET:
 			return Object.assign({}, { ...initialState })
 		default:
