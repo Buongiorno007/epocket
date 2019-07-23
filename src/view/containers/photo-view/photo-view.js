@@ -55,6 +55,7 @@ class PhotoView extends React.Component {
 				NavigationService.navigate('MissionSuccess', {
 					price: this.props.selectedMission.price,
 					insta_data: result.body,
+					img: this.props.navigation.state.params.url,
 				})
 				// } else {
 				// 	this.finishMission(result.body)

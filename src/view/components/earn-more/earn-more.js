@@ -155,7 +155,7 @@ class EarnMore extends React.Component {
 	}
 
 	render = () => {
-		const { insta_data } = this.props.navigation.state.params
+		const { insta_data, img } = this.props.navigation.state.params
 		return (
 			<View style={styles.container}>
 				<CustomAlert
@@ -202,7 +202,10 @@ class EarnMore extends React.Component {
 						resizeMode={FastImage.resizeMode.contain}
 						style={styles.image_template}
 						source={{
-							uri: this.props.navigation.state.params.insta_data.img_watermark,
+							uri:
+								Platform.OS === 'ios'
+									? img
+									: this.props.navigation.state.params.insta_data.img_watermark,
 						}}
 					/>
 					<Text style={[styles.more_subtext, styles.text_common]}>{I18n.t('MISSION.MANDATORY')}</Text>
