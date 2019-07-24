@@ -59,4 +59,5 @@ export default combineReducers({
 	balance: require('./user-balance').default,
 	userColor: require('./user-color').default,
 	wallet: require('./wallet').default,
+	topTabs: require('./topTabs').default,
 })
