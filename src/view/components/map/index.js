@@ -5,7 +5,7 @@ import FooterNavigation from '@containers/footer-navigator/footer-navigator'
 import TopTabBar from '@containers/top-tab-bar'
 import MapEarn from './map-earn'
 import MapSpend from './map-spend'
-import {getPoints} from '@reducers/mapPoints'
+import { getPoints } from '@reducers/mapPoints'
 
 function Mappp({ topTabs, dispatch, mapPoints }) {
 	useEffect(() => {

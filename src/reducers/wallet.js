@@ -22,7 +22,6 @@ export const getHistory = (count = 1) => async (dispatch, getState) => {
 	const { token } = getState()
 	try {
 		const response = await httpGet(urls.get_wallet_history + `${count}`, token)
-		console.log(response.body, 'RESPONSE')
 		await dispatch(saveWallet(new WALLET(response.body)))
 	} catch (e) {
 		console.log(e, 'getHistory error')

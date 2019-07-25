@@ -50,8 +50,8 @@ class Main extends React.Component {
 			<View style={styles.main_view}>
 				<View style={styles.content}>
 					{this.props.activeTab === 0 ? this.renderLastTab() : null}
-					{this.props.activeTab === 1 ? <Map /> : null}
-					{/* {this.props.activeTab === 1 ? <Mappp /> : null} */}
+					{/* {this.props.activeTab === 1 ? <Map /> : null} */}
+					{this.props.activeTab === 1 && <Mappp />}
 					{this.props.activeTab === 2 && <Wallet />}
 					{this.props.activeTab === 3 ? <Profile /> : null}
 				</View>
@@ -62,10 +62,9 @@ class Main extends React.Component {
 						<ReturnToMall />
 					)}
 
-				{Platform.OS === 'ios'
-					? !this.props.isLocation &&
-					  (this.props.activeTab === 1 || this.props.activeTab === 0) && <LocationDisabled />
-					: !this.props.isLocation && <LocationDisabled />}
+				{!this.props.isLocation && (this.props.activeTab === 1 || this.props.activeTab === 0) && (
+					<LocationDisabled />
+				)}
 				<TimerModal />
 				<GeolocationService />
 			</View>

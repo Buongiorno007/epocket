@@ -39,7 +39,6 @@ export const getPoints = () => async (dispatch, getState) => {
 				token,
 			)
 			dispatch(savePoints(new MAPPOINTS(response.body)))
-			console.log(response, 'RESPONSE')
 		} catch (error) {
 			console.log(error, 'getPoints ERROR')
 		}
