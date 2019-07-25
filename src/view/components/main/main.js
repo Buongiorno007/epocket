@@ -6,7 +6,6 @@ import { bindActionCreators } from 'redux'
 import Map from '@components/map/map'
 import Mappp from '@components/map'
 import Profile from '@components/profile/profile'
-import History from '@components/history/history'
 import GameS from '@components/game-component/game-start'
 import GamePartners from '@components/game-component/game-partners'
 import Wallet from '@components/wallet'
@@ -53,7 +52,6 @@ class Main extends React.Component {
 					{this.props.activeTab === 0 ? this.renderLastTab() : null}
 					{this.props.activeTab === 1 ? <Map /> : null}
 					{/* {this.props.activeTab === 1 ? <Mappp /> : null} */}
-					{/* {this.props.activeTab === 2 ? <History /> : null} */}
 					{this.props.activeTab === 2 && <Wallet />}
 					{this.props.activeTab === 3 ? <Profile /> : null}
 				</View>
