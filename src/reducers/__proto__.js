@@ -81,3 +81,7 @@ export const WALLET = function(data = {}) {
 	this.balance = data.balance || 0
 	this.history = data.data || []
 }
+export const MAPPOINTS = function(data = {}) {
+	this.outlets = data.outlets || []
+	this.cashouts = data.cashouts || []
+}

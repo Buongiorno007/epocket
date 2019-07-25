@@ -1,18 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View } from 'react-native'
 import { connect } from 'react-redux'
 import FooterNavigation from '@containers/footer-navigator/footer-navigator'
 import TopTabBar from '@containers/top-tab-bar'
-
 import MapEarn from './map-earn'
 import MapSpend from './map-spend'
+import {getPoints} from '@reducers/mapPoints'
 
-function Mappp(props) {
+function Mappp({ topTabs, dispatch, mapPoints }) {
+	useEffect(() => {
+		dispatch(getPoints())
+	}, [])
+
+	console.log(mapPoints, 'MAPPOINTS')
 	return (
 		<View style={{ flex: 1 }}>
 			<TopTabBar />
-			{props.topTabs === 0 && <MapEarn />}
-			{props.topTabs === 1 && <MapSpend />}
+			{topTabs === 0 && <MapEarn />}
+			{topTabs === 1 && <MapSpend />}
 			<FooterNavigation />
 		</View>
 	)
@@ -20,6 +25,7 @@ function Mappp(props) {
 const mapStateToProps = (state) => {
 	return {
 		topTabs: state.topTabs,
+		mapPoints: state.mapPoints,
 	}
 }
 

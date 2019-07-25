@@ -58,4 +58,5 @@ export default combineReducers({
 	userColor: require('./user-color').default,
 	wallet: require('./wallet').default,
 	topTabs: require('./topTabs').default,
+	mapPoints: require('./mapPoints').default,
 })
