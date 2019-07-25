@@ -18,6 +18,23 @@ function navigate(url: string, params: any = undefined) {
 	)
 }
 
+function push(url, params = undefined) {
+	navigation.dispatch(
+		StackActions.push({
+			routeName: url,
+			params: params,
+		}),
+	)
+}
+
+function pop(n = 1) {
+	navigation.dispatch(
+		StackActions.pop({
+			n: n,
+		}),
+	)
+}
+
 function goBackPress(url: string, params: any = undefined) {
 	BackHandler.addEventListener('hardwareBackPress', (): any => {
 		navigate(url, params)
@@ -46,6 +63,8 @@ function exit() {
 export default {
 	exit,
 	navigate,
+	push,
+	pop,
 	goBackPress,
 	setRoot,
 }
