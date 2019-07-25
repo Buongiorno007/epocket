@@ -16,8 +16,6 @@ export default combineReducers({
 	gameTicker: require('./gameTicker').default,
 	geolocationIsVirgin: require('./geo-virgin').default,
 	//HISTORY BONUSES to services
-	receivedBonusesJSX: require('./history-received-success').default,
-	spentBonusesJSX: require('./history-sent-success').default,
 	initial_outlets: require('./initial-outlets').default,
 	insta_token: require('./insta-token').default,
 	loader: require('./loader').default,
