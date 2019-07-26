@@ -23,7 +23,9 @@ export default (state = initialState, action) => {
 export const getPoints = () => async (dispatch, getState) => {
 	const { token } = getState()
 	const { lat, lng } = getState().location.coordinate
+	let outlets = []
 	if (lat || lng) {
+		dispatch(loaderState(true))
 		try {
 			const response = await httpPost(
 				urls.outlets,
@@ -38,10 +40,20 @@ export const getPoints = () => async (dispatch, getState) => {
 				}),
 				token,
 			)
-			dispatch(savePoints(new MAPPOINTS(response.body)))
+			await response.body.outlets.forEach((element) => {
+				if (element.price) {
+					outlets.push({
+						...element,
+						location: { latitude: Number(element.lat), longitude: Number(element.lng) },
+					})
+				}
+			})
+
+			dispatch(savePoints(new MAPPOINTS({ outlets })))
 		} catch (error) {
 			console.log(error, 'getPoints ERROR')
 		}
+		dispatch(loaderState(false))
 	}
 }
 

@@ -1,53 +1,38 @@
-import React, { useState } from 'react'
-import { View, Image, Platform } from 'react-native'
+import React from 'react'
+import { View, Text, Image, Platform } from 'react-native'
 import { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import ClusteredMapView from '../../../../native_modules/react-native-maps-super-cluster'
 import { connect } from 'react-redux'
-
+import MapEarnMarker from '../../../containers/map/map-earn-marker'
 import styles from './styles'
 
-function MapEarn({ mapPoints, lat, lng }) {
+function MapEarn({ profileState, mapPoints, lat, lng }) {
 	const region = {
-		latitude: 45,
-		longitude: 35,
-		latitudeDelta: 70,
-		longitudeDelta: 70,
+		latitude: lat,
+		longitude: lng,
+		latitudeDelta: 0.006,
+		longitudeDelta: 0.006,
 	}
 
 	const renderMarker = (data) => {
-		console.log(data, 'DATA')
-		return (
-			<Marker key={data.id || Math.random()} coordinate={data.location}>
-				<View style={{ width: 10, height: 10, backgroundColor: 'pink' }}></View>
-			</Marker>
-		)
+		return <MapEarnMarker key={data.id} data={data} />
 	}
-	const renderCluster = (cluster) => null
+
 	return (
 		<View style={styles.container}>
 			<ClusteredMapView
 				style={{ flex: 1 }}
-				// data={mapPoints.outlets}
-				data={[
-					{ location: { latitude: 45.1962667, longitude: 35.9340056 } },
-					{ location: { latitude: 45.4962667, longitude: 35.6340056 } },
-				]}
+				data={mapPoints.outlets}
 				initialRegion={region}
 				provider={Platform.OS === 'ios' ? PROVIDER_GOOGLE : null}
 				ref={(r) => {
 					this.map = r
 				}}
-				// customMapStyle={mapStyle}
-				// showsCompass={false}
-				// animateClusters={false}
-				// showUserLocation
-				// followUserLocation
-				// loadingEnabled
-				// clusteringEnabled={this.state.discountActive ? false : true}
-				// onPress={this.onRegionChange}
-				// onRegionChangeComplete={this.onRegionChange}
 				renderMarker={renderMarker}
-				// renderCluster={renderCluster}
+				animateClusters={false}
+				showsCompass={false}
+				edgePadding={{ top: 50, left: 50, bottom: 50, right: 50 }}
+				currency={profileState.currency}
 			>
 				<Marker
 					coordinate={{
@@ -67,6 +52,7 @@ const mapStateToProps = (state) => {
 		mapPoints: state.mapPoints,
 		lat: state.location.coordinate.lat,
 		lng: state.location.coordinate.lng,
+		profileState: state.profileState,
 	}
 }
 
