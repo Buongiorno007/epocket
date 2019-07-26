@@ -12,7 +12,6 @@ function Mappp({ topTabs, dispatch, mapPoints }) {
 		dispatch(getPoints())
 	}, [])
 
-	console.log(mapPoints, 'MAPPOINTS')
 	return (
 		<View style={{ flex: 1 }}>
 			<TopTabBar />

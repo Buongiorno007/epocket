@@ -17,7 +17,6 @@ function MapEarn({ profileState, mapPoints, lat, lng }) {
 	const renderMarker = (data) => {
 		return <MapEarnMarker key={data.id} data={data} />
 	}
-
 	return (
 		<View style={styles.container}>
 			<ClusteredMapView
@@ -33,6 +32,7 @@ function MapEarn({ profileState, mapPoints, lat, lng }) {
 				showsCompass={false}
 				edgePadding={{ top: 50, left: 50, bottom: 50, right: 50 }}
 				currency={profileState.currency}
+				// initialCamera={{ center: { latitude: lat, longitude: lng }, zoom: 1 }}
 			>
 				<Marker
 					coordinate={{
