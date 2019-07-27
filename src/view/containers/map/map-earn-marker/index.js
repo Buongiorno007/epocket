@@ -4,10 +4,9 @@ import { Marker, Circle } from 'react-native-maps'
 import { connect } from 'react-redux'
 import styles from './styles'
 import { getDistance } from 'geolib'
+import { setMissionRadius } from '@reducers/missionState'
 
-function MapEarnMarker({ profileState, data, lat, lng }) {
-	const [radius, setRadius] = useState(false)
-
+function MapEarnMarker({ profileState, data, missionState, lat, lng, dispatch }) {
 	useEffect(() => {
 		getDist()
 	})
@@ -21,7 +20,7 @@ function MapEarnMarker({ profileState, data, lat, lng }) {
 					longitude: lng,
 				},
 			) - data.rad
-		setRadius(distance < 0)
+		dispatch(setMissionRadius(distance < 0))
 	}
 	return (
 		<View>
@@ -36,7 +35,7 @@ function MapEarnMarker({ profileState, data, lat, lng }) {
 			<Circle
 				center={data.location}
 				radius={data.rad}
-				fillColor={radius ? 'rgba(45, 198, 255, 0.2)' : null}
+				fillColor={missionState.inRadius ? 'rgba(45, 198, 255, 0.2)' : null}
 				strokeWidth={2}
 				strokeColor={'rgba(31, 173, 226, 0.2)'}
 			/>
@@ -47,6 +46,7 @@ function MapEarnMarker({ profileState, data, lat, lng }) {
 const mapStateToProps = (state) => {
 	return {
 		profileState: state.profileState,
+		missionState: state.missionState,
 		lat: state.location.coordinate.lat,
 		lng: state.location.coordinate.lng,
 	}

@@ -59,4 +59,5 @@ export default combineReducers({
 	wallet: require('./wallet').default,
 	topTabs: require('./topTabs').default,
 	mapPoints: require('./mapPoints').default,
+	missionState: require('./missionState').default,
 })

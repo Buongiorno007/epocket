@@ -1,9 +1,10 @@
 import React from 'react'
-import { View, Text, Image, Platform } from 'react-native'
+import { View, Image, Platform } from 'react-native'
 import { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import ClusteredMapView from '../../../../native_modules/react-native-maps-super-cluster'
 import { connect } from 'react-redux'
-import MapEarnMarker from '../../../containers/map/map-earn-marker'
+import MapEarnMarker from '@containers/map/map-earn-marker'
+import MissionBanner from '@containers/mission-banner'
 import styles from './styles'
 
 function MapEarn({ profileState, mapPoints, lat, lng }) {
@@ -19,6 +20,7 @@ function MapEarn({ profileState, mapPoints, lat, lng }) {
 	}
 	return (
 		<View style={styles.container}>
+			<MissionBanner />
 			<ClusteredMapView
 				style={{ flex: 1 }}
 				data={mapPoints.outlets}
@@ -32,7 +34,6 @@ function MapEarn({ profileState, mapPoints, lat, lng }) {
 				showsCompass={false}
 				edgePadding={{ top: 50, left: 50, bottom: 50, right: 50 }}
 				currency={profileState.currency}
-				// initialCamera={{ center: { latitude: lat, longitude: lng }, zoom: 1 }}
 			>
 				<Marker
 					coordinate={{
@@ -40,7 +41,7 @@ function MapEarn({ profileState, mapPoints, lat, lng }) {
 						longitude: lng,
 					}}
 				>
-					<Image source={require('@assets/img/me.png')}></Image>
+					<Image style={{ width: 40, height: 40 }} source={require('@assets/img/smile.png')} />
 				</Marker>
 			</ClusteredMapView>
 		</View>
