@@ -89,5 +89,5 @@ export const MISSIONSTATE = function(data = {}) {
 	this.inRadius = data.inRadius || false
 	this.title = data.title || ''
 	this.time = data.time || 0
-	this.declineTimer = data.declineTimer || 10
+	this.declineTimer = data.declineTimer || 0
 }

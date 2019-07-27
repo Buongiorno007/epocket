@@ -9,8 +9,7 @@ import { setMissionRadius } from '@reducers/missionState'
 function MapEarnMarker({ profileState, data, missionState, lat, lng, dispatch }) {
 	useEffect(() => {
 		getDist()
-	})
-
+	}, [lat || lng])
 	const getDist = () => {
 		let distance =
 			getDistance(

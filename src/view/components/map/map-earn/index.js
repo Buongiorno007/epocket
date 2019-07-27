@@ -18,6 +18,7 @@ function MapEarn({ profileState, mapPoints, lat, lng }) {
 	const renderMarker = (data) => {
 		return <MapEarnMarker key={data.id} data={data} />
 	}
+
 	return (
 		<View style={styles.container}>
 			<MissionBanner />
