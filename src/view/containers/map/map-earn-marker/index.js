@@ -1,15 +1,22 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { View, Text, Image } from 'react-native'
 import { Marker, Circle } from 'react-native-maps'
 import { connect } from 'react-redux'
 import styles from './styles'
 import { getDistance } from 'geolib'
-import { setMissionRadius } from '@reducers/missionState'
+import { checkMission, setMissionRadius } from '@reducers/missionState'
 
 function MapEarnMarker({ profileState, data, missionState, lat, lng, dispatch }) {
 	useEffect(() => {
-		getDist()
+		if (getDist()) {
+			if (!missionState.inRadius) {
+				dispatch(checkMission(data.id))
+			}
+		} else if (missionState.outletId === data.id) {
+			dispatch(setMissionRadius(false))
+		}
 	}, [lat || lng])
+
 	const getDist = () => {
 		let distance =
 			getDistance(
@@ -19,8 +26,9 @@ function MapEarnMarker({ profileState, data, missionState, lat, lng, dispatch })
 					longitude: lng,
 				},
 			) - data.rad
-		dispatch(setMissionRadius(distance < 0))
+		return distance < 0
 	}
+
 	return (
 		<View>
 			<Marker coordinate={data.location} onPress={() => console.log(data.location, 'DATA LOCATION')}>

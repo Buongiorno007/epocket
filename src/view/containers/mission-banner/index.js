@@ -2,17 +2,22 @@ import React from 'react'
 import { View, Text } from 'react-native'
 import { connect } from 'react-redux'
 import styles from './styles'
+import { toHHMMSS } from '@services/convert-time'
 
 function MissionBanner({ missionState }) {
 	return (
 		<>
-			{(missionState.inRadius || missionState.declineTimer) && (
+			{(missionState.inRadius || missionState.outletId) && (
 				<View style={[styles.timer, missionState.inRadius ? styles.timer_start : styles.timer_stop]}>
-					<Text style={styles.title_text}>mission title</Text>
-					<Text style={styles.time_text}>12:34:50</Text>
+					<Text style={styles.title_text}>{missionState.title}</Text>
+					<Text style={styles.time_text}>{`${toHHMMSS(
+						missionState.inRadius ? missionState.timer : missionState.failTimer,
+					)}`}</Text>
 					{!missionState.inRadius && (
 						<View style={styles.return_view}>
-							<Text style={styles.title_text}>вернитесь или вы потеряете прогресс 12:34:50</Text>
+							<Text style={styles.title_text}>{`вернитесь или вы потеряете прогресс ${toHHMMSS(
+								missionState.timer,
+							)}`}</Text>
 						</View>
 					)}
 				</View>

@@ -88,6 +88,8 @@ export const MAPPOINTS = function(data = {}) {
 export const MISSIONSTATE = function(data = {}) {
 	this.inRadius = data.inRadius || false
 	this.title = data.title || ''
-	this.time = data.time || 0
-	this.declineTimer = data.declineTimer || 0
+	this.timer = data.timer || 0
+	this.failTimer = data.failTimer || 0
+	this.missionId = data.missionId || 0
+	this.outletId = data.outletId || 0
 }
