@@ -25,7 +25,6 @@ export const getPoints = () => async (dispatch, getState) => {
 	const { lat, lng } = getState().location.coordinate
 	let outlets = []
 	if (lat || lng) {
-		dispatch(loaderState(true))
 		try {
 			const response = await httpPost(
 				urls.outlets,
@@ -48,12 +47,10 @@ export const getPoints = () => async (dispatch, getState) => {
 					})
 				}
 			})
-
-			dispatch(savePoints(new MAPPOINTS({ outlets })))
+			dispatch(savePoints(new MAPPOINTS({ outlets, request: true })))
 		} catch (error) {
 			console.log(error, 'getPoints ERROR')
 		}
-		dispatch(loaderState(false))
 	}
 }
 

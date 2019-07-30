@@ -6,7 +6,7 @@ import styles from './styles'
 import { getDistance } from 'geolib'
 import { checkMission, setMissionRadius } from '@reducers/missionState'
 
-function MapEarnMarker({ profileState, data, missionState, lat, lng, dispatch }) {
+function MapEarnMarker({ profileState, data, missionState, lat, lng, mapPoints, dispatch }) {
 	useEffect(() => {
 		if (getDist()) {
 			if (!missionState.inRadius) {
@@ -16,6 +16,12 @@ function MapEarnMarker({ profileState, data, missionState, lat, lng, dispatch })
 			dispatch(setMissionRadius(false))
 		}
 	}, [lat || lng])
+
+	useEffect(() => {
+		if (getDist()) {
+			dispatch(checkMission(data.id))
+		}
+	}, [mapPoints])
 
 	const getDist = () => {
 		let distance =
@@ -56,6 +62,7 @@ const mapStateToProps = (state) => {
 		missionState: state.missionState,
 		lat: state.location.coordinate.lat,
 		lng: state.location.coordinate.lng,
+		mapPoints: state.mapPoints,
 	}
 }
 

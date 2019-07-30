@@ -7,7 +7,7 @@ import { toHHMMSS } from '@services/convert-time'
 function MissionBanner({ missionState }) {
 	return (
 		<>
-			{(missionState.inRadius || missionState.outletId) && (
+			{missionState.process && (
 				<View style={[styles.timer, missionState.inRadius ? styles.timer_start : styles.timer_stop]}>
 					<Text style={styles.title_text}>{missionState.title}</Text>
 					<Text style={styles.time_text}>{`${toHHMMSS(

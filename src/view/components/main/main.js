@@ -18,6 +18,7 @@ import { setActiveCard } from '@reducers/set-active-card'
 import { getGameStart } from '@reducers/gameStart'
 //services
 import GeolocationService from '@services/geolocation-service'
+import { getPoints } from '@reducers/mapPoints'
 //styles
 import styles from './styles'
 
@@ -28,6 +29,9 @@ class Main extends React.Component {
 			return true
 		})
 		this.props.activeTab === 0 && this.props.getGameStart()
+		if (!this.props.mapPoints.request) {
+			this.props.getPoints()
+		}
 	}
 
 	componentDidUpdate(prevProps) {
@@ -80,6 +84,7 @@ const mapStateToProps = (state) => ({
 	timerShow: state.timerShow,
 	selectedMall: state.selectedMall,
 	closestMall: state.closestMall,
+	mapPoints: state.mapPoints,
 })
 
 const mapDispatchToProps = (dispatch) =>
@@ -87,6 +92,7 @@ const mapDispatchToProps = (dispatch) =>
 		{
 			setActiveCard,
 			getGameStart,
+			getPoints,
 		},
 		dispatch,
 	)
