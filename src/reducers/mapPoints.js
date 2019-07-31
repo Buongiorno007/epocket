@@ -23,22 +23,19 @@ export default (state = initialState, action) => {
 export const getPoints = () => async (dispatch, getState) => {
 	const { token } = getState()
 	const { lat, lng } = getState().location.coordinate
-	let outlets = []
+
+	body = JSON.stringify({
+		geolocation_status: lat !== 0 && lng !== 0,
+		lat: lat,
+		lng: lng,
+		tzone: {
+			timezone: moment.tz.guess(),
+			timedelta: moment().format('Z'),
+		},
+	})
 	if (lat || lng) {
 		try {
-			const response = await httpPost(
-				urls.outlets,
-				JSON.stringify({
-					geolocation_status: lat !== 0 && lng !== 0,
-					lat: lat,
-					lng: lng,
-					tzone: {
-						timezone: moment.tz.guess(),
-						timedelta: moment().format('Z'),
-					},
-				}),
-				token,
-			)
+			const response = await httpPost(urls.outlets, body, token)
 			dispatch(savePoints(new MAPPOINTS(response.body)))
 		} catch (error) {
 			console.log(error, 'getPoints ERROR')

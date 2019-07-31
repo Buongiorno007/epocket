@@ -6,7 +6,7 @@ import { toHHMMSS } from '@services/convert-time'
 
 function MissionBanner({ missionState }) {
 	return (
-		<>
+		<React.Fragment>
 			{missionState.process && (
 				<View style={[styles.timer, missionState.inRadius ? styles.timer_start : styles.timer_stop]}>
 					<Text style={styles.title_text}>{missionState.title}</Text>
@@ -22,7 +22,7 @@ function MissionBanner({ missionState }) {
 					)}
 				</View>
 			)}
-		</>
+		</React.Fragment>
 	)
 }
 

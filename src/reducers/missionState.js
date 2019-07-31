@@ -56,7 +56,8 @@ export const getMission = (id) => async (dispatch, getState) => {
 		await dispatch(setMission(new MISSIONSTATE(response.body)))
 	} catch (e) {
 		console.log(e, 'checkMission')
-		await dispatch(setMission(new MISSIONSTATE({ ...e.body, inRadius: true })))
+		e.body.inRadius = true
+		await dispatch(setMission(new MISSIONSTATE(e.body)))
 	}
 }
 
