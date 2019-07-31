@@ -4,7 +4,7 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Marker } from 'react-native-maps'
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet, Image } from 'react-native'
 
 export default class ClusterMarker extends Component {
 	constructor(props) {
@@ -72,12 +72,23 @@ export default class ClusterMarker extends Component {
 			textForCluster = '100+'
 		}
 
-		const { containerStyle, textStyle } = this.props
+		const { clusterText } = this.props
 
 		return (
 			<Marker coordinate={{ latitude, longitude }} onPress={this.onPress}>
-				<View style={[styles.container, containerStyle, { width, height, borderRadius }]}>
-					<Text style={[styles.counterText, textStyle, { fontSize }]}>{textForCluster}</Text>
+				<View style={{ alignItems: 'center', justifyContent: 'center' }}>
+					<Image style={{ width: 40, height: 40 }} source={require('@assets/img/epocket_icon.png')} />
+					<View
+						style={{
+							paddingHorizontal: 8,
+							paddingVertical: 4,
+							borderRadius: 20,
+							marginTop: 8,
+							backgroundColor: '#fff',
+						}}
+					>
+						<Text style={{ color: '#F63272', alignSelf: 'center' }}>{clusterText}</Text>
+					</View>
 				</View>
 			</Marker>
 		)
@@ -87,6 +98,7 @@ export default class ClusterMarker extends Component {
 ClusterMarker.defaultProps = {
 	textStyle: {},
 	containerStyle: {},
+	clusterText: '0',
 }
 
 ClusterMarker.propTypes = {

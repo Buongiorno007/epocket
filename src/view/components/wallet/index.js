@@ -17,8 +17,10 @@ function Wallet({ wallet, profileState, dispatch }) {
 	const end = { x: 0.0, y: 1.0 }
 
 	useEffect(() => {
-		dispatch(loaderState(true))
-		dispatch(getHistory(count))
+		if (!wallet.history.length) {
+			dispatch(loaderState(true))
+			dispatch(getHistory(count))
+		}
 	}, [])
 
 	const renderItem = ({ item }) => {

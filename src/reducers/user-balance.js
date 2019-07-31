@@ -1,5 +1,3 @@
-import { getBonuses } from './history-bonuses'
-
 export const BALANCE_CHANGE = 'user-balance/BALANCE_CHANGE'
 
 export default (state = 0, action) => {

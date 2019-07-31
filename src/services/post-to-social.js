@@ -198,67 +198,67 @@ export async function postToSocial(postData, deepLink, confirmFuction, video_sta
 	// }
 }
 
-async function requestStoragePermission(post_data, file_path, deepLink, confirmFuction, type, video_status) {
-	try {
-		const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE, {
-			title: I18n.t('PERMISSON.STORAGE_PERMISSON_TITLE'),
-			message: I18n.t('PERMISSON.STORAGE_PERMISSON_MESSAGE'),
-			buttonNegative: I18n.t('PROFILE_PAGE.DECLINE'),
-			buttonPositive: I18n.t('OK').toUpperCase(),
-		})
-		if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-			console.log('You can use the WRITE_EXTERNAL_STORAGE')
-			if (video_status) {
-				RNFetchBlob.config({
-					addAndroidDownloads: {
-						useDownloadManager: true,
-						notification: false,
-						path: file_path,
-						mime: 'text/plain',
-						description: 'File downloaded by download manager.',
-					},
-				})
-					.fetch('GET', post_data)
-					.then((resp) => {
-						console.log(resp)
-						RNInstagramStoryShare.shareToFeed(
-							{
-								backgroundImage: file_path,
-								deeplinkingUrl: deepLink,
-							},
-							Boolean(video_status),
-							this.callCallback,
-							this.callCallback,
-						)
-						this.confirmFuction = confirmFuction //override this.confirmFuction to call confirmFunction in callback
-					})
-					.catch((err) => {
-						console.log('writeFile error', err)
-					})
-			} else {
-				RNFS.writeFile(file_path, post_data, type)
-					.then(() => {
-						RNInstagramStoryShare.shareToFeed(
-							{
-								backgroundImage: file_path,
-								deeplinkingUrl: deepLink,
-							},
-							Boolean(video_status),
-							this.callCallback,
-							this.callCallback,
-						)
-						this.confirmFuction = confirmFuction //override this.confirmFuction to call confirmFunction in callback
-					})
-					.catch((err) => {
-						console.log('writeFile error', err)
-					})
-			}
-		} else {
-			console.log('WRITE_EXTERNAL_STORAGE permission denied')
-		}
-	} catch (err) {
-		console.warn(err)
-	}
-}
+// async function requestStoragePermission(post_data, file_path, deepLink, confirmFuction, type, video_status) {
+// 	try {
+// 		const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE, {
+// 			title: I18n.t('PERMISSON.STORAGE_PERMISSON_TITLE'),
+// 			message: I18n.t('PERMISSON.STORAGE_PERMISSON_MESSAGE'),
+// 			buttonNegative: I18n.t('PROFILE_PAGE.DECLINE'),
+// 			buttonPositive: I18n.t('OK').toUpperCase(),
+// 		})
+// 		if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+// 			console.log('You can use the WRITE_EXTERNAL_STORAGE')
+// 			if (video_status) {
+// 				RNFetchBlob.config({
+// 					addAndroidDownloads: {
+// 						useDownloadManager: true,
+// 						notification: false,
+// 						path: file_path,
+// 						mime: 'text/plain',
+// 						description: 'File downloaded by download manager.',
+// 					},
+// 				})
+// 					.fetch('GET', post_data)
+// 					.then((resp) => {
+// 						console.log(resp)
+// 						RNInstagramStoryShare.shareToFeed(
+// 							{
+// 								backgroundImage: file_path,
+// 								deeplinkingUrl: deepLink,
+// 							},
+// 							Boolean(video_status),
+// 							this.callCallback,
+// 							this.callCallback,
+// 						)
+// 						this.confirmFuction = confirmFuction //override this.confirmFuction to call confirmFunction in callback
+// 					})
+// 					.catch((err) => {
+// 						console.log('writeFile error', err)
+// 					})
+// 			} else {
+// 				RNFS.writeFile(file_path, post_data, type)
+// 					.then(() => {
+// 						RNInstagramStoryShare.shareToFeed(
+// 							{
+// 								backgroundImage: file_path,
+// 								deeplinkingUrl: deepLink,
+// 							},
+// 							Boolean(video_status),
+// 							this.callCallback,
+// 							this.callCallback,
+// 						)
+// 						this.confirmFuction = confirmFuction //override this.confirmFuction to call confirmFunction in callback
+// 					})
+// 					.catch((err) => {
+// 						console.log('writeFile error', err)
+// 					})
+// 			}
+// 		} else {
+// 			console.log('WRITE_EXTERNAL_STORAGE permission denied')
+// 		}
+// 	} catch (err) {
+// 		console.warn(err)
+// 	}
+// }
 
 export function socialPost(data, confirmFunction) {}

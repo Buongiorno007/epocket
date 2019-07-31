@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 //components
 import Map from '@components/map/map'
+import Mappp from '@components/map'
 import Profile from '@components/profile/profile'
-import History from '@components/history/history'
 import GameS from '@components/game-component/game-start'
 import GamePartners from '@components/game-component/game-partners'
 import Wallet from '@components/wallet'
@@ -18,6 +18,7 @@ import { setActiveCard } from '@reducers/set-active-card'
 import { getGameStart } from '@reducers/gameStart'
 //services
 import GeolocationService from '@services/geolocation-service'
+import { getPoints } from '@reducers/mapPoints'
 //styles
 import styles from './styles'
 
@@ -28,6 +29,9 @@ class Main extends React.Component {
 			return true
 		})
 		this.props.activeTab === 0 && this.props.getGameStart()
+		if (!this.props.mapPoints.request) {
+			this.props.getPoints()
+		}
 	}
 
 	componentDidUpdate(prevProps) {
@@ -50,8 +54,8 @@ class Main extends React.Component {
 			<View style={styles.main_view}>
 				<View style={styles.content}>
 					{this.props.activeTab === 0 ? this.renderLastTab() : null}
-					{this.props.activeTab === 1 ? <Map /> : null}
-					{/* {this.props.activeTab === 2 ? <History /> : null} */}
+					{/* {this.props.activeTab === 1 ? <Map /> : null} */}
+					{this.props.activeTab === 1 && <Mappp />}
 					{this.props.activeTab === 2 && <Wallet />}
 					{this.props.activeTab === 3 ? <Profile /> : null}
 				</View>
@@ -62,10 +66,9 @@ class Main extends React.Component {
 						<ReturnToMall />
 					)}
 
-				{Platform.OS === 'ios'
-					? !this.props.isLocation &&
-					  (this.props.activeTab === 1 || this.props.activeTab === 0) && <LocationDisabled />
-					: !this.props.isLocation && <LocationDisabled />}
+				{!this.props.isLocation && (this.props.activeTab === 1 || this.props.activeTab === 0) && (
+					<LocationDisabled />
+				)}
 				<TimerModal />
 				<GeolocationService />
 			</View>
@@ -81,6 +84,7 @@ const mapStateToProps = (state) => ({
 	timerShow: state.timerShow,
 	selectedMall: state.selectedMall,
 	closestMall: state.closestMall,
+	mapPoints: state.mapPoints,
 })
 
 const mapDispatchToProps = (dispatch) =>
@@ -88,6 +92,7 @@ const mapDispatchToProps = (dispatch) =>
 		{
 			setActiveCard,
 			getGameStart,
+			getPoints,
 		},
 		dispatch,
 	)

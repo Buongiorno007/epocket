@@ -95,8 +95,12 @@ class PhotoCamera extends React.Component {
 						flashMode={
 							this.state.flash ? RNCamera.Constants.FlashMode.on : RNCamera.Constants.FlashMode.off
 						}
-						permissionDialogTitle={I18n.t('TITLE')}
-						permissionDialogMessage={I18n.t('CAMERA_PERMISSION')}
+						androidCameraPermissionOptions={{
+							title: I18n.t('TITLE'),
+							message: I18n.t('CAMERA_PERMISSION'),
+							buttonPositive: 'Ok',
+							buttonNegative: 'Cancel',
+						}}
 					/>
 				</View>
 				{/* <View style={styles.template_hashtags}>

@@ -81,3 +81,17 @@ export const WALLET = function(data = {}) {
 	this.balance = data.balance || 0
 	this.history = data.data || []
 }
+export const MAPPOINTS = function(data = {}) {
+	this.outlets = data.outlets || []
+	this.cashouts = data.cashouts || []
+	this.request = data.request || false
+}
+export const MISSIONSTATE = function(data = {}) {
+	this.inRadius = data.inRadius || false
+	this.title = data.title || ''
+	this.timer = data.timer || 0
+	this.failTimer = data.failTimer || 0
+	this.missionId = data.missionId || 0
+	this.outletId = data.outletId || 0
+	this.process = data.process || false
+}

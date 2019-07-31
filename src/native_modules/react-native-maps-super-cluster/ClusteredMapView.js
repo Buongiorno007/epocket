@@ -106,9 +106,21 @@ export default class ClusteredMapView extends PureComponent {
 			markers = children.map((c) => c.properties.item)
 
 		// fit right around them, considering edge padding
-		this.mapview.fitToCoordinates(markers.map((m) => m.location), { edgePadding: this.props.edgePadding })
+		this.mapview.fitToCoordinates(markers.map((m) => m.location), {
+			edgePadding: this.props.edgePadding,
+			animated: true,
+		})
 
 		this.props.onClusterPress && this.props.onClusterPress(cluster.properties.cluster_id, markers)
+	}
+
+	getThePrice = (clusterId) => {
+		let price = 0
+		const items = this.index.getLeaves(clusterId, 1000)
+		items.forEach((element) => {
+			price += element.properties.item.price
+		})
+		return price
 	}
 
 	render() {
@@ -129,6 +141,7 @@ export default class ClusteredMapView extends PureComponent {
 								containerStyle={this.props.containerStyle}
 								clusterInitialFontSize={this.props.clusterInitialFontSize}
 								clusterInitialDimension={this.props.clusterInitialDimension}
+								clusterText={`${this.getThePrice(d.id)} ${this.props.currency}`}
 							/>
 						)
 					})}
@@ -155,6 +168,7 @@ ClusteredMapView.defaultProps = {
 	height: Dimensions.get('window').height,
 	layoutAnimationConf: LayoutAnimation.Presets.spring,
 	edgePadding: { top: 10, left: 10, right: 10, bottom: 10 },
+	currency: 'грн',
 }
 
 ClusteredMapView.propTypes = {

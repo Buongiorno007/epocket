@@ -23,6 +23,7 @@ class MissionSuccess extends React.Component {
 	earnMore = () => {
 		NavigationService.navigate('EarnMore', {
 			insta_data: this.props.navigation.state.params.insta_data,
+			img: this.props.navigation.state.params.img,
 		})
 	}
 

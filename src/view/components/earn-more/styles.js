@@ -46,6 +46,7 @@ export default StyleSheet.create({
 	text_desc: {
 		width: width * 0.85,
 		textAlign: 'center',
+		color: 'rgba(255, 255, 255, 0.6)',
 	},
 	more_money: {
 		fontSize: 30,
@@ -72,7 +73,7 @@ export default StyleSheet.create({
 		justifyContent: 'center',
 	},
 	text: {
-		fontSize: 14,
+		fontSize: 12,
 		color: colors.white,
 	},
 	earn_more_btn: {
