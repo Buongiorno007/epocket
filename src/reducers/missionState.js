@@ -68,13 +68,18 @@ export const missionResult = () => async (dispatch, getState) => {
 		mission_id: missionId,
 	}
 	if (!timer) {
-		const response = await httpPost(urls.finish_mission, JSON.stringify(body), token)
 		Toast.show({
 			text: 'Миссия завершена',
 			buttonText: 'ok',
 			duration: 10000,
 			onClose: () => {},
 		})
+		try {
+			const response = await httpPost(urls.finish_mission, JSON.stringify(body), token)
+		} catch (e) {
+			console.log(e, 'missionResult e')
+		}
+
 		await dispatch(setMission(new MISSIONSTATE({ inRadius: true })))
 		await dispatch(getPoints())
 	} else if (!failTimer) {
