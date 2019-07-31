@@ -13,7 +13,7 @@ function MapEarnMarker({ profileState, data, missionState, lat, lng, mapPoints, 
 		} else if (missionState.outletId === data.id) {
 			dispatch(setMissionRadius(false))
 		}
-	}, [lat || lng || mapPoints])
+	}, [lat, lng, mapPoints])
 
 	const getDist = () => {
 		let distance =

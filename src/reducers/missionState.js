@@ -36,9 +36,9 @@ export default (state = initialState, action) => {
 }
 
 export const checkMission = (id) => async (dispatch, getState) => {
-	const { outletId, inRadius } = getState().missionState
+	const { outletId, inRadius, process } = getState().missionState
 	!inRadius && (await dispatch(setMissionRadius(true)))
-	if (id !== outletId) {
+	if (id !== outletId || !process) {
 		await dispatch(getMission(id))
 	}
 }
@@ -48,7 +48,6 @@ export const getMission = (id) => async (dispatch, getState) => {
 	let body = {
 		outlet_id: id,
 	}
-	console.log(urls.start_mission, JSON.stringify(body), 'REQUEST')
 	try {
 		const response = await httpPost(urls.start_mission, JSON.stringify(body), token)
 		console.log(response, 'RESPONSE')
