@@ -56,21 +56,27 @@ export const getMission = (id) => async (dispatch, getState) => {
 		await dispatch(setMission(new MISSIONSTATE(response.body)))
 	} catch (e) {
 		console.log(e, 'checkMission')
-		await dispatch(setMissionProcess(false))
+		await dispatch(setMission(new MISSIONSTATE({ ...e.body, inRadius: true })))
 	}
 }
 
 export const missionResult = () => async (dispatch, getState) => {
-	const { timer, failTimer } = getState().missionState
+	const { token } = getState()
+	const { timer, failTimer, outletId, missionId } = getState().missionState
+	let body = {
+		outlet_id: outletId,
+		mission_id: missionId,
+	}
 	if (!timer) {
-		await dispatch(setMission(new MISSIONSTATE({ inRadius: true })))
-		await dispatch(getPoints())
+		const response = await httpPost(urls.finish_mission, JSON.stringify(body), token)
 		Toast.show({
 			text: 'Миссия завершена',
 			buttonText: 'ok',
 			duration: 10000,
 			onClose: () => {},
 		})
+		await dispatch(setMission(new MISSIONSTATE({ inRadius: true })))
+		await dispatch(getPoints())
 	} else if (!failTimer) {
 		await dispatch(resetMission())
 	}

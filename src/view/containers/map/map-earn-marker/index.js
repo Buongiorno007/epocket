@@ -12,16 +12,17 @@ function MapEarnMarker({ profileState, data, missionState, lat, lng, mapPoints, 
 			if (!missionState.inRadius) {
 				dispatch(checkMission(data.id))
 			}
+			dispatch(setMissionRadius(true))
 		} else if (missionState.outletId === data.id) {
 			dispatch(setMissionRadius(false))
 		}
-	}, [lat || lng])
+	}, [lat || lng || mapPoints])
 
-	useEffect(() => {
-		if (getDist()) {
-			dispatch(checkMission(data.id))
-		}
-	}, [mapPoints])
+	// useEffect(() => {
+	// 	if (getDist()) {
+	// 		dispatch(checkMission(data.id))
+	// 	}
+	// }, [mapPoints])
 
 	const getDist = () => {
 		let distance =

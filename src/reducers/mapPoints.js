@@ -39,15 +39,7 @@ export const getPoints = () => async (dispatch, getState) => {
 				}),
 				token,
 			)
-			await response.body.outlets.forEach((element) => {
-				if (element.price) {
-					outlets.push({
-						...element,
-						location: { latitude: Number(element.lat), longitude: Number(element.lng) },
-					})
-				}
-			})
-			dispatch(savePoints(new MAPPOINTS({ outlets, request: true })))
+			dispatch(savePoints(new MAPPOINTS(response.body)))
 		} catch (error) {
 			console.log(error, 'getPoints ERROR')
 		}

@@ -90,8 +90,15 @@ function sendRequest(url, OPTIONS) {
 				})
 			} else {
 				try {
-					reject({
-						code: parseInt(`${response.status}`),
+					// reject({
+					// 	code: parseInt(`${response.status}`),
+					// })
+					response.json().then((body) => {
+						reject({
+							body,
+							code: parseInt(`${response.status}`),
+							statusText: response.statusText,
+						})
 					})
 				} catch (err) {
 					reject({
