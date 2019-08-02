@@ -168,7 +168,7 @@ ClusteredMapView.defaultProps = {
 	height: Dimensions.get('window').height,
 	layoutAnimationConf: LayoutAnimation.Presets.spring,
 	edgePadding: { top: 10, left: 10, right: 10, bottom: 10 },
-	currency: 'грн',
+	currency: '',
 }
 
 ClusteredMapView.propTypes = {

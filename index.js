@@ -43,6 +43,7 @@ const Navigator = createStackNavigator(
 		// GameStart: { screen: require('@components/game-component/game-start').default },
 		// Wallet: { screen: require('@components/wallet').default },
 		// GamePartners: { screen: require('@components/game-component/game-partners').default },
+		MapPlaces: require('@components/map/map-places').default,
 	},
 	{
 		initialRouteName: 'Start',

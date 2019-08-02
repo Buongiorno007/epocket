@@ -27,7 +27,6 @@ const HaveGames = ({ profileState, gameStart, loaderState, getGameProcess }) => 
 			</View>
 			<CustomButton
 				active={true}
-				short
 				style={{ marginBottom: 16 }}
 				gradient
 				title={I18n.t('GAME.START').toUpperCase()}
