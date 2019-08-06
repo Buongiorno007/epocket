@@ -1,12 +1,12 @@
 import React from 'react'
-import { View, Platform, Image, Text, TouchableOpacity } from 'react-native'
+import { View, Platform, Image } from 'react-native'
 import { connect } from 'react-redux'
 import ClusteredMapView from '../../../../native_modules/react-native-maps-super-cluster'
 import { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import Basket from '@containers/basket'
 import styles from './styles'
 import MapSpendMarker from '@containers/map/map-spend-marker'
-import MapPlacesHeader from '../../../containers/map/map-places-header'
+import MapHeader from '@containers/map/map-header'
 
 function MapPlaces({ lat, lng, mapPoints }) {
 	const region = {
@@ -22,7 +22,7 @@ function MapPlaces({ lat, lng, mapPoints }) {
 
 	return (
 		<View style={styles.container}>
-			<MapPlacesHeader />
+			<MapHeader title={'Места на карте'} filters />
 			<ClusteredMapView
 				style={styles.map}
 				data={mapPoints.cashouts}
