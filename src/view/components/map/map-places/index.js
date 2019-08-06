@@ -61,7 +61,7 @@ function MapPlaces({ lat, lng, mapPoints }) {
 					<Image style={{ width: 40, height: 40 }} source={require('@assets/img/smile.png')} />
 				</Marker>
 			</ClusteredMapView>
-			<Basket style={{ position: 'absolute', bottom: 20, right: 20 }} />
+			<Basket />
 		</View>
 	)
 }

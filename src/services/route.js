@@ -34,6 +34,9 @@ function pop(n = 1) {
 		}),
 	)
 }
+function popToTop() {
+	navigation.dispatch(StackActions.popToTop())
+}
 
 function goBackPress(url: string, params: any = undefined) {
 	BackHandler.addEventListener('hardwareBackPress', (): any => {
@@ -65,6 +68,7 @@ export default {
 	navigate,
 	push,
 	pop,
+	popToTop,
 	goBackPress,
 	setRoot,
 }

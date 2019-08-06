@@ -7,6 +7,7 @@ import LinearGradient from 'react-native-linear-gradient'
 
 import styles from './styles'
 import route from '../../../../services/route'
+import Basket from '@containers/basket'
 
 function MapSpend({ lat, lng, mapPoints }) {
 	const colors = ['#F55890', '#FF9950']
@@ -21,39 +22,49 @@ function MapSpend({ lat, lng, mapPoints }) {
 
 	const renderMarker = (data) => {
 		return (
-			<View
-				key={`${data.id}`}
-				style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: 'linghtblue' }}
-			/>
+			<Marker key={data.id} coordinate={data.location}>
+				<View style={{ width: 20, height: 20, backgroundColor: 'blue', borderRadius: 5 }}></View>
+			</Marker>
 		)
 	}
 
 	return (
 		<View style={styles.container}>
+			<View style={styles.map_view}>
+				<ClusteredMapView
+					style={styles.map}
+					data={mapPoints.cashouts}
+					initialRegion={region}
+					provider={Platform.OS === 'ios' ? PROVIDER_GOOGLE : null}
+					renderMarker={renderMarker}
+					animateClusters={false}
+					showsCompass={false}
+					edgePadding={{ top: 50, left: 50, bottom: 50, right: 50 }}
+					noPrice
+				>
+					<Marker
+						coordinate={{
+							latitude: lat,
+							longitude: lng,
+						}}
+					>
+						<Image style={{ width: 40, height: 40 }} source={require('@assets/img/smile.png')} />
+					</Marker>
+				</ClusteredMapView>
+				<Basket style={styles.basket} />
+				<TouchableOpacity style={styles.touchMap} onPress={() => route.push('MapPlaces')}>
+					<View style={styles.imageView}>
+						<Image style={{ width: 16, height: 16 }} source={require('@assets/img/diagonal-arrows.png')} />
+					</View>
+				</TouchableOpacity>
+			</View>
 			<LinearGradient colors={colors} start={start} end={end} style={styles.linear}>
 				<ScrollView style={styles.scroll}>
-					<Text style={{ marginBottom: 8 }}>{'Места на карте'}</Text>
-					<TouchableOpacity onPress={() => route.push('MapPlaces')} style={styles.map_view}>
-						<ClusteredMapView
-							style={styles.map}
-							data={mapPoints.cashouts}
-							initialRegion={region}
-							provider={Platform.OS === 'ios' ? PROVIDER_GOOGLE : null}
-							renderMarker={renderMarker}
-							animateClusters={false}
-							showsCompass={false}
-							edgePadding={{ top: 50, left: 50, bottom: 50, right: 50 }}
-						>
-							<Marker
-								coordinate={{
-									latitude: lat,
-									longitude: lng,
-								}}
-							>
-								<Image style={{ width: 40, height: 40 }} source={require('@assets/img/smile.png')} />
-							</Marker>
-						</ClusteredMapView>
-					</TouchableOpacity>
+					<Text>{'HELLO'}</Text>
+					<Text>{'HELLO'}</Text>
+					<Text>{'HELLO'}</Text>
+					<Text>{'HELLO'}</Text>
+					<Text>{'HELLO'}</Text>
 				</ScrollView>
 			</LinearGradient>
 		</View>
