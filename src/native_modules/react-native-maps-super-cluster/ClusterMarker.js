@@ -31,11 +31,6 @@ export default class ClusterMarker extends Component {
 			return this.props.renderCluster(cluster, this.onPress)
 		}
 
-		// keep default marker for backward compatibility, but it'll soon be deprecated
-		console.warn(
-			'Deprecation notice: default markers will soon be deprecated. Please, start using "renderCluster" prop.',
-		) // eslint-disable-line
-
 		let scaleUpRatio = this.props.scaleUpRatio
 			? this.props.scaleUpRatio(pointCount)
 			: 1 + Math.min(pointCount, 999) / 100
@@ -43,8 +38,6 @@ export default class ClusterMarker extends Component {
 			console.warn('scaleUpRatio must return a Number, falling back to default') // eslint-disable-line
 			scaleUpRatio = 1 + Math.min(pointCount, 999) / 100
 		}
-
-		let textForCluster = '1'
 
 		let width = Math.floor(this.props.clusterInitialDimension * scaleUpRatio),
 			height = Math.floor(this.props.clusterInitialDimension * scaleUpRatio),
@@ -56,39 +49,17 @@ export default class ClusterMarker extends Component {
 		height = height <= this.props.clusterInitialDimension * 2 ? height : this.props.clusterInitialDimension * 2
 		fontSize = fontSize <= 18 ? fontSize : 18
 
-		if (pointCount >= 2 && pointCount <= 10) {
-			textForCluster = pointCount.toString()
-		}
-		if (pointCount > 10 && pointCount <= 25) {
-			textForCluster = '10+'
-		}
-		if (pointCount > 25 && pointCount <= 50) {
-			textForCluster = '25+'
-		}
-		if (pointCount > 50 && pointCount <= 100) {
-			textForCluster = '50+'
-		}
-		if (pointCount > 100) {
-			textForCluster = '100+'
-		}
-
-		const { clusterText } = this.props
+		const { clusterText, noPrice } = this.props
 
 		return (
 			<Marker coordinate={{ latitude, longitude }} onPress={this.onPress}>
-				<View style={{ alignItems: 'center', justifyContent: 'center' }}>
-					<Image style={{ width: 40, height: 40 }} source={require('@assets/img/epocket_icon.png')} />
-					<View
-						style={{
-							paddingHorizontal: 8,
-							paddingVertical: 4,
-							borderRadius: 20,
-							marginTop: 8,
-							backgroundColor: '#fff',
-						}}
-					>
-						<Text style={{ color: '#F63272', alignSelf: 'center' }}>{clusterText}</Text>
-					</View>
+				<View style={styles.container}>
+					<Image style={styles.image} source={require('@assets/img/epocket_icon.png')} />
+					{!noPrice && (
+						<View style={styles.textView}>
+							<Text style={styles.counterText}>{clusterText}</Text>
+						</View>
+					)}
 				</View>
 			</Marker>
 		)
@@ -96,9 +67,8 @@ export default class ClusterMarker extends Component {
 }
 
 ClusterMarker.defaultProps = {
-	textStyle: {},
-	containerStyle: {},
 	clusterText: '0',
+	noPrice: false,
 }
 
 ClusterMarker.propTypes = {
@@ -106,24 +76,29 @@ ClusterMarker.propTypes = {
 	renderCluster: PropTypes.func,
 	onPress: PropTypes.func.isRequired,
 	geometry: PropTypes.object.isRequired,
-	textStyle: PropTypes.object.isRequired,
 	properties: PropTypes.object.isRequired,
-	containerStyle: PropTypes.object.isRequired,
 	clusterInitialFontSize: PropTypes.number.isRequired,
 	clusterInitialDimension: PropTypes.number.isRequired,
 }
 
 const styles = StyleSheet.create({
 	container: {
-		borderWidth: 1,
 		alignItems: 'center',
-		borderColor: '#65bc46',
 		justifyContent: 'center',
-		backgroundColor: '#fff',
+	},
+	image: {
+		width: 40,
+		height: 40,
 	},
 	counterText: {
-		fontSize: 16,
-		color: '#65bc46',
-		fontWeight: '400',
+		color: '#F63272',
+		alignSelf: 'center',
+	},
+	textView: {
+		paddingHorizontal: 8,
+		paddingVertical: 4,
+		borderRadius: 20,
+		marginTop: 8,
+		backgroundColor: '#fff',
 	},
 })

@@ -3,9 +3,10 @@ import { View, Platform, Image, Text, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import ClusteredMapView from '../../../../native_modules/react-native-maps-super-cluster'
 import { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
-import route from '@services/route'
 import Basket from '@containers/basket'
 import styles from './styles'
+import MapSpendMarker from '@containers/map/map-spend-marker'
+import MapPlacesHeader from '../../../containers/map/map-places-header'
 
 function MapPlaces({ lat, lng, mapPoints }) {
 	const region = {
@@ -16,32 +17,12 @@ function MapPlaces({ lat, lng, mapPoints }) {
 	}
 
 	const renderMarker = (data) => {
-		return (
-			<Marker key={data.id} coordinate={data.location}>
-				<View style={{ width: 10, height: 10, backgroundColor: 'lightblue', borderRadius: 5 }}></View>
-			</Marker>
-		)
+		return <MapSpendMarker key={data.id} data={data} />
 	}
 
 	return (
 		<View style={styles.container}>
-			<View
-				style={{
-					height: 90,
-					paddingHorizontal: 16,
-					paddingTop: 50,
-					flexDirection: 'row',
-					justifyContent: 'space-between',
-				}}
-			>
-				<TouchableOpacity onPress={() => route.pop()}>
-					<Image source={require('@assets/img/chevron.png')} style={styles.image} />
-				</TouchableOpacity>
-				<Text style={styles.text}>{'МЕСТА НА КАРТЕ'}</Text>
-				<TouchableOpacity onPress={() => route.pop()}>
-					<Image source={require('@assets/img/filter.png')} style={styles.image} />
-				</TouchableOpacity>
-			</View>
+			<MapPlacesHeader />
 			<ClusteredMapView
 				style={styles.map}
 				data={mapPoints.cashouts}
@@ -51,6 +32,7 @@ function MapPlaces({ lat, lng, mapPoints }) {
 				animateClusters={false}
 				showsCompass={false}
 				edgePadding={{ top: 50, left: 50, bottom: 50, right: 50 }}
+				noPrice
 			>
 				<Marker
 					coordinate={{

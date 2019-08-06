@@ -10,7 +10,7 @@ export default StyleSheet.create({
 		flex: 1,
 		borderTopLeftRadius: 24,
 		borderTopRightRadius: 24,
-		marginTop: -18,
+		marginTop: -28,
 	},
 	scroll: {
 		flex: 1,
@@ -20,14 +20,14 @@ export default StyleSheet.create({
 
 	map_view: {
 		width,
-		height: width * 0.65,
+		height: width * 0.7,
 	},
 	map: {
 		flex: 1,
 	},
 	touchMap: {
 		position: 'absolute',
-		bottom: 26,
+		bottom: 36,
 		left: 16,
 		width: 48,
 		height: 48,
@@ -48,7 +48,7 @@ export default StyleSheet.create({
 	},
 	basket: {
 		position: 'absolute',
-		bottom: 34,
+		bottom: 44,
 		right: 16,
 	},
 })

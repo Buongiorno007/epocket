@@ -142,6 +142,7 @@ export default class ClusteredMapView extends PureComponent {
 								clusterInitialFontSize={this.props.clusterInitialFontSize}
 								clusterInitialDimension={this.props.clusterInitialDimension}
 								clusterText={`${this.getThePrice(d.id)} ${this.props.currency}`}
+								noPrice={this.props.noPrice}
 							/>
 						)
 					})}
@@ -169,6 +170,7 @@ ClusteredMapView.defaultProps = {
 	layoutAnimationConf: LayoutAnimation.Presets.spring,
 	edgePadding: { top: 10, left: 10, right: 10, bottom: 10 },
 	currency: '',
+	noPrice: false,
 }
 
 ClusteredMapView.propTypes = {

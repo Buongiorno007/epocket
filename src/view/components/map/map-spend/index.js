@@ -23,7 +23,7 @@ function MapSpend({ lat, lng, mapPoints }) {
 	const renderMarker = (data) => {
 		return (
 			<Marker key={data.id} coordinate={data.location}>
-				<View style={{ width: 20, height: 20, backgroundColor: 'blue', borderRadius: 5 }}></View>
+				<Image style={{ width: 10, height: 10 }} source={require('@assets/img/spend.png')} />
 			</Marker>
 		)
 	}
