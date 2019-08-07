@@ -1,7 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
 import { connect } from 'react-redux'
-import MapHeader from '@containers/map/map-header'
+import MapHeaderPink from '@containers/map/map-header-pink'
 
 import styles from './styles'
 import route from '@services/route'
@@ -9,7 +9,7 @@ import route from '@services/route'
 function Filters({ filters }) {
 	return (
 		<View style={styles.container}>
-			<MapHeader title={'Фильтры'} />
+			<MapHeaderPink title={'Фильтры'} />
 		</View>
 	)
 }

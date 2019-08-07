@@ -6,7 +6,7 @@ import { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import Basket from '@containers/basket'
 import styles from './styles'
 import MapSpendMarker from '@containers/map/map-spend-marker'
-import MapHeader from '@containers/map/map-header'
+import MapHeaderPink from '@containers/map/map-header-pink'
 
 function MapPlaces({ lat, lng, mapPoints }) {
 	const region = {
@@ -22,7 +22,7 @@ function MapPlaces({ lat, lng, mapPoints }) {
 
 	return (
 		<View style={styles.container}>
-			<MapHeader title={'Места на карте'} filters />
+			<MapHeaderPink title={'Места на карте'} filters />
 			<ClusteredMapView
 				style={styles.map}
 				data={mapPoints.cashouts}

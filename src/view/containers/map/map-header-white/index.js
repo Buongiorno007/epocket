@@ -2,22 +2,14 @@ import React from 'react'
 import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native'
 import route from '@services/route'
 
-export default function MapHeader({ title = 'MЕСТА НА КАРТЕ', filters = false }) {
+export default function MapHeaderWhite({ title = 'CHANGE TITLE' }) {
 	return (
 		<View style={styles.container}>
 			<TouchableOpacity onPress={() => route.pop()}>
-				<Image source={require('@assets/img/chevron.png')} style={styles.image} />
+				<Image source={require('@assets/img/chevron_w.png')} style={styles.image} />
 			</TouchableOpacity>
 			<Text style={styles.text}>{title}</Text>
-			{filters ? (
-				<TouchableOpacity onPress={() => route.push('Filters')}>
-					<Image source={require('@assets/img/filter.png')} style={styles.image} />
-				</TouchableOpacity>
-			) : (
-				<TouchableOpacity>
-					<Text style={styles.text}>{'OK'}</Text>
-				</TouchableOpacity>
-			)}
+			<View style={styles.image} />
 		</View>
 	)
 }
@@ -29,6 +21,7 @@ const styles = StyleSheet.create({
 		paddingTop: 50,
 		flexDirection: 'row',
 		justifyContent: 'space-between',
+		backgroundColor: 'rgba(255,255,255,.2)',
 	},
 	image: {
 		width: 20,
@@ -38,6 +31,6 @@ const styles = StyleSheet.create({
 	text: {
 		fontFamily: 'Rubik-Medium',
 		fontSize: 16,
-		color: '#F63272',
+		color: '#fff',
 	},
 })
