@@ -6,8 +6,9 @@ import { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import LinearGradient from 'react-native-linear-gradient'
 
 import styles from './styles'
-import route from '../../../../services/route'
+import route from '@services/route'
 import Basket from '@containers/basket'
+import MapSpendButton from '@containers/map/map-spend-button'
 
 function MapSpend({ lat, lng, mapPoints }) {
 	const colors = ['#F55890', '#FF9950']
@@ -60,11 +61,28 @@ function MapSpend({ lat, lng, mapPoints }) {
 			</View>
 			<LinearGradient colors={colors} start={start} end={end} style={styles.linear}>
 				<ScrollView style={styles.scroll}>
-					<Text>{'HELLO'}</Text>
-					<Text>{'HELLO'}</Text>
-					<Text>{'HELLO'}</Text>
-					<Text>{'HELLO'}</Text>
-					<Text>{'HELLO'}</Text>
+					<Text style={styles.text}>{'Оплата по штрих-коду'}</Text>
+					<View style={styles.fieldStyle}>
+						<MapSpendButton
+							img={require('@assets/img/barcode.png')}
+							text={'Ваш штрих-код'}
+							callback={() => console.log('HELLO')}
+						/>
+					</View>
+					<Text style={styles.text}>{'Не выходя из дома'}</Text>
+					<View style={styles.fieldStyle}>
+						<MapSpendButton
+							img={require('@assets/img/bask.png')}
+							text={'Интернет магазин'}
+							callback={() => console.log('HELLO2')}
+						/>
+						<MapSpendButton
+							img={require('@assets/img/phone.png')}
+							text={'Пополнение мобильного'}
+							callback={() => route.push('Refill')}
+							space
+						/>
+					</View>
 				</ScrollView>
 			</LinearGradient>
 		</View>

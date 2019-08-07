@@ -17,7 +17,6 @@ export default StyleSheet.create({
 		paddingHorizontal: 16,
 		paddingVertical: 16,
 	},
-
 	map_view: {
 		width,
 		height: width * 0.7,
@@ -50,5 +49,19 @@ export default StyleSheet.create({
 		position: 'absolute',
 		bottom: 44,
 		right: 16,
+	},
+	fieldStyle: {
+		paddingHorizontal: 16,
+		paddingVertical: 16,
+		backgroundColor: '#F5F9FE',
+		borderRadius: 24,
+		marginBottom: 16,
+	},
+	text: {
+		fontFamily: 'Rubik-Regular',
+		fontSize: 14,
+		marginBottom: 8,
+		marginLeft: 16,
+		color: '#fff',
 	},
 })
