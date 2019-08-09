@@ -66,7 +66,7 @@ function MapSpend({ lat, lng, mapPoints }) {
 						<MapSpendButton
 							img={require('@assets/img/barcode.png')}
 							text={'Ваш штрих-код'}
-							callback={() => console.log('HELLO')}
+							callback={() => route.push('Barcode')}
 						/>
 					</View>
 					<Text style={styles.text}>{'Не выходя из дома'}</Text>
