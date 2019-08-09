@@ -95,3 +95,7 @@ export const MISSIONSTATE = function(data = {}) {
 	this.outletId = data.outletId || 0
 	this.process = data.process || false
 }
+
+export const PARTNERS = function(data = []) {
+	this.online = data
+}

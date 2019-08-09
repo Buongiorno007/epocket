@@ -5,14 +5,14 @@ import MapHeaderWhite from '@containers/map/map-header-white'
 import { connect } from 'react-redux'
 import Barcode from 'react-native-barcode-builder'
 
-function BarcodeComponent({ profileState }) {
+function BarcodeComponent({ profileState, balance }) {
 	const colors = ['#F55890', '#FF9950']
 	const start = { x: 0, y: 0 }
 	const end = { x: 0, y: 1 }
 	return (
 		<View style={styles.container}>
 			<LinearGradient start={start} end={end} colors={colors} style={styles.container}>
-				<MapHeaderWhite title={`Баланс: ${123123} ${profileState.currency}`} />
+				<MapHeaderWhite title={`Баланс: ${balance} ${profileState.currency}`} />
 				<View style={styles.layout}>
 					<Text style={styles.title}>{'Покажите этот код на кассе для оплаты'}</Text>
 					<View style={styles.barcodeView}>
@@ -31,6 +31,7 @@ function BarcodeComponent({ profileState }) {
 const mapStateToProps = (state) => {
 	return {
 		profileState: state.profileState,
+		balance: state.balance,
 	}
 }
 

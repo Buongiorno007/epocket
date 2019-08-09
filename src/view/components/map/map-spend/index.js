@@ -1,16 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, ScrollView, Platform, Image, Text, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import ClusteredMapView from '../../../../native_modules/react-native-maps-super-cluster'
 import { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import LinearGradient from 'react-native-linear-gradient'
-
-import styles from './styles'
 import route from '@services/route'
 import Basket from '@containers/basket'
 import MapSpendButton from '@containers/map/map-spend-button'
+import { getPartners } from '@reducers/partners'
+import styles from './styles'
 
-function MapSpend({ lat, lng, mapPoints }) {
+function MapSpend({ lat, lng, mapPoints, partners, dispatch }) {
 	const colors = ['#F55890', '#FF9950']
 	const start = { x: 0.0, y: 0.0 }
 	const end = { x: 0.0, y: 1.0 }
@@ -20,6 +20,12 @@ function MapSpend({ lat, lng, mapPoints }) {
 		latitudeDelta: 0.006,
 		longitudeDelta: 0.006,
 	}
+
+	useEffect(() => {
+		if (!partners.online.length) {
+			dispatch(getPartners())
+		}
+	}, [])
 
 	const renderMarker = (data) => {
 		return (
@@ -74,7 +80,7 @@ function MapSpend({ lat, lng, mapPoints }) {
 						<MapSpendButton
 							img={require('@assets/img/bask.png')}
 							text={'Интернет магазин'}
-							callback={() => console.log('HELLO2')}
+							callback={() => route.push('Partnrs')}
 						/>
 						<MapSpendButton
 							img={require('@assets/img/phone.png')}
@@ -95,6 +101,7 @@ const mapStateToProps = (state) => {
 		lat: state.location.coordinate.lat,
 		lng: state.location.coordinate.lng,
 		profileState: state.profileState,
+		partners: state.partners,
 	}
 }
 

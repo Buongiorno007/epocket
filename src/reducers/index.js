@@ -60,4 +60,5 @@ export default combineReducers({
 	topTabs: require('./topTabs').default,
 	mapPoints: require('./mapPoints').default,
 	missionState: require('./missionState').default,
+	partners: require('./partners').default,
 })

@@ -46,6 +46,7 @@ const Navigator = createStackNavigator(
 		MapPlaces: require('@components/map/map-places').default,
 		Filters: require('@components/filters').default,
 		Barcode: require('@components/barcode').default,
+		Partnrs: { screen: require('@components/partners').default },
 	},
 	{
 		initialRouteName: 'Start',
