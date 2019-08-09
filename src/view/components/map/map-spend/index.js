@@ -7,10 +7,9 @@ import LinearGradient from 'react-native-linear-gradient'
 import route from '@services/route'
 import Basket from '@containers/basket'
 import MapSpendButton from '@containers/map/map-spend-button'
-import { getPartners } from '@reducers/partners'
 import styles from './styles'
 
-function MapSpend({ lat, lng, mapPoints, partners, dispatch }) {
+function MapSpend({ lat, lng, mapPoints }) {
 	const colors = ['#F55890', '#FF9950']
 	const start = { x: 0.0, y: 0.0 }
 	const end = { x: 0.0, y: 1.0 }
@@ -20,12 +19,6 @@ function MapSpend({ lat, lng, mapPoints, partners, dispatch }) {
 		latitudeDelta: 0.006,
 		longitudeDelta: 0.006,
 	}
-
-	useEffect(() => {
-		if (!partners.online.length) {
-			dispatch(getPartners())
-		}
-	}, [])
 
 	const renderMarker = (data) => {
 		return (
@@ -101,7 +94,6 @@ const mapStateToProps = (state) => {
 		lat: state.location.coordinate.lat,
 		lng: state.location.coordinate.lng,
 		profileState: state.profileState,
-		partners: state.partners,
 	}
 }
 
