@@ -33,7 +33,7 @@ class Main extends React.Component {
 		if (!this.props.mapPoints.request) {
 			this.props.getPoints()
 		}
-		if (!partners.online.length) {
+		if (!this.props.partners.online.length) {
 			this.props.getPartners()
 		}
 	}

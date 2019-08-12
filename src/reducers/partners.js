@@ -17,7 +17,6 @@ export default (state = initialState, action) => {
 export const getPartners = () => async (dispatch, getState) => {
 	const { lat, lng } = getState().location.coordinate
 	const { token } = getState()
-	console.log('HELLO')
 	let body = JSON.stringify({
 		latt: lat,
 		long: lng,

@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		borderBottomWidth: 1,
-		borderColor: '#707070',
+		borderColor: 'rgba(112, 112, 112, 0.3)',
 	},
 	image: {
 		width: 40,

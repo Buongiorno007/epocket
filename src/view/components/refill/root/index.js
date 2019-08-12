@@ -23,7 +23,7 @@ const initialState = {
 }
 
 const defaultProps = {
-	start: { x: 1.0, y: 0.0 },
+	start: { x: 0.0, y: 0.0 },
 	end: { x: 0.0, y: 1.0 },
 }
 
@@ -79,15 +79,15 @@ class Refill extends React.Component<Props, State> {
 
 	render() {
 		const { amount } = this.state
-		const { first, second, start, end } = this.props
-		const colors = [first, second]
-		const { code, min, max, currency, tax } = this.props.bonuses
+		const { start, end } = this.props
+		const colors = ['#F55890', '#FF9950']
+		const { code, min, max, currency, value, tax } = this.props.bonuses
 		const length = String(max).length
 		return (
 			<LinearGradient colors={colors} start={start} end={end} style={styles.layout}>
 				{code && (
 					<React.Fragment>
-						<Header />
+						<Header title={`${I18n.t('CASH.TITLE')} ${value} ${currency}`} />
 						<KeyboardAvoidingView behavior='padding' style={styles.keyboard}>
 							<ScrollView
 								contentContainerStyle={styles.scroll}
@@ -117,7 +117,7 @@ class Refill extends React.Component<Props, State> {
 									</Text>
 								</View>
 								<Button rounded block style={styles.button} onPress={this.handleRefill}>
-									<Text style={[styles.text, { color: second }]}>{I18n.t('ACCEPT')}</Text>
+									<Text style={[styles.text, { color: '#F55890' }]}>{I18n.t('ACCEPT')}</Text>
 								</Button>
 							</ScrollView>
 						</KeyboardAvoidingView>
@@ -130,8 +130,6 @@ class Refill extends React.Component<Props, State> {
 
 const mapStateToProps = (state) => ({
 	bonuses: state.bonuses,
-	first: state.userColor.first_gradient_color,
-	second: state.userColor.second_gradient_color,
 })
 
 const mapDispatchToProps = (dispatch) =>

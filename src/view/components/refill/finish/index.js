@@ -15,11 +15,11 @@ type Props = {
 } & typeof defaultProps
 
 const defaultProps = {
-	start: { x: 1.0, y: 0.0 },
+	start: { x: 0.0, y: 0.0 },
 	end: { x: 0.0, y: 1.0 },
 }
 
-class RefillFinish extends React.Component<Props> {
+export default class RefillFinish extends React.Component<Props> {
 	static defaultProps = defaultProps
 
 	componentDidMount() {
@@ -27,8 +27,8 @@ class RefillFinish extends React.Component<Props> {
 	}
 
 	render() {
-		const { first, second, start, end } = this.props
-		const colors = [first, second]
+		const { start, end } = this.props
+		const colors = ['#F55890', '#FF9950']
 		const { condition } = this.props.navigation.state.params
 		return (
 			<LinearGradient colors={colors} start={start} end={end} style={styles.layout}>
@@ -38,13 +38,3 @@ class RefillFinish extends React.Component<Props> {
 		)
 	}
 }
-
-const mapStateToProps = (state) => ({
-	first: state.userColor.first_gradient_color,
-	second: state.userColor.second_gradient_color,
-})
-
-export default connect(
-	mapStateToProps,
-	null,
-)(RefillFinish)
