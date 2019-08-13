@@ -45,15 +45,26 @@ export const getPoints = () => async (dispatch, getState) => {
 	}
 }
 
-export const changeMark = (id, title) => async (dispatch, getState) => {
+export const changeMark = (id) => async (dispatch, getState) => {
 	const { filters } = getState().mapPoints
-	const newFilters = filters
-	newFilters
-		.filter((item) => item.title === title)[0]
-		.data.filter((item) => item.id === id)[0].checked = !filters
-		.filter((item) => item.title === title)[0]
-		.data.filter((item) => item.id === id)[0].checked
-	dispatch(saveFilters(newFilters))
+	let newFilter = filters
+	newFilter.forEach((element) => {
+		element.data.forEach((item) => {
+			if (item.id === id) item.checked = !item.checked
+		})
+	})
+
+	dispatch(saveFilters(newFilter))
+}
+
+export const useFilters = (body) => async (dispatch, getState) => {
+	const { token } = getState()
+	try {
+		const response = await httpPost(urls.filters, body, token)
+		console.log(response, 'RESPONSE ON FILTERS')
+	} catch (e) {
+		console.log(e, 'RRRR')
+	}
 }
 
 export const saveFilters = (filters) => ({ type: SET_FILTERS, filters })

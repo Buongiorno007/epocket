@@ -3,22 +3,27 @@ import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
 import { changeMark } from '@reducers/mapPoints'
 import { connect } from 'react-redux'
 
-function FilterItem({ item, index, itemTitle, dispatch }) {
-
+function FilterItem({ item, index, mapPoints, dispatch }) {
 	return (
 		<View style={[styles.block, index && styles.borderBlock]}>
 			<Image source={{ uri: item.image }} style={styles.image} />
 			<Text style={styles.text}>{item.name}</Text>
 			<TouchableOpacity
 				style={[styles.checkBox, item.checked && styles.activated]}
-				onPress={() => dispatch(changeMark(item.id, itemTitle))}
+				onPress={() => dispatch(changeMark(item.id))}
 			>
 				<Image style={styles.mark} source={require('@assets/img/mark.png')} />
 			</TouchableOpacity>
 		</View>
 	)
 }
-export default connect()(FilterItem)
+const mapStateToProps = (state) => {
+	return {
+		mapPoints: state.mapPoints,
+	}
+}
+
+export default connect(mapStateToProps)(FilterItem)
 
 const styles = StyleSheet.create({
 	block: {

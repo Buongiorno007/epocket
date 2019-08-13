@@ -9,6 +9,7 @@ export const urls = {
 	sing_in_confirm: devserver + '/sign-in/confirm-login/',
 	edit_profile_data: devserver + '/sign-in/edit-profile/',
 	outlets: devserver + '/mission/get-outlets/',
+	filters: devserver + '/mission/get-filters/',
 	missions: devserver + '/mission/get-missions/',
 	blank: devserver + '',
 	start_mission: devserver + '/mission/start-mission/',
