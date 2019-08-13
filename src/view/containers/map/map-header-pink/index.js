@@ -1,8 +1,13 @@
 import React from 'react'
 import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native'
 import route from '@services/route'
+import { connect } from 'react-redux'
 
-export default function MapHeaderPink({ title = 'MЕСТА НА КАРТЕ', filters = false }) {
+function MapHeaderPink({ title = 'MЕСТА НА КАРТЕ', filters = false, use = () => {}, mapPoints }) {
+	const goToFilters = () => {
+		mapPoints.filters.length ? route.push('Filters') : console.log('FILTERS NOT available')
+	}
+
 	return (
 		<View style={styles.container}>
 			<TouchableOpacity onPress={() => route.pop()}>
@@ -10,17 +15,25 @@ export default function MapHeaderPink({ title = 'MЕСТА НА КАРТЕ', fil
 			</TouchableOpacity>
 			<Text style={styles.text}>{title}</Text>
 			{filters ? (
-				<TouchableOpacity onPress={() => route.push('Filters')}>
+				<TouchableOpacity onPress={goToFilters}>
 					<Image source={require('@assets/img/filter.png')} style={styles.image} />
 				</TouchableOpacity>
 			) : (
-				<TouchableOpacity>
+				<TouchableOpacity onPress={() => use()}>
 					<Text style={styles.text}>{'OK'}</Text>
 				</TouchableOpacity>
 			)}
 		</View>
 	)
 }
+
+const mapStateToProps = (state) => {
+	return {
+		mapPoints: state.mapPoints,
+	}
+}
+
+export default connect(mapStateToProps)(MapHeaderPink)
 
 const styles = StyleSheet.create({
 	container: {

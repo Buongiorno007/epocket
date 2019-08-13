@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, Platform, Image } from 'react-native'
 import { connect } from 'react-redux'
 import ClusteredMapView from '../../../../native_modules/react-native-maps-super-cluster'
@@ -7,6 +7,7 @@ import Basket from '@containers/basket'
 import styles from './styles'
 import MapSpendMarker from '@containers/map/map-spend-marker'
 import MapHeaderPink from '@containers/map/map-header-pink'
+import { findNearest, getDistance } from 'geolib'
 
 function MapPlaces({ lat, lng, mapPoints }) {
 	const region = {
@@ -16,8 +17,32 @@ function MapPlaces({ lat, lng, mapPoints }) {
 		longitudeDelta: 0.006,
 	}
 
+	useEffect(() => {
+		if (mapPoints.cashouts.length) {
+			moveToNearest()
+		}
+	}, [])
+
 	const renderMarker = (data) => {
 		return <MapSpendMarker key={data.id} data={data} />
+	}
+
+	const moveToNearest = () => {
+		let nearestMall = findNearest(region, mapPoints.cashouts)
+		let distance = getDistance(region, nearestMall)
+		if (distance > 0 && this.map) {
+			setTimeout(() => {
+				this.map.getMapRef().animateToRegion(
+					{
+						latitude: lat,
+						longitude: lng,
+						latitudeDelta: 0.000032 * distance,
+						longitudeDelta: 0.000032 * distance,
+					},
+					500,
+				)
+			}, 500)
+		}
 	}
 
 	return (
@@ -27,6 +52,9 @@ function MapPlaces({ lat, lng, mapPoints }) {
 				style={styles.map}
 				data={mapPoints.cashouts}
 				initialRegion={region}
+				ref={(r) => {
+					this.map = r
+				}}
 				provider={Platform.OS === 'ios' ? PROVIDER_GOOGLE : null}
 				renderMarker={renderMarker}
 				animateClusters={false}

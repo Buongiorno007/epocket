@@ -1,12 +1,13 @@
 import React from 'react'
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
+import route from '@services/route'
 
 function Basket({ style = { position: 'absolute', bottom: 16, right: 16 }, invert = false }) {
 	const a = 0
 	return (
 		<TouchableOpacity
 			style={[styles.container, style, invert && styles.container_invert]}
-			onPress={() => console.log('PRESSED')}
+			onPress={() => route.push('BasketComponent')}
 		>
 			<Image
 				source={invert ? require('@assets/img/basket_invert.png') : require('@assets/img/basket.png')}
