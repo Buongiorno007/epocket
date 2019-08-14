@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { View, FlatList, ScrollView } from 'react-native'
+import React from 'react'
+import { View, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import MapHeaderPink from '@containers/map/map-header-pink'
 
@@ -9,8 +9,6 @@ import FilterObject from '@containers/filters/filter-object'
 import { useFilters } from '@reducers/mapPoints'
 
 function Filters({ mapPoints, dispatch }) {
-	const [fil, setFil] = useState(mapPoints.filters)
-
 	const acceptFilters = async () => {
 		let obj = {
 			type: false,
@@ -35,15 +33,6 @@ function Filters({ mapPoints, dispatch }) {
 	}
 
 	const renderItem = (item, index) => <FilterObject key={`${index}`} item={item} />
-
-	const changeCheckbox = (id) => {
-		let obj = fil.forEach((element) => {
-			element.data.forEach((item) => {
-				if (item.id === id) item.checked = !item.checked
-			})
-		})
-		setFil(obj)
-	}
 
 	return (
 		<View style={styles.container}>

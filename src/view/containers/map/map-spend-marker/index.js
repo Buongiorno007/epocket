@@ -5,7 +5,7 @@ import { Marker } from 'react-native-maps'
 function MapSpendMarker({ data }) {
 	return (
 		<View>
-			<Marker coordinate={data.location} onPress={() => console.log(data.location, 'DATA LOCATION')}>
+			<Marker coordinate={data.location} onPress={() => console.log(data, 'DATA LOCATION')}>
 				<View style={styles.container}>
 					<Image style={styles.img} source={{ uri: data.photo }} />
 				</View>

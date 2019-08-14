@@ -1,15 +1,22 @@
 import React from 'react'
-import { View, Image, Text } from 'react-native'
+import { View, Image, Text, TouchableOpacity } from 'react-native'
 //styles
 import styles from './styles'
 
 export default function WalletItem({ item }) {
+	//additional_data
+	const additionalInformation = () => {
+		console.log('ill navigate')
+	}
 	return (
-		<View style={styles.view}>
+		<TouchableOpacity disabled={!item.additional_data} style={styles.view} onPress={additionalInformation}>
 			<Image style={styles.circle} source={{ uri: item.photo }} />
 			<View style={styles.titles}>
-				<Text style={styles.title}>{item.trade_point_name}</Text>
-				<Text style={styles.description}>{item.description}</Text>
+				<Text style={styles.title}>{`${item.description} ${
+					item.additional_data ? item.additional_data.stage : ''
+				}`}</Text>
+				<Text style={styles.description}>{item.trade_point_name}</Text>
+
 				{/* {item.status && <Text>{I18n.t(`HISTORYS.${item.status}`)}</Text>} */}
 			</View>
 			{item.price && (
@@ -17,6 +24,6 @@ export default function WalletItem({ item }) {
 					{item.price}
 				</Text>
 			)}
-		</View>
+		</TouchableOpacity>
 	)
 }
