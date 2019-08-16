@@ -61,4 +61,5 @@ export default combineReducers({
 	mapPoints: require('./mapPoints').default,
 	missionState: require('./missionState').default,
 	partners: require('./partners').default,
+	filters: require('./filters').default,
 })

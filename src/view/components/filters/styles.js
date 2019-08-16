@@ -5,4 +5,7 @@ export default StyleSheet.create({
 	container: {
 		flex: 1,
 	},
+	scroll: {
+		backgroundColor: '#E5EDF7',
+	},
 })

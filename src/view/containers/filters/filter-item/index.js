@@ -5,16 +5,16 @@ import { connect } from 'react-redux'
 
 function FilterItem({ item, index, mapPoints, dispatch }) {
 	return (
-		<View style={[styles.block, index && styles.borderBlock]}>
+		<TouchableOpacity
+			onPress={() => dispatch(changeMark(item.id))}
+			style={[styles.block, index && styles.borderBlock]}
+		>
 			<Image source={{ uri: item.image }} style={styles.image} />
 			<Text style={styles.text}>{item.name}</Text>
-			<TouchableOpacity
-				style={[styles.checkBox, item.checked && styles.activated]}
-				onPress={() => dispatch(changeMark(item.id))}
-			>
+			<View style={[styles.checkBox, item.checked && styles.activated]}>
 				<Image style={styles.mark} source={require('@assets/img/mark.png')} />
-			</TouchableOpacity>
-		</View>
+			</View>
+		</TouchableOpacity>
 	)
 }
 const mapStateToProps = (state) => {
@@ -27,7 +27,7 @@ export default connect(mapStateToProps)(FilterItem)
 
 const styles = StyleSheet.create({
 	block: {
-		paddingVertical: 24,
+		paddingVertical: 16,
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',

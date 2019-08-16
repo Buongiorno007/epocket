@@ -7,6 +7,7 @@ import styles from './styles'
 import moment from 'moment'
 
 export default function WalletDate({ item }) {
+	console.log(item, 'ITEMMMM')
 	const returnItem = (item) => {
 		return <WalletItem key={item.date} item={item} />
 	}

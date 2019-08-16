@@ -1,5 +1,5 @@
-import React from 'react'
-import { View, ScrollView } from 'react-native'
+import React, { useEffect } from 'react'
+import { View, ScrollView, FlatList } from 'react-native'
 import { connect } from 'react-redux'
 import MapHeaderPink from '@containers/map/map-header-pink'
 
@@ -8,36 +8,48 @@ import route from '@services/route'
 import FilterObject from '@containers/filters/filter-object'
 import { useFilters } from '@reducers/mapPoints'
 
-function Filters({ mapPoints, dispatch }) {
+function Filters({ mapPoints, filters, dispatch }) {
 	const acceptFilters = async () => {
-		let obj = {
-			type: false,
-			filters: [],
-		}
-		await mapPoints.filters.forEach((element, index) => {
-			if (index === 0) {
-				if (element.data[0].checked === element.data[1].checked) {
-					obj.type = false
-				} else {
-					element.data.forEach((item) => {
-						if (item.checked === true) obj.type = item.id
-					})
-				}
-			} else {
-				element.data.forEach((item) => {
-					item.checked === true && obj.filters.push(item.id)
-				})
-			}
-		})
-		dispatch(useFilters(JSON.stringify(obj)))
+		// let obj = {
+		// 	type: false,
+		// 	filters: [],
+		// }
+		// await mapPoints.filters.forEach((element, index) => {
+		// 	if (index === 0) {
+		// 		if (element.data[0].checked === element.data[1].checked) {
+		// 			obj.type = false
+		// 		} else {
+		// 			element.data.forEach((item) => {
+		// 				if (item.checked === true) obj.type = item.id
+		// 			})
+		// 		}
+		// 	} else {
+		// 		element.data.forEach((item) => {
+		// 			item.checked === true && obj.filters.push(item.id)
+		// 		})
+		// 	}
+		// })
+		// dispatch(useFilters(JSON.stringify(obj)))
+		console.log('FILTERS ACCEPTED')
 	}
 
-	const renderItem = (item, index) => <FilterObject key={`${index}`} item={item} />
+	useEffect(() => {
+		console.log(filters, 'FILTERSSSSSSS')
+	}, [filters])
+
+	const renderItem = ({ item }) => <FilterObject item={item} />
+	const keyExtractor = (item) => `${item.id}`
 
 	return (
 		<View style={styles.container}>
 			<MapHeaderPink title={'Фильтры'} use={acceptFilters} />
-			<ScrollView>{mapPoints.filters.map(renderItem)}</ScrollView>
+			<FlatList
+				style={styles.scroll}
+				data={filters.data}
+				renderItem={renderItem}
+				keyExtractor={keyExtractor}
+				extraData={filters}
+			/>
 		</View>
 	)
 }
@@ -45,6 +57,7 @@ function Filters({ mapPoints, dispatch }) {
 const mapStateToProps = (state) => {
 	return {
 		mapPoints: state.mapPoints,
+		filters: state.filters,
 	}
 }
 
