@@ -1,7 +1,4 @@
-const UPDATE_DATA = '[filters] UPDATE_DATA'
-
 const initialstate = {
-	change: false,
 	data: [
 		{
 			id: 'PO',
@@ -74,20 +71,7 @@ const initialstate = {
 
 export default (state = initialstate, action) => {
 	switch (action.type) {
-		case UPDATE_DATA:
-			return Object.assign({}, { ...state, data: action.data, change: true })
 		default:
 			return state
 	}
 }
-
-export const changeMark = (id) => async (dispatch, getState) => {
-	const { data } = getState().filters
-	let newData = data
-	newData.map((item) => {
-		item.id === id ? (item.checked = true) : (item.checked = false)
-	})
-	await dispatch(updateData(newData))
-}
-
-export const updateData = (data) => ({ type: UPDATE_DATA, data })

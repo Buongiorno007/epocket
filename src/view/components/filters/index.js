@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react'
-import { View, ScrollView, FlatList } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { View, FlatList, Animated, Easing, TouchableOpacity, Text } from 'react-native'
 import { connect } from 'react-redux'
 import MapHeaderPink from '@containers/map/map-header-pink'
 
 import styles from './styles'
-import route from '@services/route'
 import FilterObject from '@containers/filters/filter-object'
-import { useFilters } from '@reducers/mapPoints'
+import { isEqual } from 'lodash'
 
-function Filters({ mapPoints, filters, dispatch }) {
+function Filters({ filters }) {
+	const [stateFilters, setStateFilters] = useState(filters.data)
+	const [different, setDifferent] = useState(false)
+
 	const acceptFilters = async () => {
 		// let obj = {
 		// 	type: false,
@@ -33,19 +35,66 @@ function Filters({ mapPoints, filters, dispatch }) {
 		console.log('FILTERS ACCEPTED')
 	}
 
-	useEffect(() => {
-		console.log(filters, 'FILTERSSSSSSS')
-	}, [filters])
+	// useEffect(() => {
+	// 	if (different !== compare(stateFilters, filters.data)) setDifferent(!different)
+	// }, [stateFilters])
 
-	const renderItem = ({ item }) => <FilterObject item={item} />
+	const compare = (firstArray, secondArray) => !isEqual(firstArray.sort(), secondArray.sort())
+
+	const changeMarker = (id, deepId) => {
+		let tempArray = []
+		let tempDeepArray = []
+		if (deepId) {
+			for (let i = 0; i < stateFilters.length; i++) {
+				let obj = { ...stateFilters[i] }
+				if (obj.id === id) {
+					for (let j = 0; j < obj.data.length; j++) {
+						let deepObj = obj.data[j]
+						if (deepObj.id === deepId) {
+							deepObj.checked = !deepObj.checked
+						}
+						tempDeepArray.push(deepObj)
+					}
+					obj.data = [...tempDeepArray]
+				}
+				tempArray.push(obj)
+			}
+		} else {
+			for (let i = 0; i < stateFilters.length; i++) {
+				let obj = { ...stateFilters[i] }
+				if (obj.id === id) {
+					obj.checked = true
+				} else {
+					obj.checked = false
+				}
+				tempArray.push(obj)
+			}
+		}
+		if (different !== compare(tempArray, filters.data)) setDifferent(!different)
+		setStateFilters([...tempArray])
+	}
+
+	const resetFilters = () => {
+		setStateFilters(filters.oldData)
+	}
+
+	const renderItem = ({ item }) => <FilterObject change={changeMarker} item={item} />
 	const keyExtractor = (item) => `${item.id}`
 
 	return (
 		<View style={styles.container}>
-			<MapHeaderPink title={'Фильтры'} use={acceptFilters} />
+			<MapHeaderPink title={'Фильтры'} use={different ? acceptFilters : null} />
+			{different && (
+				<View style={styles.reset}>
+					<TouchableOpacity style={styles.resetButton} onPress={resetFilters}>
+						<Text style={styles.resetButtonText}>{'Сбросить фильтры'}</Text>
+					</TouchableOpacity>
+				</View>
+			)}
+
 			<FlatList
 				style={styles.scroll}
-				data={filters.data}
+				data={stateFilters}
 				renderItem={renderItem}
 				keyExtractor={keyExtractor}
 				extraData={filters}

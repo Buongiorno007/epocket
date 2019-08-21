@@ -45,17 +45,6 @@ export const getPoints = () => async (dispatch, getState) => {
 	}
 }
 
-export const changeMark = (id) => async (dispatch, getState) => {
-	const { filters } = getState().mapPoints
-	let newFilter = filters
-	newFilter.forEach((element) => {
-		element.data.forEach((item) => {
-			if (item.id === id) item.checked = !item.checked
-		})
-	})
-
-	dispatch(saveFilters(newFilter))
-}
 
 export const useFilters = (body) => async (dispatch, getState) => {
 	const { token } = getState()

@@ -6,7 +6,7 @@ import styles from './styles'
 export default function WalletItem({ item }) {
 	//additional_data
 	const additionalInformation = () => {
-		console.log('ill navigate')
+		console.log(item, 'ill navigate')
 	}
 	return (
 		<TouchableOpacity disabled={!item.additional_data} style={styles.view} onPress={additionalInformation}>
