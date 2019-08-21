@@ -5,6 +5,7 @@ import { urls } from '@constants/urls'
 import { httpPost } from '@services/http'
 //reducers
 import moment from 'moment-timezone'
+import route from '@services/route'
 
 const SET_POINTS = '[mapPoints] SET_POINTS'
 const SET_FILTERS = '[mapPoints] SET_FILTERS'
@@ -45,11 +46,30 @@ export const getPoints = () => async (dispatch, getState) => {
 	}
 }
 
-
 export const useFilters = (body) => async (dispatch, getState) => {
 	const { token } = getState()
+	const { lat, lng } = getState().location.coordinate
+
+	const obj = {
+		type: '',
+		filters: [],
+		lat,
+		lng,
+	}
+
+	await body.forEach((element) => {
+		if (element.checked === true) {
+			obj.type = element.id
+			if (element.data) {
+				element.data.forEach((item) => item.checked && obj.filters.push(item.id))
+			}
+		}
+	})
+
 	try {
-		const response = await httpPost(urls.filters, body, token)
+		const response = await httpPost(urls.filters, JSON.stringify(obj), token)
+		await dispatch(saveFilters(body))
+		route.pop()
 		console.log(response, 'RESPONSE ON FILTERS')
 	} catch (e) {
 		console.log(e, 'RRRR')

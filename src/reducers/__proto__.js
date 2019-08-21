@@ -85,7 +85,6 @@ export const MAPPOINTS = function(data = {}) {
 	this.outlets = data.outlets || []
 	this.cashouts = data.cashouts || []
 	this.filters = data.filters || []
-	this.oldFilters = data.filters || []
 	this.request = data.request || false
 }
 export const MISSIONSTATE = function(data = {}) {

@@ -1,43 +1,18 @@
-import React, { useState, useEffect } from 'react'
-import { View, FlatList, Animated, Easing, TouchableOpacity, Text } from 'react-native'
+import React, { useState } from 'react'
+import { View, FlatList, TouchableOpacity, Text } from 'react-native'
 import { connect } from 'react-redux'
 import MapHeaderPink from '@containers/map/map-header-pink'
 
 import styles from './styles'
 import FilterObject from '@containers/filters/filter-object'
 import { isEqual } from 'lodash'
+import { useFilters } from '@reducers/mapPoints'
 
-function Filters({ filters }) {
-	const [stateFilters, setStateFilters] = useState(filters.data)
+function Filters({ mapPoints, dispatch }) {
+	const [stateFilters, setStateFilters] = useState(mapPoints.filters)
 	const [different, setDifferent] = useState(false)
 
-	const acceptFilters = async () => {
-		// let obj = {
-		// 	type: false,
-		// 	filters: [],
-		// }
-		// await mapPoints.filters.forEach((element, index) => {
-		// 	if (index === 0) {
-		// 		if (element.data[0].checked === element.data[1].checked) {
-		// 			obj.type = false
-		// 		} else {
-		// 			element.data.forEach((item) => {
-		// 				if (item.checked === true) obj.type = item.id
-		// 			})
-		// 		}
-		// 	} else {
-		// 		element.data.forEach((item) => {
-		// 			item.checked === true && obj.filters.push(item.id)
-		// 		})
-		// 	}
-		// })
-		// dispatch(useFilters(JSON.stringify(obj)))
-		console.log('FILTERS ACCEPTED')
-	}
-
-	// useEffect(() => {
-	// 	if (different !== compare(stateFilters, filters.data)) setDifferent(!different)
-	// }, [stateFilters])
+	const acceptFilters = () => dispatch(useFilters(stateFilters))
 
 	const compare = (firstArray, secondArray) => !isEqual(firstArray.sort(), secondArray.sort())
 
@@ -49,7 +24,7 @@ function Filters({ filters }) {
 				let obj = { ...stateFilters[i] }
 				if (obj.id === id) {
 					for (let j = 0; j < obj.data.length; j++) {
-						let deepObj = obj.data[j]
+						let deepObj = { ...obj.data[j] }
 						if (deepObj.id === deepId) {
 							deepObj.checked = !deepObj.checked
 						}
@@ -70,12 +45,13 @@ function Filters({ filters }) {
 				tempArray.push(obj)
 			}
 		}
-		if (different !== compare(tempArray, filters.data)) setDifferent(!different)
+		if (different !== compare(tempArray, mapPoints.filters)) setDifferent(!different)
 		setStateFilters([...tempArray])
 	}
 
-	const resetFilters = () => {
-		setStateFilters(filters.oldData)
+	const resetFilters = async () => {
+		await setDifferent(false)
+		await setStateFilters(mapPoints.filters)
 	}
 
 	const renderItem = ({ item }) => <FilterObject change={changeMarker} item={item} />
@@ -97,7 +73,7 @@ function Filters({ filters }) {
 				data={stateFilters}
 				renderItem={renderItem}
 				keyExtractor={keyExtractor}
-				extraData={filters}
+				extraData={mapPoints}
 			/>
 		</View>
 	)
@@ -106,7 +82,6 @@ function Filters({ filters }) {
 const mapStateToProps = (state) => {
 	return {
 		mapPoints: state.mapPoints,
-		filters: state.filters,
 	}
 }
 

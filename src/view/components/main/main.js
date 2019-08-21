@@ -61,7 +61,7 @@ class Main extends React.Component {
 					{/* {this.props.activeTab === 1 ? <Map /> : null} */}
 					{this.props.activeTab === 1 && <Mappp />}
 					{this.props.activeTab === 2 && <Wallet />}
-					{this.props.activeTab === 3 ? <Profile /> : null}
+					{this.props.activeTab === 3 && <Profile />}
 				</View>
 
 				{this.props.timerShow &&
