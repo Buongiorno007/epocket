@@ -100,3 +100,6 @@ export const MISSIONSTATE = function(data = {}) {
 export const PARTNERS = function(data = []) {
 	this.online = data
 }
+export const STOREPOINT = function(data = {}) {
+	this.data = data.data || []
+}

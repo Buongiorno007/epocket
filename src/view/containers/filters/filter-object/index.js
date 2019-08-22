@@ -8,13 +8,14 @@ export default function FilterObject({ item, change }) {
 			onPress={() => change(item.id, element.id)}
 			style={[styles.block, index && styles.borderBlock]}
 		>
-			<Image source={{ uri: element.image }} style={styles.image} />
+			<Image source={{ uri: element.img }} style={styles.image} />
 			<Text style={styles.text}>{element.name}</Text>
 			<View style={[styles.checkBox, element.checked && styles.activated]}>
 				<Image style={styles.mark} source={require('@assets/img/mark.png')} />
 			</View>
 		</TouchableOpacity>
 	)
+
 	return (
 		<>
 			<TouchableOpacity disabled={item.checked} style={styles.container} onPress={() => change(item.id)}>
