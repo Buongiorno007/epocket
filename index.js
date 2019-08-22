@@ -48,9 +48,10 @@ const Navigator = createStackNavigator(
 		Barcode: require('@components/barcode').default,
 		BasketComponent: require('@components/basket').default,
 		Partnrs: require('@components/partners').default,
+		StorePoint: require('@components/store').default,
 	},
 	{
-		initialRouteName: 'Start',
+		initialRouteName: 'StorePoint',
 		defaultNavigationOptions: {
 			headerTransparent: true,
 			header: null,

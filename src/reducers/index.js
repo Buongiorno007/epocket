@@ -62,4 +62,5 @@ export default combineReducers({
 	missionState: require('./missionState').default,
 	partners: require('./partners').default,
 	filters: require('./filters').default,
+	storePoint: require('./storePoint').default,
 })
