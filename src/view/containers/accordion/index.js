@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Text, View, Image, TouchableOpacity, Platform, UIManager, LayoutAnimation } from 'react-native'
-import { geoposition } from '@constants/layout'
+import animation from '@constants/layout'
 import styles from './styles'
 
 export default function Accordion({ item }) {
@@ -9,13 +9,6 @@ export default function Accordion({ item }) {
 	const handleDisplay = () => {
 		animation()
 		setExpanded(!expanded)
-	}
-
-	animation = () => {
-		if (Platform.OS === 'android') {
-			UIManager.setLayoutAnimationEnabledExperimental(true)
-		}
-		LayoutAnimation.configureNext(geoposition)
 	}
 
 	const renderItem = (item) => (

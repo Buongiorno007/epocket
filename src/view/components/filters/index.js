@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import { View, FlatList, TouchableOpacity, Text } from 'react-native'
 import { connect } from 'react-redux'
 import MapHeaderPink from '@containers/map/map-header-pink'
-
-import styles from './styles'
 import FilterObject from '@containers/filters/filter-object'
 import { isEqual } from 'lodash'
 import { useFilters } from '@reducers/mapPoints'
+import animation from '@constants/layout'
+import styles from './styles'
 
 function Filters({ mapPoints, dispatch }) {
 	const [stateFilters, setStateFilters] = useState(mapPoints.filters)
@@ -46,11 +46,13 @@ function Filters({ mapPoints, dispatch }) {
 			}
 		}
 		if (different !== compare(tempArray, mapPoints.filters)) setDifferent(!different)
+		animation()
 		setStateFilters([...tempArray])
 	}
 
 	const resetFilters = async () => {
 		await setDifferent(false)
+		await animation()
 		await setStateFilters(mapPoints.filters)
 	}
 

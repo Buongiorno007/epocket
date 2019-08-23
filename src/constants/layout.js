@@ -1,6 +1,6 @@
-import { LayoutAnimation } from 'react-native'
+import { LayoutAnimation, Platform, UIManager } from 'react-native'
 
-export const geoposition = {
+const expand = {
 	duration: 200,
 	create: {
 		type: LayoutAnimation.Types.linear,
@@ -14,4 +14,11 @@ export const geoposition = {
 		type: LayoutAnimation.Types.linear,
 		property: LayoutAnimation.Properties.opacity,
 	},
+}
+
+export default animation = () => {
+	if (Platform.OS === 'android') {
+		UIManager.setLayoutAnimationEnabledExperimental(true)
+	}
+	LayoutAnimation.configureNext(expand)
 }

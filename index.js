@@ -51,7 +51,7 @@ const Navigator = createStackNavigator(
 		StorePoint: require('@components/store').default,
 	},
 	{
-		initialRouteName: 'StorePoint',
+		initialRouteName: 'Start',
 		defaultNavigationOptions: {
 			headerTransparent: true,
 			header: null,
