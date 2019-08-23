@@ -3,10 +3,10 @@ import { View, Text, FlatList, ImageBackground, Dimensions } from 'react-native'
 import MapHeaderWhite from '@containers/map/map-header-white'
 import { connect } from 'react-redux'
 import styles from './styles'
-import Panel from '../../components/wpanel/panel'
+import Accordion from '@containers/accordion'
 
 function StorePoint({ storePoint }) {
-	const renderItem = ({ item }) => <Panel item={item} />
+	const renderItem = ({ item }) => <Accordion item={item} />
 	const keyExtractor = (item) => `${item.id}`
 	return (
 		<View style={styles.container}>
