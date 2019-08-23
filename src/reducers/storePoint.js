@@ -1,4 +1,7 @@
 import { STOREPOINT } from './__proto__'
+import { urls } from '@constants/urls'
+import { httpPost } from '@services/http'
+import route from '@services/route'
 
 const SET_POINT = '[storePoint] SET_POINT'
 
@@ -124,6 +127,24 @@ export default (state = initialState, action) => {
 	switch (action.type) {
 		default:
 			return state
+	}
+}
+
+export const getStorePoint = (id) => async (dispatch, getState) => {
+	const { token } = getState()
+	// body = {
+	// 	cashout_id: id, // clicked marked = cashout
+	// }
+
+	body = {
+		cashout_id: id, // clicked marker = outlet
+	}
+	try {
+		const response = await httpPost(urls.get_outlet_products, JSON.stringify(body), token)
+		console.log(response, 'getStorePoint RESPONSE')
+		await route.push('StorePoint')
+	} catch (e) {
+		console.log(e, 'getStorePoint EEEEEEEE')
 	}
 }
 

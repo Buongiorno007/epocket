@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { Text, View, Image, TouchableOpacity, Platform, UIManager, LayoutAnimation } from 'react-native'
+import { Text, View, Image, TouchableOpacity } from 'react-native'
 import animation from '@constants/layout'
 import styles from './styles'
 
-export default function Accordion({ item }) {
+export default function Accordion({ item, pressProduct }) {
 	const [expanded, setExpanded] = useState(false)
 
 	const handleDisplay = () => {
@@ -12,11 +12,11 @@ export default function Accordion({ item }) {
 	}
 
 	const renderItem = (item) => (
-		<View style={styles.eachItem} key={item.id}>
+		<TouchableOpacity style={styles.eachItem} key={item.id} onPress={() => pressProduct(item)}>
 			<Image style={styles.img} source={{ uri: item.image }} />
 			<Text>{item.title}</Text>
 			<Text>{item.price}</Text>
-		</View>
+		</TouchableOpacity>
 	)
 
 	return (

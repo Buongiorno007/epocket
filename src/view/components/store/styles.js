@@ -16,8 +16,11 @@ export default StyleSheet.create({
 		backgroundColor: '#E5EDF7',
 		borderTopLeftRadius: 24,
 		borderTopRightRadius: 24,
-		marginTop: -24,
 		paddingTop: 8,
 		paddingHorizontal: 16,
+	},
+	withModal: {
+		flex: 1,
+		marginTop: -24,
 	},
 })

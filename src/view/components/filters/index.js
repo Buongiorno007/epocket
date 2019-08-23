@@ -9,12 +9,12 @@ import animation from '@constants/layout'
 import styles from './styles'
 
 function Filters({ mapPoints, dispatch }) {
+	const compare = (firstArray, secondArray) => !isEqual(firstArray.sort(), secondArray.sort())
+
 	const [stateFilters, setStateFilters] = useState(mapPoints.filters)
-	const [different, setDifferent] = useState(false)
+	const [different, setDifferent] = useState(compare(mapPoints.filters, mapPoints.oldFilters))
 
 	const acceptFilters = () => dispatch(useFilters(stateFilters))
-
-	const compare = (firstArray, secondArray) => !isEqual(firstArray.sort(), secondArray.sort())
 
 	const changeMarker = (id, deepId) => {
 		let tempArray = []
@@ -45,7 +45,7 @@ function Filters({ mapPoints, dispatch }) {
 				tempArray.push(obj)
 			}
 		}
-		if (different !== compare(tempArray, mapPoints.filters)) setDifferent(!different)
+		if (different !== compare(tempArray, mapPoints.oldFilters)) setDifferent(!different)
 		animation()
 		setStateFilters([...tempArray])
 	}
@@ -53,7 +53,7 @@ function Filters({ mapPoints, dispatch }) {
 	const resetFilters = async () => {
 		await setDifferent(false)
 		await animation()
-		await setStateFilters(mapPoints.filters)
+		await setStateFilters(mapPoints.oldFilters)
 	}
 
 	const renderItem = ({ item }) => <FilterObject change={changeMarker} item={item} />
@@ -61,7 +61,7 @@ function Filters({ mapPoints, dispatch }) {
 
 	return (
 		<View style={styles.container}>
-			<MapHeaderPink title={'Фильтры'} use={different ? acceptFilters : null} />
+			<MapHeaderPink title={'Фильтры'} use={compare(stateFilters, mapPoints.filters) ? acceptFilters : null} />
 			{different && (
 				<View style={styles.reset}>
 					<TouchableOpacity style={styles.resetButton} onPress={resetFilters}>

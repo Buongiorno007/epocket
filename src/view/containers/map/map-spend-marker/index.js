@@ -1,11 +1,20 @@
 import React from 'react'
 import { View, StyleSheet, Image } from 'react-native'
 import { Marker } from 'react-native-maps'
+import { connect } from 'react-redux'
+import { getStorePoint } from '@reducers/storePoint'
 
-function MapSpendMarker({ data }) {
+function MapSpendMarker({ data, dispatch }) {
+	const getProducts = () => {
+		if (data.partners) {
+		} else {
+			dispatch(getStorePoint(data.id))
+		}
+	}
+
 	return (
 		<View>
-			<Marker coordinate={data.location} onPress={() => console.log(data, 'DATA LOCATION')}>
+			<Marker coordinate={data.location} onPress={getProducts}>
 				<View style={styles.container}>
 					<Image style={styles.img} source={{ uri: data.photo }} />
 				</View>
@@ -14,7 +23,7 @@ function MapSpendMarker({ data }) {
 	)
 }
 
-export default MapSpendMarker
+export default connect()(MapSpendMarker)
 
 const styles = StyleSheet.create({
 	container: {
