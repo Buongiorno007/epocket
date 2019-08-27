@@ -1,12 +1,12 @@
-import React, { useState, useRef } from 'react'
-import { View, Text, FlatList, Image, ImageBackground } from 'react-native'
+import React, { useState } from 'react'
+import { View, Text, FlatList, Image, ImageBackground, TouchableOpacity } from 'react-native'
 import MapHeaderWhite from '@containers/map/map-header-white'
 import { connect } from 'react-redux'
 import styles from './styles'
 import Accordion from '@containers/accordion'
-import Modal from 'react-native-modalbox'
+import Modal from 'react-native-modal'
 
-function StorePoint({ storePoint }) {
+function StorePoint({ storePoint, profileState }) {
 	const [visibleModal, setVisibleModal] = useState(false)
 	const [currentObject, setCurrentObject] = useState({ id: 0, image: '', title: '', price: '' })
 	const renderItem = ({ item }) => <Accordion item={item} pressProduct={pressProduct} />
@@ -34,26 +34,23 @@ function StorePoint({ storePoint }) {
 					keyExtractor={keyExtractor}
 				/>
 				<Modal
-					style={{
-						flex: 1,
-						borderTopLeftRadius: 24,
-						borderTopRightRadius: 24,
-						backgroundColor: 'rgba(255, 255, 255, 0.95)',
-						overflow: 'hidden',
-					}}
-					swipeThreshold={10}
-					backdrop={false}
-					position={'bottom'}
-					backdropPressToClose={false}
-					isOpen={visibleModal}
-					onClosed={() => setVisibleModal(false)}
+					style={styles.rnModal}
+					swipeDirection='down'
+					// useNativeDriver={true}
+					coverScreen={false}
+					isVisible={visibleModal}
+					hasBackdrop={false}
+					propagateSwipe={true}
+					onSwipeComplete={() => setVisibleModal(false)}
 				>
-					<Image
-						style={{ width: 375, height: 200, borderTopLeftRadius: 24, borderTopRightRadius: 24 }}
-						source={{ uri: currentObject.image }}
-					/>
-					<Text>{currentObject.title}</Text>
-					<Text>{currentObject.price}</Text>
+					<Image style={styles.img} source={{ uri: currentObject.image }} />
+					<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+						<Text style={styles.titleText}>{currentObject.title}</Text>
+						<Text style={styles.priceText}>{`${currentObject.price} ${profileState.currency}`}</Text>
+					</View>
+					<TouchableOpacity style={styles.button}>
+						<Text>{'Добавить в корзину'}</Text>
+					</TouchableOpacity>
 				</Modal>
 			</View>
 		</View>
@@ -62,6 +59,7 @@ function StorePoint({ storePoint }) {
 
 const mapStateToProps = (state) => ({
 	storePoint: state.storePoint,
+	profileState: state.profileState,
 })
 
 export default connect(mapStateToProps)(StorePoint)
