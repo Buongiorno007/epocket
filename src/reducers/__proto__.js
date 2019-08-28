@@ -102,5 +102,10 @@ export const PARTNERS = function(data = []) {
 	this.online = data
 }
 export const STOREPOINT = function(data = {}) {
-	this.data = data.data || []
+	this.title = data.title || ''
+	this.address = data.address || ''
+	this.balance = data.balance || ''
+	this.id = data.id || 0
+	this.image = data.image || ''
+	this.categories = data.categories || []
 }

@@ -8,7 +8,7 @@ import Modal from 'react-native-modal'
 
 function StorePoint({ storePoint, profileState }) {
 	const [visibleModal, setVisibleModal] = useState(false)
-	const [currentObject, setCurrentObject] = useState({ id: 0, image: '', title: '', price: '' })
+	const [currentObject, setCurrentObject] = useState({})
 	const renderItem = ({ item }) => <Accordion item={item} pressProduct={pressProduct} />
 	const keyExtractor = (item) => `${item.id}`
 
@@ -18,19 +18,19 @@ function StorePoint({ storePoint, profileState }) {
 	}
 	return (
 		<View style={styles.container}>
-			<ImageBackground style={styles.image} source={{ uri: storePoint.uri }}>
+			<ImageBackground style={styles.image} source={{ uri: storePoint.image }}>
 				<View style={styles.opacity}>
-					<MapHeaderWhite title={'Баланс: введи циферки'} basket />
+					<MapHeaderWhite title={`Баланс:${storePoint.balance} ${profileState.currency}`} basket />
 					<View style={{ alignItems: 'center' }}>
 						<Text style={styles.title}>{storePoint.title}</Text>
-						<Text style={styles.subtitle}>{storePoint.subtitle}</Text>
+						<Text style={styles.subtitle}>{storePoint.address}</Text>
 					</View>
 				</View>
 			</ImageBackground>
 			<View style={styles.withModal}>
 				<FlatList
 					style={styles.scroll}
-					data={storePoint.data}
+					data={storePoint.categories}
 					renderItem={renderItem}
 					keyExtractor={keyExtractor}
 				/>
@@ -44,13 +44,15 @@ function StorePoint({ storePoint, profileState }) {
 					propagateSwipe={true}
 					onSwipeComplete={() => setVisibleModal(false)}
 				>
-					<Image style={styles.img} source={{ uri: currentObject.image }} />
+					<Image style={styles.img} source={{ uri: currentObject.photo }} />
 					<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-						<Text style={styles.titleText}>{currentObject.title}</Text>
+						<Text style={styles.titleText}>{currentObject.name}</Text>
 						<Text style={styles.priceText}>{`${currentObject.price} ${profileState.currency}`}</Text>
 					</View>
-					<TouchableOpacity style={styles.button}>
-						<Text>{'Добавить в корзину'}</Text>
+					<TouchableOpacity style={styles.button} onPress={() => setVisibleModal(false)}>
+						<Text style={styles.buttonText}>
+							{currentObject.added ? 'УДАЛИТЬ ИЗ КОРЗИНЫ' : 'ДОБАВИТЬ В КОРЗИНУ'}
+						</Text>
 					</TouchableOpacity>
 				</Modal>
 			</View>

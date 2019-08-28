@@ -14,8 +14,8 @@ function Accordion({ item, pressProduct, profileState }) {
 
 	const renderItem = (item) => (
 		<TouchableOpacity style={styles.eachItem} key={item.id} onPress={() => pressProduct(item)}>
-			<Image style={styles.img} source={{ uri: item.image }} />
-			<Text style={styles.cardTitle}>{item.title}</Text>
+			<Image style={styles.img} source={{ uri: item.photo }} />
+			<Text style={styles.cardTitle}>{item.name}</Text>
 			<Text style={styles.cardSubtitle}>{`${item.price} ${profileState.currency}`}</Text>
 		</TouchableOpacity>
 	)
@@ -23,12 +23,12 @@ function Accordion({ item, pressProduct, profileState }) {
 	return (
 		<View style={styles.container}>
 			<TouchableOpacity style={styles.button} onPress={handleDisplay}>
-				<Image style={styles.image} source={{ uri: item.img }} />
-				<Text style={styles.title}>{item.title}</Text>
-				<Text style={styles.subtitle}>{` (${item.count})`}</Text>
+				<Image style={styles.image} source={{ uri: item.cat_image }} />
+				<Text style={styles.title}>{item.cat_title}</Text>
+				<Text style={styles.subtitle}>{` (${item.prod_count})`}</Text>
 				<View style={[styles.endArrow, expanded && styles.opened]}></View>
 			</TouchableOpacity>
-			{expanded && <View style={styles.body}>{item.data.map(renderItem)}</View>}
+			{expanded && <View style={styles.body}>{item.cat_products.map(renderItem)}</View>}
 		</View>
 	)
 }

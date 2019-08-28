@@ -74,10 +74,14 @@ export default StyleSheet.create({
 		marginHorizontal: 16,
 		marginBottom: 24,
 		height: 40,
-		borderWidth: 1,
-		borderColor: '#404140',
+		backgroundColor: '#F63272',
 		borderRadius: 20,
 		justifyContent: 'center',
 		alignItems: 'center',
+	},
+	buttonText: {
+		color: '#fff',
+		fontFamily: 'Rubik-Medium',
+		fontSize: 14,
 	},
 })
