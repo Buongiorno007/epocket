@@ -16,14 +16,15 @@ function StorePoint({ storePoint, profileState }) {
 		setCurrentObject({ ...element })
 		setVisibleModal(true)
 	}
-	console.log(currentObject, 'CURROBJ')
 	return (
 		<View style={styles.container}>
 			<ImageBackground style={styles.image} source={{ uri: storePoint.uri }}>
-				<MapHeaderWhite title={'Баланс: введи циферки'} basket />
-				<View style={{ alignItems: 'center' }}>
-					<Text style={{ color: '#fff', textAlign: 'center' }}>{storePoint.title}</Text>
-					<Text style={{ color: '#fff', textAlign: 'center' }}>{storePoint.subtitle}</Text>
+				<View style={styles.opacity}>
+					<MapHeaderWhite title={'Баланс: введи циферки'} basket />
+					<View style={{ alignItems: 'center' }}>
+						<Text style={styles.title}>{storePoint.title}</Text>
+						<Text style={styles.subtitle}>{storePoint.subtitle}</Text>
+					</View>
 				</View>
 			</ImageBackground>
 			<View style={styles.withModal}>

@@ -8,8 +8,25 @@ export default StyleSheet.create({
 	image: {
 		width,
 		height: width * 0.8,
+	},
+	opacity: {
+		flex: 1,
+		backgroundColor: 'rgba(0, 0, 0, 0.25)',
 		justifyContent: 'space-between',
 		paddingBottom: 40,
+	},
+	title: {
+		color: '#fff',
+		textAlign: 'center',
+		fontSize: 24,
+		fontFamily: 'Rubik-Bold',
+		marginBottom: 4,
+	},
+	subtitle: {
+		color: '#fff',
+		textAlign: 'center',
+		fontSize: 12,
+		fontFamily: 'Rubik-Regular',
 	},
 	scroll: {
 		flex: 1,

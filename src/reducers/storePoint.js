@@ -132,12 +132,10 @@ export default (state = initialState, action) => {
 
 export const getStorePoint = (id) => async (dispatch, getState) => {
 	const { token } = getState()
-	// body = {
-	// 	cashout_id: id, // clicked marked = cashout
-	// }
-
+	const { storePoint } = getState()
+	console.log(storePoint, 'STORE POINT')
 	body = {
-		cashout_id: id, // clicked marker = outlet
+		cashout_id: id,
 	}
 	try {
 		const response = await httpPost(urls.get_outlet_products, JSON.stringify(body), token)
