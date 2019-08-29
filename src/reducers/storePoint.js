@@ -19,16 +19,19 @@ export default (state = initialState, action) => {
 export const getStorePoint = (id) => async (dispatch, getState) => {
 	const { token } = getState()
 	const { storePoint } = getState()
-	console.log(storePoint, 'STORE POINT')
-	body = {
-		cashout_id: id,
-	}
-	try {
-		const response = await httpPost(urls.new_poducts, JSON.stringify(body), token)
-		await dispatch(setPoint(new STOREPOINT(response.body.cash_out_point)))
-		await route.push('StorePoint')
-	} catch (e) {
-		console.log(e, 'getStorePoint EEEEEEEE')
+	if (storePoint.id !== id) {
+		body = {
+			cashout_id: id,
+		}
+		try {
+			const response = await httpPost(urls.new_poducts, JSON.stringify(body), token)
+			await dispatch(setPoint(new STOREPOINT(response.body.cash_out_point)))
+			await route.push('StorePoint')
+		} catch (e) {
+			console.log(e, 'getStorePoint EEEEEEEE')
+		}
+	} else {
+		route.push('StorePoint')
 	}
 }
 

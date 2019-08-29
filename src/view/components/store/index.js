@@ -10,7 +10,7 @@ function StorePoint({ storePoint, profileState }) {
 	const [visibleModal, setVisibleModal] = useState(false)
 	const [currentObject, setCurrentObject] = useState({})
 	const renderItem = ({ item }) => <Accordion item={item} pressProduct={pressProduct} />
-	const keyExtractor = (item) => `${item.id}`
+	const keyExtractor = (item) => `${item.cat_id}`
 
 	const pressProduct = (element) => {
 		setCurrentObject({ ...element })
@@ -20,7 +20,7 @@ function StorePoint({ storePoint, profileState }) {
 		<View style={styles.container}>
 			<ImageBackground style={styles.image} source={{ uri: storePoint.image }}>
 				<View style={styles.opacity}>
-					<MapHeaderWhite title={`Баланс:${storePoint.balance} ${profileState.currency}`} basket />
+					<MapHeaderWhite title={`Баланс: ${storePoint.balance} ${profileState.currency}`} basket />
 					<View style={{ alignItems: 'center' }}>
 						<Text style={styles.title}>{storePoint.title}</Text>
 						<Text style={styles.subtitle}>{storePoint.address}</Text>

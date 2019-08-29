@@ -49,11 +49,13 @@ export default StyleSheet.create({
 		fontFamily: 'Rubik-Regular',
 		color: '#404140',
 		fontSize: 14,
+		textAlign: 'center',
 	},
 	cardSubtitle: {
 		fontFamily: 'Rubik-Regular',
 		color: '#7C7C7C',
 		fontSize: 12,
+		textAlign: 'center',
 	},
 	body: {
 		// paddingBottom: 16,
@@ -64,9 +66,11 @@ export default StyleSheet.create({
 	eachItem: {
 		width: width / 2 - 24,
 		marginBottom: 16,
+		borderRadius: 16,
 	},
 	img: {
 		width: width / 2 - 24,
 		height: width / 3 - 16,
+		borderRadius: 16,
 	},
 })

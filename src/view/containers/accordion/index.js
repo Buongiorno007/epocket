@@ -12,13 +12,20 @@ function Accordion({ item, pressProduct, profileState }) {
 		setExpanded(!expanded)
 	}
 
-	const renderItem = (item) => (
-		<TouchableOpacity style={styles.eachItem} key={item.id} onPress={() => pressProduct(item)}>
-			<Image style={styles.img} source={{ uri: item.photo }} />
-			<Text style={styles.cardTitle}>{item.name}</Text>
-			<Text style={styles.cardSubtitle}>{`${item.price} ${profileState.currency}`}</Text>
-		</TouchableOpacity>
-	)
+	const renderItem = (item) => {
+		return (
+			<TouchableOpacity
+				style={styles.eachItem}
+				disabled={!item.in_stock}
+				key={item.product_unique_id}
+				onPress={() => pressProduct(item)}
+			>
+				<Image style={styles.img} source={{ uri: item.photo }} />
+				<Text style={styles.cardTitle}>{item.name}</Text>
+				<Text style={styles.cardSubtitle}>{`${item.price} ${profileState.currency}`}</Text>
+			</TouchableOpacity>
+		)
+	}
 
 	return (
 		<View style={styles.container}>
