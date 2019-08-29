@@ -1,9 +1,9 @@
 import React from 'react'
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
 import route from '@services/route'
+import { connect } from 'react-redux'
 
-function Basket({ style = { position: 'absolute', bottom: 16, right: 16 }, invert = false }) {
-	const a = 0
+function Basket({ style = { position: 'absolute', bottom: 16, right: 16 }, invert = false, basket }) {
 	return (
 		<TouchableOpacity
 			style={[styles.container, style, invert && styles.container_invert]}
@@ -14,13 +14,19 @@ function Basket({ style = { position: 'absolute', bottom: 16, right: 16 }, inver
 				style={styles.image}
 			/>
 			<View style={[styles.count, invert && styles.count_invert]}>
-				<Text style={[styles.text, invert && styles.text_invert]}>{a}</Text>
+				<Text style={[styles.text, invert && styles.text_invert]}>{`${basket.len}`}</Text>
 			</View>
 		</TouchableOpacity>
 	)
 }
 
-export default Basket
+const mapStateToProps = (state) => {
+	return {
+		basket: state.basket,
+	}
+}
+
+export default connect(mapStateToProps)(Basket)
 
 const styles = StyleSheet.create({
 	container: {

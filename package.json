@@ -34,6 +34,8 @@
     "intl": "^1.2.5",
     "jail-monkey": "^2.2.0",
     "lodash": "^4.17.11",
+    "lottie-ios": "2.5.0",
+    "lottie-react-native": "2.6.0",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.25",
     "native-base": "^2.12.1",

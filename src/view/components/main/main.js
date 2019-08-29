@@ -20,6 +20,7 @@ import { getGameStart } from '@reducers/gameStart'
 import GeolocationService from '@services/geolocation-service'
 import { getPoints } from '@reducers/mapPoints'
 import { getPartners } from '@reducers/partners'
+import {getBasket} from '@reducers/basket'
 //styles
 import styles from './styles'
 
@@ -35,6 +36,9 @@ class Main extends React.Component {
 		}
 		if (!this.props.partners.online.length) {
 			this.props.getPartners()
+		}
+		if(!this.props.basket.request){
+			this.props.getBasket()
 		}
 	}
 
@@ -90,6 +94,7 @@ const mapStateToProps = (state) => ({
 	closestMall: state.closestMall,
 	mapPoints: state.mapPoints,
 	partners: state.partners,
+	basket:state.basket
 })
 
 const mapDispatchToProps = (dispatch) =>
@@ -99,6 +104,7 @@ const mapDispatchToProps = (dispatch) =>
 			getGameStart,
 			getPoints,
 			getPartners,
+			getBasket
 		},
 		dispatch,
 	)

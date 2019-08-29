@@ -50,4 +50,5 @@ export const urls = {
 	game_result: devserver + '/brand/new_check',
 	get_wallet_history: devserver + '/history/new_wallet?page=',
 	new_poducts: devserver + '/order/new-products/',
+	basket_update: devserver + '/order/basket-update/',
 }

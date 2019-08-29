@@ -109,3 +109,8 @@ export const STOREPOINT = function(data = {}) {
 	this.image = data.image || ''
 	this.categories = data.categories || []
 }
+export const BASKET = function(data = {}) {
+	this.len = data.len || 0
+	this.data = data.data || []
+	this.request = data.request || false
+}

@@ -5,8 +5,9 @@ import { connect } from 'react-redux'
 import styles from './styles'
 import Accordion from '@containers/accordion'
 import Modal from 'react-native-modal'
+import { addToBasket } from '@reducers/basket'
 
-function StorePoint({ storePoint, profileState }) {
+function StorePoint({ storePoint, profileState, dispatch }) {
 	const [visibleModal, setVisibleModal] = useState(false)
 	const [currentObject, setCurrentObject] = useState({})
 	const renderItem = ({ item }) => <Accordion item={item} pressProduct={pressProduct} />
@@ -16,6 +17,15 @@ function StorePoint({ storePoint, profileState }) {
 		setCurrentObject({ ...element })
 		setVisibleModal(true)
 	}
+
+	const updateBasket = () => {
+		currentObject.in_basket
+			? dispatch(addToBasket(currentObject.product_unique_id, false))
+			: dispatch(addToBasket(currentObject.product_unique_id, true))
+
+		setVisibleModal(false)
+	}
+
 	return (
 		<View style={styles.container}>
 			<ImageBackground style={styles.image} source={{ uri: storePoint.image }}>
@@ -49,9 +59,9 @@ function StorePoint({ storePoint, profileState }) {
 						<Text style={styles.titleText}>{currentObject.name}</Text>
 						<Text style={styles.priceText}>{`${currentObject.price} ${profileState.currency}`}</Text>
 					</View>
-					<TouchableOpacity style={styles.button} onPress={() => setVisibleModal(false)}>
+					<TouchableOpacity style={styles.button} onPress={updateBasket}>
 						<Text style={styles.buttonText}>
-							{currentObject.added ? 'УДАЛИТЬ ИЗ КОРЗИНЫ' : 'ДОБАВИТЬ В КОРЗИНУ'}
+							{currentObject.in_basket ? 'УДАЛИТЬ ИЗ КОРЗИНЫ' : 'ДОБАВИТЬ В КОРЗИНУ'}
 						</Text>
 					</TouchableOpacity>
 				</Modal>

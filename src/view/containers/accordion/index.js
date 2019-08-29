@@ -26,7 +26,7 @@ function Accordion({ item, pressProduct, profileState }) {
 			</TouchableOpacity>
 		)
 	}
-
+	
 	return (
 		<View style={styles.container}>
 			<TouchableOpacity style={styles.button} onPress={handleDisplay}>
