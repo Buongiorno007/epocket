@@ -3,7 +3,7 @@ import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native'
 import route from '@services/route'
 import Basket from '@containers/basket'
 
-export default function MapHeaderWhite({ title = 'CHANGE TITLE', basket = false }) {
+export default function MapHeaderWhite({ title = 'CHANGE TITLE', basket = false, id = false }) {
 	return (
 		<View style={styles.container}>
 			<TouchableOpacity onPress={() => route.pop()}>
@@ -12,7 +12,7 @@ export default function MapHeaderWhite({ title = 'CHANGE TITLE', basket = false 
 			<Text style={styles.text}>{title}</Text>
 			{basket ? (
 				<View style={styles.image}>
-					<Basket style={styles.basket} />
+					<Basket style={styles.basket} id={id} />
 				</View>
 			) : (
 				<View style={styles.image} />

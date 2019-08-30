@@ -3,12 +3,12 @@ import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
 import route from '@services/route'
 import { connect } from 'react-redux'
 
-function Basket({ style = { position: 'absolute', bottom: 16, right: 16 }, invert = false, basket }) {
+function Basket({ style = { position: 'absolute', bottom: 16, right: 16 }, invert = false, id = false, basket }) {
+	const routeTo = () => {
+		id ? console.log(id, 'NAVIGATE WITH ID') : route.push('BasketComponent')
+	}
 	return (
-		<TouchableOpacity
-			style={[styles.container, style, invert && styles.container_invert]}
-			onPress={() => route.push('BasketComponent')}
-		>
+		<TouchableOpacity style={[styles.container, style, invert && styles.container_invert]} onPress={routeTo}>
 			<Image
 				source={invert ? require('@assets/img/basket_invert.png') : require('@assets/img/basket.png')}
 				style={styles.image}

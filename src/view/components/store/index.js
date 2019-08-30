@@ -30,7 +30,11 @@ function StorePoint({ storePoint, profileState, dispatch }) {
 		<View style={styles.container}>
 			<ImageBackground style={styles.image} source={{ uri: storePoint.image }}>
 				<View style={styles.opacity}>
-					<MapHeaderWhite title={`Баланс: ${storePoint.balance} ${profileState.currency}`} basket />
+					<MapHeaderWhite
+						title={`Баланс: ${storePoint.balance} ${profileState.currency}`}
+						basket
+						id={storePoint.id}
+					/>
 					<View style={{ alignItems: 'center' }}>
 						<Text style={styles.title}>{storePoint.title}</Text>
 						<Text style={styles.subtitle}>{storePoint.address}</Text>
