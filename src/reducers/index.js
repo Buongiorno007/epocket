@@ -64,4 +64,5 @@ export default combineReducers({
 	filters: require('./filters').default,
 	storePoint: require('./storePoint').default,
 	basket: require('./basket').default,
+	order: require('./order').default,
 })

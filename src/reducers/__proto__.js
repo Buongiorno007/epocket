@@ -114,3 +114,10 @@ export const BASKET = function(data = {}) {
 	this.data = data.data || []
 	this.request = data.request || false
 }
+export const ORDER = function(data = {}) {
+	this.point_basket_amount = data.point_basket_amount || 0
+	this.point_data = data.point_data || []
+	this.point_id = data.point_id || 0
+	this.point_image = data.point_image || ''
+	this.point_name = data.point_name || ''
+}

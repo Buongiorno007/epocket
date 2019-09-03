@@ -49,6 +49,7 @@ const Navigator = createStackNavigator(
 		BasketComponent: require('@components/basket').default,
 		Partnrs: require('@components/partners').default,
 		StorePoint: require('@components/store').default,
+		OrderScreen: require('@components/order').default,
 	},
 	{
 		initialRouteName: 'Start',
