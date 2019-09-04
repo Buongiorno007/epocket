@@ -19,7 +19,6 @@ export default (state = initialState, action) => {
 export const getStorePoint = (id) => async (dispatch, getState) => {
 	const { token } = getState()
 	const { storePoint } = getState()
-	console.log(id, 'IDDDDDDDDDDDDDDDDDDDDD')
 	if (storePoint.id !== id) {
 		body = {
 			cashout_id: id,

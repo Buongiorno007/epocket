@@ -44,4 +44,11 @@ export default StyleSheet.create({
 		alignItems: 'center',
 		paddingHorizontal: 16,
 	},
+	price: {
+		fontFamily: 'Rubik-Bold',
+		fontSize: 16,
+		color: '#fff',
+		textAlign: 'center',
+		marginTop: 16,
+	},
 })

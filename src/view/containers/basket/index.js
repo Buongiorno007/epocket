@@ -2,10 +2,17 @@ import React from 'react'
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
 import route from '@services/route'
 import { connect } from 'react-redux'
+import { basketRoute } from '@reducers/order'
 
-function Basket({ style = { position: 'absolute', bottom: 16, right: 16 }, invert = false, id = false, basket }) {
+function Basket({
+	style = { position: 'absolute', bottom: 16, right: 16 },
+	invert = false,
+	id = false,
+	basket,
+	dispatch,
+}) {
 	const routeTo = () => {
-		id ? console.log(id, 'NAVIGATE WITH ID') : route.push('BasketComponent')
+		id ? dispatch(basketRoute(id)) : route.push('BasketComponent')
 	}
 	return (
 		<TouchableOpacity style={[styles.container, style, invert && styles.container_invert]} onPress={routeTo}>

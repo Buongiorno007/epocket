@@ -18,4 +18,15 @@ export const saveOrder = (order) => async (dispatch) => {
 	route.push('OrderScreen')
 }
 
+export const basketRoute = (id) => async (dispatch, getState) => {
+	const { basket } = getState()
+	const order = basket.data.filter((item) => item.point_id === id)
+	if (order.length) {
+		await dispatch(setOrder(new ORDER(...order)))
+		route.push('OrderScreen')
+	} else {
+		route.push('BasketComponent')
+	}
+}
+
 export const setOrder = (order) => ({ type: SET_ORDER, order })
