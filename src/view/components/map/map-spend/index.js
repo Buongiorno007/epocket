@@ -54,10 +54,7 @@ function MapSpend({ lat, lng, mapPoints }) {
 				</ClusteredMapView>
 				<Basket style={styles.basket} />
 				<TouchableOpacity style={styles.touchMap} onPress={() => route.push('MapPlaces')}>
-					{/* <View style={styles.imageView}>
-						<Image style={{ width: 16, height: 16 }} source={require('@assets/img/diagonal-arrows.png')} />
-					</View> */}
-					<LottieView style={styles.imageView} source={require('@assets/img/data.json')} autoPlay loop />;
+					<LottieView style={styles.imageView} source={require('@assets/img/data.json')} autoPlay loop />
 				</TouchableOpacity>
 			</View>
 			<LinearGradient colors={colors} start={start} end={end} style={styles.linear}>

@@ -65,4 +65,5 @@ export default combineReducers({
 	storePoint: require('./storePoint').default,
 	basket: require('./basket').default,
 	order: require('./order').default,
+	qrValue: require('./qrValue').default,
 })

@@ -37,5 +37,10 @@
 	{
 		return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 	}
-  
+
+  #if RCT_DEV
+  - (BOOL)bridge:(RCTBridge *)bridge didNotFindModule:(NSString *)moduleName {
+    return YES;
+  }
+  #endif
 @end

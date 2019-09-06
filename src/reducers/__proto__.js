@@ -120,4 +120,5 @@ export const ORDER = function(data = {}) {
 	this.point_id = data.point_id || 0
 	this.point_image = data.point_image || ''
 	this.point_name = data.point_name || ''
+	this.user_balance = data.user_balance || 0
 }
