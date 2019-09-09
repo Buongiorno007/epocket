@@ -47,6 +47,7 @@ function StorePoint({ storePoint, profileState, dispatch }) {
 					data={storePoint.categories}
 					renderItem={renderItem}
 					keyExtractor={keyExtractor}
+					scrollEnabled={!visibleModal}
 				/>
 				<Modal
 					style={styles.rnModal}
