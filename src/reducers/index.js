@@ -66,5 +66,5 @@ export default combineReducers({
   basket: require('./basket').default,
   order: require('./order').default,
   qrValue: require('./qrValue').default,
-  earnPoint: require('./earnPoint').default,
+  mallPoint: require('./mallPoint').default,
 })

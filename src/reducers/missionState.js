@@ -11,6 +11,7 @@ const SET_MISSION_RADIUS = '[missionState] SET_MISSION_RADIUS'
 const SET_MISSION_TIMER = '[missionState] SET_MISSION_TIMER'
 const SET_MISSION_FAIL_TIMER = '[missionState] SET_MISSION_FAIL_TIMER'
 const SET_MISSION_PROCESS = '[missionState] SET_MISSION_PROCESS'
+const SET_MISSION_EXPIRED = '[missionState] SET_MISSION_EXPIRED'
 const SET_MISSION = '[missionState] SET_MISSION'
 const RESET_MISSION = '[missionState] RESET_MISSION'
 
@@ -26,6 +27,8 @@ export default (state = initialState, action) => {
       return Object.assign({}, { ...state, failTimer: action.failTimer })
     case SET_MISSION_PROCESS:
       return Object.assign({}, { ...state, process: action.process })
+    case SET_MISSION_EXPIRED:
+      return Object.assign({}, { ...state, expired: true })
     case SET_MISSION:
       return action.mission
     case RESET_MISSION:
@@ -36,10 +39,19 @@ export default (state = initialState, action) => {
 }
 
 export const checkMission = id => async (dispatch, getState) => {
-  const { outletId, inRadius, process } = getState().missionState
+  const { outletId, inRadius, process, expired } = getState().missionState
   !inRadius && (await dispatch(setMissionRadius(true)))
-  if (id !== outletId || !process) {
+  //   console.log(id, outletId, process, 'CHECKPROPS')
+  if ((id !== outletId || !process) && !expired) {
     await dispatch(getMission(id))
+  }
+}
+export const finishMissionState = () => async (dispatch, getState) => {
+  const { expired } = getState().missionState
+  if (expired) {
+    dispatch(resetMission())
+  } else {
+    dispatch(setMissionRadius(false))
   }
 }
 
@@ -56,6 +68,8 @@ export const getMission = id => async (dispatch, getState) => {
     console.log(e, 'checkMission')
     if (e.code === 415) {
       await dispatch(setMission(new MISSIONSTATE(e.body)))
+    } else if (e.code === 418) {
+      await dispatch(setMissionExpired())
     }
   }
 }
@@ -88,6 +102,7 @@ export const missionResult = () => async (dispatch, getState) => {
 }
 
 export const setMission = mission => ({ type: SET_MISSION, mission })
+export const setMissionExpired = () => ({ type: SET_MISSION_EXPIRED })
 export const setMissionProcess = process => ({ type: SET_MISSION_PROCESS, process })
 export const setMissionRadius = radius => ({ type: SET_MISSION_RADIUS, radius })
 export const setMissionTimer = timer => ({ type: SET_MISSION_TIMER, timer })

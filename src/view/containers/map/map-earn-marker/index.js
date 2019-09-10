@@ -4,15 +4,15 @@ import { Marker, Circle } from 'react-native-maps'
 import { connect } from 'react-redux'
 import styles from './styles'
 import { getDistance } from 'geolib'
-import { checkMission, setMissionRadius } from '@reducers/missionState'
-import { getEarnPoint } from '@reducers/earnPoint'
+import { checkMission, finishMissionState } from '@reducers/missionState'
+import { getEarnPoint } from '@reducers/mallPoint'
 
 function MapEarnMarker({ profileState, data, missionState, lat, lng, mapPoints, dispatch }) {
   useEffect(() => {
     if (getDist()) {
       dispatch(checkMission(data.id))
     } else if (missionState.outletId === data.id) {
-      dispatch(setMissionRadius(false))
+      dispatch(finishMissionState())
     }
   }, [lat, lng, mapPoints])
 

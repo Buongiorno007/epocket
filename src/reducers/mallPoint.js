@@ -1,11 +1,11 @@
-import { STOREPOINT } from './__proto__'
+import { MALLPOINT } from './__proto__'
 import { urls } from '@constants/urls'
 import { httpPost } from '@services/http'
 import route from '@services/route'
 
-const SET_POINT = '[earnPoint] SET_POINT'
+const SET_POINT = '[mallPoint] SET_POINT'
 
-const initialState = new STOREPOINT()
+const initialState = new MALLPOINT()
 
 export default (state = initialState, action) => {
   switch (action.type) {
