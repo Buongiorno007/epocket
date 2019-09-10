@@ -16,7 +16,7 @@ export default (state = initialState, action) => {
   }
 }
 
-export const getEarnPoint = id => async (dispatch, getState) => {
+export const getMallPoint = id => async (dispatch, getState) => {
   const { token } = getState()
   try {
     let body = {

@@ -71,7 +71,7 @@
     "react-native-permissions": "^1.1.1",
     "react-native-qrcode-svg": "^5.1.2",
     "react-native-radial-gradient": "^1.0.5",
-    "react-native-share": "git+https://github.com/react-native-community/react-native-share.git",
+    "react-native-share": "1.2.1",
     "react-native-sound": "^0.11.0",
     "react-native-svg": "^9.5.3",
     "react-native-swipe-gestures": "^1.0.3",

@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import styles from './styles'
 import { getDistance } from 'geolib'
 import { checkMission, finishMissionState } from '@reducers/missionState'
-import { getEarnPoint } from '@reducers/mallPoint'
+import { getMallPoint } from '@reducers/mallPoint'
 
 function MapEarnMarker({ profileState, data, missionState, lat, lng, mapPoints, dispatch }) {
   useEffect(() => {
@@ -36,7 +36,7 @@ function MapEarnMarker({ profileState, data, missionState, lat, lng, mapPoints, 
 
   return (
     <View>
-      <Marker coordinate={data.location} onPress={() => dispatch(getEarnPoint(data.id))}>
+      <Marker coordinate={data.location} onPress={() => dispatch(getMallPoint(data.id))}>
         <View style={styles.container}>
           <Image style={styles.img} source={returnLogo()} />
           <View style={styles.text_view}>
