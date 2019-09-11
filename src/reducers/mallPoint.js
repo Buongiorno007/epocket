@@ -1,9 +1,10 @@
-import { MALLPOINT } from './__proto__'
-import { urls } from '@constants/urls'
-import { httpPost } from '@services/http'
-import route from '@services/route'
+import { MALLPOINT } from "./__proto__"
+import { urls } from "@constants/urls"
+import { httpPost } from "@services/http"
+import route from "@services/route"
+import moment from "moment-timezone"
 
-const SET_POINT = '[mallPoint] SET_POINT'
+const SET_POINT = "[mallPoint] SET_POINT"
 
 const initialState = new MALLPOINT()
 
@@ -21,12 +22,15 @@ export const getMallPoint = id => async (dispatch, getState) => {
   try {
     let body = {
       outlet_id: id,
-      notInMall: true,
+      tzone: {
+        timezone: moment.tz.guess(),
+        timedelta: moment().format("Z"),
+      },
     }
-    const response = await httpPost(urls.missions, JSON.stringify(body), token)
-    console.log(response, 'RESPONSE getEarnPoint')
+    const response = await httpPost(urls.new_mission_list, JSON.stringify(body), token)
+    console.log(response, "RESPONSE getEarnPoint")
   } catch (e) {
-    console.log(e, 'getEarnPoint catch(e)')
+    console.log(e, "getEarnPoint catch(e)")
   }
 }
 
