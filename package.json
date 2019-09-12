@@ -76,6 +76,7 @@
     "react-native-svg": "^9.5.3",
     "react-native-swipe-gestures": "^1.0.3",
     "react-native-text-gradient": "0.1.6",
+    "react-native-video": "^4.4.4",
     "react-native-webview": "^5.12.1",
     "react-navigation": "^3.11.1",
     "react-redux": "^7.1.0",
