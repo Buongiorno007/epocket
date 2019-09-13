@@ -1,4 +1,4 @@
-import { Linking, Platform, PermissionsAndroid } from "react-native"
+import { Linking, Platform, PermissionsAndroid, AppState } from "react-native"
 import RNInstagramStoryShare from "../native_modules/react-native-instagram-story-share"
 import RNFetchBlob from "rn-fetch-blob"
 import RNFS from "react-native-fs"
@@ -54,7 +54,7 @@ export async function postToSocial(postData, deepLink, confirmFuction, video_sta
   let file_path
   let type
   //   if (video_status) {
-  if (false) {
+  if (true) {
     base64Prefix = "data:video/mp4;base64,"
     postData.base64 = ""
     RNFetchBlob.config({
@@ -67,6 +67,7 @@ export async function postToSocial(postData, deepLink, confirmFuction, video_sta
           url: res.path(),
         }
         // setTimeout(() => {
+        console.log(shareImageBase64, "SHARE BASE 64")
         Share.open(shareImageBase64).then(
           result => {
             confirmFuction()
@@ -112,4 +113,29 @@ export async function postToSocial(postData, deepLink, confirmFuction, video_sta
   }
 }
 
-export function socialPost(data, confirmFunction) {}
+export function socialPost(data, confirmFunction, errorFunction) {
+  RNFetchBlob.config({ fileCache: true, appendExt: "mp4" })
+    .fetch("GET", data.video)
+    .then(async res => {
+      const path = await res.path()
+      const base = await res.base64()
+      const shareOptions = {
+        url: Platform.OS === "ios" ? path : "data:video/mp4;base64," + base,
+      }
+      try {
+        await Share.open(shareOptions)
+        setTimeout(async () => {
+          confirmFunction()
+          try {
+            await RNFS.exists(path)
+            await RNFS.unlink(path)
+          } catch (e) {
+            console.log(e, "unavailable unlink")
+          }
+        }, 1000)
+      } catch (e) {
+        errorFunction()
+        console.log(e, "ERROR Share.shareSingle")
+      }
+    })
+}
