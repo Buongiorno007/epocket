@@ -18,8 +18,8 @@ export default (state = initialState, action) => {
 }
 
 export const getMallPoint = id => async (dispatch, getState) => {
-  const { token } = getState()
-  try {
+  const { token, mallPoint } = getState()
+  if (id !== mallPoint.id) {
     let body = {
       outlet_id: id,
       tzone: {
@@ -27,10 +27,15 @@ export const getMallPoint = id => async (dispatch, getState) => {
         timedelta: moment().format("Z"),
       },
     }
-    const response = await httpPost(urls.new_mission_list, JSON.stringify(body), token)
-    console.log(response, "RESPONSE getEarnPoint")
-  } catch (e) {
-    console.log(e, "getEarnPoint catch(e)")
+    try {
+      const response = await httpPost(urls.new_mission_list, JSON.stringify(body), token)
+      dispatch(setPoint(new MALLPOINT(response.body)))
+      route.push("MallPoint")
+    } catch (e) {
+      console.log(e, "getEarnPoint catch(e)")
+    }
+  } else {
+    route.push("MallPoint")
   }
 }
 

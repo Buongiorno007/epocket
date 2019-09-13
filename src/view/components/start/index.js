@@ -1,4 +1,5 @@
 import React from "react"
+import { Image } from "react-native"
 import AsyncStorage from "@react-native-community/async-storage"
 import LinearGradient from "react-native-linear-gradient"
 import { connect } from "react-redux"
@@ -14,17 +15,7 @@ import route from "@services/route"
 import Video from "react-native-video"
 import styles from "./styles"
 
-type Props = typeof defaultProps
-
-const defaultProps = {
-  colors: ["#F4F9FF", "#E0EFFF"],
-  start: { x: 0.0, y: 0.0 },
-  end: { x: 0.0, y: 1.0 },
-}
-
-class Start extends React.Component<Props> {
-  static defaultProps = defaultProps
-
+class Start extends React.Component {
   componentDidMount() {
     route.exit()
     this.props.internet()
@@ -56,19 +47,19 @@ class Start extends React.Component<Props> {
   }
 
   render = () => {
-    const { colors, start, end } = this.props
     return (
-      <LinearGradient colors={colors} start={start} end={end} style={styles.container}>
+      <View style={styles.container}>
+        <Image source={require("@assets/img/EPC0000.jpg")} resizeMode={"cover"} style={styles.video} />
         <Video
-          source={require("../../../assets/video/start_video.mp4")} // Can be a URL or a local file.
-          onBuffer={() => console.log("onBuffer")} // Callback when remote video is buffering
+          source={require("@assets/video/EPC.mp4")} // Can be a URL or a local file.
+          onBuffer={() => {}} // Callback when remote video is buffering
           onError={() => console.log("onError")} // Callback when video cannot be loaded
           style={styles.video}
           repeat={true}
           resizeMode={"cover"}
         />
         <Navigate />
-      </LinearGradient>
+      </View>
     )
   }
 }

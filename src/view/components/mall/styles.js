@@ -1,5 +1,5 @@
-import { StyleSheet, Dimensions } from 'react-native'
-const { width, height } = Dimensions.get('window')
+import { StyleSheet, Dimensions } from "react-native"
+const { width, height } = Dimensions.get("window")
 
 export default StyleSheet.create({
   container: {
@@ -11,21 +11,33 @@ export default StyleSheet.create({
   },
   opacity: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.25)',
-    justifyContent: 'space-between',
+    backgroundColor: "rgba(0, 0, 0, 0.25)",
+    justifyContent: "space-between",
     paddingBottom: 40,
   },
   title: {
-    color: '#fff',
-    textAlign: 'center',
+    color: "#fff",
+    textAlign: "center",
     fontSize: 24,
-    fontFamily: 'Rubik-Bold',
+    fontFamily: "Rubik-Bold",
     marginBottom: 4,
   },
   subtitle: {
-    color: '#fff',
-    textAlign: 'center',
+    color: "#fff",
+    textAlign: "center",
     fontSize: 12,
-    fontFamily: 'Rubik-Regular',
+    fontFamily: "Rubik-Regular",
+  },
+  withModal: {
+    flex: 1,
+    marginTop: -24,
+    backgroundColor: "transparent",
+  },
+  scroll: {
+    flex: 1,
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    backgroundColor: "#E5EDF7",
+    paddingTop: 24,
   },
 })

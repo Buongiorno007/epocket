@@ -14,38 +14,38 @@ export const LOCATION = function(data = {}) {
 }
 
 export const PROFILE = function(data = {}) {
-  this.name = data.name || ''
-  this.phone = data.phone || ''
-  this.photo = data.photo || ''
+  this.name = data.name || ""
+  this.phone = data.phone || ""
+  this.photo = data.photo || ""
   this.sex = data.sex || null
-  this.birthDay = data.birthDay || ''
-  this.currency = data.currency || ''
+  this.birthDay = data.birthDay || ""
+  this.currency = data.currency || ""
 }
 
 export const GAME_START = function(data = {}) {
   this.id = data.id || 0
-  this.games_count = `${data.games_count}` || ''
-  this.available_game_len = `${data.available_game_len}` || ''
-  this.award = `${data.award}` || ''
+  this.games_count = `${data.games_count}` || ""
+  this.available_game_len = `${data.available_game_len}` || ""
+  this.award = `${data.award}` || ""
 }
 
 export const GAME_PROCESS = function(data = {}) {
   this.id = data.id || 0
-  this.title = data.title || ''
-  this.descr = data.descr || ''
-  this.image = data.image || ''
-  this.amount = `${data.amount}` || ''
-  this.brand = data.brand || ''
+  this.title = data.title || ""
+  this.descr = data.descr || ""
+  this.image = data.image || ""
+  this.amount = `${data.amount}` || ""
+  this.brand = data.brand || ""
   this.time = Number(data.time) || 0
 }
 
 export const GAME_RESULT = function(data = {}) {
   this.game_id = data.game_id || 0
-  this.ticker = data.ticker || ''
-  this.award = data.award || ''
-  this.insta_img = data.insta_img || ''
-  this.video = data.video || ''
-  this.link = data.game_link || data.brand_link || ''
+  this.ticker = data.ticker || ""
+  this.award = data.award || ""
+  this.insta_img = data.insta_img || ""
+  this.video = data.video || ""
+  this.link = data.game_link || data.brand_link || ""
   this.timer = data.timer || 20
   // this.timer = 5
 }
@@ -61,15 +61,15 @@ export const AUTH = function(data = {}) {
   this.name = data.name || null
   this.age = data.age || null
   this.user_id = data.user_id || null
-  this.back = data.back || 'Start'
-  this.title = data.title || ''
+  this.back = data.back || "Start"
+  this.title = data.title || ""
 }
 AUTH.prototype = Object.create(DEFAULT.prototype)
 
 export const BONUSES = function(data = {}) {
   DEFAULT.apply(this, arguments)
-  this.currency = data.currency || 'UAH'
-  this.phone = data.phone || ''
+  this.currency = data.currency || "UAH"
+  this.phone = data.phone || ""
   this.max = Number(data.refill) || 0
   this.min = Number(data.min_refill) || 0
   this.tax = Number(data.tax_amount) || 0
@@ -90,7 +90,7 @@ export const MAPPOINTS = function(data = {}) {
 }
 export const MISSIONSTATE = function(data = {}) {
   this.inRadius = data.inRadius || false
-  this.title = data.title || ''
+  this.title = data.title || ""
   this.timer = data.timer || 0
   this.failTimer = data.failTimer || 0
   this.missionId = data.missionId || 0
@@ -103,11 +103,11 @@ export const PARTNERS = function(data = []) {
   this.online = data
 }
 export const STOREPOINT = function(data = {}) {
-  this.title = data.title || ''
-  this.address = data.address || ''
-  this.balance = data.balance || ''
+  this.title = data.title || ""
+  this.address = data.address || ""
+  this.balance = data.balance || ""
   this.id = data.id || 0
-  this.image = data.image || ''
+  this.image = data.image || ""
   this.categories = data.categories || []
 }
 export const BASKET = function(data = {}) {
@@ -119,16 +119,18 @@ export const ORDER = function(data = {}) {
   this.point_basket_amount = data.point_basket_amount || 0
   this.point_data = data.point_data || []
   this.point_id = data.point_id || 0
-  this.point_image = data.point_image || ''
-  this.point_name = data.point_name || ''
+  this.point_image = data.point_image || ""
+  this.point_name = data.point_name || ""
   this.user_balance = data.user_balance || 0
 }
 
 export const MALLPOINT = function(data = {}) {
-  this.title = data.title || ''
-  this.address = data.address || ''
-  this.balance = data.balance || ''
+  this.title = data.title || ""
+  this.address = data.address || ""
+  this.balance = data.balance || ""
   this.id = data.id || 0
-  this.image = data.image || ''
-  this.categories = data.categories || []
+  this.image = data.image || ""
+  this.active_tasks = data.active_tasks || []
+  this.soon_tasks = data.soon_tasks || []
+  this.time_tasks = data.time_tasks || []
 }

@@ -26,7 +26,6 @@ import styles from "./styles"
 
 class Main extends React.Component {
   componentDidMount() {
-    console.log("HEY")
     this.backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
       this.props.setActiveCard(false)
       return true
