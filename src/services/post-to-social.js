@@ -53,8 +53,7 @@ export async function postToSocial(postData, deepLink, confirmFuction, video_sta
   const dirs = RNFetchBlob.fs.dirs
   let file_path
   let type
-  //   if (video_status) {
-  if (true) {
+  if (video_status) {
     base64Prefix = "data:video/mp4;base64,"
     postData.base64 = ""
     RNFetchBlob.config({
