@@ -1,5 +1,5 @@
 import React from "react"
-import { Image } from "react-native"
+import { View, Image } from "react-native"
 import AsyncStorage from "@react-native-community/async-storage"
 import LinearGradient from "react-native-linear-gradient"
 import { connect } from "react-redux"
