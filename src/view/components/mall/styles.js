@@ -31,13 +31,13 @@ export default StyleSheet.create({
   withModal: {
     flex: 1,
     marginTop: -24,
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
     backgroundColor: "transparent",
+    overflow: "hidden",
   },
   scroll: {
     flex: 1,
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
     backgroundColor: "#E5EDF7",
-    paddingTop: 24,
   },
 })
