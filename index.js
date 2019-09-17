@@ -51,6 +51,7 @@ const Navigator = createStackNavigator(
     StorePoint: require('@components/store').default,
     OrderScreen: require('@components/order').default,
     MallPoint: require('@components/mall').default,
+    MallTask: require('@components/mallTask').default,
   },
   {
     initialRouteName: 'Start',

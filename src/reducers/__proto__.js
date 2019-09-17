@@ -134,3 +134,10 @@ export const MALLPOINT = function(data = {}) {
   this.soon_tasks = data.soon_tasks || []
   this.time_tasks = data.time_tasks || []
 }
+export const MALLTASK = function(data = {}) {
+  this.name = data.name || ""
+  this.image = data.image || ""
+  this.time = data.time || ""
+  this.tasks = data.tasks || []
+  this.type = data.type || ""
+}

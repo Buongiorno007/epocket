@@ -67,4 +67,5 @@ export default combineReducers({
   order: require('./order').default,
   qrValue: require('./qrValue').default,
   mallPoint: require('./mallPoint').default,
+  mallTask: require('./mallTask').default,
 })
