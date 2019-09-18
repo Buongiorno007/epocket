@@ -18,7 +18,6 @@ function MallPoint({ mallPoint }) {
       </View>
     )
   }
-
   return (
     <View style={styles.container}>
       <ImageBackground style={styles.image} source={{ uri: mallPoint.image }}>

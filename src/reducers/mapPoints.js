@@ -1,14 +1,14 @@
-import { MAPPOINTS } from './__proto__'
+import { MAPPOINTS } from "./__proto__"
 //constants
-import { urls } from '@constants/urls'
+import { urls } from "@constants/urls"
 //services
-import { httpPost } from '@services/http'
+import { httpPost } from "@services/http"
 //reducers
-import moment from 'moment-timezone'
-import route from '@services/route'
+import moment from "moment-timezone"
+import route from "@services/route"
 
-const SET_POINTS = '[mapPoints] SET_POINTS'
-const SET_FILTERS = '[mapPoints] SET_FILTERS'
+const SET_POINTS = "[mapPoints] SET_POINTS"
+const SET_FILTERS = "[mapPoints] SET_FILTERS"
 
 const initialState = new MAPPOINTS()
 
@@ -33,16 +33,15 @@ export const getPoints = () => async (dispatch, getState) => {
     lng: lng,
     tzone: {
       timezone: moment.tz.guess(),
-      timedelta: moment().format('Z'),
+      timedelta: moment().format("Z"),
     },
   })
   if (lat || lng) {
     try {
       const response = await httpPost(urls.outlets, body, token)
-      console.log(response, 'RESPONSEEEEEEEE')
       dispatch(savePoints(new MAPPOINTS(response.body)))
     } catch (error) {
-      console.log(error, 'getPoints ERROR')
+      console.log(error, "getPoints ERROR")
     }
   }
 }
@@ -52,7 +51,7 @@ export const useFilters = body => async (dispatch, getState) => {
   const { lat, lng } = getState().location.coordinate
 
   const obj = {
-    type: '',
+    type: "",
     filters: [],
     lat,
     lng,
@@ -71,9 +70,9 @@ export const useFilters = body => async (dispatch, getState) => {
     const response = await httpPost(urls.filters, JSON.stringify(obj), token)
     await dispatch(saveFilters(body))
     route.pop()
-    console.log(response, 'RESPONSE ON FILTERS')
+    console.log(response, "RESPONSE ON FILTERS")
   } catch (e) {
-    console.log(e, 'RRRR')
+    console.log(e, "RRRR")
   }
 }
 
