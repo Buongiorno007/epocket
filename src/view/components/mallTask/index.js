@@ -1,26 +1,22 @@
 import React from "react"
-import { View, Image, Text, TouchableOpacity, FlatList } from "react-native"
+import { View, Text, TouchableOpacity, FlatList } from "react-native"
 import MapHeaderWhite from "@containers/map/map-header-white"
 import { connect } from "react-redux"
 import styles from "./styles"
 import LinearGradient from "react-native-linear-gradient"
 import LogoTitle from "@containers/logo-title"
 import route from "@services/route"
-
-function MallTask({ mallTask, profileState }) {
+import MallTaskAccordion from "@containers/mall-task/accordion"
+function MallTask({ mallTask }) {
   const colors = ["#F55890", "#FF9950"]
   const start = { x: 0, y: 0 }
   const end = { x: 0, y: 1 }
 
-  const renderItem = ({ item }) => (
-    <View style={{ paddingVertical: 16, flexDirection: "row" }}>
-      <Text></Text>
-    </View>
-  )
+  const renderItem = ({ item }) => <MallTaskAccordion item={item} />
   const keyExtractor = item => `${item.id}`
 
   console.log(mallTask, "MALLTASK")
-  // {id: 270, type: 3, name: "123", desc: "123", price: "+ 0.0"}
+
   return (
     <LinearGradient start={start} end={end} colors={colors} style={styles.container}>
       <MapHeaderWhite title={mallTask.time.replace("-", " - ")} />
@@ -44,7 +40,6 @@ function MallTask({ mallTask, profileState }) {
 
 const mapStateToProps = state => ({
   mallTask: state.mallTask,
-  profileState: state.profileState,
 })
 
 export default connect(mapStateToProps)(MallTask)
