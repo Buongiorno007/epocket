@@ -1,21 +1,20 @@
-import React from "react"
-import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native"
-import LinearGradient from "react-native-linear-gradient"
-import { connect } from "react-redux"
-import { getMallTask } from "@reducers/mallTask"
+import React from "react";
+import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
+import LinearGradient from "react-native-linear-gradient";
+import { connect } from "react-redux";
+import { getMallTask } from "@reducers/mallTask";
 
 function MallItem({ item, index, profileState, dispatch }) {
-  const colors1 = ["#FF9950", "#F55890"]
-  const colors2 = ["rgba(246, 50, 114, 0.1)", "rgba(246, 50, 114, 0.1)"]
-  const start = { x: 0.0, y: 0.0 }
-  const end = { x: 1.0, y: 0.0 }
+  const colors1 = ["#FF9950", "#F55890"];
+  const colors2 = ["rgba(246, 50, 114, 0.1)", "rgba(246, 50, 114, 0.1)"];
+  const start = { x: 0.0, y: 0.0 };
+  const end = { x: 1.0, y: 0.0 };
 
   return (
     <TouchableOpacity
       disabled={item.type === 1}
       style={[styles.container, index === 0 && styles.noBorder]}
-      onPress={() => dispatch(getMallTask(item))}
-    >
+      onPress={() => dispatch(getMallTask(item))}>
       <Image source={{ uri: item.image }} style={styles.image} />
       <View style={styles.textView}>
         <Text style={styles.title}>{item.name}</Text>
@@ -28,15 +27,15 @@ function MallItem({ item, index, profileState, dispatch }) {
         {item.type !== 1 && <View style={item.type === 3 ? styles.arrowPink : styles.arrow} />}
       </LinearGradient>
     </TouchableOpacity>
-  )
+  );
 }
 const mapStateToProps = state => {
   return {
     profileState: state.profileState,
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps)(MallItem)
+export default connect(mapStateToProps)(MallItem);
 
 const styles = StyleSheet.create({
   container: {
@@ -109,4 +108,4 @@ const styles = StyleSheet.create({
   textView: {
     flexGrow: 1,
   },
-})
+});
