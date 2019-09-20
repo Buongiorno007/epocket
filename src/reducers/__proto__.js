@@ -140,4 +140,5 @@ export const MALLTASK = function(data = {}) {
   this.time = data.time || ""
   this.tasks = data.tasks || []
   this.type = data.type || ""
+  this.id = data.id || 0
 }

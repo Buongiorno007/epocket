@@ -1,25 +1,21 @@
 import React from "react"
 import { View, Text, TouchableOpacity, FlatList } from "react-native"
-import MapHeaderWhite from "@containers/map/map-header-white"
 import { connect } from "react-redux"
 import styles from "./styles"
-import LinearGradient from "react-native-linear-gradient"
 import LogoTitle from "@containers/logo-title"
 import route from "@services/route"
 import MallTaskAccordion from "@containers/mall-task/accordion"
-function MallTask({ mallTask }) {
-  const colors = ["#F55890", "#FF9950"]
-  const start = { x: 0, y: 0 }
-  const end = { x: 0, y: 1 }
+import MapTaskHeader from "../../containers/map/map-task-header"
 
+function MallTask({ mallTask }) {
   const renderItem = ({ item }) => <MallTaskAccordion item={item} />
   const keyExtractor = item => `${item.id}`
 
   console.log(mallTask, "MALLTASK")
 
   return (
-    <LinearGradient start={start} end={end} colors={colors} style={styles.container}>
-      <MapHeaderWhite title={mallTask.time.replace("-", " - ")} />
+    <View style={styles.container}>
+      <MapTaskHeader />
       <View style={styles.top}>
         <LogoTitle logo={mallTask.image} title={mallTask.name} />
         <Text style={styles.task}>{"Задания"}</Text>
@@ -34,7 +30,7 @@ function MallTask({ mallTask }) {
           {mallTask.type === 2 ? "Выполнить" : `Будет активно ${mallTask.time}`}
         </Text>
       </TouchableOpacity>
-    </LinearGradient>
+    </View>
   )
 }
 
