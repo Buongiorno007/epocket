@@ -1,10 +1,9 @@
 import React from "react"
-import { View, StyleSheet, Image, Text, TouchableOpacity, StatusBar } from "react-native"
+import { View, StyleSheet, Image, Text, TouchableOpacity, Platform } from "react-native"
 import route from "@services/route"
 import sbHeight from "@services/getSBHeight"
 
 export default function MapTaskHeader({ title = "" }) {
-  console.log(sbHeight, "STATUSBAR HEIGHT")
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.button} onPress={() => route.pop()}>
@@ -26,7 +25,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "lightblue",
   },
   button: {
     width: 24,
@@ -36,11 +34,11 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    resizeMode: "center",
+    resizeMode: "contain",
   },
   text: {
     fontFamily: "Rubik-Medium",
-    fontSize: 16,
+    fontSize: 20,
     color: "#111",
   },
 })

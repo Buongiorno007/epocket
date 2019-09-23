@@ -1,10 +1,8 @@
-import { StyleSheet, Dimensions } from "react-native"
-const { width, height } = Dimensions.get("window")
+import { StyleSheet } from "react-native"
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "lightblue",
   },
   top: {
     justifyContent: "center",
@@ -18,7 +16,7 @@ export default StyleSheet.create({
     marginTop: 24,
   },
   buttonActive: {
-    backgroundColor: "#fff",
+    backgroundColor: "#E60050",
     height: 40,
     borderRadius: 20,
     marginVertical: 24,
@@ -32,22 +30,22 @@ export default StyleSheet.create({
     marginVertical: 24,
     marginHorizontal: 16,
     borderWidth: 1,
-    borderColor: "#fff",
+    borderColor: "#E60050",
     alignItems: "center",
     justifyContent: "center",
   },
   buttonText: {
     fontFamily: "Rubik-Medium",
     fontSize: 14,
-    color: "#fff",
+    color: "#E60050",
     textTransform: "uppercase",
   },
   buttonTextActive: {
-    color: "#F63272",
+    color: "#fff",
   },
   scroll: {
     flex: 1,
-    borderColor: "rgba(255,255,255,0.3)",
+    borderColor: "rgba(177,177,177,0.3)",
     borderTopWidth: 1,
     borderBottomWidth: 1,
     marginHorizontal: 16,

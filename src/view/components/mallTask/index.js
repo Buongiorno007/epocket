@@ -2,10 +2,10 @@ import React from "react"
 import { View, Text, TouchableOpacity, FlatList } from "react-native"
 import { connect } from "react-redux"
 import styles from "./styles"
-import LogoTitle from "@containers/logo-title"
 import route from "@services/route"
 import MallTaskAccordion from "@containers/mall-task/accordion"
 import MapTaskHeader from "../../containers/map/map-task-header"
+import MapTaskLogo from "../../containers/map/map-task-logo"
 
 function MallTask({ mallTask }) {
   const renderItem = ({ item }) => <MallTaskAccordion item={item} />
@@ -15,11 +15,8 @@ function MallTask({ mallTask }) {
 
   return (
     <View style={styles.container}>
-      <MapTaskHeader />
-      <View style={styles.top}>
-        <LogoTitle logo={mallTask.image} title={mallTask.name} />
-        <Text style={styles.task}>{"Задания"}</Text>
-      </View>
+      <MapTaskHeader title={"Список заданий"} />
+      <MapTaskLogo logo={mallTask.image} title={mallTask.name} time={mallTask.time} />
       <FlatList style={styles.scroll} data={mallTask.tasks} renderItem={renderItem} keyExtractor={keyExtractor} />
       <TouchableOpacity
         disabled={mallTask.type === 3}
