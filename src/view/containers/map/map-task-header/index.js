@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-between",
+    backgroundColor: "#F8F8F8",
   },
   button: {
     width: 24,
