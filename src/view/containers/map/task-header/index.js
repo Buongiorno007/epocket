@@ -4,7 +4,7 @@ import route from "@services/route"
 import { connect } from "react-redux"
 import sbHeight from "@services/getSBHeight"
 
-function TaskHeader({ price = "+ 0", name = "Adidas", profileState }) {
+function TaskHeader({ progressTask, profileState }) {
   const [priceWith, setPriceWidth] = useState(0)
 
   return (
@@ -16,9 +16,9 @@ function TaskHeader({ price = "+ 0", name = "Adidas", profileState }) {
           setPriceWidth(width)
         }}
       >
-        <Text style={styles.price}>{`${price} ${profileState.currency}`}</Text>
+        <Text style={styles.price}>{`${progressTask.price} ${profileState.currency}`}</Text>
       </View>
-      <Text style={styles.text}>{name}</Text>
+      <Text style={styles.text}>{progressTask.name}</Text>
       <View style={[styles.buttonView, { width: priceWith }]}>
         <TouchableOpacity style={styles.button} onPress={() => console.log("INFO")}>
           <Image source={require("@assets/dv4/taskClose.png")} style={styles.image} />
@@ -30,6 +30,7 @@ function TaskHeader({ price = "+ 0", name = "Adidas", profileState }) {
 const mapStateToProps = state => {
   return {
     profileState: state.profileState,
+    progressTask: state.progressTask,
   }
 }
 

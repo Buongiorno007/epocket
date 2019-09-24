@@ -1,15 +1,28 @@
 import React from "react"
 import { Dimensions, StyleSheet, View, Text, FlatList } from "react-native"
+import { connect } from "react-redux"
 
 const { width } = Dimensions.get("window")
 const separatorLength = (width - 232) / 9
 
-export default function Steps({ current = 1, total = 1 }) {
-  const totalCount = [...Array(total).keys()].map(x => x + 1)
+function Steps({ progressTask }) {
+  const totalCount = [...Array(progressTask.totalTasks).keys()].map(x => x + 1)
 
   const renderItem = ({ item }) => (
-    <View style={item < current ? styles.prev : item === current ? styles.active : styles.next}>
-      <Text style={item < current ? styles.prevText : item === current ? styles.activeText : styles.nextText}>
+    <View
+      style={
+        item < progressTask.currentTask ? styles.prev : item === progressTask.currentTask ? styles.active : styles.next
+      }
+    >
+      <Text
+        style={
+          item < progressTask.currentTask
+            ? styles.prevText
+            : item === progressTask.currentTask
+            ? styles.activeText
+            : styles.nextText
+        }
+      >
         {item}
       </Text>
     </View>
@@ -18,7 +31,7 @@ export default function Steps({ current = 1, total = 1 }) {
   const ItemSeparatorComponent = item => (
     <View
       style={[
-        item.leadingItem < current ? styles.separatorActive : styles.separator,
+        item.leadingItem < progressTask.currentTask ? styles.separatorActive : styles.separator,
         { width: separatorLength < 16 ? separatorLength : 16 },
       ]}
     />
@@ -37,6 +50,11 @@ export default function Steps({ current = 1, total = 1 }) {
     </View>
   )
 }
+const mapStateToProps = state => ({
+  progressTask: state.progressTask,
+})
+
+export default connect(mapStateToProps)(Steps)
 
 const styles = StyleSheet.create({
   container: {

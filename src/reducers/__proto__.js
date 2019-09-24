@@ -142,3 +142,12 @@ export const MALLTASK = function(data = {}) {
   this.type = data.type || ""
   this.id = data.id || 0
 }
+
+export const PROGRESSTASK = function(data = {}) {
+  this.price = data.price || 0
+  this.name = data.name || ""
+  this.currentTask = data.currentTask || 2
+  this.totalTasks = data.totalTasks || 4
+  this.type = data.type || 1
+  this.taskDetails = data.taskDetails || {}
+}
