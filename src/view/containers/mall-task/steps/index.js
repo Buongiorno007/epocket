@@ -4,7 +4,9 @@ import { Dimensions, StyleSheet, View, Text, FlatList } from "react-native"
 const { width } = Dimensions.get("window")
 const separatorLength = (width - 232) / 9
 
-export default function Steps({ current = 2, total = [1, 2, 3, 4] }) {
+export default function Steps({ current = 1, total = 1 }) {
+  const totalCount = [...Array(total).keys()].map(x => x + 1)
+
   const renderItem = ({ item }) => (
     <View style={item < current ? styles.prev : item === current ? styles.active : styles.next}>
       <Text style={item < current ? styles.prevText : item === current ? styles.activeText : styles.nextText}>
@@ -25,7 +27,7 @@ export default function Steps({ current = 2, total = [1, 2, 3, 4] }) {
   return (
     <View style={styles.container}>
       <FlatList
-        data={total}
+        data={totalCount}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
         ItemSeparatorComponent={ItemSeparatorComponent}
