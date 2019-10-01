@@ -1,6 +1,7 @@
-const server = "https://epocket.dev.splinestudio.com"
-const server2 = "http://epocket.dev.splinestudio.com"
-const devserver = true ? server : server2
+const devServer = "https://epocket.dev.splinestudio.com"
+const prodServer = "https://epc.splinestudio.com"
+const devserver = __DEV__ ? devServer : prodServer
+// const devserver = prodServer
 
 export const urls = {
   sign_up: devserver + "/sign-in/registration/",
