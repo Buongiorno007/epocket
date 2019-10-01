@@ -13,6 +13,8 @@ export default (state = initialState, action) => {
   }
 }
 
-export const getProgressTask = item => async dispatch => {}
+export const getProgressTask = item => async dispatch => {
+  
+}
 
 export const setProgressTask = task => ({ type: SET_PROGRESS_TASK, task })

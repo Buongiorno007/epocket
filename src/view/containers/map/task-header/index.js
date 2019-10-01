@@ -20,7 +20,7 @@ function TaskHeader({ progressTask, profileState }) {
       </View>
       <Text style={styles.text}>{progressTask.name}</Text>
       <View style={[styles.buttonView, { width: priceWith }]}>
-        <TouchableOpacity style={styles.button} onPress={() => console.log("INFO")}>
+        <TouchableOpacity style={styles.button} onPress={() => route.popToTop()}>
           <Image source={require("@assets/dv4/taskClose.png")} style={styles.image} />
         </TouchableOpacity>
       </View>

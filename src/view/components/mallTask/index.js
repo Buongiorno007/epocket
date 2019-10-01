@@ -11,8 +11,6 @@ function MallTask({ mallTask }) {
   const renderItem = ({ item }) => <MallTaskAccordion item={item} />
   const keyExtractor = item => `${item.id}`
 
-  console.log(mallTask, "MALLTASK")
-
   return (
     <View style={styles.container}>
       <MapTaskHeader title={"Список заданий"} />
@@ -21,7 +19,7 @@ function MallTask({ mallTask }) {
       <TouchableOpacity
         disabled={mallTask.type === 3}
         style={mallTask.type === 2 ? styles.buttonActive : styles.button}
-        onPress={() => route.popToTop()}
+        onPress={() => route.push("MallProgressTask")}
       >
         <Text style={[styles.buttonText, mallTask.type === 2 && styles.buttonTextActive]}>
           {mallTask.type === 2 ? "Выполнить" : `Будет активно ${mallTask.time}`}

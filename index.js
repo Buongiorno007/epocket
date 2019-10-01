@@ -53,6 +53,7 @@ const Navigator = createStackNavigator(
     MallPoint: require("@components/mall").default,
     MallTask: require("@components/mallTask").default,
     TaskInProgress: require("./src/view/components/task-in-progress").default,
+    MallProgressTask: require("./src/view/components/mall-progress-task").default,
   },
   {
     initialRouteName: "Start",
