@@ -7,7 +7,6 @@ import Steps from "@containers/mall-task/steps"
 import TaskHeader from "@containers/map/task-header"
 
 function MallProgressTask({ progressTask }) {
-    cons
   return (
     <View style={styles.container}>
       <TaskHeader />

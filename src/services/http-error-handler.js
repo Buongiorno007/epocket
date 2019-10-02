@@ -81,7 +81,7 @@ export const checkError = (error, body, url, func) => {
 	Toast.show({
 		text: I18n.t('REF_LINK.COPY_MESSAGE'),
 		buttonText: 'ok',
-		duration: 3000,
+		duration: 10000,
 		onClose: () => {},
 	})
 	if (!__DEV__) {
