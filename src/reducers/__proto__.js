@@ -149,5 +149,7 @@ export const PROGRESSTASK = function(data = {}) {
   this.currentTask = data.currentTask || 2
   this.totalTasks = data.totalTasks || 4
   this.type = data.type || 1
-  this.taskDetails = data.taskDetails || {}
+  this.taskDetails = data.taskDetails || {
+    firstDescr: "Пожалуйста, поместите QR код внутри области",
+  }
 }

@@ -5,12 +5,14 @@ import styles from "./styles"
 import route from "@services/route"
 import Steps from "@containers/mall-task/steps"
 import TaskHeader from "@containers/map/task-header"
+import ScanQr from "@containers/mall-task-types/scanQr"
 
 function MallProgressTask({ progressTask }) {
   return (
     <View style={styles.container}>
       <TaskHeader />
       <Steps />
+      {progressTask.type === 1 && <ScanQr />}
     </View>
   )
 }
