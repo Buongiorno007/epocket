@@ -53,4 +53,5 @@ export const urls = {
   new_poducts: devserver + "/order/new-products/",
   basket_update: devserver + "/order/basket-update/",
   new_mission_list: devserver + "/mission/mission-list",
+  task_process: devserver + "/mission/new-list",
 }

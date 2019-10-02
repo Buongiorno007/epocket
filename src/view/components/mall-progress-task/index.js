@@ -12,7 +12,7 @@ function MallProgressTask({ progressTask }) {
     <View style={styles.container}>
       <TaskHeader />
       <Steps />
-      {progressTask.type === 1 && <ScanQr />}
+      {progressTask.type === 4 && <ScanQr />}
     </View>
   )
 }
