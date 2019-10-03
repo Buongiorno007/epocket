@@ -2,16 +2,17 @@ import React from "react"
 import { StyleSheet, Dimensions, View, Image, TouchableOpacity, Text } from "react-native"
 import { connect } from "react-redux"
 import route from "@services/route"
+import {finishMission} from '@reducers/progressTask'
 const { width } = Dimensions.get("window")
 
-function MallTaskDone({ progressTask, profileState }) {
+function MallTaskDone({ progressTask, profileState ,dispatch }) {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
         <Image source={require("@assets/dv4/congrat.png")} style={styles.image} />
         <Text style={styles.title}>{`Задание выполнено!\nТы заработал ${"100"} ${profileState.currency}`}</Text>
       </View>
-      <TouchableOpacity style={styles.btn} onPress={() => route.popToTop()}>
+      <TouchableOpacity style={styles.btn} onPress={() => dispatch(finishMission())}>
         <Text style={styles.btnText}>{"заработать еще"}</Text>
       </TouchableOpacity>
     </View>

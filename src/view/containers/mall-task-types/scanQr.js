@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { StyleSheet, Dimensions, View, Image, TouchableOpacity, Text } from "react-native"
 import { connect } from "react-redux"
 import { RNCamera } from "react-native-camera"
@@ -7,7 +7,14 @@ import { checkQr } from "@reducers/progressTask"
 const { width } = Dimensions.get("window")
 
 function ScanQr({ progressTask, loader, dispatch }) {
+  const [marker, setMarker] = useState(true)
+
+  useEffect(() => {
+    !loader && setMarker(true)
+  }, [loader])
+
   const send = code => {
+    setMarker(false)
     dispatch(checkQr(code.data))
   }
 
@@ -18,7 +25,7 @@ function ScanQr({ progressTask, loader, dispatch }) {
         <RNCamera
           captureAudio={false}
           style={{ width: width - 100, height: width - 100 }}
-          onBarCodeRead={!loader ? send : () => {}}
+          onBarCodeRead={marker ? send : () => {}}
           barCodeTypes={[RNCamera.Constants.BarCodeType.qr]}
           androidCameraPermissionOptions={{
             title: I18n.t("TITLE"),
@@ -46,19 +53,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingBottom: 24,
   },
+  title: {
+    fontSize: 18,
+    fontFamily: "Rubik-Medium",
+    color: "#111",
+    textAlign: "center",
+    marginBottom: 24,
+  },
   cameraView: {
     flex: 1,
     padding: 16,
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,
-    marginVertical: 24,
-  },
-  title: {
-    fontSize: 18,
-    fontFamily: "Rubik-Medium",
-    color: "#111",
-    textAlign: "center",
+    marginBottom: 24,
   },
   name: {
     fontFamily: "Rubik-Regular",
