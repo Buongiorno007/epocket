@@ -3,6 +3,8 @@ import route from "@services/route"
 import { loaderState } from "./loader"
 import { httpGet, httpPost, httpPut } from "@services/http"
 import { urls } from "@constants/urls"
+import { serializeJSON } from "@services/serialize-json"
+import { socialPost } from "@services/post-to-social"
 
 const SET_PROGRESS_TASK = "[progressTask] SET_PROGRESS_TASK"
 const initialState = new PROGRESSTASK()
@@ -46,6 +48,66 @@ export const checkQr = text => async (dispatch, getState) => {
   } catch (e) {
     console.log(e, "EEEER checkQr")
     dispatch(loaderState(false))
+  }
+}
+
+export const createPost = ref => async (dispatch, getState) => {
+  const { token, mallPoint, mallTask } = getState()
+  dispatch(loaderState(true))
+  const options = {
+    quality: 0.5,
+    base64: true,
+    fixOrientation: true,
+    forceUpOrientation: true,
+    width: 500,
+    height: 500,
+  }
+  const data = await ref.takePictureAsync(options)
+  body = {
+    photo: "data:image/jpeg;base64, " + data.base64,
+    outlet_id: mallPoint.id,
+    mission_id: mallTask.id,
+    device: true,
+  }
+  try {
+    const response = await httpPost(urls.insta_upload_photo, serializeJSON(body), token, true)
+    await dispatch(loaderState(false))
+    return { ...response.body }
+  } catch (e) {
+    console.log(e, "EEE takePicture")
+    await dispatch(loaderState(false))
+    return {}
+  }
+}
+
+export const photoPosted = postData => async (dispatch, getState) => {
+  const { token, insta_token, mallTask } = getState()
+  dispatch(loaderState(true))
+  body = JSON.stringify({
+    insta: true,
+    // end: true,
+    mission_id: Number(mallTask.id),
+  })
+  if (insta_token) {
+    socialPost(
+      postData,
+      async () => {
+        dispatch(loaderState(false))
+        console.log(urls.task_process, body, token, "PUT")
+        try {
+          const response = await httpPut(urls.task_process, body, token)
+          await dispatch(setProgressTask(new PROGRESSTASK(response.body)))
+          console.log(response, "success response")
+        } catch (e) {
+          console.log(e, "ER photoPosted")
+        }
+      },
+      () => {
+        dispatch(loaderState(false))
+      },
+    )
+  } else {
+    route.navigate("ProfileSettings")
   }
 }
 

@@ -1,7 +1,6 @@
 import React from "react"
-import { View } from "react-native"
+import { StyleSheet, View } from "react-native"
 import { connect } from "react-redux"
-import styles from "./styles"
 import Steps from "@containers/mall-task/steps"
 import TaskHeader from "@containers/map/task-header"
 import ScanQr from "@containers/mall-task-types/scanQr"
@@ -26,3 +25,8 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps)(MallProgressTask)
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+})

@@ -20,11 +20,11 @@ function ScanQr({ progressTask, loader, dispatch }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{progressTask.taskDetails.firstDescr}</Text>
+      <Text style={styles.title}>{progressTask.task_details.first_descr}</Text>
       <View style={styles.cameraView}>
         <RNCamera
           captureAudio={false}
-          style={{ width: width - 100, height: width - 100 }}
+          style={{ width: width - 32, height: width - 32 }}
           onBarCodeRead={marker ? send : () => {}}
           barCodeTypes={[RNCamera.Constants.BarCodeType.qr]}
           androidCameraPermissionOptions={{
@@ -62,10 +62,8 @@ const styles = StyleSheet.create({
   },
   cameraView: {
     flex: 1,
-    padding: 16,
     alignItems: "center",
     justifyContent: "center",
-    borderWidth: 1,
     marginBottom: 24,
   },
   name: {
