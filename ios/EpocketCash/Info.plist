@@ -62,6 +62,8 @@
 	</dict>
 	<key>NSAppleMusicUsageDescription</key>
 	<string>Please provide access to multimedia for uploading photos to your profile</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Please provide access to the bluetooth</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Please provide access to the bluetooth</string>
 	<key>NSCalendarsUsageDescription</key>
@@ -134,7 +136,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Please provide access to the bluetooth</string>
 </dict>
 </plist>
