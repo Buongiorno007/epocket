@@ -134,5 +134,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Please provide access to the bluetooth</string>
 </dict>
 </plist>
