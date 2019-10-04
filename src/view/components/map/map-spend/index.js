@@ -9,6 +9,7 @@ import Basket from '@containers/basket'
 import MapSpendButton from '@containers/map/map-spend-button'
 import styles from './styles'
 import LottieView from 'lottie-react-native'
+import I18n from '@locales/I18n'
 
 function MapSpend({ lat, lng, mapPoints }) {
 	const colors = ['#F55890', '#FF9950']
@@ -63,24 +64,24 @@ function MapSpend({ lat, lng, mapPoints }) {
 			</View>
 			<LinearGradient colors={colors} start={start} end={end} style={styles.linear}>
 				<ScrollView style={styles.scroll}>
-					<Text style={styles.text}>{'Оплата по штрих-коду'}</Text>
+					<Text style={styles.text}>{I18n.t('BARCODE_PAY')}</Text>
 					<View style={styles.fieldStyle}>
 						<MapSpendButton
 							img={require('@assets/img/barcode.png')}
-							text={'Ваш штрих-код'}
+							text={I18n.t('BARCODE')}
 							callback={() => route.push('Barcode')}
 						/>
 					</View>
-					<Text style={styles.text}>{'Не выходя из дома'}</Text>
+					<Text style={styles.text}>{I18n.t('HOME')}</Text>
 					<View style={styles.fieldStyle}>
 						<MapSpendButton
 							img={require('@assets/img/bask.png')}
-							text={'Интернет магазин'}
+							text={I18n.t('ONLINE_SHOP')}
 							callback={() => route.push('Partnrs')}
 						/>
 						<MapSpendButton
 							img={require('@assets/img/phone.png')}
-							text={'Пополнение мобильного'}
+							text={I18n.t('REFILL.PAYMENT_G')}
 							callback={() => route.push('Refill')}
 							space
 						/>

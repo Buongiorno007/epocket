@@ -4,6 +4,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import MapHeaderWhite from '@containers/map/map-header-white'
 import { connect } from 'react-redux'
 import Barcode from 'react-native-barcode-builder'
+import I18n from '@locales/I18n'
 
 function BarcodeComponent({ profileState, balance }) {
 	const colors = ['#F55890', '#FF9950']
@@ -12,15 +13,15 @@ function BarcodeComponent({ profileState, balance }) {
 	return (
 		<View style={styles.container}>
 			<LinearGradient start={start} end={end} colors={colors} style={styles.container}>
-				<MapHeaderWhite title={`Баланс: ${balance} ${profileState.currency}`} />
+				<MapHeaderWhite title={`${I18n.t('CASH.TITLE')} ${balance} ${profileState.currency}`} />
 				<View style={styles.layout}>
-					<Text style={styles.title}>{'Покажите этот код на кассе для оплаты'}</Text>
+					<Text style={styles.title}>{I18n.t('HISTORY_PAGE.SHOW_THIS_BARCODE')}</Text>
 					<View style={styles.barcodeView}>
 						<Barcode value={profileState.phone} format='CODE128' onError={(e) => {}} />
 						<Text style={styles.barcodeText}>{`${profileState.phone}`}</Text>
 					</View>
 					<Text style={styles.subTitle}>
-						{'Вы можете оплатить любой товар в этом магазине используя штрих-код'}
+						{I18n.t('ANY_GOOD_BARCODE')}
 					</Text>
 				</View>
 			</LinearGradient>

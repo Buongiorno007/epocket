@@ -114,7 +114,7 @@ class Profile extends React.Component {
 						<FastImage
 							style={styles.settings_img}
 							resizeMode={FastImage.resizeMode.contain}
-							source={require('../../../assets/img/settings.png')}
+							source={require('@assets/img/settings.png')}
 						/>
 					</Button>
 				</View>

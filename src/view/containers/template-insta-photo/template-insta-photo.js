@@ -23,7 +23,7 @@ class TemplateInstagramPhoto extends React.Component {
 						<FastImage
 							resizeMode={FastImage.resizeMode.cover}
 							style={styles.template_image}
-							source={require('../../../assets/img/preloader_nobg.gif')}
+							source={require('@assets/img/preloader_nobg.gif')}
 						/>
 					)}
 				</View>

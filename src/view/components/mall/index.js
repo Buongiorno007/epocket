@@ -4,6 +4,7 @@ import MapHeaderWhite from "@containers/map/map-header-white"
 import { connect } from "react-redux"
 import styles from "./styles"
 import MallItem from "@containers/mall"
+import I18n from '@locales/I18n'
 
 function MallPoint({ mallPoint }) {
   const renderBlock = (element, title) => {
@@ -22,7 +23,7 @@ function MallPoint({ mallPoint }) {
     <View style={styles.container}>
       <ImageBackground style={styles.image} source={{ uri: mallPoint.image }}>
         <View style={styles.opacity}>
-          <MapHeaderWhite title={`Задания`} />
+          <MapHeaderWhite title={I18n.t('MALL.TASKS')} />
           <View style={{ alignItems: "center" }}>
             <Text style={styles.title}>{mallPoint.title}</Text>
             <Text style={styles.subtitle}>{mallPoint.address}</Text>
@@ -31,9 +32,9 @@ function MallPoint({ mallPoint }) {
       </ImageBackground>
       <View style={styles.withModal}>
         <ScrollView style={styles.scroll}>
-          {!!mallPoint.time_tasks.length && renderBlock(mallPoint.time_tasks, "Задание на время")}
-          {!!mallPoint.active_tasks.length && renderBlock(mallPoint.active_tasks, "Задание от магазинов")}
-          {!!mallPoint.soon_tasks.length && renderBlock(mallPoint.soon_tasks, "Скоро будут активны")}
+          {!!mallPoint.time_tasks.length && renderBlock(mallPoint.time_tasks, I18n.t('MALL.TASK_TIME'))}
+          {!!mallPoint.active_tasks.length && renderBlock(mallPoint.active_tasks, I18n.t('MALL.TASK_SHOP'))}
+          {!!mallPoint.soon_tasks.length && renderBlock(mallPoint.soon_tasks, I18n.t('MALL.TASK_SOON'))}
         </ScrollView>
       </View>
     </View>

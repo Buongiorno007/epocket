@@ -9,25 +9,28 @@ const { width } = Dimensions.get("window")
 function BeforePost({ progressTask, setPostData, dispatch }) {
   const [type, setType] = useState(false)
   const [flash, setFlash] = useState(false)
+  const [taken, setTaken] = useState(false)
   const cameraRef = useRef()
 
   const takePicture = async () => {
     try {
+      setTaken(true)
+
       const response = await dispatch(createPost(cameraRef.current))
       await setPostData(response)
     } catch (e) {
-      console.log(e, "CATN GET")
+      console.log(e, "CANT GET")
     }
   }
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{I18n.t(`NEW_MISSIONS.${progressTask.task_details.first_descr}`)}</Text>
-      <View style={styles.cameraView}>
-        <Image
-          source={{ uri: progressTask.task_details.photo }}
-          style={{ width: 100, height: 100, position: "absolute", top: 0, left: 0, zIndex: 2 }}
-        />
-        <RNCamera
+        <View style={[taken ? {display:'none'} : {}, styles.cameraView]}>
+          <Image
+            source={{ uri: progressTask.task_details.photo }}
+            style={{ width: 100, height: 100, position: "absolute", top: 0, left: 0, zIndex: 2 }}
+          />
+          <RNCamera
           captureAudio={false}
           // ratio={'1:1'}
           ref={cameraRef}
@@ -40,8 +43,11 @@ function BeforePost({ progressTask, setPostData, dispatch }) {
             buttonPositive: "Ok",
             buttonNegative: "Cancel",
           }}
-        />
-      </View>
+          />          
+        </View>
+
+      <Image style={[taken ? {} : {display:'none'}, styles.cameraView]} resizeMode={'contain'} source={require("@assets/img/instagram.png")}/>
+
       <View style={styles.buttonView}>
         <TouchableOpacity onPress={() => setType(!type)}>
           <Image style={styles.smallImage} source={require("@assets/dv4/change.png")} />

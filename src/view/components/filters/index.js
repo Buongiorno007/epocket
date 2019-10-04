@@ -7,6 +7,7 @@ import { isEqual } from 'lodash'
 import { useFilters } from '@reducers/mapPoints'
 import animation from '@constants/layout'
 import styles from './styles'
+import I18n from '@locales/I18n'
 
 function Filters({ mapPoints, dispatch }) {
 	const compare = (firstArray, secondArray) => !isEqual(firstArray.sort(), secondArray.sort())
@@ -61,7 +62,7 @@ function Filters({ mapPoints, dispatch }) {
 
 	return (
 		<View style={styles.container}>
-			<MapHeaderPink title={'Фильтры'} use={compare(stateFilters, mapPoints.filters) ? acceptFilters : null} />
+			<MapHeaderPink title={I18n.t('FILTERS')} use={compare(stateFilters, mapPoints.filters) ? acceptFilters : null} />
 			{different && (
 				<View style={styles.reset}>
 					<TouchableOpacity style={styles.resetButton} onPress={resetFilters}>

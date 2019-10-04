@@ -3,7 +3,6 @@ import { View, BackHandler, Platform } from "react-native"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 //components
-import Map from "@components/map/map"
 import Mappp from "@components/map"
 import Profile from "@components/profile/profile"
 import GameS from "@components/game-component/game-start"
@@ -63,7 +62,6 @@ class Main extends React.Component {
       <View style={styles.main_view}>
         <View style={styles.content}>
           {this.props.activeTab === 0 ? this.renderLastTab() : null}
-          {/* {this.props.activeTab === 1 ? <Map /> : null} */}
           {this.props.activeTab === 1 && <Mappp />}
           {this.props.activeTab === 2 && <Wallet />}
           {this.props.activeTab === 3 && <Profile />}

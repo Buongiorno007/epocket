@@ -62,7 +62,7 @@ class LongCard extends React.Component {
 					<FastImage
 						resizeMode={FastImage.resizeMode.contain}
 						style={styles.arrow}
-						source={require('../../../assets/img/arrow_down.png')}
+						source={require('@assets/img/arrow_down.png')}
 					/>
 				</Button>
 			</Button>

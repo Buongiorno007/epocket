@@ -8,6 +8,7 @@ import styles from './styles'
 import MapSpendMarker from '@containers/map/map-spend-marker'
 import MapHeaderPink from '@containers/map/map-header-pink'
 import { findNearest, getDistance } from 'geolib'
+import I18n from '@locales/I18n'
 
 function MapPlaces({ lat, lng, mapPoints }) {
 	const region = {
@@ -47,7 +48,7 @@ function MapPlaces({ lat, lng, mapPoints }) {
 
 	return (
 		<View style={styles.container}>
-			<MapHeaderPink title={'Места на карте'} filters />
+			<MapHeaderPink title={I18n.t('MAP.PLACES')} filters />
 			<ClusteredMapView
 				style={styles.map}
 				data={mapPoints.cashouts}

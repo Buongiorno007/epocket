@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions, Platform } from 'react-native'
-import { colors } from '../../../constants/colors'
+import { colors } from '../../../../constants/colors'
 const { width } = Dimensions.get('window')
 const height =
 	Platform.OS === 'android' && Platform.Version > 28

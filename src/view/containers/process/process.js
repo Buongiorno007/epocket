@@ -6,7 +6,7 @@ import * as Animatable from 'react-native-animatable'
 import styles from './styles'
 import I18n from '@locales/I18n'
 
-const git_url = '../../../assets/img/process.gif'
+const git_url = '@assets/img/process.gif'
 class Process extends React.Component {
 	render = () => {
 		return (

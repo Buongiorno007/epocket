@@ -5,12 +5,12 @@ import LinearGradient from 'react-native-linear-gradient'
 import { Button } from 'native-base'
 //constants
 import styles from './styles'
-import { ICONS } from '../../../constants/icons'
-import { colors } from './../../../constants/colors'
+import { ICONS } from '../../../../constants/icons'
+import { colors } from '../../../../constants/colors'
 //services
-import NavigationService from './../../../services/route'
+import NavigationService from '../../../../services/route'
 //redux
-import { loaderState } from '../../../reducers/loader'
+import { loaderState } from '../../../../reducers/loader'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import I18n from '@locales/I18n'
@@ -38,7 +38,7 @@ class MissionSuccess extends React.Component {
 				<FastImage
 					resizeMode={FastImage.resizeMode.contain}
 					style={styles.image_background}
-					source={require('../../../assets/img/ANIMATED_EARN_MORE.gif')}
+					source={require('@assets/img/ANIMATED_EARN_MORE.gif')}
 				/>
 				<LinearGradient
 					colors={this.props.userColor.earn_more}

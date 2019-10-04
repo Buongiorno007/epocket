@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions, StatusBar, Platform } from 'react-native'
 import { Header } from 'react-navigation'
-import { colors } from '../../../constants/colors'
+import { colors } from '../../../../constants/colors'
 const { width } = Dimensions.get('window')
 const height =
 	Platform.OS === 'android' && Platform.Version > 28

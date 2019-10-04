@@ -21,7 +21,7 @@ function BasketComponent({ balance, profileState, basket }) {
 			<LinearGradient start={start} end={end} colors={colors} style={styles.container}>
 				<MapHeaderWhite title={`${I18n.t('CASH.TITLE')} ${balance} ${profileState.currency}`} />
 				<View style={styles.textView}>
-					<Text style={styles.text}>{'Список магазинов, в которых содержатся ваши предзаказы'}</Text>
+					<Text style={styles.text}>{I18n.t('PREORDER')}</Text>
 				</View>
 				<FlatList
 					style={styles.scroll}

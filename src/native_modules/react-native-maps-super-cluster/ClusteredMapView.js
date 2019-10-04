@@ -6,7 +6,7 @@ import React, { PureComponent } from 'react'
 import { Platform, Dimensions, LayoutAnimation } from 'react-native'
 // map-related libs
 import MapView from 'react-native-maps'
-import SuperCluster from 'supercluster'
+import Supercluster from 'supercluster'
 import GeoViewport from '@mapbox/geo-viewport'
 // components / views
 import ClusterMarker from './ClusterMarker'
@@ -52,7 +52,7 @@ export default class ClusteredMapView extends PureComponent {
 	getClusteringEngine = () => this.index
 
 	clusterize = (dataset) => {
-		this.index = SuperCluster({
+		this.index = new Supercluster({
 			// eslint-disable-line new-cap
 			extent: this.props.extent,
 			minZoom: this.props.minZoom,

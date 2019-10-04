@@ -35,7 +35,7 @@ class TimerModal extends React.Component {
 					<View style={[styles.main_task_done]}>
 						<FastImage
 							resizeMode={FastImage.resizeMode.contain}
-							source={require('../../../assets/img/ANIMATED_EARN_MORE.gif')}
+							source={require('@assets/img/ANIMATED_EARN_MORE.gif')}
 							style={styles.image}
 						/>
 						<LinearGradient

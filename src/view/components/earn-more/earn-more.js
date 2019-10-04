@@ -184,7 +184,7 @@ class EarnMore extends React.Component {
 				<FastImage
 					resizeMode={FastImage.resizeMode.contain}
 					style={styles.image_background}
-					source={require('../../../assets/img/ANIMATED_EARN_MORE.gif')}
+					source={require('@assets/img/ANIMATED_EARN_MORE.gif')}
 				/>
 				<LinearGradient
 					colors={this.props.userColor.earn_more}

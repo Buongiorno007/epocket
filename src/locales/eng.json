@@ -140,6 +140,7 @@
       "THANKS": "Спасибо!",
       "SUCCESS": "Ваш счет скоро будет пополнен",
       "FAIL": "Ваш лимит пополнения в этом месяце исчерпан",
+      "PAYMENT_G": "Mobile account replenishment",
       "PAYMENT": "Пополнение Bашего мобильного",
       "PAYMENT_SUMM": "Введите сумму пополнения",
       "PERMISSION": "Сумма пополнения {{min}} - {{max}} {{currency}}",
@@ -182,7 +183,8 @@
       "MAKE_PREORDER": "Сделать предзаказ",
       "LIST_PRODUCTS": "Список товаров",
       "CONNECT_INSTA": "Подключите Instagram и получите ",
-      "CONNECT_FACEBOOK": "Подключите Facebook и получите "
+      "CONNECT_FACEBOOK": "Подключите Facebook и получите ",
+      "PLACES" : "Places"
     },
     "PARTNER_SCREEN": {
       "SHOW_THIS_CODE": "Покажите этот код на кассе для оплаты {{currency}}",
@@ -364,6 +366,21 @@
     },
     "HISTORYS":{
       "IN_PROCESS":"в процессе"
+    },
+    "PREORDER" : "List of stores that contain your pre-orders",
+    "BARCODE_PAY" : "Barcode payment",
+    "BARCODE" : "Your barcode",
+    "HOME" : "Staying at home",
+    "ONLINE_SHOP" : "Online-shop",
+    "ANY_GOOD_BARCODE" : "You can pay for any product in this store using a barcode",
+    "FILTERS" : "Filters",
+    "MALL" : {
+      "TASK_TIME" : "Time task",
+      "TASK_SHOP" : "Tasks from shops",
+      "TASK_SOON" : "Will be active soon",
+      "TASK_LIST" : "Task list",
+      "START" : "Start",
+      "SOON" : "Will be active at"
     }
   }
   

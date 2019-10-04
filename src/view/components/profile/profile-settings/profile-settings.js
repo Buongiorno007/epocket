@@ -4,28 +4,28 @@ import AsyncStorage from '@react-native-community/async-storage'
 import FastImage from 'react-native-fast-image'
 import { Button } from 'native-base'
 import CookieManager from 'react-native-cookies'
-import Blur from '../../containers/blur/blur'
+import Blur from '../../../containers/blur/blur'
 import { LoginButton, AccessToken, LoginManager } from 'react-native-fbsdk'
 //redux
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { setInstaToken } from '../../../reducers/insta-token'
-import { setFacebookToken } from '../../../reducers/facebook-token'
-import { loaderState } from '../../../reducers/loader'
-import { setTabState } from '../../../reducers/tabs'
+import { setInstaToken } from '../../../../reducers/insta-token'
+import { setFacebookToken } from '../../../../reducers/facebook-token'
+import { loaderState } from '../../../../reducers/loader'
+import { setTabState } from '../../../../reducers/tabs'
 //constants
 import styles from './styles'
-import { ICONS } from '../../../constants/icons'
-import { urls } from '../../../constants/urls'
-import { colors } from '../../../constants/colors'
+import { ICONS } from '../../../../constants/icons'
+import { urls } from '../../../../constants/urls'
+import { colors } from '../../../../constants/colors'
 //containers
-import CustomButton from '../../containers/custom-button/custom-button'
-import CustomAlert from '../../containers/custom-alert/custom-alert'
+import CustomButton from '../../../containers/custom-button/custom-button'
+import CustomAlert from '../../../containers/custom-alert/custom-alert'
 //service
-import NavigationService from '../../../services/route'
-import InstagramLogin from '../../../services/Instagram'
-import FacebookLogin from '../../../services/Facebook'
-import { httpPost } from '../../../services/http'
+import NavigationService from '../../../../services/route'
+import InstagramLogin from '../../../../services/Instagram'
+import FacebookLogin from '../../../../services/Facebook'
+import { httpPost } from '../../../../services/http'
 import I18n from '@locales/I18n'
 
 class ProfileSettings extends React.Component {
@@ -264,7 +264,7 @@ class ProfileSettings extends React.Component {
 							<FastImage
 								style={styles.settings_img}
 								resizeMode={FastImage.resizeMode.contain}
-								source={require('../../../assets/img/writing.png')}
+								source={require('@assets/img/writing.png')}
 							/>
 							<View style={styles.image_block_text_button}>
 								<Text style={styles.image_block_text_big}>
@@ -278,7 +278,7 @@ class ProfileSettings extends React.Component {
 						<FastImage
 							style={styles.settings_img}
 							resizeMode={FastImage.resizeMode.contain}
-							source={require('../../../assets/img/instagram-logo.png')}
+							source={require('@assets/img/instagram-logo.png')}
 						/>
 						<View style={styles.image_block_text}>
 							<Text style={styles.image_block_text_big}>{I18n.t('PROFILE_SETTINGS.INSTAGRAM')}</Text>
@@ -304,7 +304,7 @@ class ProfileSettings extends React.Component {
 							<FastImage
 								style={styles.settings_img}
 								resizeMode={FastImage.resizeMode.contain}
-								source={require('../../../assets/img/logout.png')}
+								source={require('@assets/img/logout.png')}
 							/>
 							<View style={styles.image_block_text_button}>
 								<Text style={styles.image_block_text_big}>{I18n.t('PROFILE_SETTINGS.EXIT')}</Text>
