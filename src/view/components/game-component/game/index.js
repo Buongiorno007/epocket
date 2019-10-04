@@ -42,7 +42,6 @@ function Gamee({ gameProcess, dispatch }) {
 			<View style={styles.btn_container}>
 				<CustomButton
 					active={buttonActive}
-					short
 					gradient
 					disabled={!buttonActive}
 					title={I18n.t('GAME.CONFIRM').toUpperCase()}

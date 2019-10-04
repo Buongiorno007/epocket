@@ -15,7 +15,7 @@ export default function Header({ route = 'Main', title = '' }: Props) {
 		<View style={styles.layout}>
 			<View style={styles.wrapper}>
 				<View style={[styles.action, styles.left]}>
-					<BackButton title={I18n.t('BACK')} route={route} />
+					<BackButton title={''} route={route} />
 				</View>
 				<Button transparent disabled style={styles.body}>
 					<Text style={[styles.title]} numberOfLines={1}>

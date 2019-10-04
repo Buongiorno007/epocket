@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, Image, Platform } from 'react-native'
 import { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import ClusteredMapView from '../../../../native_modules/react-native-maps-super-cluster'
 import { connect } from 'react-redux'
 import MapEarnMarker from '@containers/map/map-earn-marker'
 import MissionBanner from '@containers/mission-banner'
+import { findNearest, getDistance } from 'geolib'
 import styles from './styles'
 
 function MapEarn({ profileState, mapPoints, lat, lng }) {
@@ -15,8 +16,32 @@ function MapEarn({ profileState, mapPoints, lat, lng }) {
 		longitudeDelta: 0.006,
 	}
 
+	useEffect(() => {
+		if (mapPoints.outlets.length) {
+			moveToNearest()
+		}
+	}, [])
+
 	const renderMarker = (data) => {
 		return <MapEarnMarker key={data.id} data={data} />
+	}
+
+	const moveToNearest = () => {
+		let nearestMall = findNearest(region, mapPoints.outlets)
+		let distance = getDistance(region, nearestMall) - nearestMall.rad
+		if (distance > 0 && this.map) {
+			setTimeout(() => {
+				this.map.getMapRef().animateToRegion(
+					{
+						latitude: lat,
+						longitude: lng,
+						latitudeDelta: 0.000028 * distance,
+						longitudeDelta: 0.000028 * distance,
+					},
+					500,
+				)
+			}, 500)
+		}
 	}
 
 	return (

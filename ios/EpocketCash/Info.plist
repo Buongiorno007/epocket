@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.9</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -30,7 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>FacebookAppID</key>
 	<string>2150067405259447</string>
 	<key>FacebookDisplayName</key>
@@ -68,6 +68,8 @@
 	<string>Please provide access to the calendar</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Please provide access to camera to make your photo and add it to your profile</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Please provide access to the contacts</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>The main purpose of the application is to check users on geo-positions.  According to geopositions the app provides to users info about possibilities how its possible to get services from the app.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -124,10 +126,11 @@
 	<key>UIStatusBarHidden</key>
 	<false/>
 	<key>UIStatusBarStyle</key>
-	<string>UIStatusBarStyleLightContent</string>
+	<string>UIStatusBarStyleDarkContent</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>

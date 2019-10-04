@@ -1,12 +1,15 @@
 {
-	"semi": false,
-	"singleQuote": true,
-	"jsxSingleQuote": true,
-	"trailingComma": "all",
-	"tabWidth": 4,
-	"useTabs": true,
-	"bracketSpacing": true,
-	"arrowParens": "always",
-	"printWidth": 120,
-	"parser": "babel"
+  "printWidth": 120, // длина строки
+  "singleQuote": true, //одинарные кавычки
+  "jsxSingleQuote": true, // if jsx ingore singlequote
+  "trailingComma": "all", //обеспечивает наличие запятой после последнего свойства объекта
+  "bracketSpacing": true, // true — отвечает за вставку пробелов между телом объекта и фигурными скобками в объектных литералах
+  // "jsxBracketSameLine": false, //(true), отвечает на какой строке будет сивол '>'
+  "semi": false, // true — если это правило установлено в true, то в конце выражений добавляется точка с запятой.
+  "tabWidth": 4, // задаёт количество пробелов на один уровень выравнивания.
+  "useTabs": true, // Indent lines with tabs instead of spaces.
+  //   "quoteProps": "as-needed", //Change when properties in objects are quoted.
+  "arrowParens": "always",
+  "parser": "babel-flow" // important thing check it
+  //   "proseWrap": "preserve" // check later
 }

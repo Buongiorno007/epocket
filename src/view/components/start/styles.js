@@ -1,8 +1,14 @@
-import { StyleSheet, Dimensions } from 'react-native'
+import { StyleSheet, Dimensions } from "react-native"
+const { width, height } = Dimensions.get("window")
 
 export default StyleSheet.create({
-	container: {
-		flex: 1,
-		paddingHorizontal: 16,
-	},
+  container: {
+    flex: 1,
+    paddingHorizontal: 16,
+  },
+  video: {
+    position: "absolute",
+    width,
+    height,
+  },
 })

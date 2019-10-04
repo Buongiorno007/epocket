@@ -15,7 +15,7 @@ export default StyleSheet.create({
 	button: {
 		width: (width - 48) / 2,
 		height: 40,
-		marginBottom: 16,
+		marginBottom: 8,
 		backgroundColor: 'rgba(246, 50, 114, 0.1)',
 		borderRadius: 20,
 		// alignItems: 'center',

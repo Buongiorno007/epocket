@@ -57,7 +57,7 @@ export const request = () => async (dispatch, getState) => {
 		response.body.phone = phone
 		response.body.currency = currency
 		const body = new BONUSES(response.body)
-		if (body.max === 0) {
+		if (body.max === 0 || body.max < body.min) {
 			route.navigate('RefillFinish', { condition: 'fail' })
 		}
 		dispatch(result(body))

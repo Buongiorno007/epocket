@@ -30,9 +30,9 @@ export default StyleSheet.create({
 		color: colors.white,
 	},
 	button: {
+		width: '100%',
 		height: 40,
 		marginTop: 16,
-		width: width * 0.6,
 		alignSelf: 'center',
 		backgroundColor: '#fff',
 		...Platform.select({

@@ -28,7 +28,7 @@ export default StyleSheet.create({
 	},
 	loader: {
 		position: 'absolute',
-		bottom: height * 0.25,
+		alignSelf: 'center',
 		width: width * 0.25,
 		height: width * 0.25,
 		zIndex: 99,
