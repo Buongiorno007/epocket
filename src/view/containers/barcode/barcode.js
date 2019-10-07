@@ -10,7 +10,7 @@ import { bindActionCreators } from 'redux'
 //constants
 import styles from './styles'
 import { colors } from './../../../constants/colors'
-import { ICONS } from '../../../constants/icons'
+import { ICONS } from '@constants/icons'
 import I18n from '@locales/I18n'
 
 const { width, height } = Dimensions.get('window')

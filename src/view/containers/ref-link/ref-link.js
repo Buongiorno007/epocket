@@ -5,7 +5,7 @@ import { Button } from 'native-base'
 import LinearGradient from 'react-native-linear-gradient'
 //constants
 import styles from './styles'
-import { ICONS } from '../../../constants/icons'
+import { ICONS } from '@constants/icons'
 //services
 import { shareToOneSocial } from './../../../services/share-ref-link'
 //redux

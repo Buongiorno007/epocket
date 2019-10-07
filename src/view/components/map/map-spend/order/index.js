@@ -6,9 +6,9 @@ import MapHeaderWhite from '@containers/map/map-header-white'
 import I18n from '@locales/I18n'
 //styles
 import styles from './styles'
-import LogoTitle from '@containers/logo-title'
-import OrderItem from '@containers/order-item'
-import ModalQr from '@containers/modal-qr'
+import LogoTitle from '@containers/map/logo-title'
+import OrderItem from '@containers/map/order-item'
+import ModalQr from '@containers/map/modal-qr'
 import { generateQr, clearQrValue } from '@reducers/qrValue'
 import { Toast } from 'native-base'
 

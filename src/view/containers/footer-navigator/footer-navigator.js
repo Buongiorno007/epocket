@@ -4,7 +4,7 @@ import FastImage from 'react-native-fast-image'
 import { Label, Button } from 'native-base'
 import LinearGradient from 'react-native-linear-gradient'
 //constants
-import { ICONS } from '../../../constants/icons'
+import { ICONS } from '@constants/icons'
 import styles from './styles'
 //redux
 import { setTabState } from '../../../reducers/tabs'

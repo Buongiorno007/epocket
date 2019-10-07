@@ -9,8 +9,8 @@ import GameS from "@components/game-component/game-start"
 import GamePartners from "@components/game-component/game-partners"
 import Wallet from "@components/wallet"
 //containers
-import ReturnToMall from "@containers/return-to-mall-timer/return-to-mall-timer"
-import TimerModal from "@containers/timer-modal/timer-modal"
+import ReturnToMall from "@containers/mall/return-to-mall-timer/return-to-mall-timer"
+import TimerModal from "@containers/map/timer-modal/timer-modal"
 import LocationDisabled from "@containers/location-disabled/location-disabled"
 //reducers
 import { setActiveCard } from "@reducers/set-active-card"

@@ -3,7 +3,7 @@ import { View, Image, Text } from 'react-native'
 import { connect } from 'react-redux'
 import I18n from '@locales/I18n'
 import styles from './styles'
-import CustomButton from '@containers/custom-button/custom-button'
+import CustomButton from '@containers/custom/custom-button/custom-button'
 
 const NoGames = ({ profileState }) => {
 	return (

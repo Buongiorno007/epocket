@@ -19,8 +19,8 @@ export default StyleSheet.create({
 	},
 	it: {
 		marginTop: -1,
-		width: (width - 32) / 3,
-		height: (width - 32) / 3,
+		width: (width - 35) / 3,
+		height: (width - 35) / 3,
 		borderWidth: 1,
 		borderRadius: 0,
 	},

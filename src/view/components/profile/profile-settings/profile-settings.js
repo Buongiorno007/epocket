@@ -15,12 +15,12 @@ import { loaderState } from '../../../../reducers/loader'
 import { setTabState } from '../../../../reducers/tabs'
 //constants
 import styles from './styles'
-import { ICONS } from '../../../../constants/icons'
-import { urls } from '../../../../constants/urls'
+import { ICONS } from '@constants/icons'
+import { urls } from '@constants/urls'
 import { colors } from '../../../../constants/colors'
 //containers
-import CustomButton from '../../../containers/custom-button/custom-button'
-import CustomAlert from '../../../containers/custom-alert/custom-alert'
+import CustomButton from '@containers/custom/custom-button/custom-button'
+import CustomAlert from '@containers/custom/custom-alert/custom-alert'
 //service
 import NavigationService from '../../../../services/route'
 import InstagramLogin from '../../../../services/Instagram'

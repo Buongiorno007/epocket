@@ -3,7 +3,7 @@ import { View, StyleSheet, FlatList, Text } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import { connect } from 'react-redux'
 import MapHeaderWhite from '@containers/map/map-header-white'
-import PartnerCard from '@containers/partner-button'
+import PartnerCard from '@containers/partners/partner-button'
 import I18n from '@locales/I18n'
 
 function Partnrs({ partners }) {
