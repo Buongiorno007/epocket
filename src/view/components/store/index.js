@@ -6,6 +6,7 @@ import styles from './styles'
 import Accordion from '@containers/accordion'
 import Modal from 'react-native-modal'
 import { addToBasket } from '@reducers/basket'
+import I18n from '@locales/I18n'
 
 function StorePoint({ storePoint, profileState, dispatch }) {
 	const [visibleModal, setVisibleModal] = useState(false)
@@ -66,7 +67,7 @@ function StorePoint({ storePoint, profileState, dispatch }) {
 					</View>
 					<TouchableOpacity style={styles.button} onPress={updateBasket}>
 						<Text style={styles.buttonText}>
-							{currentObject.in_basket ? 'УДАЛИТЬ ИЗ КОРЗИНЫ' : 'ДОБАВИТЬ В КОРЗИНУ'}
+							{currentObject.in_basket ? I18n.t('BASKET_REMOVE') : I18n.t('BASKET_ADD')}
 						</Text>
 					</TouchableOpacity>
 				</Modal>

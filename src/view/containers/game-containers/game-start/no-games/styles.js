@@ -31,6 +31,7 @@ export default StyleSheet.create({
 		fontFamily: 'Rubik-Bold',
 		textAlign: 'center',
 		marginBottom: 16,
+		textTransform: 'uppercase',
 	},
 	visit: {
 		color: '#414141',

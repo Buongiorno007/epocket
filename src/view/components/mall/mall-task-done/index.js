@@ -3,6 +3,7 @@ import { StyleSheet, Dimensions, View, Image, TouchableOpacity, Text } from "rea
 import { connect } from "react-redux"
 import route from "@services/route"
 import {finishMission} from '@reducers/progressTask'
+import I18n from '@locales/I18n'
 const { width } = Dimensions.get("window")
 
 function MallTaskDone({ progressTask, profileState ,dispatch }) {
@@ -10,10 +11,10 @@ function MallTaskDone({ progressTask, profileState ,dispatch }) {
     <View style={styles.container}>
       <View style={styles.content}>
         <Image source={require("@assets/dv4/congrat.png")} style={styles.image} />
-        <Text style={styles.title}>{`Задание выполнено!\nТы заработал ${"100"} ${profileState.currency}`}</Text>
+        <Text style={styles.title}>{`${I18n.t('MISSION.SUCCESS')} ${"100"} ${profileState.currency}`}</Text>
       </View>
       <TouchableOpacity style={styles.btn} onPress={() => dispatch(finishMission())}>
-        <Text style={styles.btnText}>{"заработать еще"}</Text>
+        <Text style={styles.btnText}>{I18n.t('TASK_EARN_MORE')}</Text>
       </TouchableOpacity>
     </View>
   )

@@ -11,7 +11,7 @@ const NoGames = ({ profileState }) => {
 			<View>
 				<Text style={styles.zifi_text}>{I18n.t('GAME.ZIFI.BORING')}</Text>
 				<Image style={styles.zifi} source={require('@assets/img/zifi/bored.gif')} />
-				<Text style={styles.game_cost_text}>{'К СОЖАЛЕНИЮ НА СЕГОДНЯ ИГР БОЛЬШЕ НЕТ'}</Text>
+				<Text style={styles.game_cost_text}>{`${I18n.t('GAME.SORRY_TODAY')} ${I18n.t('GAME.NO_GAMES')}`}</Text>
 				<Text style={styles.visit}>{I18n.t('GAME.GET_EPC', { currency: profileState.currency })}</Text>
 			</View>
 		</View>

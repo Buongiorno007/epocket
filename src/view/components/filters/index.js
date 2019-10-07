@@ -66,7 +66,7 @@ function Filters({ mapPoints, dispatch }) {
 			{different && (
 				<View style={styles.reset}>
 					<TouchableOpacity style={styles.resetButton} onPress={resetFilters}>
-						<Text style={styles.resetButtonText}>{'Сбросить фильтры'}</Text>
+						<Text style={styles.resetButtonText}>{I18n.t('FILTERS_RESET')}</Text>
 					</TouchableOpacity>
 				</View>
 			)}

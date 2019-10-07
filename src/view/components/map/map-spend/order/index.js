@@ -55,7 +55,7 @@ function OrderScreen({ order, profileState, qrValue, dispatch }) {
 			dispatch(generateQr(data))
 		} else {
 			Toast.show({
-				text: 'У вас не достаточно средств',
+				text: I18n.t('INSUFFICIENT_FUNDS'),
 				buttonText: 'ok',
 				duration: 10000,
 				onClose: () => {},
@@ -69,12 +69,12 @@ function OrderScreen({ order, profileState, qrValue, dispatch }) {
 			<MapHeaderWhite title={`${order.user_balance} ${profileState.currency}`} />
 			<View style={styles.field}>
 				<LogoTitle logo={order.point_image} title={order.point_name} />
-				<Text style={styles.text}>{'Предзаказ'}</Text>
+				<Text style={styles.text}>{I18n.t('DO_PREORDER')}</Text>
 				<FlatList style={styles.scroll} data={data} renderItem={renderItem} keyExtractor={keyExtractor} />
 				<Text style={styles.price}>{`${price} ${profileState.currency}`}</Text>
 				<TouchableOpacity style={styles.button} onPress={opnModal}>
 					<Image source={require('@assets/img/qr.png')} style={styles.qr} />
-					<Text style={styles.qrText}>{'СФОРМИРОВАТЬ QR'}</Text>
+					<Text style={styles.qrText}>{I18n.t('CASH.BUTTON')}</Text>
 					<View style={styles.qr}></View>
 				</TouchableOpacity>
 			</View>

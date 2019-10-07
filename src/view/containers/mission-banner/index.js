@@ -3,6 +3,7 @@ import { View, Text } from 'react-native'
 import { connect } from 'react-redux'
 import styles from './styles'
 import { toHHMMSS } from '@services/convert-time'
+import I18n from "@locales/I18n"
 
 function MissionBanner({ missionState }) {
 	return (
@@ -15,7 +16,7 @@ function MissionBanner({ missionState }) {
 					)}`}</Text>
 					{!missionState.inRadius && (
 						<View style={styles.return_view}>
-							<Text style={styles.title_text}>{`вернитесь или вы потеряете прогресс ${toHHMMSS(
+							<Text style={styles.title_text}>{`${I18n.t('GET_BACK')} ${toHHMMSS(
 								missionState.timer,
 							)}`}</Text>
 						</View>

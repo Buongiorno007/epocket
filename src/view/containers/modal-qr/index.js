@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, View, Modal, Dimensions, Text, TouchableOpacity, Image } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
 import { connect } from 'react-redux'
+import I18n from "@locales/I18n"
 
 const { width, height } = Dimensions.get('window')
 
@@ -12,7 +13,7 @@ function ModalQr({ profileState, visible, qrvalue, price, hide }) {
 				<TouchableOpacity style={styles.close} onPress={hide}>
 					<Image style={styles.img} source={require('@assets/img/clos.png')} />
 				</TouchableOpacity>
-				<Text style={styles.title}>{'Покажите это QR на кассе для оплаты. Сумма к оплате:'}</Text>
+				<Text style={styles.title}>{I18n.t('QRCODE.SHOW')}</Text>
 				<Text style={styles.price}>{`${price} ${profileState.currency}`}</Text>
 				<View style={styles.qrField}>
 					<QRCode value={qrvalue} size={width - 80} />
