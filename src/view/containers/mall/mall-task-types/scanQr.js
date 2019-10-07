@@ -20,7 +20,7 @@ function ScanQr({ progressTask, loader, dispatch }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{progressTask.task_details.first_descr}</Text>
+      <Text style={styles.title}>{I18n.t(`NEW_MISSIONS.${progressTask.task_details.first_descr}`)}</Text>
       <View style={styles.cameraView}>
         <RNCamera
           captureAudio={false}

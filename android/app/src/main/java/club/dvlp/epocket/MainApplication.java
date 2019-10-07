@@ -22,7 +22,6 @@ import com.BV.LinearGradient.LinearGradientPackage;
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.levelasquez.androidopensettings.AndroidOpenSettingsPackage;
-import com.gantix.JailMonkey.JailMonkeyPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.rnfs.RNFSPackage;
 import com.psykar.cookiemanager.CookieManagerPackage;
@@ -45,7 +44,6 @@ import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
 
 
 import com.transistorsoft.rnbackgroundfetch.RNBackgroundFetchPackage;
-import com.surajit.rnrg.RNRadialGradientPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -90,7 +88,6 @@ public class MainApplication extends Application implements ShareApplication, Re
                     new LinearGradientPackage(),
                     new RNI18nPackage(),
                     new AndroidOpenSettingsPackage(),
-                    new JailMonkeyPackage(),
                     new SvgPackage(),
                     new RNSoundPackage(),
                     new RNFSPackage(),
@@ -110,9 +107,7 @@ public class MainApplication extends Application implements ShareApplication, Re
                     new RNCameraPackage(),
                     new BackgroundTimerPackage(),
                     new ImagePickerPackage(),
-                    new RNTextGradientPackage(),
                     new VectorIconsPackage(),
-                    new RNRadialGradientPackage(),
                     new RNBackgroundFetchPackage(),
                     new MapsPackage()
             );
