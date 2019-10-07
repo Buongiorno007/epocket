@@ -4,6 +4,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import { connect } from 'react-redux'
 import MapHeaderWhite from '@containers/map/map-header-white'
 import PartnerCard from '@containers/partner-button'
+import I18n from '@locales/I18n'
 
 function Partnrs({ partners }) {
 	const colors = ['#F55890', '#FF9950']
@@ -20,10 +21,10 @@ function Partnrs({ partners }) {
 	return (
 		<View style={styles.container}>
 			<LinearGradient start={start} end={end} colors={colors} style={styles.container}>
-				<MapHeaderWhite title={'Онлайн магазины'} />
+				<MapHeaderWhite title={I18n.t('PARTNERS.ONLINE_SHOPS')} />
 				<View style={styles.container}>
 					<View style={styles.textContainer}>
-						<Text style={styles.text}>{'Тут вы можете приобрести товары онлайн'}</Text>
+						<Text style={styles.text}>{I18n.t('PARTNERS.ONLINE_SHOP_HERE')}</Text>
 					</View>
 					<FlatList
 						style={styles.scroll}

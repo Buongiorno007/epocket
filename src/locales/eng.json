@@ -104,7 +104,7 @@
     "NO_TASKS": "К сожалению, в данный момент у нас нет заданий для вас",
     "NO_POSTS": "В данный момент у Вас нет публикаций в процессе обработки",
     "MISSION": {
-      "SUCCESS": "Задание выполнено!",
+      "SUCCESS": "Mission completed!\nYou earned",
       "CASH": "Вам начислено",
       "FOR_CASH": "Чтобы получить {{value}} {{currency}} остался один шаг",
       "NO_SUBMISSIOMS": "Отсутствуют задания в данной миссии. Пожалуйста, обратитесь к администратору",
@@ -152,14 +152,16 @@
     },
     "PARTNERS": {
       "HERE_YOU_CAN_BUY_BY_EPC": "Тут вы можете приобрести товары за {{currency}}",
-      "ONLINE_SHOPS": "Online магазины",
-      "SHOPS": "магазины",
+      "ONLINE_SHOPS": "Online shops",
+      "ONLINE_SHOP_HERE" : "Here you can buy goods online",
+      "SHOPS": "shops",
       "NO_SHOPS": "В вашем регионе нет доступных партнеров"
     },
     "QRCODE": {
       "TITLE": "QR код сформирован. \nСумма вашей покупки - ",
       "SELLER": "Покажите его продавцу и получите свои покупки",
-      "PROCESS": "Ваш заказ в обработке, \nожидайте..."
+      "PROCESS": "Ваш заказ в обработке, \nожидайте...",
+      "SHOW" : "Покажите это QR на кассе для оплаты. Сумма к оплате:"
     },
     "TRADE": {
       "DATE": "Дата:",
@@ -267,9 +269,9 @@
       },
       "GAME_TITLE": "Игра",
       "CONFIRM": "Подтвердить",
-      "SORRY_TODAY": "к сожалению на сегодня",
+      "SORRY_TODAY": "sorry, there is no",
       "LOCK": "Чтобы продолжить играть, необходимо посетить ближайший ТРЦ",
-      "NO_GAMES": "игр больше нет",
+      "NO_GAMES": "games for today",
       "GAMES_FOR_TODAY": "игр доступно на сегодня",
       "START": "Старт",
       "COST_TEXT": "задание на",
@@ -374,6 +376,7 @@
     "ONLINE_SHOP" : "Online-shop",
     "ANY_GOOD_BARCODE" : "You can pay for any product in this store using a barcode",
     "FILTERS" : "Filters",
+    "FILTERS_RESET" : "Reset filters",
     "MALL" : {
       "TASK_TIME" : "Time task",
       "TASK_SHOP" : "Tasks from shops",
@@ -381,6 +384,12 @@
       "TASK_LIST" : "Task list",
       "START" : "Start",
       "SOON" : "Will be active at"
-    }
+    },
+    "GET_BACK" : "get back or you lose your progress",
+    "TASK_EARN_MORE" : "earn more",
+    "INSUFFICIENT_FUNDS" : "Insufficient funds",
+    "DO_PREORDER" : "Preorder",
+    "BASKET_ADD" : "Add to basket",
+    "BASKET_REMOVE" : "Remove from basket"
   }
   
