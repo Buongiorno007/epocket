@@ -1,41 +1,45 @@
-import React from "react";
-import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
-import LinearGradient from "react-native-linear-gradient";
-import { connect } from "react-redux";
-import { getMallTask } from "@reducers/mallTask";
+import React, { useState } from "react"
+import { StyleSheet, View, Text, TouchableOpacity, Image, Dimensions } from "react-native"
+import { connect } from "react-redux"
+import { getMallTask } from "@reducers/mallTask"
+
+const { width } = Dimensions.get("window")
 
 function MallItem({ item, index, profileState, dispatch }) {
-  const colors1 = ["#FF9950", "#F55890"];
-  const colors2 = ["rgba(246, 50, 114, 0.1)", "rgba(246, 50, 114, 0.1)"];
-  const start = { x: 0.0, y: 0.0 };
-  const end = { x: 1.0, y: 0.0 };
-
+  const [priceWidth, setPriceWidth] = useState(1)
   return (
     <TouchableOpacity
       disabled={item.type === 1}
       style={[styles.container, index === 0 && styles.noBorder]}
-      onPress={() => dispatch(getMallTask(item))}>
+      onPress={() => dispatch(getMallTask(item))}
+    >
       <Image source={{ uri: item.image }} style={styles.image} />
-      <View style={styles.textView}>
-        <Text style={styles.title}>{item.name}</Text>
+      <View style={{ width: width - 88 - priceWidth }}>
+        <Text style={styles.title} numberOfLines={2} ellipsizeMode={"tail"}>
+          {item.name}
+        </Text>
         <Text style={styles.subtitle}>{item.time}</Text>
       </View>
-      <LinearGradient colors={item.type === 3 ? colors2 : colors1} start={start} end={end} style={styles.layout}>
-        <Text style={item.type === 3 ? styles.arrowTitlePink : styles.arrowTitle}>
-          {`${item.price} ${profileState.currency}`}
-        </Text>
-        {item.type !== 1 && <View style={item.type === 3 ? styles.arrowPink : styles.arrow} />}
-      </LinearGradient>
+      <View
+        style={[styles.layout, item.type === 3 ? styles.color2 : styles.color1]}
+        onLayout={event => {
+          const { width } = event.nativeEvent.layout
+          setPriceWidth(width)
+        }}
+      >
+        <Text style={styles.arrowTitle}>{`${item.price} ${profileState.currency}`}</Text>
+        <View style={styles.arrow} />
+      </View>
     </TouchableOpacity>
-  );
+  )
 }
 const mapStateToProps = state => {
   return {
     profileState: state.profileState,
-  };
-};
+  }
+}
 
-export default connect(mapStateToProps)(MallItem);
+export default connect(mapStateToProps)(MallItem)
 
 const styles = StyleSheet.create({
   container: {
@@ -63,6 +67,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
   },
+  color1: {
+    backgroundColor: "#E60050",
+  },
+  color2: {
+    backgroundColor: "#D3D3D3",
+  },
   arrow: {
     width: 8,
     height: 8,
@@ -74,17 +84,7 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     alignItems: "center",
   },
-  arrowPink: {
-    width: 8,
-    height: 8,
-    borderRightWidth: 1,
-    borderRightColor: "#F63272",
-    borderTopWidth: 1,
-    borderTopColor: "#F63272",
-    transform: [{ rotate: "45deg" }],
-    marginLeft: 8,
-    alignItems: "center",
-  },
+
   arrowTitle: {
     fontFamily: "Rubik-Regular",
     fontSize: 12,
@@ -105,7 +105,4 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "#7C7C7C",
   },
-  textView: {
-    flexGrow: 1,
-  },
-});
+})

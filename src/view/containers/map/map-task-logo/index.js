@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     fontFamily: "Rubik-Light",
     fontSize: 24,
     color: "#111",
+    textAlign: "center",
   },
   timeText: {
     marginTop: 4,
