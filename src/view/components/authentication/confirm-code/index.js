@@ -10,7 +10,7 @@ import { AUTH } from '@reducers/__proto__'
 import BackgroundTimer from 'react-native-background-timer'
 import LinearGradient from 'react-native-linear-gradient'
 import Header from '@containers/header'
-import Touchable from '@containers/custom-button/custom-button'
+import Touchable from '@containers/custom/custom-button/custom-button'
 import I18n from '@locales/I18n'
 import styles from './styles'
 

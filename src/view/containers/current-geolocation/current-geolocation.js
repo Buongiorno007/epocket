@@ -3,7 +3,7 @@ import { View, Image } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { Button } from 'native-base'
 //constants
-import { ICONS } from '../../../constants/icons'
+import { ICONS } from '@constants/icons'
 import styles from './styles'
 
 class CurrentGeolocation extends React.Component {

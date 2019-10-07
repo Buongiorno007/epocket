@@ -26,7 +26,7 @@ const Navigator = createStackNavigator(
     // Dashboard: { screen: require("@components/dashboard/dashboard").default },
     // Photograph: { screen: require("@components/photograph/photograph").default },
     // Photo: { screen: require("@components/photo/photo").default },
-    QrCode: { screen: require("@components/qr-code/qr-code").default },
+    // QrCode: { screen: require("@components/qr-code/qr-code").default },
     // Picture: { screen: require("@components/picture/picture").default },
     // Trade: { screen: require("@components/trade").default },
     MissionSuccess: { screen: require("@components/mall/mission-success/mission-success").default },

@@ -6,7 +6,7 @@ import MapHeaderWhite from '@containers/map/map-header-white'
 import I18n from '@locales/I18n'
 //styles
 import styles from './styles'
-import BasketItem from '@containers/basket-item'
+import BasketItem from '@containers/basket/basket-item'
 
 function BasketComponent({ balance, profileState, basket }) {
 	const colors = ['#F55890', '#FF9950']

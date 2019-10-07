@@ -14,9 +14,9 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import ImagePicker from 'react-native-image-picker'
 //containers
-import CustomButton from '@containers/custom-button/custom-button'
+import CustomButton from '@containers/custom/custom-button/custom-button'
 import Header from '@containers/header'
-import CustomPhoto from '@containers/custom-photo/custom-photo'
+import CustomPhoto from '@containers/custom/custom-photo/custom-photo'
 //reducers
 import { loaderState } from '@reducers/loader'
 import { saveUser } from '@reducers/profile-state'

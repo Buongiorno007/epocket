@@ -23,8 +23,8 @@ import { loaderState } from '../../../reducers/loader'
 import { setInstaToken } from '../../../reducers/insta-token'
 import { setAppState } from '../../../reducers/app-state'
 import { setBalance } from '../../../reducers/user-balance'
-import CustomButton from '../../containers/custom-button/custom-button'
-import CustomAlert from '../../containers/custom-alert/custom-alert'
+import CustomButton from '@containers/custom/custom-button/custom-button'
+import CustomAlert from '@containers/custom/custom-alert/custom-alert'
 import I18n from '@locales/I18n'
 
 class EarnMore extends React.Component {

@@ -5,7 +5,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import { Button } from 'native-base'
 //constants
 import styles from './styles'
-import { ICONS } from '../../../../constants/icons'
+import { ICONS } from '@constants/icons'
 import { colors } from '../../../../constants/colors'
 //services
 import NavigationService from '../../../../services/route'

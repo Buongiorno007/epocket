@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { loaderState } from '@reducers/loader'
 import { getGameResult } from '@reducers/gameResult'
 //containers
-import CustomButton from '@containers/custom-button/custom-button'
+import CustomButton from '@containers/custom/custom-button/custom-button'
 import GameTimer from '@containers/game-containers/game-process/game-timer'
 import GameField from '@containers/game-containers/game-process/game-field'
 //locales

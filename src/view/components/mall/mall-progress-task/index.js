@@ -1,10 +1,10 @@
 import React from "react"
 import { StyleSheet, View } from "react-native"
 import { connect } from "react-redux"
-import Steps from "@containers/mall-task/steps"
+import Steps from "@containers/mall/mall-task/steps"
 import TaskHeader from "@containers/map/task-header"
-import ScanQr from "@containers/mall-task-types/scanQr"
-import PhotoPost from "@containers/mall-task-types/photoPost"
+import ScanQr from "@containers/mall/mall-task-types/scanQr"
+import PhotoPost from "@containers/mall/mall-task-types/photoPost"
 import MallTaskDone from "@components/mall/mall-task-done"
 
 function MallProgressTask({ progressTask }) {

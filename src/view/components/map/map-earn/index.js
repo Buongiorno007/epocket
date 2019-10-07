@@ -4,7 +4,7 @@ import { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import ClusteredMapView from '../../../../native_modules/react-native-maps-super-cluster'
 import { connect } from 'react-redux'
 import MapEarnMarker from '@containers/map/map-earn-marker'
-import MissionBanner from '@containers/mission-banner'
+import MissionBanner from '@containers/map/mission-banner'
 import { findNearest, getDistance } from 'geolib'
 import styles from './styles'
 
