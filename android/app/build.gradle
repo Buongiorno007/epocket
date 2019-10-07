@@ -116,7 +116,6 @@ dependencies {
         implementation 'com.android.support:exifinterface:27.+'
     }
     implementation project(':react-native-image-picker')
-    implementation project(':react-native-text-gradient')
     implementation project(':react-native-radial-gradient')
     implementation project(':react-native-vector-icons')
     implementation project(':react-native-maps')
