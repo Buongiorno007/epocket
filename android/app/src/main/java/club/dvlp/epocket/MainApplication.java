@@ -44,7 +44,6 @@ import io.invertase.firebase.perf.RNFirebasePerformancePackage;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
 
-import iyegoroff.RNTextGradient.RNTextGradientPackage;
 
 import com.transistorsoft.rnbackgroundfetch.RNBackgroundFetchPackage;
 import com.surajit.rnrg.RNRadialGradientPackage;
