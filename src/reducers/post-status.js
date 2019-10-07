@@ -7,7 +7,7 @@ import { setTabState } from "@reducers/tabs"
 //services
 import route from "@services/route"
 import { httpPost } from "@services/http"
-import { postToSocial, socialPost } from "@services/post-to-social"
+import { socialPost } from "@services/post-to-social"
 
 export const checkPostStatus = () => async (dispatch, getState) => {
   const { token, gameResult } = getState()

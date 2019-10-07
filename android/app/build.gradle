@@ -102,7 +102,6 @@ dependencies {
     implementation project(':react-native-linear-gradient')
     implementation project(':react-native-sound')
     implementation project(':react-native-fs')
-    implementation project(':react-native-instagram-story-share')
     implementation project(':react-native-fbsdk')
     implementation project(':react-native-cookies')
     implementation project(':rn-fetch-blob')

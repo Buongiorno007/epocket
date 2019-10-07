@@ -3,7 +3,6 @@ package club.dvlp.epocket;
 import android.app.Application;
 
 import com.facebook.CallbackManager;
-import com.jobeso.RNInstagramStoryShare.RNInstagramStorySharePackage;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.ReactApplication;
 import com.brentvatne.react.ReactVideoPackage;
@@ -95,7 +94,6 @@ public class MainApplication extends Application implements ShareApplication, Re
                     new SvgPackage(),
                     new RNSoundPackage(),
                     new RNFSPackage(),
-                    new RNInstagramStorySharePackage(),
                     new FBSDKPackage(mCallbackManager),
                     new CookieManagerPackage(),
                     new RNFetchBlobPackage(),

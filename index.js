@@ -30,7 +30,7 @@ const Navigator = createStackNavigator(
     // Picture: { screen: require("@components/picture/picture").default },
     // Trade: { screen: require("@components/trade").default },
     MissionSuccess: { screen: require("@components/mall/mission-success/mission-success").default },
-    EarnMore: { screen: require("@components/earn-more/earn-more").default },
+    // EarnMore: { screen: require("@components/earn-more/earn-more").default },
     ProfileSettings: { screen: require("@components/profile/profile-settings/profile-settings").default },
     // Cashout: { screen: require("@components/cashout/cashout").default },
     // Partners: { screen: require("@components/partners/partners").default },
