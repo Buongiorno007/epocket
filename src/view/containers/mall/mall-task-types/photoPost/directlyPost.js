@@ -32,10 +32,10 @@ function DirectlyPost({ progressTask, setPostData, postData, dispatch }) {
       </View>
       <View style={styles.buttonView}>
         <TouchableOpacity style={styles.button} onPress={() => setPostData({})}>
-          <Text style={styles.buttonText}>{"переснять"}</Text>
+          <Text style={styles.buttonText}>{I18n.t('NEW_MISSIONS.RESHOOT')}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => dispatch(photoPosted(postData))}>
-          <Text style={styles.buttonText}>{"опубликовать"}</Text>
+          <Text style={styles.buttonText}>{I18n.t('NEW_MISSIONS.PUBLISH')}</Text>
         </TouchableOpacity>
       </View>
     </View>
