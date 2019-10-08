@@ -114,9 +114,9 @@ class ProfEdit extends React.Component {
 			mediaType: 'photo',
 			maxWidth: 1000,
 			maxHeight: 1000,
-			takePhotoButtonTitle: 'Сделать фото',
-			chooseFromLibraryButtonTitle: 'Выбрать из галереи',
-			cancelButtonTitle: 'Отмена',
+			takePhotoButtonTitle: I18n.t('TAKE_PICTURE'),
+			chooseFromLibraryButtonTitle: I18n.t('CHOOSE_G'),
+			cancelButtonTitle: I18n.t('CANCEL'),
 			quality: Platform.OS === 'ios' ? 0.75 : 1,
 		}
 		ImagePicker.showImagePicker(options, (response) => {

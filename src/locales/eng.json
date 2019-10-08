@@ -66,7 +66,7 @@
   "FOR_TRC": " for staying in the mall",
   "COME_TOMMOROW": "Come back tomorrow to earn more.",
   "RETURN_TO_MALL": {
-    "TITLE_TOP": "Return to the mall’s area during 5 min to not to lose progress.",
+    "TITLE_TOP": "Return to the mall’s area within 5 min to not lose progress.",
     "TIME_IS_UP": "Your time is up."
   },
   "DASHBOARD_LIST": {
@@ -132,8 +132,8 @@
     "TITLE": "Account: ",
     "YOUR_TITLE": "Your account: ",
     "BUTTON": "CREATE QR",
-    "NO_CASH": "There is no item in this Mall",
-    "NO_CART": "YOur shopping cart is empty",
+    "NO_CASH": "There is no avaliable items in this Mall",
+    "NO_CART": "Your shopping cart is empty",
     "NO_CASH_SMILE": "¯\\_(ツ)_/¯",
     "PARTNERS": "Our partners: ",
     "REFILL": "Top up"
@@ -149,7 +149,7 @@
     "PAYMENT_SUMM": "Enter amount",
     "PERMISSION": "You can recharge from {{min}} to {{max}} {{currency}}",
     "COMMISSION": "*transaction fee {{tax}} {{currency}}",
-    "NUMBER": "only digits are Allowed",
+    "NUMBER": "only digits are allowed",
     "NOT_ENOUGH": "not Enough bonuses {{currency}}",
     "MAX": "Max amount {{max}}",
     "MIN": "Min amount {{min}}"
@@ -193,7 +193,7 @@
     "PLACES" : "Places on the map"
   },
   "PARTNER_SCREEN": {
-    "SHOW_THIS_CODE": "To proceed payments show this code at the cashbox {{currency}}",
+    "SHOW_THIS_CODE": "To proceed payments show this code at the checkout {{currency}}",
     "COMISSION_IS_PAYED_IN": "The fee is paid in ",
     "AND_IT_IS": " and is ",
     "PERCENT_FROM_TOTAL_PRICE": " % of invoice amount"
@@ -210,7 +210,7 @@
     "EDIT_PHOTO": "Edit photo",
     "LOAD_PHOTO": "Upload photo",
     "ACCEPT": "Apply",
-    "ALERT_EMPTY": "You didn’t fill out all the data. Add a photo, indicate your name, date of birth and gender",
+    "ALERT_EMPTY": "You didn’t fill in all the data. Add a photo, indicate your name, date of birth and gender",
     "ALERT_TOO_LONG_BASE64": "The photo you selected is too big",
     "ALERT_NOT_SAVED_DATA": "You have unsaved changes. Are you sure you want to cancel?",
     "YES": "   Yes   ",
@@ -232,10 +232,10 @@
     "ALL_BONUSES_SPENT": "Spent bonuses amount:",
     "NO_HISTORY": "No records",
     "NO_HISTORY_SMILE": "¯\\_(ツ)_/¯",
-    "SHOW_THIS_BARCODE": "To proceed payments show this barcode at the cashbox"
+    "SHOW_THIS_BARCODE": "To proceed payments show this barcode at the checkout"
   },
   "INFO_PAGE": {
-    "INFO_TITLE": "Do you wanna spend your time profitably?\nVisit sores at the mall using EPocketCash App.\nWhile you’re shopping – discounts & bonuses are growing.\nHow it works?\nToday, the shopping day! Open EPocketCash App and chose your favorite mall and go shopping. While you’re at the mall, we credit your account with bonuses. You can spend earned bonuses in the stores – EPocketCash participants or enjoy coffee.\nCome up with your friends – earn more bonuses.\nPlay the quest of visiting, take a photo, make a post on your page. Get pleasure & benefit spending your time.\nDownload EPocketCash App, chose the place, where you’d like to be, to get bonuses is simpler than ever, just walking through the mall. You’ll be informed about discounts and promo actions firstly. You can exchange your time on gifts from stores – EPocketCash participants. You can earn bonuses for:\n- your time, spent at the mall;\n- visiting the stores at the mall;\n- placing a photo on your page;\n- inviting friends.\nUse our app every damn time if you gonna spend your time more profitably at the shopping."
+    "INFO_TITLE": "Do you want to spend your time profitably?\nVisit stores at the mall using EPocketCash App.\nWhile you’re shopping – discounts & bonuses are growing.\nHow it works?\nToday, the shopping day! Open EPocketCash App, chose your favorite mall and go shopping. While you’re at the mall, we credit your account with bonuses. You can spend earned bonuses in the stores – EPocketCash participants or enjoy coffee.\nCome up with your friends – earn more bonuses.\nPlay the quest of visiting, take a photo, make a post on your page. Get pleasure & benefit spending your time.\nDownload EPocketCash App, chose the place, where you’d like to be, and get bonuses just walking through the mall. You’ll be informed about discounts and promo actions firstly. You can exchange your time for gifts from stores – EPocketCash participants. You can earn bonuses for:\n- your time, spent at the mall;\n- visiting the stores at the mall;\n- placing a photo on your page;\n- inviting friends.\nIf you want to spend your time profitably, use our application every time you go shopping."
   },
   "PUSH_MESSAGE": {
     "PUSH_1": "Your time is your money. You earned ___  {{currency}}",
@@ -273,7 +273,7 @@
     },
     "GAME_TITLE": "Game",
     "CONFIRM": "Confirm",
-    "SORRY_TODAY": "unfortunately for today",
+    "SORRY_TODAY": "unfortunately \nthere are",
     "LOCK": "To continue playing, you have to visit mall",
     "NO_GAMES": "no more games for today",
     "GAMES_FOR_TODAY": "games available for today",
@@ -402,5 +402,7 @@
   "INSUFFICIENT_FUNDS" : "You have insufficient funds",
   "DO_PREORDER" : "Pre-order",
   "BASKET_ADD" : "Add to cart",
-  "BASKET_REMOVE" : "Remove from cart"
+  "BASKET_REMOVE" : "Remove from cart",
+  "TAKE_PICTURE" : "Take picture",
+  "CHOOSE_G" : "Choose from gallery"
 }

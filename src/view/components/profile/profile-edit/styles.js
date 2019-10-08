@@ -3,7 +3,7 @@ import { Header } from 'react-navigation'
 import { colors } from '../../../../constants/colors'
 const { width } = Dimensions.get('window')
 const height =
-	Platform.OS === 'android' && Platform.Version > 28
+	Platform.OS === 'android' && Platform.Version > 26
 		? Dimensions.get('screen').height
 		: Dimensions.get('window').height
 const iPhoneX = Platform.OS === 'ios' && (height === 812 || width === 812 || height === 896 || width === 896)
