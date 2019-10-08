@@ -4,7 +4,7 @@ const iPhoneX = Platform.OS === 'ios' && (height === 812 || width === 812 || hei
 const toolbarHeight = Platform.OS === 'ios' ? 64 : Header.HEIGHT
 const { width } = Dimensions.get('window')
 const height =
-	Platform.OS === 'android' && Platform.Version > 28
+	Platform.OS === 'android' && Platform.Version > 26
 		? Dimensions.get('screen').height
 		: Dimensions.get('window').height
 
