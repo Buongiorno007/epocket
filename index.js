@@ -52,7 +52,7 @@ const Navigator = createStackNavigator(
     OrderScreen: require("@components/map/map-spend/order").default,
     MallPoint: require("@components/mall").default,
     MallTask: require("@components/mall/mallTask").default,
-    TaskInProgress: require("@components/mall/task-in-progress").default,
+    // TaskInProgress: require("@components/mall/task-in-progress").default,
     MallProgressTask: require("@components/mall/mall-progress-task").default,
   },
   {

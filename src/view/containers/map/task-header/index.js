@@ -1,11 +1,15 @@
 import React, { useState } from "react"
-import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native"
+import { View, StyleSheet, Image, Text, TouchableOpacity, Dimensions } from "react-native"
 import route from "@services/route"
 import { connect } from "react-redux"
 import sbHeight from "@services/getSBHeight"
 
 function TaskHeader({ progressTask, profileState }) {
+
+  const { width } = Dimensions.get("window")
+
   const [priceWith, setPriceWidth] = useState(0)
+  const textWidth = width - priceWith * 2 - 32
 
   return (
     <View style={styles.container}>
@@ -18,7 +22,7 @@ function TaskHeader({ progressTask, profileState }) {
       >
         <Text style={styles.price}>{`${progressTask.price} ${profileState.currency}`}</Text>
       </View>
-      <Text style={styles.text}>{progressTask.name}</Text>
+      <Text style={[styles.text, { maxWidth: textWidth }]}>{progressTask.name}</Text>
       <View style={[styles.buttonView, { width: priceWith }]}>
         <TouchableOpacity style={styles.button} onPress={() => route.popToTop()}>
           <Image source={require("@assets/dv4/taskClose.png")} style={styles.image} />
@@ -38,10 +42,10 @@ export default connect(mapStateToProps)(TaskHeader)
 
 const styles = StyleSheet.create({
   container: {
-    height: 40 + sbHeight,
+    minHeight: 40 + sbHeight,
     paddingHorizontal: 16,
-    paddingTop: sbHeight,
-    alignItems: "center",
+    paddingBottom: 8,
+    alignItems: "flex-start",
     flexDirection: "row",
     justifyContent: "space-between",
     backgroundColor: "#F8F8F8",
@@ -53,6 +57,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     alignItems: "center",
     justifyContent: "center",
+    marginTop: sbHeight,
   },
   price: {
     fontFamily: "Rubik-Regular",
@@ -64,10 +69,13 @@ const styles = StyleSheet.create({
     fontFamily: "Rubik-Medium",
     fontSize: 20,
     color: "#111",
+    textAlign: 'center',
+    marginTop: sbHeight,
   },
   buttonView: {
     height: 24,
     alignItems: "flex-end",
+    marginTop: sbHeight,
   },
   button: {
     height: 24,
