@@ -9,14 +9,14 @@ import GameS from "@components/game-component/game-start"
 import GamePartners from "@components/game-component/game-partners"
 import Wallet from "@components/wallet"
 //containers
-import ReturnToMall from "@containers/mall/return-to-mall-timer/return-to-mall-timer"
-import TimerModal from "@containers/map/timer-modal/timer-modal"
+// import ReturnToMall from "@containers/mall/return-to-mall-timer/return-to-mall-timer"
+// import TimerModal from "@containers/map/timer-modal/timer-modal"
 import LocationDisabled from "@containers/location-disabled/location-disabled"
 //reducers
 import { setActiveCard } from "@reducers/set-active-card"
 import { getGameStart } from "@reducers/gameStart"
 //services
-import GeolocationService from "@services/geolocation-service"
+// import GeolocationService from "@services/geolocation-service"
 import { getPoints } from "@reducers/mapPoints"
 import { getPartners } from "@reducers/partners"
 import { getBasket } from "@reducers/basket"
@@ -67,13 +67,13 @@ class Main extends React.Component {
           {this.props.activeTab === 3 && <Profile />}
         </View>
 
-        {this.props.timerShow &&
+        {/* {this.props.timerShow &&
           this.props.timer_status &&
-          JSON.stringify(this.props.closestMall) !== JSON.stringify(this.props.selectedMall) && <ReturnToMall />}
+          JSON.stringify(this.props.closestMall) !== JSON.stringify(this.props.selectedMall) && <ReturnToMall />} */}
 
         {!this.props.isLocation && (this.props.activeTab === 1 || this.props.activeTab === 0) && <LocationDisabled />}
-        <TimerModal />
-        <GeolocationService />
+        {/* <TimerModal /> */}
+        {/* <GeolocationService /> */}
       </View>
     )
   }
@@ -81,7 +81,7 @@ class Main extends React.Component {
 
 const mapStateToProps = state => ({
   activeTab: state.activeTab,
-  timer_status: state.timer_status,
+  // timer_status: state.timer_status,
   game_status: state.game_status,
   isLocation: state.location.status,
   timerShow: state.timerShow,
