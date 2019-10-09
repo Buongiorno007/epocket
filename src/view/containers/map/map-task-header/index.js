@@ -19,7 +19,7 @@ export default function MapTaskHeader({ title = "" }) {
 
 const styles = StyleSheet.create({
   container: {
-    height: 40 + sbHeight,
+    height: 56 + sbHeight,
     paddingHorizontal: 16,
     paddingTop: sbHeight,
     alignItems: "center",

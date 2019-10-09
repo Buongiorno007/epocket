@@ -5,7 +5,6 @@ import { connect } from "react-redux"
 import sbHeight from "@services/getSBHeight"
 
 function TaskHeader({ progressTask, profileState }) {
-
   const { width } = Dimensions.get("window")
 
   const [priceWith, setPriceWidth] = useState(0)
@@ -42,10 +41,9 @@ export default connect(mapStateToProps)(TaskHeader)
 
 const styles = StyleSheet.create({
   container: {
-    minHeight: 40 + sbHeight,
+    minHeight: 56 + sbHeight,
     paddingHorizontal: 16,
-    paddingBottom: 8,
-    alignItems: "flex-start",
+    alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-between",
     backgroundColor: "#F8F8F8",
@@ -69,7 +67,7 @@ const styles = StyleSheet.create({
     fontFamily: "Rubik-Medium",
     fontSize: 20,
     color: "#111",
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: sbHeight,
   },
   buttonView: {
