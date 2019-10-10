@@ -3,9 +3,9 @@ import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native'
 import route from '@services/route'
 import Basket from '@containers/basket'
 
-export default function MapHeaderWhite({ title = 'CHANGE TITLE', basket = false, id = false }) {
+export default function MapHeaderWhite({ title = 'CHANGE TITLE', basket = false, id = false, transparent }) {
 	return (
-		<View style={styles.container}>
+		<View style={[styles.container, {backgroundColor: transparent ? 'rgba(255,255,255, 0)' : 'rgba(255,255,255,.2)',}]}>
 			<TouchableOpacity onPress={() => route.pop()}>
 				<Image source={require('@assets/img/chevron_w.png')} style={styles.image} />
 			</TouchableOpacity>
@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
 		paddingTop: 50,
 		flexDirection: 'row',
 		justifyContent: 'space-between',
-		backgroundColor: 'rgba(255,255,255,.2)',
 		zIndex: 2,
 	},
 	image: {

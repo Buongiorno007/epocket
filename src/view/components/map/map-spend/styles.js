@@ -1,16 +1,19 @@
-import { StyleSheet, Dimensions } from 'react-native'
+import { StyleSheet, Dimensions, Platform } from 'react-native'
+import { colors } from '@constants/colors'
 const { width } = Dimensions.get('window')
 
 export default StyleSheet.create({
 	container: {
 		flex: 1,
 		marginBottom: 60,
+		backgroundColor: colors.map_gray,
 	},
 	linear: {
 		flex: 1,
-		borderTopLeftRadius: 24,
-		borderTopRightRadius: 24,
-		marginTop: -28,
+		// borderTopLeftRadius: 24,
+		// borderTopRightRadius: 24,
+		// marginTop: -28,
+		backgroundColor: colors.map_gray,
 	},
 	scroll: {
 		flex: 1,
@@ -18,15 +21,33 @@ export default StyleSheet.create({
 		paddingVertical: 16,
 	},
 	map_view: {
-		width,
+		width: width - 32,
 		height: width * 0.7,
+
+		borderRadius: 24,
+		marginHorizontal: 16,
+		...Platform.select({
+			ios: {
+				shadowOpacity: 0.2,
+				shadowOffset: {
+					width: 0.2,
+					height: 2,
+				},
+				shadowColor: '#000000',
+				shadowRadius: 2,
+			},
+			android: {
+				elevation: 3,
+			},
+		}),
+		overflow: 'hidden',
 	},
 	map: {
 		flex: 1,
 	},
 	touchMap: {
 		position: 'absolute',
-		bottom: 28,
+		bottom: 7,
 		left: 8,
 		width: 64,
 		height: 64,
@@ -38,13 +59,13 @@ export default StyleSheet.create({
 	},
 	basket: {
 		position: 'absolute',
-		bottom: 44,
+		bottom: 22,
 		right: 16,
 	},
 	fieldStyle: {
 		paddingHorizontal: 16,
 		paddingVertical: 16,
-		backgroundColor: '#F5F9FE',
+		backgroundColor: colors.white,
 		borderRadius: 24,
 		marginBottom: 16,
 	},
@@ -53,6 +74,10 @@ export default StyleSheet.create({
 		fontSize: 14,
 		marginBottom: 8,
 		marginLeft: 16,
-		color: '#fff',
+		color: colors.black111,
 	},
+	text_top: {
+		marginLeft: 32, 
+		marginTop: 16
+	}
 })

@@ -28,7 +28,8 @@ export default StyleSheet.create({
 		borderColor: colors.black_o33,
 	},
 	item_pressed: {
-		borderColor: colors.dark_pink,
+		borderWidth: 4,
+		borderColor: colors.blood_red,
 		backgroundColor: colors.dark_pink_o10,
 	},
 })

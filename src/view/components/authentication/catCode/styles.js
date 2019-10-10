@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+import { colors } from '@constants/colors'
 
 export default StyleSheet.create({
 	layout: {
@@ -6,6 +7,7 @@ export default StyleSheet.create({
 		paddingHorizontal: 16,
 		justifyContent: 'center',
 		alignItems: 'center',
+		backgroundColor: colors.white
 	},
 	image: {
 		position: 'absolute',
@@ -14,11 +16,24 @@ export default StyleSheet.create({
 	},
 	title: {
 		fontSize: 18,
-		color: '#fff',
+		color: colors.black111,
 		textAlign: 'center',
 		marginBottom: 24,
-		fontWeight: 'bold',
 		width: '100%',
 		textAlign: 'center',
+		fontFamily: 'Rubik-Medium',
+	},
+	button: {
+		height: 44,
+		marginVertical: 10,
+		paddingTop: 15,
+		elevation: 0,
+		backgroundColor: colors.blood_red,
+	},
+	text: {
+		color: colors.white,
+		marginBottom: 8,
+		fontSize: 14,
+		fontFamily: 'Rubik-Medium',
 	},
 })

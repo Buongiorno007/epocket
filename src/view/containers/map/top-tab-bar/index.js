@@ -16,22 +16,22 @@ function TopTabBar({ topTabs, dispatch }) {
 		<View style={styles.container}>
 			<TouchableOpacity
 				disabled={topTabs === 0}
-				style={styles.button}
+				style={[styles.button, topTabs === 0 && styles.button_active]}
 				onPress={() => {
 					dispatch(setTopTabs(0))
 				}}
 			>
-				{topTabs === 0 && <LinearGradient start={start} end={end} colors={colors} style={styles.gradient} />}
+				{/* {topTabs === 0 && <LinearGradient start={start} end={end} colors={colors} style={styles.gradient} />} */}
 				<Text style={[styles.text, topTabs === 0 && styles.text_active]}>{I18n.t('EARN')}</Text>
 			</TouchableOpacity>
 			<TouchableOpacity
 				disabled={topTabs === 1}
-				style={styles.button}
+				style={[styles.button, topTabs === 1 && styles.button_active]}
 				onPress={() => {
 					dispatch(setTopTabs(1))
 				}}
 			>
-				{topTabs === 1 && <LinearGradient start={start} end={end} colors={colors} style={styles.gradient} />}
+				{/* {topTabs === 1 && <LinearGradient start={start} end={end} colors={colors} style={styles.gradient} />} */}
 				<Text style={[styles.text, topTabs === 1 && styles.text_active]}>{I18n.t('SPEND')}</Text>
 			</TouchableOpacity>
 		</View>

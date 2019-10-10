@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
+import { Button } from "native-base"
 import { connect } from 'react-redux'
 //reducers
 import { loaderState } from '@reducers/loader'
@@ -40,14 +41,19 @@ function Gamee({ gameProcess, dispatch }) {
 			<GameTimer finished={this.submitGame} />
 			<GameField showChanges={(value) => setBut(value)} />
 			<View style={styles.btn_container}>
-				<CustomButton
+				{/* <CustomButton
 					active={buttonActive}
 					gradient
 					disabled={!buttonActive}
 					title={I18n.t('GAME.CONFIRM').toUpperCase()}
 					color={'#fff'}
 					handler={this.submitGame}
-				/>
+				/> */}
+				<Button full rounded style={[styles.button]} onPress={this.submitGame} disabled={!buttonActive}>
+					<Text style={[styles.text]}>
+						{I18n.t('GAME.CONFIRM').toUpperCase()}
+					</Text>
+				</Button>
 			</View>
 		</View>
 	)

@@ -1,10 +1,12 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Platform } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import MapHeaderWhite from '@containers/map/map-header-white'
+import Header from '@containers/header'
 import { connect } from 'react-redux'
 import Barcode from 'react-native-barcode-builder'
 import I18n from '@locales/I18n'
+import { colors } from '@constants/colors'
 
 function BarcodeComponent({ profileState, balance }) {
 	const colors = ['#F55890', '#FF9950']
@@ -12,8 +14,9 @@ function BarcodeComponent({ profileState, balance }) {
 	const end = { x: 0, y: 1 }
 	return (
 		<View style={styles.container}>
-			<LinearGradient start={start} end={end} colors={colors} style={styles.container}>
-				<MapHeaderWhite title={`${I18n.t('CASH.TITLE')} ${balance} ${profileState.currency}`} />
+			<View style={styles.container}>
+				{/* <MapHeaderWhite title={`${I18n.t('CASH.TITLE')} ${balance} ${profileState.currency}`} /> */}
+				<Header title={`${I18n.t('CASH.TITLE')} ${balance} ${profileState.currency}`}/>
 				<View style={styles.layout}>
 					<Text style={styles.title}>{I18n.t('HISTORY_PAGE.SHOW_THIS_BARCODE')}</Text>
 					<View style={styles.barcodeView}>
@@ -24,7 +27,7 @@ function BarcodeComponent({ profileState, balance }) {
 						{I18n.t('ANY_GOOD_BARCODE')}
 					</Text>
 				</View>
-			</LinearGradient>
+			</View>
 		</View>
 	)
 }
@@ -41,6 +44,7 @@ export default connect(mapStateToProps)(BarcodeComponent)
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		backgroundColor: colors.white,
 	},
 	layout: {
 		flex: 1,
@@ -50,7 +54,7 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		fontFamily: 'Rubik-Bold',
-		color: '#fff',
+		color: colors.black111,
 		fontSize: 24,
 		marginBottom: 24,
 		textAlign: 'center',
@@ -59,6 +63,20 @@ const styles = StyleSheet.create({
 		padding: 30,
 		backgroundColor: '#fff',
 		borderRadius: 24,
+		...Platform.select({
+			ios: {
+				shadowOpacity: 0.2,
+				shadowOffset: {
+					width: 0.2,
+					height: 2,
+				},
+				shadowColor: '#000000',
+				shadowRadius: 2,
+			},
+			android: {
+				elevation: 3,
+			},
+		}),
 	},
 	barcodeText: {
 		fontSize: 24,
@@ -67,7 +85,7 @@ const styles = StyleSheet.create({
 	subTitle: {
 		fontFamily: 'Rubik-Regular',
 		fontSize: 16,
-		color: '#fff',
+		color: colors.black111,
 		textAlign: 'center',
 		marginTop: 24,
 	},

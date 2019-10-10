@@ -11,6 +11,7 @@ import Dropdown from '@containers/signForm/signForm'
 import Touchable from '@containers/custom/custom-button/custom-button'
 import I18n from '@locales/I18n'
 import styles from './styles'
+import { colors } from '@constants/colors'
 
 type Props = {
 	pink: string,
@@ -103,11 +104,11 @@ class SignUp extends React.Component<Props, State> {
 	}
 
 	render = () => {
-		const { colors, start, end, country, pink, white } = this.props
+		const { country, pink, white } = this.props
 		const { phone, validate, accept, name, age, gender } = this.state
 		const color = accept ? pink : white
 		return (
-			<LinearGradient colors={colors} start={start} end={end} style={styles.layout}>
+			<View style={styles.layout}>
 				<Header route={'Start'} title={I18n.t('SIGN_UP_TITLE')} />
 				<KeyboardAvoidingView style={styles.keyboard} behavior={'padding'}>
 					<ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
@@ -138,7 +139,7 @@ class SignUp extends React.Component<Props, State> {
 								onChangeText={this.handleChangeName}
 								onFocus={this.handleFocus}
 								placeholder={I18n.t('SIGN.FIRST_SECOND_NAME')}
-								placeholderTextColor={'#fff'}
+								placeholderTextColor={colors.light_gray}
 								style={styles.text_input}
 							/>
 						</View>
@@ -148,7 +149,7 @@ class SignUp extends React.Component<Props, State> {
 								onChangeText={this.handleChangeAge}
 								onFocus={this.handleFocus}
 								placeholder={I18n.t('SIGN.AGE')}
-								placeholderTextColor={'#fff'}
+								placeholderTextColor={colors.light_gray}
 								keyboardType={'numeric'}
 								maxLength={2}
 								style={styles.text_input}
@@ -178,16 +179,21 @@ class SignUp extends React.Component<Props, State> {
 								</Text>
 							</Button>
 						</View>
-						<Touchable
+						{/* <Touchable
 							color={color}
 							active={accept}
 							disabled={!accept}
 							handler={this.handleSignUp}
 							title={I18n.t('SIGN_UP').toUpperCase()}
-						/>
+						/> */}
+						<Button full rounded style={[styles.button, styles.button_big, accept ? styles.red : styles.gray]} onPress={this.handleSignUp}>
+							<Text style={[styles.title, accept ? styles.white_t : styles.gray_t]}>
+								{I18n.t('SIGN_UP').toUpperCase()}
+							</Text>
+						</Button>
 					</ScrollView>
 				</KeyboardAvoidingView>
-			</LinearGradient>
+			</View>
 		)
 	}
 }

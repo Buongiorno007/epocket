@@ -12,9 +12,6 @@ import LottieView from 'lottie-react-native'
 import I18n from '@locales/I18n'
 
 function MapSpend({ lat, lng, mapPoints }) {
-	const colors = ['#F55890', '#FF9950']
-	const start = { x: 0.0, y: 0.0 }
-	const end = { x: 0.0, y: 1.0 }
 	const region = {
 		latitude: lat,
 		longitude: lng,
@@ -32,7 +29,8 @@ function MapSpend({ lat, lng, mapPoints }) {
 
 	return (
 		<View style={styles.container}>
-			<View style={styles.map_view}>
+			<Text style={[styles.text, styles.text_top]}>{I18n.t('MAP.PLACES')}</Text>
+			<View style={styles.map_view}>				
 				<ClusteredMapView
 					style={styles.map}
 					data={mapPoints.cashouts}
@@ -62,7 +60,7 @@ function MapSpend({ lat, lng, mapPoints }) {
 					)}
 				</TouchableOpacity>
 			</View>
-			<LinearGradient colors={colors} start={start} end={end} style={styles.linear}>
+			{/* <View style={styles.linear}> */}
 				<ScrollView style={styles.scroll}>
 					<Text style={styles.text}>{I18n.t('BARCODE_PAY')}</Text>
 					<View style={styles.fieldStyle}>
@@ -87,7 +85,7 @@ function MapSpend({ lat, lng, mapPoints }) {
 						/>
 					</View>
 				</ScrollView>
-			</LinearGradient>
+			{/* </View> */}
 		</View>
 	)
 }

@@ -16,6 +16,7 @@ export default StyleSheet.create({
 	layout: {
 		width,
 		height,
+		backgroundColor: colors.white,
 	},
 	keyboard: {
 		position: 'absolute',
@@ -48,7 +49,7 @@ export default StyleSheet.create({
 		marginBottom: 32,
 	},
 	text: {
-		color: 'rgba(255, 255, 255, .75)',
+		color: colors.light_gray,
 		marginBottom: 8,
 		fontSize: 12,
 	},
@@ -69,15 +70,15 @@ export default StyleSheet.create({
 	},
 	text_input: {
 		width,
-		borderBottomColor: '#FFF',
+		borderBottomColor: colors.black111,
 		borderBottomWidth: 1,
-		color: '#FFF',
+		color: colors.black111,
 		paddingVertical: 10,
 		marginBottom: 32,
 	},
 	button: {
 		borderWidth: 1,
-		borderColor: '#fff',
+		borderColor: colors.black111,
 		height: 40,
 		width: width * 0.425,
 		alignItems: 'center',
@@ -85,13 +86,37 @@ export default StyleSheet.create({
 	},
 	active_button: {
 		borderWidth: 0,
-		backgroundColor: 'rgba(255, 255, 255, 0.45)',
+		backgroundColor: colors.black111,
 	},
 	title: {
 		fontSize: 16,
-		color: '#fff',
+		color: colors.black111,
 	},
 	active_title: {
-		color: '#F63272',
+		color: colors.white,
 	},
+	gray: {
+		borderWidth: 2,
+		borderColor: colors.light_gray,
+		backgroundColor: colors.white,
+	},
+	gray_t: {
+		color: colors.light_gray,
+	},
+	red: {
+		borderWidth: 0,
+		backgroundColor: colors.blood_red,
+	},
+	red_t: {
+		color: colors.blood_red,
+	},
+	white_t: {
+		color: colors.white,
+	},
+	button_big: {
+		height: 44,
+		width: width - 32,
+		paddingTop: 5,
+		elevation: 0
+	}
 })

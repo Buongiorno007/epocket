@@ -21,7 +21,7 @@ function TaskHeader({ progressTask, profileState }) {
       >
         <Text style={styles.price}>{`${progressTask.price} ${profileState.currency}`}</Text>
       </View>
-      <Text style={[styles.text, { maxWidth: textWidth }]}>{progressTask.name}</Text>
+      <Text style={[styles.text, { maxWidth: textWidth }]}  numberOfLines={1} ellipsizeMode={'tail'}>{progressTask.name}</Text>
       <View style={[styles.buttonView, { width: priceWith }]}>
         <TouchableOpacity style={styles.button} onPress={() => route.popToTop()}>
           <Image source={require("@assets/dv4/taskClose.png")} style={styles.image} />
@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: "Rubik-Medium",
     fontSize: 20,
+    paddingHorizontal: 16,
     color: "#111",
     textAlign: "center",
     marginTop: sbHeight,

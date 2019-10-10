@@ -34,7 +34,7 @@ class Refill extends React.Component<Props, State> {
 
 	componentDidMount() {
 		route.goBackPress('Main')
-		this.props.request()
+		// this.props.request()
 	}
 
 	handleChangeAmount = (amount) => {
@@ -85,7 +85,7 @@ class Refill extends React.Component<Props, State> {
 		const length = String(max).length
 		return (
 			<LinearGradient colors={colors} start={start} end={end} style={styles.layout}>
-				{code && (
+				{/* {code && ( */}
 					<React.Fragment>
 						<Header title={`${I18n.t('CASH.TITLE')} ${value} ${currency}`} />
 						<KeyboardAvoidingView behavior='padding' style={styles.keyboard}>
@@ -122,7 +122,7 @@ class Refill extends React.Component<Props, State> {
 							</ScrollView>
 						</KeyboardAvoidingView>
 					</React.Fragment>
-				)}
+				{/* )} */}
 			</LinearGradient>
 		)
 	}

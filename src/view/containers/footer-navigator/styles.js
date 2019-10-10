@@ -51,7 +51,7 @@ export default StyleSheet.create({
   footer_tab_text: {
     width: width * 0.25,
     textAlign: "center",
-    color: colors.pink,
+    color: colors.blood_red,
     fontSize: 11,
     fontFamily: "Rubik-Medium",
   },

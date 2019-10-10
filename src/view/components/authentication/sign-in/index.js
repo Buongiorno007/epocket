@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, KeyboardAvoidingView, ScrollView, Text, Keyboard, Image } from 'react-native'
+import { Button } from "native-base"
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { signIn } from '@reducers/sign-in'
@@ -10,18 +11,6 @@ import Dropdown from '@containers/signForm/signForm'
 import Touchable from '@containers/custom/custom-button/custom-button'
 import I18n from '@locales/I18n'
 import styles from './styles'
-
-type Props = {
-	pink: string,
-	white: string,
-	country: any[],
-	sms: boolean,
-	sign_in: any,
-	sign_in_confirm: any,
-} & typeof defaultProps
-
-type State = typeof initialState
-
 const initialState = {
 	phone: '',
 	code: '',
@@ -30,14 +19,7 @@ const initialState = {
 	mask: 0,
 }
 
-const defaultProps = {
-	colors: ['#F55890', '#FF9950'],
-	start: { x: 1.0, y: 0.0 },
-	end: { x: 0.0, y: 1.0 },
-}
-
 class SignIn extends React.Component<Props, State> {
-	static defaultProps = defaultProps
 
 	state = initialState
 
@@ -80,11 +62,11 @@ class SignIn extends React.Component<Props, State> {
 	}
 
 	render = () => {
-		const { colors, start, end, country, pink, white } = this.props
+		const { country, pink, white } = this.props
 		const { phone, validate, accept } = this.state
 		const color = accept ? pink : white
 		return (
-			<LinearGradient colors={colors} start={start} end={end} style={styles.layout}>
+			<View style={styles.layout}>
 				<Header route={'Start'} title={I18n.t('SIGN_IN_TITLE')} />
 				<KeyboardAvoidingView style={styles.keyboard} behavior={'padding'}>
 					<ScrollView
@@ -106,20 +88,25 @@ class SignIn extends React.Component<Props, State> {
 							{validate && <Image style={styles.image} source={require('@assets/img/eyes.png')} />}
 						</Dropdown>
 						<View style={styles.wrapper}>
-							<Text style={[styles.text, styles.right, { opacity: validate ? 1 : 0 }]}>
+							<Text style={[styles.text, styles.red_t, styles.right, { opacity: validate ? 1 : 0 }]}>
 								{I18n.t('SIGN.CHECK_PHONE_NUMBER')}
 							</Text>
 						</View>
-						<Touchable
+						{/* <Touchable
 							color={color}
 							active={accept}
 							disabled={!accept}
 							handler={this.handleSignIn}
 							title={I18n.t('SIGN_IN').toUpperCase()}
-						/>
+						/> */}
+						<Button full rounded style={[styles.button, accept ? styles.red : styles.gray]} onPress={this.handleSignIn}>
+							<Text style={[styles.text, accept && styles.white_t]}>
+								{I18n.t('SIGN_IN').toUpperCase()}
+							</Text>
+						</Button>
 					</ScrollView>
 				</KeyboardAvoidingView>
-			</LinearGradient>
+			</View>
 		)
 	}
 }

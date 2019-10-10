@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions, Platform } from 'react-native'
+import { colors } from '@constants/colors'
 
 const { width } = Dimensions.get('window')
 const height =
@@ -10,5 +11,6 @@ export default StyleSheet.create({
 	layout: {
 		width,
 		height,
+		backgroundColor: colors.white,
 	},
 })

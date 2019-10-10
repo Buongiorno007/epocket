@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Text, Image } from 'react-native'
-import { Button } from 'native-base'
+import { Button, View } from 'native-base'
 import LinearGradient from 'react-native-linear-gradient'
 import { connect } from 'react-redux'
 //reducers
@@ -11,12 +11,9 @@ import route from '@services/route'
 import I18n from '@locales/I18n'
 //styles
 import styles from './styles'
+import { colors } from '@constants/colors'
 
 function GameSuccess({ profileState, gameResult, dispatch }) {
-	const colors = ['#770CE1', '#D629C5', '#F55890', '#FF8D50', '#F7BB42']
-	const start = { x: 1.0, y: 0.0 }
-	const end = { x: 0.0, y: 1.0 }
-
 	useEffect(() => {
 		dispatch(loaderState(false))
 	}, [])
@@ -27,18 +24,21 @@ function GameSuccess({ profileState, gameResult, dispatch }) {
 	}
 
 	return (
-		<LinearGradient colors={colors} start={start} end={end} style={styles.container}>
-			<Text style={styles.zifi_text}>{I18n.t('GAME.ZIFI.SHOCKED')}</Text>
-			<Image style={styles.zifi} source={require('@assets/img/zifi/shocked.gif')} />
-			<Text style={styles.title}>
-				{I18n.t('GAME.CONGRATULATION', { value: gameResult.award, currency: profileState.currency })}
-			</Text>
+		<View style={styles.container}>
+			<View>
+				<Text style={styles.zifi_text}>{I18n.t('GAME.ZIFI.SHOCKED')}</Text>
+				<Image style={styles.zifi} source={require('@assets/img/zifi/shocked.gif')} />
+				<Text style={styles.title}>
+					{I18n.t('GAME.CONGRATULATION')}
+					<Text style={styles.red}>{`${gameResult.award} ${profileState.currency}`}</Text>
+				</Text>
+			</View>
 			<Button full rounded style={styles.button} onPress={navigate}>
 				<Text uppercase style={[styles.text]}>
-					{I18n.t('GAME.RESULT.CONTINUE')}
+					{I18n.t('GAME.RESULT.CONTINUE').toUpperCase()}
 				</Text>
 			</Button>
-		</LinearGradient>
+		</View>
 	)
 }
 

@@ -15,11 +15,15 @@ export const colors = {
 	input_placeholder: 'rgba(255,255,255, 0.31)',
 	enter_code: 'rgba(255,255,255, 0.6)',
 	check_code: 'rgba(255,255,255, 0.8)',
+	black40: '#404140',
 	black41: '#414141',
 	black41_09: 'rgba(65,65,65, 0.9)', //#414141 opacity 0.9
 	black41_054: 'rgba(65,65,65, 0.54)', //#414141 opacity 0.9
 	gray: '#9E9E9E',
+	light_gray: '#D3D3D3',
 	gray_partner_line: '#E9EEF5',
+	white_o15: 'rgba(255,255,255, 0.15)',
+	white_o30: 'rgba(255,255,255, 0.30)',
 	white_o36: 'rgba(255,255,255, 0.36)',
 	white_o74: 'rgba(255,255,255, 0.74)',
 	white_o75: 'rgba(255,255,255, 0.75)',
@@ -58,4 +62,9 @@ export const colors = {
 	map_dark_blue: '#308BF8',
 	earn_more: ['#F7BB42', '#FF8D50', '#F55890', 'rgba(214, 41, 197, 0.88)', 'rgba(119, 12, 225, 0.69)'],
 	map_dark_blue_02: 'rgba(48,139,248, 0.2)', //#308BF8 opacity 0.2
+	blood_red: '#E60050',
+	black111: '#111111',
+	pink_shadow: 'rgba(132, 0, 43, 0.33)',
+	mild_gray: '#F8F8F8',
+	map_gray: '#F2F2F2'
 }
