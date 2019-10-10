@@ -64,8 +64,12 @@
 	<string>Please provide access to multimedia for uploading photos to your profile</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Please provide access to the bluetooth</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Please provide access to the bluetooth usage</string>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Please provide access to the calendar</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Please provide access to the contacts</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Please provide access to camera to make your photo and add it to your profile</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
