@@ -28,7 +28,7 @@ function MallItem({ item, index, profileState, dispatch }) {
         }}
       >
         <Text style={styles.arrowTitle}>{`${item.price} ${profileState.currency}`}</Text>
-        <View style={styles.arrow} />
+        {item.type !== 1 && <View style={styles.arrow} />}
       </View>
     </TouchableOpacity>
   )
