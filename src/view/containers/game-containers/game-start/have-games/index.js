@@ -27,7 +27,7 @@ const HaveGames = ({ profileState, gameStart, loaderState, getGameProcess }) => 
 				<Text style={styles.game_cost_text}>
 					{I18n.t('GAME.GAME_COST', { currency: profileState.currency, value: gameStart.award })}
 				</Text>
-				<Text style={styles.game_desc_text}>{'Выберите  квадрат на котором \nправильный ответ'}</Text>
+				<Text style={styles.game_desc_text}>{I18n.t('GAME_DESCR')}</Text>
 			</View>
 			{/* <CustomButton
 				active={true}

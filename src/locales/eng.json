@@ -404,5 +404,6 @@
   "BASKET_ADD" : "Add to cart",
   "BASKET_REMOVE" : "Remove from cart",
   "TAKE_PICTURE" : "Take picture",
-  "CHOOSE_G" : "Choose from gallery"
+  "CHOOSE_G" : "Choose from gallery",
+  "GAME_DESCR" : "Choose tile(s) with \nright answer"
 }
