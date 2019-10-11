@@ -18,6 +18,7 @@ export default StyleSheet.create({
     backgroundColor: colors.black111,
     paddingHorizontal: 15,
     paddingVertical: 10,
+    marginTop: 16,
   },
   game_aval_t: {
     color: colors.white,
