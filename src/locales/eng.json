@@ -322,7 +322,7 @@
   },
   "REF_LINK": {
     "GET_EPC": "{{currency}} for friend",
-    "FOR_YOU_AND_YOUR_FRIEND": "{{currency}} to you and your friend for invitation",
+    "FOR_YOU_AND_YOUR_FRIEND": "{{currency}} to you and your friend \nfor invitation",
     "COPY": "copy link",
     "FACEBOOK": "Facebook",
     "FACEBOOK_MESSENGER": "Facebook Messenger",

@@ -51,17 +51,18 @@ export default StyleSheet.create({
 		bottom: 0,
 		right: 0,
 		left: 0,
-		backgroundColor: colors.white,
+		backgroundColor: colors.blood_red,
 		flexDirection: 'column',
 		justifyContent: 'space-between',
 		alignItems: 'center',
 	},
 	top_container: {
 		width: width,
-		height: height * 0.35,
+		height: height * 0.2,
 		justifyContent: 'center',
 		alignItems: 'center',
 		zIndex: 1003,
+		backgroundColor: colors.transparent,
 	},
 	top_container_gradient_background: {
 		width: width,
@@ -87,6 +88,11 @@ export default StyleSheet.create({
 	},
 	share_list: {
 		flex: 1,
+		borderTopLeftRadius: 24,
+		borderTopRightRadius: 24,
+		// marginTop: -16,
+		backgroundColor: colors.white,
+		overflow: 'hidden',
 	},
 	opened_share_title: {
 		color: colors.white,
@@ -94,11 +100,13 @@ export default StyleSheet.create({
 		textAlign: 'center',
 		fontFamily: 'Rubik-Medium',
 		width: width * 0.8,
-		marginBottom: 24,
+		// marginBottom: 24,
 	},
 	list: {
 		width: width,
 		height: height * 0.8,
+		borderTopLeftRadius: 24,
+		borderTopRightRadius: 24,
 	},
 	list_content: {
 		width: width,

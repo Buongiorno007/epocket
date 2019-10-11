@@ -322,7 +322,7 @@
   },
   "REF_LINK": {
     "GET_EPC": "{{currency}} за друга",
-    "FOR_YOU_AND_YOUR_FRIEND": "{{currency}} тебе и другу за приглашение",
+    "FOR_YOU_AND_YOUR_FRIEND": "{{currency}} тебе и другу\n за приглашение",
     "COPY": "Копировать ссылку",
     "FACEBOOK": "Facebook",
     "FACEBOOK_MESSENGER": "Facebook Messenger",
