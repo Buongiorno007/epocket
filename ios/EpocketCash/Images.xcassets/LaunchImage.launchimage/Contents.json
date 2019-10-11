@@ -1,29 +1,11 @@
 {
   "images" : [
     {
-      "extent" : "full-screen",
-      "idiom" : "iphone",
-      "subtype" : "2436h",
-      "filename" : "iPhone X.png",
-      "minimum-system-version" : "11.0",
-      "orientation" : "portrait",
-      "scale" : "3x"
-    },
-    {
       "orientation" : "landscape",
       "idiom" : "iphone",
       "extent" : "full-screen",
       "minimum-system-version" : "11.0",
       "subtype" : "2436h",
-      "scale" : "3x"
-    },
-    {
-      "extent" : "full-screen",
-      "idiom" : "iphone",
-      "subtype" : "736h",
-      "filename" : "iPhone 8+_iPhone 7+_ iPhone 6s+.png",
-      "minimum-system-version" : "8.0",
-      "orientation" : "portrait",
       "scale" : "3x"
     },
     {
@@ -33,15 +15,6 @@
       "minimum-system-version" : "8.0",
       "subtype" : "736h",
       "scale" : "3x"
-    },
-    {
-      "extent" : "full-screen",
-      "idiom" : "iphone",
-      "subtype" : "667h",
-      "filename" : "iPhone 8_iPhone7_iPhone 6s.png",
-      "minimum-system-version" : "8.0",
-      "orientation" : "portrait",
-      "scale" : "2x"
     },
     {
       "orientation" : "portrait",
@@ -52,12 +25,11 @@
       "scale" : "2x"
     },
     {
-      "extent" : "full-screen",
-      "idiom" : "iphone",
-      "subtype" : "retina4",
-      "filename" : "iPhone SE.png",
-      "minimum-system-version" : "7.0",
       "orientation" : "portrait",
+      "idiom" : "iphone",
+      "extent" : "full-screen",
+      "minimum-system-version" : "7.0",
+      "subtype" : "retina4",
       "scale" : "2x"
     },
     {
@@ -77,9 +49,39 @@
     {
       "orientation" : "portrait",
       "idiom" : "iphone",
-      "filename" : "iPhone SE-1.png",
+      "filename" : "iPhone SE.png",
       "extent" : "full-screen",
       "subtype" : "retina4",
+      "scale" : "2x"
+    },
+    {
+      "extent" : "full-screen",
+      "idiom" : "iphone",
+      "subtype" : "2436h",
+      "filename" : "iPhone X.png",
+      "minimum-system-version" : "11.0",
+      "orientation" : "portrait",
+      "unassigned" : true,
+      "scale" : "3x"
+    },
+    {
+      "extent" : "full-screen",
+      "idiom" : "iphone",
+      "subtype" : "736h",
+      "filename" : "iPhone 8+_iPhone 7+_ iPhone 6s+.png",
+      "minimum-system-version" : "8.0",
+      "orientation" : "portrait",
+      "unassigned" : true,
+      "scale" : "3x"
+    },
+    {
+      "extent" : "full-screen",
+      "idiom" : "iphone",
+      "subtype" : "667h",
+      "filename" : "iPhone 8_iPhone7_iPhone 6s.png",
+      "minimum-system-version" : "8.0",
+      "orientation" : "portrait",
+      "unassigned" : true,
       "scale" : "2x"
     }
   ],
