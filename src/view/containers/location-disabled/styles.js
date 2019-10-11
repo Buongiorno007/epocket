@@ -44,6 +44,7 @@ export default StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
     overflow: "hidden",
+    backgroundColor: colors.blood_red,
   },
   location_disable_text: {
     textAlign: "center",

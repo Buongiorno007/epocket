@@ -1,7 +1,8 @@
 import { StyleSheet, Dimensions, Platform } from 'react-native'
+import { colors } from '@constants/colors'
 const { width } = Dimensions.get('window')
 const height =
-	Platform.OS === 'android' && Platform.Version > 28
+	Platform.OS === 'android' && Platform.Version > 26
 		? Dimensions.get('screen').height
 		: Dimensions.get('window').height
 
@@ -19,6 +20,7 @@ export default StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		paddingHorizontal: 16,
+		backgroundColor: colors.blood_red,
 	},
 	web_site: {
 		top: 0,
@@ -34,7 +36,7 @@ export default StyleSheet.create({
 		marginTop: 40,
 		height: 40,
 		borderRadius: 20,
-		backgroundColor: 'rgba(255, 255, 255, 0.25)',
+		backgroundColor: colors.white,
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
@@ -49,12 +51,12 @@ export default StyleSheet.create({
 		alignItems: 'center',
 	},
 	timer_text: {
-		color: '#fff',
+		color: colors.black111,
 		fontSize: 15,
 		fontFamily: 'Rubik-Bold',
 	},
 	button_text: {
-		color: '#F63272',
+		color: colors.blood_red,
 		fontSize: 12,
 		fontFamily: 'Rubik-Medium',
 	},

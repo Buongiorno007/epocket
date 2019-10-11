@@ -7,6 +7,7 @@ const iPhoneX = Platform.OS === 'ios' && (height === 812 || width === 812 || hei
 export default StyleSheet.create({
 	container: {
 		flex: 1,
+		backgroundColor: colors.blood_red,
 		// justifyContent: 'flex-end',
 	},
 	gradient: {
@@ -18,7 +19,7 @@ export default StyleSheet.create({
 	},
 	layout: {
 		flex: 1,
-		backgroundColor: '#F5F9FE',
+		backgroundColor: colors.white,
 		borderTopLeftRadius: 20,
 		borderTopRightRadius: 20,
 		marginTop: 168,
@@ -44,6 +45,8 @@ export default StyleSheet.create({
 		height: width - 96,
 		marginHorizontal: 48,
 		marginVertical: 32,
+		borderWidth: 1, 
+		borderColor: colors.blood_red,
 	},
 	timer: {
 		alignSelf: 'center',
@@ -60,5 +63,8 @@ export default StyleSheet.create({
 		fontFamily: 'Rubik-Bold',
 		marginHorizontal: 32,
 	},
-	img_container: { flex: 1, justifyContent: 'center' },
+	img_container: { 
+		flex: 1, 
+		justifyContent: 'center',
+	},
 })

@@ -17,7 +17,7 @@ function GameFailedButtons({ gameResult, ticker, visitSite, wait, publish }) {
 	return (
 		<View style={styles.container}>
 			<Button full rounded style={styles.button} onPress={publish}>
-				<LinearGradient colors={colors} start={start} end={end} style={styles.gradient}>
+				<View style={styles.gradient}>
 					<FastImage
 						style={styles.insta_logo}
 						resizeMode={FastImage.resizeMode.contain}
@@ -26,7 +26,7 @@ function GameFailedButtons({ gameResult, ticker, visitSite, wait, publish }) {
 					<Text uppercase style={styles.button_text}>
 						{I18n.t('GAME.PUBLISH_AND_CONTINUE')}
 					</Text>
-				</LinearGradient>
+				</View>
 			</Button>
 			{!ticker &&
 				(gameResult.link ? (

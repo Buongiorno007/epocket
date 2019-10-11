@@ -51,7 +51,7 @@ function GameSite({ link, timing, changeTimer = () => {}, setSite, token, dispat
 
 	return (
 		<View style={styles.container}>
-			<LinearGradient colors={colors} start={start} end={end} style={styles.gradient}>
+			<View style={styles.gradient}>
 				<FastImage
 					style={styles.icon}
 					resizeMode={FastImage.resizeMode.contain}
@@ -95,7 +95,7 @@ function GameSite({ link, timing, changeTimer = () => {}, setSite, token, dispat
 						source={require('@assets/img/zifi/playful.gif')}
 					/>
 				)}
-			</LinearGradient>
+			</View>
 			<WebView style={styles.web_site} source={{ uri: link }} />
 		</View>
 	)

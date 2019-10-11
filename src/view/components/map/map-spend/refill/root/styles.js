@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions, StatusBar, Platform } from 'react-native'
+import { colors } from '@constants/colors'
 import { Header } from 'react-navigation'
 const iPhoneX = Platform.OS === 'ios' && (height === 812 || width === 812 || height === 896 || width === 896)
 const toolbarHeight = Platform.OS === 'ios' ? 64 : Header.HEIGHT
@@ -12,6 +13,7 @@ export default StyleSheet.create({
 	layout: {
 		width,
 		height,
+		backgroundColor: colors.white,
 	},
 	keyboard: {
 		position: 'absolute',
@@ -37,11 +39,11 @@ export default StyleSheet.create({
 	field: {
 		width: '100%',
 		borderBottomWidth: 1,
-		borderBottomColor: '#fff',
+		borderBottomColor: colors.black111,
 		fontSize: 14,
 		fontFamily: 'Rubik-Regular',
 		lineHeight: 17,
-		color: '#fff',
+		color: colors.black111,
 		textAlign: 'center',
 		padding: 10,
 		marginBottom: 10,
@@ -50,24 +52,24 @@ export default StyleSheet.create({
 		fontSize: 15,
 		fontFamily: 'Rubik-Bold',
 		lineHeight: 18,
-		color: '#fff',
+		color: colors.black111,
 		marginBottom: 20,
 	},
 	sub_title: {
 		fontSize: 12,
 		fontFamily: 'Rubik-Regular',
 		lineHeight: 14,
-		color: 'rgba(255, 255, 255, .6)',
+		color: colors.black111,
 		marginBottom: 10,
 	},
 	description: {
 		fontSize: 10,
 		lineHeight: 12,
 		textAlign: 'center',
-		color: 'rgba(255, 255, 255, .8)',
+		color: colors.black111,
 	},
 	button: {
-		backgroundColor: '#fff',
+		backgroundColor: colors.blood_red,
 		marginTop: 30,
 	},
 	text: {
@@ -75,5 +77,6 @@ export default StyleSheet.create({
 		lineHeight: 12,
 		fontFamily: 'Rubik-Medium',
 		letterSpacing: 1.5,
+		color: colors.white,
 	},
 })

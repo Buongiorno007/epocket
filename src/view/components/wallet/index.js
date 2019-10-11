@@ -7,6 +7,7 @@ import FooterNavigation from '@containers/footer-navigator/footer-navigator'
 import WalletDate from '@containers/wallet-containers/wallet-date'
 import { getHistory } from '@reducers/wallet'
 import { loaderState } from '@reducers/loader'
+import I18n from "@locales/I18n"
 //styles
 import styles from './styles'
 
@@ -43,9 +44,11 @@ function Wallet({ wallet, profileState, dispatch }) {
 	return (
 		<View style={styles.container}>
 			<View style={styles.content}>
-				<LinearGradient start={start} end={end} colors={colors} style={styles.container}>
-					<Image style={styles.circles} source={require('@assets/img/circles.png')} />
-					<Text style={styles.wallet}>{`${wallet.balance} ${profileState.currency}`}</Text>
+				<View style={styles.container}>
+					{/* <Image style={styles.circles} source={require('@assets/img/circles.png')} /> */}
+					<View style={styles.wallet_c}>
+						<Text style={styles.wallet}>{`${I18n.t('CASH.TITLE')}\n ${wallet.balance} ${profileState.currency}`}</Text>
+					</View>
 					<View style={styles.history}>
 						<FlatList
 							style={styles.scroll}
@@ -57,7 +60,7 @@ function Wallet({ wallet, profileState, dispatch }) {
 							ListFooterComponent={renderFooter}
 						/>
 					</View>
-				</LinearGradient>
+				</View>
 			</View>
 			<FooterNavigation />
 		</View>
