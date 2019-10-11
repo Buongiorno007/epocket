@@ -11,6 +11,7 @@ import {
 } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import { connect } from 'react-redux'
+import { Button } from 'native-base'
 import { bindActionCreators } from 'redux'
 import ImagePicker from 'react-native-image-picker'
 //containers
@@ -28,6 +29,7 @@ import { httpPost } from '@services/http'
 //constants
 import { urls } from '@constants/urls'
 import { ICONS } from '@constants/icons'
+import { colors } from '@constants/colors'
 //locales
 import I18n from '@locales/I18n'
 //style
@@ -129,12 +131,7 @@ class ProfEdit extends React.Component {
 	}
 	render() {
 		return (
-			<LinearGradient
-				colors={['#9B45F0', '#D833C8', '#F55890', '#FF8D50', '#F7BB42']}
-				start={{ x: 0.0, y: 0.0 }}
-				end={{ x: 0.0, y: 1.0 }}
-				style={styles.container}
-			>
+			<View style={styles.container}>
 				<Image style={styles.img} source={require('@assets/img/bubles.png')} />
 				<Header route='Main' title={I18n.t('PROFILE_SETTINGS.EDIT')} />
 				<KeyboardAvoidingView behavior='padding' style={styles.grad}>
@@ -151,7 +148,7 @@ class ProfEdit extends React.Component {
 								value={this.state.name}
 								placeholder={I18n.t('SIGN.FIRST_SECOND_NAME')}
 								style={styles.textInput}
-								placeholderTextColor={'#fff'}
+								placeholderTextColor={colors.black111}
 								onFocus={() => this.setState({ notCorrect: false })}
 								onChangeText={(value) => this.addTextFirstName(value)}
 							/>
@@ -187,17 +184,22 @@ class ProfEdit extends React.Component {
 								</Text>
 							</TouchableOpacity>
 						</View>
-						<CustomButton
+						{/* <CustomButton
 							color={this.state.acceptButton ? this.props.userColor.pink : this.props.userColor.white}
 							handler={() => {
 								this.changeProfile()
 							}}
 							active={this.state.acceptButton}
 							title={I18n.t('PROFILE_SETTINGS.CONFIRM').toUpperCase()}
-						/>
+						/> */}
+						<Button full rounded style={[styles.button]} onPress={() => {this.changeProfile()}} disabled={!this.state.acceptButton}>
+							<Text style={[styles.text]}>
+								{I18n.t('PROFILE_SETTINGS.CONFIRM').toUpperCase()}
+							</Text>
+						</Button>
 					</ScrollView>
 				</KeyboardAvoidingView>
-			</LinearGradient>
+			</View>
 		)
 	}
 }

@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions, Platform } from 'react-native'
+import { colors } from '@constants/colors'
 const { width } = Dimensions.get('window')
 const height =
 	Platform.OS === 'android' && Platform.Version > 28
@@ -13,10 +14,11 @@ export default StyleSheet.create({
 		paddingBottom: 60,
 		paddingTop: 40,
 		zIndex: 3,
+		backgroundColor: colors.white,
 	},
 	zifi_text: {
 		fontFamily: 'Rubik-BoldItalic',
-		color: '#fff',
+		color: colors.black111,
 		fontSize: 15,
 	},
 	zifi: {
@@ -31,7 +33,7 @@ export default StyleSheet.create({
 		paddingHorizontal: 16,
 	},
 	visit_partners: {
-		color: '#fff',
+		color: colors.black111,
 		marginTop: 16,
 		marginBottom: 8,
 		alignSelf: 'center',
@@ -48,7 +50,7 @@ export default StyleSheet.create({
 		paddingVertical: 16,
 	},
 	visit_trc_text: {
-		color: '#fff',
+		color: colors.black111,
 		alignSelf: 'center',
 	},
 	each_brand: {

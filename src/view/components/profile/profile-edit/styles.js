@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions, StatusBar, Platform } from 'react-native'
 import { Header } from 'react-navigation'
-import { colors } from '../../../../constants/colors'
+import { colors } from '@constants/colors'
 const { width } = Dimensions.get('window')
 const height =
 	Platform.OS === 'android' && Platform.Version > 26
@@ -20,7 +20,7 @@ export default StyleSheet.create({
 	container: {
 		width,
 		height,
-		backgroundColor: colors.backgroundForAnimated,
+		backgroundColor: colors.white,
 		zIndex: 100,
 	},
 	img: {
@@ -59,7 +59,7 @@ export default StyleSheet.create({
 	},
 	textLeft: {
 		textAlign: 'left',
-		color: 'rgba(255, 255, 255, .75)',
+		color: colors.black111,
 		marginBottom: 8,
 		fontSize: 12,
 	},
@@ -81,9 +81,9 @@ export default StyleSheet.create({
 	},
 	textInput: {
 		width: '100%',
-		borderBottomColor: '#FFF',
+		borderBottomColor: colors.black111,
 		borderBottomWidth: 1,
-		color: '#FFF',
+		color: colors.black111,
 		paddingVertical: 10,
 		marginBottom: 32,
 		fontSize: 16,
@@ -95,33 +95,47 @@ export default StyleSheet.create({
 	},
 	leftButton: {
 		borderWidth: 1,
-		borderColor: '#fff',
+		borderColor: colors.black111,
 		marginRight: 12,
 		flexGrow: 1,
 		borderRadius: 20,
 		height: 40,
 		alignItems: 'center',
 		justifyContent: 'center',
+		backgroundColor: colors.white,
 	},
 	rightButton: {
 		borderWidth: 1,
-		borderColor: '#fff',
+		borderColor: colors.black111,
 		marginLeft: 12,
 		flexGrow: 1,
 		borderRadius: 20,
 		height: 40,
 		alignItems: 'center',
 		justifyContent: 'center',
+		backgroundColor: colors.white,
 	},
 	genderActive: {
-		backgroundColor: 'rgba(255, 255, 255, 0.45)',
+		backgroundColor: colors.black111,
 	},
 	genderText: {
 		fontSize: 16,
-		color: '#fff',
+		color: colors.black111,
 	},
 	genderActiveText: {
 		fontSize: 16,
-		color: '#F63272',
+		color: colors.white,
+	},
+	button: {
+		height: 44,
+		marginVertical: 10,
+		paddingTop: 10,
+		elevation: 0,
+		backgroundColor: colors.blood_red,
+	},
+	text: {
+		color: colors.white,
+		fontSize: 14,
+		fontFamily: 'Rubik-Medium',
 	},
 })

@@ -43,7 +43,7 @@ function GamePartners({ gameTicker, dispatch }) {
 	}
 
 	return (
-		<LinearGradient colors={colors} start={start} end={end} style={styles.gradient}>
+		<View style={styles.gradient}>
 			<Text style={styles.zifi_text}>{I18n.t('GAME.ZIFI.MORE_GAMES')}</Text>
 			<Image style={styles.zifi} source={require('@assets/img/zifi/playful.gif')} />
 			<View style={styles.container}>
@@ -67,7 +67,7 @@ function GamePartners({ gameTicker, dispatch }) {
 			</View>
 			<FooterNavigation />
 			{site && <GameSite timing={gameTicker.timer} setSite={() => setSite(!site)} link={link} />}
-		</LinearGradient>
+		</View>
 	)
 }
 const mapStateToProps = (state) => {
