@@ -8,7 +8,7 @@ export default StyleSheet.create({
   container: {
     width,
     height: 56 + sbHeight,
-    paddingTop: sbHeight,
+    paddingTop: sbHeight + 8,
     backgroundColor: "#fff",
     justifyContent: "space-between",
     flexDirection: "row",

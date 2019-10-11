@@ -21,7 +21,7 @@ function BarcodeComponent({ profileState, balance }) {
 					<Text style={styles.title}>{I18n.t('HISTORY_PAGE.SHOW_THIS_BARCODE')}</Text>
 					<View style={styles.barcodeView}>
 						<Barcode value={profileState.phone} format='CODE128' onError={(e) => {}} />
-						<Text style={styles.barcodeText}>{`${profileState.phone}`}</Text>
+						{/* <Text style={styles.barcodeText}>{`${profileState.phone}`}</Text> */}
 					</View>
 					<Text style={styles.subTitle}>
 						{I18n.t('ANY_GOOD_BARCODE')}
