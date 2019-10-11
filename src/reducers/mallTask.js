@@ -14,6 +14,7 @@ export default (state = initialState, action) => {
 }
 
 export const getMallTask = item => async dispatch => {
+  console.log(item, 'getMallTask')
   try {
     await dispatch(setMallTask(new MALLTASK(item)))
     await route.push("MallTask")

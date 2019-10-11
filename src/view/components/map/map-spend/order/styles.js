@@ -49,7 +49,7 @@ export default StyleSheet.create({
 	price: {
 		fontFamily: 'Rubik-Bold',
 		fontSize: 16,
-		color: '#fff',
+		color: colors.black111,
 		textAlign: 'center',
 		marginTop: 16,
 	},
