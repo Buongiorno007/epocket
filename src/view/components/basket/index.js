@@ -18,8 +18,8 @@ function BasketComponent({ balance, profileState, basket }) {
 
 	return (
 		<View style={styles.container}>
-			<LinearGradient start={start} end={end} colors={colors} style={styles.container}>
-				<MapHeaderWhite title={`${I18n.t('CASH.TITLE')} ${balance} ${profileState.currency}`} />
+			<View style={styles.container}>
+				<MapHeaderWhite title={`${I18n.t('CASH.TITLE')} ${balance} ${profileState.currency}`} transparent />
 				<View style={styles.textView}>
 					<Text style={styles.text}>{I18n.t('PREORDER')}</Text>
 				</View>
@@ -29,7 +29,7 @@ function BasketComponent({ balance, profileState, basket }) {
 					renderItem={renderItem}
 					keyExtractor={keyExtractor}
 				/>
-			</LinearGradient>
+			</View>
 		</View>
 	)
 }

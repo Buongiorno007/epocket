@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
 import MapHeaderWhite from '@containers/map/map-header-white'
 import I18n from '@locales/I18n'
+import Header from '@containers/header'
 //styles
 import styles from './styles'
 import LogoTitle from '@containers/map/logo-title'
@@ -65,8 +66,9 @@ function OrderScreen({ order, profileState, qrValue, dispatch }) {
 	const clsModal = () => dispatch(clearQrValue())
 
 	return (
-		<LinearGradient start={start} end={end} colors={colors} style={styles.container}>
-			<MapHeaderWhite title={`${order.user_balance} ${profileState.currency}`} />
+		<View style={styles.container}>
+			{/* <MapHeaderWhite title={`${order.user_balance} ${profileState.currency}`} /> */}
+			<Header title={`${order.user_balance} ${profileState.currency}`}/>
 			<View style={styles.field}>
 				<LogoTitle logo={order.point_image} title={order.point_name} />
 				<Text style={styles.text}>{I18n.t('DO_PREORDER')}</Text>
@@ -79,7 +81,7 @@ function OrderScreen({ order, profileState, qrValue, dispatch }) {
 				</TouchableOpacity>
 			</View>
 			<ModalQr visible={!!qrValue} qrvalue={qrValue} price={price} hide={clsModal} />
-		</LinearGradient>
+		</View>
 	)
 }
 

@@ -1,9 +1,11 @@
 import { StyleSheet, Dimensions, Platform } from 'react-native'
+import { colors } from '@constants/colors'
 const { width } = Dimensions.get('window')
 
 export default StyleSheet.create({
 	container: {
 		flex: 1,
+		backgroundColor: colors.blood_red
 	},
 	textView: {
 		width,
@@ -15,7 +17,7 @@ export default StyleSheet.create({
 	text: {
 		fontFamily: 'Rubik-Medium',
 		fontSize: 18,
-		color: '#fff',
+		color: colors.white,
 		textAlign: 'center',
 	},
 	scroll: {

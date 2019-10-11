@@ -1,5 +1,6 @@
 import React from "react"
 import { StyleSheet, View, Text, Image } from "react-native"
+import { colors } from '@constants/colors'
 
 export default function LogoTitle({ logo = "", title = "" }) {
   return (
@@ -24,6 +25,6 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: "Rubik-Light",
     fontSize: 24,
-    color: "#fff",
+    color: colors.black111,
   },
 })
