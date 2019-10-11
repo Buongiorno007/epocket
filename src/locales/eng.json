@@ -257,7 +257,7 @@
   },
   "GAME": {
     "GAME_COST": "TASK FOR {{value}} {{currency}}",
-    "CONGRATULATION": "Congratulation!\nYou won {{value}} {{currency}} ",
+    "CONGRATULATION": "You won \n",
     "WAIT_SEC": "WAIT {{value}} SEC",
     "WAIT_MIN": "WAIT {{value}} MIN",
     "PUBLISH_AND_CONTINUE": "PUBLISH AND CONTINUE",

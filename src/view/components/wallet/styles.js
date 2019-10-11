@@ -34,7 +34,7 @@ export default StyleSheet.create({
     height: 120,
     marginHorizontal: 16,
     backgroundColor: colors.blood_red,
-    marginTop: sbHeight,
+    marginTop: sbHeight + 16,
     justifyContent: "center",
   },
   history: {
