@@ -1,9 +1,11 @@
 import { StyleSheet, Dimensions, Platform } from 'react-native'
+import { colors } from '@constants/colors'
 const { width } = Dimensions.get('window')
 
 export default StyleSheet.create({
 	container: {
 		flex: 1,
+		backgroundColor: colors.white,
 	},
 	field: {
 		flex: 1,
@@ -13,16 +15,16 @@ export default StyleSheet.create({
 	text: {
 		fontFamily: 'Rubik-Bold',
 		fontSize: 24,
-		color: '#fff',
+		color: colors.black111,
 		textAlign: 'center',
 		marginTop: 24,
 		marginBottom: 16,
 	},
 	scroll: {
 		flex: 1,
-		borderColor: 'rgba(255,255,255,0.3)',
-		borderTopWidth: 1,
-		borderBottomWidth: 1,
+		// borderColor: 'rgba(255,255,255,0.3)',
+		// borderTopWidth: 1,
+		// borderBottomWidth: 1,
 		paddingTop: 24,
 	},
 	qr: {
@@ -32,12 +34,12 @@ export default StyleSheet.create({
 	qrText: {
 		fontFamily: 'Rubik-Medium',
 		fontSize: 14,
-		color: '#F63272',
+		color: colors.white,
 	},
 	button: {
 		height: 40,
 		borderRadius: 20,
-		backgroundColor: '#fff',
+		backgroundColor: colors.blood_red,
 		marginVertical: 24,
 		flexDirection: 'row',
 		justifyContent: 'space-between',

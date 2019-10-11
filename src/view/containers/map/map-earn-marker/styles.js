@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+import { colors } from '@constants/colors'
 
 export default StyleSheet.create({
 	container: {
@@ -12,11 +13,11 @@ export default StyleSheet.create({
 	text_view: {
 		paddingHorizontal: 8,
 		paddingVertical: 4,
-		backgroundColor: '#fff',
+		backgroundColor: colors.blood_red,
 		marginTop: 8,
 		borderRadius: 20,
 	},
 	text: {
-		color: '#F63272',
+		color: colors.white,
 	},
 })

@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import { colors } from '@constants/colors'
 import LinearGradient from 'react-native-linear-gradient'
 import { saveOrder } from '@reducers/order'
 import { connect } from 'react-redux'
@@ -15,10 +16,10 @@ function BasketItem({ item, dispatch }) {
 		<TouchableOpacity style={styles.container} onPress={goToOrderScreen}>
 			<Image style={styles.image} source={{ uri: item.point_image }} />
 			<Text style={styles.title}>{item.point_name}</Text>
-			<LinearGradient colors={colors} start={start} end={end} style={styles.grad}>
+			<View style={styles.grad}>
 				<Text style={styles.gradText}>{item.point_basket_amount}</Text>
 				<View style={styles.arrow}></View>
-			</LinearGradient>
+			</View>
 		</TouchableOpacity>
 	)
 }
@@ -51,6 +52,7 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 8,
 		flexDirection: 'row',
 		alignItems: 'center',
+		backgroundColor: colors.blood_red,
 	},
 	gradText: {
 		fontFamily: 'Rubik-Regular',

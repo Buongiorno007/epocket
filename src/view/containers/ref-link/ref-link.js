@@ -123,7 +123,7 @@ class RefLink extends React.Component {
 				{this.props.toogle ? (
 					<View style={styles.opened_share_menu}>
 						<View style={styles.top_container}>
-							<LinearGradient
+							{/* <LinearGradient
 								colors={[
 									this.props.userColor.first_gradient_color,
 									this.props.userColor.second_gradient_color,
@@ -131,7 +131,7 @@ class RefLink extends React.Component {
 								start={{ x: 0.0, y: 1.0 }}
 								end={{ x: 1.0, y: 1.0 }}
 								style={[styles.top_container_gradient_background]}
-							/>
+							/> */}
 							<Button
 								rounded
 								block
@@ -154,7 +154,7 @@ class RefLink extends React.Component {
 									currency: this.state.currency,
 								})}
 							</Text>
-							<QRCode value={this.props.link} backgroundColor='transparent' />
+							{/* <QRCode value={this.props.link} backgroundColor='transparent' /> */}
 						</View>
 						<View style={styles.share_list}>
 							<FlatList

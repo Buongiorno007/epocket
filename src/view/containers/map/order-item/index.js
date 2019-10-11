@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, View, Text, Image, TouchableOpacity, Dimensions } from 'react-native'
+import { colors } from '@constants/colors'
 import { connect } from 'react-redux'
 
 const { width } = Dimensions.get('window')
@@ -49,34 +50,34 @@ const styles = StyleSheet.create({
 	title: {
 		fontFamily: 'Rubik-Regular',
 		fontSize: 14,
-		color: '#fff',
+		color: colors.black111,
 		marginBottom: 4,
 	},
 	price: {
 		fontFamily: 'Rubik-Medium',
 		fontSize: 14,
-		color: '#fff',
+		color: colors.black111,
 	},
 	button: {
 		width: 40,
 		height: 40,
 		borderRadius: 20,
 		borderWidth: 1,
-		borderColor: '#fff',
+		borderColor: colors.black111,
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: 'rgba(255,255,255,0.10)',
+		backgroundColor: colors.white,
 	},
 	count: {
 		fontFamily: 'Rubik-Light',
-		color: '#fff',
+		color: colors.black111,
 		fontSize: 24,
 		width: 40,
 		textAlign: 'center',
 	},
 	symbol: {
 		fontFamily: 'Rubik-Light',
-		color: '#fff',
+		color: colors.black111,
 		fontSize: 24,
 	},
 	text: {
