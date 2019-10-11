@@ -13,6 +13,7 @@ import Header from '@containers/header'
 import Touchable from '@containers/custom/custom-button/custom-button'
 import I18n from '@locales/I18n'
 import styles from './styles'
+import { colors } from '@constants/colors'
 
 type Props = {
 	sign_in: any,
@@ -137,7 +138,7 @@ class ConfirmCode extends React.Component<Props, State> {
 		const { timer, accept, code, validate, back, title } = this.state
 		const color = accept ? pink : white
 		return (
-			<LinearGradient colors={colors} start={start} end={end} style={styles.layout}>
+			<View style={styles.layout}>
 				<Header route={back} title={title} />
 				<KeyboardAvoidingView style={styles.keyboard} behavior={'padding'}>
 					<ScrollView
@@ -170,7 +171,7 @@ class ConfirmCode extends React.Component<Props, State> {
 								onFocus={this.handleFocusCode}
 								onChangeText={this.handleChangeCode}
 								placeholder={'-  -  -  -  -  -'}
-								placeholderTextColor={'#fff'}
+								placeholderTextColor={colors.black111}
 								style={styles.field}
 								keyboardType={'numeric'}
 								maxLength={6}
@@ -182,16 +183,21 @@ class ConfirmCode extends React.Component<Props, State> {
 								{I18n.t('SIGN.CHECK_CODE')}
 							</Text>
 						</View>
-						<Touchable
+						{/* <Touchable
 							color={color}
 							active={accept}
 							disabled={!accept}
 							handler={this.handleConfirm}
 							title={I18n.t('ACCEPT').toUpperCase()}
-						/>
+						/> */}
+						<Button full rounded style={[styles.button, accept ? styles.red : styles.gray]} onPress={this.handleConfirm}>
+							<Text style={[styles.text, accept && styles.white_t]}>
+								{I18n.t('ACCEPT').toUpperCase()}
+							</Text>
+						</Button>
 					</ScrollView>
 				</KeyboardAvoidingView>
-			</LinearGradient>
+			</View>
 		)
 	}
 }

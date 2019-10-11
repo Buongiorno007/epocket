@@ -84,7 +84,7 @@ class Refill extends React.Component<Props, State> {
 		const { code, min, max, currency, value, tax } = this.props.bonuses
 		const length = String(max).length
 		return (
-			<LinearGradient colors={colors} start={start} end={end} style={styles.layout}>
+			<View style={styles.layout}>
 				{code && (
 					<React.Fragment>
 						<Header title={`${I18n.t('CASH.TITLE')} ${value} ${currency}`} />
@@ -117,13 +117,13 @@ class Refill extends React.Component<Props, State> {
 									</Text>
 								</View>
 								<Button rounded block style={styles.button} onPress={this.handleRefill}>
-									<Text style={[styles.text, { color: '#F55890' }]}>{I18n.t('ACCEPT')}</Text>
+									<Text style={[styles.text]}>{I18n.t('ACCEPT')}</Text>
 								</Button>
 							</ScrollView>
 						</KeyboardAvoidingView>
 					</React.Fragment>
 				)}
-			</LinearGradient>
+			</View>
 		)
 	}
 }

@@ -1,12 +1,13 @@
-import React from "react"
-import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native"
-import route from "@services/route"
-import { connect } from "react-redux"
+import React from 'react'
+import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native'
+import route from '@services/route'
+import { connect } from 'react-redux'
+import I18n from '@locales/I18n'
 
-function MapHeaderPink({ title = "MЕСТА НА КАРТЕ", filters = false, use, mapPoints }) {
-  const goToFilters = () => {
-    mapPoints.filters.length ? route.push("Filters") : console.log("FILTERS NOT available")
-  }
+function MapHeaderPink({ title = I18n.t('MAP.PLACES'), filters = false, use, mapPoints }) {
+	const goToFilters = () => {
+		mapPoints.filters.length ? route.push('Filters') : console.log('FILTERS NOT available')
+	}
 
   return (
     <View style={styles.container}>

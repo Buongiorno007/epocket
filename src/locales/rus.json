@@ -257,7 +257,7 @@
   },
   "GAME": {
     "GAME_COST": "ЗАДАНИЕ НА {{value}} {{currency}}",
-    "CONGRATULATION": "Поздравляем!\nВы выиграли {{value}} {{currency}} ",
+    "CONGRATULATION": "Вы выиграли\n",
     "WAIT_SEC": "ПОДОЖДАТЬ {{value}} СЕК",
     "WAIT_MIN": "ПОДОЖДАТЬ {{value}} МИН",
     "PUBLISH_AND_CONTINUE": "ОПУБЛИКОВАТЬ И ПРОДОЛЖИТЬ",

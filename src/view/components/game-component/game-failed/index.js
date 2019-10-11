@@ -51,7 +51,7 @@ function GameFailed({ gameResult, dispatch }) {
 
 	return (
 		<View style={styles.container}>
-			<LinearGradient colors={colors} start={start} end={end} style={styles.gradient} />
+			{/* <LinearGradient colors={colors} start={start} end={end} style={styles.gradient} /> */}
 			<View style={styles.layout}>
 				<View style={styles.zifi_layout}>
 					<Text style={styles.zifi_text}>

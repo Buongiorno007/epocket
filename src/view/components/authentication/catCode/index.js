@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Image, Text } from 'react-native'
+import { Button } from "native-base"
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import LinearGradient from 'react-native-linear-gradient'
@@ -30,11 +31,16 @@ class CatCode extends React.Component<Props> {
 		const { colors, start, end, pink, white } = this.props
 		const color = true ? pink : white
 		return (
-			<LinearGradient colors={colors} start={start} end={end} style={styles.layout}>
+			<View style={styles.layout}>
 				<Image style={styles.image} source={require('@assets/img/cat.png')} />
 				<Text style={styles.title}>{I18n.t('SIGN.CONGRATULATION')}</Text>
-				<Touchable color={color} handler={this.navigate} active={true} title={I18n.t('SIGN.START')} />
-			</LinearGradient>
+				{/* <Touchable color={colors.blood_red} handler={this.navigate} active={true} title={I18n.t('SIGN.START')} /> */}
+				<Button full rounded style={[styles.button]} onPress={this.navigate}>
+					<Text style={[styles.text]}>
+						{I18n.t('SIGN.START')}
+					</Text>
+				</Button>
+			</View>
 		)
 	}
 }

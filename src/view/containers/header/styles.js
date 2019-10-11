@@ -1,5 +1,6 @@
 import { StyleSheet, Dimensions, StatusBar, Platform } from 'react-native'
 import { Header } from 'react-navigation'
+import { colors } from '@constants/colors'
 
 const { width, height } = Dimensions.get('window')
 
@@ -10,7 +11,7 @@ const toolbarHeight = Platform.OS === 'ios' ? 64 : Header.HEIGHT
 export default StyleSheet.create({
 	layout: {
 		width,
-		backgroundColor: 'rgba(255,255,255,.2)',
+		backgroundColor: colors.transparent,
 	},
 	wrapper: {
 		alignItems: 'flex-end',
@@ -36,7 +37,7 @@ export default StyleSheet.create({
 	},
 	title: {
 		fontWeight: '600',
-		color: '#fff',
+		color: colors.black111,
 		fontSize: 18,
 	},
 	left: {

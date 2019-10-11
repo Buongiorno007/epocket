@@ -15,9 +15,9 @@ export default StyleSheet.create({
 		width: 16,
 		height: 16,
 		borderLeftWidth: 3,
-		borderLeftColor: '#fff',
+		borderLeftColor: colors.black111,
 		borderTopWidth: 3,
-		borderTopColor: '#fff',
+		borderTopColor: colors.black111,
 		transform: [{ rotate: '-45deg' }],
 	},
 	back_txt: {

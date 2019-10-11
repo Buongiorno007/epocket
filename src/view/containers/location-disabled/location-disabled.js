@@ -94,12 +94,12 @@ class LocationDisabled extends React.Component {
               this._requestLocation()
             }}
           >
-            <LinearGradient
+            {/* <LinearGradient
               colors={[this.props.userColor.first_gradient_color, this.props.userColor.second_gradient_color]}
               start={{ x: 0.0, y: 1.0 }}
               end={{ x: 1.0, y: 1.0 }}
               style={styles.enable_location}
-            />
+            /> */}
             <Text style={styles.location_enable_text}>{I18n.t("LOCATION_ENABLE")}</Text>
           </Button>
         </View>

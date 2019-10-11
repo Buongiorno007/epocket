@@ -17,7 +17,7 @@ import I18n from '@locales/I18n'
 class FooterNavigation extends React.Component {
 	render() {
 		return (
-			<View style={styles.footer_container}>
+			<View style={[styles.footer_container, this.props.activeTab === 0 && styles.bTop]}>
 				{this.props.activeTab === 2 && (
 					<LinearGradient
 						colors={[this.props.userColor.transparent, this.props.userColor.drag_panel_color]}

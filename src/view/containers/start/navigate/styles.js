@@ -35,6 +35,7 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: colors.dark_pink,
   },
   text: {
     fontSize: 14,
@@ -44,4 +45,10 @@ export default StyleSheet.create({
   sign_up: {
     color: "#fff",
   },
+  semi_t: {
+    backgroundColor: colors.white_o15,
+    borderWidth: 1,
+    borderColor: colors.white_o30,
+    elevation: 0,
+  }
 })

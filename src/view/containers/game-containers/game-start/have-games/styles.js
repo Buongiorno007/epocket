@@ -13,9 +13,18 @@ export default StyleSheet.create({
     justifyContent: "space-between",
     paddingBottom: 8,
   },
+  game_aval: {
+    borderRadius: 24,
+    backgroundColor: colors.black111,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+  },
+  game_aval_t: {
+    color: colors.white,
+  },
   zifi_text: {
     textAlign: "center",
-    color: "#BDC3C9",
+    color: colors.light_gray,
     fontSize: 16,
     fontFamily: "Rubik-BoldItalic",
     marginBottom: 24,
@@ -27,9 +36,28 @@ export default StyleSheet.create({
     alignSelf: "center",
   },
   game_cost_text: {
-    color: "#F63272",
+    color: colors.blood_red,
     fontSize: 16,
     fontFamily: "Rubik-Bold",
     textAlign: "center",
   },
+  game_desc_text: {
+    textAlign: 'center',
+    fontFamily: 'Rubik-Medium',
+    fontSize: 18,
+    color: colors.black40,
+    marginTop: 15,
+  },
+  button: {
+		height: 44,
+		marginVertical: 10,
+		paddingTop: 10,
+    elevation: 0,
+    backgroundColor: colors.blood_red,
+  },
+  button_t: {
+    fontFamily: 'Rubik-Medium',
+    fontSize: 14,
+    color: colors.white,
+  }
 })

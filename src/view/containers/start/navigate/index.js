@@ -7,26 +7,23 @@ import route from "@services/route"
 import styles from "./styles"
 
 const Navigate = () => {
-  const colors = ["#FF9950", "#F55890"]
-  const start = { x: 0.0, y: 0.0 }
-  const end = { x: 1.0, y: 0.0 }
 
   const sign_in = () => route.navigate("SignIn")
   const sign_up = () => route.navigate("SignUp")
 
   return (
     <View style={styles.layout}>
-      <Button full rounded style={styles.button} onPress={sign_in}>
+      <Button full rounded style={[styles.button, styles.semi_t]} onPress={sign_in}>
         <Text uppercase style={[styles.text]}>
           {I18n.t("SIGN_IN_TITLE")}
         </Text>
       </Button>
       <Button full rounded style={styles.button} onPress={sign_up}>
-        <LinearGradient colors={colors} start={start} end={end} style={styles.gradient}>
+        <View style={styles.gradient}>
           <Text uppercase style={[styles.text, styles.sign_up]}>
             {I18n.t("SIGN_UP_TITLE")}
           </Text>
-        </LinearGradient>
+        </View>
       </Button>
     </View>
   )

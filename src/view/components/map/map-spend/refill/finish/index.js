@@ -27,14 +27,12 @@ export default class RefillFinish extends React.Component<Props> {
 	}
 
 	render() {
-		const { start, end } = this.props
-		const colors = ['#F55890', '#FF9950']
 		const { condition } = this.props.navigation.state.params
 		return (
-			<LinearGradient colors={colors} start={start} end={end} style={styles.layout}>
+			<View style={styles.layout}>
 				<Header />
 				{condition === 'success' ? <Success /> : <Fail />}
-			</LinearGradient>
+			</View>
 		)
 	}
 }

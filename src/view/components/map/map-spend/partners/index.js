@@ -5,11 +5,9 @@ import { connect } from 'react-redux'
 import MapHeaderWhite from '@containers/map/map-header-white'
 import PartnerCard from '@containers/partners/partner-button'
 import I18n from '@locales/I18n'
+import { colors } from '@constants/colors'
 
 function Partnrs({ partners }) {
-	const colors = ['#F55890', '#FF9950']
-	const start = { x: 0.0, y: 0.0 }
-	const end = { x: 0.0, y: 1.0 }
 
 	const renderItem = ({ item }) => {
 		return <PartnerCard item={item} />
@@ -20,8 +18,8 @@ function Partnrs({ partners }) {
 
 	return (
 		<View style={styles.container}>
-			<LinearGradient start={start} end={end} colors={colors} style={styles.container}>
-				<MapHeaderWhite title={I18n.t('PARTNERS.ONLINE_SHOPS')} />
+			<View style={styles.container}>
+				<MapHeaderWhite title={I18n.t('PARTNERS.ONLINE_SHOPS')} transparent/>
 				<View style={styles.container}>
 					<View style={styles.textContainer}>
 						<Text style={styles.text}>{I18n.t('PARTNERS.ONLINE_SHOP_HERE')}</Text>
@@ -33,7 +31,7 @@ function Partnrs({ partners }) {
 						renderItem={renderItem}
 					/>
 				</View>
-			</LinearGradient>
+			</View>
 		</View>
 	)
 }
@@ -49,6 +47,7 @@ export default connect(mapStateToProps)(Partnrs)
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		backgroundColor: colors.blood_red,
 	},
 	text: {
 		fontFamily: 'Rubik-Medium',
@@ -66,6 +65,6 @@ const styles = StyleSheet.create({
 		paddingVertical: 16,
 		borderTopLeftRadius: 24,
 		borderTopRightRadius: 24,
-		backgroundColor: '#E5EDF7',
+		backgroundColor: colors.white,
 	},
 })

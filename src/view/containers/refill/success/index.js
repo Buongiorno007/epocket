@@ -19,7 +19,7 @@ function Success({ phone, color }: Props) {
 			<Text style={styles.result}>{I18n.t('REFILL.SUCCESS')}</Text>
 			<Text style={styles.phone}>{`${phone}`}</Text>
 			<Button rounded block style={styles.button} onPress={navigate}>
-				<Text style={[styles.text, { color }]}>{I18n.t('OK')}</Text>
+				<Text style={[styles.text]}>{I18n.t('OK')}</Text>
 			</Button>
 		</View>
 	)

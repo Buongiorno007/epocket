@@ -9,7 +9,7 @@ const iPhoneX = Platform.OS === 'ios' && (height === 812 || width === 812 || hei
 export default StyleSheet.create({
 	layout: {
 		flex: 1,
-		backgroundColor: colors.backgroundForAnimated,
+		backgroundColor: colors.white,
 	},
 	keyboard: {
 		position: 'absolute',
@@ -29,7 +29,7 @@ export default StyleSheet.create({
 	again_button: {
 		height: 24,
 		borderRadius: 12,
-		backgroundColor: 'rgba(255, 255, 255, .17)',
+		backgroundColor: colors.mild_gray,
 		paddingHorizontal: 4,
 		justifyContent: 'center',
 		alignItems: 'center',
@@ -40,29 +40,32 @@ export default StyleSheet.create({
 	again_text: {
 		fontSize: 12,
 		marginHorizontal: 8,
-		color: '#fff',
+		color: colors.black111,
+		fontFamily: 'Rubik-Regular',
 	},
 	again_button_active: {
+		borderWidth: 1,
+		borderColor: colors.black111,
 		backgroundColor: '#fff',
 	},
 	again_text_active: {
-		color: '#F63272',
+		color: colors.blood_red,
 	},
 	content: {
 		width: '100%',
 	},
 	description: {
 		fontSize: 18,
-		color: '#fff',
+		color: colors.black111,
 		textAlign: 'center',
 		marginBottom: 24,
-		fontWeight: 'bold',
+		fontFamily: 'Rubik-Medium',
 	},
 	field: {
 		width: '100%',
-		borderBottomColor: '#FFF',
+		borderBottomColor: colors.black111,
 		borderBottomWidth: 1,
-		color: '#FFF',
+		color: colors.black111,
 		paddingVertical: 10,
 		textAlign: 'center',
 		letterSpacing: 5,
@@ -75,7 +78,7 @@ export default StyleSheet.create({
 	},
 	right: {
 		textAlign: 'right',
-		color: '#fff',
+		color: colors.blood_red,
 		marginTop: 8,
 		marginBottom: 24,
 		fontSize: 10,
@@ -85,12 +88,12 @@ export default StyleSheet.create({
 		height: 18,
 		borderRadius: 9,
 		justifyContent: 'center',
-		backgroundColor: '#fff',
+		backgroundColor: colors.black111,
 		alignItems: 'center',
 	},
 	timer: {
 		fontSize: 12,
-		color: 'rgba(246, 50, 114, .75)',
+		color: colors.white,
 	},
 	title: {
 		fontWeight: 'bold',
@@ -99,5 +102,33 @@ export default StyleSheet.create({
 	},
 	background: {
 		backgroundColor: 'rgba(255,255,255,.2)',
+	},
+	button: {
+		height: 44,
+		marginVertical: 10,
+		paddingTop: 10,
+		elevation: 0,
+	},
+	gray: {
+		borderWidth: 2,
+		borderColor: colors.light_gray,
+		backgroundColor: colors.white,
+	},
+	gray_t: {
+		color: colors.light_gray,
+	},
+	red: {
+		backgroundColor: colors.blood_red,
+	},
+	red_t: {
+		color: colors.blood_red,
+	},
+	white_t: {
+		color: colors.white,
+	},
+	text: {
+		color: colors.light_gray,
+		fontSize: 14,
+		fontFamily: 'Rubik-Medium',
 	},
 })

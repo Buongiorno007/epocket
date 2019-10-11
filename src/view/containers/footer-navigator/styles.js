@@ -9,7 +9,7 @@ let isIphoneX = platform === "ios" && height === 812 && width === 375
 export default StyleSheet.create({
   footer_container: {
     width: width,
-    height: 60,
+    height: 61,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-end",
@@ -51,7 +51,7 @@ export default StyleSheet.create({
   footer_tab_text: {
     width: width * 0.25,
     textAlign: "center",
-    color: colors.pink,
+    color: colors.blood_red,
     fontSize: 11,
     fontFamily: "Rubik-Medium",
   },
@@ -68,4 +68,8 @@ export default StyleSheet.create({
     width: width,
     height: 25,
   },
+  bTop: {
+		borderTopWidth: 1,
+    borderTopColor: colors.mild_gray,
+  }
 })

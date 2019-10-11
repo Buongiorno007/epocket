@@ -11,6 +11,7 @@ const toolbarHeight = Platform.OS === 'ios' ? 64 : Header.HEIGHT
 export default StyleSheet.create({
 	layout: {
 		flex: 1,
+		backgroundColor: colors.white,
 	},
 	keyboard: {
 		position: 'absolute',
@@ -36,9 +37,10 @@ export default StyleSheet.create({
 		width,
 	},
 	text: {
-		color: 'rgba(255, 255, 255, .75)',
+		color: colors.light_gray,
 		marginBottom: 8,
-		fontSize: 12,
+		fontSize: 14,
+		fontFamily: 'Rubik-Medium',
 	},
 	left: {
 		textAlign: 'left',
@@ -55,4 +57,27 @@ export default StyleSheet.create({
 		zIndex: 100,
 		position: 'absolute',
 	},
+	button: {
+		height: 44,
+		marginVertical: 10,
+		paddingTop: 15,
+		elevation: 0,
+	},
+	gray: {
+		borderWidth: 2,
+		borderColor: colors.light_gray,
+		backgroundColor: colors.white,
+	},
+	gray_t: {
+		color: colors.light_gray,
+	},
+	red: {
+		backgroundColor: colors.blood_red,
+	},
+	red_t: {
+		color: colors.blood_red,
+	},
+	white_t: {
+		color: colors.white,
+	}
 })

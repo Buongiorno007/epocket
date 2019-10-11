@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, TouchableOpacity, Text, Image, View, FlatList, Modal, StatusBar, Platform } from 'react-native'
 import { Header } from 'react-navigation'
 import { TextInputMask } from 'react-native-masked-text'
+import { colors } from '@constants/colors'
 import I18n from '@locales/I18n'
 
 export default class SignForm extends Component {
@@ -79,25 +80,25 @@ export default class SignForm extends Component {
 						}}
 						maxLength={this.state.mask.length}
 						placeholder={this.state.placeholder}
-						placeholderTextColor={'#fff'}
+						placeholderTextColor={colors.black111}
 						onFocus={() => this.props.onFocus()}
 					/>
 					{this.props.children}
 				</View>
-				<Modal visible={this.state.visible} transparent={true}>
+				<Modal visible={this.state.visible} transparent={true} onRequestClose={() => {this.setState({ visible: false })}}>
 					<View
 						style={styles.overlay}
 						onStartShouldSetResponder={() => true}
 						onResponderRelease={() => this.setState({ visible: false })}
 					>
 						<View
-							style={{
+							style={[{
 								top: Platform.OS === 'ios' ? this.state.top + 68 + Header.HEIGHT : this.state.top + 90,
 								width: this.state.width,
 								marginHorizontal: 16,
 								maxHeight: 192,
 								backgroundColor: '#fff',
-							}}
+							}, styles.shadow]}
 						>
 							<FlatList
 								data={this.props.data}
@@ -122,23 +123,23 @@ const styles = StyleSheet.create({
 		width: 90,
 		display: 'flex',
 		flexDirection: 'row',
-		borderBottomColor: '#FFF',
+		borderBottomColor: colors.black111,
 		borderBottomWidth: 1,
 		paddingVertical: 8,
 		marginRight: 16,
 		alignItems: 'center',
 	},
 	resultText: {
-		color: '#fff',
+		color: colors.black111,
 		textAlign: 'right',
 		flexGrow: 1,
 		fontSize: 16,
 	},
 	textInput: {
 		flexGrow: 1,
-		borderBottomColor: '#FFF',
+		borderBottomColor: colors.black111,
 		borderBottomWidth: 1,
-		color: '#FFF',
+		color: colors.black111,
 		paddingVertical: Platform.OS === 'ios' ? 8 : 5,
 		fontSize: 16,
 	},
@@ -169,7 +170,7 @@ const styles = StyleSheet.create({
 		borderTopWidth: 5,
 		borderLeftColor: 'transparent',
 		borderRightColor: 'transparent',
-		borderTopColor: '#fff',
+		borderTopColor: colors.black111,
 	},
 	scrollView: {
 		width: '100%',
@@ -202,4 +203,20 @@ const styles = StyleSheet.create({
 	overlay: {
 		...StyleSheet.absoluteFillObject,
 	},
+	shadow: {
+		...Platform.select({
+			ios: {
+			  shadowOpacity: 0.2,
+			  shadowOffset: {
+				width: 0.2,
+				height: 2,
+			  },
+			  shadowColor: colors.pink_shadow,
+			  shadowRadius: 2,
+			},
+			android: {
+			  elevation: 4,
+			},
+		  }),
+	}
 })

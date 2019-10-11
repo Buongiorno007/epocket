@@ -112,4 +112,17 @@ export default StyleSheet.create({
     borderColor: colors.dark_pink,
     backgroundColor: colors.dark_pink_o10,
   },
+	button: {
+		height: 44,
+		marginVertical: 10,
+		paddingTop: 15,
+    elevation: 0,
+    backgroundColor: colors.blood_red,
+  },
+  text: {
+		color: colors.white,
+		marginBottom: 8,
+		fontSize: 14,
+		fontFamily: 'Rubik-Medium',
+	},
 })
