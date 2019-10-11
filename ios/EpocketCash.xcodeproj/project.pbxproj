@@ -21,7 +21,6 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		158329A421AC3DF800AB3794 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 158329A621AC3DF800AB3794 /* InfoPlist.strings */; };
 		1587E304215A6AF500350ADF /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1587E303215A6AF500350ADF /* Social.framework */; };
-		1AAFDFE54492CCE09B5D293F /* libPods-EpocketCash.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 29FAB42331BC4731ECA9C873 /* libPods-EpocketCash.a */; };
 		2B1B95D5877145BEBBC5BE4E /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AF8297859AC940B29F59C410 /* FontAwesome.ttf */; };
 		3257B2A2212470C600D80C7E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3257B2A1212470C600D80C7E /* GoogleService-Info.plist */; };
 		326FB575210220B50027636E /* RNBackgroundFetch+AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 326FB54D210220B50027636E /* RNBackgroundFetch+AppDelegate.m */; };
@@ -37,6 +36,7 @@
 		67D70D34036643328D880D4A /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3120522DDF2C45489C57F56E /* Roboto.ttf */; };
 		6C38A1BD21F992EA00D4E7C5 /* libRCTCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C38A19421F992D400D4E7C5 /* libRCTCameraRoll.a */; };
 		6C5C9D9D21F72F31009AAEB6 /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C5C9D9A21F72F21009AAEB6 /* libART.a */; };
+		7052D37F3A110DF2B7D304BF /* libPods-EpocketCash.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1366CA7E2B8F06E1E6AB27DB /* libPods-EpocketCash.a */; };
 		7747F44ED10349ABAF72FF9D /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 980D170C751B492D8F80F736 /* MaterialIcons.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8B21EE2BCF8E487CB6E0E75D /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E491EBD0C6894115A34FC58D /* EvilIcons.ttf */; };
@@ -372,6 +372,8 @@
 		00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTNetwork.xcodeproj; path = "../node_modules/react-native/Libraries/Network/RCTNetwork.xcodeproj"; sourceTree = "<group>"; };
 		00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTVibration.xcodeproj; path = "../node_modules/react-native/Libraries/Vibration/RCTVibration.xcodeproj"; sourceTree = "<group>"; };
 		097E387202BC41D1AFF466FF /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
+		104AFA759F62748A1F4208A5 /* Pods-EpocketCash.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EpocketCash.debug.xcconfig"; path = "Target Support Files/Pods-EpocketCash/Pods-EpocketCash.debug.xcconfig"; sourceTree = "<group>"; };
+		1366CA7E2B8F06E1E6AB27DB /* libPods-EpocketCash.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EpocketCash.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* EpocketCash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EpocketCash.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -388,7 +390,6 @@
 		1588F5B983604D61AA4836C5 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/native-base/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		19A42D0FCEB34D1EA90DEBC4 /* RNCookieManagerIOS.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNCookieManagerIOS.xcodeproj; path = "../node_modules/react-native-cookies/ios/RNCookieManagerIOS.xcodeproj"; sourceTree = "<group>"; };
 		1D6C6FE612DB45F8B98D4BD1 /* Rubik-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Black.ttf"; path = "../src/assets/fonts/Rubik/Rubik-Black.ttf"; sourceTree = "<group>"; };
-		29FAB42331BC4731ECA9C873 /* libPods-EpocketCash.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EpocketCash.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F77CBA48CBE4BE0AD3EA923 /* Rubik-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Medium.ttf"; path = "../src/assets/fonts/Rubik/Rubik-Medium.ttf"; sourceTree = "<group>"; };
 		3120522DDF2C45489C57F56E /* Roboto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto.ttf; path = "../node_modules/native-base/Fonts/Roboto.ttf"; sourceTree = "<group>"; };
@@ -410,6 +411,7 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		832D9BA8AE8B4022A983881C /* Rubik-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-MediumItalic.ttf"; path = "../src/assets/fonts/Rubik/Rubik-MediumItalic.ttf"; sourceTree = "<group>"; };
 		910D9C4B81854FF59D837898 /* RNFirebase.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFirebase.xcodeproj; path = "../node_modules/react-native-firebase/ios/RNFirebase.xcodeproj"; sourceTree = "<group>"; };
+		91E042FD4BAD7AD76B26C625 /* Pods-EpocketCash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EpocketCash.release.xcconfig"; path = "Target Support Files/Pods-EpocketCash/Pods-EpocketCash.release.xcconfig"; sourceTree = "<group>"; };
 		92AC22B1058643A69DADC1FF /* libRNFirebase.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFirebase.a; sourceTree = "<group>"; };
 		980D170C751B492D8F80F736 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		A0FEAF16BB0F46A2857876ED /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/native-base/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
@@ -425,10 +427,8 @@
 		C00A89E4DBAE4BB288A969E7 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		D96D77508BC148399D51CF35 /* Rubik-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Bold.ttf"; path = "../src/assets/fonts/Rubik/Rubik-Bold.ttf"; sourceTree = "<group>"; };
 		E491EBD0C6894115A34FC58D /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/native-base/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
-		E492765BCCAF9CCBD215B1C1 /* Pods-EpocketCash.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EpocketCash.debug.xcconfig"; path = "Target Support Files/Pods-EpocketCash/Pods-EpocketCash.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		EF7C178E7FFBFCD08C62B1F6 /* Pods-EpocketCash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EpocketCash.release.xcconfig"; path = "Target Support Files/Pods-EpocketCash/Pods-EpocketCash.release.xcconfig"; sourceTree = "<group>"; };
 		F3401F4822E59A4E0081B6D6 /* libRNShare.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNShare.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3401F8922E59EF20081B6D6 /* RNShare.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNShare.xcodeproj; path = "../node_modules/react-native-share/ios/RNShare.xcodeproj"; sourceTree = "<group>"; };
 		F38F3D0122B0C1D3008869F9 /* libRNShare.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNShare.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -460,7 +460,7 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				EA2A6BC7519E4783AAC05559 /* libRNFirebase.a in Frameworks */,
 				C9868F9F9C5C4526844BEDE8 /* libRNCookieManagerIOS.a in Frameworks */,
-				1AAFDFE54492CCE09B5D293F /* libPods-EpocketCash.a in Frameworks */,
+				7052D37F3A110DF2B7D304BF /* libPods-EpocketCash.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -583,7 +583,7 @@
 				1587E305215A6B0100350ADF /* MessageUI.framework */,
 				1587E303215A6AF500350ADF /* Social.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
-				29FAB42331BC4731ECA9C873 /* libPods-EpocketCash.a */,
+				1366CA7E2B8F06E1E6AB27DB /* libPods-EpocketCash.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -738,8 +738,8 @@
 		AD3651EF1F1B2CEA4630E626 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				E492765BCCAF9CCBD215B1C1 /* Pods-EpocketCash.debug.xcconfig */,
-				EF7C178E7FFBFCD08C62B1F6 /* Pods-EpocketCash.release.xcconfig */,
+				104AFA759F62748A1F4208A5 /* Pods-EpocketCash.debug.xcconfig */,
+				91E042FD4BAD7AD76B26C625 /* Pods-EpocketCash.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -768,13 +768,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "EpocketCash" */;
 			buildPhases = (
-				F8AD95F62EECABD5F2778C64 /* [CP] Check Pods Manifest.lock */,
+				2F25A9F0087A1870D2D45B87 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				32F048FC2292AE5E0056531D /* ShellScript */,
-				91279AAF4631834194F4E8EF /* [CP] Copy Pods Resources */,
+				29D3DDA082CAFF48B513F8DC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1254,24 +1254,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		32F048FC2292AE5E0056531D /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/Fabric/run\"\n";
-		};
-		91279AAF4631834194F4E8EF /* [CP] Copy Pods Resources */ = {
+		29D3DDA082CAFF48B513F8DC /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1288,7 +1271,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EpocketCash/Pods-EpocketCash-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F8AD95F62EECABD5F2778C64 /* [CP] Check Pods Manifest.lock */ = {
+		2F25A9F0087A1870D2D45B87 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1309,6 +1292,23 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		32F048FC2292AE5E0056531D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/Fabric/run\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1340,7 +1340,7 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E492765BCCAF9CCBD215B1C1 /* Pods-EpocketCash.debug.xcconfig */;
+			baseConfigurationReference = 104AFA759F62748A1F4208A5 /* Pods-EpocketCash.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1348,7 +1348,7 @@
 				CODE_SIGN_ENTITLEMENTS = EpocketCash/EpocketCash.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 67CT3EL4VP;
 				ENABLE_BITCODE = NO;
@@ -1382,7 +1382,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EF7C178E7FFBFCD08C62B1F6 /* Pods-EpocketCash.release.xcconfig */;
+			baseConfigurationReference = 91E042FD4BAD7AD76B26C625 /* Pods-EpocketCash.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1390,7 +1390,7 @@
 				CODE_SIGN_ENTITLEMENTS = EpocketCash/EpocketCash.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 67CT3EL4VP;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (

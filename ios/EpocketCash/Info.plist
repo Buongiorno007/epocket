@@ -62,16 +62,16 @@
 	</dict>
 	<key>NSAppleMusicUsageDescription</key>
 	<string>Please provide access to multimedia for uploading photos to your profile</string>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>Please provide access to the bluetooth</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>Please provide access to the bluetooth usage</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Please provide access to the bluetooth</string>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Please provide access to the calendar</string>
-	<key>NSContactsUsageDescription</key>
-	<string>Please provide access to the contacts</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Please provide access to camera to make your photo and add it to your profile</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Please provide access to the contacts</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>The main purpose of the application is to check users on geo-positions.  According to geopositions the app provides to users info about possibilities how its possible to get services from the app.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -121,6 +121,8 @@
 		<string>location</string>
 		<string>remote-notification</string>
 	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>Launch Screen</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
@@ -128,10 +130,11 @@
 	<key>UIStatusBarHidden</key>
 	<false/>
 	<key>UIStatusBarStyle</key>
-	<string>UIStatusBarStyleLightContent</string>
+	<string>UIStatusBarStyleDarkContent</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>

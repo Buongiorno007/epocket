@@ -41,7 +41,7 @@ export default StyleSheet.create({
 		fontSize: 12,
 		marginHorizontal: 8,
 		color: colors.black111,
-		fontFamily: 'Rubic-Regular',
+		fontFamily: 'Rubik-Regular',
 	},
 	again_button_active: {
 		borderWidth: 1,
@@ -59,7 +59,7 @@ export default StyleSheet.create({
 		color: colors.black111,
 		textAlign: 'center',
 		marginBottom: 24,
-		fontFamily: 'Rubic-Medium',
+		fontFamily: 'Rubik-Medium',
 	},
 	field: {
 		width: '100%',
