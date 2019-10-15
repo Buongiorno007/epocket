@@ -1,16 +1,24 @@
 // Выложи фото в Instagram и добавь хештеги в описании
 import React, { useState } from "react"
-import { StyleSheet, Dimensions, View, TouchableOpacity, Text, Image } from "react-native"
+import { StyleSheet, Dimensions, View, TouchableOpacity, Text, Image, Platform, Clipboard } from "react-native"
+import Modal from "react-native-modal";
 import { connect } from "react-redux"
 import I18n from "@locales/I18n"
 import Video from "react-native-video"
 import { photoPosted } from "@reducers/progressTask"
 import { loaderState } from "@reducers/loader"
+import { colors } from "@constants/colors"
 
 const { width } = Dimensions.get("window")
+const height =
+	Platform.OS === 'android' && Platform.Version > 26
+		? Dimensions.get('screen').height
+		: Dimensions.get('window').height
 
 function DirectlyPost({ progressTask, setPostData, postData, dispatch }) {
+  Clipboard.setString(postData.hash_tag)
   const [video, setVideo] = useState(true)
+  const [visible, setVisible] = useState(false)
 
   return (
     <View style={styles.container}>
@@ -35,10 +43,32 @@ function DirectlyPost({ progressTask, setPostData, postData, dispatch }) {
         <TouchableOpacity style={styles.button} onPress={() => setPostData({})}>
           <Text style={styles.buttonText}>{I18n.t('NEW_MISSIONS.RESHOOT')}</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => dispatch(photoPosted(postData))}>
+        <TouchableOpacity style={styles.button} onPress={() => setVisible(!visible)}>
           <Text style={styles.buttonText}>{I18n.t('NEW_MISSIONS.PUBLISH')}</Text>
         </TouchableOpacity>
       </View>
+      <Modal isVisible={visible} deviceHeight={height} style={{justifyContent: 'center', alignItems: 'center'}} backdropOpacity={0.2} backdropColor={colors.black111}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalInner}>
+            <Image style={styles.modalHeaderImage} source={require('@assets/img/warning.png')}/>
+            <Text style={styles.modalTextHeader}>Добавьте хештеги</Text>
+            <Image style={styles.modalMainImage} source={require('@assets/img/Instagram_how.png')} resizeMode={'contain'}/>
+            <Text style={styles.modalTextNormal}>{'Обязательно вставьте хештеги в описании\n к посту в Instagram, иначе вы не получите деньги за\n публикацию.'}</Text>
+            <View style={styles.row}>
+              <Image style={styles.modalImageChecked} source={require('@assets/img/checked.png')}/>
+              <Text style={styles.modalTextBold}>Хэштеги уже скопированы в буфер обмена</Text>
+            </View>
+            <View style={[styles.row, styles.modalButtonContainer]}>
+              <TouchableOpacity onPress={() => setVisible(!visible)} style={styles.modalButton}>
+                <Text style={styles.modalButtonText}>Отмена</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => dispatch(photoPosted(postData))} style={[styles.modalButton, {borderLeftWidth: 1, borderColor: colors.mild_gray}]}>
+                <Text style={[styles.modalButtonText, {color: colors.blood_red}]}>Продолжить</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   )
 }
@@ -80,4 +110,73 @@ const styles = StyleSheet.create({
     fontFamily: "Rubik-Medium",
     color: "#fff",
   },
+  modalContainer: { 
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'center',
+    width: width - 100,
+  },
+  modalInner: {
+    backgroundColor: 'white', 
+    borderRadius: 24, 
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    overflow: 'hidden',
+  },
+  modalTextHeader: {
+    fontFamily: 'Rubik-Medium',
+    fontSize: 18,
+    color: colors.black111,
+    marginBottom: 8,
+  },
+  modalTextNormal: {
+    fontFamily: 'Rubik-Regular',
+    fontSize: 8,
+    color: colors.black40,
+    textAlign: 'center',
+  },
+  modalTextBold: {
+    fontFamily: 'Rubik-Medium',
+    fontSize: 8,
+    color: colors.black111,
+  }, 
+  modalHeaderImage: {
+    width: 42,
+    height: 36,
+    marginTop: 32,
+    marginBottom: 8,
+  },
+  modalMainImage: {
+    width: width - 100,
+    height: 80,
+    marginBottom: 16,
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 8,
+  },
+  modalImageChecked: {
+    width: 8,
+    height: 8,
+    marginRight: 5,
+  },
+  modalButtonContainer: {
+    borderTopWidth: 1, 
+    borderColor: colors.mild_gray, 
+    height: 48, 
+    alignSelf: 'stretch', 
+    justifyContent: 'space-between',
+    alignItems: 'stretch',
+  },
+  modalButton: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalButtonText: {
+    fontFamily: 'Rubik-Regular',
+    fontSize: 14,
+    color: colors.settings_gray,
+  }
 })
