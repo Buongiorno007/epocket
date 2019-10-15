@@ -39,7 +39,7 @@ export const getPoints = () => async (dispatch, getState) => {
   if (lat || lng) {
     try {
       const response = await httpPost(urls.outlets, body, token)
-      console.log('MAPPOINTS', response)
+      console.log('MAPPOINTS', urls.outlets, response)
       dispatch(savePoints(new MAPPOINTS(response.body)))
     } catch (error) {
       console.log(error, "getPoints ERROR")

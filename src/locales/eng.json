@@ -411,7 +411,11 @@
     "TASK_SOON" : "Active soon",
     "TASK_LIST" : "Task list",
     "START" : "Execute",
-    "SOON" : "Will be active"
+    "SOON" : "Will be active",
+    "DONT_LEAVE" : "Stay in mall till ",
+    "AND_GET" : " and get your reward",
+    "WARNING" : "Warning: ",
+    "LOSE" : "you`ll lose all progress if you`ll leave mall territory before the mission end"
   },
   "GET_BACK" : "Please come back or you'll lose progress",
   "TASK_EARN_MORE" : "earn more",

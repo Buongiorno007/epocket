@@ -29,6 +29,7 @@ export const getMallPoint = id => async (dispatch, getState) => {
     }
     try {
       const response = await httpPost(urls.new_mission_list, JSON.stringify(body), token)
+      console.log('getMallPoint',urls.new_mission_list, response)
       dispatch(setPoint(new MALLPOINT(response.body)))
       route.push("MallPoint")
     } catch (e) {
