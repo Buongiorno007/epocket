@@ -340,7 +340,11 @@
     "RU": "Russia",
     "BL": "Belorussia",
     "MD": "Moldova",
-    "CH": "China"
+    "CH": "China",
+    "ES" : "Spain",
+    "GG" : "Great Britain",
+    "PH" : "Philippines",
+    "US" : "USA"
   },
   "SIGN": {
     "ENTER_PHONE_NUMBER": "Enter your mobile phone",
@@ -388,6 +392,17 @@
   "ONLINE_SHOP" : "Online-shop",
   "ANY_GOOD_BARCODE" : "You can pay for any item in the store by using barcode",
   "FILTERS" : "Filters",
+  "FILTERS_LIST" : {
+    "ANY_ITEM" : "Any item",
+    "STOCK_ITEM" : "Stock items",
+    "DRINKS" : "Drinks",
+    "FOOD" : "Food",
+    "CLOTHES" : "Clothes",
+    "MISC" : "Misc",
+    "TOYS" : "Toys",
+    "ELEC" : "Electronics",
+    "SPORT" : "Sport"
+  },
   "FILTERS_RESET" : "Reset filters",
   "MALL" : {
     "TASKS" : "Tasks",
