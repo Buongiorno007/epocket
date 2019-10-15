@@ -70,8 +70,8 @@ export const createPost = ref => async (dispatch, getState) => {
     device: true,
   }
   try {
-    const response = await httpPost(urls.insta_upload_photo, serializeJSON(body), token, true)
-    await dispatch(loaderState(false))
+    const response = await httpPost(urls.insta_upload_photo, serializeJSON(body), token, true)    
+    // await dispatch(loaderState(false))
     return { ...response.body }
   } catch (e) {
     console.log(e, "EEE takePicture")

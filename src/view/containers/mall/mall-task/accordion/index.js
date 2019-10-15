@@ -7,6 +7,7 @@ import styles from "./styles"
 const { width } = Dimensions.get("window")
 
 function MallTaskAccordion({ item, profileState }) {
+  console.log(item, 'mallTaskItem!!!!!')
   const [expanded, setExpanded] = useState(false)
   const [priceWith, setPriceWidth] = useState(0)
 

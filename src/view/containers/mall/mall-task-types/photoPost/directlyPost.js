@@ -5,6 +5,7 @@ import { connect } from "react-redux"
 import I18n from "@locales/I18n"
 import Video from "react-native-video"
 import { photoPosted } from "@reducers/progressTask"
+import { loaderState } from "@reducers/loader"
 
 const { width } = Dimensions.get("window")
 
@@ -27,7 +28,7 @@ function DirectlyPost({ progressTask, setPostData, postData, dispatch }) {
             resizeMode={"cover"}
           />
         ) : (
-          <Image source={{ uri: postData.media }} style={{ width: width - 32, height: width - 32 }} />
+          <Image source={{ uri: postData.img_watermark }} style={{ width: width - 32, height: width - 32 }} onLoad={() => {dispatch(loaderState(false))}}/>
         )}
       </View>
       <View style={styles.buttonView}>
