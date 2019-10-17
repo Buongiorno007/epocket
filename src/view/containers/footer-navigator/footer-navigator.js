@@ -18,14 +18,14 @@ class FooterNavigation extends React.Component {
 	render() {
 		return (
 			<View style={[styles.footer_container, this.props.activeTab === 0 && styles.bTop]}>
-				{this.props.activeTab === 2 && (
+				{/* {this.props.activeTab === 2 && (
 					<LinearGradient
 						colors={[this.props.userColor.transparent, this.props.userColor.drag_panel_color]}
 						start={{ x: 0.0, y: 0.0 }}
 						end={{ x: 0.0, y: 1.0 }}
 						style={styles.grad}
 					/>
-				)}
+				)} */}
 				<Button
 					transparent
 					style={[styles.footer_tab]}

@@ -3,15 +3,15 @@ import { View, StyleSheet, Image, Text, TouchableOpacity, Platform } from "react
 import route from "@services/route"
 import sbHeight from "@services/getSBHeight"
 
-export default function MapTaskHeader({ title = "" }) {
+export default function MapTaskHeader({ title = "", noinfo }) {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.button} onPress={() => route.pop()}>
         <Image source={require("@assets/dv4/chevron.png")} style={styles.image} />
       </TouchableOpacity>
       <Text style={styles.text}>{title}</Text>
-      <TouchableOpacity style={styles.button} onPress={() => console.log("INFO")}>
-        <Image source={require("@assets/dv4/info.png")} style={styles.image} />
+      <TouchableOpacity style={styles.button} onPress={() => console.log("INFO")} disabled={noinfo}>
+        <Image source={require("@assets/dv4/info.png")} style={[styles.image, noinfo && {display: 'none'}]} />
       </TouchableOpacity>
     </View>
   )

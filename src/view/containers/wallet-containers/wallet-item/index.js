@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Image, Text, TouchableOpacity } from 'react-native'
 import I18n from '@locales/I18n'
+import route from "@services/route"
 //styles
 import styles from './styles'
 
@@ -8,6 +9,7 @@ export default function WalletItem({ item }) {
 	//additional_data
 	const additionalInformation = () => {
 		console.log(item, 'ill navigate')
+		route.push('WalletInformation', {item: item})
 	}
 	return (
 		<TouchableOpacity disabled={!item.additional_data} style={styles.view} onPress={additionalInformation}>

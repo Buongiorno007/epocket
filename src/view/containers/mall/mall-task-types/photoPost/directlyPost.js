@@ -20,11 +20,16 @@ function DirectlyPost({ progressTask, setPostData, postData, dispatch }) {
   const [video, setVideo] = useState(true)
   const [visible, setVisible] = useState(false)
 
+  agreed = () =>{
+    setVisible(!visible)
+    dispatch(photoPosted(postData))
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{I18n.t(`NEW_MISSIONS.${progressTask.task_details.second_descr}`)}</Text>
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        {video ? (
+        {/* {video ? (
           <Video
             source={{
               uri: "https://epocket.dev.splinestudio.com/static/user_media/user_43/2019-10-03_242_video_1900.mp4",
@@ -37,6 +42,23 @@ function DirectlyPost({ progressTask, setPostData, postData, dispatch }) {
           />
         ) : (
           <Image source={{ uri: postData.img_watermark }} style={{ width: width - 32, height: width - 32 }} onLoad={() => {dispatch(loaderState(false))}}/>
+        )} */}
+        {video && <Text style={styles.title}>{`Have video : ${postData.video}`}</Text>}
+        {video ? (
+          <Video
+            source={{uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"}} // Can be a URL or a local file.
+            ref={(ref) => {
+              this.player = ref
+            }} 
+            onBuffer={() => {}} // Callback when remote video is buffering
+            onError={() => setVideo(false)} // Callback when video cannot be loaded
+            style={{ width: width - 32, height: width - 32 }}
+            repeat={true}
+            resizeMode={"contain"}
+            onLoad={() => {dispatch(loaderState(false))}}
+          />
+        ) : (
+          <Text style={styles.title}>ERROR</Text>
         )}
       </View>
       <View style={styles.buttonView}>
@@ -62,7 +84,7 @@ function DirectlyPost({ progressTask, setPostData, postData, dispatch }) {
               <TouchableOpacity onPress={() => setVisible(!visible)} style={styles.modalButton}>
                 <Text style={styles.modalButtonText}>Отмена</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => dispatch(photoPosted(postData))} style={[styles.modalButton, {borderLeftWidth: 1, borderColor: colors.mild_gray}]}>
+              <TouchableOpacity onPress={agreed} style={[styles.modalButton, {borderLeftWidth: 1, borderColor: colors.mild_gray}]}>
                 <Text style={[styles.modalButtonText, {color: colors.blood_red}]}>Продолжить</Text>
               </TouchableOpacity>
             </View>

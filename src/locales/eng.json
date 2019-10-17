@@ -425,5 +425,8 @@
   "BASKET_REMOVE" : "Remove from cart",
   "TAKE_PICTURE" : "Take picture",
   "CHOOSE_G" : "Choose from gallery",
-  "GAME_DESCR" : "Choose tile(s) with \nright answer"
+  "GAME_DESCR" : "Choose tile(s) with \nright answer",
+  "WALLET" : {
+    "DETAILS" : "Task details"
+  }
 }

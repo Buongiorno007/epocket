@@ -1,6 +1,7 @@
 const devServer = "https://epocket.dev.splinestudio.com"
 const prodServer = "https://epc.splinestudio.com"
-const devserver = __DEV__ ? devServer : prodServer
+// const devserver = __DEV__ ? devServer : prodServer
+const devserver = __DEV__ ? devServer : devServer
 // const devserver = prodServer
 
 export const urls = {
