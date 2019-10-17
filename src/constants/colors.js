@@ -66,5 +66,6 @@ export const colors = {
 	black111: '#111111',
 	pink_shadow: 'rgba(132, 0, 43, 0.33)',
 	mild_gray: '#F8F8F8',
-	map_gray: '#F2F2F2'
+	map_gray: '#F2F2F2',
+	gray_b1: '#B1B1B1'
 }

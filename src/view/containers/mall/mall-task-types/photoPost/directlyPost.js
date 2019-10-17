@@ -43,10 +43,12 @@ function DirectlyPost({ progressTask, setPostData, postData, dispatch }) {
         ) : (
           <Image source={{ uri: postData.img_watermark }} style={{ width: width - 32, height: width - 32 }} onLoad={() => {dispatch(loaderState(false))}}/>
         )} */}
-        {video && <Text style={styles.title}>{`Have video : ${postData.video}`}</Text>}
+        <Image source={{ uri: postData.img_watermark }} style={{ width: width - 32, height: width - 32 }} onLoad={() => {dispatch(loaderState(false))}}/>
+        {/* {video && <Text style={styles.title}>{`Have video : ${postData.video}`}</Text>}
         {video ? (
           <Video
-            source={{uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"}} // Can be a URL or a local file.
+            // source={{uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"}} // Can be a URL or a local file.
+            source={{uri: postData.video}} // Can be a URL or a local file.
             ref={(ref) => {
               this.player = ref
             }} 
@@ -59,7 +61,7 @@ function DirectlyPost({ progressTask, setPostData, postData, dispatch }) {
           />
         ) : (
           <Text style={styles.title}>ERROR</Text>
-        )}
+        )} */}
       </View>
       <View style={styles.buttonView}>
         <TouchableOpacity style={styles.button} onPress={() => setPostData({})}>

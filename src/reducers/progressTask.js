@@ -120,7 +120,8 @@ export const finishMission = () => async (dispatch, getState) => {
   try {
     const response = await httpPut(urls.task_process, body, token)
     console.log(response, "RESPONSE finishMission")
-    await route.popToTop()
+    // await route.popToTop()
+    route.popToTop()
   } catch (e) {
     console.log(e, "EEEER checkQr")
   }
