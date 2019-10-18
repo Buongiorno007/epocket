@@ -147,7 +147,7 @@ export const PROGRESSTASK = function(data = {}) {
   this.price = data.price || 0
   this.name = data.name || ""
   this.currentTask = data.current_task || 2
-  this.totalTasks = data.total_tasks || 4
+  this.totalTasks = data.total_tasks || 1
   this.type = data.type || 0
   this.end = data.end || false
   this.task_details = data.task_details || {}

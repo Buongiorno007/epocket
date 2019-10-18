@@ -20,6 +20,7 @@ import { getGameStart } from "@reducers/gameStart"
 import { getPoints } from "@reducers/mapPoints"
 import { getPartners } from "@reducers/partners"
 import { getBasket } from "@reducers/basket"
+import { loaderState } from '@reducers/loader'
 //styles
 import styles from "./styles"
 
@@ -30,6 +31,7 @@ class Main extends React.Component {
       return true
     })
     this.props.activeTab === 0 && this.props.getGameStart()
+    this.props.activeTab !== 0 && this.props.loaderState(false)
     if (!this.props.mapPoints.request) {
       this.props.getPoints()
     }
@@ -100,6 +102,7 @@ const mapDispatchToProps = dispatch =>
       getPoints,
       getPartners,
       getBasket,
+      loaderState,
     },
     dispatch,
   )
