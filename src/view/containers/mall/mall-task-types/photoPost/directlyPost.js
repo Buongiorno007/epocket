@@ -29,39 +29,22 @@ function DirectlyPost({ progressTask, setPostData, postData, dispatch }) {
     <View style={styles.container}>
       <Text style={styles.title}>{I18n.t(`NEW_MISSIONS.${progressTask.task_details.second_descr}`)}</Text>
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        {/* {video ? (
+        {video ? (
           <Video
             source={{
-              uri: "https://epocket.dev.splinestudio.com/static/user_media/user_43/2019-10-03_242_video_1900.mp4",
+              // uri: postData.video,
+              uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
             }} // Can be a URL or a local file.
             onBuffer={() => {}} // Callback when remote video is buffering
             onError={() => setVideo(false)} // Callback when video cannot be loaded
-            style={{ width: 200, height: 200 }}
-            repeat={true}
-            resizeMode={"cover"}
-          />
-        ) : (
-          <Image source={{ uri: postData.img_watermark }} style={{ width: width - 32, height: width - 32 }} onLoad={() => {dispatch(loaderState(false))}}/>
-        )} */}
-        <Image source={{ uri: postData.img_watermark }} style={{ width: width - 32, height: width - 32 }} onLoad={() => {dispatch(loaderState(false))}}/>
-        {/* {video && <Text style={styles.title}>{`Have video : ${postData.video}`}</Text>}
-        {video ? (
-          <Video
-            // source={{uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"}} // Can be a URL or a local file.
-            source={{uri: postData.video}} // Can be a URL or a local file.
-            ref={(ref) => {
-              this.player = ref
-            }} 
-            onBuffer={() => {}} // Callback when remote video is buffering
-            onError={() => setVideo(false)} // Callback when video cannot be loaded
+            onLoad={() => {dispatch(loaderState(false))}}
             style={{ width: width - 32, height: width - 32 }}
             repeat={true}
             resizeMode={"contain"}
-            onLoad={() => {dispatch(loaderState(false))}}
           />
         ) : (
-          <Text style={styles.title}>ERROR</Text>
-        )} */}
+          <Image source={{ uri: postData.img_watermark }} style={{ width: width - 32, height: width - 32 }} onLoad={() => {dispatch(loaderState(false))}}/>
+        )}        
       </View>
       <View style={styles.buttonView}>
         <TouchableOpacity style={styles.button} onPress={() => setPostData({})}>

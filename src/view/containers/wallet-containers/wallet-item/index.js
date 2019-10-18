@@ -2,10 +2,13 @@ import React from 'react'
 import { View, Image, Text, TouchableOpacity } from 'react-native'
 import I18n from '@locales/I18n'
 import route from "@services/route"
+import { connect } from "react-redux"
 //styles
 import styles from './styles'
 
-export default function WalletItem({ item }) {
+function WalletItem({ item, profileState }) {
+	let hours = ('0' + new Date(item.date).getHours()).slice(-2)
+	let minutes = ('0' + new Date(item.date).getMinutes()).slice(-2)
 	//additional_data
 	const additionalInformation = () => {
 		console.log(item, 'ill navigate')
@@ -21,10 +24,19 @@ export default function WalletItem({ item }) {
 				{/* {item.status && <Text>{I18n.t(`HISTORYS.${item.status}`)}</Text>} */}
 			</View>
 			{item.price && (
-				<Text style={[styles.text, item.price.includes('-') ? styles.price_negative : styles.price_positive]}>
-					{item.price}
-				</Text>
+				<View style={styles.priceContainer}>
+					<Text style={[styles.text, styles.price_positive]}>
+						{`${item.price} ${profileState.currency}`}
+					</Text>
+					<Text style={styles.time}>{`${hours}:${minutes}`}</Text>
+				</View>
 			)}
 		</TouchableOpacity>
 	)
 }
+const mapStateToProps = state => {
+	return {
+		profileState: state.profileState,
+	}
+}
+export default connect(mapStateToProps)(WalletItem)

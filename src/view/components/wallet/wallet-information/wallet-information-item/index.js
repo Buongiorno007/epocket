@@ -35,7 +35,7 @@ function WalletInformationItem({profileState, item}){
                 <Image source={item.item.image} resizeMode={'contain'} style={styles.mainImage}/>
             </View>
             <View style={{marginHorizontal: 8}}>
-                <Text style={styles.textBlack}>{item.item.name}</Text>
+                <View style={styles.textWrapper}><Text style={styles.textBlack}>{item.item.name}</Text></View>
                 <Text style={[styles.textGray, item.item.status === 0 || item.item.status === 2 ? styles.textRed : null]}>{`${status} ${item.item.why_declined}`}</Text>
             </View>
             <View style={[styles.price, item.item.status === 1 || item.item.status === 2 ? styles.priceGray : null]}>
@@ -77,6 +77,11 @@ const styles = StyleSheet.create({
     mainImage : {
         width: 20, 
         height: 20
+    },
+    textWrapper: {
+        flexDirection: 'row', 
+        flexWrap: 'wrap', 
+        maxWidth: width - 162
     },
     textBlack : {
         fontFamily: 'Rubik-Regular', 

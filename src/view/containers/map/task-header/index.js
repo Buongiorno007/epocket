@@ -1,13 +1,24 @@
 import React, { useState } from "react"
 import { View, StyleSheet, Image, Text, TouchableOpacity, Dimensions } from "react-native"
+import Modal from "react-native-modal";
 import route from "@services/route"
 import { connect } from "react-redux"
+import { colors } from "@constants/colors"
 import sbHeight from "@services/getSBHeight"
 
+
+const { width } = Dimensions.get("window")
+
 function TaskHeader({ progressTask, profileState }) {
-  const { width } = Dimensions.get("window")
 
   const [priceWith, setPriceWidth] = useState(0)
+  const [visible, setVisible] = useState(false)
+
+  agreed = () =>{
+    setVisible(!visible)
+    route.popToTop()
+  }
+
   const textWidth = width - priceWith * 2 - 32
 
   return (
@@ -23,10 +34,26 @@ function TaskHeader({ progressTask, profileState }) {
       </View>
       <Text style={[styles.text, { maxWidth: textWidth }]}  numberOfLines={1} ellipsizeMode={'tail'}>{progressTask.name}</Text>
       <View style={[styles.buttonView, { width: priceWith }]}>
-        <TouchableOpacity style={styles.button} onPress={() => route.popToTop()}>
+        <TouchableOpacity style={styles.button} onPress={() => setVisible(!visible)}>
           <Image source={require("@assets/dv4/taskClose.png")} style={styles.image} />
         </TouchableOpacity>
       </View>
+      <Modal isVisible={visible} style={{justifyContent: 'center', alignItems: 'center'}} backdropOpacity={0.2} backdropColor={colors.black111}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalInner}>
+            <Text style={styles.modalTextHeader}>{'Вы уверены,\nчто хотите выйти?'}</Text>
+            <Text style={styles.modalTextNormal}>{'Продолжить выполнение задания будет невозможно.\nСредства будут зачислены только за предыдущие\nвыполненные этапы.'}</Text>
+            <View style={[styles.row, styles.modalButtonContainer]}>
+              <TouchableOpacity onPress={() => setVisible(!visible)} style={styles.modalButton}>
+                <Text style={[styles.modalButtonText, {color: colors.blood_red}]}>Отмена</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={agreed} style={[styles.modalButton, {borderLeftWidth: 1, borderColor: colors.mild_gray}]}>
+                <Text style={[styles.modalButtonText]}>Выйти</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   )
 }
@@ -86,4 +113,77 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: "contain",
   },
+  modalContainer: { 
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'center',
+    width: width - 100,
+    margin : 16
+  },
+  modalInner: {
+    backgroundColor: 'white', 
+    borderRadius: 24, 
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    overflow: 'hidden',
+  },
+  modalTextHeader: {
+    fontFamily: 'Rubik-Medium',
+    fontSize: 18,
+    color: colors.black111,
+    textAlign: 'center',
+    marginTop: 16,
+    marginBottom: 8,
+  },
+  modalTextNormal: {
+    fontFamily: 'Rubik-Regular',
+    fontSize: 10,
+    color: colors.black40,
+    textAlign: 'center',
+    marginHorizontal: 16
+  },
+  modalTextBold: {
+    fontFamily: 'Rubik-Medium',
+    fontSize: 8,
+    color: colors.black111,
+  }, 
+  modalHeaderImage: {
+    width: 42,
+    height: 36,
+    marginTop: 32,
+    marginBottom: 8,
+  },
+  modalMainImage: {
+    width: width - 100,
+    height: 80,
+    marginBottom: 16,
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 8,
+  },
+  modalImageChecked: {
+    width: 8,
+    height: 8,
+    marginRight: 5,
+  },
+  modalButtonContainer: {
+    borderTopWidth: 1, 
+    borderColor: colors.mild_gray, 
+    height: 48, 
+    alignSelf: 'stretch', 
+    justifyContent: 'space-between',
+    alignItems: 'stretch',
+  },
+  modalButton: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalButtonText: {
+    fontFamily: 'Rubik-Regular',
+    fontSize: 14,
+    color: colors.black111,
+  }
 })

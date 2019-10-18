@@ -24,7 +24,8 @@ function ScanQr({ progressTask, loader, dispatch }) {
       <View style={styles.cameraView}>
         <RNCamera
           captureAudio={false}
-          style={{ width: width - 32, height: width - 32, maxHeight: width - 32, overflow: 'hidden' }}
+          style={{ width: width - 32, height: width - 32 }}
+          ratio={"1:1"}
           onBarCodeRead={marker ? send : () => {}}
           barCodeTypes={[RNCamera.Constants.BarCodeType.qr]}
           androidCameraPermissionOptions={{

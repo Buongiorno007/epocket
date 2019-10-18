@@ -22,21 +22,21 @@ function WalletInformation({navigation}) {
 	},
 	{
 		image: require('@assets/img/instagram.png'),
-		name: 'Сделай фото кроссовок\nи выложи в Instagram',
+		name: 'Сделай фото кроссовок и выложи в Instagram',
 		status: 1,
 		why_declined : '',
-		price: '20'
+		price: '2000'
 	},
 	{
 		image: require('@assets/img/instagram.png'),
-		name: 'Сделай фото футболки\nи выложи в Instagram',
+		name: 'Сделай фото футболки и выложи в Instagram',
 		status: 2,
 		why_declined : '(отсутствуют хэштеги)',
-		price: '30'
+		price: '3000'
 	},
 	{
 		image: require('@assets/img/instagram.png'),
-		name: 'Сделай фото рюкзака\nи выложи в Instagram',
+		name: 'Сделай фото рюкзака и выложи в Instagram',
 		status: 3,
 		why_declined : '',
 		price: '50'
@@ -50,21 +50,21 @@ function WalletInformation({navigation}) {
 	},
 	{
 		image: require('@assets/img/instagram.png'),
-		name: 'Сделай фото кроссовок\nи выложи в Instagram',
+		name: 'Сделай фото кроссовок и выложи в Instagram',
 		status: 1,
 		why_declined : '',
 		price: '20'
 	},
 	{
 		image: require('@assets/img/instagram.png'),
-		name: 'Сделай фото футболки\nи выложи в Instagram',
+		name: 'Сделай фото футболки и выложи в Instagram',
 		status: 2,
 		why_declined : '(отсутствуют хэштеги)',
 		price: '30'
 	},
 	{
 		image: require('@assets/img/instagram.png'),
-		name: 'Сделай фото рюкзака\nи выложи в Instagram',
+		name: 'Сделай фото рюкзака и выложи в Instagram',
 		status: 3,
 		why_declined : '',
 		price: '50'

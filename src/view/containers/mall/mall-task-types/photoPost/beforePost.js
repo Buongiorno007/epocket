@@ -35,7 +35,8 @@ function BeforePost({ progressTask, setPostData, dispatch }) {
           captureAudio={false}
           // ratio={'1:1'}
           ref={cameraRef}
-          style={[taken ? {display: 'none'} : { width: width - 64, height: width - 64 }]}
+          style={[taken ? {display: 'none'} : { width: width - 64, height: 100 }]}
+          ratio={"1:1"}
           type={type ? RNCamera.Constants.Type.front : RNCamera.Constants.Type.back}
           flashMode={flash ? RNCamera.Constants.FlashMode.torch : RNCamera.Constants.FlashMode.off}
           androidCameraPermissionOptions={{
@@ -88,7 +89,9 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   cameraView: {
-    width: width - 32,
+    width: width - 32, 
+    maxHeight: width,
+    overflow: 'hidden',
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
