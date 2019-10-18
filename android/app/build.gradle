@@ -84,7 +84,6 @@ android {
 
 dependencies {
     implementation project(':react-native-video')
-    implementation project(':lottie-react-native')
     implementation project(':react-native-share')
     implementation project(':react-native-fast-image')
     implementation project(':react-native-background-timer')

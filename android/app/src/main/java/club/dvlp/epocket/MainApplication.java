@@ -6,7 +6,6 @@ import com.facebook.CallbackManager;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.ReactApplication;
 import com.brentvatne.react.ReactVideoPackage;
-import com.airbnb.android.react.lottie.LottiePackage;
 import cl.json.RNSharePackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import com.ocetnik.timer.BackgroundTimerPackage;
@@ -79,7 +78,6 @@ public class MainApplication extends Application implements ShareApplication, Re
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
                     new ReactVideoPackage(),
-                    new LottiePackage(),
                     new AsyncStoragePackage(),
                     new RNCWebViewPackage(),
                     new BlurViewPackage(),

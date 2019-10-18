@@ -8,7 +8,6 @@ import route from '@services/route'
 import Basket from '@containers/basket'
 import MapSpendButton from '@containers/map/map-spend-button'
 import styles from './styles'
-import LottieView from 'lottie-react-native'
 import I18n from '@locales/I18n'
 
 function MapSpend({ lat, lng, mapPoints }) {
@@ -53,11 +52,7 @@ function MapSpend({ lat, lng, mapPoints }) {
 				</ClusteredMapView>
 				<Basket style={styles.basket} />
 				<TouchableOpacity style={styles.touchMap} onPress={() => route.push('MapPlaces')}>
-					{/* {Platform.OS === 'ios' ? (
-						<LottieView style={styles.imageView} source={require('@assets/img/data.json')} autoPlay loop />
-					) : (
-						<Image style={{ width: 48, height: 48 }} source={require('@assets/img/map-arrows.png')} />
-					)} */}
+
 				</TouchableOpacity>
 			</View>
 			{/* <View style={styles.linear}> */}
