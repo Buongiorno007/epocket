@@ -42,8 +42,8 @@ export const checkQr = text => async (dispatch, getState) => {
   })
   try {
     const response = await httpPost(urls.task_process, body, token)
-    console.log(response, "RESPONSE checkQr")
-    await dispatch(setProgressTask(new PROGRESSTASK(response.body.next)))
+    console.log(urls.task_process, response, "RESPONSE checkQr POST")
+    response.body.next ? await dispatch(setProgressTask(new PROGRESSTASK(response.body.next))) : await dispatch(setProgressTask(new PROGRESSTASK(response.body)))
     dispatch(loaderState(false))
   } catch (e) {
     console.log(e, "EEEER checkQr")
@@ -70,7 +70,7 @@ export const createPost = ref => async (dispatch, getState) => {
     device: true,
   }
   try {
-    const response = await httpPost(urls.insta_upload_photo, serializeJSON(body), token, true)    
+    const response = await httpPost(urls.insta_upload_photo, serializeJSON(body), token, true)
     // await dispatch(loaderState(false))
     return { ...response.body }
   } catch (e) {
@@ -97,7 +97,7 @@ export const photoPosted = postData => async (dispatch, getState) => {
         try {
           const response = await httpPut(urls.task_process, body, token)
           await dispatch(setProgressTask(new PROGRESSTASK(response.body)))
-          console.log(response, "success response")
+          console.log(urls.task_process, response, "success response PUT")
         } catch (e) {
           console.log(e, "ER photoPosted")
         }
@@ -119,7 +119,7 @@ export const finishMission = () => async (dispatch, getState) => {
   })
   try {
     const response = await httpPut(urls.task_process, body, token)
-    console.log(response, "RESPONSE finishMission")
+    console.log(urls.task_process, response, "RESPONSE finishMission PUT")
     // await route.popToTop()
     route.popToTop()
   } catch (e) {

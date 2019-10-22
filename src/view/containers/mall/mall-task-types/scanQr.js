@@ -8,10 +8,12 @@ const { width } = Dimensions.get("window")
 
 function ScanQr({ progressTask, loader, dispatch }) {
   const [marker, setMarker] = useState(true)
+  console.log(marker)
 
   useEffect(() => {
     !loader && setMarker(true)
-  }, [loader])
+  // }, [loader])
+  })
 
   const send = code => {
     setMarker(false)

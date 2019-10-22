@@ -32,8 +32,8 @@ function DirectlyPost({ progressTask, setPostData, postData, dispatch }) {
         {video ? (
           <Video
             source={{
-              // uri: postData.video,
-              uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+              uri: postData.video,
+              // uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
             }} // Can be a URL or a local file.
             onBuffer={() => {}} // Callback when remote video is buffering
             onError={() => setVideo(false)} // Callback when video cannot be loaded
@@ -60,17 +60,17 @@ function DirectlyPost({ progressTask, setPostData, postData, dispatch }) {
             <Image style={styles.modalHeaderImage} source={require('@assets/img/warning.png')}/>
             <Text style={styles.modalTextHeader}>Добавьте хештеги</Text>
             <Image style={styles.modalMainImage} source={require('@assets/img/Instagram_how.png')} resizeMode={'contain'}/>
-            <Text style={styles.modalTextNormal}>{'Обязательно вставьте хештеги в описании\n к посту в Instagram, иначе вы не получите деньги за\n публикацию.'}</Text>
+            <Text style={styles.modalTextNormal}>{I18n.t('MISSION.HASHTAGS_MESSAGE')}</Text>
             <View style={styles.row}>
               <Image style={styles.modalImageChecked} source={require('@assets/img/checked.png')}/>
-              <Text style={styles.modalTextBold}>Хэштеги уже скопированы в буфер обмена</Text>
+              <Text style={styles.modalTextBold}>{I18n.t('MISSION.HASHTAGS_COPIED')}</Text>
             </View>
             <View style={[styles.row, styles.modalButtonContainer]}>
               <TouchableOpacity onPress={() => setVisible(!visible)} style={styles.modalButton}>
-                <Text style={styles.modalButtonText}>Отмена</Text>
+                <Text style={styles.modalButtonText}>{I18n.t('CANCEL')}</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={agreed} style={[styles.modalButton, {borderLeftWidth: 1, borderColor: colors.mild_gray}]}>
-                <Text style={[styles.modalButtonText, {color: colors.blood_red}]}>Продолжить</Text>
+                <Text style={[styles.modalButtonText, {color: colors.blood_red}]}>{I18n.t('CONTINUE')}</Text>
               </TouchableOpacity>
             </View>
           </View>

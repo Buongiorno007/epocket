@@ -11,7 +11,8 @@ function MallTaskDone({ progressTask, profileState ,dispatch }) {
     <View style={styles.container}>
       <View style={styles.content}>
         <Image source={require("@assets/dv4/congrat.png")} style={styles.image} />
-        <Text style={styles.title}>{`${I18n.t('MISSION.SUCCESS')} ${"100"} ${profileState.currency}`}</Text>
+        {/* <Text style={styles.title}>{`${I18n.t('MISSION.SUCCESS')} ${"100"} ${profileState.currency}`}</Text> */}
+        <Text style={styles.title}>{`${I18n.t('MISSION.SUCCESS2')}`}</Text>
       </View>
       <TouchableOpacity style={styles.btn} onPress={() => dispatch(finishMission())}>
         <Text style={styles.btnText}>{I18n.t('TASK_EARN_MORE')}</Text>

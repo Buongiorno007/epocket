@@ -7,7 +7,10 @@ import { connect } from "react-redux"
 import styles from './styles'
 
 function WalletItem({ item, profileState }) {
-	let hours = ('0' + new Date(item.date).getHours()).slice(-2)
+	const zone = new Date()
+	const timeZone = zone.getTimezoneOffset() / 60
+	let hour = (new Date(item.date).getHours()) - timeZone
+	let hours = hour < 10 ? '0' + hour : hour
 	let minutes = ('0' + new Date(item.date).getMinutes()).slice(-2)
 	//additional_data
 	const additionalInformation = () => {
