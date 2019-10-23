@@ -15,7 +15,7 @@ const height =
 		? Dimensions.get('screen').height
 		: Dimensions.get('window').height
 
-function DirectlyPost({ progressTask, setPostData, postData, dispatch }) {
+function DirectlyPost({ progressTask, setPostData, postData, userPhoto, dispatch }) {
   Clipboard.setString(postData.hash_tag)
   const [video, setVideo] = useState(true)
   const [visible, setVisible] = useState(false)
@@ -29,7 +29,7 @@ function DirectlyPost({ progressTask, setPostData, postData, dispatch }) {
     <View style={styles.container}>
       <Text style={styles.title}>{I18n.t(`NEW_MISSIONS.${progressTask.task_details.second_descr}`)}</Text>
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        {video ? (
+        {/* {video ? (
           <Video
             source={{
               uri: postData.video,
@@ -44,7 +44,8 @@ function DirectlyPost({ progressTask, setPostData, postData, dispatch }) {
           />
         ) : (
           <Image source={{ uri: postData.img_watermark }} style={{ width: width - 32, height: width - 32 }} onLoad={() => {dispatch(loaderState(false))}}/>
-        )}        
+        )}         */}
+        <Image source={{uri : userPhoto}} style={{ width: width - 32, height: width - 32 }} onLoad={() => {dispatch(loaderState(false))}}/>
       </View>
       <View style={styles.buttonView}>
         <TouchableOpacity style={styles.button} onPress={() => setPostData({})}>
@@ -82,6 +83,7 @@ function DirectlyPost({ progressTask, setPostData, postData, dispatch }) {
 const mapStateToProps = state => ({
   progressTask: state.progressTask,
   insta_token: state.insta_token,
+  userPhoto: state.image,
 })
 
 export default connect(mapStateToProps)(DirectlyPost)

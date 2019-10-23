@@ -11,14 +11,14 @@ import I18n from "@locales/I18n"
 //styles
 import styles from "./styles"
 
-function Wallet({ wallet, profileState, dispatch }) {
+function Wallet({ wallet, profileState, activeTab, dispatch }) {
   const [count, setCount] = useState(6)
   const colors = ["#F55890", "#FF9950"]
   const start = { x: 0.0, y: 0.0 }
   const end = { x: 0.0, y: 1.0 }
 
   useEffect(() => {
-    if (!wallet.history.length) {
+    if (!wallet.history.length || activeTab === 2) {
       dispatch(loaderState(true))
       dispatch(getHistory(count))
     }
@@ -71,6 +71,7 @@ const mapStateToProps = state => {
   return {
     wallet: state.wallet,
     profileState: state.profileState,
+    activeTab: state.activeTab,
   }
 }
 

@@ -152,3 +152,6 @@ export const PROGRESSTASK = function(data = {}) {
   this.end = data.end || false
   this.task_details = data.task_details || {}
 }
+export const IMAGE = function(data = {}) {
+  this.image = data.uri || ""
+}

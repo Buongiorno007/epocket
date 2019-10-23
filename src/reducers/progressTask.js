@@ -5,6 +5,8 @@ import { httpGet, httpPost, httpPut } from "@services/http"
 import { urls } from "@constants/urls"
 import { serializeJSON } from "@services/serialize-json"
 import { socialPost } from "@services/post-to-social"
+import { setImage } from './image'
+import { Alert} from 'react-native'
 
 const SET_PROGRESS_TASK = "[progressTask] SET_PROGRESS_TASK"
 const initialState = new PROGRESSTASK()
@@ -43,7 +45,20 @@ export const checkQr = text => async (dispatch, getState) => {
   try {
     const response = await httpPost(urls.task_process, body, token)
     console.log(urls.task_process, response, "RESPONSE checkQr POST")
-    response.body.next ? await dispatch(setProgressTask(new PROGRESSTASK(response.body.next))) : await dispatch(setProgressTask(new PROGRESSTASK(response.body)))
+    await response.body.message ? (console.log('zz')) : (
+      Alert.alert(
+        //title
+        'Hello',
+        //body
+        'You scanned wrong QR Code',
+        [
+          {text: 'Forgive me, I`ll scann again'},
+        ],
+        { cancelable: false }
+        //clicking out side of alert will not cancel
+      )
+    )
+    await response.body.next ? await dispatch(setProgressTask(new PROGRESSTASK(response.body.next))) : await dispatch(setProgressTask(new PROGRESSTASK(response.body)))
     dispatch(loaderState(false))
   } catch (e) {
     console.log(e, "EEEER checkQr")
@@ -63,12 +78,14 @@ export const createPost = ref => async (dispatch, getState) => {
     height: 500,
   }
   const data = await ref.takePictureAsync(options)
+  // console.log(data, 'takepicdata')
   body = {
     photo: "data:image/jpeg;base64, " + data.base64,
     outlet_id: mallPoint.id,
     mission_id: mallTask.id,
     device: true,
   }
+  await dispatch(setImage(body.photo))
   try {
     const response = await httpPost(urls.insta_upload_photo, serializeJSON(body), token, true)
     // await dispatch(loaderState(false))

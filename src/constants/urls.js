@@ -55,4 +55,5 @@ export const urls = {
   basket_update: devserver + "/order/basket-update/",
   new_mission_list: devserver + "/mission/mission-list",
   task_process: devserver + "/mission/new-list",
+  task_reset: devserver + "mission/reset-list",
 }

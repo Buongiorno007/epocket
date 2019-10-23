@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react"
-import { StyleSheet, Dimensions, View, Image, TouchableOpacity, Text } from "react-native"
+import { StyleSheet, Dimensions, View, Image, TouchableOpacity, Text, Platform } from "react-native"
 import { RNCamera } from "react-native-camera"
 import { connect } from "react-redux"
 import I18n from "@locales/I18n"
@@ -10,7 +10,26 @@ function BeforePost({ progressTask, setPostData, dispatch }) {
   const [type, setType] = useState(false)
   const [flash, setFlash] = useState(false)
   const [taken, setTaken] = useState(false)
+  const [ratio, setRatio] = useState("1:1")
   const cameraRef = useRef()
+
+  const DESIRED_RATIO = "1:1";
+
+  prepareRatio = async () => {
+    console.log(cameraRef)
+    if (Platform.OS === 'android' && cameraRef) {
+         const ratios = await cameraRef.current.getSupportedRatiosAsync()
+         console.log(ratios)
+
+         // See if the current device has your desired ratio, otherwise get the maximum supported one
+         // Usually the last element of "ratios" is the maximum supported ratio
+         const ratio = ratios.find((ratio) => ratio === DESIRED_RATIO) || ratios[ratios.length - 1]
+         console.log(ratio)
+
+         
+         setRatio( ratio );
+    }
+}
 
   const takePicture = async () => {
     try {
@@ -36,7 +55,8 @@ function BeforePost({ progressTask, setPostData, dispatch }) {
           // ratio={'1:1'}
           ref={cameraRef}
           style={[taken ? {display: 'none'} : { width: width - 64, height: 100 }]}
-          ratio={"1:1"}
+          onCameraReady={() => prepareRatio()}
+          ratio={ratio}
           type={type ? RNCamera.Constants.Type.front : RNCamera.Constants.Type.back}
           flashMode={flash ? RNCamera.Constants.FlashMode.torch : RNCamera.Constants.FlashMode.off}
           androidCameraPermissionOptions={{
@@ -90,11 +110,14 @@ const styles = StyleSheet.create({
   },
   cameraView: {
     width: width - 32, 
+    height: width,
     maxHeight: width,
     overflow: 'hidden',
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    borderWidth: 1,
+    borderColor: 'red'
   },
   buttonView: {
     flexDirection: "row",

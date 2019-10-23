@@ -69,4 +69,5 @@ export default combineReducers({
   mallPoint: require("./mallPoint").default,
   mallTask: require("./mallTask").default,
   progressTask: require("./progressTask").default,
+  image: require("./image").default,
 })
