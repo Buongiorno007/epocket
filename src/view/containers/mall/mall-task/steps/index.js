@@ -1,5 +1,5 @@
 import React from "react"
-import { Dimensions, StyleSheet, View, Text, FlatList } from "react-native"
+import { Dimensions, StyleSheet, View, Text, FlatList, Image } from "react-native"
 import { connect } from "react-redux"
 
 const { width } = Dimensions.get("window")
@@ -14,7 +14,10 @@ function Steps({ progressTask }) {
         item < progressTask.currentTask ? styles.prev : item === progressTask.currentTask ? styles.active : styles.next
       }
     >
-      <Text
+      {item < progressTask.currentTask ? (
+        <Image source={require('@assets/img/checked.png')} resizeMode={'contain'} style={{width: 20, height: 20}}/>
+      ) : (
+        <Text
         style={
           item < progressTask.currentTask
             ? styles.prevText
@@ -25,6 +28,7 @@ function Steps({ progressTask }) {
       >
         {item}
       </Text>
+      )}
     </View>
   )
   const keyExtractor = item => `${item}`
@@ -64,7 +68,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   prev: {
-    backgroundColor: "#111",
+    backgroundColor: "transparent",
     width: 20,
     height: 20,
     borderRadius: 10,

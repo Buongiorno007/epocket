@@ -3,6 +3,7 @@ import { View, StyleSheet, Image, Text, TouchableOpacity, Platform } from "react
 import route from "@services/route"
 import sbHeight from "@services/getSBHeight"
 import { connect } from "react-redux"
+import { convertArea } from "geolib"
 
 function MapTaskHeader({ title = "", noinfo, dispatch, token, malltask }) {
   const body = JSON.stringify({

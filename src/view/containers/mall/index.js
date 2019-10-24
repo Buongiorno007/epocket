@@ -9,7 +9,7 @@ function MallItem({ item, index, profileState, dispatch }) {
   const [priceWidth, setPriceWidth] = useState(1)
   return (
     <TouchableOpacity
-      disabled={item.disabled}
+      // disabled={item.disabled}
       style={[styles.container, index === 0 && styles.noBorder]}
       onPress={() => dispatch(getMallTask(item))}
     >

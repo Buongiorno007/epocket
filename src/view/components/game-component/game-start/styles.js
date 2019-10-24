@@ -9,6 +9,7 @@ export default StyleSheet.create({
 		width,
 		height,
 		paddingHorizontal: 16,
-		backgroundColor: colors.white,
+		// backgroundColor: colors.white,
+		backgroundColor: colors.map_gray
 	},
 })

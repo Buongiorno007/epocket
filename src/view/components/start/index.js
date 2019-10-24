@@ -1,5 +1,5 @@
 import React from "react"
-import { View, Image } from "react-native"
+import { View, Image, Text } from "react-native"
 import AsyncStorage from "@react-native-community/async-storage"
 import LinearGradient from "react-native-linear-gradient"
 import { connect } from "react-redux"
@@ -14,8 +14,16 @@ import { loaderState } from "@reducers/loader"
 import route from "@services/route"
 import Video from "react-native-video"
 import styles from "./styles"
+import { TouchableOpacity } from "react-native-gesture-handler"
+import Renderitem from "./sslider"
 
 class Start extends React.Component {
+  state = {
+    screen : 0
+  }
+  setScreen = (data) => {
+    this.setState(data)
+  }
   componentDidMount() {
     route.exit()
     this.props.internet()
@@ -46,19 +54,29 @@ class Start extends React.Component {
     }
   }
 
-  render = () => {
+  
+
+  render = () => {    
     return (
       <View style={styles.container}>
-        <Image source={require("@assets/img/EPC0000.jpg")} resizeMode={"cover"} style={styles.video} />
-        <Video
-          source={require("@assets/video/EPC.mp4")} // Can be a URL or a local file.
-          onBuffer={() => {}} // Callback when remote video is buffering
-          onError={() => console.log("onError")} // Callback when video cannot be loaded
-          style={styles.video}
-          repeat={true}
-          resizeMode={"cover"}
-        />
-        <Navigate />
+        {this.state.screen === 0 && <Renderitem screen={this.state.screen} setScreen={this.setScreen}/>}
+        {this.state.screen === 1 && <Renderitem screen={this.state.screen} setScreen={this.setScreen}/>}
+        {this.state.screen === 2 && <Renderitem screen={this.state.screen} setScreen={this.setScreen}/>}
+        {this.state.screen === 3 && <Renderitem screen={this.state.screen} setScreen={this.setScreen}/>}
+        {this.state.screen === 4 && (
+          <>
+          <Image source={require("@assets/img/EPC0000.jpg")} resizeMode={"cover"} style={styles.video} />
+          <Video
+            source={require("@assets/video/EPC.mp4")} // Can be a URL or a local file.
+            onBuffer={() => {}} // Callback when remote video is buffering
+            onError={() => console.log("onError")} // Callback when video cannot be loaded
+            style={styles.video}
+            repeat={true}
+            resizeMode={"cover"}
+          />
+          <Navigate />
+          </>
+        )}
       </View>
     )
   }

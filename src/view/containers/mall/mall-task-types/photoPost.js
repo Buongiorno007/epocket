@@ -4,7 +4,7 @@ import DirectlyPost from "@containers/mall/mall-task-types/photoPost/directlyPos
 
 export default function PhotoPost() {
   const [postData, setPostData] = useState({})
-
+ 
   return postData.video ? (
     <DirectlyPost postData={postData} setPostData={setPostData} />
   ) : (

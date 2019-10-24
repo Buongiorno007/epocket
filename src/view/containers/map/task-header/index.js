@@ -5,6 +5,7 @@ import route from "@services/route"
 import { connect } from "react-redux"
 import { colors } from "@constants/colors"
 import sbHeight from "@services/getSBHeight"
+import I18n from '@locales/I18n'
 
 
 const { width } = Dimensions.get("window")
@@ -41,14 +42,14 @@ function TaskHeader({ progressTask, profileState }) {
       <Modal isVisible={visible} style={{justifyContent: 'center', alignItems: 'center'}} backdropOpacity={0.2} backdropColor={colors.black111}>
         <View style={styles.modalContainer}>
           <View style={styles.modalInner}>
-            <Text style={styles.modalTextHeader}>{'Вы уверены,\nчто хотите выйти?'}</Text>
-            <Text style={styles.modalTextNormal}>{'Продолжить выполнение задания будет невозможно.\nСредства будут зачислены только за предыдущие\nвыполненные этапы.'}</Text>
+            <Text style={styles.modalTextHeader}>{I18n.t('MISSION.EXIT')}</Text>
+            <Text style={styles.modalTextNormal}>{I18n.t('MISSION.EXIT_DESC')}</Text>
             <View style={[styles.row, styles.modalButtonContainer]}>
               <TouchableOpacity onPress={() => setVisible(!visible)} style={styles.modalButton}>
-                <Text style={[styles.modalButtonText, {color: colors.blood_red}]}>Отмена</Text>
+                <Text style={[styles.modalButtonText, {color: colors.blood_red}]}>{I18n.t('CANCEL')}</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={agreed} style={[styles.modalButton, {borderLeftWidth: 1, borderColor: colors.mild_gray}]}>
-                <Text style={[styles.modalButtonText]}>Выйти</Text>
+                <Text style={[styles.modalButtonText]}>{I18n.t('MISSION.DO_EXIT')}</Text>
               </TouchableOpacity>
             </View>
           </View>

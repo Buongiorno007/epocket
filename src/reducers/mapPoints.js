@@ -31,10 +31,10 @@ export const getPoints = () => async (dispatch, getState) => {
     geolocation_status: lat !== 0 && lng !== 0,
     lat: lat,
     lng: lng,
-    tzone: {
-      timezone: moment.tz.guess(),
-      timedelta: moment().format("Z"),
-    },
+    // tzone: {
+    //   timezone: moment.tz.guess(),
+    //   timedelta: moment().format("Z"),
+    // },
   })
   if (lat || lng) {
     try {

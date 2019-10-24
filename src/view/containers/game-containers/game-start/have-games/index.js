@@ -19,7 +19,8 @@ const HaveGames = ({ profileState, gameStart, loaderState, getGameProcess }) => 
 	return (
 		<View style={styles.grad}>
 			<View style={styles.game_aval}>
-				<Text style={styles.game_aval_t}>{`${gameStart.available_game_len}/${gameStart.games_count} ` + I18n.t('GAME.GAMES_FOR_TODAY')}</Text>
+				{/* <Text style={styles.game_aval_t}>{`${gameStart.available_game_len}/${gameStart.games_count} ` + I18n.t('GAME.GAMES_FOR_TODAY')}</Text> */}
+				<Text style={styles.game_aval_t}>{`${gameStart.available_game_len} ` + I18n.t('GAME.GAMES_FOR_TODAY')}</Text>
 			</View>
 			<View>
 				<Text style={styles.zifi_text}>{I18n.t('GAME.ZIFI.PLAYFUL')}</Text>

@@ -34,7 +34,7 @@ export const getProgressTask = () => async (dispatch, getState) => {
   }
 }
 
-export const checkQr = text => async (dispatch, getState) => {
+export const checkQr = (text, setMarker) => async (dispatch, getState) => {
   const { id } = getState().mallTask
   const { token } = getState()
   dispatch(loaderState(true))
@@ -45,14 +45,14 @@ export const checkQr = text => async (dispatch, getState) => {
   try {
     const response = await httpPost(urls.task_process, body, token)
     console.log(urls.task_process, response, "RESPONSE checkQr POST")
-    await response.body.message ? (console.log('zz')) : (
+    await response.body.message || response.body.end ? (console.log('zz')) : (
       Alert.alert(
         //title
         'Hello',
         //body
         'You scanned wrong QR Code',
         [
-          {text: 'Forgive me, I`ll scann again'},
+          {text: 'Forgive me, I`ll scann again', onPress: () => setMarker(true)},
         ],
         { cancelable: false }
         //clicking out side of alert will not cancel
@@ -93,11 +93,12 @@ export const createPost = ref => async (dispatch, getState) => {
   } catch (e) {
     console.log(e, "EEE takePicture")
     await dispatch(loaderState(false))
+    await route.popToTop()
     return {}
   }
 }
 
-export const photoPosted = postData => async (dispatch, getState) => {
+export const photoPosted = (postData, setPostData) => async (dispatch, getState) => {
   const { token, insta_token, mallTask } = getState()
   dispatch(loaderState(true))
   body = JSON.stringify({
@@ -111,6 +112,7 @@ export const photoPosted = postData => async (dispatch, getState) => {
       async () => {
         dispatch(loaderState(false))
         console.log(urls.task_process, body, token, "PUT")
+        await dispatch(setImage("")) 
         try {
           const response = await httpPut(urls.task_process, body, token)
           await dispatch(setProgressTask(new PROGRESSTASK(response.body)))
@@ -123,6 +125,7 @@ export const photoPosted = postData => async (dispatch, getState) => {
         dispatch(loaderState(false))
       },
     )
+    setPostData({})
   } else {
     route.navigate("ProfileSettings")
   }

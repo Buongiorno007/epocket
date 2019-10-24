@@ -10,14 +10,14 @@ function ScanQr({ progressTask, loader, dispatch }) {
   const [marker, setMarker] = useState(true)
   console.log(marker)
 
-  useEffect(() => {
-    !loader && setMarker(true)
-  // }, [loader])
-  })
+  // useEffect(() => {
+  //   !loader && setMarker(true)
+  // // }, [loader])
+  // }) 
 
   const send = code => {
     setMarker(false)
-    dispatch(checkQr(code.data))
+    dispatch(checkQr(code.data, setMarker)) 
   }
 
   return (

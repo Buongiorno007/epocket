@@ -126,8 +126,7 @@ export const ORDER = function(data = {}) {
 
 export const MALLPOINT = function(data = {}) {
   this.title = data.title || ""
-  this.address = data.address || ""
-  this.balance = data.balance || ""
+  this.address = data.addres || ""
   this.id = data.id || 0
   this.image = data.image || ""
   this.active_tasks = data.active_tasks || []
@@ -141,6 +140,7 @@ export const MALLTASK = function(data = {}) {
   this.tasks = data.tasks || []
   this.type = data.type || ""
   this.id = data.id || 0
+  this.disabled = data.disabled || false
 }
 
 export const PROGRESSTASK = function(data = {}) {

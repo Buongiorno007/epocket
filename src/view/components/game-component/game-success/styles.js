@@ -9,7 +9,7 @@ export default StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		paddingHorizontal: 16,
-		backgroundColor: colors.white,
+		backgroundColor: colors.map_gray,
 	},
 	zifi_text: {
 		color: colors.black111,

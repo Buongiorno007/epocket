@@ -48,7 +48,7 @@ export default StyleSheet.create({
 		color: colors.gray_b1,
 	},
 	time: {
-		fontFamily: 'Rubic-Regular',
+		fontFamily: 'Rubik-Regular',
 		fontSize: 10,
 		color: colors.gray_b1
 	}

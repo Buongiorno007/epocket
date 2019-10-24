@@ -27,12 +27,13 @@ function MallTask({ mallTask, dispatch }) {
         <Text style={styles.timeTaskNormalText}><Text style={styles.timeTaskBoldText}>{I18n.t('MALL.WARNING')}</Text>{I18n.t('MALL.LOSE')}</Text>
       </View>}
       <TouchableOpacity
-        disabled={mallTask.type === 3}
-        style={[mallTask.type === 2 ? styles.buttonActive : styles.button, mallTask.type === 1 && styles.none ]}
+        // disabled={mallTask.type === 3}
+        disabled={mallTask.disabled}
+        style={[mallTask.disabled ? styles.button : styles.buttonActive]}
         onPress={startMission}
       >
-        <Text style={[styles.buttonText, mallTask.type === 2 && styles.buttonTextActive]}>
-          {mallTask.type === 2 ? I18n.t('MALL.START') : `${I18n.t('MALL.SOON')} ${mallTask.time}`}
+        <Text style={[styles.buttonText, !mallTask.disabled && styles.buttonTextActive]}>
+          {mallTask.disabled ? `${I18n.t('MALL.SOON')} ${mallTask.time}` : I18n.t('MALL.START')}
         </Text>
       </TouchableOpacity>
     </View>

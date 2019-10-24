@@ -122,6 +122,7 @@
     "EARN_MORE": "EARN MORE",
     "SKIP": "Skip",
     "SHARE": "SHARE",
+    "HASHTAG_ADD" : "Add hashtags",
     "HASHTAGS_MESSAGE": "Be sure to insert the hashtags in the description\nof the post on Instagram, otherwise you will not\nreceive money for posting.",
     "HASHTAGS_COPIED" : "Hashtags already copied to the clipboard",
     "POST_ERROR_MESSAGE": "Error! No way to check the publication",
@@ -129,7 +130,10 @@
     "POST_NO_PUBLISH_MESSAGE": "Your post was not published",
     "MINUTES": "minutes",
     "DAYS": "days",
-    "HOURS": "hours"
+    "HOURS": "hours",
+    "EXIT" : "Are you sure\nyou want to exit?",
+    "EXIT_DESC" : "It will be impossible to continue the task.\nFunds will only be credited for previous\ncompleted steps.",
+    "DO_EXIT" : "Exit"
   },
   "CASH": {
     "TITLE": "Account: ",
@@ -435,5 +439,17 @@
     "PENDING" : "Pending",
     "DECLINED" : "Declined",
     "NOT_DONE" : "Not done"
+  },
+  "SSLIDER" : {
+    "NEXT" : "Next",
+    "SKIP" : "Skip",
+    "FIRST" : "Welcome!",
+    "FIRST_DESC" : "In EpocketCash, you get a guaranteed reward for each completed task.",
+    "SECOND" : "Missions on the map",
+    "SECOND_DESC" : "Find a suitable location on the map and go there to complete the task",
+    "THIRD" : "Missions without leaving home",
+    "THIRD_DESC" : "Answer the quiz questions and earn money without leaving your favorite sofa",
+    "FOURTH" : "Spend earned money",
+    "FOURTH_DESC" : "Pay at online stores and cafes or top up your mobile phone"
   }
 }

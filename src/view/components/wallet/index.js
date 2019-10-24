@@ -47,7 +47,7 @@ function Wallet({ wallet, profileState, activeTab, dispatch }) {
         <View style={styles.container}>
           {/* <Image style={styles.circles} source={require('@assets/img/circles.png')} /> */}
           <View style={styles.wallet_c}>
-            <Text style={styles.wallet}>{`${I18n.t("CASH.TITLE")}\n ${wallet.balance} ${profileState.currency}`}</Text>
+            <Text style={styles.wallet}>{` ${I18n.t("CASH.TITLE")}\n${wallet.balance} ${profileState.currency}`}</Text>
           </View>
           <View style={styles.history}>
             <FlatList

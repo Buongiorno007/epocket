@@ -22,7 +22,7 @@ function DirectlyPost({ progressTask, setPostData, postData, userPhoto, dispatch
 
   agreed = () =>{
     setVisible(!visible)
-    dispatch(photoPosted(postData))
+    dispatch(photoPosted(postData, setPostData))
   }
 
   return (
@@ -59,8 +59,8 @@ function DirectlyPost({ progressTask, setPostData, postData, userPhoto, dispatch
         <View style={styles.modalContainer}>
           <View style={styles.modalInner}>
             <Image style={styles.modalHeaderImage} source={require('@assets/img/warning.png')}/>
-            <Text style={styles.modalTextHeader}>Добавьте хештеги</Text>
-            <Image style={styles.modalMainImage} source={require('@assets/img/Instagram_how.png')} resizeMode={'contain'}/>
+            <Text style={styles.modalTextHeader}>{I18n.t('MISSION.HASHTAG_ADD')}</Text>
+            <View style={styles.modalMainImageContainer}><Image style={styles.modalMainImage} source={require('@assets/img/Instagram_how.gif')} resizeMode={'contain'}/></View>
             <Text style={styles.modalTextNormal}>{I18n.t('MISSION.HASHTAGS_MESSAGE')}</Text>
             <View style={styles.row}>
               <Image style={styles.modalImageChecked} source={require('@assets/img/checked.png')}/>
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     flex: 1, 
     justifyContent: 'center', 
     alignItems: 'center',
-    width: width - 100,
+    width: width - 80,
   },
   modalInner: {
     backgroundColor: 'white', 
@@ -140,13 +140,13 @@ const styles = StyleSheet.create({
   },
   modalTextNormal: {
     fontFamily: 'Rubik-Regular',
-    fontSize: 8,
+    fontSize: 12,
     color: colors.black40,
     textAlign: 'center',
   },
   modalTextBold: {
     fontFamily: 'Rubik-Medium',
-    fontSize: 8,
+    fontSize: 12,
     color: colors.black111,
   }, 
   modalHeaderImage: {
@@ -155,10 +155,15 @@ const styles = StyleSheet.create({
     marginTop: 32,
     marginBottom: 8,
   },
-  modalMainImage: {
-    width: width - 100,
-    height: 80,
+  modalMainImageContainer: {
     marginBottom: 16,
+    borderWidth: 1, 
+    borderColor: colors.map_gray, 
+    marginHorizontal: 16
+  },
+  modalMainImage: {
+    width: width - 60,
+    height: 120,
   },
   row: {
     flexDirection: 'row',
