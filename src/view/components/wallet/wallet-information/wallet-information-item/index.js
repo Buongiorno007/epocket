@@ -43,7 +43,7 @@ function WalletInformationItem({profileState, item}){
             break;
     }
     return(
-        <View style={styles.container}>
+        <View style={[styles.container, item.item.status.id === 1 ? {display: 'none'} : null ]}>
             <View style={styles.mainImageC}>
                 <Image source={{uri : item.item.image}} resizeMode={'contain'} style={styles.mainImage}/>
             </View>
@@ -56,7 +56,7 @@ function WalletInformationItem({profileState, item}){
                     {`${status}`}
                 </Text>
             </View>
-            <View style={[styles.price, item.item.status.id === 1 || item.item.status.id === 3 || item.item.status.id === 7 ? styles.priceGray : null]}>
+            <View style={[styles.price, item.item.status.id === 3 || item.item.status.id === 7 ? styles.priceGray : null]}>
                 <Text style={styles.textWhite}>{`${item.item.price} ${profileState.currency}`}</Text>
                 <Image source={statusImg} style={styles.priceImage}/>
             </View>

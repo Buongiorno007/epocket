@@ -79,6 +79,7 @@ BONUSES.prototype = Object.create(DEFAULT.prototype)
 
 export const WALLET = function(data = {}) {
   this.balance = data.balance || 0
+  this.pending = data.pending || ""
   this.history = data.data || []
 }
 export const MAPPOINTS = function(data = {}) {
@@ -144,6 +145,8 @@ export const MALLTASK = function(data = {}) {
 }
 
 export const PROGRESSTASK = function(data = {}) {
+  this.cln = data.cln || 0
+  this.id = data.id || 0
   this.price = data.price || 0
   this.name = data.name || ""
   this.currentTask = data.current_task || 2

@@ -4,6 +4,7 @@ import route from "@services/route"
 import sbHeight from "@services/getSBHeight"
 import { connect } from "react-redux"
 import { convertArea } from "geolib"
+import { urls } from "@constants/urls"
 
 function MapTaskHeader({ title = "", noinfo, dispatch, token, malltask }) {
   const body = JSON.stringify({
@@ -11,12 +12,12 @@ function MapTaskHeader({ title = "", noinfo, dispatch, token, malltask }) {
   })
   const OPTIONS = {
 		method: 'POST',
-		headers: {'Content-Type': 'application/json', Authorization: `JWT ${token}`},
+		headers: {'Content-Type': 'application/json', Authorization: `JWT ${token}`}, 
 		body : body
   }
   refr = () => {
     console.log(malltask.id)
-    fetch("https://epocket.dev.splinestudio.com/mission/reset-list",OPTIONS)
+    fetch(urls.task_reset,OPTIONS)
     .then(response => console.log(response))
   }
 

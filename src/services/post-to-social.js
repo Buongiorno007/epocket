@@ -51,10 +51,7 @@ export function socialPost(data, confirmFunction, errorFunction) {
       const base = await res.base64()
       const shareOptions = {
         url: Platform.OS === "ios" ? path : "data:video/mp4;base64," + base,
-        // url: "data:video/mp4;base64," + base
       }
-      console.log('shareOptions', shareOptions)
-      console.log('shareOptions_path', path)
       try {
         await Share.open(shareOptions)
         setTimeout(async () => {

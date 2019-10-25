@@ -12,7 +12,7 @@ import I18n from "@locales/I18n"
 import styles from "./styles"
 
 function Wallet({ wallet, profileState, activeTab, dispatch }) {
-  const [count, setCount] = useState(6)
+  const [count, setCount] = useState(1)
   const colors = ["#F55890", "#FF9950"]
   const start = { x: 0.0, y: 0.0 }
   const end = { x: 0.0, y: 1.0 }
@@ -31,7 +31,7 @@ function Wallet({ wallet, profileState, activeTab, dispatch }) {
   const keyExtractor = item => item.date
 
   const loadMore = () => {
-    if (count <= 30) {
+    if (count <= 2) {
       dispatch(getHistory(count + 1))
       setCount(count + 1)
     }
@@ -48,7 +48,7 @@ function Wallet({ wallet, profileState, activeTab, dispatch }) {
           {/* <Image style={styles.circles} source={require('@assets/img/circles.png')} /> */}
           <View style={styles.wallet_c}>
             <Text style={styles.wallet}>{` ${I18n.t("CASH.TITLE")}\n${wallet.balance} ${profileState.currency}`}</Text>
-            { wallet.pending && <Text style={{textAlign: 'center', color: 'gray', fontSize: 10}}>{`На проверке: ${wallet.pending} ${profileState.currency}`}</Text>}
+            {wallet.pending ? <Text style={{textAlign: 'center', color: '#F2F2F2', fontSize: 10}}>{`На проверке: ${wallet.pending} ${profileState.currency}`}</Text> : null}
           </View>
           <View style={styles.history}>
             <FlatList

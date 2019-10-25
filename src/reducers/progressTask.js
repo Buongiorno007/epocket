@@ -37,8 +37,10 @@ export const getProgressTask = () => async (dispatch, getState) => {
 export const checkQr = (text, setMarker) => async (dispatch, getState) => {
   const { id } = getState().mallTask
   const { token } = getState()
+  const { cln } = getState().progressTask
   dispatch(loaderState(true))
   body = JSON.stringify({
+    cln,
     qrCode: text,
     mission_id: Number(id),
   })
@@ -68,6 +70,7 @@ export const checkQr = (text, setMarker) => async (dispatch, getState) => {
 
 export const createPost = ref => async (dispatch, getState) => {
   const { token, mallPoint, mallTask } = getState()
+  const { cln, id } = getState().progressTask
   dispatch(loaderState(true))
   const options = {
     quality: 0.5,
@@ -80,6 +83,8 @@ export const createPost = ref => async (dispatch, getState) => {
   const data = await ref.takePictureAsync(options)
   // console.log(data, 'takepicdata')
   body = {
+    cln,
+    sub_id: id,
     photo: "data:image/jpeg;base64, " + data.base64,
     outlet_id: mallPoint.id,
     mission_id: mallTask.id,
@@ -100,12 +105,17 @@ export const createPost = ref => async (dispatch, getState) => {
 
 export const photoPosted = (postData, setPostData) => async (dispatch, getState) => {
   const { token, insta_token, mallTask } = getState()
+  const { cln } = getState().progressTask
   dispatch(loaderState(true))
   body = JSON.stringify({
+    cln,
     insta: true,
     // end: true,
     mission_id: Number(mallTask.id),
   })
+  // body2 = JSON.stringify({
+  //   mission_id: Number(mallTask.id),
+  // })
   if (insta_token) {
     socialPost(
       postData,
@@ -116,8 +126,10 @@ export const photoPosted = (postData, setPostData) => async (dispatch, getState)
         await setPostData({})
         try {
           const response = await httpPut(urls.task_process, body, token)
+          // const response2 = await httpPost(urls.insta_getmedia, body2, token)
           await dispatch(setProgressTask(new PROGRESSTASK(response.body)))
           console.log(urls.task_process, response, "success response PUT")
+          // console.log(urls.insta_getmedia, response2, "success response2 httpPost")
         } catch (e) {
           console.log(e, "ER photoPosted")
         }
@@ -134,7 +146,9 @@ export const photoPosted = (postData, setPostData) => async (dispatch, getState)
 export const finishMission = () => async (dispatch, getState) => {
   const { id } = getState().mallTask
   const { token } = getState()
+  const { cln } = getState().progressTask
   body = JSON.stringify({
+    cln,
     mission_id: Number(id),
   })
   try {

@@ -5,7 +5,7 @@ import styles from './styles'
 import { BlurView } from '@react-native-community/blur'
 
 function Loader() {
-	const pic = require('@assets/img/preloader_nobg.gif')
+	const pic = require('@assets/img/preloader2.gif')
 	return (
 		<View style={styles.layout}>
 			{Platform.OS === 'ios' && <BlurView style={styles.blur} blurType='light' blurAmount={8} />}

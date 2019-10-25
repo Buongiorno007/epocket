@@ -6,17 +6,31 @@ import { connect } from "react-redux"
 import { colors } from "@constants/colors"
 import sbHeight from "@services/getSBHeight"
 import I18n from '@locales/I18n'
+import { urls } from "@constants/urls"
 
 
 const { width } = Dimensions.get("window")
 
-function TaskHeader({ progressTask, profileState }) {
+function TaskHeader({ progressTask, profileState, token }) {
 
   const [priceWith, setPriceWidth] = useState(0)
   const [visible, setVisible] = useState(false)
 
+  const body = JSON.stringify({
+    id : progressTask.id,
+  })
+
+  const OPTIONS = {
+		method: 'POST',
+		headers: {'Content-Type': 'application/json', Authorization: `JWT ${token}`}, 
+		body : body
+  }
+ 
   agreed = () =>{
-    setVisible(!visible)
+    setVisible(!visible) 
+    console.log(urls.task_end, OPTIONS, 'TaskHeader')
+    fetch(urls.task_end,OPTIONS)
+    .then(response => console.log(response))
     route.popToTop()
   }
 
@@ -62,6 +76,7 @@ const mapStateToProps = state => {
   return {
     profileState: state.profileState,
     progressTask: state.progressTask,
+    token: state.token
   }
 }
 
