@@ -112,7 +112,8 @@ export const photoPosted = (postData, setPostData) => async (dispatch, getState)
       async () => {
         dispatch(loaderState(false))
         console.log(urls.task_process, body, token, "PUT")
-        await dispatch(setImage("")) 
+        await dispatch(setImage(""))
+        await setPostData({})
         try {
           const response = await httpPut(urls.task_process, body, token)
           await dispatch(setProgressTask(new PROGRESSTASK(response.body)))
@@ -125,7 +126,6 @@ export const photoPosted = (postData, setPostData) => async (dispatch, getState)
         dispatch(loaderState(false))
       },
     )
-    setPostData({})
   } else {
     route.navigate("ProfileSettings")
   }

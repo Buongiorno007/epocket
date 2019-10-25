@@ -18,10 +18,10 @@ function WalletItem({ item, profileState }) {
 		route.push('WalletInformation', {item: item})
 	}
 	return (
-		<TouchableOpacity disabled={!item.additional_data} style={styles.view} onPress={additionalInformation}>
-			<Image style={styles.circle} source={{ uri: item.photo }} />
+		<TouchableOpacity disabled={!item.info} style={styles.view} onPress={additionalInformation}>
+			<Image style={styles.circle} source={{ uri: item.info ? item.image : item.photo }} />
 			<View style={styles.titles}>
-				<Text style={styles.title}>{`${item.additional_data ? item.additional_data.description : I18n.t('GAME.CORRECT')} ${item.additional_data ? item.additional_data.stage : ''}`}</Text>
+				<Text style={styles.title}>{`${item.info ? item.name : I18n.t('GAME.CORRECT')}`}</Text>
 				<Text style={styles.description}>{item.trade_point_name}</Text>
 
 				{/* {item.status && <Text>{I18n.t(`HISTORYS.${item.status}`)}</Text>} */}

@@ -12,73 +12,17 @@ function WalletInformation({navigation}) {
 	const { item } = navigation.state.params
 	const date = `${new Date(item.date).getDate()}.${new Date(item.date).getMonth() + 1}.${new Date(item.date).getFullYear()}`
 
-	const zzz = [
-	{
-		image: require('@assets/img/instagram.png'),
-		name: 'Отсканируй QR - код в магазине',
-		status: 0,
-		why_declined : '',
-		price: '10'
-	},
-	{
-		image: require('@assets/img/instagram.png'),
-		name: 'Сделай фото кроссовок и выложи в Instagram',
-		status: 1,
-		why_declined : '',
-		price: '2000'
-	},
-	{
-		image: require('@assets/img/instagram.png'),
-		name: 'Сделай фото футболки и выложи в Instagram',
-		status: 2,
-		why_declined : '(отсутствуют хэштеги)',
-		price: '3000'
-	},
-	{
-		image: require('@assets/img/instagram.png'),
-		name: 'Сделай фото рюкзака и выложи в Instagram',
-		status: 3,
-		why_declined : '',
-		price: '50'
-	},
-	{
-		image: require('@assets/img/instagram.png'),
-		name: 'Отсканируй QR - код в магазине',
-		status: 0,
-		why_declined : '',
-		price: '10'
-	},
-	{
-		image: require('@assets/img/instagram.png'),
-		name: 'Сделай фото кроссовок и выложи в Instagram',
-		status: 1,
-		why_declined : '',
-		price: '20'
-	},
-	{
-		image: require('@assets/img/instagram.png'),
-		name: 'Сделай фото футболки и выложи в Instagram',
-		status: 2,
-		why_declined : '(отсутствуют хэштеги)',
-		price: '30'
-	},
-	{
-		image: require('@assets/img/instagram.png'),
-		name: 'Сделай фото рюкзака и выложи в Instagram',
-		status: 3,
-		why_declined : '',
-		price: '50'
-	}]
+	const keyExtractor = (item, index) => `${index}`
 	console.log('wallinfo', item)
 	return(
 		<View style={styles.container}>
 			<MapTaskHeader title={I18n.t('WALLET.DETAILS')} noinfo/>
-			<MapTaskLogo logo={item.photo} title={item.trade_point_name} time={date} />	
+			<MapTaskLogo logo={item.image} title={item.trade_point_name} time={date} />	
 			<FlatList 
 				style={{}}
-				data={zzz}
-				// keyExtractor={keyExtractor}
-				renderItem={(item, index) => <WalletInformationItem item={item} key={index}/>}
+				data={item.info}
+				keyExtractor={keyExtractor}
+				renderItem={(item) => <WalletInformationItem item={item}/>}
 			/>
 		</View>
 	)

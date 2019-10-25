@@ -48,6 +48,7 @@ function Wallet({ wallet, profileState, activeTab, dispatch }) {
           {/* <Image style={styles.circles} source={require('@assets/img/circles.png')} /> */}
           <View style={styles.wallet_c}>
             <Text style={styles.wallet}>{` ${I18n.t("CASH.TITLE")}\n${wallet.balance} ${profileState.currency}`}</Text>
+            { wallet.pending && <Text style={{textAlign: 'center', color: 'gray', fontSize: 10}}>{`На проверке: ${wallet.pending} ${profileState.currency}`}</Text>}
           </View>
           <View style={styles.history}>
             <FlatList

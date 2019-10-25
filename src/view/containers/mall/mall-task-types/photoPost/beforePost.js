@@ -34,7 +34,7 @@ function BeforePost({ progressTask, setPostData, dispatch }) {
     try {
       setTaken(true)
 
-      const response = await dispatch(createPost(cameraRef.current))
+      const response = await dispatch(createPost(cameraRef.current)) 
       console.log('takePicture', response)
       await setPostData(response)
     } catch (e) {
