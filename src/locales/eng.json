@@ -440,7 +440,8 @@
     "DECLINED" : "Declined",
     "NOT_DONE" : "Not done",
     "NOT_DONE_NO_HASH" : "Not done (no hashtags)",
-    "NOT_DONE_NO_POST" : "Not done (no post)"
+    "NOT_DONE_NO_POST" : "Not done (no post)",
+    "PENDING_MONEY":"Pending: "
   },
   "SSLIDER" : {
     "NEXT" : "Next",

@@ -43,7 +43,7 @@ callCallback = callback => {
 
 export function socialPost(data, confirmFunction, errorFunction) {
   RNFetchBlob.config({ 
-    // fileCache: true, 
+    fileCache: true, 
     appendExt: "mp4" })
     .fetch("GET", data.video)
     .then(async res => {
