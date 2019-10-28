@@ -14,6 +14,7 @@ class BackButton extends React.Component {
 		return (
 			<Button
 				transparent
+				hitSlop={{top: 10, bottom: 10, left: 10, right: 50}}
 				onPress={() => {
 					NavigationService.navigate(this.props.route)
 				}}

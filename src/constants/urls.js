@@ -1,8 +1,8 @@
 const devServer = "https://epocket.dev.splinestudio.com"
 const prodServer = "https://epc.splinestudio.com"
-// const devserver = __DEV__ ? devServer : prodServer
+const devserver = __DEV__ ? devServer : prodServer
 // const devserver = prodServer
-const devserver = devServer
+// const devserver = devServer
 
 export const urls = {
   sign_up: devserver + "/sign-in/registration/",
@@ -19,7 +19,7 @@ export const urls = {
   close_mission: devserver + "/mission/close-mission/",
   send_qr_code: devserver + "/mission/send-qr-code/",
   send_photo: devserver + "/mission/send-photo/", //MAYBE DEPRECATED
-  get_received_bonuses: devserver + "/history/wallet-in/",
+  get_received_bonuses: devserver + "/history/new_wallet/",
   get_spent_bonuses: devserver + "/history/wallet-out/",
   get_partners: devserver + "/history/partners",
   get_outlet_products: devserver + "/order/get-outlet-products/",

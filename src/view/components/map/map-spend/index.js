@@ -27,7 +27,7 @@ function MapSpend({ lat, lng, mapPoints }) {
 	}
 
 	return (
-		<View style={styles.container}>
+		<ScrollView style={styles.container}>
 			<Text style={[styles.text, styles.text_top]}>{I18n.t('MAP.PLACES')}</Text>
 			<View style={styles.map_view}>				
 				<ClusteredMapView
@@ -55,8 +55,9 @@ function MapSpend({ lat, lng, mapPoints }) {
 
 				</TouchableOpacity>
 			</View>
-			{/* <View style={styles.linear}> */}
-				<ScrollView style={styles.scroll}>
+			{/* <ScrollView style={styles.linear}> */}
+				{/* <ScrollView style={styles.scroll}> */}
+				<View style={styles.scroll}>
 					<Text style={styles.text}>{I18n.t('BARCODE_PAY')}</Text>
 					<View style={styles.fieldStyle}>
 						<MapSpendButton
@@ -79,9 +80,10 @@ function MapSpend({ lat, lng, mapPoints }) {
 							space
 						/>
 					</View>
-				</ScrollView>
-			{/* </View> */}
-		</View>
+				</View>
+				{/* </ScrollView> */}
+			{/* </ScrollView> */}
+		</ScrollView>
 	)
 }
 

@@ -17,9 +17,10 @@ export default (state = initialState, action) => {
   }
 }
 
-export const getMallPoint = id => async (dispatch, getState) => {
+export const getMallPoint = (id, setPressed) => async (dispatch, getState) => {
+  setPressed(true)
   const { token, mallPoint } = getState()
-  if (id !== mallPoint.id) {
+  // if (id !== mallPoint.id) {
     let body = {
       outlet_id: id,
       tzone: {
@@ -34,10 +35,11 @@ export const getMallPoint = id => async (dispatch, getState) => {
       route.push("MallPoint")
     } catch (e) {
       console.log(e, "getEarnPoint catch(e)")
+      setPressed(false)
     }
-  } else {
-    route.push("MallPoint")
-  }
+  // } else {
+    // route.push("MallPoint")
+  // }
 }
 
 export const setPoint = point => ({ type: SET_POINT, point })

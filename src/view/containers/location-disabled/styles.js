@@ -15,7 +15,8 @@ export default StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    bottom: Platform.OS === "ios" ? 60 : 0,
+    // bottom: Platform.OS === "ios" ? 60 : 0,
+    bottom: Platform.OS === "ios" ? 0 : 0,
     zIndex: 500,
   },
   circle_container: {

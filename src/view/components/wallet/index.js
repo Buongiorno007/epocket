@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { View, Text, Image, FlatList, ActivityIndicator } from "react-native"
 import { connect } from "react-redux"
-import LinearGradient from "react-native-linear-gradient"
 //containers
 import FooterNavigation from "@containers/footer-navigator/footer-navigator"
 import WalletDate from "@containers/wallet-containers/wallet-date"
@@ -13,9 +12,6 @@ import styles from "./styles"
 
 function Wallet({ wallet, profileState, activeTab, dispatch }) {
   const [count, setCount] = useState(1)
-  const colors = ["#F55890", "#FF9950"]
-  const start = { x: 0.0, y: 0.0 }
-  const end = { x: 0.0, y: 1.0 }
 
   useEffect(() => {
     if (!wallet.history.length || activeTab === 2) {
@@ -45,10 +41,9 @@ function Wallet({ wallet, profileState, activeTab, dispatch }) {
     <View style={styles.container}>
       <View style={styles.content}>
         <View style={styles.container}>
-          {/* <Image style={styles.circles} source={require('@assets/img/circles.png')} /> */}
           <View style={styles.wallet_c}>
             <Text style={styles.wallet}>{` ${I18n.t("CASH.TITLE")}\n${wallet.balance} ${profileState.currency}`}</Text>
-            {wallet.pending ? <Text style={{textAlign: 'center', color: '#F2F2F2', fontSize: 10}}>{`${I18n.t('WALLET.PENDING_MONEY')}${wallet.pending} ${profileState.currency}`}</Text> : null}
+            {wallet.pending ? <Text style={styles.wallet_p}>{`${I18n.t('WALLET.PENDING_MONEY')}${wallet.pending} ${profileState.currency}`}</Text> : null}
           </View>
           <View style={styles.history}>
             <FlatList

@@ -6,7 +6,7 @@ export default StyleSheet.create({
 	container: {
 		flex: 1,
 		marginBottom: 60,
-		backgroundColor: colors.map_gray,
+		backgroundColor: colors.map_gray
 	},
 	linear: {
 		flex: 1,

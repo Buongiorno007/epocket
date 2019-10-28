@@ -56,12 +56,12 @@ export function socialPost(data, confirmFunction, errorFunction) {
         await Share.open(shareOptions)
         setTimeout(async () => {
           confirmFunction()
-          try {
-            await RNFS.exists(path)
-            await RNFS.unlink(path)
-          } catch (e) {
-            console.log(e, "unavailable unlink")
-          }
+          // try {
+          //   await RNFS.exists(path)
+          //   await RNFS.unlink(path)
+          // } catch (e) {
+          //   console.log(e, "unavailable unlink")
+          // }
         }, 1000)
       } catch (e) {
         errorFunction()

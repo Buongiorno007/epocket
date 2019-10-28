@@ -1,5 +1,5 @@
 import React from "react"
-import { View, BackHandler, Platform } from "react-native"
+import { View, BackHandler, Platform, AppState } from "react-native"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 //components
@@ -25,6 +25,9 @@ import { loaderState } from '@reducers/loader'
 import styles from "./styles"
 
 class Main extends React.Component {
+  state = {
+    appState: AppState.currentState,
+  };
   componentDidMount() {
     this.backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
       this.props.setActiveCard(false)
@@ -32,6 +35,7 @@ class Main extends React.Component {
     })
     this.props.activeTab === 0 && this.props.getGameStart()
     this.props.activeTab !== 0 && this.props.loaderState(false)
+    console.log('MAIN MOUNTED')
     if (!this.props.mapPoints.request) {
       this.props.getPoints()
     }
@@ -41,6 +45,20 @@ class Main extends React.Component {
     if (!this.props.basket.request) {
       this.props.getBasket()
     }
+    AppState.addEventListener('change', this._handleAppStateChange)
+  }
+  _handleAppStateChange = (nextAppState) => {
+    if (
+      this.state.appState.match(/inactive|background/) &&
+      nextAppState === 'active'
+    ) {
+      console.log('App has come to the foreground!');
+      this.componentDidMount()
+    }
+    this.setState({appState: nextAppState});
+  }
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this._handleAppStateChange);
   }
 
   componentDidUpdate(prevProps) {

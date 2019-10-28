@@ -44,7 +44,7 @@ class Start extends React.Component {
     await this.props.coordinate()
     await this.getToken()
   }
-
+  
   getToken = async () => {
     const token = await AsyncStorage.getItem("token")
     if (token) {

@@ -54,6 +54,7 @@ export const request = () => async (dispatch, getState) => {
 	try {
 		const { token } = getState()
 		const response = await httpGet(urls.get_received_bonuses, token)
+		console.log('phone_wallet', response)
 		response.body.phone = phone
 		response.body.currency = currency
 		const body = new BONUSES(response.body)

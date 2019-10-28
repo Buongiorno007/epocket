@@ -37,6 +37,12 @@ export default StyleSheet.create({
     marginTop: sbHeight + 16,
     justifyContent: "center",
   },
+  wallet_p: {
+    fontFamily: 'Rubik-Medium',
+    textAlign: 'center', 
+    color: colors.white, 
+    fontSize: 12
+  },
   history: {
     flex: 1,
     backgroundColor: "#F5F9FE",

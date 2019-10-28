@@ -6,7 +6,7 @@ import Basket from '@containers/basket'
 export default function MapHeaderWhite({ title = 'CHANGE TITLE', basket = false, id = false, transparent }) {
 	return (
 		<View style={[styles.container, {backgroundColor: transparent ? 'rgba(255,255,255, 0)' : 'rgba(255,255,255,.2)',}]}>
-			<TouchableOpacity onPress={() => route.pop()}>
+			<TouchableOpacity onPress={() => route.pop()} hitSlop={{top: 10, bottom: 10, left: 10, right: 50}}>
 				<Image source={require('@assets/img/chevron_w.png')} style={styles.image} />
 			</TouchableOpacity>
 			<Text style={styles.text}>{title}</Text>

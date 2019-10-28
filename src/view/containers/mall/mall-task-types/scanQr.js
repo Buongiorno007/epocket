@@ -8,16 +8,13 @@ const { width } = Dimensions.get("window")
 
 function ScanQr({ progressTask, loader, dispatch }) {
   const [marker, setMarker] = useState(true)
-  console.log(marker)
-
-  // useEffect(() => {
-  //   !loader && setMarker(true)
-  // // }, [loader])
-  // }) 
+  console.log('ScanQr ready: ', marker)
 
   const send = code => {
     setMarker(false)
-    dispatch(checkQr(code.data, setMarker)) 
+    setTimeout(() => {      
+      dispatch(checkQr(code.data, setMarker)) 
+    }, 1000)
   }
 
   return (

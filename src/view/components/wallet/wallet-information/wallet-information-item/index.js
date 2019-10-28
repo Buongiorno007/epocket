@@ -7,7 +7,6 @@ import { colors } from '@constants/colors'
 const { width } = Dimensions.get('window')
 
 function WalletInformationItem({profileState, item}){
-    console.log('WalletInformationItem', item.item)
     let status = ''
     let statusImg = ''
     switch (item.item.status.id) {

@@ -47,7 +47,7 @@ export const checkQr = (text, setMarker) => async (dispatch, getState) => {
   try {
     const response = await httpPost(urls.task_process, body, token)
     console.log(urls.task_process, response, "RESPONSE checkQr POST")
-    await response.body.message || response.body.end ? (console.log('zz')) : (
+    await response.body.message || response.body.end ? (console.log('QR OK')) : (
       Alert.alert(
         //title
         'Hello',
@@ -61,10 +61,12 @@ export const checkQr = (text, setMarker) => async (dispatch, getState) => {
       )
     )
     await response.body.next ? await dispatch(setProgressTask(new PROGRESSTASK(response.body.next))) : await dispatch(setProgressTask(new PROGRESSTASK(response.body)))
+    await setMarker(true)
     dispatch(loaderState(false))
   } catch (e) {
     console.log(e, "EEEER checkQr")
     dispatch(loaderState(false))
+    setMarker(true)
   }
 }
 
@@ -113,23 +115,18 @@ export const photoPosted = (postData, setPostData) => async (dispatch, getState)
     // end: true,
     mission_id: Number(mallTask.id),
   })
-  // body2 = JSON.stringify({
-  //   mission_id: Number(mallTask.id),
-  // })
   if (insta_token) {
     socialPost(
       postData,
       async () => {
-        dispatch(loaderState(false))
-        console.log(urls.task_process, body, token, "PUT")
+        // console.log(urls.task_process, body, token, "PUT")
         await dispatch(setImage(""))
         await setPostData({})
         try {
           const response = await httpPut(urls.task_process, body, token)
-          // const response2 = await httpPost(urls.insta_getmedia, body2, token)
           await dispatch(setProgressTask(new PROGRESSTASK(response.body)))
+          await dispatch(loaderState(false))
           console.log(urls.task_process, response, "success response PUT")
-          // console.log(urls.insta_getmedia, response2, "success response2 httpPost")
         } catch (e) {
           console.log(e, "ER photoPosted")
         }

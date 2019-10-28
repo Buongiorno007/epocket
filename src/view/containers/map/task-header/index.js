@@ -11,13 +11,13 @@ import { urls } from "@constants/urls"
 
 const { width } = Dimensions.get("window")
 
-function TaskHeader({ progressTask, profileState, token }) {
+function TaskHeader({ progressTask, mallTask, profileState, token }) {
 
   const [priceWith, setPriceWidth] = useState(0)
   const [visible, setVisible] = useState(false)
 
   const body = JSON.stringify({
-    id : progressTask.id,
+    mission_id : Number(mallTask.id),
   })
 
   const OPTIONS = {
@@ -30,8 +30,8 @@ function TaskHeader({ progressTask, profileState, token }) {
     setVisible(!visible) 
     console.log(urls.task_end, OPTIONS, 'TaskHeader')
     fetch(urls.task_end,OPTIONS)
-    .then(response => console.log(response))
-    route.popToTop()
+    .then(response => console.log('agreed cancel mission',response))
+    route.navigate('Main')
   }
 
   const textWidth = width - priceWith * 2 - 32
@@ -76,6 +76,7 @@ const mapStateToProps = state => {
   return {
     profileState: state.profileState,
     progressTask: state.progressTask,
+    mallTask: state.mallTask,
     token: state.token
   }
 }

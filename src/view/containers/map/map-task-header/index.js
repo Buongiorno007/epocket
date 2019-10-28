@@ -15,6 +15,7 @@ function MapTaskHeader({ title = "", noinfo, dispatch, token, malltask }) {
 		headers: {'Content-Type': 'application/json', Authorization: `JWT ${token}`}, 
 		body : body
   }
+  // DEV mode only Resets mission counter
   refr = () => {
     console.log(malltask.id)
     fetch(urls.task_reset,OPTIONS)
@@ -23,7 +24,7 @@ function MapTaskHeader({ title = "", noinfo, dispatch, token, malltask }) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.button} onPress={() => route.pop()}>
+      <TouchableOpacity style={styles.button} onPress={() => route.pop()} hitSlop={{top: 10, bottom: 10, left: 10, right: 50}}>
         <Image source={require("@assets/dv4/chevron.png")} style={styles.image} />
       </TouchableOpacity>
       <Text style={styles.text}>{title}</Text>
