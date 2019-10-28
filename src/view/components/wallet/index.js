@@ -27,10 +27,10 @@ function Wallet({ wallet, profileState, activeTab, dispatch }) {
   const keyExtractor = item => item.date
 
   const loadMore = () => {
-    if (count <= 2) {
+    // if (count <= 2) {
       dispatch(getHistory(count + 1))
       setCount(count + 1)
-    }
+    // }
   }
   const renderFooter = () => {
     if (count > 30) return null
