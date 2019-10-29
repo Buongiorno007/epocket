@@ -7,11 +7,13 @@ import { colors } from "@constants/colors"
 import sbHeight from "@services/getSBHeight"
 import I18n from '@locales/I18n'
 import { urls } from "@constants/urls"
+import { PROGRESSTASK } from "@reducers/__proto__"
+import { setProgressTask } from "@reducers/progressTask"
 
 
 const { width } = Dimensions.get("window")
 
-function TaskHeader({ progressTask, mallTask, profileState, token }) {
+function TaskHeader({ progressTask, mallTask, profileState, dispatch, token }) {
 
   const [priceWith, setPriceWidth] = useState(0)
   const [visible, setVisible] = useState(false)
@@ -31,6 +33,7 @@ function TaskHeader({ progressTask, mallTask, profileState, token }) {
     console.log(urls.task_end, OPTIONS, 'TaskHeader')
     fetch(urls.task_end,OPTIONS)
     .then(response => console.log('agreed cancel mission',response))
+    .then(dispatch(setProgressTask(new PROGRESSTASK({}))))
     route.navigate('Main')
   }
 

@@ -4,9 +4,13 @@ import { connect } from "react-redux"
 import { RNCamera } from "react-native-camera"
 import I18n from "@locales/I18n"
 import { checkQr } from "@reducers/progressTask"
+import { loaderState } from "@reducers/loader"
 const { width } = Dimensions.get("window")
 
 function ScanQr({ progressTask, loader, dispatch }) {
+  console.log('ScanQr')
+  dispatch(loaderState(false))
+
   const [marker, setMarker] = useState(true)
   console.log('ScanQr ready: ', marker)
 

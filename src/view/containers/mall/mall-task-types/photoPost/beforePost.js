@@ -7,6 +7,7 @@ import { createPost } from "@reducers/progressTask"
 const { width } = Dimensions.get("window")
 
 function BeforePost({ progressTask, setPostData, dispatch }) {
+  console.log('BeforePost')
   const [type, setType] = useState(false)
   const [flash, setFlash] = useState(false)
   const [taken, setTaken] = useState(false)

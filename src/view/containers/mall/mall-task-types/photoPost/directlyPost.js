@@ -16,6 +16,7 @@ const height =
 		: Dimensions.get('window').height
 
 function DirectlyPost({ progressTask, setPostData, postData, userPhoto, dispatch }) {
+  console.log('DirectlyPost')
   Clipboard.setString(postData.hash_tag)
   const [video, setVideo] = useState(true)
   const [visible, setVisible] = useState(false)
@@ -71,7 +72,7 @@ function DirectlyPost({ progressTask, setPostData, postData, userPhoto, dispatch
                 <Text style={styles.modalButtonText}>{I18n.t('CANCEL')}</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={agreed} style={[styles.modalButton, {borderLeftWidth: 1, borderColor: colors.mild_gray}]}>
-                <Text style={[styles.modalButtonText, {color: colors.blood_red}]}>{I18n.t('CONTINUE')}</Text>
+                <Text style={[styles.modalButtonText, {color: colors.blood_red, fontWeight: 'bold'}]}>{I18n.t('CONTINUE')}</Text>
               </TouchableOpacity>
             </View>
           </View>

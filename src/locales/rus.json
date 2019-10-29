@@ -441,7 +441,8 @@
     "NOT_DONE" : "Не выполнено",
     "NOT_DONE_NO_HASH" : "Не выполнено (нет хэштегов)",
     "NOT_DONE_NO_POST" : "Не выполнено (нет поста)",
-    "PENDING_MONEY":"На проверке: "
+    "PENDING_MONEY":"На проверке: ",
+    "TO" : "до "
   },
   "SSLIDER" : {
     "NEXT" : "Далее",

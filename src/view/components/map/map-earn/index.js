@@ -46,7 +46,7 @@ function MapEarn({ profileState, mapPoints, lat, lng }) {
 
 	return (
 		<View style={styles.container}>
-			<MissionBanner />
+			{/* <MissionBanner /> */}
 			<ClusteredMapView
 				style={{ flex: 1 }}
 				data={mapPoints.outlets}

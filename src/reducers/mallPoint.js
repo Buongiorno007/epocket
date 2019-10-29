@@ -17,8 +17,7 @@ export default (state = initialState, action) => {
   }
 }
 
-export const getMallPoint = (id, setPressed) => async (dispatch, getState) => {
-  setPressed(true)
+export const getMallPoint = (id) => async (dispatch, getState) => {
   const { token, mallPoint } = getState()
   // if (id !== mallPoint.id) {
     let body = {
@@ -32,10 +31,9 @@ export const getMallPoint = (id, setPressed) => async (dispatch, getState) => {
       const response = await httpPost(urls.new_mission_list, JSON.stringify(body), token)
       console.log('getMallPoint',urls.new_mission_list, response)
       dispatch(setPoint(new MALLPOINT(response.body)))
-      route.push("MallPoint")
+      route.navigate("MallPoint")
     } catch (e) {
       console.log(e, "getEarnPoint catch(e)")
-      setPressed(false)
     }
   // } else {
     // route.push("MallPoint")

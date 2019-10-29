@@ -26,7 +26,7 @@ function MallTask({ mallTask, dispatch }) {
         <Text style={styles.timeTaskNormalText}>{I18n.t('MALL.DONT_LEAVE')}<Text style={styles.timeTaskBoldText}>{time}</Text>{I18n.t('MALL.AND_GET')}</Text>
         <Text style={styles.timeTaskNormalText}><Text style={styles.timeTaskBoldText}>{I18n.t('MALL.WARNING')}</Text>{I18n.t('MALL.LOSE')}</Text>
       </View>}
-      <TouchableOpacity
+      {mallTask.type !== 1 && <TouchableOpacity
         // disabled={mallTask.type === 3}
         disabled={mallTask.disabled}
         style={[mallTask.disabled ? styles.button : styles.buttonActive]}
@@ -35,7 +35,7 @@ function MallTask({ mallTask, dispatch }) {
         <Text style={[styles.buttonText, !mallTask.disabled && styles.buttonTextActive]}>
           {mallTask.disabled ? `${I18n.t('MALL.SOON')} ${mallTask.time}` : I18n.t('MALL.START')}
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity>}
     </View>
   )
 }

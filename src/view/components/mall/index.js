@@ -23,7 +23,7 @@ function MallPoint({ mallPoint }) {
     <View style={styles.container}>
       <ImageBackground style={styles.image} source={{ uri: mallPoint.image }}>
         <View style={styles.opacity}>
-          <MapHeaderWhite title={I18n.t('MALL.TASKS')} />
+          <MapHeaderWhite title={I18n.t('MALL.TASKS')} toTop/>
           <View style={{ alignItems: "center" }}>
             <Text style={styles.title}>{mallPoint.title}</Text>
             <Text style={styles.subtitle}>{mallPoint.address}</Text>

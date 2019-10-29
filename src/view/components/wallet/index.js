@@ -12,6 +12,7 @@ import styles from "./styles"
 
 function Wallet({ wallet, profileState, activeTab, dispatch }) {
   const [count, setCount] = useState(1)
+  const [historyEnd, sethistoryEnd] = useState(false)
 
   useEffect(() => {
     if (!wallet.history.length || activeTab === 2) {
@@ -28,12 +29,12 @@ function Wallet({ wallet, profileState, activeTab, dispatch }) {
 
   const loadMore = () => {
     // if (count <= 2) {
-      dispatch(getHistory(count + 1))
+      dispatch(getHistory(count + 1, sethistoryEnd))
       setCount(count + 1)
     // }
   }
   const renderFooter = () => {
-    if (count > 30) return null
+    if (count > 30 || historyEnd) return null
     return <ActivityIndicator style={{ color: "#000", marginBottom: 16 }} />
   }
 

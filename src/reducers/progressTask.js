@@ -61,7 +61,7 @@ export const checkQr = (text, setMarker) => async (dispatch, getState) => {
       )
     )
     await response.body.next ? await dispatch(setProgressTask(new PROGRESSTASK(response.body.next))) : await dispatch(setProgressTask(new PROGRESSTASK(response.body)))
-    await setMarker(true)
+    response.body.message === "ok" && setMarker(true)
     dispatch(loaderState(false))
   } catch (e) {
     console.log(e, "EEEER checkQr")

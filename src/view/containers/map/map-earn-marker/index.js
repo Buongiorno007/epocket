@@ -8,7 +8,6 @@ import { checkMission, finishMissionState } from '@reducers/missionState'
 import { getMallPoint } from '@reducers/mallPoint'
 
 function MapEarnMarker({ profileState, data, missionState, lat, lng, mapPoints, dispatch }) {
-  const [pressed, setPressed] = useState(false);
   useEffect(() => {
     if (getDist()) {
       dispatch(checkMission(data.id))
@@ -35,16 +34,9 @@ function MapEarnMarker({ profileState, data, missionState, lat, lng, mapPoints, 
       : { uri: data.photo }
   }
 
-  handleMarkerPress = () => {
-      pressed ? {} : dispatch(getMallPoint(data.id, setPressed))
-      setTimeout(() => {
-        setPressed(false)
-      }, 2000)
-  }
-
   return (
     <View>
-      <Marker coordinate={data.location} onPress={() => handleMarkerPress()}>
+      <Marker coordinate={data.location} onPress={() => dispatch(getMallPoint(data.id))}>
         <View style={styles.container}>
           <Image style={styles.img} source={returnLogo()} />
           <View style={styles.text_view}>

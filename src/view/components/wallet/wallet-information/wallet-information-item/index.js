@@ -7,6 +7,16 @@ import { colors } from '@constants/colors'
 const { width } = Dimensions.get('window')
 
 function WalletInformationItem({profileState, item}){
+    const zone = new Date()
+	const timeZone = zone.getTimezoneOffset() / 60
+	let hour = (new Date(item.item.post_to_time).getHours()) - timeZone
+	let hours = hour < 10 ? '0' + hour : hour
+    let minutes = ('0' + new Date(item.item.post_to_time).getMinutes()).slice(-2)
+    let seconds = ('0' + new Date(item.item.post_to_time).getSeconds()).slice(-2)
+    
+    let time = new Date(item.item.post_to_time)
+    let timeToPost = `${time.getDate()}-${time.getMonth()+1}-${time.getFullYear()} ${hours}:${minutes}:${seconds}`
+
     let status = ''
     let statusImg = ''
     switch (item.item.status.id) {
@@ -52,7 +62,7 @@ function WalletInformationItem({profileState, item}){
                     [styles.textGray, 
                     item.item.status.id === 3 || item.item.status.id === 4 || item.item.status.id === 5 || item.item.status.id === 6 ? styles.textRed : null]}
                     >
-                    {`${status}`}
+                    {`${status} ${item.item.status.id === 7 ? I18n.t('WALLET.TO') : ''}${item.item.status.id === 7 ? timeToPost : ''}`}
                 </Text>
             </View>
             <View style={[styles.price, item.item.status.id === 3 || item.item.status.id === 7 ? styles.priceGray : null]}>

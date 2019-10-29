@@ -34,7 +34,6 @@ class Main extends React.Component {
       return true
     })
     this.props.activeTab === 0 && this.props.getGameStart()
-    this.props.activeTab !== 0 && this.props.loaderState(false)
     console.log('MAIN MOUNTED')
     if (!this.props.mapPoints.request) {
       this.props.getPoints()
@@ -52,19 +51,21 @@ class Main extends React.Component {
       this.state.appState.match(/inactive|background/) &&
       nextAppState === 'active'
     ) {
-      console.log('App has come to the foreground!');
-      this.componentDidMount()
+      console.log('App has come to the foreground!')
+      // this.componentDidMount()
+    this.props.activeTab !== 0 && this.props.progressTask.id === 0 && this.props.loaderState(false)
     }
     this.setState({appState: nextAppState});
-  }
-  componentWillUnmount() {
-    AppState.removeEventListener('change', this._handleAppStateChange);
   }
 
   componentDidUpdate(prevProps) {
     if (!prevProps.isLocation && this.props.isLocation) this.componentDidMount()
     if (prevProps.activeTab !== 0 && this.props.activeTab === 0) this.props.getGameStart()
+    if (prevProps.activeTab !== 1 && this.props.activeTab === 1) this.props.getPoints()
     if (prevProps.game_status === "ticker" && this.props.game_status !== "ticker") this.props.getGameStart()
+  }
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this._handleAppStateChange)
   }
 
   renderLastTab() {
@@ -110,6 +111,7 @@ const mapStateToProps = state => ({
   mapPoints: state.mapPoints,
   partners: state.partners,
   basket: state.basket,
+  progressTask: state.progressTask
 })
 
 const mapDispatchToProps = dispatch =>

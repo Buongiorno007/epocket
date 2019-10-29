@@ -6,6 +6,8 @@ import { httpPost } from "@services/http"
 //reducers
 import moment from "moment-timezone"
 import route from "@services/route"
+import { loaderState } from '@reducers/loader'
+import loader from "./loader"
 
 const SET_POINTS = "[mapPoints] SET_POINTS"
 const SET_FILTERS = "[mapPoints] SET_FILTERS"
@@ -24,6 +26,7 @@ export default (state = initialState, action) => {
 }
 
 export const getPoints = () => async (dispatch, getState) => {
+  dispatch(loaderState(true))
   const { token } = getState()
   const { lat, lng } = getState().location.coordinate
 
@@ -41,6 +44,7 @@ export const getPoints = () => async (dispatch, getState) => {
       const response = await httpPost(urls.outlets, body, token)
       console.log('MAPPOINTS', urls.outlets, response)
       dispatch(savePoints(new MAPPOINTS(response.body)))
+      dispatch(loaderState(false))
     } catch (error) {
       console.log(error, "getPoints ERROR")
     }

@@ -18,10 +18,14 @@ function WalletItem({ item, profileState }) {
 		route.push('WalletInformation', {item: item})
 	}
 
+	let isPending = false
+	let allPending = 0
 	let waiting = '#111111'
 	item.info ? (
 		item.info.forEach(element => {
 			element.status.id === 7 ? waiting = '#B1B1B1' : null
+			element.status.id === 7 ? allPending += Number(element.price) : null
+			element.status.id === 7 ? isPending = true : null
 		})
 	) : null
 	return (
@@ -29,13 +33,17 @@ function WalletItem({ item, profileState }) {
 			<Image style={styles.circle} source={{ uri: item.info ? item.image : item.photo }} />
 			<View style={styles.titles}>
 				<Text style={styles.title}>{`${item.info ? item.name : item.trade_point_name === "Refill Phone" ? I18n.t('REFILL.PAYMENT_G') : I18n.t('GAME.CORRECT')}`}</Text>
-				<Text style={styles.description}>{item.trade_point_name}</Text>
+				<Text style={styles.description}>{`${item.info ? item.trade_point_name : item.trade_point_name === "Refill Phone" ? profileState.phone : item.trade_point_name}`}</Text>
 			</View>
 				<View style={styles.priceContainer}>
 					<Text style={[styles.text, styles.price_positive, {color: waiting}]}>
 						{`${item.price} ${profileState.currency}`}
-					</Text>
+					</Text>					
+					{isPending ? (
+					<Text style={styles.time}>{`${I18n.t('WALLET.PENDING')} ${allPending} ${profileState.currency}`}</Text>
+					):(
 					<Text style={styles.time}>{`${hours}:${minutes}`}</Text>
+					)} 
 			</View>
 		</TouchableOpacity>
 	)
