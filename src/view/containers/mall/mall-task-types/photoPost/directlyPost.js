@@ -46,7 +46,7 @@ function DirectlyPost({ progressTask, setPostData, postData, userPhoto, dispatch
         ) : (
           <Image source={{ uri: postData.img_watermark }} style={{ width: width - 32, height: width - 32 }} onLoad={() => {dispatch(loaderState(false))}}/>
         )}         */}
-        <Image source={{uri : userPhoto}} style={{ width: width - 32, height: width - 32 }} onLoad={() => {dispatch(loaderState(false))}}/>
+        <Image source={{uri : userPhoto}} style={{ width: width - 32, height: width - 32 }} resizeMode={'contain'} onLoad={() => {dispatch(loaderState(false))}}/>
       </View>
       <View style={styles.buttonView}>
         <TouchableOpacity style={styles.button} onPress={() => setPostData({})}>
@@ -56,7 +56,7 @@ function DirectlyPost({ progressTask, setPostData, postData, userPhoto, dispatch
           <Text style={styles.buttonText}>{I18n.t('NEW_MISSIONS.PUBLISH')}</Text>
         </TouchableOpacity>
       </View>
-      <Modal isVisible={visible} deviceHeight={height} style={{justifyContent: 'center', alignItems: 'center'}} backdropOpacity={0.2} backdropColor={colors.black111}>
+      <Modal isVisible={visible} deviceHeight={height} style={{justifyContent: 'center', alignItems: 'center'}} backdropOpacity={0.5} backdropColor={colors.black111}>
         <View style={styles.modalContainer}>
           <View style={styles.modalInner}>
             <Image style={styles.modalHeaderImage} source={require('@assets/img/warning.png')}/>
@@ -67,14 +67,14 @@ function DirectlyPost({ progressTask, setPostData, postData, userPhoto, dispatch
               <Image style={styles.modalImageChecked} source={require('@assets/img/checked.png')}/>
               <Text style={styles.modalTextBold}>{I18n.t('MISSION.HASHTAGS_COPIED')}</Text>
             </View>
-            <View style={[styles.row, styles.modalButtonContainer]}>
-              <TouchableOpacity onPress={() => setVisible(!visible)} style={styles.modalButton}>
-                <Text style={styles.modalButtonText}>{I18n.t('CANCEL')}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={agreed} style={[styles.modalButton, {borderLeftWidth: 1, borderColor: colors.mild_gray}]}>
-                <Text style={[styles.modalButtonText, {color: colors.blood_red, fontWeight: 'bold'}]}>{I18n.t('CONTINUE')}</Text>
+            <View style={[styles.row, styles.modalButtonContainer]}>              
+              <TouchableOpacity onPress={agreed} style={[styles.modalButton]}>
+                <Text style={[styles.modalButtonText, {color: colors.white}]}>{I18n.t('CONTINUE')}</Text>
               </TouchableOpacity>
             </View>
+            <TouchableOpacity onPress={() => setVisible(!visible)} style={styles.modalButtonX}>
+                <Image source={require('@assets/img/close.png')} style={styles.modalButtonXImg}/>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
@@ -177,21 +177,32 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   modalButtonContainer: {
-    borderTopWidth: 1, 
-    borderColor: colors.mild_gray, 
-    height: 48, 
+    height: 90, 
     alignSelf: 'stretch', 
-    justifyContent: 'space-between',
-    alignItems: 'stretch',
-  },
-  modalButton: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  modalButton: {
+    height: 44,
+    paddingHorizontal: 18,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 24,
+    backgroundColor: colors.blood_red
   },
   modalButtonText: {
     fontFamily: 'Rubik-Regular',
     fontSize: 14,
     color: colors.settings_gray,
+    fontWeight: 'bold',
+  },
+  modalButtonX: {
+    position: 'absolute',
+    right: 16,
+    top: 16
+  },
+  modalButtonXImg: {
+    width: 20,
+    height: 20
   }
 })

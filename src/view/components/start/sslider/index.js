@@ -1,5 +1,5 @@
-import React from "react"
-import { View, Image, Text, StyleSheet, Dimensions, Platform, TouchableOpacity } from "react-native"
+import React, {useState} from "react"
+import { View, Image, Text, StyleSheet, Dimensions, Platform, TouchableOpacity, PanResponder } from "react-native"
 import I18n from "@locales/I18n"
 import { colors } from '@constants/colors'
 const { width } = Dimensions.get('window')
@@ -38,11 +38,29 @@ const Renderitem = ({screen, setScreen}) => {
         break;
     
       default:
+          // image = require('@assets/img/sslider0.png')
+          // pag = require('@assets/img/sslider_p0.png')
+          // text = I18n.t('SSLIDER.FIRST')
+          // text_desc = I18n.t('SSLIDER.FIRST_DESC')
         break;
     }
+    const [position, setPosition] = useState({x: 0})
+    const panResponder = PanResponder.create({
+      // Ask to be the responder:
+      onStartShouldSetPanResponder: (evt, gestureState) => true,
+      onPanResponderMove: (evt, gestureState) => {
+        setPosition({ x: gestureState.dx });
+      },
+      onPanResponderRelease: (evt, gestureState) => {
+        // The user has released all touches while this view is the
+        // responder. This typically means a gesture has succeeded
+        // console.log(position)
+        position.x > 0 ? setScreen({screen : screen <= 0 ? 0 : screen - 1}) : setScreen({screen : screen > 4 ? 4 : screen + 1})
+      }
+    });
     return (
-      <View style={styles.container}>
-      <Image source={image} style={styles.image_big}/>
+      <View style={styles.container} {...panResponder.panHandlers}>
+      <Image source={image} style={styles.image_big} resizeMode={'contain'}/>
       <Text style={styles.text}>{text}</Text>
       <Text style={styles.text_desc}>{text_desc}</Text>
       <Image source={pag} style={styles.image_small}/>
@@ -62,7 +80,8 @@ const Renderitem = ({screen, setScreen}) => {
       container: {
           flex: 1,
           justifyContent: 'center',
-          alignItems: 'center'
+          alignItems: 'center',
+          paddingHorizontal: 16,
       },
       image_big: {
           width: width - 64,

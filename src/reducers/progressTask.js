@@ -6,7 +6,9 @@ import { urls } from "@constants/urls"
 import { serializeJSON } from "@services/serialize-json"
 import { socialPost } from "@services/post-to-social"
 import { setImage } from './image'
-import { Alert} from 'react-native'
+import { Alert, ImageEditor, ImageStore} from 'react-native'
+import RNFetchBlob from "rn-fetch-blob"
+import RNFS from "react-native-fs"
 
 const SET_PROGRESS_TASK = "[progressTask] SET_PROGRESS_TASK"
 const initialState = new PROGRESSTASK()
@@ -79,15 +81,30 @@ export const createPost = ref => async (dispatch, getState) => {
     base64: true,
     fixOrientation: true,
     forceUpOrientation: true,
-    width: 500,
-    height: 500,
+    width: 1080,
+    height: 1080,
   }
   const data = await ref.takePictureAsync(options)
   // console.log(data, 'takepicdata')
+
+  // cropData = {
+  //   offset:{ x: (data.width-1080) / 2, y: (data.height-1080) / 2 },
+  //   size:{ width: 1080, height: 1080 },
+  // //  displaySize:{width:1080, height:1080}, //THESE 2 ARE OPTIONAL. 
+  //  resizeMode:'contain', 
+  // }
+  // // Crop the image.
+  // ImageEditor.cropImage(data.uri, cropData,  (successURI) => {
+  //   RNFS.readFile(successURI, 'base64')
+  //   .then((res) => {
+  //     dispatch(setImage("data:image/jpeg;base64, " + res))
+  //   })
+  // },(err) =>  console.log(err))
   body = {
     cln,
     sub_id: id,
     photo: "data:image/jpeg;base64, " + data.base64,
+    // photo: image,
     outlet_id: mallPoint.id,
     mission_id: mallTask.id,
     device: true,
@@ -124,7 +141,19 @@ export const photoPosted = (postData, setPostData) => async (dispatch, getState)
         await setPostData({})
         try {
           const response = await httpPut(urls.task_process, body, token)
-          await dispatch(setProgressTask(new PROGRESSTASK(response.body)))
+          await response.body.token && !response.body.token? (
+            Alert.alert(
+              //title
+              'Hello',
+              //body
+              'You need to reconnect to Instagram',
+              [
+                {text: 'OK', onPress: () => route.navigate("ProfileSettings")},
+              ],
+              { cancelable: false }
+              //clicking out side of alert will not cancel
+            )  
+          ) : await dispatch(setProgressTask(new PROGRESSTASK(response.body)))
           await dispatch(loaderState(false))
           console.log(urls.task_process, response, "success response PUT")
         } catch (e) {
@@ -159,3 +188,5 @@ export const finishMission = () => async (dispatch, getState) => {
 }
 
 export const setProgressTask = task => ({ type: SET_PROGRESS_TASK, task })
+
+

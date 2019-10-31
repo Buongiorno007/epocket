@@ -7,7 +7,7 @@ const height =
 export default StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 16,
+    // paddingHorizontal: 16,
   },
   video: {
     position: "absolute",

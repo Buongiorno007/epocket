@@ -3,6 +3,7 @@ import { urls } from "@constants/urls"
 import { httpPost } from "@services/http"
 import route from "@services/route"
 import moment from "moment-timezone"
+import { loaderState } from "./loader"
 
 const SET_POINT = "[mallPoint] SET_POINT"
 
@@ -18,6 +19,7 @@ export default (state = initialState, action) => {
 }
 
 export const getMallPoint = (id) => async (dispatch, getState) => {
+  dispatch(loaderState(true))
   const { token, mallPoint } = getState()
   // if (id !== mallPoint.id) {
     let body = {
@@ -31,9 +33,11 @@ export const getMallPoint = (id) => async (dispatch, getState) => {
       const response = await httpPost(urls.new_mission_list, JSON.stringify(body), token)
       console.log('getMallPoint',urls.new_mission_list, response)
       dispatch(setPoint(new MALLPOINT(response.body)))
+      dispatch(loaderState(false))
       route.navigate("MallPoint")
     } catch (e) {
       console.log(e, "getEarnPoint catch(e)")
+      dispatch(loaderState(false))
     }
   // } else {
     // route.push("MallPoint")

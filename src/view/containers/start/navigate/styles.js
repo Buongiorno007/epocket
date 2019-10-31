@@ -9,6 +9,7 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-end",
     marginBottom: 16,
+    marginHorizontal: 16
   },
   button: {
     height: 44,
