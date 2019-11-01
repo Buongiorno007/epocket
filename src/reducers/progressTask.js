@@ -82,10 +82,10 @@ export const createPost = ref => async (dispatch, getState) => {
     fixOrientation: true,
     forceUpOrientation: true,
     width: 1080,
-    height: 1080,
+    // height: 1080,
   }
   const data = await ref.takePictureAsync(options)
-  // console.log(data, 'takepicdata')
+  console.log(data, 'takepicdata')
 
   // cropData = {
   //   offset:{ x: (data.width-1080) / 2, y: (data.height-1080) / 2 },

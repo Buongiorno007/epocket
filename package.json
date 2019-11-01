@@ -69,7 +69,7 @@
     "react-redux": "^7.1.0",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
-    "rn-fetch-blob": "0.10.15"
+    "rn-fetch-blob": "0.11.2"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",

@@ -176,12 +176,12 @@ class Profile extends React.Component {
 						</TouchableOpacity>
 					)}
 				</View>
-				<RefLink
+				{/* <RefLink
 					toogle={this.state.toogle}
 					setToogle={this.setToogle}
 					link={this.state.refferal_link}
 					price={this.state.refferal_price}
-				/>
+				/> */}
 				<FooterNavigation />
 			</View>
 		)

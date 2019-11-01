@@ -52,7 +52,7 @@ function BeforePost({ progressTask, setPostData, dispatch }) {
           />
           <RNCamera
           captureAudio={false}
-          ratio={'1:1'}
+          ratio={Platform.OS === 'ios' ? 'square' : '1:1'}
           ref={cameraRef}
           // style={[taken ? {display: 'none'} : styles.theCamera]}
           style={[taken ? {display: 'none'} : styles.theCamera, Platform.OS === 'ios' && {flex: 1}]}
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     width: width - 32, 
     height: width,
     maxHeight: width,
-    overflow: 'hidden',
+    // overflow: 'hidden',
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
