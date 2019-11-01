@@ -72,7 +72,7 @@ export const checkQr = (text, setMarker) => async (dispatch, getState) => {
   }
 }
 
-export const createPost = ref => async (dispatch, getState) => {
+export const createPost = (ref, device) => async (dispatch, getState) => {
   const { token, mallPoint, mallTask } = getState()
   const { cln, id } = getState().progressTask
   dispatch(loaderState(true))
@@ -86,8 +86,10 @@ export const createPost = ref => async (dispatch, getState) => {
   }
   const data = await ref.takePictureAsync(options)
   // console.log(data, 'takepicdata')
+  let offsetHeight = device ? 0 : (data.height-1080) / 2
+  console.log(offsetHeight,'OFFSETHEIGHT')
   cropData = {
-    offset:{ x: (data.width-1080) / 2, y: (data.height-1080) / 2 },
+    offset:{ x: (data.width-1080) / 2, y: offsetHeight },
     size:{ width: 1080, height: 1080 },
   //  displaySize:{width:1080, height:1080}, //THESE 2 ARE OPTIONAL. 
    resizeMode:'contain', 
@@ -95,14 +97,18 @@ export const createPost = ref => async (dispatch, getState) => {
 
   cropImage = (uri, cropData) => {
     return new Promise((resolve, reject) =>
-      ImageEditor.cropImage(uri, cropData, resolve, reject)
+      ImageEditor.cropImage(uri, cropData, resolve, () => {
+        console.log('cropImage rejected')
+        dispatch(loaderState(false))
+        route.popToTop()
+      })
     )
   }
   
   const croppedImage = await cropImage(data.uri, cropData)
   const toBase64 = await RNFS.readFile(croppedImage, 'base64')
-  // console.log('cropImage(data.uri, cropData)', xxxx)
-  // console.log('zzzzz', zzz)
+  console.log('croppedImage', croppedImage)
+  console.log('toBase64', toBase64)
   // console.log('data.base64', data.base64)
   body = {
     cln,

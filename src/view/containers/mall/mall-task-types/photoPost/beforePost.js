@@ -13,6 +13,8 @@ function BeforePost({ progressTask, setPostData, dispatch }) {
   const [taken, setTaken] = useState(false)
   // const [ratio, setRatio] = useState("1:1")
   const cameraRef = useRef()
+  let device = Platform.OS === 'ios' ? true : false
+  
 
 //   const DESIRED_RATIO = "1:1";
 
@@ -35,7 +37,7 @@ function BeforePost({ progressTask, setPostData, dispatch }) {
     try {
       setTaken(true)
 
-      const response = await dispatch(createPost(cameraRef.current)) 
+      const response = await dispatch(createPost(cameraRef.current, device)) 
       console.log('takePicture', response)
       await setPostData(response)
     } catch (e) {
@@ -52,7 +54,7 @@ function BeforePost({ progressTask, setPostData, dispatch }) {
           />
           <RNCamera
           captureAudio={false}
-          ratio={Platform.OS === 'ios' ? 'square' : '1:1'}
+          ratio={Platform.OS === 'android' && '1:1'}
           ref={cameraRef}
           // style={[taken ? {display: 'none'} : styles.theCamera]}
           style={[taken ? {display: 'none'} : styles.theCamera, Platform.OS === 'ios' && {flex: 1}]}

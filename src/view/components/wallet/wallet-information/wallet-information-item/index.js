@@ -7,15 +7,19 @@ import { colors } from '@constants/colors'
 const { width } = Dimensions.get('window')
 
 function WalletInformationItem({profileState, item}){
-    const zone = new Date()
-	const timeZone = zone.getTimezoneOffset() / 60
-	let hour = (new Date(item.item.post_to_time).getHours()) - timeZone
+    // const zone = new Date()
+    // const timeZone = zone.getTimezoneOffset() / 60
+    // console.log(new Date(item.item.post_to_time), 'DATEEEEE')
+	// let hour = (new Date(post_to_time).getHours())- timeZone
+	let hour = (new Date(item.item.post_to_time).getHours())
 	let hours = hour < 10 ? '0' + hour : hour
     let minutes = ('0' + new Date(item.item.post_to_time).getMinutes()).slice(-2)
-    let seconds = ('0' + new Date(item.item.post_to_time).getSeconds()).slice(-2)
+    // let seconds = ('0' + new Date(item.item.post_to_time).getSeconds()).slice(-2)
+    let day = ('0' + new Date(item.item.post_to_time).getDate()).slice(-2)
     
     let time = new Date(item.item.post_to_time)
-    let timeToPost = `${time.getDate()}-${time.getMonth()+1}-${time.getFullYear()} ${hours}:${minutes}:${seconds}`
+    // let timeToPost = `${day}-${time.getMonth()+1}-${time.getFullYear()} ${hours}:${minutes}:${seconds}`
+    let timeToPost = `${day}-${time.getMonth()+1}-${time.getFullYear()} ${hours}:${minutes}`
 
     let status = ''
     let statusImg = ''
@@ -52,7 +56,7 @@ function WalletInformationItem({profileState, item}){
             break;
     }
     return(
-        <View style={[styles.container, item.item.status.id === 1 ? {display: 'none'} : null ]}>
+        <View style={[styles.container]}>
             <View style={styles.mainImageC}>
                 <Image source={{uri : item.item.image}} resizeMode={'contain'} style={styles.mainImage}/>
             </View>
