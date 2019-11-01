@@ -12,7 +12,7 @@ const android = {
 	startOnBoot: false,
 	stationaryRadius: 1,
 	locationProvider: BackgroundGeolocationModule.ACTIVITY_PROVIDER,
-	interval: 2000,
+	interval: 15000,
 	fastestInterval: 1200,
 	activitiesInterval: 10000,
 	stopOnStillActivity: false,

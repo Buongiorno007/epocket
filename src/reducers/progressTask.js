@@ -81,30 +81,34 @@ export const createPost = ref => async (dispatch, getState) => {
     base64: true,
     fixOrientation: true,
     forceUpOrientation: true,
-    width: 1080,
+    // width: 1080,
     // height: 1080,
   }
   const data = await ref.takePictureAsync(options)
-  console.log(data, 'takepicdata')
+  // console.log(data, 'takepicdata')
+  cropData = {
+    offset:{ x: (data.width-1080) / 2, y: (data.height-1080) / 2 },
+    size:{ width: 1080, height: 1080 },
+  //  displaySize:{width:1080, height:1080}, //THESE 2 ARE OPTIONAL. 
+   resizeMode:'contain', 
+  }
 
-  // cropData = {
-  //   offset:{ x: (data.width-1080) / 2, y: (data.height-1080) / 2 },
-  //   size:{ width: 1080, height: 1080 },
-  // //  displaySize:{width:1080, height:1080}, //THESE 2 ARE OPTIONAL. 
-  //  resizeMode:'contain', 
-  // }
-  // // Crop the image.
-  // ImageEditor.cropImage(data.uri, cropData,  (successURI) => {
-  //   RNFS.readFile(successURI, 'base64')
-  //   .then((res) => {
-  //     dispatch(setImage("data:image/jpeg;base64, " + res))
-  //   })
-  // },(err) =>  console.log(err))
+  cropImage = (uri, cropData) => {
+    return new Promise((resolve, reject) =>
+      ImageEditor.cropImage(uri, cropData, resolve, reject)
+    )
+  }
+  
+  const croppedImage = await cropImage(data.uri, cropData)
+  const toBase64 = await RNFS.readFile(croppedImage, 'base64')
+  // console.log('cropImage(data.uri, cropData)', xxxx)
+  // console.log('zzzzz', zzz)
+  // console.log('data.base64', data.base64)
   body = {
     cln,
     sub_id: id,
-    photo: "data:image/jpeg;base64, " + data.base64,
-    // photo: image,
+    // photo: "data:image/jpeg;base64, " + data.base64,
+    photo: "data:image/jpeg;base64, " + toBase64,
     outlet_id: mallPoint.id,
     mission_id: mallTask.id,
     device: true,
