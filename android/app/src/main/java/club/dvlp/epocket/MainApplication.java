@@ -5,6 +5,7 @@ import android.app.Application;
 import com.facebook.CallbackManager;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.imageeditor.ImageEditorPackage;
 import com.brentvatne.react.ReactVideoPackage;
 import cl.json.RNSharePackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
@@ -77,6 +78,7 @@ public class MainApplication extends Application implements ShareApplication, Re
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new ImageEditorPackage(),
                     new ReactVideoPackage(),
                     new AsyncStoragePackage(),
                     new RNCWebViewPackage(),

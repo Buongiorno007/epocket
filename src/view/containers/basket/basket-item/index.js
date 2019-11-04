@@ -1,22 +1,24 @@
-import React from 'react'
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import React, {useState} from 'react'
+import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native'
 import { colors } from '@constants/colors'
 import LinearGradient from 'react-native-linear-gradient'
 import { saveOrder } from '@reducers/order'
 import { connect } from 'react-redux'
+const { width } = Dimensions.get('window')
 
 function BasketItem({ item, dispatch }) {
-	const colors = ['#F55890', '#FF9950']
-	const start = { x: 1.0, y: 0.0 }
-	const end = { x: 0.0, y: 0.0 }
+	const [gradwidth, setGradwidth] = useState(0)
 
 	const goToOrderScreen = () => dispatch(saveOrder(item))
 
 	return (
 		<TouchableOpacity style={styles.container} onPress={goToOrderScreen}>
 			<Image style={styles.image} source={{ uri: item.point_image }} />
-			<Text style={styles.title}>{item.point_name}</Text>
-			<View style={styles.grad}>
+			<Text style={[styles.title, {width: width - gradwidth - 88}]}>{item.point_name}</Text>
+			<View style={styles.grad} onLayout={event => {
+				const { width } = event.nativeEvent.layout
+				setGradwidth(width)
+				}}>
 				<Text style={styles.gradText}>{item.point_basket_amount}</Text>
 				<View style={styles.arrow}></View>
 			</View>

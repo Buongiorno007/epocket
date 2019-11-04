@@ -6,9 +6,10 @@ import { urls } from "@constants/urls"
 import { serializeJSON } from "@services/serialize-json"
 import { socialPost } from "@services/post-to-social"
 import { setImage } from './image'
-import { Alert, ImageEditor, ImageStore} from 'react-native'
+import { Alert, ImageStore} from 'react-native'
 import RNFetchBlob from "rn-fetch-blob"
 import RNFS from "react-native-fs"
+import ImageEditor from "@react-native-community/image-editor"
 
 const SET_PROGRESS_TASK = "[progressTask] SET_PROGRESS_TASK"
 const initialState = new PROGRESSTASK()
@@ -86,26 +87,27 @@ export const createPost = (ref, device) => async (dispatch, getState) => {
   }
   const data = await ref.takePictureAsync(options)
   // console.log(data, 'takepicdata')
-  let offsetHeight = device ? 0 : (data.height-1080) / 2
-  console.log(offsetHeight,'OFFSETHEIGHT')
+  // let offsetHeight = device ? 0 : (data.height-1080) / 2
+  // console.log(offsetHeight,'OFFSETHEIGHT')
   cropData = {
-    offset:{ x: (data.width-1080) / 2, y: offsetHeight },
+    offset:{ x: (data.width-1080) / 2, y: (data.height-1080) / 2 },
     size:{ width: 1080, height: 1080 },
   //  displaySize:{width:1080, height:1080}, //THESE 2 ARE OPTIONAL. 
    resizeMode:'contain', 
   }
 
-  cropImage = (uri, cropData) => {
-    return new Promise((resolve, reject) =>
-      ImageEditor.cropImage(uri, cropData, resolve, () => {
-        console.log('cropImage rejected')
-        dispatch(loaderState(false))
-        route.popToTop()
-      })
-    )
-  }
+  // cropImage = (uri, cropData) => {
+  //   return new Promise((resolve, reject) =>
+  //     ImageEditor.cropImage(uri, cropData, resolve, () => {
+  //       console.log('cropImage rejected')
+  //       dispatch(loaderState(false))
+  //       route.popToTop()
+  //     })
+  //   )
+  // }
   
-  const croppedImage = await cropImage(data.uri, cropData)
+  // const croppedImage = await cropImage(data.uri, cropData)
+  const croppedImage = await ImageEditor.cropImage(data.uri, cropData)
   const toBase64 = await RNFS.readFile(croppedImage, 'base64')
   console.log('croppedImage', croppedImage)
   console.log('toBase64', toBase64)
@@ -200,3 +202,17 @@ export const finishMission = () => async (dispatch, getState) => {
 export const setProgressTask = task => ({ type: SET_PROGRESS_TASK, task })
 
 
+// console.log('RESOLVE', resolve)
+        // return device ? (
+        //   RNFS.readdir(path)
+        //   .then((res) => {
+        //     let a = res.find((el)=>{
+        //       return el.includes('jpg') ? el : false
+        //     })
+        //     console.log('CASHE_CONTENTS_a', a)
+        //     console.log('CASHE_CONTENTS', res)
+        //   })
+        //   .catch((err) => {
+        //     console.log('READDIR_ERR', err)
+        //   })
+        // ): resolve
