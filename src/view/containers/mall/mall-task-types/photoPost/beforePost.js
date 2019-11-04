@@ -12,9 +12,7 @@ function BeforePost({ progressTask, setPostData, dispatch }) {
   const [flash, setFlash] = useState(false)
   const [taken, setTaken] = useState(false)
   // const [ratio, setRatio] = useState("1:1")
-  const cameraRef = useRef()
-  let device = Platform.OS === 'ios' ? true : false
-  
+  const cameraRef = useRef()  
 
 //   const DESIRED_RATIO = "1:1";
 
@@ -37,7 +35,7 @@ function BeforePost({ progressTask, setPostData, dispatch }) {
     try {
       setTaken(true)
 
-      const response = await dispatch(createPost(cameraRef.current, device)) 
+      const response = await dispatch(createPost(cameraRef.current)) 
       console.log('takePicture', response)
       await setPostData(response)
     } catch (e) {
@@ -113,12 +111,13 @@ const styles = StyleSheet.create({
   },
   cameraView: {
     width: width - 32, 
-    height: width,
+    height: width - 32,
     maxHeight: width,
     // overflow: 'hidden',
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    marginBottom: 16
   },
   theCamera: {
     width: width - 64, 
