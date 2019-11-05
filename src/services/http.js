@@ -49,7 +49,19 @@ export const httpPut = (url, body, token) => {
 
 	return sendRequest(url, OPTIONS)
 }
+export const httpDel = (url, body, token) => {
+	const OPTIONS = {
+		method: 'DELETE',
+		headers: {
+				'Content-Type': 'application/json',
+				Authorization: `JWT ${token}`,
+			  },
+		body: body,
+	}
 
+	return sendRequest(url, OPTIONS)
+}
+ 
 // function sendRequestHTTP(url, OPTIONS) {
 // 	return new Promise((resolve, reject) => {
 // 		setTimeout(() => {

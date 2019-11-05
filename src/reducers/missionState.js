@@ -60,6 +60,7 @@ export const getMission = id => async (dispatch, getState) => {
   let body = {
     outlet_id: id,
   }
+  console.log(body, 'timemission_body')
   try {
     const response = await httpPost(urls.start_mission, JSON.stringify(body), token)
     console.log(response, 'RESPONSE')

@@ -15,7 +15,10 @@ function Basket({
 		id ? dispatch(basketRoute(id)) : route.push('BasketComponent')
 	}
 	return (
-		<TouchableOpacity style={[styles.container, style, invert && styles.container_invert]} onPress={routeTo} hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}>
+		<TouchableOpacity 
+			style={[styles.container, style, invert && styles.container_invert]} 
+			onPress={routeTo} hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}
+			disabled={basket.len === 0 ? true : false}>
 			<Image
 				source={invert ? require('@assets/img/basket_invert.png') : require('@assets/img/basket.png')}
 				style={styles.image}

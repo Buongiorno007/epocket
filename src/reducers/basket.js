@@ -2,7 +2,7 @@ import { BASKET, STOREPOINT } from './__proto__'
 //constants
 import { urls } from '@constants/urls'
 //services
-import { httpPost, httpGet } from '@services/http'
+import { httpPost, httpGet, httpDel } from '@services/http'
 //reducers
 import { setPoint } from './storePoint'
 const SET_BASKET = '[basket] SET_BASKET'
@@ -46,6 +46,19 @@ export const addToBasket = (id, action) => async (dispatch, getState) => {
 		await dispatch(setPoint(new STOREPOINT(storeResponse.body.cash_out_point)))
 	} catch (e) {
 		console.log(e, 'EEEE addToBasket')
+	}
+}
+export const removeFromBasket = (id) => async (dispatch, getState) => {
+	const { token } = getState()
+	const body = {
+		point_id: id
+	}	
+	try {
+		const basketRemoveResponse = await httpDel(urls.basket_update, JSON.stringify(body), token)	
+		console.log(basketRemoveResponse, 'basketRemoveResponse')	
+		await dispatch(getBasket())
+	} catch (e) {
+		console.log(e, 'EEEE removeFromBasket')
 	}
 }
 

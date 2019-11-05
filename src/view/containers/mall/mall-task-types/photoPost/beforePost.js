@@ -11,25 +11,7 @@ function BeforePost({ progressTask, setPostData, dispatch }) {
   const [type, setType] = useState(false)
   const [flash, setFlash] = useState(false)
   const [taken, setTaken] = useState(false)
-  // const [ratio, setRatio] = useState("1:1")
   const cameraRef = useRef()  
-
-//   const DESIRED_RATIO = "1:1";
-
-//   const prepareRatio = async () => {
-//     console.log(cameraRef)
-//     if (Platform.OS === 'android' && cameraRef) {
-//          const ratios = await cameraRef.current.getSupportedRatiosAsync()
-//          console.log(ratios)
-
-//          // See if the current device has your desired ratio, otherwise get the maximum supported one
-//          // Usually the last element of "ratios" is the maximum supported ratio
-//          const ratio = ratios.find((ratio) => ratio === DESIRED_RATIO) || ratios[ratios.length - 1]
-//          console.log(ratio)
-
-//          setRatio( ratio );
-//     }
-// }
 
   const takePicture = async () => {
     try {
@@ -54,10 +36,7 @@ function BeforePost({ progressTask, setPostData, dispatch }) {
           captureAudio={false}
           // ratio={Platform.OS === 'android' ? '1:1' : null}
           ref={cameraRef}
-          // style={[taken ? {display: 'none'} : styles.theCamera]}
           style={[taken ? {display: 'none'} : styles.theCamera, Platform.OS === 'ios' && {flex: 1}]}
-          // onCameraReady={prepareRatio}
-          // ratio={ratio}
           type={type ? RNCamera.Constants.Type.front : RNCamera.Constants.Type.back}
           flashMode={flash ? RNCamera.Constants.FlashMode.torch : RNCamera.Constants.FlashMode.off}
           androidCameraPermissionOptions={{

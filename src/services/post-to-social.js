@@ -49,8 +49,11 @@ export function socialPost(data, confirmFunction, errorFunction) {
     .then(async res => {
       const path = await res.path()
       const base = await res.base64()
+      console.log('path',path)
+      console.log('base',base)
       const shareOptions = {
-        url: Platform.OS === "ios" ? path : "data:video/mp4;base64," + base,
+        // url: Platform.OS === "ios" ? path : "data:video/mp4;base64," + base,
+        url: path,
         social: Share.Social.INSTAGRAM,
       }
       try {

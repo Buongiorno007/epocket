@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native'
 import { colors } from '@constants/colors'
-import LinearGradient from 'react-native-linear-gradient'
 import { saveOrder } from '@reducers/order'
 import { connect } from 'react-redux'
 const { width } = Dimensions.get('window')
@@ -35,6 +34,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
+		backgroundColor: '#E5EDF7',
 	},
 	image: {
 		width: 40,

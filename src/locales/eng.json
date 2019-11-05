@@ -393,6 +393,7 @@
     "RESHOOT" : "reshoot"
   },
   "PREORDER" : "List of stores which contain your pre-orders",
+  "HAVENT_PREORDER" : "You haven’t preordered anything yet",
   "BARCODE_PAY" : "Pay by barcode",
   "BARCODE" : "Your barcode",
   "HOME" : "from home",

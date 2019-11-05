@@ -28,4 +28,20 @@ export default StyleSheet.create({
 		paddingTop: 8,
 		paddingHorizontal: 16,
 	},
+	hiddenItem: {
+		alignItems: 'center',	
+		bottom: 0,
+		justifyContent: 'center',	
+		position: 'absolute',
+		top: 0, 
+		width: 75, 
+		backgroundColor: colors.blood_red, 
+		right: 0
+	},
+	noOrder: {
+		textAlign: 'center', 
+		marginTop: 16, 
+		fontSize: 16, 
+		fontFamily: 'Rubik-Medium'
+	}
 })

@@ -1,19 +1,24 @@
-import React from 'react'
-import { View, Text, FlatList } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import LinearGradient from 'react-native-linear-gradient'
 import MapHeaderWhite from '@containers/map/map-header-white'
 import I18n from '@locales/I18n'
 //styles
 import styles from './styles'
 import BasketItem from '@containers/basket/basket-item'
+import { SwipeListView } from 'react-native-swipe-list-view'
+import { removeFromBasket } from "@reducers/basket"
 
-function BasketComponent({ balance, profileState, basket }) {
-	const colors = ['#F55890', '#FF9950']
-	const start = { x: 0.0, y: 0.0 }
-	const end = { x: 0.0, y: 1.0 }
+function BasketComponent({ balance, profileState, basket, dispatch }) {
 
 	const renderItem = ({ item }) => <BasketItem item={item} />
+	const renderHiddenItem = ({item}) => {
+		return (
+			<TouchableOpacity style={styles.hiddenItem} onPress={() => dispatch(removeFromBasket(item.point_id))}>
+				<Image source={require('@assets/img/ion-trash-sharp.png')} style={{width: 20, height: 20}}/>
+			</TouchableOpacity>
+		)
+	}
 	const keyExtractor = (item) => `${item.point_id}`
 
 	return (
@@ -23,12 +28,27 @@ function BasketComponent({ balance, profileState, basket }) {
 				<View style={styles.textView}>
 					<Text style={styles.text}>{I18n.t('PREORDER')}</Text>
 				</View>
-				<FlatList
+				{/* <FlatList
 					style={styles.scroll}
 					data={basket.data}
 					renderItem={renderItem}
 					keyExtractor={keyExtractor}
-				/>
+				/> */}
+				{basket.len === 0 ? (
+					<View style={styles.scroll}>
+						<Text style={styles.noOrder}>{I18n.t('HAVENT_PREORDER')}</Text>
+					</View>
+				) : (
+					<SwipeListView 
+						autoClose='true'
+						style={styles.scroll}
+						data={basket.data}
+						renderItem={renderItem}
+						keyExtractor={keyExtractor}
+						renderHiddenItem={renderHiddenItem}
+						rightOpenValue={-75}
+					/>
+				)}
 			</View>
 		</View>
 	)
