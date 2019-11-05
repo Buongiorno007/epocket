@@ -87,8 +87,10 @@ export const createPost = (ref) => async (dispatch, getState) => {
   const data = await ref.takePictureAsync(options)
   // console.log(data, 'takepicdata')
   cropData = {
-    offset:{ x: (data.width-1080) / 2, y: (data.height-1080) / 2 },
-    size:{ width: 1080, height: 1080 },
+    // offset:{ x: (data.width-1080) / 2, y: (data.height-1080) / 2 },
+    // size:{ width: 1080, height: 1080 },
+    offset:{ x: 0, y: (data.height - data.width) / 2 },
+    size:{ width: data.width, height: data.width },
   //  displaySize:{width:1080, height:1080}, //THESE 2 ARE OPTIONAL. 
    resizeMode:'contain', 
   }

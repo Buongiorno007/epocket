@@ -27,6 +27,7 @@ export const generateQr = (data) => async (dispatch, getState) => {
 	}
 	try {
 		let response = await httpPost(urls.basket_update, JSON.stringify(body), token)
+		console.log('QR_RESPONSE', response)
 		dispatch(setQrValue(response.body.link))
 	} catch (e) {
 		console.log(e, 'generateQr ERROR')

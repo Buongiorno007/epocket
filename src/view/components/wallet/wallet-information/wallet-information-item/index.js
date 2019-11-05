@@ -9,7 +9,7 @@ const { width } = Dimensions.get('window')
 function WalletInformationItem({profileState, item}){
     // const zone = new Date()
     // const timeZone = zone.getTimezoneOffset() / 60
-    // console.log(new Date(item.item.post_to_time), 'DATEEEEE')
+    console.log(new Date(item.item.post_to_time), 'DATEEEEE')
 	// let hour = (new Date(post_to_time).getHours())- timeZone
 	let hour = (new Date(item.item.post_to_time).getHours())
 	let hours = hour < 10 ? '0' + hour : hour

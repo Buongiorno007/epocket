@@ -52,7 +52,7 @@ function BeforePost({ progressTask, setPostData, dispatch }) {
           />
           <RNCamera
           captureAudio={false}
-          ratio={Platform.OS === 'android' ? '1:1' : null}
+          // ratio={Platform.OS === 'android' ? '1:1' : null}
           ref={cameraRef}
           // style={[taken ? {display: 'none'} : styles.theCamera]}
           style={[taken ? {display: 'none'} : styles.theCamera, Platform.OS === 'ios' && {flex: 1}]}

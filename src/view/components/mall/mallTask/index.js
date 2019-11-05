@@ -9,8 +9,9 @@ import MapTaskLogo from "@containers/map/map-task-logo"
 import { getProgressTask } from "@reducers/progressTask"
 import I18n from '@locales/I18n'
 
-function MallTask({ mallTask, dispatch }) {
-  const time = mallTask.time.substring(6)
+function MallTask({ mallTask, missionState, dispatch }) {
+  const thisTime = new Date().getHours() + 3
+  const time = mallTask.time.substring(6, 8)
   const renderItem = ({ item }) => <MallTaskAccordion item={item} />
   const keyExtractor = item => `${item.id}`
 
@@ -23,8 +24,14 @@ function MallTask({ mallTask, dispatch }) {
       <FlatList style={[styles.scroll, mallTask.type === 1 && styles.none ]} data={mallTask.tasks} renderItem={renderItem} keyExtractor={keyExtractor} />
       {mallTask.type === 1 && <View style={styles.timeTaskContainer}>
         <Text style={styles.timeTaskHeaderText}>{I18n.t('MALL.TASK_TIME')}</Text>
-        <Text style={styles.timeTaskNormalText}>{I18n.t('MALL.DONT_LEAVE')}<Text style={styles.timeTaskBoldText}>{time}</Text>{I18n.t('MALL.AND_GET')}</Text>
-        <Text style={styles.timeTaskNormalText}><Text style={styles.timeTaskBoldText}>{I18n.t('MALL.WARNING')}</Text>{I18n.t('MALL.LOSE')}</Text>
+        {thisTime >= time && !missionState.process ? (
+          <Text style={styles.timeTaskNormalText}>{I18n.t('MALL.NOT_ENOUGH_TIME')}<Text style={styles.timeTaskBoldText}>{mallTask.time}</Text></Text>
+        ) : (
+          <>
+          <Text style={styles.timeTaskNormalText}>{I18n.t('MALL.DONT_LEAVE')}{I18n.t('MALL.AND_GET')}</Text>
+          <Text style={styles.timeTaskNormalText}><Text style={styles.timeTaskBoldText}>{I18n.t('MALL.WARNING')}</Text>{I18n.t('MALL.LOSE')}</Text>
+          </>
+        )}
       </View>}
       {mallTask.type !== 1 && <TouchableOpacity
         // disabled={mallTask.type === 3}
@@ -42,6 +49,7 @@ function MallTask({ mallTask, dispatch }) {
 
 const mapStateToProps = state => ({
   mallTask: state.mallTask,
+  missionState: state.missionState
 })
 
 export default connect(mapStateToProps)(MallTask)

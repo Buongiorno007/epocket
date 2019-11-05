@@ -17,10 +17,6 @@ function OrderScreen({ order, profileState, qrValue, dispatch }) {
 	const [data, setData] = useState(order.point_data)
 	const [price, setPrice] = useState(0)
 
-	const colors = ['#F55890', '#FF9950']
-	const start = { x: 0.0, y: 0.0 }
-	const end = { x: 0.0, y: 1.0 }
-
 	useEffect(() => {
 		setPrice(getPrice(data))
 	}, [])

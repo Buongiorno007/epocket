@@ -419,10 +419,11 @@
     "TASK_LIST" : "Task list",
     "START" : "Execute",
     "SOON" : "Will be active",
-    "DONT_LEAVE" : "Stay in mall till ",
+    "DONT_LEAVE" : "Stay in mall for three hours ",
     "AND_GET" : " and get your reward",
     "WARNING" : "Warning: ",
-    "LOSE" : "you`ll lose all progress if you`ll leave mall territory before the mission end"
+    "LOSE" : "you`ll lose all progress if you`ll leave mall territory before the mission end",
+    "NOT_ENOUGH_TIME" : "There is not much time left until the end of the mission. Come back tomorrow in the period "
   },
   "GET_BACK" : "Please come back or you'll lose progress",
   "TASK_EARN_MORE" : "earn more",

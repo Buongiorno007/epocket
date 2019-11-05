@@ -22,6 +22,7 @@ export const getBasket = () => async (dispatch, getState) => {
 	const { token } = getState()
 	try {
 		const response = await httpGet(urls.basket_update, token)
+		console.log('BASKET_RESP', response)
 		dispatch(setBasket(new BASKET(response.body)))
 	} catch (e) {
 		console.log(e, 'ERROR getBasket')
