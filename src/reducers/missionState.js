@@ -41,7 +41,7 @@ export default (state = initialState, action) => {
 export const checkMission = id => async (dispatch, getState) => {
   const { outletId, inRadius, process, expired } = getState().missionState
   !inRadius && (await dispatch(setMissionRadius(true)))
-  //   console.log(id, outletId, process, 'CHECKPROPS')
+    console.log(id, outletId, process, expired, 'CHECKPROPS')
   if ((id !== outletId || !process) && !expired) {
     await dispatch(getMission(id))
   }

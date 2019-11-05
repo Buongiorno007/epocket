@@ -52,13 +52,10 @@ export function socialPost(data, confirmFunction, errorFunction) {
       console.log('path',path)
       console.log('base',base)
       const shareOptions = {
-        // url: Platform.OS === "ios" ? path : "data:video/mp4;base64," + base,
-        url: path,
-        social: Share.Social.INSTAGRAM,
+        url: Platform.OS === "ios" ? path : "data:video/mp4;base64," + base,
       }
       try {
-        // await Share.open(shareOptions)
-        await Share.shareSingle(shareOptions)
+        await Share.open(shareOptions)
         setTimeout(async () => {
           confirmFunction()
           try {
@@ -67,10 +64,10 @@ export function socialPost(data, confirmFunction, errorFunction) {
           } catch (e) {
             console.log(e, "unavailable unlink")
           }
-        }, 1000)
+        }, 5000)
       } catch (e) {
         errorFunction()
-        console.log(e, "ERROR Share.shareSingle")
+        console.log(e, "ERROR Share.open")
       }
     })
 }

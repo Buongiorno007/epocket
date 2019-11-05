@@ -95,7 +95,7 @@ export const MISSIONSTATE = function(data = {}) {
   this.timer = data.timer || 0
   this.failTimer = data.failTimer || 0
   this.missionId = data.missionId || 0
-  this.outletId = data.outletId || 0
+  this.outletId = data.outlet_id || 0
   this.process = data.process || false
   this.expired = data.expired || false
 }
