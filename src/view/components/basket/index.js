@@ -47,6 +47,7 @@ function BasketComponent({ balance, profileState, basket, dispatch }) {
 						keyExtractor={keyExtractor}
 						renderHiddenItem={renderHiddenItem}
 						rightOpenValue={-75}
+						disableRightSwipe={true}
 					/>
 				)}
 			</View>

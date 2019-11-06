@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, TouchableHighlight } from 'react-native'
 import { colors } from '@constants/colors'
 import { saveOrder } from '@reducers/order'
 import { connect } from 'react-redux'
@@ -11,7 +11,8 @@ function BasketItem({ item, dispatch }) {
 	const goToOrderScreen = () => dispatch(saveOrder(item))
 
 	return (
-		<TouchableOpacity style={styles.container} onPress={goToOrderScreen}>
+		<TouchableHighlight style={styles.container} onPress={goToOrderScreen} underlayColor={'#d8e3f2'}>
+			<>
 			<Image style={styles.image} source={{ uri: item.point_image }} />
 			<Text style={[styles.title, {width: width - gradwidth - 88}]}>{item.point_name}</Text>
 			<View style={styles.grad} onLayout={event => {
@@ -21,7 +22,8 @@ function BasketItem({ item, dispatch }) {
 				<Text style={styles.gradText}>{item.point_basket_amount}</Text>
 				<View style={styles.arrow}></View>
 			</View>
-		</TouchableOpacity>
+			</>
+		</TouchableHighlight>
 	)
 }
 export default connect()(BasketItem)
