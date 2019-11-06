@@ -61,7 +61,7 @@
     "react-native-modal": "^11.3.1",
     "react-native-permissions": "^1.1.1",
     "react-native-qrcode-svg": "^5.1.2",
-    "react-native-share": "1.2.1",
+    "react-native-share": "2.0.0",
     "react-native-sound": "^0.11.0",
     "react-native-svg": "^9.5.3",
     "react-native-swipe-list-view": "^2.0.0",

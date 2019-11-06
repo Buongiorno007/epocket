@@ -37,7 +37,9 @@ function GameTimer({ gameProcess, profileState, userColor, finished }) {
   }
 
   return (
-    <View style={{ paddingTop: 16 }}>
+    <View style={{ 
+      // paddingTop: 16,
+    }}>
       <View style={styles.game_title}>
         <Text style={styles.game_cost_text}>
           {gameProcess.amount} {I18n.t("EPC", { currency: profileState.currency })}

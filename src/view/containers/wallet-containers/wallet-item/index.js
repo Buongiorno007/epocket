@@ -10,7 +10,7 @@ function WalletItem({ item, profileState }) {
 	// const zone = new Date()
 	// const timeZone = zone.getTimezoneOffset() / 60
 	// let hour = (new Date(item.date).getHours()) - timeZone
-	console.log(new Date(item.date), 'walletItemDate')
+	// console.log(new Date(item.date), 'walletItemDate')
 	let hour = (new Date(item.date).getHours())
 	let hours = hour < 10 ? '0' + hour : hour
 	let minutes = ('0' + new Date(item.date).getMinutes()).slice(-2)

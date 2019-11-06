@@ -12,7 +12,7 @@ export default StyleSheet.create({
 	},
 	game_title: {
 		flexDirection: 'row',
-		marginTop: 30,
+		// marginTop: 16,
 		width: width - 32,
 		marginBottom: 8,
 	},

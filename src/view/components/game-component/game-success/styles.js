@@ -59,7 +59,7 @@ export default StyleSheet.create({
 		elevation: 0,
 		backgroundColor: colors.blood_red,
 		position: 'absolute',
-		bottom: 0,
+		bottom: 40,
 		left: 16,
 		right: 16,
 	},
@@ -81,5 +81,7 @@ export default StyleSheet.create({
 		height: 40,
 		borderRadius: 20,
 		backgroundColor: colors.white,
+		borderWidth: 1,
+		borderColor: colors.gray_e5,
 	}
 })

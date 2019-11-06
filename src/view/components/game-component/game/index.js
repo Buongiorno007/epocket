@@ -39,13 +39,15 @@ function Gamee({ gameProcess, gameStart, dispatch }) {
 
 	return (
 		<View style={styles.main_view}>
-			<Button style={styles.buttonExit} onPress={() => {route.navigate('Main')}}>
-				<Image source={require('@assets/img/close.png')} style={{width: 20, height: 20}}/>
-			</Button>
-			<GameTimer finished={this.submitGame} />
-			<View style={styles.game_aval}>
-				<Text style={styles.game_aval_t}>{`${gameStart.available_game_len} ` + I18n.t('GAME.GAMES_FOR_TODAY')}</Text>
+			<View style={styles.exitContainer}>
+				<View style={styles.game_aval}>
+					<Text style={styles.game_aval_t}>{`${gameStart.available_game_len} ` + I18n.t('GAME.GAMES_FOR_TODAY')}</Text>
+				</View>
+				<Button style={styles.buttonExit} onPress={() => {route.navigate('Main')}}>
+					<Image source={require('@assets/img/close.png')} style={{width: 20, height: 20}}/>
+				</Button>
 			</View>
+			<GameTimer finished={this.submitGame} />			
 			<GameField showChanges={(value) => setBut(value)} />
 			<View style={styles.btn_container}>
 				{/* <CustomButton

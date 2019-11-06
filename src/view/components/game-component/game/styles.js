@@ -2,6 +2,7 @@ import { StyleSheet, Dimensions, Platform } from "react-native"
 
 const { width, height } = Dimensions.get("window")
 import { colors } from "@constants/colors"
+import sbHeight from "@services/getSBHeight"
 
 export default StyleSheet.create({
   main_view: {
@@ -129,19 +130,23 @@ export default StyleSheet.create({
     justifyContent: 'center', 
     alignItems: 'center', 
     position: 'absolute', 
-    top: 100, 
-    right: 20,
+    top: 0, 
+    right: 0,
     width: 40,
     height: 40,
     borderRadius: 20,
+    borderWidth: 1,
+    borderColor: colors.gray_e5,
     backgroundColor: colors.white,
   },
   game_aval: {
+    // position: 'absolute', 
+    // top: 110, 
     borderRadius: 24,
     backgroundColor: colors.black111,
     paddingHorizontal: 15,
     paddingVertical: 10,
-    marginTop: 16,
+    // marginTop: 16,
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center'
@@ -150,4 +155,9 @@ export default StyleSheet.create({
     color: colors.white,
     textAlign: 'center',
   },
+  exitContainer: {
+    marginTop: sbHeight + 16,
+    flexDirection: 'row', 
+    justifyContent: 'center', 
+  }
 })
