@@ -1,5 +1,6 @@
 import { urls } from '@constants/urls'
 import { httpPost } from '@services/http'
+import { getSocket } from "@reducers/socket"
 
 const SET_VALUE = '[qrValue] SET_VALUE'
 const CLEAR_VALUE = '[qrValue] CLEAR_VALUE'
@@ -28,6 +29,7 @@ export const generateQr = (data) => async (dispatch, getState) => {
 	try {
 		let response = await httpPost(urls.basket_update, JSON.stringify(body), token)
 		console.log('QR_RESPONSE', response)
+		await dispatch(getSocket(response.body.order_id))
 		dispatch(setQrValue(response.body.link))
 	} catch (e) {
 		console.log(e, 'generateQr ERROR')

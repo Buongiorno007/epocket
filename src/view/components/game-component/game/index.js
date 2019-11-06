@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Image } from 'react-native'
 import { Button } from "native-base"
 import { connect } from 'react-redux'
 //reducers
@@ -13,8 +13,9 @@ import GameField from '@containers/game-containers/game-process/game-field'
 import I18n from '@locales/I18n'
 //styles
 import styles from './styles'
+import route from '@services/route'
 
-function Gamee({ gameProcess, dispatch }) {
+function Gamee({ gameProcess, gameStart, dispatch }) {
 	const [but, setBut] = useState([])
 	const [buttonActive, setButtonActive] = useState(true)
 
@@ -38,7 +39,13 @@ function Gamee({ gameProcess, dispatch }) {
 
 	return (
 		<View style={styles.main_view}>
+			<Button style={styles.buttonExit} onPress={() => {route.navigate('Main')}}>
+				<Image source={require('@assets/img/close.png')} style={{width: 20, height: 20}}/>
+			</Button>
 			<GameTimer finished={this.submitGame} />
+			<View style={styles.game_aval}>
+				<Text style={styles.game_aval_t}>{`${gameStart.available_game_len} ` + I18n.t('GAME.GAMES_FOR_TODAY')}</Text>
+			</View>
 			<GameField showChanges={(value) => setBut(value)} />
 			<View style={styles.btn_container}>
 				{/* <CustomButton
@@ -53,8 +60,8 @@ function Gamee({ gameProcess, dispatch }) {
 					<Text style={[styles.text]}>
 						{I18n.t('GAME.CONFIRM').toUpperCase()}
 					</Text>
-				</Button>
-			</View>
+				</Button>				
+			</View>			
 		</View>
 	)
 }
@@ -62,6 +69,7 @@ function Gamee({ gameProcess, dispatch }) {
 const mapStateToProps = (state) => {
 	return {
 		gameProcess: state.gameProcess,
+		gameStart: state.gameStart,
 	}
 }
 

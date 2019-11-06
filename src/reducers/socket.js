@@ -18,17 +18,21 @@ export default (state = initialState, action) => {
 	}
 }
 
-export const getSocket = (token, orderId) => async (dispatch) => {
+export const getSocket = (orderId) => async (dispatch, getState) => {
+	console.log('getSocket_START', orderId)
+	const { token } = getState()
 	let socket = new WebSocket(urls.socket)
 	let msg = {
 		orderId: orderId,
 		token: token,
 	}
 	socket.onopen = (event) => {
+		console.log('socket.onopen', event)
 		socket.send(JSON.stringify(msg))
 		dispatch(returnData())
 	}
 	socket.onclose = (event) => {
+		console.log('socket.onclose', event)
 		if (event.wasClean) {
 		} else {
 		}
@@ -36,7 +40,9 @@ export const getSocket = (token, orderId) => async (dispatch) => {
 	}
 
 	socket.onmessage = (event) => {
+		console.log('socket.onmessage', event)
 		let response = JSON.parse(event.data).data
+		console.log(response, 'SOCKET_R')
 		switch (response.status) {
 			case -1:
 				response.products.forEach((item) => {
@@ -52,7 +58,9 @@ export const getSocket = (token, orderId) => async (dispatch) => {
 		}
 		dispatch(returnData(response))
 	}
-	socket.onerror = (event) => {}
+	socket.onerror = (event) => {
+		console.log('socket.onerror', event)
+	}
 }
 
 export const returnData = (socket) => ({

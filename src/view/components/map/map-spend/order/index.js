@@ -49,6 +49,7 @@ function OrderScreen({ order, profileState, qrValue, dispatch }) {
 
 	const opnModal = () => {
 		if (order.user_balance > price) {
+			console.log('opnModal_QR', data)
 			dispatch(generateQr(data))
 		} else {
 			Toast.show({

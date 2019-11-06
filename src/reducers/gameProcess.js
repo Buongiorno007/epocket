@@ -21,6 +21,7 @@ export default (state = initialState, action) => {
 }
 
 export const getGameProcess = () => async (dispatch, getState) => {
+	dispatch(loaderState(true))
 	const { token, gameStart } = getState()
 	try {
 		const response = await httpPut(urls.get_a_game, JSON.stringify({ id: gameStart.id }), token)

@@ -124,5 +124,30 @@ export default StyleSheet.create({
 		marginBottom: 8,
 		fontSize: 14,
 		fontFamily: 'Rubik-Medium',
-	},
+  },
+  buttonExit: {
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    position: 'absolute', 
+    top: 100, 
+    right: 20,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: colors.white,
+  },
+  game_aval: {
+    borderRadius: 24,
+    backgroundColor: colors.black111,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    marginTop: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center'
+  },
+  game_aval_t: {
+    color: colors.white,
+    textAlign: 'center',
+  },
 })

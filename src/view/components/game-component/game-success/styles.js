@@ -15,6 +15,7 @@ export default StyleSheet.create({
 		color: colors.black111,
 		fontSize: 18,
 		fontFamily: 'Rubik-MediumItalic',
+		textAlign: 'center',
 	},
 	zifi: {
 		width: width * 0.35,
@@ -69,5 +70,16 @@ export default StyleSheet.create({
 	},
 	red: {
 		color: colors.blood_red,
+	},
+	buttonExit: {
+		justifyContent: 'center', 
+		alignItems: 'center', 
+		position: 'absolute', 
+		top: 40, 
+		right: 20,
+		width: 40,
+		height: 40,
+		borderRadius: 20,
+		backgroundColor: colors.white,
 	}
 })
