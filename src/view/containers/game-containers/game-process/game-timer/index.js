@@ -7,16 +7,19 @@ import CustomProgressBar from "@containers/custom/custom-progress-bar/custom-pro
 import { toHHMMSS } from "@services/convert-time"
 import I18n from "@locales/I18n"
 import styles from "./styles"
+import {playClock, stopClock} from "@reducers/sounds"
 
 const { width } = Dimensions.get("window")
 
-function GameTimer({ gameProcess, profileState, userColor, finished }) {
+function GameTimer({ gameProcess, profileState, userColor, finished, dispatch, sounds }) {
   const [timer, setTimer] = useState(gameProcess.time)
   const [progress, setProgress] = useState(1)
+  dispatch(playClock(sounds[0]))
 
   useEffect(() => {
     this.startInterval(), setProgress(0)
     return () => {
+      dispatch(stopClock(sounds[0]))
       BackgroundTimer.stopBackgroundTimer()
     }
   }, [])
@@ -72,6 +75,7 @@ const mapStateToProps = state => {
     userColor: state.userColor,
     gameProcess: state.gameProcess,
     profileState: state.profileState,
+    sounds: state.sounds
   }
 }
 

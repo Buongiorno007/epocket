@@ -30,8 +30,8 @@ android {
         applicationId "club.dvlp.epocket"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 42
-        versionName "3.1.0"
+        versionCode 43
+        versionName "3.2.0"
         multiDexEnabled true
         missingDimensionStrategy 'react-native-camera', 'general'
         renderscriptTargetApi 28
