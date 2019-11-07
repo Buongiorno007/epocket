@@ -24,6 +24,7 @@ export const getGameResult = (body) => async (dispatch, getState) => {
 	const { token } = getState()
 	try {
 		const response = await httpPost(urls.game_result, JSON.stringify(body), token)
+		console.log('getGameResult', response)
 		const gameResult = new GAME_RESULT(response.body)
 		await dispatch(saveGameResult(gameResult))
 		if (response.body.message) {

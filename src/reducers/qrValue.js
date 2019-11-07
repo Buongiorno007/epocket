@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
 	}
 }
 
-export const generateQr = (data) => async (dispatch, getState) => {
+export const generateQr = (data, clsModal) => async (dispatch, getState) => {
 	const { token } = getState()
 	let result = []
 	data.forEach((item) => result.push({ id: item.unique_id, count: item.product_amount }))
@@ -29,7 +29,7 @@ export const generateQr = (data) => async (dispatch, getState) => {
 	try {
 		let response = await httpPost(urls.basket_update, JSON.stringify(body), token)
 		console.log('QR_RESPONSE', response)
-		await dispatch(getSocket(response.body.order_id))
+		await dispatch(getSocket(response.body.order_id, clsModal))
 		dispatch(setQrValue(response.body.link))
 	} catch (e) {
 		console.log(e, 'generateQr ERROR')

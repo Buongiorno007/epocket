@@ -38,7 +38,7 @@ const Navigator = createStackNavigator(
     Gamee: { screen: require("@components/game-component/game").default },
     GameSuccess: { screen: require("@components/game-component/game-success").default },
     GameFailed: { screen: require("@components/game-component/game-failed").default },
-    WalletInformation: require("@components/wallet/wallet-information").default,
+    Wallet: require("@components/wallet").default,
     //MAIN
     // GameStart: { screen: require('@components/game-component/game-start').default },
     // Wallet: { screen: require('@components/wallet').default },

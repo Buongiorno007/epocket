@@ -44,6 +44,7 @@ export const getGameStart = () => async (dispatch, getState) => {
 	} catch (error) {
 		console.log(error, 'getGameStart ERROR')
 		dispatch(loaderState(false))
+		route.navigate('Main')
 	}
 }
 

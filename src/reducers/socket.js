@@ -1,6 +1,9 @@
 import AsyncStorage from '@react-native-community/async-storage'
 import { urls } from '../constants/urls'
 import { loaderState } from '@reducers/loader'
+import { getBasket } from "@reducers/basket"
+import { setTabState } from "@reducers/tabs"
+import route from "@services/route"
 export const RETURN_DATA = 'socket/RETURN_DATA'
 
 const initialState = {
@@ -19,7 +22,7 @@ export default (state = initialState, action) => {
 	}
 }
 
-export const getSocket = (orderId) => async (dispatch, getState) => {
+export const getSocket = (orderId, clsModal) => async (dispatch, getState) => {
 	console.log('getSocket_START', orderId)
 	const { token } = getState()	
 	let socket = new WebSocket(urls.socket)
@@ -54,6 +57,10 @@ export const getSocket = (orderId) => async (dispatch, getState) => {
 			case 1:
 				socket.close()
 				dispatch(loaderState(false))
+				clsModal()
+				dispatch(getBasket())
+				dispatch(setTabState(2))
+				route.navigate('Main')
 				break
 			case 2:
 				dispatch(loaderState(true))
