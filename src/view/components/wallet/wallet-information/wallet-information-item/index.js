@@ -52,16 +52,21 @@ function WalletInformationItem({profileState, item}){
             status = I18n.t('WALLET.PENDING')
             statusImg = require('@assets/img/pending.png')
             break;
+        case 8:
+            status = I18n.t('WALLET.PROCESSED')
+            statusImg = require('@assets/img/accepted.png')
+            break;
         default:
             break;
     }
+    let amount = item.item.amount ? ` x ${item.item.amount}` : ''
     return(
         <View style={[styles.container]}>
             <View style={styles.mainImageC}>
                 <Image source={{uri : item.item.image}} resizeMode={'contain'} style={styles.mainImage}/>
             </View>
             <View style={{marginHorizontal: 8}}>
-                <View style={styles.textWrapper}><Text style={styles.textBlack}>{item.item.name}</Text></View>
+                <View style={styles.textWrapper}><Text style={styles.textBlack}>{`${item.item.name}${amount}`}</Text></View>
                 <Text style={
                     [styles.textGray, 
                     item.item.status.id === 3 || item.item.status.id === 4 || item.item.status.id === 5 || item.item.status.id === 6 ? styles.textRed : null]}

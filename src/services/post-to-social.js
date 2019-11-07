@@ -45,7 +45,6 @@ export function socialPost(data, confirmFunction, errorFunction) {
   const dirs = RNFetchBlob.fs.dirs
   RNFetchBlob.config({ 
     fileCache: true, 
-    path : dirs.DocumentDir + '/epc.mp4',
     appendExt: "mp4" })
     .fetch("GET", data.video)
     .then(async res => {
@@ -54,7 +53,6 @@ export function socialPost(data, confirmFunction, errorFunction) {
       console.log('path',path)
       console.log('base',base)
       const shareOptions = {
-        type: "video/mp4",
         url: Platform.OS === "ios" ? path : "data:video/mp4;base64," + base,
       }
       try {

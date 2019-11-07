@@ -43,7 +43,7 @@ function Gamee({ gameProcess, gameStart, dispatch }) {
 				<View style={styles.game_aval}>
 					<Text style={styles.game_aval_t}>{`${gameStart.available_game_len} ` + I18n.t('GAME.GAMES_FOR_TODAY')}</Text>
 				</View>
-				<Button style={styles.buttonExit} onPress={() => {route.navigate('Main')}}>
+				<Button style={styles.buttonExit} onPress={() => {submitGame()}}>
 					<Image source={require('@assets/img/close.png')} style={{width: 20, height: 20}}/>
 				</Button>
 			</View>

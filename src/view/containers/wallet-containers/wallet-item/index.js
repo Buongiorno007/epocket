@@ -37,7 +37,7 @@ function WalletItem({ item, profileState }) {
 		<TouchableOpacity disabled={!item.info} style={[styles.view, arr.length && {display: 'none'}]} onPress={additionalInformation}>
 			<Image style={styles.circle} source={{ uri: item.info ? item.image : item.photo }} />
 			<View style={styles.titles}>
-				<Text style={styles.title}>{`${item.info ? item.name : item.trade_point_name === "Refill Phone" ? I18n.t('REFILL.PAYMENT_G') : I18n.t('GAME.CORRECT')}`}</Text>
+				<Text style={styles.title}>{`${item.info ? item.name === 'PURCHASE' ? I18n.t('WALLET.PURCHASE') : item.name : item.trade_point_name === "Refill Phone" ? I18n.t('REFILL.PAYMENT_G') : I18n.t('GAME.CORRECT')}`}</Text>
 				<Text style={styles.description}>{`${item.info ? item.trade_point_name : item.trade_point_name === "Refill Phone" ? profileState.phone : item.trade_point_name}`}</Text>
 			</View>
 				<View style={styles.priceContainer}>

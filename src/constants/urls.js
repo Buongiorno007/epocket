@@ -37,8 +37,7 @@ export const urls = {
   facebook_login: devserver + "/facebook/api/authorization",
   facebook_logout: devserver + "/facebook/api/deleteuser",
   facebook_is_logged: devserver + "/facebook/api/islogged", //MAYBE DEPRECATED
-  socket: "ws://epc.splinestudio.com/order/",
-  // socket: "ws://epocket.dev.splinestudio.com/order/",
+  socket: "wss://epc.splinestudio.com/order/",
   game_get: devserver + "/brand/game", //MAYBE DEPRECATED
   game_expired_timer: devserver + "/brand/time", //MAYBE DEPRECATED
   force_remove_ticker: devserver + "/brand/reset", //MAYBE DEPRECATED

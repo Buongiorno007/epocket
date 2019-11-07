@@ -444,7 +444,9 @@
     "NOT_DONE_NO_HASH" : "Не выполнено (нет хэштегов)",
     "NOT_DONE_NO_POST" : "Не выполнено (нет поста)",
     "PENDING_MONEY":"На проверке: ",
-    "TO" : "до "
+    "TO" : "до ",
+    "PROCESSED" : "Обработано",
+    "PURCHASE": "Покупка"
   },
   "SSLIDER" : {
     "NEXT" : "Далее",

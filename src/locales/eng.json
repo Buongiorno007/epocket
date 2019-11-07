@@ -444,7 +444,9 @@
     "NOT_DONE_NO_HASH" : "Not done (no hashtags)",
     "NOT_DONE_NO_POST" : "Not done (no post)",
     "PENDING_MONEY":"Pending: ",
-    "TO" : "до "
+    "TO" : "до ",
+    "PROCESSED" : "Обработано",
+    "PURCHASE": "Purchase"
   },
   "SSLIDER" : {
     "NEXT" : "Next",

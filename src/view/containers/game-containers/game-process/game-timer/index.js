@@ -44,7 +44,7 @@ function GameTimer({ gameProcess, profileState, userColor, finished }) {
         <Text style={styles.game_cost_text}>
           {gameProcess.amount} {I18n.t("EPC", { currency: profileState.currency })}
         </Text>
-        <Text style={styles.game_title_text}>{gameProcess.title}</Text>
+        <Text style={styles.game_title_text} ellipsizeMode={'tail'}>{gameProcess.title}</Text>
         <Text style={styles.game_time_text}>{toHHMMSS(timer)}</Text>
       </View>
       <CustomProgressBar
