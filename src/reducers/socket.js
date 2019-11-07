@@ -43,7 +43,7 @@ export const getSocket = (orderId, clsModal) => async (dispatch, getState) => {
 		AsyncStorage.multiSet([['cashout_cart', ''], ['cashout_cart_time', ''], ['cashout_cart_id', '']], () => {})
 	}
 
-	socket.onmessage = (event) => {
+	socket.onmessage = async (event) => {
 		console.log('socket.onmessage', event)
 		let response = JSON.parse(event.data).data
 		console.log(response, 'SOCKET_R')
@@ -53,13 +53,15 @@ export const getSocket = (orderId, clsModal) => async (dispatch, getState) => {
 					item.approve = false
 				})
 				socket.close()
+				await clsModal()
+				await dispatch(getBasket())
+				route.navigate('Main')
 				break
 			case 1:
 				socket.close()
-				dispatch(loaderState(false))
-				clsModal()
-				dispatch(getBasket())
-				dispatch(setTabState(2))
+				await clsModal()
+				await dispatch(getBasket())
+				await dispatch(setTabState(2))
 				route.navigate('Main')
 				break
 			case 2:

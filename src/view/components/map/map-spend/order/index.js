@@ -12,6 +12,7 @@ import OrderItem from '@containers/map/order-item'
 import ModalQr from '@containers/map/modal-qr'
 import { generateQr, clearQrValue } from '@reducers/qrValue'
 import { Toast } from 'native-base'
+import { loaderState } from '@reducers/loader'
 
 function OrderScreen({ order, profileState, qrValue, dispatch }) {
 	const [data, setData] = useState(order.point_data)
@@ -60,7 +61,10 @@ function OrderScreen({ order, profileState, qrValue, dispatch }) {
 			})
 		}
 	}
-	const clsModal = () => dispatch(clearQrValue())
+	const clsModal = () => {
+		dispatch(loaderState(false))
+		dispatch(clearQrValue())
+	}
 
 	return (
 		<View style={styles.container}>
