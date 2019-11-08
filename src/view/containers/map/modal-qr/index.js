@@ -99,5 +99,12 @@ const styles = StyleSheet.create({
       width: width * 0.25,
       height: width * 0.25,
       zIndex: 99,
-  }
+  },
+  blur: {
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		bottom: 0,
+		right: 0,
+	},
 })
