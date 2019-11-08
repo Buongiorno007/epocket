@@ -52,13 +52,11 @@ export function socialPost(data, confirmFunction, errorFunction) {
       const base = await res.base64()
       console.log('path',path)
       console.log('base',base)
-      RNFetchBlob.android.getContentIntent()
       const shareOptions = {
         url: Platform.OS === "ios" ? path : "data:video/mp4;base64," + base,
       }
       try {
-        // await Share.open(shareOptions)
-        // RNFetchBlob.ios.openDocument(path)
+        await Share.open(shareOptions)
         setTimeout(async () => {
           confirmFunction()
           try {
