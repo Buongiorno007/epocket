@@ -1,14 +1,23 @@
 import React from "react"
-import { StyleSheet, View, Modal, Dimensions, Text, TouchableOpacity, Image } from "react-native"
+import { StyleSheet, View, Modal, Dimensions, Text, TouchableOpacity, Image, Platform } from "react-native"
 import QRCode from "react-native-qrcode-svg"
 import { connect } from "react-redux"
 import I18n from "@locales/I18n"
+import { BlurView } from '@react-native-community/blur'
 
-const { width, height } = Dimensions.get("window")
+const { width } = Dimensions.get("window")
+const height =
+	Platform.OS === 'android' && Platform.Version > 26
+		? Dimensions.get('screen').height
+		: Dimensions.get('window').height
 
-function ModalQr({ profileState, visible, qrvalue, price, hide }) {
+function ModalQr({ profileState, visible, qrvalue, price, hide, loader }) {
   return (
     <Modal animationType={"fade"} visible={visible}>
+      <View style={loader ? styles.modalLoader : {display: 'none'}}>
+        {Platform.OS === 'ios' && <BlurView style={styles.blur} blurType='light' blurAmount={8} />}
+        <Image style={styles.modalLoaderImage} source={require('@assets/img/preloader2.gif')} resizeMode={'contain'}/>
+      </View>
       <View style={styles.container}>
         <TouchableOpacity style={styles.close} onPress={hide}>
           <Image style={styles.img} source={require("@assets/img/clos.png")} />
@@ -25,6 +34,7 @@ function ModalQr({ profileState, visible, qrvalue, price, hide }) {
 
 const mapStateToProps = state => ({
   profileState: state.profileState,
+  loader: state.loader
 })
 
 export default connect(mapStateToProps)(ModalQr)
@@ -69,4 +79,25 @@ const styles = StyleSheet.create({
     color: "#F63272",
     marginBottom: 16,
   },
+  modalLoader: {
+    position: 'absolute',
+		width: width,
+		height: height,
+		alignItems: 'center',
+		justifyContent: 'center',
+		alignSelf: 'center',
+		zIndex: 990,
+		...Platform.select({
+			android: {
+				backgroundColor: 'rgba(255,255,255,0.95)',
+			},
+		}),
+  },
+  modalLoaderImage: {
+      position: 'absolute',
+      alignSelf: 'center',
+      width: width * 0.25,
+      height: width * 0.25,
+      zIndex: 99,
+  }
 })

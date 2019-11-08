@@ -159,5 +159,53 @@ export default StyleSheet.create({
     marginTop: sbHeight + 16,
     flexDirection: 'row', 
     justifyContent: 'center', 
+  },
+  modalContainer: { 
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'center',
+    width: width - 32,
+    margin : 16,
+  },
+  modalInner: {
+    backgroundColor: 'white',
+    borderRadius: 24, 
+    paddingTop: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
+  },
+  modalTextHeader: {
+    fontFamily: 'Rubik-Medium',
+    fontSize: 18,
+    paddingHorizontal: 16,
+    color: colors.black111,
+    textAlign: 'center',
+    marginTop: 16,
+    marginBottom: 8,
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 8,
+  },  
+  modalButtonContainer: {
+    borderTopWidth: 1, 
+    borderColor: colors.mild_gray, 
+    paddingHorizontal: 16,
+    height: 48, 
+    alignSelf: 'stretch', 
+    justifyContent: 'space-between',
+    alignItems: 'stretch',
+  },
+  modalButton: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalButtonText: {
+    fontFamily: 'Rubik-Regular',
+    fontSize: 14,
+    color: colors.black111,
   }
 })

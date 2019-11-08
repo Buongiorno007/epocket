@@ -260,7 +260,8 @@
     "REMOVE": "Disable",
     "EXIT": "Logout",
     "EDIT": "Edit",
-    "CONFIRM": "Apply"
+    "CONFIRM": "Apply",
+    "SUPPORT" : "Support"
   },
   "GAME": {
     "GAME_COST": "TASK FOR {{value}} {{currency}}",
@@ -313,7 +314,8 @@
       "SEC": "sec.",
       "LOOK_WHAT_TO_BUY": "Looks, what items you can buy for {{currency}}",
       "CANT_POST": "Can’t post :( Allow access to depository"
-    }
+    },
+    "EXIT_IN_PROCESS" : "This game will be lost"
   },
   "CASHOUT_LIST": {
     "POSITIONS_1": "position",
@@ -446,7 +448,8 @@
     "PENDING_MONEY":"Pending: ",
     "TO" : "до ",
     "PROCESSED" : "Обработано",
-    "PURCHASE": "Purchase"
+    "PURCHASE": "Purchase",
+    "TOTAL" : "TOTAL"
   },
   "SSLIDER" : {
     "NEXT" : "Next",

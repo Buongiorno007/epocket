@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Platform } from 'react-native'
+import { View, Text, Platform, Linking } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import FastImage from 'react-native-fast-image'
 import { Button } from 'native-base'
@@ -154,6 +154,22 @@ class ProfileSettings extends React.Component {
 		})
 	}
 
+	openSupport = () => {
+		Linking.canOpenURL('tg://')
+			.then((supported) => {
+				if (!supported) {
+					if (Platform.OS === 'ios') {
+						Linking.openURL('itms-apps://itunes.apple.com/app/telegram-messenger/id686449807?mt=8')
+					} else {
+						Linking.openURL('market://details?id=org.telegram.messenger')
+					}
+				} else {
+					Linking.openURL('https://t.me/epc_admin')
+				}
+			})
+			.catch((err) => console.log(err))
+	}
+
 	render() {
 		return (
 			<View style={styles.main_view}>
@@ -293,6 +309,24 @@ class ProfileSettings extends React.Component {
 							<Text style={styles.image_block_text_big} />
 						</View>
 					</View> */}
+					<View style={[styles.image_block_with_button, styles.image_block_with_top_border]}>
+						<Button
+							transparent
+							style={styles.button}
+							onPress={() => {
+								this.openSupport()
+							}}
+						>
+							<FastImage
+								style={styles.settings_img}
+								resizeMode={FastImage.resizeMode.contain}
+								source={require('@assets/img/telegram.png')}
+							/>
+							<View style={styles.image_block_text_button}>
+								<Text style={[styles.image_block_text_big, {textTransform: 'uppercase'}]}>{I18n.t('PROFILE_SETTINGS.SUPPORT')}</Text>
+							</View>
+						</Button>
+					</View>
 					<View style={[styles.image_block_with_button, styles.image_block_with_top_border]}>
 						<Button
 							transparent

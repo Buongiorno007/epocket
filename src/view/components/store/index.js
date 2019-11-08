@@ -11,6 +11,7 @@ import I18n from '@locales/I18n'
 function StorePoint({ storePoint, profileState, dispatch }) {
 	const [visibleModal, setVisibleModal] = useState(false)
 	const [currentObject, setCurrentObject] = useState({})
+	console.log(currentObject, 'currentObject')
 	const renderItem = ({ item }) => <Accordion item={item} pressProduct={pressProduct} />
 	const keyExtractor = (item) => `${item.cat_id}`
 

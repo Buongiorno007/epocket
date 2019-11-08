@@ -19,7 +19,7 @@ export default (state = initialState, action) => {
 export const getStorePoint = (id) => async (dispatch, getState) => {
 	const { token } = getState()
 	const { storePoint } = getState()
-	if (storePoint.id !== id) {
+	// if (storePoint.id !== id) {
 		body = {
 			cashout_id: id,
 		}
@@ -30,9 +30,9 @@ export const getStorePoint = (id) => async (dispatch, getState) => {
 		} catch (e) {
 			console.log(e, 'getStorePoint EEEEEEEE')
 		}
-	} else {
-		route.push('StorePoint')
-	}
+	// } else {
+		// route.push('StorePoint')
+	// }
 }
 
 export const setPoint = (point) => ({ type: SET_POINT, point })
