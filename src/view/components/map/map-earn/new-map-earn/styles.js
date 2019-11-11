@@ -9,29 +9,19 @@ const height =
 
 export default StyleSheet.create({
 	container: {
-        // flex: 1,
-        width,
-        maxHeight: height-200,
-		marginBottom: 60,
-		backgroundColor: colors.map_gray
+		height: Platform.OS === 'android' ? height - 48 : height,
     },
     scrollView:{
         marginTop: sbHeight,
-        minHeight: height - 320,
-        borderWidth: 1,
-        borderColor: 'red'
     },
 	linear: {
 		flex: 1,
-		// borderTopLeftRadius: 24,
-		// borderTopRightRadius: 24,
-		// marginTop: -28,
 		backgroundColor: colors.map_gray,
 	},
 	scroll: {
 		flex: 1,
 		paddingHorizontal: 16,
-		paddingVertical: 16,
+		// paddingVertical: 16,
 	},
 	map_view: {
 		width: width - 32,
@@ -54,6 +44,9 @@ export default StyleSheet.create({
 			},
 		}),
 		overflow: 'hidden',
+	},
+	map_view_big: {
+		flex: 1
 	},
 	map: {
 		flex: 1,
@@ -99,5 +92,23 @@ export default StyleSheet.create({
 	text_top: {
 		marginLeft: 32, 
 		marginTop: 16
+	},
+	tittle: {
+		fontFamily: 'Rubik-Medium',
+		fontSize: 15,
+		marginTop: 16,
+		color: colors.black111,
+	},
+	touchMap: {
+		position: 'absolute',
+		top: 0,
+		bottom: 0, 
+		left: 0,
+		right: 0,
+		zIndex: 1,
+		backgroundColor: colors.transparent,
+	},
+	displayNone: {
+		display: 'none'
 	}
 })

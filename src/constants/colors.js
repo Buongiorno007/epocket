@@ -68,5 +68,6 @@ export const colors = {
 	mild_gray: '#F8F8F8',
 	map_gray: '#F2F2F2',
 	gray_b1: '#B1B1B1',
-	gray_e5: '#E5E5E5'
+	gray_e5: '#E5E5E5',
+	gray_e6: '#E6E6E6',
 }

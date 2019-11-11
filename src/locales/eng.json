@@ -1,5 +1,9 @@
 {
-  "EARN": "Earn",
+  "EARN": {
+    "GAMES_AVAL" : "questions avaliable",
+    "PUB_AVAL" : "publications avaliable",
+    "BRAND_GAMES" : "Игры от брендов"
+  },
   "SPEND": "Spend",
   "REFILL_SCREEN": "Top up",
   "TITLE": "EpocketCash",

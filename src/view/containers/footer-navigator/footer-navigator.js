@@ -38,8 +38,8 @@ class FooterNavigation extends React.Component {
 						style={this.props.activeTab === 0 ? styles.footer_tab_icon_active : styles.footer_tab_icon}
 						source={
 							this.props.activeTab === 0
-								? { uri: ICONS.FOOTER_TABS.GAME_ACTIVE }
-								: { uri: ICONS.FOOTER_TABS.GAME }
+								? require('@assets/img/earn_active.png') 
+								: require('@assets/img/earn_default.png') 
 						}
 					/>
 					{this.props.activeTab === 0 ? (

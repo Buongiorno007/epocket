@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { View, Image, Platform, ScrollView, Text } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { View, Image, Platform, ScrollView, Text, TouchableOpacity } from 'react-native'
 import { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import ClusteredMapView from '../../../../../native_modules/react-native-maps-super-cluster'
 import { connect } from 'react-redux'
@@ -9,8 +9,11 @@ import { findNearest, getDistance } from 'geolib'
 import styles from './styles'
 import MapEarnButton from '@containers/map/map-earn-button'
 import FooterNavigation from '@containers/footer-navigator/footer-navigator'
+import I18n from '@locales/I18n'
+import route from '@services/route'
 
 function NewMapEarn({ profileState, mapPoints, lat, lng }) {
+	const [trigger, setTrigger] = useState(false)
 	const region = {
 		latitude: lat,
 		longitude: lng,
@@ -48,9 +51,10 @@ function NewMapEarn({ profileState, mapPoints, lat, lng }) {
 
 	return (
         <View style={[styles.container]}>
-            <ScrollView style={styles.scrollView}>
-                <Text style={{marginLeft: 16, marginBottom: 16}}>Задания на карте</Text>
-                <View style={styles.map_view}>
+            <ScrollView style={[styles.scrollView]}>
+                <Text style={[styles.tittle, {marginLeft: 16, marginBottom: 16}, trigger && styles.displayNone]}>Задания на карте</Text>
+                <View style={trigger ? styles.map_view_big : styles.map_view}>
+					<MissionBanner />
                     <ClusteredMapView
                         style={{ flex: 1 }}
                         data={mapPoints.outlets}
@@ -74,13 +78,27 @@ function NewMapEarn({ profileState, mapPoints, lat, lng }) {
                             <Image style={{ width: 40, height: 40 }} source={require('@assets/img/smile.png')} />
                         </Marker>
                     </ClusteredMapView>
+					{!trigger && <TouchableOpacity style={[styles.touchMap]} onPress={() => setTrigger(!trigger)}></TouchableOpacity>}
                 </View>
-                <View style={styles.scroll}>
-                    <Text>Игры</Text>
-                    {/* <MapEarnButton /> */}
+                <View style={[styles.scroll, trigger && styles.displayNone]}>
+                    <Text style={styles.tittle}>Игры</Text>
+                    <MapEarnButton 
+						img={require('@assets/img/brand_games_ico.png')}
+						text={I18n.t('EARN.BRAND_GAMES')}
+						callback={() => route.push('Gamepage')}
+						space
+					/>
+                    <Text style={styles.tittle}>Посты в соцсетях</Text>
+                    <MapEarnButton 
+						img={require('@assets/img/post_insta_ico.png')}
+						text={I18n.t('EARN.POST_INSTA')}
+						callback={() => {}}
+						space
+						pub
+					/>
                 </View> 
             </ScrollView>
-            <FooterNavigation />
+			<FooterNavigation />
         </View>
 
 		// <View style={styles.container}>

@@ -1,5 +1,10 @@
 {
-  "EARN": "Зарабатывай",
+  "EARN": {
+    "GAMES_AVAL" : "вопросов доступно",
+    "PUB_AVAL" : "публикаций доступно",
+    "BRAND_GAMES" : "Игры от брендов",
+    "POST_INSTA" : "Пост в Instagram"
+  },
   "SPEND": "Трать",
   "REFILL_SCREEN": "Пополнение",
   "TITLE": "EpocketCash",

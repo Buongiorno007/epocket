@@ -40,6 +40,7 @@ const Navigator = createStackNavigator(
     GameSuccess: { screen: require("@components/game-component/game-success").default },
     GameFailed: { screen: require("@components/game-component/game-failed").default },
     Wallet: require("@components/wallet").default,
+    Gamepage: require("@components/map").default,
     //MAIN
     // GameStart: { screen: require('@components/game-component/game-start').default },
     // Wallet: { screen: require('@components/wallet').default },

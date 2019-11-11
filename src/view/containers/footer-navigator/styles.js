@@ -27,12 +27,12 @@ export default StyleSheet.create({
     justifyContent: "center",
   },
   footer_tab_icon: {
-    width: 22,
-    height: 22,
+    width: 24,
+    height: 24,
   },
   footer_tab_icon_active: {
-    width: 22,
-    height: 14,
+    width: 24,
+    height: 24,
   },
   footer_tab_offset: {
     width: width * 0.25,

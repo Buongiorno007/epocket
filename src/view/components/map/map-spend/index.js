@@ -51,12 +51,8 @@ function MapSpend({ lat, lng, mapPoints }) {
 					</Marker>
 				</ClusteredMapView>
 				<Basket style={styles.basket} />
-				<TouchableOpacity style={styles.touchMap} onPress={() => route.push('MapPlaces')}>
-
-				</TouchableOpacity>
+				<TouchableOpacity style={styles.touchMap} onPress={() => route.push('MapPlaces')}></TouchableOpacity>
 			</View>
-			{/* <ScrollView style={styles.linear}> */}
-				{/* <ScrollView style={styles.scroll}> */}
 				<View style={styles.scroll}>
 					<Text style={styles.text}>{I18n.t('BARCODE_PAY')}</Text>
 					<View style={styles.fieldStyle}>
@@ -81,8 +77,6 @@ function MapSpend({ lat, lng, mapPoints }) {
 						/>
 					</View>
 				</View>
-				{/* </ScrollView> */}
-			{/* </ScrollView> */}
 		</ScrollView>
 	)
 }
