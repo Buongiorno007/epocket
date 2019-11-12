@@ -51,8 +51,8 @@ export default StyleSheet.create({
   footer_tab_text: {
     width: width * 0.25,
     textAlign: "center",
-    color: colors.blood_red,
-    fontSize: 11,
+    color: colors.black111,
+    fontSize: 10,
     fontFamily: "Rubik-Medium",
   },
   footer_tab_text_margin_bottom: { marginBottom: 15 },

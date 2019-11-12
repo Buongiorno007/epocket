@@ -2,30 +2,20 @@ import React from 'react'
 import { View } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { Label, Button } from 'native-base'
-import LinearGradient from 'react-native-linear-gradient'
 //constants
-import { ICONS } from '@constants/icons'
 import styles from './styles'
 //redux
-import { setTabState } from '../../../reducers/tabs'
+import { setTabState } from '@reducers/tabs'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { showDashboard } from '../../../reducers/show-dashboard'
 import { loaderState } from '@reducers/loader'
 import I18n from '@locales/I18n'
+import { colors } from '@constants/colors'
 
 class FooterNavigation extends React.Component {
 	render() {
 		return (
-			<View style={[styles.footer_container, this.props.activeTab === 0 && styles.bTop]}>
-				{/* {this.props.activeTab === 2 && (
-					<LinearGradient
-						colors={[this.props.userColor.transparent, this.props.userColor.drag_panel_color]}
-						start={{ x: 0.0, y: 0.0 }}
-						end={{ x: 0.0, y: 1.0 }}
-						style={styles.grad}
-					/>
-				)} */}
+			<View style={[styles.footer_container, this.props.activeTab === 0 && styles.bTop]}>				
 				<Button
 					transparent
 					style={[styles.footer_tab]}
@@ -42,9 +32,7 @@ class FooterNavigation extends React.Component {
 								: require('@assets/img/earn_default.png') 
 						}
 					/>
-					{this.props.activeTab === 0 ? (
-						<Label style={styles.footer_tab_text}> {I18n.t('GAME.GAME_TITLE').toUpperCase()} </Label>
-					) : null}
+						<Label style={[styles.footer_tab_text, this.props.activeTab === 0 && {color: colors.blood_red}]}> {I18n.t('NAVIGATION.EARN')} </Label>
 				</Button>
 				<Button
 					transparent
@@ -58,13 +46,11 @@ class FooterNavigation extends React.Component {
 						style={this.props.activeTab === 1 ? styles.footer_tab_icon_active : styles.footer_tab_icon}
 						source={
 							this.props.activeTab === 1
-								? { uri: ICONS.FOOTER_TABS.SHOP_ACTIVE }
-								: { uri: ICONS.FOOTER_TABS.SHOP }
+							? require('@assets/img/bag_active.png') 
+							: require('@assets/img/bag_default.png') 
 						}
 					/>
-					{this.props.activeTab === 1 ? (
-						<Label style={styles.footer_tab_text}> {I18n.t('SHOP').toUpperCase()} </Label>
-					) : null}
+						<Label style={[styles.footer_tab_text, this.props.activeTab === 1 && {color: colors.blood_red}]}> {I18n.t('NAVIGATION.BUY')} </Label>
 				</Button>
 				<Button
 					transparent
@@ -78,13 +64,11 @@ class FooterNavigation extends React.Component {
 						style={this.props.activeTab === 2 ? styles.footer_tab_icon_active : styles.footer_tab_icon}
 						source={
 							this.props.activeTab === 2
-								? { uri: ICONS.FOOTER_TABS.HISTORY_ACTIVE }
-								: { uri: ICONS.FOOTER_TABS.HISTORY }
+								? require('@assets/img/wallet_active.png') 
+								: require('@assets/img/wallet_default.png') 
 						}
 					/>
-					{this.props.activeTab === 2 ? (
-						<Label style={styles.footer_tab_text}> {I18n.t('HISTORY').toUpperCase()} </Label>
-					) : null}
+						<Label style={[styles.footer_tab_text, this.props.activeTab === 2 && {color: colors.blood_red}]}> {I18n.t('NAVIGATION.WALLET')} </Label>
 				</Button>
 				<Button transparent style={[styles.footer_tab]} onPress={() => this.props.setTabState(3)}>
 					<FastImage
@@ -92,13 +76,11 @@ class FooterNavigation extends React.Component {
 						style={this.props.activeTab === 3 ? styles.footer_tab_icon_active : styles.footer_tab_icon}
 						source={
 							this.props.activeTab === 3
-								? { uri: ICONS.FOOTER_TABS.PROFILE_ACTIVE }
-								: { uri: ICONS.FOOTER_TABS.PROFILE }
+								? require('@assets/img/profile_active.png') 
+								: require('@assets/img/profile_default.png') 
 						}
 					/>
-					{this.props.activeTab === 3 ? (
-						<Label style={styles.footer_tab_text}> {I18n.t('PROFILE').toUpperCase()} </Label>
-					) : null}
+						<Label style={[styles.footer_tab_text, this.props.activeTab === 3 && {color: colors.blood_red}]}> {I18n.t('NAVIGATION.PROFILE')} </Label>
 				</Button>
 			</View>
 		)
@@ -118,7 +100,6 @@ const mapDispatchToProps = (dispatch) =>
 	bindActionCreators(
 		{
 			setTabState,
-			showDashboard,
 			loaderState,
 		},
 		dispatch,
