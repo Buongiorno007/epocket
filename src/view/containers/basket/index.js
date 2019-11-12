@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
 import route from '@services/route'
 import { connect } from 'react-redux'
 import { basketRoute } from '@reducers/order'
+import { colors } from '@constants/colors'
 
 function Basket({
 	style = { position: 'absolute', bottom: 16, right: 16 },
@@ -44,16 +45,17 @@ const styles = StyleSheet.create({
 		height: 32,
 		borderRadius: 16,
 		paddingHorizontal: 8,
-		paddingVertical: 8,
+		alignItems: 'center',
+		// paddingVertical: 8,
 		flexDirection: 'row',
 	},
 	image: {
-		width: 16,
-		height: 16,
+		width: 24,
+		height: 24,
 	},
 	count: {
-		width: 16,
-		height: 16,
+		width: 24,
+		height: 24,
 		borderRadius: 12,
 		backgroundColor: '#fff',
 		alignItems: 'center',
@@ -69,7 +71,7 @@ const styles = StyleSheet.create({
 		backgroundColor: 'rgba(255,255,255,0.65)',
 	},
 	count_invert: {
-		backgroundColor: '#F63272',
+		backgroundColor: colors.black111,
 	},
 	text_invert: {
 		color: '#fff',

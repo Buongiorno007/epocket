@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, Image, TouchableOpacity, Text } from 'react-native'
+import { colors } from '@constants/colors'
 
 function MapSpendButton({ img, text, callback, space = false }) {
 	return (
@@ -17,6 +18,10 @@ const styles = StyleSheet.create({
 	touchStyle: {
 		flexDirection: 'row',
 		alignItems: 'center',
+		borderWidth: 1,
+		borderColor: colors.gray_e6,
+		borderRadius: 12,
+		padding: 16
 	},
 	img: {
 		width: 40,
