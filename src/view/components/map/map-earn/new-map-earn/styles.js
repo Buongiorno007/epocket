@@ -110,5 +110,18 @@ export default StyleSheet.create({
 	},
 	displayNone: {
 		display: 'none'
+	},
+	goBack: {
+		position: 'absolute',
+		zIndex: 3,
+		width,
+		height: 100,
+		justifyContent: 'center',
+		paddingLeft: 16,
+		backgroundColor: colors.transparent
+	},
+	goBackImg: {
+		width: 30,
+		height: 50,
 	}
 })

@@ -52,8 +52,11 @@ function NewMapEarn({ profileState, mapPoints, lat, lng }) {
 	return (
         <View style={[styles.container]}>
             <ScrollView style={[styles.scrollView]}>
-                <Text style={[styles.tittle, {marginLeft: 16, marginBottom: 16}, trigger && styles.displayNone]}>Задания на карте</Text>
+				<Text style={[styles.tittle, {marginLeft: 16, marginBottom: 16}, trigger && styles.displayNone]}>{I18n.t('EARN.ON_MAP')}</Text>
                 <View style={trigger ? styles.map_view_big : styles.map_view}>
+					{trigger && <TouchableOpacity style={styles.goBack} onPress={() => setTrigger(!trigger)}>
+						<Image style={styles.goBackImg} source={require('@assets/img/chevron.png')} resizeMode={'contain'}/>
+					</TouchableOpacity>}
 					<MissionBanner />
                     <ClusteredMapView
                         style={{ flex: 1 }}
@@ -81,14 +84,14 @@ function NewMapEarn({ profileState, mapPoints, lat, lng }) {
 					{!trigger && <TouchableOpacity style={[styles.touchMap]} onPress={() => setTrigger(!trigger)}></TouchableOpacity>}
                 </View>
                 <View style={[styles.scroll, trigger && styles.displayNone]}>
-                    <Text style={styles.tittle}>Игры</Text>
+                    <Text style={styles.tittle}>{I18n.t('EARN.GAMES')}</Text>
                     <MapEarnButton 
 						img={require('@assets/img/brand_games_ico.png')}
 						text={I18n.t('EARN.BRAND_GAMES')}
 						callback={() => route.push('Gamepage')}
 						space
 					/>
-                    <Text style={styles.tittle}>Посты в соцсетях</Text>
+                    <Text style={styles.tittle}>{I18n.t('EARN.POSTS')}</Text>
                     <MapEarnButton 
 						img={require('@assets/img/post_insta_ico.png')}
 						text={I18n.t('EARN.POST_INSTA')}
@@ -98,35 +101,8 @@ function NewMapEarn({ profileState, mapPoints, lat, lng }) {
 					/>
                 </View> 
             </ScrollView>
-			<FooterNavigation />
+			{!trigger && <FooterNavigation />}
         </View>
-
-		// <View style={styles.container}>
-		// 	<MissionBanner />
-		// 	<ClusteredMapView
-		// 		style={{ flex: 1 }}
-		// 		data={mapPoints.outlets}
-		// 		initialRegion={region}
-		// 		provider={Platform.OS === 'ios' ? PROVIDER_GOOGLE : null}
-		// 		ref={(r) => {
-		// 			this.map = r
-		// 		}}
-		// 		renderMarker={renderMarker}
-		// 		animateClusters={false}
-		// 		showsCompass={false}
-		// 		edgePadding={{ top: 50, left: 50, bottom: 50, right: 50 }}
-		// 		currency={profileState.currency}
-		// 	>
-		// 		<Marker
-		// 			coordinate={{
-		// 				latitude: lat,
-		// 				longitude: lng,
-		// 			}}
-		// 		>
-		// 			<Image style={{ width: 40, height: 40 }} source={require('@assets/img/smile.png')} />
-		// 		</Marker>
-		// 	</ClusteredMapView>
-		// </View>
 	)
 }
 
