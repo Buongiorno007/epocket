@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { View, Text, Image, FlatList, ActivityIndicator } from "react-native"
+import { View, Text, FlatList, ActivityIndicator } from "react-native"
 import { connect } from "react-redux"
 //containers
 import FooterNavigation from "@containers/footer-navigator/footer-navigator"

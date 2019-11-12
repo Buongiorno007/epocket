@@ -3,11 +3,12 @@ import { colors } from "@constants/colors"
 const { width } = Dimensions.get("window")
 import sbHeight from "@services/getSBHeight"
 const { height } =
-  Platform.OS === "android" && Platform.Version > 28 ? Dimensions.get("screen") : Dimensions.get("window")
+  Platform.OS === "android" && Platform.Version > 26 ? Dimensions.get("screen") : Dimensions.get("window")
 
 export default StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
+    height: Platform.OS === 'android' ? height - 48 : height,
     backgroundColor: "#F5F9FE",
   },
   content: {
@@ -33,7 +34,7 @@ export default StyleSheet.create({
     borderRadius: 24,
     height: 120,
     marginHorizontal: 16,
-    backgroundColor: colors.blood_red,
+    backgroundColor: colors.black111,
     marginTop: sbHeight + 16,
     justifyContent: "center",
   },
