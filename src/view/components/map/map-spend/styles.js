@@ -1,13 +1,21 @@
 import { StyleSheet, Dimensions, Platform } from 'react-native'
 import { colors } from '@constants/colors'
+import sbHeight from "@services/getSBHeight"
 const { width } = Dimensions.get('window')
+const height =
+	Platform.OS === 'android' && Platform.Version > 26
+		? Dimensions.get('screen').height
+		: Dimensions.get('window').height
 
 export default StyleSheet.create({
+	// container: {
+	// 	flex: 1,
+	// 	marginBottom: 60,
+	// 	backgroundColor: colors.map_gray
+	// },
 	container: {
-		flex: 1,
-		marginBottom: 60,
-		backgroundColor: colors.map_gray
-	},
+		height: Platform.OS === 'android' ? height - 48 : height,
+    },
 	linear: {
 		flex: 1,
 		// borderTopLeftRadius: 24,
@@ -15,10 +23,13 @@ export default StyleSheet.create({
 		// marginTop: -28,
 		backgroundColor: colors.map_gray,
 	},
+	scrollView:{
+        marginTop: sbHeight,
+    },
 	scroll: {
 		flex: 1,
 		paddingHorizontal: 16,
-		paddingVertical: 16,
+		// paddingVertical: 16,
 	},
 	map_view: {
 		width: width - 32,
@@ -64,27 +75,33 @@ export default StyleSheet.create({
 		flex: 1,
 	},
 	basket: {
-		position: 'absolute',
-		bottom: 22,
-		right: 16,
-		zIndex: 2,
+		// position: 'absolute',
+		// bottom: 22,
+		// right: 16,
+		// zIndex: 2,
 	},
 	fieldStyle: {
-		paddingHorizontal: 16,
+		// paddingHorizontal: 16,
 		paddingVertical: 16,
 		backgroundColor: colors.white,
 		borderRadius: 24,
 		marginBottom: 16,
 	},
 	text: {
-		fontFamily: 'Rubik-Regular',
-		fontSize: 14,
+		fontFamily: 'Rubik-Medium',
+		fontSize: 15,
 		marginBottom: 8,
 		marginLeft: 16,
 		color: colors.black111,
 	},
 	text_top: {
-		marginLeft: 32, 
+		marginLeft: 16, 
 		marginTop: 16
+	},
+	topBar: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		paddingRight: 16
 	}
 })

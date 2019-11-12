@@ -5,12 +5,13 @@ import ClusteredMapView from '../../../../native_modules/react-native-maps-super
 import { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import LinearGradient from 'react-native-linear-gradient'
 import route from '@services/route'
-import Basket from '@containers/basket'
+import Basket from '@containers/basket' 
 import MapSpendButton from '@containers/map/map-spend-button'
+import FooterNavigation from '@containers/footer-navigator/footer-navigator'
 import styles from './styles'
 import I18n from '@locales/I18n'
 
-function MapSpend({ lat, lng, mapPoints }) {
+function MapSpend({ lat, lng, mapPoints, wallet, profileState }) {
 	const region = {
 		latitude: lat,
 		longitude: lng,
@@ -27,47 +28,50 @@ function MapSpend({ lat, lng, mapPoints }) {
 	}
 
 	return (
-		<ScrollView style={styles.container}>
-			<Text style={[styles.text, styles.text_top]}>{I18n.t('MAP.PLACES')}</Text>
-			<View style={styles.map_view}>				
-				<ClusteredMapView
-					style={styles.map}
-					data={mapPoints.cashouts}
-					initialRegion={region}
-					provider={Platform.OS === 'ios' ? PROVIDER_GOOGLE : null}
-					renderMarker={renderMarker}
-					animateClusters={false}
-					showsCompass={false}
-					edgePadding={{ top: 50, left: 50, bottom: 50, right: 50 }}
-					noPrice
-				>
-					<Marker
-						coordinate={{
-							latitude: lat,
-							longitude: lng,
-						}}
+		<View style={styles.container}>
+			<ScrollView style={styles.scrollView}>
+				<View style={styles.topBar}>
+					<Text style={[styles.text, styles.text_top]}>{`${I18n.t("CASH.TITLE")} ${wallet.balance} ${profileState.currency}`}</Text>
+					<Basket style={styles.basket} invert/> 
+				</View>
+				<Text style={[styles.text]}>{I18n.t('MAP.PLACES')}</Text>
+				<View style={styles.map_view}>				
+					<ClusteredMapView
+						style={styles.map}
+						data={mapPoints.cashouts}
+						initialRegion={region}
+						provider={Platform.OS === 'ios' ? PROVIDER_GOOGLE : null}
+						renderMarker={renderMarker}
+						animateClusters={false}
+						showsCompass={false}
+						edgePadding={{ top: 50, left: 50, bottom: 50, right: 50 }}
+						noPrice
 					>
-						<Image style={{ width: 40, height: 40 }} source={require('@assets/img/smile.png')} />
-					</Marker>
-				</ClusteredMapView>
-				<Basket style={styles.basket} />
-				<TouchableOpacity style={styles.touchMap} onPress={() => route.push('MapPlaces')}></TouchableOpacity>
-			</View>
+						<Marker
+							coordinate={{
+								latitude: lat,
+								longitude: lng,
+							}}
+						>
+							<Image style={{ width: 40, height: 40 }} source={require('@assets/img/smile.png')} />
+						</Marker>
+					</ClusteredMapView>
+					<TouchableOpacity style={styles.touchMap} onPress={() => route.push('MapPlaces')}></TouchableOpacity>
+				</View>
 				<View style={styles.scroll}>
-					<Text style={styles.text}>{I18n.t('BARCODE_PAY')}</Text>
+					{/* <Text style={styles.text}>{I18n.t('BARCODE_PAY')}</Text> */}
 					<View style={styles.fieldStyle}>
 						<MapSpendButton
 							img={require('@assets/img/barcode.png')}
 							text={I18n.t('BARCODE')}
 							callback={() => route.push('Barcode')}
+							space
 						/>
-					</View>
-					<Text style={styles.text}>{I18n.t('HOME')}</Text>
-					<View style={styles.fieldStyle}>
 						<MapSpendButton
 							img={require('@assets/img/bask.png')}
 							text={I18n.t('ONLINE_SHOP')}
 							callback={() => route.push('Partnrs')}
+							space
 						/>
 						<MapSpendButton
 							img={require('@assets/img/phone.png')}
@@ -76,8 +80,11 @@ function MapSpend({ lat, lng, mapPoints }) {
 							space
 						/>
 					</View>
+					{/* <Text style={styles.text}>{I18n.t('HOME')}</Text> */} 
 				</View>
-		</ScrollView>
+			</ScrollView>
+			<FooterNavigation />
+		</View>
 	)
 }
 
@@ -87,6 +94,7 @@ const mapStateToProps = (state) => {
 		lat: state.location.coordinate.lat,
 		lng: state.location.coordinate.lng,
 		profileState: state.profileState,
+		wallet: state.wallet,
 	}
 }
 
