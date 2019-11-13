@@ -57,6 +57,8 @@ const Navigator = createStackNavigator(
     // TaskInProgress: require("@components/mall/task-in-progress").default,
     MallProgressTask: require("@components/mall/mall-progress-task").default,
     WalletInformation: require("@components/wallet/wallet-information").default,
+    Receipt: require("@components/wallet/wallet-information/receipt").default,
+    AddAdvert: require("@components/profile/referals/add-advert").default,
   },
   {
     initialRouteName: "Start",

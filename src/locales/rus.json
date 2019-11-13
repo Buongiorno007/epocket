@@ -3,7 +3,16 @@
     "GAMES_AVAL" : "вопросов доступно",
     "PUB_AVAL" : "публикаций доступно",
     "BRAND_GAMES" : "Игры от брендов",
-    "POST_INSTA" : "Пост в Instagram"
+    "POST_INSTA" : "Пост в Instagram",
+    "ON_MAP" : "Задания на карте",
+    "GAMES" : "Игры",
+    "POSTS" : "Посты в соцсетях"
+  },
+  "NAVIGATION" : {
+    "EARN" : "Зарабатывай",
+    "BUY" : "Трать",
+    "WALLET" : "Кошелек",
+    "PROFILE" : "Профиль"
   },
   "SPEND": "Трать",
   "REFILL_SCREEN": "Пополнение",
@@ -266,7 +275,10 @@
     "EXIT": "Выход",
     "EDIT": "Редактирование",
     "CONFIRM": "Применить",
-    "SUPPORT" : "Служба поддержки"
+    "SUPPORT" : "Служба поддержки",
+    "CONNECT_INSTA" : "Подключи Instagram",
+    "MIN_SUBS" : "Не менее 50 подписчиков ",
+    "AGE" : "лет"
   },
   "GAME": {
     "GAME_COST": "ЗАДАНИЕ НА {{value}} {{currency}}",
@@ -336,6 +348,11 @@
     "STORAGE_PERMISSON_MESSAGE": "Доступ необходим для совершения поста в Instagram."
   },
   "REF_LINK": {
+    "ADD_FRIEND" : "Пригласи\nдруга",
+    "ADD_ADVERT" : "Пригласи\nрекламодателя",
+    "ADD_ADVERT2" : "Пригласи рекламодателя",
+    "ADD_WITH" : "Пригласи с помощью",
+    "CASHBACK" : "кешбек каждый месяц",
     "GET_EPC": "{{currency}} за друга",
     "FOR_YOU_AND_YOUR_FRIEND": "{{currency}} тебе и другу\n за приглашение",
     "COPY": "Копировать ссылку",
@@ -347,7 +364,7 @@
     "TELEGRAM": "Telegram",
     "MORE": "Еще",
     "COPY_MESSAGE": "Ссылка скопирована в буфер обмена, вставьте ее в Вашу публикацию",
-    "ADDITIONAL_SHARING_TEXT": "Давай вместе зарабатывать в Epocketcash. Активируй аккаунт по ссылке и мы сразу получим по "
+    "ADDITIONAL_SHARING_TEXT": "Давай вместе зарабатывать в Epocketcash."
   },
   "COUNTRY": {
     "UA": "Украина",
@@ -454,7 +471,9 @@
     "TO" : "до ",
     "PROCESSED" : "Обработано",
     "PURCHASE": "Покупка",
-    "TOTAL" : "ИТОГО:"
+    "TOTAL" : "ИТОГО:",
+    "RECEIPT" : "Чек",
+    "DATE": "Дата"
   },
   "SSLIDER" : {
     "NEXT" : "Далее",

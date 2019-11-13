@@ -2,7 +2,16 @@
   "EARN": {
     "GAMES_AVAL" : "questions avaliable",
     "PUB_AVAL" : "publications avaliable",
-    "BRAND_GAMES" : "Игры от брендов"
+    "BRAND_GAMES" : "Игры от брендов",
+    "ON_MAP" : "Tasks on map",
+    "GAMES" : "Games",
+    "POSTS" : "Posts in social"
+  },
+  "NAVIGATION" : {
+    "EARN" : "Earn",
+    "BUY" : "Spend",
+    "WALLET" : "Wallet",
+    "PROFILE" : "Profile"
   },
   "SPEND": "Spend",
   "REFILL_SCREEN": "Top up",
@@ -265,7 +274,10 @@
     "EXIT": "Logout",
     "EDIT": "Edit",
     "CONFIRM": "Apply",
-    "SUPPORT" : "Support"
+    "SUPPORT" : "Support",
+    "CONNECT_INSTA" : "Connect Instagram",
+    "MIN_SUBS" : "At least 50 subscribers",
+    "AGE" : "y.o."
   },
   "GAME": {
     "GAME_COST": "TASK FOR {{value}} {{currency}}",
@@ -335,6 +347,11 @@
     "STORAGE_PERMISSON_MESSAGE": "Access is required to publish post in Instagram."
   },
   "REF_LINK": {
+    "ADD_FRIEND" : "Invite\na friend",
+    "ADD_ADVERT" : "Invite\nadvertiser",
+    "ADD_ADVERT2" : "Invite advertiser",
+    "ADD_WITH" : "Invite with",
+    "CASHBACK" : "cashback every month",
     "GET_EPC": "{{currency}} for friend",
     "FOR_YOU_AND_YOUR_FRIEND": "{{currency}} to you and your friend \nfor invitation",
     "COPY": "copy link",
@@ -346,7 +363,7 @@
     "TELEGRAM": "Telegram",
     "MORE": "more",
     "COPY_MESSAGE": "Link copied to the clipboard, paste it in Your post",
-    "ADDITIONAL_SHARING_TEXT": "Let's earn together in EPocketCash. Activate your account via the link and we will earn "
+    "ADDITIONAL_SHARING_TEXT": "Let's earn together in EPocketCash."
   },
   "COUNTRY": {
     "UA": "Ukraine",
@@ -453,7 +470,9 @@
     "TO" : "до ",
     "PROCESSED" : "Обработано",
     "PURCHASE": "Purchase",
-    "TOTAL" : "TOTAL"
+    "TOTAL" : "TOTAL",
+    "RECEIPT" : "Receipt",
+    "DATE": "Date"
   },
   "SSLIDER" : {
     "NEXT" : "Next",

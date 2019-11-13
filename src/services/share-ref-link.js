@@ -34,9 +34,9 @@ shareSingleThroughtLinking = (app_link, app_share_link, app_market_id) => {
 export function shareToOneSocial(shareLink, link_reward, socialType, curr) {
 	let extendedShareLink =
 		I18n.t('REF_LINK.ADDITIONAL_SHARING_TEXT') +
-		link_reward +
+		// link_reward +
 		' ' +
-		I18n.t('EPC', { currency: curr }).toUpperCase() +
+		// I18n.t('EPC', { currency: curr }).toUpperCase() +
 		'\n' +
 		shareLink
 	const defaultOptions = {

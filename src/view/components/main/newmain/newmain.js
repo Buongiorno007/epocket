@@ -1,12 +1,10 @@
 import React from "react"
-import { View, BackHandler, Platform, AppState } from "react-native"
+import { View, BackHandler, AppState } from "react-native"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 //components
-import Mappp from "@components/map"
 import Profile from "@components/profile/profile"
-import GameS from "@components/game-component/game-start"
-import GamePartners from "@components/game-component/game-partners"
+import NewProfile from "@components/profile/newprofile/newprofile"
 import Wallet from "@components/wallet"
 //containers
 // import ReturnToMall from "@containers/mall/return-to-mall-timer/return-to-mall-timer"
@@ -23,9 +21,9 @@ import { getBasket } from "@reducers/basket"
 import { loaderState } from '@reducers/loader'
 //styles
 import styles from "./styles"
-import MapEarn from '@components/map/map-earn'
 import NewMapEarn from '@components/map/map-earn/new-map-earn'
 import MapSpend from '@components/map/map-spend'
+import { getHistory } from "@reducers/wallet"
 
 class Main extends React.Component {
   state = {
@@ -48,6 +46,7 @@ class Main extends React.Component {
       this.props.getBasket()
     }
     AppState.addEventListener('change', this._handleAppStateChange)
+    this.props.getHistory(1)
   }
   _handleAppStateChange = (nextAppState) => {
     if (
@@ -80,7 +79,8 @@ class Main extends React.Component {
           {this.props.activeTab === 0 && <NewMapEarn />}
           {this.props.activeTab === 1 && <MapSpend />}
           {this.props.activeTab === 2 && <Wallet />}
-          {this.props.activeTab === 3 && <Profile />}
+          {/* {this.props.activeTab === 3 && <Profile />} */}
+          {this.props.activeTab === 3 && <NewProfile />}
         </View>
 
         {/* {this.props.timerShow &&
@@ -97,7 +97,6 @@ class Main extends React.Component {
 
 const mapStateToProps = state => ({
   activeTab: state.activeTab,
-  // timer_status: state.timer_status,
   game_status: state.game_status,
   isLocation: state.location.status,
   timerShow: state.timerShow,
@@ -118,6 +117,7 @@ const mapDispatchToProps = dispatch =>
       getPartners,
       getBasket,
       loaderState,
+      getHistory,
     },
     dispatch,
   )
