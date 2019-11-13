@@ -27,6 +27,7 @@ class RefLink extends React.Component {
 	}
 
 	componentWillReceiveProps = (nextProps) => {
+		console.log(nextProps.link, 'nextProps.link')
 		this.setState({
 			share_link: nextProps.link,
 			social: [

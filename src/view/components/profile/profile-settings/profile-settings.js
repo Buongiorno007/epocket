@@ -309,7 +309,7 @@ class ProfileSettings extends React.Component {
 							<Text style={styles.image_block_text_big} />
 						</View>
 					</View> */}
-					<View style={[styles.image_block_with_button, styles.image_block_with_top_border]}>
+					{/* <View style={[styles.image_block_with_button, styles.image_block_with_top_border]}>
 						<Button
 							transparent
 							style={styles.button}
@@ -326,7 +326,7 @@ class ProfileSettings extends React.Component {
 								<Text style={[styles.image_block_text_big, {textTransform: 'uppercase'}]}>{I18n.t('PROFILE_SETTINGS.SUPPORT')}</Text>
 							</View>
 						</Button>
-					</View>
+					</View> */}
 					<View style={[styles.image_block_with_button, styles.image_block_with_top_border]}>
 						<Button
 							transparent
