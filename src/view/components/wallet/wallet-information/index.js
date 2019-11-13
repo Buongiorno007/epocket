@@ -14,10 +14,6 @@ function WalletInformation({navigation, profileState}) {
 
 	const keyExtractor = (item, index) => `${index}`
 	console.log('wallinfo', item)
-	let summary = 0
-	item.info.forEach((item) => {
-		summary += Number(item.price) * item.amount
-	})
 	return(
 		<View style={styles.container}>
 			<MapTaskHeader title={I18n.t('WALLET.DETAILS')} noinfo/>
@@ -28,9 +24,6 @@ function WalletInformation({navigation, profileState}) {
 				keyExtractor={keyExtractor}
 				renderItem={(item) => <WalletInformationItem item={item}/>}
 			/>
-			{item.name === "PURCHASE" && <View style={styles.summary}>
-				<Text>{`${I18n.t('WALLET.TOTAL')} ${summary} ${profileState.currency}`}</Text>
-			</View>}
 		</View>
 	)
 }

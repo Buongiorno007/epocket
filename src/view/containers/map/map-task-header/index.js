@@ -27,7 +27,7 @@ function MapTaskHeader({ title = "", noinfo, dispatch, token, malltask }) {
       <TouchableOpacity style={styles.button} onPress={() => route.pop()} hitSlop={{top: 10, bottom: 10, left: 10, right: 50}}>
         <Image source={require("@assets/dv4/chevron.png")} style={styles.image} />
       </TouchableOpacity>
-      <Text style={styles.text}>{title}</Text>
+      <Text style={styles.text} numberOfLines={1} ellipsizeMode={'tail'}>{title}</Text>
       <TouchableOpacity style={styles.button} onPress={ __DEV__ ? refr : ()=>{} } disabled={noinfo}>
         <Image source={require("@assets/dv4/info.png")} style={[styles.image, noinfo && {display: 'none'}]} />
       </TouchableOpacity>
@@ -64,5 +64,6 @@ const styles = StyleSheet.create({
     fontFamily: "Rubik-Medium",
     fontSize: 20,
     color: "#111",
+    maxWidth: 200,
   },
 })

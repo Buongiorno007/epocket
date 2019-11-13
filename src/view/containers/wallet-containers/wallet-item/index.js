@@ -19,6 +19,10 @@ function WalletItem({ item, profileState }) {
 		console.log(item, 'ill navigate')
 		route.push('WalletInformation', {item: item})
 	}
+	const showReceipt = () => {
+		console.log(item, 'ill navigate')
+		route.push('Receipt', {item: item})
+	}
 
 	let isPending = false
 	let allPending = 0
@@ -34,7 +38,7 @@ function WalletItem({ item, profileState }) {
 	) : null
 	// arr.length ? console.log(' empty', hours, minutes) : console.log('not empty', hours, minutes)
 	return (
-		<TouchableOpacity disabled={!item.info} style={[styles.view, arr.length && {display: 'none'}]} onPress={additionalInformation}>
+		<TouchableOpacity disabled={!item.info} style={[styles.view, arr.length && {display: 'none'}]} onPress={item.name === 'PURCHASE' ? showReceipt : additionalInformation}>
 			<Image style={styles.circle} source={{ uri: item.info ? item.image : item.photo }} />
 			<View style={styles.titles}>
 				<Text style={styles.title}>{`${item.info ? item.name === 'PURCHASE' ? I18n.t('WALLET.PURCHASE') : item.name : item.trade_point_name === "Refill Phone" ? I18n.t('REFILL.PAYMENT_G') : I18n.t('GAME.CORRECT')}`}</Text>
