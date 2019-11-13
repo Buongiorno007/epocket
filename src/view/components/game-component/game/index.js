@@ -52,14 +52,13 @@ function Gamee({ gameProcess, gameStart, dispatch }) {
 
 	return (
 		<View style={styles.main_view}>
-			<View style={styles.exitContainer}>
-				<View style={styles.game_aval}>
-					<Text style={styles.game_aval_t}>{`${gameStart.available_game_len} ` + I18n.t('GAME.GAMES_FOR_TODAY')}</Text>
-				</View>
-				<Button style={styles.buttonExit} onPress={() => setVisible(!visible)}>
-					<Image source={require('@assets/img/close.png')} style={{width: 20, height: 20}}/>
-				</Button>
-			</View>
+
+			<TouchableOpacity style={[styles.game_aval]} onPress={() => setVisible(!visible)}>
+				<Image style={styles.game_aval_img} source={require('@assets/img/arrow-black-left.png')} resizeMode={'contain'} />
+				<Text style={styles.game_aval_t}>{`${gameStart.available_game_len} ` + I18n.t('GAME.GAMES_FOR_TODAY')}</Text>
+				<Image style={styles.game_aval_img} source={require('@assets/img/close_black.png')} resizeMode={'contain'} />
+			</TouchableOpacity>
+
 			<GameTimer finished={this.submitGame} />			
 			<GameField showChanges={(value) => setBut(value)} />
 			<View style={styles.btn_container}>

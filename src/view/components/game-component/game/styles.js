@@ -207,5 +207,25 @@ export default StyleSheet.create({
     fontFamily: 'Rubik-Regular',
     fontSize: 14,
     color: colors.black111,
-  }
+  },
+  game_aval: {
+    width: width - 32,
+    height: 55,
+    backgroundColor: colors.transparent,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: sbHeight + 16,
+  },
+  game_aval_t: {
+    borderRadius: 24,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    backgroundColor: colors.black111,
+    color: colors.white,
+  },
+  game_aval_img: {
+    width: 32,
+    height: 32,
+  },
 })

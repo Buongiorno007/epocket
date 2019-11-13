@@ -1,5 +1,6 @@
 import { StyleSheet, Dimensions, Platform } from 'react-native'
 import { colors } from '@constants/colors'
+import sbHeight from "@services/getSBHeight"
 
 const { width, height } = Dimensions.get('window')
 
@@ -7,7 +8,7 @@ export default StyleSheet.create({
 	container: {
 		flex: 1,
 		alignItems: 'center',
-		justifyContent: 'center',
+		justifyContent: 'space-between',
 		paddingHorizontal: 16,
 		backgroundColor: colors.map_gray,
 	},
@@ -54,14 +55,11 @@ export default StyleSheet.create({
 	// },
 	button: {
 		height: 44,
-		marginVertical: 10,
+		marginVertical: 40,
+		marginHorizontal: 16,
 		paddingTop: 10,
 		elevation: 0,
 		backgroundColor: colors.blood_red,
-		position: 'absolute',
-		bottom: 40,
-		left: 16,
-		right: 16,
 	},
 	text: {
 		fontSize: 14,
@@ -83,5 +81,25 @@ export default StyleSheet.create({
 		backgroundColor: colors.white,
 		borderWidth: 1,
 		borderColor: colors.gray_e5,
-	}
+	},
+	game_aval: {
+		width: width - 32,
+		height: 55,
+		backgroundColor: colors.transparent,
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+		marginTop: sbHeight + 16,
+	  },
+	  game_aval_t: {
+		borderRadius: 24,
+		paddingHorizontal: 15,
+		paddingVertical: 10,
+		backgroundColor: colors.black111,
+		color: colors.white,
+	  },
+	  game_aval_img: {
+		width: 32,
+		height: 32,
+	  },
 })

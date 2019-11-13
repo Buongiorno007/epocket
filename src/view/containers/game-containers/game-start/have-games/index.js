@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Image, Text } from 'react-native'
+import { View, Image, Text, TouchableOpacity } from 'react-native'
 import { Button } from 'native-base'
 import { connect } from 'react-redux'
 import I18n from '@locales/I18n'
@@ -18,10 +18,12 @@ const HaveGames = ({ profileState, gameStart, loaderState, getGameProcess }) => 
 	}
 	return (
 		<View style={styles.grad}>
-			<View style={styles.game_aval}>
+			<TouchableOpacity style={[styles.game_aval]} onPress={() => {route.pop()}}>
 				{/* <Text style={styles.game_aval_t}>{`${gameStart.available_game_len}/${gameStart.games_count} ` + I18n.t('GAME.GAMES_FOR_TODAY')}</Text> */}
+				<Image style={styles.game_aval_img} source={require('@assets/img/arrow-black-left.png')} resizeMode={'contain'} />
 				<Text style={styles.game_aval_t}>{`${gameStart.available_game_len} ` + I18n.t('GAME.GAMES_FOR_TODAY')}</Text>
-			</View>
+				<Image style={styles.game_aval_img} source={require('@assets/img/close_black.png')} resizeMode={'contain'} />
+			</TouchableOpacity>
 			<View>
 				<Text style={styles.zifi_text}>{I18n.t('GAME.ZIFI.PLAYFUL')}</Text>
 				<Image style={styles.zifi} source={require('@assets/img/zifi/playful.gif')} />

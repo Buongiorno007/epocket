@@ -1,6 +1,10 @@
 import { StyleSheet, Dimensions, Platform } from "react-native"
 import { colors } from "@constants/colors"
-const { width, height } = Dimensions.get("window")
+const { width } = Dimensions.get("window")
+const height =
+	Platform.OS === 'android' && Platform.Version > 26
+		? Dimensions.get('screen').height
+		: Dimensions.get('window').height
 const iPhoneX = Platform.OS === "ios" && (height === 812 || width === 812 || height === 896 || width === 896)
 
 export default StyleSheet.create({
@@ -14,14 +18,25 @@ export default StyleSheet.create({
     paddingBottom: 8,
   },
   game_aval: {
-    borderRadius: 24,
-    backgroundColor: colors.black111,
+    width,
+    height: 55,
+    backgroundColor: colors.transparent,
     paddingHorizontal: 15,
-    paddingVertical: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     marginTop: 16,
   },
   game_aval_t: {
+    borderRadius: 24,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    backgroundColor: colors.black111,
     color: colors.white,
+  },
+  game_aval_img: {
+    width: 32,
+    height: 32,
   },
   zifi_text: {
     textAlign: "center",

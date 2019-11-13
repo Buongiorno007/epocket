@@ -9,7 +9,7 @@ const height =
 export default StyleSheet.create({
 	gradient: {
 		width,
-		height,
+		height: Platform.OS === 'android' ? height - 48 : height,
 		alignItems: 'center',
 		paddingBottom: 60,
 		paddingTop: 40,

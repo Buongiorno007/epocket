@@ -12,7 +12,7 @@ function GameStart({ gameStart }) {
 	return (
 		<View style={styles.container}>
 			{gameStart.id ? <HaveGames /> : <NoGames />}
-			<FooterNavigation />
+			{/* <FooterNavigation /> */}
 		</View>
 	)
 }
