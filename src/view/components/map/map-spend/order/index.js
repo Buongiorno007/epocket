@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import LinearGradient from 'react-native-linear-gradient'
-import MapHeaderWhite from '@containers/map/map-header-white'
 import I18n from '@locales/I18n'
 import Header from '@containers/header'
 //styles
@@ -11,7 +9,6 @@ import LogoTitle from '@containers/map/logo-title'
 import OrderItem from '@containers/map/order-item'
 import ModalQr from '@containers/map/modal-qr'
 import { generateQr, clearQrValue } from '@reducers/qrValue'
-import { Toast } from 'native-base'
 import { loaderState } from '@reducers/loader'
 
 function OrderScreen({ order, profileState, qrValue, dispatch }) {
@@ -49,17 +46,8 @@ function OrderScreen({ order, profileState, qrValue, dispatch }) {
 	}
 
 	const opnModal = () => {
-		if (order.user_balance > price) {
 			console.log('opnModal_QR', data)
 			dispatch(generateQr(data, clsModal))
-		} else {
-			Toast.show({
-				text: I18n.t('INSUFFICIENT_FUNDS'),
-				buttonText: 'ok',
-				duration: 10000,
-				onClose: () => {},
-			})
-		}
 	}
 	const clsModal = () => {
 		dispatch(loaderState(false))
@@ -75,11 +63,20 @@ function OrderScreen({ order, profileState, qrValue, dispatch }) {
 				<Text style={styles.text}>{I18n.t('DO_PREORDER')}</Text>
 				<FlatList style={styles.scroll} data={data} renderItem={renderItem} keyExtractor={keyExtractor} />
 				<Text style={styles.price}>{`${price} ${profileState.currency}`}</Text>
-				<TouchableOpacity style={styles.button} onPress={opnModal}>
-					<Image source={require('@assets/img/qr.png')} style={styles.qr} />
-					<Text style={styles.qrText}>{I18n.t('CASH.BUTTON')}</Text>
-					<View style={styles.qr}></View>
-				</TouchableOpacity>
+
+				{order.user_balance > price ? (
+					<TouchableOpacity style={styles.button} onPress={opnModal}>
+						<Image source={require('@assets/img/qr.png')} style={styles.qr} />
+						<Text style={styles.qrText}>{I18n.t('CASH.BUTTON')}</Text>
+						<View style={styles.qr}></View>
+					</TouchableOpacity>
+				) : (
+					<TouchableOpacity style={styles.buttonInvert} disabled>
+						<Image source={require('@assets/img/qr.png')} style={styles.qr} />
+						<Text style={styles.qrTextInvert}>{I18n.t('INSUFFICIENT_FUNDS')}</Text>
+						<View style={styles.qr}></View>
+					</TouchableOpacity>
+				)}
 			</View>
 			<ModalQr visible={!!qrValue} qrvalue={qrValue} price={price} hide={clsModal} />
 		</View>
