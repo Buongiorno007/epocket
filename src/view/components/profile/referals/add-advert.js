@@ -37,15 +37,13 @@ function AddAdvert({profileState}) {
             </TouchableOpacity>
 
             <ScrollView>
-                <Text style={[styles.textBig, styles.margin]}>Заработать 50 $ проще, чем кажется</Text>
-                <Text style={[styles.textSmall, styles.margin]}>Хочешь еще больше интересных вопросов и возможностей заработка? Расскажи об этом своим родственникам, друзьям и знакомым. Среди них наверняка есть те, кто ищет клиентов для своего бизнеса. Расскажи им о преимуществах ePocketCash и дай им реферальную ссылку. Использовав твою ссылку, они получат 10% скидку на подключение, а ты получишь 50$ на свой счет ePocketCash.</Text>
-                <Text style={styles.textSmall}>Более детальную информацию читай на сайте</Text>
+                <Text style={[styles.textBig, styles.margin]}>{I18n.t('ADVERT.HEADER1')}</Text>
+                <Text style={[styles.textSmall, styles.margin]}>{I18n.t('ADVERT.TEXT1')}</Text>
+                <Text style={styles.textSmall}>{I18n.t('ADVERT.MORE')}</Text>
                 <Text style={[styles.textSmall, styles.textRed]} onPress={() => Linking.openURL('http://epocketcash.com')}>epocketcash.com</Text>
-                <Text style={[styles.textBig, styles.margin]}>Ежемесячный кешбек</Text>
-                <Text style={[styles.textSmall, styles.margin]}>Сделай разовый доход регулярным. Каждый подключенный по твоей реферальной ссылке бизнес-аккаунт будет приносить тебе 1% от оборота. Ежемесячно!</Text>
-                <Text style={styles.textSmall}>Как это происходит? Например: Ты рассказал кому-то о ePocketCash.
-    Твои знакомые подключились к системе ePocketCash. При подключении бизнес-аккаунта была использована именно твоя реферальная ссылка. 
-    Владелец бизнес-аккаунта пополнил свой счет в системе для размещения рекламы в ePocketCash. Система начислит на твой счет кешбек в размере 1% от каждого пополнения счета на следующий день после пополнения.</Text>
+                <Text style={[styles.textBig, styles.margin]}>{I18n.t('ADVERT.HEADER2')}</Text>
+                <Text style={[styles.textSmall, styles.margin]}>{I18n.t('ADVERT.TEXT2')}</Text>
+                <Text style={styles.textSmall}>{I18n.t('ADVERT.TEXT3')}</Text>
             </ScrollView>
         </View>
 	)

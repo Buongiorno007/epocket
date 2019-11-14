@@ -72,7 +72,7 @@ function InstaPost({profileState}) {
     ]
     return(     
         <View style={{height: Platform.OS === 'android' ? height - 48 : height,}}>
-            <MapTaskHeader title={"Пост в Instagram"} noinfo goMain/>
+            <MapTaskHeader title={I18n.t('EARN.POST_INSTA')} noinfo goMain/>
             <ScrollView >
                 <View style={{flexDirection: 'row', flexWrap: 'wrap', alignContent: 'space-around', alignItems: 'center', justifyContent: 'space-between'}}>
                 {element.map((item, index) => (
