@@ -95,7 +95,7 @@ function NewMapEarn({ profileState, mapPoints, lat, lng }) {
                     <MapEarnButton 
 						img={require('@assets/img/post_insta_ico.png')}
 						text={I18n.t('EARN.POST_INSTA')}
-						callback={() => {}}
+						callback={() => route.push('InstaPost')}
 						space
 						pub
 					/>

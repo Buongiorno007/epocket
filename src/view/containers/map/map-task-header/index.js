@@ -6,7 +6,7 @@ import { connect } from "react-redux"
 import { convertArea } from "geolib"
 import { urls } from "@constants/urls"
 
-function MapTaskHeader({ title = "", noinfo, dispatch, token, malltask }) {
+function MapTaskHeader({ title = "", noinfo, dispatch, token, malltask, goMain }) {
   const body = JSON.stringify({
     mission_id: malltask.id,
   })
@@ -24,7 +24,7 @@ function MapTaskHeader({ title = "", noinfo, dispatch, token, malltask }) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.button} onPress={() => route.pop()} hitSlop={{top: 10, bottom: 10, left: 10, right: 50}}>
+      <TouchableOpacity style={styles.button} onPress={() => goMain ? route.navigate("Main")  : route.pop()} hitSlop={{top: 10, bottom: 10, left: 10, right: 50}}>
         <Image source={require("@assets/dv4/chevron.png")} style={styles.image} />
       </TouchableOpacity>
       <Text style={styles.text} numberOfLines={1} ellipsizeMode={'tail'}>{title}</Text>

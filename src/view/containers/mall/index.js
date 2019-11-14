@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { StyleSheet, View, Text, TouchableOpacity, Image, Dimensions } from "react-native"
 import { connect } from "react-redux"
 import { getMallTask } from "@reducers/mallTask"
+import { colors } from "@constants/colors"
 
 const { width } = Dimensions.get("window")
 
@@ -10,11 +11,11 @@ function MallItem({ item, index, profileState, dispatch }) {
   return (
     <TouchableOpacity
       // disabled={item.disabled}
-      style={[styles.container, index === 0 && styles.noBorder]}
+      style={[styles.container, ]}
       onPress={() => dispatch(getMallTask(item))}
     >
       <Image source={{ uri: item.image }} style={styles.image} />
-      <View style={{ width: width - 88 - priceWidth }}>
+      <View style={{ width: width - 118 - priceWidth }}>
         <Text style={styles.title} numberOfLines={2} ellipsizeMode={"tail"}>
           {item.name}
         </Text>
@@ -43,13 +44,19 @@ export default connect(mapStateToProps)(MallItem)
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 16,
-    backgroundColor: "#F5F9FE",
-    borderTopColor: "rgba(112, 112, 112, 0.3)",
-    borderTopWidth: 1,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    marginVertical: 8,
+    backgroundColor: "white",
+    // borderTopColor: "rgba(112, 112, 112, 0.3)",
+    // borderTopWidth: 1,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    borderWidth: 1,
+    borderColor: colors.gray_e6,
+    borderRadius: 12,
+    minHeight: 100
   },
   noBorder: {
     borderTopWidth: 0,
