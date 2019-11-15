@@ -57,4 +57,5 @@ export const urls = {
   task_process: devserver + "/mission/new-list",
   task_reset: devserver + "/mission/reset-list",
   task_end: devserver + "/mission/end",
+  inspa_single: devserver + "/mission/inst-single/",
 }

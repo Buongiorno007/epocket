@@ -4,11 +4,14 @@ import { connect } from 'react-redux'
 import { colors } from '@constants/colors'
 import I18n from '@locales/I18n'
 
-function MapEarnButton({ img, text, callback, space = false, pub = false, profileState, games }) {
+function MapEarnButton({ img, text, callback, space = false, pub = false, profileState, mallTask, games }) {
     let games_aval = Number(games.available_game_len)
     let game_price = Number(games.award)
     let total_games_price = Math.ceil(games_aval * game_price)
 
+	let posts_aval = Number(mallTask.tasks.length)
+	let post_price = 0
+	mallTask.tasks.map((item) => {post_price += Number(item.price.substring(1))})
     let total_post_price = 0
 
 	return (
@@ -17,7 +20,7 @@ function MapEarnButton({ img, text, callback, space = false, pub = false, profil
 			<View>
 				<Text style={styles.text}>{text}</Text>			
 				{pub ? (
-					<Text style={styles.textSmall}>{`${games_aval} ${I18n.t('EARN.PUB_AVAL')}`}</Text>
+					<Text style={styles.textSmall}>{`${posts_aval} ${I18n.t('EARN.PUB_AVAL')}`}</Text>
 				) : (
 					<Text style={styles.textSmall}>{`${games_aval} ${I18n.t('EARN.GAMES_AVAL')}`}</Text>
 				)}
@@ -26,7 +29,7 @@ function MapEarnButton({ img, text, callback, space = false, pub = false, profil
 				<View style={styles.price}>
 					{pub ? (
 						<Text style={[styles.text, styles.price_positive]}>
-							{`+ ${total_post_price} ${profileState.currency}`}
+							{`+ ${post_price} ${profileState.currency}`}
 						</Text>
 					) : (
 						<Text style={[styles.text, styles.price_positive]}>
@@ -43,7 +46,8 @@ function MapEarnButton({ img, text, callback, space = false, pub = false, profil
 const mapStateToProps = state => {
 	return {
         profileState: state.profileState,
-        games: state.gameStart
+		games: state.gameStart,
+		mallTask: state.mallTask
 	}
 }
 export default connect(mapStateToProps)(MapEarnButton)

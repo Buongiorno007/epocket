@@ -36,6 +36,7 @@ export const getUser = token => async dispatch => {
   geolocation()
   try {
     const response = await httpPost(urls.get_user, JSON.stringify({}), token)
+    console.log('getUser', response)
     const user = {
       name: response.body.user_name,
       phone: response.body.user_phone,

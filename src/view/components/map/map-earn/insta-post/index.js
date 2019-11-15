@@ -5,6 +5,8 @@ import { connect } from "react-redux"
 import { colors } from "@constants/colors"
 import route from "@services/route"
 import I18n from '@locales/I18n'
+import { getMallTask } from "@reducers/mallTask"
+import { getInstaPost } from "@reducers/progressTask"
 
 const { width } = Dimensions.get('window')
 const height =
@@ -12,77 +14,37 @@ const height =
 		? Dimensions.get('screen').height
 		: Dimensions.get('window').height
 
-function InstaPost({profileState}) {
+function InstaPost({profileState, mallTask, dispatch}) {
+    const { tasks } = mallTask
+    console.log(tasks, 'ttttaaasss')
     let element = [
         {
             image: require('@assets/img/instaPostTestBig.png'),
             name: 'Coca-Cola',
             price: 5,
             hashtags: '#coca-cola #epocketcash #fun'
-        },
-        {
-            image: require('@assets/img/instaPostTest.png'),
-            name: 'Coca-Cola',
-            price: 5,
-            hashtags: '#coca-cola #epocketcash #fun'
-        },
-        {
-            image: require('@assets/img/instaPostTest.png'),
-            name: 'Coca-Cola',
-            price: 5,
-            hashtags: '#coca-cola #epocketcash #fun'
-        },
-        {
-            image: require('@assets/img/instaPostTest.png'),
-            name: 'Coca-Cola',
-            price: 5,
-            hashtags: '#coca-cola #epocketcash #fun'
-        },
-        {
-            image: require('@assets/img/instaPostTest.png'),
-            name: 'Coca-Cola',
-            price: 5,
-            hashtags: '#coca-cola #epocketcash #fun'
-        },
-        {
-            image: require('@assets/img/instaPostTest.png'),
-            name: 'Coca-Cola',
-            price: 5,
-            hashtags: '#coca-cola #epocketcash #fun'
-        },
-        {
-            image: require('@assets/img/instaPostTest.png'),
-            name: 'Coca-Cola',
-            price: 5,
-            hashtags: '#coca-cola #epocketcash #fun'
-        },
-        {
-            image: require('@assets/img/instaPostTest.png'),
-            name: 'Coca-Cola',
-            price: 5,
-            hashtags: '#coca-cola #epocketcash #fun'
-        },
-        {
-            image: require('@assets/img/instaPostTest.png'),
-            name: 'Coca-Cola',
-            price: 5,
-            hashtags: '#coca-cola #epocketcash #fun'
-        },
-       
+        }
     ]
+
+    const handleTouch = async() => {
+
+    }
+
+
     return(     
         <View style={{height: Platform.OS === 'android' ? height - 48 : height,}}>
             <MapTaskHeader title={I18n.t('EARN.POST_INSTA')} noinfo goMain/>
             <ScrollView >
                 <View style={{flexDirection: 'row', flexWrap: 'wrap', alignContent: 'space-around', alignItems: 'center', justifyContent: 'space-between'}}>
-                {element.map((item, index) => (
-                    <TouchableOpacity style={[{marginBottom: 16, marginHorizontal: 16 }]} onPress={() => {route.push('InstaPostPublish', {item})}}>
+                {tasks.map((item, index) => (
+                    // <TouchableOpacity style={[{marginBottom: 16, marginHorizontal: 16 }]} onPress={() => {route.push('InstaPostPublish', {item})}}>
+                    <TouchableOpacity style={[{marginBottom: 16, marginHorizontal: 16 }]} onPress={() => {dispatch(getInstaPost(item.mission_id, item.outlet_id))}} key={index}>
                         <View>
-                            <Image style={{width: (width - 64) / 2, height: (width - 64) / 2 }} source={item.image} resizeMode={'contain'}/>
+                            <Image style={{width: (width - 64) / 2, height: (width - 64) / 2, borderRadius: 12 }} source={{uri : item.task_details.photo}} resizeMode={'contain'}/>
                         </View>
                         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                            <Text style={{fontFamily: 'Rubik-Medium', fontSize: 13, color: colors.black111}}>{item.name}</Text>
-                            <Text style={{fontFamily: 'Rubik-Medium', fontSize: 13, color: colors.blood_red}}>{`+ ${item.price} ${profileState.currency}`}</Text>
+                            <Text style={{fontFamily: 'Rubik-Medium', fontSize: 13, color: colors.black111, width: (width - 170) / 2}} ellipsizeMode={'tail'} numberOfLines={1}>{item.name}</Text>
+                            <Text style={{fontFamily: 'Rubik-Medium', fontSize: 13, color: colors.blood_red}}>{`${item.price} ${profileState.currency}`}</Text>
                         </View>
                     </TouchableOpacity>
                 ))}
@@ -93,6 +55,7 @@ function InstaPost({profileState}) {
 }
 const mapStateToProps = state => ({
     profileState: state.profileState,
+    mallTask: state.mallTask,
   })
 
 export default connect(mapStateToProps)(InstaPost)

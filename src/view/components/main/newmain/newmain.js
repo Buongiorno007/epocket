@@ -24,6 +24,7 @@ import styles from "./styles"
 import NewMapEarn from '@components/map/map-earn/new-map-earn'
 import MapSpend from '@components/map/map-spend'
 import { getHistory } from "@reducers/wallet"
+import { getInstaList } from "@reducers/progressTask"
 
 class Main extends React.Component {
   state = {
@@ -47,6 +48,7 @@ class Main extends React.Component {
     }
     AppState.addEventListener('change', this._handleAppStateChange)
     this.props.getHistory(1)
+    this.props.getInstaList()
   }
   _handleAppStateChange = (nextAppState) => {
     if (
@@ -118,6 +120,7 @@ const mapDispatchToProps = dispatch =>
       getBasket,
       loaderState,
       getHistory,
+      getInstaList,
     },
     dispatch,
   )

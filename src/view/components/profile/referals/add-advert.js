@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import route from '@services/route'
 import I18n from '@locales/I18n'
 import styles from './styles'
+import { shareToOneSocial } from '@services/share-ref-link'
 
 function AddAdvert({profileState}) {
 	return (
@@ -28,7 +29,7 @@ function AddAdvert({profileState}) {
             </View>
 
             <Text style={styles.text}>{I18n.t('REF_LINK.ADD_WITH')}</Text>
-            <TouchableOpacity style={styles.socialLink}>
+            <TouchableOpacity style={styles.socialLink} onPress={() => {shareToOneSocial(this.state.refferal_link, this.state.refferal_price, 'all', this.props.profileState.currency)}}>
                 <Image style={styles.socialIco} source={require('@assets/img/links.png')} resizeMode={'contain'}/>
                 <Image style={styles.socialIco} source={require('@assets/img/Telegram-ico.png')} resizeMode={'contain'}/>
                 <Image style={styles.socialIco} source={require('@assets/img/Viber-ico.png')} resizeMode={'contain'}/>

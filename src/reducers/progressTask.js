@@ -1,4 +1,4 @@
-import { PROGRESSTASK } from "./__proto__"
+import { PROGRESSTASK, MALLPOINT, MALLTASK } from "./__proto__"
 import route from "@services/route"
 import { loaderState } from "./loader"
 import { httpGet, httpPost, httpPut } from "@services/http"
@@ -9,6 +9,9 @@ import { setImage } from './image'
 import { Alert} from 'react-native'
 import RNFS from "react-native-fs"
 import ImageEditor from "@react-native-community/image-editor"
+import { getMallTask } from "@reducers/mallTask"
+import { setMallTask } from "@reducers/mallTask"
+import { setPoint } from "@reducers/mallPoint"
 
 const SET_PROGRESS_TASK = "[progressTask] SET_PROGRESS_TASK"
 const initialState = new PROGRESSTASK()
@@ -29,6 +32,22 @@ export const getProgressTask = () => async (dispatch, getState) => {
   try {
     const response = await httpGet(`${urls.task_process}?mission_id=${id}`, token)
     console.log(response, "RESPONSE getProgressTask")
+    await dispatch(setProgressTask(new PROGRESSTASK(response.body)))
+    await route.push("MallProgressTask")
+  } catch (e) {
+    console.log(e, "EEEER")
+  }
+}
+
+export const getInstaPost = (mission_id, outlet_id) => async (dispatch, getState) => {
+  // const { id } = getState().mallTask
+  const { token } = getState()
+  console.log(`${urls.task_process}?mission_id=${mission_id}`, token, "getInstaPost")
+  try {
+    const response = await httpGet(`${urls.task_process}?mission_id=${mission_id}`, token)
+    console.log(response, "RESPONSE getInstaPost")
+    await dispatch(setPoint(new MALLPOINT({id : outlet_id})))
+    await dispatch(setMallTask(new MALLTASK({id : mission_id})))
     await dispatch(setProgressTask(new PROGRESSTASK(response.body)))
     await route.push("MallProgressTask")
   } catch (e) {
@@ -182,6 +201,25 @@ export const finishMission = () => async (dispatch, getState) => {
     route.popToTop()
   } catch (e) {
     console.log(e, "EEEER checkQr")
+  }
+}
+
+export const getInstaList = () => async (dispatch, getState) => {
+  const { id } = getState().mallTask
+  const { token } = getState()
+  const { cln } = getState().progressTask
+  dispatch(loaderState(true))
+  try {
+    const response = await httpGet(urls.inspa_single, token)
+    console.log(urls.inspa_single, response, "RESPONSE getInstaList Get")
+    let data = {
+      tasks : response.body.data,
+    }
+    await dispatch(getMallTask(data))
+    dispatch(loaderState(false))
+  } catch (e) {
+    console.log(e, "EEEER getInstaList")
+    dispatch(loaderState(false))
   }
 }
 

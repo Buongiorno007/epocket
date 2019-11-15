@@ -9,10 +9,11 @@ import { findNearest, getDistance } from 'geolib'
 import styles from './styles'
 import MapEarnButton from '@containers/map/map-earn-button'
 import FooterNavigation from '@containers/footer-navigator/footer-navigator'
+import { getInstaList } from "@reducers/progressTask"
 import I18n from '@locales/I18n'
 import route from '@services/route'
 
-function NewMapEarn({ profileState, mapPoints, lat, lng }) {
+function NewMapEarn({ profileState, mapPoints, lat, lng, dispatch }) {
 	const [trigger, setTrigger] = useState(false)
 	const region = {
 		latitude: lat,
@@ -95,7 +96,10 @@ function NewMapEarn({ profileState, mapPoints, lat, lng }) {
                     <MapEarnButton 
 						img={require('@assets/img/post_insta_ico.png')}
 						text={I18n.t('EARN.POST_INSTA')}
-						callback={() => route.push('InstaPost')}
+						callback={() => {
+							// dispatch(getInstaList())
+							route.push('InstaPost')
+						}}
 						space
 						pub
 					/>

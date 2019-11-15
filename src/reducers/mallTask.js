@@ -1,5 +1,6 @@
 import { MALLTASK } from "./__proto__"
 import route from "@services/route"
+import { getProgressTask } from "@reducers/progressTask"
 
 const SET_MALL_TASK = "[mallTask] SET_MALL_TASK"
 const initialState = new MALLTASK()
@@ -17,7 +18,8 @@ export const getMallTask = item => async dispatch => {
   console.log(item, 'getMallTask')
   try {
     await dispatch(setMallTask(new MALLTASK(item)))
-    await route.push("MallTask")
+    item.name ? await route.push("MallTask") : null
+    // await route.push("MallTask")
   } catch (e) {
     console.log("getMallTask can'tDispatch")
   }
