@@ -8,7 +8,7 @@ const { width } = Dimensions.get("window")
 
 function BeforePost({ progressTask, setPostData, dispatch }) {
   console.log('BeforePost')
-  const [type, setType] = useState(false)
+  const [type, setType] = useState(true)
   const [flash, setFlash] = useState(false)
   const [taken, setTaken] = useState(false)
   const cameraRef = useRef()  

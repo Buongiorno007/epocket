@@ -17,6 +17,7 @@ export default StyleSheet.create({
     backgroundColor: colors.white,
     bottom: 0,
     zIndex: 999,
+    marginBottom: isIphoneX ? 20 : 0
   },
   footer_tab: {
     backgroundColor: colors.white,

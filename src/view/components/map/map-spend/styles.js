@@ -15,6 +15,7 @@ export default StyleSheet.create({
 	// },
 	container: {
 		height: Platform.OS === 'android' ? height - 48 : height,
+		paddingBottom: 61
     },
 	linear: {
 		flex: 1,

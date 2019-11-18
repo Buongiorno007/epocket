@@ -14,6 +14,7 @@ export default StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		backgroundColor: colors.white,
+		paddingBottom: 61
 	},
 	header: {
 		width: width,
@@ -190,12 +191,12 @@ export default StyleSheet.create({
 	},
 	price: {
 		minWidth: 60, 
-		maxHeight: 28,
+		// maxHeight: 28,
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'center',
 		paddingHorizontal: 7,
-		paddingVertical: 7,
+		paddingVertical: 3,
 		borderRadius: 20,
 		backgroundColor: colors.blood_red
 	},

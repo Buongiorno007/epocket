@@ -29,7 +29,11 @@ function AddAdvert({profileState}) {
             </View>
 
             <Text style={styles.text}>{I18n.t('REF_LINK.ADD_WITH')}</Text>
-            <TouchableOpacity style={styles.socialLink} onPress={() => {shareToOneSocial(this.state.refferal_link, this.state.refferal_price, 'all', this.props.profileState.currency)}}>
+            <TouchableOpacity 
+                style={[styles.socialLink]} 
+                // onPress={() => {shareToOneSocial(this.state.refferal_link, this.state.refferal_price, 'all', this.props.profileState.currency)}} 
+                disabled
+            >
                 <Image style={styles.socialIco} source={require('@assets/img/links.png')} resizeMode={'contain'}/>
                 <Image style={styles.socialIco} source={require('@assets/img/Telegram-ico.png')} resizeMode={'contain'}/>
                 <Image style={styles.socialIco} source={require('@assets/img/Viber-ico.png')} resizeMode={'contain'}/>

@@ -35,14 +35,14 @@ function InstaPost({profileState, mallTask, dispatch}) {
         <View style={{height: Platform.OS === 'android' ? height - 48 : height,}}>
             <MapTaskHeader title={I18n.t('EARN.POST_INSTA')} noinfo goMain/>
             <ScrollView >
-                <View style={{flexDirection: 'row', flexWrap: 'wrap', alignContent: 'space-around', alignItems: 'center', justifyContent: 'space-between'}}>
+                <View style={{flexDirection: 'row', flexWrap: 'wrap', alignContent: 'space-around', alignItems: 'center', justifyContent: 'space-between', paddingTop: 16}}>
                 {tasks.map((item, index) => (
                     // <TouchableOpacity style={[{marginBottom: 16, marginHorizontal: 16 }]} onPress={() => {route.push('InstaPostPublish', {item})}}>
                     <TouchableOpacity style={[{marginBottom: 16, marginHorizontal: 16 }]} onPress={() => {dispatch(getInstaPost(item.mission_id, item.outlet_id))}} key={index}>
                         <View>
                             <Image style={{width: (width - 64) / 2, height: (width - 64) / 2, borderRadius: 12 }} source={{uri : item.task_details.photo}} resizeMode={'contain'}/>
                         </View>
-                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 8}}>
                             <Text style={{fontFamily: 'Rubik-Medium', fontSize: 13, color: colors.black111, width: (width - 170) / 2}} ellipsizeMode={'tail'} numberOfLines={1}>{item.name}</Text>
                             <Text style={{fontFamily: 'Rubik-Medium', fontSize: 13, color: colors.blood_red}}>{`${item.price} ${profileState.currency}`}</Text>
                         </View>

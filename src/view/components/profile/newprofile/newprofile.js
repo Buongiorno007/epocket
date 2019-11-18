@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Linking, Image, Platform, TouchableOpacity } from 'react-native'
+import { View, Text, Linking, Image, Platform, TouchableOpacity, ScrollView } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { Button } from 'native-base'
 //constants
@@ -120,124 +120,127 @@ class NewProfile extends React.Component {
 	render() {
 		return (
 			<View style={styles.main_view}>
-				<View style={styles.header}>
-					<Button
-						transparent
-						rounded
-						style={styles.settings_btn}
-						onPress={() => {
-							this.ToSettings()
-						}}
-					>
-						<FastImage
-							style={styles.settings_img}
-							resizeMode={FastImage.resizeMode.contain}
-							source={require('@assets/img/settings.png')}
-						/>
-					</Button>
-				</View>
-				<View style={styles.info}>
-					<View style={styles.photo_container}>
-						<CustomPhoto src={this.state.user.photo} />
+				<ScrollView>
+					<View style={styles.header}>
+						<Button
+							transparent
+							rounded
+							style={styles.settings_btn}
+							onPress={() => {
+								this.ToSettings()
+							}}
+						>
+							<FastImage
+								style={styles.settings_img}
+								resizeMode={FastImage.resizeMode.contain}
+								source={require('@assets/img/settings.png')}
+							/>
+						</Button>
 					</View>
+					<View style={styles.info}>
+						<View style={styles.photo_container}>
+							<CustomPhoto src={this.state.user.photo} />
+						</View>
 
-					<View style={styles.userData}>
-						<Text style={styles.name}>{this.state.user.username}</Text>
-						<Text style={styles.age}>{`${this.state.user.birthDay} ${I18n.t('PROFILE_SETTINGS.AGE')}`}</Text>
-					</View>
+						<View style={styles.userData}>
+							<Text style={styles.name}>{this.state.user.username}</Text>
+							<Text style={styles.age}>{`${this.state.user.birthDay} ${I18n.t('PROFILE_SETTINGS.AGE')}`}</Text>
+						</View>
 
-					<TouchableOpacity style={styles.bigBtn} onPress={() => {this.openSupport()}}>                           
-						<FastImage
-							style={[styles.bigBtnImg]}
-							resizeMode={FastImage.resizeMode.contain}
-							source={require('@assets/img/telegram.png')}
-						/>
-						<Text style={[styles.bigBtnText]}>{I18n.t('PROFILE_SETTINGS.SUPPORT')}</Text>
-						<FastImage
-							style={[styles.bigBtnImg2]}
-							resizeMode={FastImage.resizeMode.contain}
-							source={require('@assets/img/arrow-white-right.png')}
-						/>
-					</TouchableOpacity>
-
-					<View style={styles.refContainer}>
-						<TouchableOpacity style={styles.refPad} onPress={() => {shareToOneSocial(this.state.refferal_link, this.state.refferal_price, 'all', this.props.profileState.currency)}}>
-							<View  style={styles.refPad_row}>
-								<Image style={styles.refPadImg_big} source={require('@assets/img/add-friend.png')} resizeMode={'contain'}/>
-								<Text style={styles.refPadText_red}>{`+ 5 ${this.props.profileState.currency}`}</Text>
-							</View>
-							<View  style={styles.refPad_row}>
-								<Text style={styles.refPadText_bl}>{I18n.t('REF_LINK.ADD_FRIEND')}</Text>
-								<Image style={styles.refPadImg_sm} source={require('@assets/img/small_arrow_right.png')} resizeMode={'contain'}/>
-							</View>
+						<TouchableOpacity style={styles.bigBtn} onPress={() => {this.openSupport()}}>                           
+							<FastImage
+								style={[styles.bigBtnImg]}
+								resizeMode={FastImage.resizeMode.contain}
+								source={require('@assets/img/telegram.png')}
+							/>
+							<Text style={[styles.bigBtnText]}>{I18n.t('PROFILE_SETTINGS.SUPPORT')}</Text>
+							<FastImage
+								style={[styles.bigBtnImg2]}
+								resizeMode={FastImage.resizeMode.contain}
+								source={require('@assets/img/arrow-white-right.png')}
+							/>
 						</TouchableOpacity>
 
-						<TouchableOpacity style={styles.refPad} onPress={() => route.push('AddAdvert')}>
-							<View style={styles.refPad_row}>
-								<Image style={styles.refPadImg_big} source={require('@assets/img/add-advert.png')} resizeMode={'contain'}/>
-								<Text style={styles.refPadText_red}>{`+ 50 $`}</Text>
-							</View>
-							<View style={styles.refPad_row}>
-								<Text style={styles.refPadText_bl}>{I18n.t('REF_LINK.ADD_ADVERT')}</Text>
-								<Image style={styles.refPadImg_sm} source={require('@assets/img/small_arrow_right.png')} resizeMode={'contain'}/>
-							</View>
-						</TouchableOpacity>
-					</View>
-
-					<TouchableOpacity style={[styles.bigBtn, styles.bigBtn_w, styles.bigBtn_bor]} onPress={() => {this.ToSettings()}}>                           
-						<FastImage
-							style={[styles.bigBtnImg]}
-							resizeMode={FastImage.resizeMode.contain}
-							source={require('@assets/img/post_insta_ico.png')}
-						/>
-						<View>
-							<Text style={[styles.bigBtnText, styles.bigBtnText_b]}>{I18n.t('PROFILE_SETTINGS.CONNECT_INSTA')}</Text>
-							<Text style={[styles.bigBtnText_sm]}>{I18n.t('PROFILE_SETTINGS.MIN_SUBS')}</Text>
-						</View>
-						<View style={styles.priceContainer}>
-							<View style={styles.price}>
-								<Text style={[styles.price_text]}>
-									{`+ 5 ${this.props.profileState.currency}`}
-								</Text>
-							</View>
-						</View>
-					</TouchableOpacity>
-
-
-
-						{/* <TouchableOpacity onPress={() => this.ToEdit()} style={styles.text_container_android}>
-							<View style={styles.text_item}>
-								<Text style={styles.title}>{I18n.t('NAMES')}</Text>
-								<Text style={styles.name}>{this.state.user.username}</Text>
-							</View>
-							<View style={styles.text_item}>
-								<Text style={styles.title}>{I18n.t('PROFILE_PAGE.PHONE')}</Text>
-								<Text style={styles.phone}>{this.state.user.phone}</Text>
-							</View>
-							{this.state.user.birthDay ? (
-								<View style={styles.text_item}>
-									<Text style={styles.title}>{I18n.t('SIGN.AGE')}</Text>
-									<Text style={styles.phone}>{this.state.user.birthDay}</Text>
+						<View style={styles.refContainer}>
+							<TouchableOpacity style={styles.refPad} onPress={() => {shareToOneSocial(this.state.refferal_link, this.state.refferal_price, 'all', this.props.profileState.currency)}}>
+								<View  style={styles.refPad_row}>
+									<Image style={styles.refPadImg_big} source={require('@assets/img/add-friend.png')} resizeMode={'contain'}/>
+									<Text style={styles.refPadText_red}>{`+ 5 ${this.props.profileState.currency}`}</Text>
 								</View>
-							) : null}
-							{this.state.user.sex === 1 || this.state.user.sex === 0 ? (
-								<View style={styles.text_item}>
-									<Text style={styles.title}>{I18n.t('PROFILE_PAGE.SEX')}</Text>
-									<Text style={styles.phone}>
-										{this.state.user.sex === 0 && I18n.t('PROFILE_PAGE.FEMALE')}
-										{this.state.user.sex === 1 && I18n.t('PROFILE_PAGE.MALE')}
+								<View  style={styles.refPad_row}>
+									<Text style={styles.refPadText_bl}>{I18n.t('REF_LINK.ADD_FRIEND')}</Text>
+									<Image style={styles.refPadImg_sm} source={require('@assets/img/small_arrow_right.png')} resizeMode={'contain'}/>
+								</View>
+							</TouchableOpacity>
+
+							<TouchableOpacity style={[styles.refPad, {backgroundColor: '#E6E6E6'}]} onPress={() => route.push('AddAdvert')} disabled>
+								<View style={styles.refPad_row}>
+									<Image style={styles.refPadImg_big} source={require('@assets/img/add-advert.png')} resizeMode={'contain'}/>
+									<Text style={styles.refPadText_red}>{`+ 50 $`}</Text>
+								</View>
+								<View style={styles.refPad_row}>
+									<Text style={styles.refPadText_bl}>{I18n.t('REF_LINK.ADD_ADVERT')}</Text>
+									<Image style={styles.refPadImg_sm} source={require('@assets/img/small_arrow_right.png')} resizeMode={'contain'}/>
+								</View>
+							</TouchableOpacity>
+						</View>
+
+						{!this.props.insta_token && <TouchableOpacity style={[styles.bigBtn, styles.bigBtn_w, styles.bigBtn_bor]} onPress={() => {this.ToSettings()}}>                           
+							<FastImage
+								style={[styles.bigBtnImg]}
+								resizeMode={FastImage.resizeMode.contain}
+								source={require('@assets/img/post_insta_ico.png')}
+							/>
+							<View>
+								<Text style={[styles.bigBtnText, styles.bigBtnText_b]}>{I18n.t('PROFILE_SETTINGS.CONNECT_INSTA')}</Text>
+								<Text style={[styles.bigBtnText_sm]}>{I18n.t('PROFILE_SETTINGS.MIN_SUBS')}</Text>
+							</View>
+							<View style={styles.priceContainer}>
+								<View style={styles.price}>
+									<Text style={[styles.price_text]}>
+										{`+ 5 ${this.props.profileState.currency}`}
 									</Text>
 								</View>
-							) : null}
-						</TouchableOpacity>					 */}
-				</View>
-				{/* <RefLink
-					toogle={this.state.toogle}
-					setToogle={this.setToogle}
-					link={this.state.refferal_link}
-					price={this.state.refferal_price}
-				/> */}
-				<FooterNavigation />
+							</View>
+						</TouchableOpacity>}
+
+
+
+							{/* <TouchableOpacity onPress={() => this.ToEdit()} style={styles.text_container_android}>
+								<View style={styles.text_item}>
+									<Text style={styles.title}>{I18n.t('NAMES')}</Text>
+									<Text style={styles.name}>{this.state.user.username}</Text>
+								</View>
+								<View style={styles.text_item}>
+									<Text style={styles.title}>{I18n.t('PROFILE_PAGE.PHONE')}</Text>
+									<Text style={styles.phone}>{this.state.user.phone}</Text>
+								</View>
+								{this.state.user.birthDay ? (
+									<View style={styles.text_item}>
+										<Text style={styles.title}>{I18n.t('SIGN.AGE')}</Text>
+										<Text style={styles.phone}>{this.state.user.birthDay}</Text>
+									</View>
+								) : null}
+								{this.state.user.sex === 1 || this.state.user.sex === 0 ? (
+									<View style={styles.text_item}>
+										<Text style={styles.title}>{I18n.t('PROFILE_PAGE.SEX')}</Text>
+										<Text style={styles.phone}>
+											{this.state.user.sex === 0 && I18n.t('PROFILE_PAGE.FEMALE')}
+											{this.state.user.sex === 1 && I18n.t('PROFILE_PAGE.MALE')}
+										</Text>
+									</View>
+								) : null}
+							</TouchableOpacity>					 */}
+					</View>
+					{/* <RefLink
+						toogle={this.state.toogle}
+						setToogle={this.setToogle}
+						link={this.state.refferal_link}
+						price={this.state.refferal_price}
+					/> */}
+
+				</ScrollView>
+					<FooterNavigation />
 			</View>
 		)
 	}
@@ -249,6 +252,7 @@ const mapStateToProps = (state) => {
 		userColor: state.userColor,
 		token: state.token,
 		profileState: state.profileState,
+		insta_token: state.insta_token
 	}
 }
 
