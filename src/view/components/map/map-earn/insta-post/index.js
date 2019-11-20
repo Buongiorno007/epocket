@@ -17,28 +17,15 @@ const height =
 function InstaPost({profileState, mallTask, dispatch}) {
     const { tasks } = mallTask
     console.log(tasks, 'ttttaaasss')
-    let element = [
-        {
-            image: require('@assets/img/instaPostTestBig.png'),
-            name: 'Coca-Cola',
-            price: 5,
-            hashtags: '#coca-cola #epocketcash #fun'
-        }
-    ]
-
-    const handleTouch = async() => {
-
-    }
-
 
     return(     
         <View style={{height: Platform.OS === 'android' ? height - 48 : height,}}>
             <MapTaskHeader title={I18n.t('EARN.POST_INSTA')} noinfo goMain/>
-            <ScrollView >
+            <ScrollView>
                 <View style={{flexDirection: 'row', flexWrap: 'wrap', alignContent: 'space-around', alignItems: 'center', justifyContent: 'space-between', paddingTop: 16}}>
                 {tasks.map((item, index) => (
                     // <TouchableOpacity style={[{marginBottom: 16, marginHorizontal: 16 }]} onPress={() => {route.push('InstaPostPublish', {item})}}>
-                    <TouchableOpacity style={[{marginBottom: 16, marginHorizontal: 16 }]} onPress={() => {dispatch(getInstaPost(item.mission_id, item.outlet_id))}} key={index}>
+                    <TouchableOpacity style={[{marginBottom: 16, marginHorizontal: 10}]} onPress={() => {dispatch(getInstaPost(item.mission_id, item.outlet_id))}} key={index}>
                         <View>
                             <Image style={{width: (width - 64) / 2, height: (width - 64) / 2, borderRadius: 12 }} source={{uri : item.task_details.photo}} resizeMode={'contain'}/>
                         </View>

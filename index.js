@@ -59,6 +59,7 @@ const Navigator = createStackNavigator(
     WalletInformation: require("@components/wallet/wallet-information").default,
     Receipt: require("@components/wallet/wallet-information/receipt").default,
     AddAdvert: require("@components/profile/referals/add-advert").default,
+    AddFriend: require("@components/profile/referals/add-friend").default,
     InstaPost: require("@components/map/map-earn/insta-post").default,
     InstaPostPublish: require("@components/map/map-earn/insta-post-publish").default,
   },

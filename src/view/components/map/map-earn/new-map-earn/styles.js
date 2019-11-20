@@ -10,8 +10,7 @@ const height =
 export default StyleSheet.create({
 	container: {
 		height: Platform.OS === 'android' ? height - 48 : height,
-		paddingBottom: 61
-    },
+	},
     scrollView:{
         marginTop: sbHeight,
     },
@@ -47,7 +46,8 @@ export default StyleSheet.create({
 		overflow: 'hidden',
 	},
 	map_view_big: {
-		flex: 1
+		flex: 1,
+		height,
 	},
 	map: {
 		flex: 1,
@@ -114,6 +114,7 @@ export default StyleSheet.create({
 	},
 	goBack: {
 		position: 'absolute',
+		top: sbHeight,
 		zIndex: 3,
 		width,
 		height: 100,

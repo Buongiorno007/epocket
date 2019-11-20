@@ -133,6 +133,7 @@ export const createPost = (ref) => async (dispatch, getState) => {
     return { ...response.body }
   } catch (e) {
     console.log(e, "EEE takePicture")
+    await dispatch(getInstaList())
     await dispatch(loaderState(false))
     await route.popToTop()
     return {}
@@ -197,8 +198,8 @@ export const finishMission = () => async (dispatch, getState) => {
   try {
     const response = await httpPut(urls.task_process, body, token)
     console.log(urls.task_process, response, "RESPONSE finishMission PUT")
-    // await route.popToTop()
-    route.popToTop()
+    await dispatch(getInstaList())
+    await route.popToTop()
   } catch (e) {
     console.log(e, "EEEER checkQr")
   }

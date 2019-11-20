@@ -37,7 +37,7 @@ class NewProfile extends React.Component {
 		modalVisible: false,
 	}
 	componentDidMount() {
-		this.props.loaderState(true)
+		// this.props.loaderState(true)
 		const { profileState } = this.props
 		this.setState({
 			user: {
@@ -49,38 +49,38 @@ class NewProfile extends React.Component {
 				currency: profileState.currency,
 			},
 		})
-		httpPost(urls.get_referral_link, JSON.stringify({}), this.props.token).then(
-			(result) => {
-				console.log('link.result', result)
-				this.setState({
-					refferal_link: result.body.new_link ? result.body.new_link : urls.ref_link + result.body.link,
-					refferal_price: Number(Number(result.body.ref_reward).toFixed(2)),
-				})
-				this.props.loaderState(false)
-			},
-			(error) => {
-				this.props.loaderState(false)
-			},
-		)
+		// httpPost(urls.get_referral_link, JSON.stringify({}), this.props.token).then(
+		// 	(result) => {
+		// 		console.log('link.result', result)
+		// 		this.setState({
+		// 			refferal_link: result.body.new_link ? result.body.new_link : urls.ref_link + result.body.link,
+		// 			refferal_price: Number(Number(result.body.ref_reward).toFixed(2)),
+		// 		})
+		// 		this.props.loaderState(false)
+		// 	},
+		// 	(error) => {
+		// 		this.props.loaderState(false)
+		// 	},
+		// )
 	}
 
-	componentDidUpdate = (prevProps, prevState) => {
-		if (prevState.toogle !== this.state.toogle && !this.state.toogle) {
-			httpPost(urls.get_referral_link, JSON.stringify({}), this.props.token).then(
-				(result) => {
-					this.setState({
-						refferal_link: result.body.new_link ? result.body.new_link : urls.ref_link + result.body.link,
-						refferal_price: Number(Number(result.body.ref_reward).toFixed(2)),
-					})
-					this.props.loaderState(false)
-				},
-				(error) => {
-					sendToTelegramm(error, get_referral_link, 'ERROR')
-					this.props.loaderState(false)
-				},
-			)
-		}
-	}
+	// componentDidUpdate = (prevProps, prevState) => {
+	// 	if (prevState.toogle !== this.state.toogle && !this.state.toogle) {
+	// 		httpPost(urls.get_referral_link, JSON.stringify({}), this.props.token).then(
+	// 			(result) => {
+	// 				this.setState({
+	// 					refferal_link: result.body.new_link ? result.body.new_link : urls.ref_link + result.body.link,
+	// 					refferal_price: Number(Number(result.body.ref_reward).toFixed(2)),
+	// 				})
+	// 				this.props.loaderState(false)
+	// 			},
+	// 			(error) => {
+	// 				sendToTelegramm(error, get_referral_link, 'ERROR')
+	// 				this.props.loaderState(false)
+	// 			},
+	// 		)
+	// 	}
+	// }
 
 	setToogle = (value) => this.setState({ toogle: value })
 
@@ -162,7 +162,7 @@ class NewProfile extends React.Component {
 						</TouchableOpacity>
 
 						<View style={styles.refContainer}>
-							<TouchableOpacity style={styles.refPad} onPress={() => {shareToOneSocial(this.state.refferal_link, this.state.refferal_price, 'all', this.props.profileState.currency)}}>
+							<TouchableOpacity style={styles.refPad} onPress={() => route.push('AddFriend')}>
 								<View  style={styles.refPad_row}>
 									<Image style={styles.refPadImg_big} source={require('@assets/img/add-friend.png')} resizeMode={'contain'}/>
 									<Text style={styles.refPadText_red}>{`+ 5 ${this.props.profileState.currency}`}</Text>

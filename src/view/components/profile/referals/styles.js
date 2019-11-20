@@ -73,5 +73,9 @@ export default StyleSheet.create({
     },
     margin: {
         marginVertical: 16
+    },
+    qrContainer: {
+        marginTop: 16,
+        height: width - 32,
     }
 })

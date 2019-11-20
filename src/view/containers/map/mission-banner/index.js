@@ -5,11 +5,11 @@ import styles from './styles'
 import { toHHMMSS } from '@services/convert-time'
 import I18n from "@locales/I18n"
 
-function MissionBanner({ missionState }) {
+function MissionBanner({ missionState, top = 0 }) {
 	return (
 		<React.Fragment>
 			{missionState.process && (
-				<View style={[styles.timer, missionState.inRadius ? styles.timer_start : styles.timer_stop]}>
+				<View style={[styles.timer, missionState.inRadius ? styles.timer_start : styles.timer_stop, {top: top}]}>
 					<Text style={styles.title_text}>{missionState.title}</Text>
 					<Text style={styles.time_text}>{`${toHHMMSS(
 						missionState.inRadius ? missionState.timer : missionState.failTimer,

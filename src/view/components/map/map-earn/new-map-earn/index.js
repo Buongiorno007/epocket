@@ -10,6 +10,7 @@ import styles from './styles'
 import MapEarnButton from '@containers/map/map-earn-button'
 import FooterNavigation from '@containers/footer-navigator/footer-navigator'
 import { getInstaList } from "@reducers/progressTask"
+import sbHeight from "@services/getSBHeight"
 import I18n from '@locales/I18n'
 import route from '@services/route'
 
@@ -51,14 +52,14 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, dispatch }) {
 	}
 
 	return (
-        <View style={[styles.container]}>
-            <ScrollView style={[styles.scrollView]}>
+        <View style={[styles.container, trigger ? null : {paddingBottom: 61}]}>
+            <ScrollView style={[styles.scrollView, trigger ? {marginTop: 0} : null]}>
 				<Text style={[styles.tittle, {marginLeft: 16, marginBottom: 16}, trigger && styles.displayNone]}>{I18n.t('EARN.ON_MAP')}</Text>
                 <View style={trigger ? styles.map_view_big : styles.map_view}>
 					{trigger && <TouchableOpacity style={styles.goBack} onPress={() => setTrigger(!trigger)}>
 						<Image style={styles.goBackImg} source={require('@assets/img/chevron.png')} resizeMode={'contain'}/>
 					</TouchableOpacity>}
-					<MissionBanner />
+					<MissionBanner top={trigger ? sbHeight : 0}/>
                     <ClusteredMapView
                         style={{ flex: 1 }}
                         data={mapPoints.outlets}

@@ -7,7 +7,6 @@ import I18n from '@locales/I18n'
 function MapEarnButton({ img, text, callback, space = false, pub = false, profileState, mallTask, games }) {
     let games_aval = Number(games.available_game_len)
     let game_price = Number(games.award)
-    // let total_games_price = Math.floor(games_aval * game_price)
     let total_games_price = games_aval * game_price
 
 	let posts_aval = Number(mallTask.tasks.length)
@@ -34,7 +33,7 @@ function MapEarnButton({ img, text, callback, space = false, pub = false, profil
 						</Text>
 					) : (
 						<Text style={[styles.text, styles.price_positive]}>
-							{`+ ${total_games_price} ${profileState.currency}`}
+							{`+ ${total_games_price.toFixed(1)} ${profileState.currency}`}
 						</Text>
 					)}
 					{pub && <View style={styles.arrow} />}

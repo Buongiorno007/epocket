@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Text, View, Image, TouchableOpacity } from 'react-native'
 import animation from '@constants/layout'
 import { connect } from 'react-redux'
@@ -6,6 +6,10 @@ import styles from './styles'
 
 function Accordion({ item, pressProduct, profileState }) {
 	const [expanded, setExpanded] = useState(false)
+
+	useEffect(() => {
+		if(item.prod_count === 1) setExpanded(!expanded)		
+	}, []);
 
 	const handleDisplay = () => {
 		animation()
