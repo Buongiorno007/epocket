@@ -65,7 +65,7 @@ function AddFriend({profileState, token,  dispatch}) {
 
             <Text style={styles.text}>{I18n.t('REF_LINK.ADD_SHOW')}</Text>
             <View style={styles.qrContainer}>
-                {refferal_link !== '' && <QRCode value={refferal_link} logo={require('@assets/img/epocket_icon.png')} size={ width - 32 } logoSize={50}/>}
+                {refferal_link !== '' && <QRCode value={refferal_link} size={ width / 2 } logoSize={50}/>}
             </View>
         </View>
 	)

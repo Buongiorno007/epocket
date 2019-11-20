@@ -69,7 +69,7 @@ function DirectlyPost({ progressTask, setPostData, postData, userPhoto, dispatch
             </View>
             <View style={[styles.row, styles.modalButtonContainer]}>              
               <TouchableOpacity onPress={agreed} style={[styles.modalButton]}>
-                <Text style={[styles.modalButtonText, {color: colors.white}]}>{I18n.t('CONTINUE')}</Text>
+                <Text style={[styles.modalButtonText, {color: colors.white}]}>{I18n.t('COPY')}</Text>
               </TouchableOpacity>
             </View>
             <TouchableOpacity onPress={() => setVisible(!visible)} style={styles.modalButtonX}>

@@ -8,6 +8,9 @@ import { setTabState } from "@reducers/tabs"
 import route from "@services/route"
 import { httpPost } from "@services/http"
 import { socialPost } from "@services/post-to-social"
+import { getGameStart } from "@reducers/gameStart"
+import { getGameProcess } from '@reducers/gameProcess'
+
 
 export const checkPostStatus = () => async (dispatch, getState) => {
   const { token, gameResult } = getState()
@@ -16,7 +19,10 @@ export const checkPostStatus = () => async (dispatch, getState) => {
   })
   try {
     await httpPost(urls.post_game, body, token)
-    await route.navigate("Main")
+    await dispatch(getGameStart())
+		await dispatch(getGameProcess())
+		await dispatch(loaderState(false))
+    await route.navigate("Gamee")
   } catch (error) {
     console.log(error, "checkPostStatus ERROR")
     dispatch(loaderState(false))

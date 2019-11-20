@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Rubik-Medium',
         fontSize: 24,
         color: colors.black111,
-        marginVertical: 16
+        marginVertical: 24
     },
     textMedium: {
         fontFamily: 'Rubik-Medium',
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
         color: colors.black111,
     },
     list: {
-        // paddingVertical: 8,
+        paddingVertical: 8,
         marginVertical: 8,
         borderTopWidth: 1,
         borderBottomWidth: 1,
