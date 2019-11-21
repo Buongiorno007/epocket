@@ -65,7 +65,7 @@ class Main extends React.Component {
   componentDidUpdate(prevProps) {
     if (!prevProps.isLocation && this.props.isLocation) this.componentDidMount()
     if (prevProps.activeTab !== 0 && this.props.activeTab === 0) this.props.getGameStart()
-    if (prevProps.activeTab !== 1 && this.props.activeTab === 1) this.props.getPoints()
+    if (prevProps.mapPoints.outlets.length !==  this.props.mapPoints.outlets.length  && this.props.isLocation) this.props.getPoints()
     if (prevProps.game_status === "ticker" && this.props.game_status !== "ticker") this.props.getGameStart()
   }
   componentWillUnmount() {

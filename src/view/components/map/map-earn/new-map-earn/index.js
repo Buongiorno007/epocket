@@ -27,7 +27,7 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, dispatch }) {
 		if (mapPoints.outlets.length) {
 			moveToNearest()
 		}
-	}, [])
+	}, [trigger])
 
 	const renderMarker = (data) => {
 		return <MapEarnMarker key={data.id} data={data} />
