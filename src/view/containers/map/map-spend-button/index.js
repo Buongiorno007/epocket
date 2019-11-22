@@ -1,12 +1,14 @@
 import React from 'react'
-import { View, StyleSheet, Image, TouchableOpacity, Text } from 'react-native'
+import { View, StyleSheet, Image, TouchableOpacity, Text, Dimensions } from 'react-native'
 import { colors } from '@constants/colors'
+
+const { width, height } = Dimensions.get('window')
 
 function MapSpendButton({ img, text, callback, space = false }) {
 	return (
 		<TouchableOpacity style={[styles.touchStyle, space && styles.space]} onPress={callback}>
 			<Image style={styles.img} source={img} />
-			<Text style={styles.text}>{text}</Text>
+			<Text style={styles.text} numberOfLines={1} ellipsizeMode={'tail'}>{text}</Text>
 			<View style={styles.arrow} />
 		</TouchableOpacity>
 	)
@@ -29,6 +31,7 @@ const styles = StyleSheet.create({
 		marginRight: 16,
 	},
 	text: {
+		width: width - 84, 
 		fontFamily: 'Rubik-Regular',
 		fontSize: 14,
 		color: '#404140',

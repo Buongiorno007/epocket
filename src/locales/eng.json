@@ -2,7 +2,8 @@
   "EARN": {
     "GAMES_AVAL" : "questions avaliable",
     "PUB_AVAL" : "publications avaliable",
-    "BRAND_GAMES" : "Игры от брендов",
+    "BRAND_GAMES" : "Games from brands",
+    "POST_INSTA" : "Post to Instagram",
     "ON_MAP" : "Tasks on map",
     "GAMES" : "Games",
     "POSTS" : "Posts in social"
@@ -24,7 +25,8 @@
   "PROFILE": "Profile",
   "CASHOUT": "Cash out",
   "SHOP": "Map",
-  "INSTAGRAM": " Instagram ",
+  "INSTAGRAM": " 
+  gram ",
   "FACEBOOK": " Facebook ",
   "HISTORY": "Wallets",
   "INFO": "Info",
