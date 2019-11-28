@@ -91,6 +91,7 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, dispatch }) {
 						img={require('@assets/img/brand_games_ico.png')}
 						text={I18n.t('EARN.BRAND_GAMES')}
 						callback={() => route.push('Gamepage')}
+						pub={'games'}
 						space
 					/>
                     <Text style={styles.tittle}>{I18n.t('EARN.POSTS')}</Text>
@@ -102,7 +103,30 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, dispatch }) {
 							route.push('InstaPost')
 						}}
 						space
-						pub
+						pub={'publications'}
+						arrow
+					/>
+
+					<Text style={styles.tittle}>{I18n.t('EARN.REFERAL')}</Text>
+					<MapEarnButton 
+						img={require('@assets/img/invite-friend-ico.png')}
+						text={I18n.t('REF_LINK.ADD_FRIEND2')}
+						callback={() => {
+							route.push('AddFriend')
+						}}
+						space
+						pub={'advert_friend'}
+						arrow
+					/>
+					<MapEarnButton 
+						img={require('@assets/img/invite-advert-ico.png')}
+						text={I18n.t('REF_LINK.ADD_ADVERT2')}
+						callback={() => {
+							route.push('AddAdvert')
+						}}
+						space
+						pub={'advert_advert'}
+						arrow
 					/>
                 </View> 
             </ScrollView>

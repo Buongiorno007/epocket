@@ -6,7 +6,8 @@
     "POST_INSTA" : "Post to Instagram",
     "ON_MAP" : "Tasks on map",
     "GAMES" : "Games",
-    "POSTS" : "Posts in social"
+    "POSTS" : "Posts in social",
+    "REFERAL" : "Referral system"
   },
   "NAVIGATION" : {
     "EARN" : "Earn",
@@ -25,8 +26,7 @@
   "PROFILE": "Profile",
   "CASHOUT": "Cash out",
   "SHOP": "Map",
-  "INSTAGRAM": " 
-  gram ",
+  "INSTAGRAM": "Instagram ",
   "FACEBOOK": " Facebook ",
   "HISTORY": "Wallets",
   "INFO": "Info",
@@ -356,9 +356,10 @@
     "ADD_ADVERT2" : "Invite advertiser",
     "ADD_WITH" : "Invite with",
     "ADD_SHOW" : "Show to a friend",
-    "CASHBACK" : "cashback every month",
+    "CASHBACK" : "cashback 1% every month",
     "GET_EPC": "for friend",
     "FOR_YOU_AND_YOUR_FRIEND": "{{currency}} to you and your friend \nfor invitation",
+    "FOR_YOU_AND_YOUR_FRIEND2": "to you and your friend",
     "COPY": "copy link",
     "FACEBOOK": "Facebook",
     "FACEBOOK_MESSENGER": "Facebook Messenger",

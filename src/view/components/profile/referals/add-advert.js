@@ -24,7 +24,7 @@ function AddAdvert({profileState}) {
                 <Image style={styles.addImg} source={require('@assets/img/add-advert-white.png')} resizeMode={'contain'}/>
                 <View>
                     <Text style={styles.addText}>{`+ $ 50`}</Text>
-                    <Text style={styles.addText}>{`+ 1% ${I18n.t('REF_LINK.CASHBACK')}`}</Text>
+                    <Text style={styles.addText}>{`+${I18n.t('REF_LINK.CASHBACK')}`}</Text>
                 </View>
             </View>
 

@@ -6,7 +6,8 @@
     "POST_INSTA" : "Пост в Instagram",
     "ON_MAP" : "Задания на карте",
     "GAMES" : "Игры",
-    "POSTS" : "Посты в соцсетях"
+    "POSTS" : "Посты в соцсетях",
+    "REFERAL" : "Реферальная система"
   },
   "NAVIGATION" : {
     "EARN" : "Зарабатывай",
@@ -355,9 +356,10 @@
     "ADD_ADVERT2" : "Пригласи рекламодателя",
     "ADD_WITH" : "Пригласи с помощью",
     "ADD_SHOW" : "Покажи другу",
-    "CASHBACK" : "кешбек каждый месяц",
+    "CASHBACK" : "кешбек 1% каждый месяц",
     "GET_EPC": "за друга",
     "FOR_YOU_AND_YOUR_FRIEND": "{{currency}} тебе и другу\n за приглашение",
+    "FOR_YOU_AND_YOUR_FRIEND2": "тебе и другу",
     "COPY": "Копировать ссылку",
     "FACEBOOK": "Facebook",
     "FACEBOOK_MESSENGER": "Facebook Messenger",

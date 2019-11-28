@@ -21,6 +21,7 @@ export default StyleSheet.create({
 	scroll: {
 		flex: 1,
 		paddingHorizontal: 16,
+		paddingBottom: 16
 		// paddingVertical: 16,
 	},
 	map_view: {

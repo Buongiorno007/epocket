@@ -1,10 +1,12 @@
 import React from 'react'
-import { View, StyleSheet, Image, TouchableOpacity, Text } from 'react-native'
+import { View, StyleSheet, Image, TouchableOpacity, Text, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
 import { colors } from '@constants/colors'
 import I18n from '@locales/I18n'
 
-function MapEarnButton({ img, text, callback, space = false, pub = false, profileState, mallTask, games }) {
+const { width } = Dimensions.get('window')
+
+function MapEarnButton({ img, text, callback, space = false, pub , arrow = false, profileState, mallTask, games }) {
     let games_aval = Number(games.available_game_len)
     let game_price = Number(games.award)
     let total_games_price = games_aval * game_price
@@ -18,25 +20,29 @@ function MapEarnButton({ img, text, callback, space = false, pub = false, profil
 		<TouchableOpacity style={[styles.touchStyle, space && styles.space]} onPress={callback}>
 			<Image style={styles.img} source={img} />
 			<View>
-				<Text style={styles.text}>{text}</Text>			
-				{pub ? (
+				<Text style={[styles.text, {width: (width - 30) / 2}]} ellipsizeMode={'tail'} numberOfLines={1}>{text}</Text>
+				{pub === 'games' && <Text style={styles.textSmall}>{`${games_aval} ${I18n.t('EARN.GAMES_AVAL')}`}</Text>}			
+				{pub === 'publications' && <Text style={styles.textSmall}>{`${posts_aval} ${I18n.t('EARN.PUB_AVAL')}`}</Text>}			
+				{pub === 'advert_friend' && <Text style={styles.textSmall}>{`+5 ${profileState.currency} ${I18n.t('REF_LINK.FOR_YOU_AND_YOUR_FRIEND2')}`}</Text>}			
+				{pub === 'advert_advert' && <Text style={styles.textSmall}>{`+${I18n.t('REF_LINK.CASHBACK')}`}</Text>}			
+				{/* {pub ? (
 					<Text style={styles.textSmall}>{`${posts_aval} ${I18n.t('EARN.PUB_AVAL')}`}</Text>
 				) : (
 					<Text style={styles.textSmall}>{`${games_aval} ${I18n.t('EARN.GAMES_AVAL')}`}</Text>
-				)}
+				)} */}
 			</View>
 			<View style={styles.priceContainer}>
 				<View style={styles.price}>
-					{pub ? (
-						<Text style={[styles.text, styles.price_positive]}>
-							{`+ ${post_price} ${profileState.currency}`}
-						</Text>
+				{pub === 'games' && <Text style={[styles.text, styles.price_positive]}>{`+ ${total_games_price.toFixed(1)} ${profileState.currency}`}</Text>}			
+				{pub === 'publications' && <Text style={[styles.text, styles.price_positive]}>{`+ ${post_price} ${profileState.currency}`}</Text>}			
+				{pub === 'advert_friend' && <Text style={[styles.text, styles.price_positive]}>{`+ 5 ${profileState.currency}`}</Text>}			
+				{pub === 'advert_advert' && <Text style={[styles.text, styles.price_positive]}>{`+ 50$`}</Text>}			
+					{/* {pub ? (
+						<Text style={[styles.text, styles.price_positive]}>{`+ ${post_price} ${profileState.currency}`}</Text>
 					) : (
-						<Text style={[styles.text, styles.price_positive]}>
-							{`+ ${total_games_price.toFixed(1)} ${profileState.currency}`}
-						</Text>
-					)}
-					{pub && <View style={styles.arrow} />}
+						<Text style={[styles.text, styles.price_positive]}>{`+ ${total_games_price.toFixed(1)} ${profileState.currency}`}</Text>
+					)} */}
+					{arrow && <View style={styles.arrow} />}
 				</View>
 			</View>
 		</TouchableOpacity>
