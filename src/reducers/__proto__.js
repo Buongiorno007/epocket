@@ -27,6 +27,7 @@ export const GAME_START = function(data = {}) {
   this.games_count = `${data.games_count}` || ""
   this.available_game_len = `${data.available_game_len}` || ""
   this.award = `${data.award}` || ""
+  this.award_total = data.award_total || 0
 }
 
 export const GAME_PROCESS = function(data = {}) {

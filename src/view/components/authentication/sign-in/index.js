@@ -98,7 +98,7 @@ class SignIn extends React.PureComponent {
 							handler={this.handleSignIn}
 							title={I18n.t('SIGN_IN').toUpperCase()}
 						/> */}
-            <Button full rounded style={[styles.button, accept ? styles.red : styles.gray]} onPress={this.handleSignIn}>
+            <Button full rounded style={[styles.button, accept ? styles.red : styles.gray]} onPress={this.handleSignIn} disabled={!accept}>
               <Text style={[styles.text, accept && styles.white_t]}>{I18n.t("SIGN_IN").toUpperCase()}</Text>
             </Button>
           </ScrollView>

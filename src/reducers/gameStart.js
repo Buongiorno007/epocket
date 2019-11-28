@@ -30,6 +30,7 @@ export const getGameStart = () => async (dispatch, getState) => {
 	dispatch(loaderState(true))
 	try {
 		const response = await httpGet(urls.new_game_get + '?coords=' + lat + '%2C' + lng, token)
+		console.log(response, 'GAMESSSSS')
 		if (response.body.type === 'game') {
 			await dispatch(saveGameResult(new GAME_RESULT(response.body)))
 			route.navigate('GameFailed')
