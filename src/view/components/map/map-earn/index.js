@@ -67,7 +67,7 @@ function MapEarn({ profileState, mapPoints, lat, lng }) {
 						longitude: lng,
 					}}
 				>
-					<Image style={{ width: 40, height: 40 }} source={require('@assets/img/smile.png')} />
+					<Image style={{ width: 40, height: 40, borderRadius: 20 }} source={{uri: 'data:image/png;base64,' + profileState.photo}} />
 				</Marker>
 			</ClusteredMapView>
 		</View>

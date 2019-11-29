@@ -10,7 +10,7 @@ import MapHeaderPink from '@containers/map/map-header-pink'
 import { findNearest, getDistance } from 'geolib'
 import I18n from '@locales/I18n'
 
-function MapPlaces({ lat, lng, mapPoints }) {
+function MapPlaces({ lat, lng, mapPoints, profileState }) {
 	const region = {
 		latitude: lat,
 		longitude: lng,
@@ -69,7 +69,7 @@ function MapPlaces({ lat, lng, mapPoints }) {
 						longitude: lng,
 					}}
 				>
-					<Image style={{ width: 40, height: 40 }} source={require('@assets/img/smile.png')} />
+					<Image style={{ width: 40, height: 40, borderRadius: 20 }} source={{uri: 'data:image/png;base64,' + profileState.photo}} />
 				</Marker>
 			</ClusteredMapView>
 			<Basket />

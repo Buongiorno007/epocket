@@ -38,7 +38,7 @@ function MapEarnMarker({ profileState, data, missionState, lat, lng, mapPoints, 
     <View>
       <Marker coordinate={data.location} onPress={() => dispatch(getMallPoint(data.id))}>
         <View style={styles.container}>
-          <Image style={styles.img} source={returnLogo()} />
+          <View style={styles.imageBorder}><Image style={styles.img} source={returnLogo()} /></View>
           <View style={styles.text_view}>
             <Text style={styles.text}>{`${data.price} ${profileState.currency}`}</Text>
           </View>

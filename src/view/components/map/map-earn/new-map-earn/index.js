@@ -14,7 +14,7 @@ import sbHeight from "@services/getSBHeight"
 import I18n from '@locales/I18n'
 import route from '@services/route'
 
-function NewMapEarn({ profileState, mapPoints, lat, lng, dispatch }) {
+function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, dispatch }) {
 	const [trigger, setTrigger] = useState(false)
 	const region = {
 		latitude: lat,
@@ -51,6 +51,11 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, dispatch }) {
 		}
 	}
 
+	let games_aval = Number(games.available_game_len)
+	console.log('games.available_game_len',games.available_game_len)
+	console.log('games_aval',games_aval)
+	let posts_aval = Number(mallTask.tasks.length)
+
 	return (
         <View style={[styles.container, trigger ? null : {paddingBottom: 61}]}>
             <ScrollView style={[styles.scrollView, trigger ? {marginTop: 0} : null]}>
@@ -80,32 +85,42 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, dispatch }) {
                                 longitude: lng,
                             }}
                         >
-                            <Image style={{ width: 40, height: 40 }} source={require('@assets/img/smile.png')} />
+                            <Image style={{ width: 40, height: 40, borderRadius: 20 }} source={{uri: 'data:image/png;base64,' + profileState.photo}} />
                         </Marker>
                     </ClusteredMapView>
 					{!trigger && <TouchableOpacity style={[styles.touchMap]} onPress={() => setTrigger(!trigger)}></TouchableOpacity>}
                 </View>
                 <View style={[styles.scroll, trigger && styles.displayNone]}>
-                    <Text style={styles.tittle}>{I18n.t('EARN.GAMES')}</Text>
-                    <MapEarnButton 
-						img={require('@assets/img/brand_games_ico.png')}
-						text={I18n.t('EARN.BRAND_GAMES')}
-						callback={() => route.push('Gamepage')}
-						pub={'games'}
-						space
-					/>
-                    <Text style={styles.tittle}>{I18n.t('EARN.POSTS')}</Text>
-                    <MapEarnButton 
-						img={require('@assets/img/post_insta_ico.png')}
-						text={I18n.t('EARN.POST_INSTA')}
-						callback={() => {
-							// dispatch(getInstaList())
-							route.push('InstaPost')
-						}}
-						space
-						pub={'publications'}
-						arrow
-					/>
+					{games_aval > 0 && (
+						<>
+							<Text style={styles.tittle}>{I18n.t('EARN.GAMES')}</Text>
+							<MapEarnButton 
+								img={require('@assets/img/brand_games_ico.png')}
+								text={I18n.t('EARN.BRAND_GAMES')}
+								callback={() => route.push('Gamepage')}
+								pub={'games'}
+								space
+							/>
+						</>
+					)}
+					{posts_aval > 0 && (
+						<>
+							<Text style={styles.tittle}>{I18n.t('EARN.POSTS')}</Text>
+							<MapEarnButton 
+								img={require('@assets/img/post_insta_ico.png')}
+								text={I18n.t('EARN.POST_INSTA')}
+								callback={() => {
+									// dispatch(getInstaList())
+									route.push('InstaPost')
+								}}
+								space
+								pub={'publications'}
+								arrow
+							/>
+						</>
+					)}
+                    
+                    
 
 					<Text style={styles.tittle}>{I18n.t('EARN.REFERAL')}</Text>
 					<MapEarnButton 
@@ -141,6 +156,8 @@ const mapStateToProps = (state) => {
 		lat: state.location.coordinate.lat,
 		lng: state.location.coordinate.lng,
 		profileState: state.profileState,
+		games: state.gameStart,
+		mallTask: state.mallTask
 	}
 }
 

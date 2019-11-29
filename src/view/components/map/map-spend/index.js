@@ -53,7 +53,7 @@ function MapSpend({ lat, lng, mapPoints, wallet, profileState }) {
 								longitude: lng,
 							}}
 						>
-							<Image style={{ width: 40, height: 40 }} source={require('@assets/img/smile.png')} />
+							<Image style={{ width: 40, height: 40, borderRadius: 20 }} source={{uri: 'data:image/png;base64,' + profileState.photo}} />
 						</Marker>
 					</ClusteredMapView>
 					<TouchableOpacity style={styles.touchMap} onPress={() => route.push('MapPlaces')}></TouchableOpacity>
