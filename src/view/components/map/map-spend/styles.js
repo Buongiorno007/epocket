@@ -120,5 +120,15 @@ export default StyleSheet.create({
 		width: 40, 
 		height: 40, 
 		borderRadius: 20
+	},
+	markerOutline: {
+		width: 48,
+		height: 48,
+		borderRadius: 24,
+		borderWidth: 2,
+		borderColor: colors.black111,
+		backgroundColor: colors.white,
+		justifyContent: 'center',
+		alignItems: 'center'
 	}
 })

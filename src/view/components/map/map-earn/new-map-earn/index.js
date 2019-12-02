@@ -85,7 +85,7 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, dispat
                                 longitude: lng,
                             }}
                         >
-                            <Image style={{ width: 40, height: 40, borderRadius: 20 }} source={{uri: 'data:image/png;base64,' + profileState.photo}} />
+                            <View style={styles.markerOutline}><Image style={{ width: 40, height: 40, borderRadius: 20 }} source={{uri: 'data:image/png;base64,' + profileState.photo}} /></View>
                         </Marker>
                     </ClusteredMapView>
 					{!trigger && <TouchableOpacity style={[styles.touchMap]} onPress={() => setTrigger(!trigger)}></TouchableOpacity>}

@@ -126,5 +126,15 @@ export default StyleSheet.create({
 	goBackImg: {
 		width: 30,
 		height: 50,
+	},
+	markerOutline: {
+		width: 48,
+		height: 48,
+		borderRadius: 24,
+		borderWidth: 2,
+		borderColor: colors.black111,
+		backgroundColor: colors.white,
+		justifyContent: 'center',
+		alignItems: 'center'
 	}
 })
