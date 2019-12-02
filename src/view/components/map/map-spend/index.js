@@ -8,6 +8,7 @@ import route from '@services/route'
 import Basket from '@containers/basket' 
 import MapSpendButton from '@containers/map/map-spend-button'
 import FooterNavigation from '@containers/footer-navigator/footer-navigator'
+import { findNearest, getDistance } from 'geolib'
 import styles from './styles'
 import I18n from '@locales/I18n'
 
@@ -19,12 +20,39 @@ function MapSpend({ lat, lng, mapPoints, wallet, profileState }) {
 		longitudeDelta: 0.006,
 	}
 
+	useEffect(() => {
+		if (mapPoints.cashouts.length) {
+			moveToNearest()
+		}
+	}, [])
+
 	const renderMarker = (data) => {
+		console.log(data, 'RENDERMARKER')
 		return (
 			<Marker key={data.id} coordinate={data.location}>
-				<Image style={{ width: 10, height: 10 }} source={require('@assets/img/spend.png')} />
+				<View style={styles.markerOuter}>
+					<Image style={styles.markerImage} source={{uri: data.photo}} />
+				</View>
 			</Marker>
 		)
+	}
+
+	const moveToNearest = () => {
+		let nearestMall = findNearest(region, mapPoints.cashouts)
+		let distance = getDistance(region, nearestMall)
+		if (distance > 0 && this.map) {
+			setTimeout(() => {
+				this.map.getMapRef().animateToRegion(
+					{
+						latitude: lat,
+						longitude: lng,
+						latitudeDelta: 0.000032 * distance,
+						longitudeDelta: 0.000032 * distance,
+					},
+					500,
+				)
+			}, 500)
+		}
 	}
 
 	return (
@@ -40,6 +68,9 @@ function MapSpend({ lat, lng, mapPoints, wallet, profileState }) {
 						style={styles.map}
 						data={mapPoints.cashouts}
 						initialRegion={region}
+						ref={(r) => {
+							this.map = r
+						}}
 						provider={Platform.OS === 'ios' ? PROVIDER_GOOGLE : null}
 						renderMarker={renderMarker}
 						animateClusters={false}

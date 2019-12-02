@@ -104,5 +104,21 @@ export default StyleSheet.create({
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		paddingRight: 16
+	},
+	markerOuter: {
+		padding: 8,
+		width: 48,
+		height: 48,
+		backgroundColor: 'white',
+		borderWidth: 2,
+		borderColor: colors.blood_red,
+		borderRadius: 24,
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	markerImage: {
+		width: 40, 
+		height: 40, 
+		borderRadius: 20
 	}
 })
