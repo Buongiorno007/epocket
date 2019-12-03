@@ -4,6 +4,7 @@ import { httpPost } from "@services/http"
 import route from "@services/route"
 import moment from "moment-timezone"
 import { loaderState } from "./loader"
+import { triggerInfoSet } from "@reducers/map-earn-trigger-infobox"
 
 const SET_POINT = "[mallPoint] SET_POINT"
 
@@ -34,7 +35,8 @@ export const getMallPoint = (id) => async (dispatch, getState) => {
       console.log('getMallPoint',urls.new_mission_list, response)
       dispatch(setPoint(new MALLPOINT(response.body)))
       dispatch(loaderState(false))
-      route.navigate("MallPoint")
+      dispatch(triggerInfoSet(true))
+      // route.navigate("MallPoint")
     } catch (e) {
       console.log(e, "getEarnPoint catch(e)")
       dispatch(loaderState(false))
