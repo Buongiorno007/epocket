@@ -36,7 +36,7 @@ function MapEarnMarker({ profileState, data, missionState, lat, lng, mapPoints, 
 
   return (
     <View>
-      <Marker coordinate={data.location} onPress={() => dispatch(getMallPoint(data.id))}>
+      <Marker coordinate={data.location} style={{zIndex: 1}} onPress={() => dispatch(getMallPoint(data.id))}>
         <View style={styles.container}>
           <View style={styles.imageBorder}><Image style={styles.img} source={returnLogo()} /></View>
           <View style={styles.text_view}>

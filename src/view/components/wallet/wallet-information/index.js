@@ -17,7 +17,7 @@ function WalletInformation({navigation, profileState}) {
 	return(
 		<View style={styles.container}>
 			<MapTaskHeader title={I18n.t('WALLET.DETAILS')} noinfo/>
-			<MapTaskLogo logo={item.image} title={item.trade_point_name} time={date} />	
+			<MapTaskLogo logo={item.image} title={item.trade_point_name} time={date} outline/>	
 			<FlatList 
 				style={{}}
 				data={item.info}

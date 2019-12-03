@@ -12,7 +12,7 @@ export default StyleSheet.create({
 		padding: 2, 
 		width: 48, 
 		height: 48, 
-		backgroundColor: 'white', 
+		backgroundColor: colors.transparent, 
 		justifyContent: 'center', 
 		alignItems: 'center',
 		overflow: 'hidden'

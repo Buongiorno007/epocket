@@ -53,7 +53,7 @@ export default class ClusterMarker extends Component {
 		const { clusterText, noPrice } = this.props
 
 		return (
-			<Marker coordinate={{ latitude, longitude }} onPress={this.onPress}>
+			<Marker coordinate={{ latitude, longitude }} style={{zIndex: 11}} onPress={this.onPress}>
 				<View style={styles.container}>
 					<Image style={styles.image} source={require('@assets/img/epocket_icon.png')} />
 					{!noPrice && (

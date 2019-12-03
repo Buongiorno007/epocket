@@ -14,11 +14,20 @@ export default StyleSheet.create({
 		borderTopColor: colors.gray_e5,
 		paddingTop: 16
 	},
+	imageOutline: {
+		width: width * 0.14,
+		height: width * 0.14,
+		borderRadius: width * 0.07,
+		borderWidth: 2,
+		borderColor: colors.black111,
+		justifyContent: 'center',
+		alignItems: 'center',
+		marginRight: 16,
+	},
 	circle: {
 		width: width * 0.12,
 		height: width * 0.12,
 		borderRadius: width * 0.06,
-		marginRight: 16,
 	},
 	titles: {
 		flex: 1,
