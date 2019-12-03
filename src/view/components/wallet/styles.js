@@ -8,7 +8,9 @@ const { height } =
 export default StyleSheet.create({
   container: {
     // flex: 1,
-    height: Platform.OS === 'android' ? height - 48 : height,
+    height: '100%',
+    // height: Dimensions.get("window").height,
+    // height: Platform.OS === 'android' ? height - 48 : height,
     backgroundColor: "#F5F9FE",
   },
   content: {

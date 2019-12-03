@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState} from "react"
 import { View, Text, ScrollView, ImageBackground, Image } from "react-native"
 import MapHeaderWhite from "@containers/map/map-header-white"
 import MapTaskHeader from "@containers/map/map-task-header"
@@ -8,6 +8,9 @@ import MallItem from "@containers/mall"
 import I18n from '@locales/I18n'
 
 function MallPoint({ mallPoint }) {
+  
+  const [index, setIndex] = useState(0)
+
   const renderBlock = (element, title) => {
     console.log('renderblock', element)
     return (
@@ -21,12 +24,48 @@ function MallPoint({ mallPoint }) {
       </View>
     )
   }
+
+  const images = [
+    'https://epc.splinestudio.com/static/outlet_photo/Icon_512.png',
+    'https://epc.splinestudio.com/static/outlet_photo/Icon_512.png',
+    'https://epc.splinestudio.com/static/outlet_photo/Icon_512.png',
+    'https://epc.splinestudio.com/static/outlet_photo/Icon_512.png',
+    'https://epc.splinestudio.com/static/outlet_photo/Icon_512.png',
+    'https://epc.splinestudio.com/static/outlet_photo/Icon_512.png',
+    'https://epc.splinestudio.com/static/outlet_photo/Icon_512.png',
+    'https://epc.splinestudio.com/static/outlet_photo/Icon_512.png',
+    'https://epc.splinestudio.com/static/outlet_photo/Icon_512.png',
+    'https://epc.splinestudio.com/static/outlet_photo/Icon_512.png',
+    'https://epc.splinestudio.com/static/outlet_photo/Icon_512.png',
+    'https://epc.splinestudio.com/static/outlet_photo/Icon_512.png',
+    'https://epc.splinestudio.com/static/outlet_photo/Icon_512.png',
+  ]
   return (
     <View style={styles.container}>
       {/* <MapHeaderWhite title={mallPoint.title} toTop/> */}
       <MapTaskHeader title={mallPoint.title} noinfo goMain/>
       <View style={styles.imageContainer}> 
-        <Image style={{flex: 1}} source={{ uri: mallPoint.image }} resizeMode={'cover'}/>
+        <ScrollView
+          style={{flex: 1}}
+          horizontal //scrolling left to right instead of top to bottom
+          showsHorizontalScrollIndicator={false} //hides native scrollbar
+          scrollEventThrottle={10} //how often we update the position of the indicator bar
+          pagingEnabled //scrolls from one image to the next, instead of allowing any value inbetween
+
+          onLayout={event => {
+            this.frameWidth = event.nativeEvent.layout.width;
+          }}
+          onScroll={event => { 
+            this.xOffset = event.nativeEvent.contentOffset.x;
+            const index = Math.round(this.xOffset / this.frameWidth)
+            setIndex(index)
+          }}
+        >
+          {images.map((item, index) => <Image style={styles.image} source={{ uri: item }} resizeMode={'cover'} key={index}/>)}
+        </ScrollView>
+        {images.length > 1 && <View style={styles.dotsContainer}>
+          {images.map((it, ind) => <View style={[styles.dots, {backgroundColor: ind === index ? 'white' : 'rgba(255,255,255, 0.30)'}]}></View>)}
+        </View>}
       </View>
       <View style={{ alignItems: "center" }}>
           <Text style={styles.subtitle}>{mallPoint.address}</Text>

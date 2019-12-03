@@ -19,7 +19,7 @@ function InstaPost({profileState, mallTask, dispatch}) {
     console.log(tasks, 'ttttaaasss')
 
     return(     
-        <View style={{height: Platform.OS === 'android' ? height - 48 : height,}}>
+        <View style={{height: '100%'}}>
             <MapTaskHeader title={I18n.t('EARN.POST_INSTA')} noinfo goMain/>
             <ScrollView>
                 <View style={{flexDirection: 'row', flexWrap: 'wrap', alignContent: 'space-around', alignItems: 'center', justifyContent: 'space-between', paddingTop: 16}}>

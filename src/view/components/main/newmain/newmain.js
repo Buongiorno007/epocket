@@ -1,5 +1,5 @@
 import React from "react"
-import { View, BackHandler, AppState } from "react-native"
+import { View, BackHandler, AppState, Dimensions } from "react-native"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 //components
@@ -25,6 +25,7 @@ import NewMapEarn from '@components/map/map-earn/new-map-earn'
 import MapSpend from '@components/map/map-spend'
 import { getHistory } from "@reducers/wallet"
 import { getInstaList } from "@reducers/progressTask"
+import sbHeight from "@services/getSBHeight"
 
 class Main extends React.Component {
   state = {
@@ -75,15 +76,18 @@ class Main extends React.Component {
   
 
   render() {
+    const screenHeight = Dimensions.get('screen').height
+	  const windowHeight = Dimensions.get('window').height
+
     return (
-      <View style={styles.main_view}>
-        <View style={styles.content}>
+      <View style={[screenHeight !== windowHeight ? {height: screenHeight} : {height: windowHeight}]}>
+        {/* <View style={{borderWidth: 1, borderColor: 'green'}}> */}
           {this.props.activeTab === 0 && <NewMapEarn />}
           {this.props.activeTab === 1 && <MapSpend />}
           {this.props.activeTab === 2 && <Wallet />}
           {/* {this.props.activeTab === 3 && <Profile />} */}
           {this.props.activeTab === 3 && <NewProfile />}
-        </View>
+        {/* </View> */}
 
         {/* {this.props.timerShow &&
           this.props.timer_status &&

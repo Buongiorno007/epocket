@@ -9,9 +9,11 @@ const height =
 
 export default StyleSheet.create({
 	container: {
-		height: Platform.OS === 'android' ? height - 48 : height,
+		height: '100%'
+		// height: Dimensions.get('window').height,
+		// height: Platform.OS === 'android' ? height - 48 : height,
 	},
-    scrollView:{
+    marginTop:{
         marginTop: sbHeight,
     },
 	linear: {
@@ -133,8 +135,39 @@ export default StyleSheet.create({
 		borderRadius: 24,
 		borderWidth: 2,
 		borderColor: colors.black111,
-		backgroundColor: colors.white,
+		backgroundColor: colors.transparent,
 		justifyContent: 'center',
 		alignItems: 'center'
+	},
+	infobox: {
+		position: 'absolute', 
+		left: 16,
+		right: 16,
+		bottom: 60, 
+		backgroundColor: 'white', 
+		borderRadius: 10, 
+		padding: 10
+	},
+	infobox_image: { 
+		width: 48, 
+		height: 48, 
+		borderRadius: 24, 
+	},
+	infobox_image_outline: {
+		width: 56,
+		height: 56,
+		backgroundColor: colors.transparent,
+		borderWidth: 2,
+		borderColor: colors.blood_red,
+		borderRadius: 28,
+		justifyContent: 'center',
+		alignItems: 'center',
+		marginRight: 16 
+	},
+	infobox_title: {
+		fontFamily: 'Rubik-Medium',
+		fontSize: 14,
+		color: colors.black111
 	}
+
 })

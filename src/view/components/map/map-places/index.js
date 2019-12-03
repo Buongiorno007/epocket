@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { View, Platform, Image } from 'react-native'
+import { View, Platform, Image, TouchableOpacity, Text } from 'react-native'
 import { connect } from 'react-redux'
 import ClusteredMapView from '../../../../native_modules/react-native-maps-super-cluster'
 import { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
@@ -9,8 +9,9 @@ import MapSpendMarker from '@containers/map/map-spend-marker'
 import MapHeaderPink from '@containers/map/map-header-pink'
 import { findNearest, getDistance } from 'geolib'
 import I18n from '@locales/I18n'
+import route from '@services/route'
 
-function MapPlaces({ lat, lng, mapPoints, profileState }) {
+function MapPlaces({ lat, lng, mapPoints, profileState, storePoint, triggerInfoSp }) {
 	const region = {
 		latitude: lat,
 		longitude: lng,
@@ -68,10 +69,20 @@ function MapPlaces({ lat, lng, mapPoints, profileState }) {
 						latitude: lat,
 						longitude: lng,
 					}}
+					style={{zIndex: 10}}
 				>
-					<Image style={{ width: 40, height: 40, borderRadius: 20 }} source={{uri: 'data:image/png;base64,' + profileState.photo}} />
+					<View style={styles.markerOutline}><Image style={{ width: 40, height: 40, borderRadius: 20 }} source={{uri: 'data:image/png;base64,' + profileState.photo}} /></View>
 				</Marker>
 			</ClusteredMapView>
+
+			{triggerInfoSp && <TouchableOpacity style={styles.infobox} onPress={() => route.push('StorePoint')}>
+					<View style={{flexDirection: 'row'}}>
+						<View style={styles.infobox_image_outline}><Image style={styles.infobox_image} source={{uri: storePoint.image}}/></View>
+						<Text style={styles.infobox_title}>{`${storePoint.title}`}</Text>
+					</View>
+					<Text>{`${storePoint.address}`}</Text>
+			</TouchableOpacity>}
+
 			<Basket />
 		</View>
 	)
@@ -83,6 +94,8 @@ const mapStateToProps = (state) => {
 		lat: state.location.coordinate.lat,
 		lng: state.location.coordinate.lng,
 		profileState: state.profileState,
+		storePoint: state.storePoint,
+		triggerInfoSp: state.triggerInfoSp
 	}
 }
 

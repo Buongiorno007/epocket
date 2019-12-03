@@ -6,6 +6,9 @@ const { width, height } = Dimensions.get("window")
 const platform = Platform.OS
 let isIphoneX = platform === "ios" && height === 812 && width === 375
 
+const screenHeight = Dimensions.get('screen').height
+const windowHeight = Dimensions.get('window').height
+
 export default StyleSheet.create({
   footer_container: {
     width: width,
@@ -15,7 +18,7 @@ export default StyleSheet.create({
     alignItems: "flex-end",
     position: "absolute",
     backgroundColor: colors.white,
-    bottom: 0,
+    bottom: screenHeight !== windowHeight ? 48 : 0,
     zIndex: 999,
     marginBottom: isIphoneX ? 20 : 0
   },

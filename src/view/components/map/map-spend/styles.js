@@ -14,7 +14,9 @@ export default StyleSheet.create({
 	// 	backgroundColor: colors.map_gray
 	// },
 	container: {
-		height: Platform.OS === 'android' ? height - 48 : height,
+		height: '100%',
+		// height: Dimensions.get('window').height,
+		// height: Platform.OS === 'android' ? height - 48 : height,
 		paddingBottom: 61
     },
 	linear: {
@@ -109,7 +111,7 @@ export default StyleSheet.create({
 		padding: 8,
 		width: 48,
 		height: 48,
-		backgroundColor: 'white',
+		backgroundColor: colors.transparent,
 		borderWidth: 2,
 		borderColor: colors.blood_red,
 		borderRadius: 24,
@@ -127,7 +129,7 @@ export default StyleSheet.create({
 		borderRadius: 24,
 		borderWidth: 2,
 		borderColor: colors.black111,
-		backgroundColor: colors.white,
+		backgroundColor: colors.transparent,
 		justifyContent: 'center',
 		alignItems: 'center'
 	}

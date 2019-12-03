@@ -10,7 +10,9 @@ const height =
 export default StyleSheet.create({
 	main_view: {
 		width,
-		height: Platform.OS === 'android' ? height - 48 : height,
+		height: '100%',
+		// height: Dimensions.get('window').height,
+		// height: Platform.OS === 'android' ? height - 48 : height,
 		alignItems: 'center',
 		justifyContent: 'center',
 		backgroundColor: colors.white,
