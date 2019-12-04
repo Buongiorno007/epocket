@@ -5,6 +5,7 @@ import android.app.Application;
 import com.facebook.CallbackManager;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.ReactApplication;
+import com.psykar.cookiemanager.CookieManagerPackage;
 import com.reactnativecommunity.imageeditor.ImageEditorPackage;
 import com.brentvatne.react.ReactVideoPackage;
 import cl.json.RNSharePackage;
@@ -24,7 +25,6 @@ import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.levelasquez.androidopensettings.AndroidOpenSettingsPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.rnfs.RNFSPackage;
-import com.psykar.cookiemanager.CookieManagerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.marianhello.bgloc.react.BackgroundGeolocationPackage;
 
@@ -78,7 +78,8 @@ public class MainApplication extends Application implements ShareApplication, Re
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new ImageEditorPackage(),
+                    new CookieManagerPackage(),
+                    new ImageEditorPackage(),
                     new ReactVideoPackage(),
                     new AsyncStoragePackage(),
                     new RNCWebViewPackage(),
