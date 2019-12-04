@@ -6,8 +6,10 @@ export default StyleSheet.create({
 		flex: 1,
 	},
 	image: {
-		width,
-		height: width * 0.8,
+		width: width - 32,
+		height: '100%',
+		// width,
+		// height: width * 0.8,
 	},
 	opacity: {
 		flex: 1,
@@ -83,5 +85,28 @@ export default StyleSheet.create({
 		color: '#fff',
 		fontFamily: 'Rubik-Medium',
 		fontSize: 14,
+	},
+	imageContainer: {
+		position: 'relative',
+		width: width - 32,
+		height: (width - 32) * 0.55,
+		marginHorizontal: 16,
+		borderRadius: 12,
+		marginVertical: 8,
+		overflow: 'hidden',
+	},
+	dotsContainer: {
+		flexDirection: 'row',
+		justifyContent: 'center',
+		position: 'absolute',
+		bottom: 10,
+		left: 0,
+		right: 0,
+	},
+	dots: {
+		width: 10,
+		height: 10,
+		borderRadius: 5,
+		marginLeft: 10,
 	},
 })

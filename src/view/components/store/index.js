@@ -30,6 +30,39 @@ function StorePoint({ storePoint, profileState, dispatch }) {
 
 	return (
 		<View style={styles.container}>
+			<View style={styles.imageContainer}>
+		<ScrollView
+			style={{ flex: 1 }}
+			horizontal //scrolling left to right instead of top to bottom
+			showsHorizontalScrollIndicator={false} //hides native scrollbar
+			scrollEventThrottle={10} //how often we update the position of the indicator bar
+			pagingEnabled //scrolls from one image to the next, instead of allowing any value inbetween
+			onLayout={(event) => {
+				this.frameWidth = event.nativeEvent.layout.width
+			}}
+			onScroll={(event) => {
+				this.xOffset = event.nativeEvent.contentOffset.x
+				const index = Math.round(this.xOffset / this.frameWidth)
+				setIndex(index)
+			}}
+		>
+			{images.map((item, index) => (
+				<Image style={styles.image} source={{ uri: item }} resizeMode={'cover'} key={index} />
+			))}
+		</ScrollView>
+				{images.length > 1 && (
+					<View style={styles.dotsContainer}>
+						{images.map((it, ind) => (
+							<View
+								style={[
+									styles.dots,
+									{ backgroundColor: ind === index ? 'white' : 'rgba(255,255,255, 0.30)' },
+								]}
+							></View>
+						))}
+					</View>
+				)}
+			</View>
 			<ImageBackground style={styles.image} source={{ uri: storePoint.image }}>
 				<View style={styles.opacity}>
 					<MapHeaderWhite
