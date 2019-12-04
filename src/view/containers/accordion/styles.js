@@ -4,8 +4,10 @@ const { width } = Dimensions.get('window')
 export default StyleSheet.create({
 	container: {
 		overflow: 'hidden',
-		borderBottomWidth: 1,
-		borderBottomColor: 'rgba(112, 112, 112, 0.3)',
+		// borderWidth: 1,
+		// borderColor: 'rgba(112, 112, 112, 0.3)',
+		// borderBottomWidth: 1,
+		// borderBottomColor: 'rgba(112, 112, 112, 0.3)',
 	},
 	image: {
 		width: 40,
@@ -42,7 +44,12 @@ export default StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		paddingVertical: 16,
+		paddingHorizontal: 8,
 		alignItems: 'center',
+
+		borderWidth: 1,
+		borderColor: 'rgba(112, 112, 112, 0.3)',
+		borderRadius: 10,
 	},
 	cardTitle: {
 		marginTop: 16,
@@ -59,6 +66,7 @@ export default StyleSheet.create({
 	},
 	body: {
 		// paddingBottom: 16,
+		paddingTop: 16,
 		flexDirection: 'row',
 		flexWrap: 'wrap',
 		justifyContent: 'space-between',

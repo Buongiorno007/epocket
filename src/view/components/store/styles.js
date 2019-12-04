@@ -32,7 +32,8 @@ export default StyleSheet.create({
 	},
 	scroll: {
 		flex: 1,
-		backgroundColor: '#E5EDF7',
+		backgroundColor: 'white',
+		// backgroundColor: '#E5EDF7',
 		borderTopLeftRadius: 24,
 		borderTopRightRadius: 24,
 		paddingTop: 8,
@@ -40,7 +41,7 @@ export default StyleSheet.create({
 	},
 	withModal: {
 		flex: 1,
-		marginTop: -24,
+		// marginTop: -24,
 	},
 	modal: {
 		flex: 1,
@@ -65,6 +66,18 @@ export default StyleSheet.create({
 		color: '#404140',
 		fontFamily: 'Rubik-Medium',
 		fontSize: 24,
+	},
+	categoriesText: {
+		color: '#111111',
+		fontFamily: 'Rubik-Medium',
+		fontSize: 16,
+		marginLeft: 16,
+	},
+	aboutText: {
+		color: '#111111',
+		fontFamily: 'Rubik-Regular',
+		fontSize: 13,
+		marginLeft: 16,
 	},
 	img: {
 		width: width,
