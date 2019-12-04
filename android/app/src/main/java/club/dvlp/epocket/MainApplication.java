@@ -93,7 +93,6 @@ public class MainApplication extends Application implements ShareApplication, Re
                     new RNSoundPackage(),
                     new RNFSPackage(),
                     new FBSDKPackage(mCallbackManager),
-                    new CookieManagerPackage(),
                     new RNFetchBlobPackage(),
                     new FastImageViewPackage(),
                     new RNSharePackage(),
