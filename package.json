@@ -18,7 +18,6 @@
         "xcode": "open ios/EpocketCash.xcworkspace"
     },
     "dependencies": {
-        "@nickfla1/react-native-share-instagram": "^2.0.8",
         "@react-native-community/async-storage": "^1.6.3",
         "@react-native-community/blur": "^3.3.1",
         "@react-native-community/image-editor": "2.0.0",
@@ -66,7 +65,8 @@
         "react-navigation": "^3.13.0",
         "react-redux": "^7.1.3",
         "redux": "^4.0.4",
-        "redux-thunk": "^2.3.0"
+        "redux-thunk": "^2.3.0",
+        "rn-fetch-blob": "0.10.15"
     },
     "devDependencies": {
         "@babel/core": "^7.7.4",

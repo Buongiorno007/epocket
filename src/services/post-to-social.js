@@ -10,12 +10,20 @@ export function socialPost(data, confirmFunction, errorFunction) {
 	})
 		.fetch('GET', data.video)
 		.then(async (res) => {
-			const path = await res.path()
-			const base = await res.base64()
+			const path = res.path()
+			const base = res.base64()
 			if (Platform.OS === 'ios') {
 				const data = encodeURIComponent(path)
 				Linking.openURL('instagram://library?LocalIdentifier=' + data)
-					.then(() => confirmFunction())
+					.then(() => {
+						setTimeout(async () => {
+							confirmFunction()
+							try {
+								await RNFS.exists(path)
+								await RNFS.unlink(path)
+							} catch (e) {}
+						}, 5000)
+					})
 					.catch(() => errorFunction())
 			} else {
 				const shareOptions = {
