@@ -17,7 +17,6 @@ import sbHeight from '@services/getSBHeight'
 import I18n from '@locales/I18n'
 
 function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigger, triggerInfo, mallPoint, dispatch }) {
-	// const [trigger, setTrigger] = useState(false)
 	const [infoBoxWidth, setInfoBoxWidth] = useState(0)
 	const region = {
 		latitude: lat,
