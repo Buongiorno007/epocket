@@ -67,7 +67,7 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
         <View style={styles.container}>
             <ScrollView style={[styles.marginTop, trigger ? {marginTop: 0} : null]}>
 				<Text style={[styles.tittle, {marginLeft: 16, marginBottom: 16}, trigger && styles.displayNone]}>{I18n.t('EARN.ON_MAP')}</Text>
-                <View style={trigger ? styles.map_view_big : styles.map_view}>
+                <View style={trigger ? styles.map_view_big : styles.map_view} onStartShouldSetResponder={() => dispatch(triggerInfoSet(false))}>
 					{trigger && <TouchableOpacity style={styles.goBack} onPress={() => closeMap()}>
 						<Image style={styles.goBackImg} source={require('@assets/img/chevron.png')} resizeMode={'contain'}/>
 					</TouchableOpacity>}

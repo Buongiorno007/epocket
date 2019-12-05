@@ -10,8 +10,9 @@ import MapHeaderPink from '@containers/map/map-header-pink'
 import { findNearest, getDistance } from 'geolib'
 import I18n from '@locales/I18n'
 import route from '@services/route'
+import { triggerInfoSpSet } from "@reducers/map-spend-trigger-infobox"
 
-function MapPlaces({ lat, lng, mapPoints, profileState, storePoint, triggerInfoSp }) {
+function MapPlaces({ lat, lng, mapPoints, profileState, storePoint, triggerInfoSp, dispatch }) {
 	const region = {
 		latitude: lat,
 		longitude: lng,
@@ -48,7 +49,7 @@ function MapPlaces({ lat, lng, mapPoints, profileState, storePoint, triggerInfoS
 	}
 
 	return (
-		<View style={styles.container}>
+		<View style={styles.container} onStartShouldSetResponder={() => dispatch(triggerInfoSpSet(false))}>
 			<MapHeaderPink title={I18n.t('MAP.PLACES')} filters />
 			<ClusteredMapView
 				style={styles.map}
