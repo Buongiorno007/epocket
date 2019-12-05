@@ -86,13 +86,6 @@ function StorePoint({ storePoint, profileState, dispatch }) {
 						keyExtractor={keyExtractor}
 						scrollEnabled={!visibleModal}
 					/>
-					<FlatList
-						style={styles.scroll}
-						data={storePoint.categories}
-						renderItem={renderItem}
-						keyExtractor={keyExtractor}
-						scrollEnabled={!visibleModal}
-					/>
 					<Text style={styles.categoriesText}>Новости и акции</Text>
 					<View style={styles.imageContainer}>
 						<ScrollView

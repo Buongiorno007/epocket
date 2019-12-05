@@ -9,13 +9,16 @@ const height =
 
 export default StyleSheet.create({
 	container: {
-		height: '100%'
+		height: '100%',
 		// height: Dimensions.get('window').height,
 		// height: Platform.OS === 'android' ? height - 48 : height,
 	},
     marginTop:{
         marginTop: sbHeight,
-    },
+	},
+	paddingBottom: {
+		paddingBottom: 100
+	},
 	linear: {
 		flex: 1,
 		backgroundColor: colors.map_gray,
@@ -23,7 +26,7 @@ export default StyleSheet.create({
 	scroll: {
 		flex: 1,
 		paddingHorizontal: 16,
-		paddingBottom: 16
+		paddingBottom: 120
 		// paddingVertical: 16,
 	},
 	map_view: {

@@ -38,9 +38,11 @@ export default StyleSheet.create({
 		borderTopRightRadius: 24,
 		paddingTop: 8,
 		paddingHorizontal: 16,
+		marginBottom: 8
 	},
 	withModal: {
 		flex: 1,
+		paddingBottom: 16
 		// marginTop: -24,
 	},
 	modal: {
