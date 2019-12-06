@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native'
+import { colors } from '@constants/colors'
 const { width, height } = Dimensions.get('window')
 
 export default StyleSheet.create({
@@ -124,4 +125,33 @@ export default StyleSheet.create({
 		borderRadius: 5,
 		marginLeft: 10,
 	},
+	buttonRed: {
+		width: width - 32,
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		paddingVertical: 16,
+		paddingHorizontal: 8,
+		marginHorizontal: 16,
+		marginTop: 8,
+		marginBottom: 16,
+		alignItems: 'center',
+		borderRadius: 12,
+		backgroundColor: colors.blood_red
+	},
+	buttonRedImg: {
+		width: 40,
+		height: 40,
+		marginRight: 16
+	},
+	buttonRedPrice : {
+		paddingHorizontal: 8,
+		paddingVertical: 4,
+		backgroundColor: colors.white,
+		borderRadius: 12
+	},
+	buttonRedPriceText: {
+		fontFamily: 'Rubik-Medium',
+		fontSize: 14,
+		color: colors.black111
+	}
 })

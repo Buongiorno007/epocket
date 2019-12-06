@@ -5,8 +5,9 @@ import sbHeight from "@services/getSBHeight"
 import { connect } from "react-redux"
 import { convertArea } from "geolib"
 import { urls } from "@constants/urls"
+import { getStorePoint2 } from '@reducers/storePoint'
 
-function MapTaskHeader({ title = "", noinfo, dispatch, token, malltask, goMain }) {
+function MapTaskHeader({ title = "", noinfo, dispatch, token, malltask, mallPoint, goMain }) {
   const body = JSON.stringify({
     mission_id: malltask.id,
   })
@@ -22,13 +23,17 @@ function MapTaskHeader({ title = "", noinfo, dispatch, token, malltask, goMain }
     .then(response => console.log(response))
   }
 
+  handleInfo = () => {
+    dispatch(getStorePoint2(mallPoint.sub_id))
+  }
+
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.button} onPress={() => goMain ? route.navigate("Main")  : route.pop()} hitSlop={{top: 10, bottom: 10, left: 10, right: 50}}>
         <Image source={require("@assets/dv4/chevron.png")} style={styles.image} />
       </TouchableOpacity>
       <Text style={styles.text} numberOfLines={1} ellipsizeMode={'tail'}>{title}</Text>
-      <TouchableOpacity style={styles.button} onPress={ __DEV__ ? refr : ()=>{} } disabled={noinfo}>
+      <TouchableOpacity style={styles.button} onPress={ () => handleInfo() } disabled={noinfo}>
         <Image source={require("@assets/dv4/info.png")} style={[styles.image, noinfo && {display: 'none'}]} />
       </TouchableOpacity>
     </View>
@@ -36,7 +41,8 @@ function MapTaskHeader({ title = "", noinfo, dispatch, token, malltask, goMain }
 }
 const mapStateToProps = state => ({
   token: state.token,
-  malltask: state.mallTask
+  malltask: state.mallTask,
+  mallPoint: state.mallPoint
 })
 export default connect(mapStateToProps)(MapTaskHeader)
 

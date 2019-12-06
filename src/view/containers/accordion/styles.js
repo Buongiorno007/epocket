@@ -4,6 +4,7 @@ const { width } = Dimensions.get('window')
 export default StyleSheet.create({
 	container: {
 		overflow: 'hidden',
+		marginBottom: 8,
 		// borderWidth: 1,
 		// borderColor: 'rgba(112, 112, 112, 0.3)',
 		// borderBottomWidth: 1,

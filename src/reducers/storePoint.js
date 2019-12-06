@@ -37,4 +37,18 @@ export const getStorePoint = (id) => async (dispatch, getState) => {
 	// }
 }
 
+export const getStorePoint2 = (id) => async (dispatch, getState) => {
+	const { token } = getState()
+		body = {
+			cashout_id: id,
+		}
+		try {
+			const response = await httpPost(urls.new_poducts, JSON.stringify(body), token)
+			await dispatch(setPoint(new STOREPOINT(response.body.cash_out_point)))
+			await route.push('StorePoint')
+		} catch (e) {
+			console.log(e, 'getStorePoint2 EEEEEEEE')
+		}
+}
+
 export const setPoint = (point) => ({ type: SET_POINT, point })

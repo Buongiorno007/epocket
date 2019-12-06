@@ -46,4 +46,26 @@ export const getMallPoint = (id) => async (dispatch, getState) => {
   // }
 }
 
+export const getMallPoint2 = (id) => async (dispatch, getState) => {
+  dispatch(loaderState(true))
+  const { token } = getState()
+    let body = {
+      outlet_id: id,
+      tzone: {
+        timezone: moment.tz.guess(),
+        timedelta: moment().format("Z"),
+      },
+    }
+    try {
+      const response = await httpPost(urls.new_mission_list, JSON.stringify(body), token)
+      console.log('getMallPoint2',urls.new_mission_list, response)
+      dispatch(setPoint(new MALLPOINT(response.body)))
+      dispatch(loaderState(false))
+      route.navigate("MallPoint")
+    } catch (e) {
+      console.log(e, "getEarnPoint2 catch(e)")
+      dispatch(loaderState(false))
+    }
+}
+
 export const setPoint = point => ({ type: SET_POINT, point })

@@ -500,5 +500,12 @@
     "TEXT2" : "Make one-time income regular. Each business account connected via your referral link will bring you 1% of the turnover. Monthly!",
     "TEXT3" : "How does this work? For example: You told someone about ePocketCash. Your friends connected to the ePocketCash system. When connecting a business account, it was your referral link that was used. The owner of the business account has replenished his account in the system for advertising in ePocketCash. The system will credit your account with cashback in the amount of 1% of each replenishment on the next day after the replenishment.",
     "MORE" : "Read more detailed information on the website"
+  },
+  "STORE_POINT" : {
+    "GOODS" : "Goods", 
+    "EARN" : "Earn",
+    "NEWS" : "News & promotions",
+    "ABOUT" : "About",
+    "LINKS" : "Links"
   }
 }

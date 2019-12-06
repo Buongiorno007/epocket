@@ -6,6 +6,7 @@ import styles from './styles'
 import Accordion from '@containers/accordion'
 import Modal from 'react-native-modal'
 import { addToBasket } from '@reducers/basket'
+import { getMallPoint2 } from '@reducers/mallPoint'
 import I18n from '@locales/I18n'
 
 function StorePoint({ storePoint, profileState, dispatch }) {
@@ -68,17 +69,8 @@ function StorePoint({ storePoint, profileState, dispatch }) {
 						</View>
 					)}
 				</View>
-				{/* <ImageBackground style={styles.image} source={{ uri: storePoint.image }}>
-				<View style={styles.opacity}>
-					<MapHeaderWhite title={`Баланс: ${storePoint.balance} ${profileState.currency}`} basket id={storePoint.id} />
-					<View style={{ alignItems: 'center' }}>
-						<Text style={styles.title}>{storePoint.title}</Text>
-						<Text style={styles.subtitle}>{storePoint.address}</Text>
-					</View>
-				</View>
-			</ImageBackground> */}
 				<View style={styles.withModal}>
-					<Text style={styles.categoriesText}>Товары</Text>
+					<Text style={styles.categoriesText}>{I18n.t('STORE_POINT.GOODS')}</Text>
 					<FlatList
 						style={styles.scroll}
 						data={storePoint.categories}
@@ -86,7 +78,15 @@ function StorePoint({ storePoint, profileState, dispatch }) {
 						keyExtractor={keyExtractor}
 						scrollEnabled={!visibleModal}
 					/>
-					<Text style={styles.categoriesText}>Новости и акции</Text>
+					<Text style={styles.categoriesText}>{I18n.t('STORE_POINT.EARN')}</Text>
+					<TouchableOpacity style={styles.buttonRed} onPress={() => dispatch(getMallPoint2(storePoint.sub_id))}>
+						<Image style={styles.buttonRedImg} source={require('@assets/img/epocket_icon.png')} />
+						<Text style={styles.buttonText}>{'3 задания доступно'}</Text>
+						<View style={styles.buttonRedPrice}>
+							<Text>{`+ 140 ${profileState.currency}`}</Text>
+						</View>
+					</TouchableOpacity>
+					<Text style={styles.categoriesText}>{I18n.t('STORE_POINT.NEWS')}</Text>
 					<View style={styles.imageContainer}>
 						<ScrollView
 							style={{ flex: 1 }}
@@ -100,7 +100,7 @@ function StorePoint({ storePoint, profileState, dispatch }) {
 							))}
 						</ScrollView>
 					</View>
-					<Text style={styles.categoriesText}>О компании</Text>
+					<Text style={styles.categoriesText}>{I18n.t('STORE_POINT.ABOUT')}</Text>
 					<Text style={styles.aboutText}>
 						{`Американская компания по продаже кофе и одноимённая сеть кофеен. Основана в Сиэтле (штат Вашингтон) в 1971 году. На сентябрь
 						2018 года сеть Starbucks объединяла свыше 29 тысяч торговых точек в 75 странах мира (из них 14 тысяч работают по лицензии).
@@ -111,7 +111,7 @@ function StorePoint({ storePoint, profileState, dispatch }) {
 						Северной Америки была открыта в Токио в 1996 году; впоследствии заграничная сеть составила треть торговых предприятий
 						компании.`}
 					</Text>
-					<Text style={styles.categoriesText}>Ссылки</Text>
+					<Text style={styles.categoriesText}>{I18n.t('STORE_POINT.LINKS')}</Text>
 					<View>
 						{links.map((item) => (
 							<View style={{ flexDirection: 'row', marginTop: 8, marginLeft: 16 }}>

@@ -43,7 +43,7 @@ function MallPoint({ mallPoint }) {
   return (
     <View style={styles.container}>
       {/* <MapHeaderWhite title={mallPoint.title} toTop/> */}
-      <MapTaskHeader title={mallPoint.title} noinfo goMain/>
+      <MapTaskHeader title={mallPoint.title} goMain/>
       <View style={styles.imageContainer}> 
         <ScrollView
           style={{flex: 1}}

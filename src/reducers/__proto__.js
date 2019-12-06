@@ -109,6 +109,7 @@ export const STOREPOINT = function(data = {}) {
   this.address = data.address || ""
   this.balance = data.balance || ""
   this.id = data.id || 0
+  this.sub_id = data.sub_id || 78  // HARDCODED
   this.image = data.image || ""
   this.categories = data.categories || []
 }
@@ -130,6 +131,7 @@ export const MALLPOINT = function(data = {}) {
   this.title = data.title || ""
   this.address = data.addres || ""
   this.id = data.id || 0
+  this.sub_id = data.sub_id || 3 // HARDCODED
   this.image = data.image || ""
   this.active_tasks = data.active_tasks || []
   this.soon_tasks = data.soon_tasks || []
