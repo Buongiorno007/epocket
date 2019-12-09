@@ -3,6 +3,7 @@ import { urls } from '@constants/urls'
 import { httpPost } from '@services/http'
 import route from '@services/route'
 import { triggerInfoSpSet } from "@reducers/map-spend-trigger-infobox"
+import { loaderState } from '@reducers/loader'
 
 const SET_POINT = '[storePoint] SET_POINT'
 
@@ -38,6 +39,7 @@ export const getStorePoint = (id) => async (dispatch, getState) => {
 }
 
 export const getStorePoint2 = (id) => async (dispatch, getState) => {
+	dispatch(loaderState(true))
 	const { token } = getState()
 		body = {
 			cashout_id: id,
@@ -45,9 +47,11 @@ export const getStorePoint2 = (id) => async (dispatch, getState) => {
 		try {
 			const response = await httpPost(urls.new_poducts, JSON.stringify(body), token)
 			await dispatch(setPoint(new STOREPOINT(response.body.cash_out_point)))
+			await dispatch(loaderState(false))
 			await route.push('StorePoint')
 		} catch (e) {
 			console.log(e, 'getStorePoint2 EEEEEEEE')
+			dispatch(loaderState(false))
 		}
 }
 
