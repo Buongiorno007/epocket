@@ -5,6 +5,7 @@ import MapTaskHeader from "@containers/map/map-task-header"
 import { connect } from "react-redux"
 import styles from "./styles"
 import MallItem from "@containers/mall"
+import MyCarousel from '@containers/carousel'
 import I18n from '@locales/I18n'
 
 function MallPoint({ mallPoint }) {
@@ -26,59 +27,18 @@ function MallPoint({ mallPoint }) {
   }
 
   const images = [
-    'https://epc.splinestudio.com/static/outlet_photo/Icon_512.png',
-    'https://epc.splinestudio.com/static/outlet_photo/Icon_512.png',
-    'https://epc.splinestudio.com/static/outlet_photo/Icon_512.png',
-    'https://epc.splinestudio.com/static/outlet_photo/Icon_512.png',
-    'https://epc.splinestudio.com/static/outlet_photo/Icon_512.png',
-    'https://epc.splinestudio.com/static/outlet_photo/Icon_512.png',
-    'https://epc.splinestudio.com/static/outlet_photo/Icon_512.png',
-    'https://epc.splinestudio.com/static/outlet_photo/Icon_512.png',
-    'https://epc.splinestudio.com/static/outlet_photo/Icon_512.png',
-    'https://epc.splinestudio.com/static/outlet_photo/Icon_512.png',
-    'https://epc.splinestudio.com/static/outlet_photo/Icon_512.png',
-    'https://epc.splinestudio.com/static/outlet_photo/Icon_512.png',
-    'https://epc.splinestudio.com/static/outlet_photo/Icon_512.png',
+    mallPoint.image[0],
+    mallPoint.image[0],
+    mallPoint.image[0],
   ]
   return (
     <View style={styles.container}>
       {/* <MapHeaderWhite title={mallPoint.title} toTop/> */}
       <MapTaskHeader title={mallPoint.title} goMain/>
-      <View style={styles.imageContainer}> 
-        <ScrollView
-          style={{flex: 1}}
-          horizontal //scrolling left to right instead of top to bottom
-          showsHorizontalScrollIndicator={false} //hides native scrollbar
-          scrollEventThrottle={10} //how often we update the position of the indicator bar
-          pagingEnabled //scrolls from one image to the next, instead of allowing any value inbetween
-
-          onLayout={event => {
-            this.frameWidth = event.nativeEvent.layout.width;
-          }}
-          onScroll={event => { 
-            this.xOffset = event.nativeEvent.contentOffset.x;
-            const index = Math.round(this.xOffset / this.frameWidth)
-            setIndex(index)
-          }}
-        >
-          {images.map((item, index) => <Image style={styles.image} source={{ uri: item }} resizeMode={'cover'} key={index}/>)}
-        </ScrollView>
-        {images.length > 1 && <View style={styles.dotsContainer}>
-          {images.map((it, ind) => <View style={[styles.dots, {backgroundColor: ind === index ? 'white' : 'rgba(255,255,255, 0.30)'}]}></View>)}
-        </View>}
-      </View>
-      <View style={{ alignItems: "center" }}>
+      <MyCarousel data={images} pagination />
+      <View style={styles.addres}>
           <Text style={styles.subtitle}>{mallPoint.address}</Text>
       </View>
-      {/* <ImageBackground style={styles.image} source={{ uri: mallPoint.image }}>
-        <View style={styles.opacity}>
-          <MapHeaderWhite title={I18n.t('MALL.TASKS')} toTop/>
-          <View style={{ alignItems: "center" }}>
-            <Text style={styles.title}>{mallPoint.title}</Text>
-            <Text style={styles.subtitle}>{mallPoint.address}</Text>
-          </View>
-        </View>
-      </ImageBackground> */}
       <View style={styles.withModal}>
         <ScrollView style={styles.scroll}>
           {!!mallPoint.time_tasks.length && renderBlock(mallPoint.time_tasks, I18n.t('MALL.TASK_TIME'))}

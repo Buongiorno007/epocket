@@ -118,13 +118,16 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 								<View style={styles.infobox_image_outline}>
 									<Image style={styles.infobox_image} source={{ uri: mallPoint.image }} />
 								</View>
-								<Text
-									style={[styles.infobox_title, { width: infoBoxWidth - 90 }]}
-									numberOfLines={1}
-									ellipsizeMode={'tail'}
-								>{`${mallPoint.title}`}</Text>
+								<View>
+									<Text
+										style={[styles.infobox_title, { width: infoBoxWidth - 90 }]}
+										numberOfLines={1}
+										ellipsizeMode={'tail'}
+									>{`${mallPoint.title}`}</Text>
+									<Text style={[styles.infobox_time, { width: infoBoxWidth - 90 }]}>{`${mallPoint.work_time}`}</Text>
+								</View>
 							</View>
-							<Text>{`${mallPoint.address}`}</Text>
+							<Text style={styles.infobox_text}>{`${mallPoint.address}`}</Text>
 						</TouchableOpacity>
 					)}
 				</View>

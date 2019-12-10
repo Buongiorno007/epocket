@@ -9,6 +9,8 @@ export default StyleSheet.create({
 	image: {
 		width: width - 32,
 		height: '100%',
+		marginRight: 8,
+		borderRadius: 12
 		// width,
 		// height: width * 0.8,
 	},
@@ -37,13 +39,13 @@ export default StyleSheet.create({
 		// backgroundColor: '#E5EDF7',
 		borderTopLeftRadius: 24,
 		borderTopRightRadius: 24,
-		paddingTop: 8,
+		// paddingTop: 8,
 		paddingHorizontal: 16,
 		marginBottom: 8
 	},
 	withModal: {
 		flex: 1,
-		paddingBottom: 16
+		paddingBottom: 24
 		// marginTop: -24,
 	},
 	modal: {
@@ -75,12 +77,14 @@ export default StyleSheet.create({
 		fontFamily: 'Rubik-Medium',
 		fontSize: 16,
 		marginLeft: 16,
+		marginBottom: 8
 	},
 	aboutText: {
 		color: '#111111',
 		fontFamily: 'Rubik-Regular',
 		fontSize: 13,
 		marginLeft: 16,
+		marginBottom: 35,
 	},
 	img: {
 		width: width,
@@ -104,10 +108,13 @@ export default StyleSheet.create({
 	},
 	imageContainer: {
 		position: 'relative',
-		width: width - 32,
-		height: (width - 32) * 0.55,
-		marginHorizontal: 16,
-		borderRadius: 12,
+		width: width ,
+		// width: width - 32,
+		height: width * 0.56,
+		// height: (width - 32) * 0.55,
+		// marginHorizontal: 16,
+		// borderRadius: 12,
+		// paddingLeft: 16,
 		marginVertical: 8,
 		overflow: 'hidden',
 	},
@@ -128,30 +135,55 @@ export default StyleSheet.create({
 	buttonRed: {
 		width: width - 32,
 		flexDirection: 'row',
-		justifyContent: 'space-between',
-		paddingVertical: 16,
-		paddingHorizontal: 8,
+		justifyContent: 'flex-start',
+		paddingVertical: 22,
+		paddingHorizontal: 15,
 		marginHorizontal: 16,
-		marginTop: 8,
-		marginBottom: 16,
+		marginBottom: 35,
 		alignItems: 'center',
 		borderRadius: 12,
 		backgroundColor: colors.blood_red
 	},
 	buttonRedImg: {
-		width: 40,
-		height: 40,
+		width: 32,
+		height: 32,
+		borderRadius: 16,
 		marginRight: 16
 	},
+	buttonRedText: {
+		color: '#fff',
+		fontFamily: 'Rubik-Medium',
+		fontSize: 17,
+	},
 	buttonRedPrice : {
+		marginLeft: 'auto',
 		paddingHorizontal: 8,
 		paddingVertical: 4,
 		backgroundColor: colors.white,
-		borderRadius: 12
+		borderRadius: 20
 	},
 	buttonRedPriceText: {
 		fontFamily: 'Rubik-Medium',
-		fontSize: 14,
+		fontSize: 13,
 		color: colors.black111
+	},
+	point_title: {
+		fontFamily: 'Rubik-Medium',
+		fontSize: 21,
+		color: colors.black111,
+		marginTop: 12
+	},
+	point_bold: {
+		fontFamily: 'Rubik-Medium',
+		fontSize: 14,
+		color: colors.black111,
+		marginTop: 12
+	},
+	point_addr: {
+		fontFamily: 'Rubik-Regular',
+		fontSize: 14,
+		color: colors.black,
+		maxWidth: width / 2,
+		marginVertical: 12
 	}
 })

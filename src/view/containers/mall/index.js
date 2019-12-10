@@ -14,7 +14,7 @@ function MallItem({ item, index, profileState, dispatch }) {
       style={[styles.container, ]}
       onPress={() => dispatch(getMallTask(item))}
     >
-      <Image source={{ uri: item.image }} style={styles.image} />
+      <Image source={{ uri: item.image[0] }} style={styles.image} />
       <View style={{ width: width - 118 - priceWidth }}>
         <Text style={styles.title} numberOfLines={2} ellipsizeMode={"tail"}>
           {item.name}

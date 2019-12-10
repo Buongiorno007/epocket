@@ -9,12 +9,16 @@ import { addToBasket } from '@reducers/basket'
 import { getMallPoint2 } from '@reducers/mallPoint'
 import I18n from '@locales/I18n'
 
+import MyCarousel from '@containers/carousel'
+
 function StorePoint({ storePoint, profileState, dispatch }) {
-	const [index, setIndex] = useState(0)
 	const [visibleModal, setVisibleModal] = useState(false)
+
 	const [currentObject, setCurrentObject] = useState({})
 	console.log(currentObject, 'currentObject')
+
 	const renderItem = ({ item }) => <Accordion item={item} pressProduct={pressProduct} />
+
 	const keyExtractor = (item) => `${item.cat_id}`
 
 	const pressProduct = (element) => {
@@ -31,43 +35,21 @@ function StorePoint({ storePoint, profileState, dispatch }) {
 	}
 
 	const images = [
-		'https://epc.splinestudio.com/static/outlet_photo/Icon_512.png',
-		'https://epc.splinestudio.com/static/outlet_photo/d750650226237e901cb5047fca448f5c.jpg',
-		'https://epc.splinestudio.com/static/outlet_photo/494478.jpg',
+		storePoint.image[0],
+		storePoint.image[0],
+		storePoint.image[0]
 	]
-	const links = ['starbucks.com', 'instagram.com/starbuckscoffee', 'facebook.com/starbuckscoffee', 'twitter.com/starbuckscoffee']
 
 	return (
 		<View style={styles.container}>
 			<MapHeaderWhite title={`Баланс: ${storePoint.balance} ${profileState.currency}`} basket id={storePoint.id} />
 			<ScrollView scrollEnabled={!visibleModal}>
-				<View style={styles.imageContainer}>
-					<ScrollView
-						style={{ flex: 1 }}
-						horizontal //scrolling left to right instead of top to bottom
-						showsHorizontalScrollIndicator={false} //hides native scrollbar
-						scrollEventThrottle={10} //how often we update the position of the indicator bar
-						pagingEnabled //scrolls from one image to the next, instead of allowing any value inbetween
-						onLayout={(event) => {
-							this.frameWidth = event.nativeEvent.layout.width
-						}}
-						onScroll={(event) => {
-							this.xOffset = event.nativeEvent.contentOffset.x
-							const index = Math.round(this.xOffset / this.frameWidth)
-							setIndex(index)
-						}}
-					>
-						{images.map((item, index) => (
-							<Image style={styles.image} source={{ uri: item }} resizeMode={'cover'} key={index} />
-						))}
-					</ScrollView>
-					{images.length > 1 && (
-						<View style={styles.dotsContainer}>
-							{images.map((it, ind) => (
-								<View style={[styles.dots, { backgroundColor: ind === index ? 'white' : 'rgba(255,255,255, 0.30)' }]}></View>
-							))}
-						</View>
-					)}
+				<MyCarousel data={images} pagination />
+				<View style={{ alignItems: 'center', marginBottom: 44 }}>
+					<Text style={styles.point_title}>{storePoint.title}</Text>
+					<Text style={styles.point_bold}>{storePoint.work_time}</Text>
+					<Text style={styles.point_addr}>{storePoint.address}</Text>
+					<Text style={styles.point_bold}>{`Phone number: ${storePoint.phone}`}</Text>
 				</View>
 				<View style={styles.withModal}>
 					<Text style={styles.categoriesText}>{I18n.t('STORE_POINT.GOODS')}</Text>
@@ -81,40 +63,19 @@ function StorePoint({ storePoint, profileState, dispatch }) {
 					<Text style={styles.categoriesText}>{I18n.t('STORE_POINT.EARN')}</Text>
 					<TouchableOpacity style={styles.buttonRed} onPress={() => dispatch(getMallPoint2(storePoint.sub_id))}>
 						<Image style={styles.buttonRedImg} source={require('@assets/img/epocket_icon.png')} />
-						<Text style={styles.buttonText}>{'3 задания доступно'}</Text>
+						<Text style={styles.buttonRedText}>{'3 задания доступно'}</Text>
 						<View style={styles.buttonRedPrice}>
-							<Text>{`+ 140 ${profileState.currency}`}</Text>
+							<Text style={styles.buttonRedPriceText}>{`+ 140 ${profileState.currency}`}</Text>
 						</View>
 					</TouchableOpacity>
 					<Text style={styles.categoriesText}>{I18n.t('STORE_POINT.NEWS')}</Text>
-					<View style={styles.imageContainer}>
-						<ScrollView
-							style={{ flex: 1 }}
-							horizontal //scrolling left to right instead of top to bottom
-							showsHorizontalScrollIndicator={false} //hides native scrollbar
-							scrollEventThrottle={10} //how often we update the position of the indicator bar
-							pagingEnabled //scrolls from one image to the next, instead of allowing any value inbetween
-						>
-							{images.map((item, index) => (
-								<Image style={styles.image} source={{ uri: item }} resizeMode={'cover'} key={index} />
-							))}
-						</ScrollView>
-					</View>
-					<Text style={styles.categoriesText}>{I18n.t('STORE_POINT.ABOUT')}</Text>
-					<Text style={styles.aboutText}>
-						{`Американская компания по продаже кофе и одноимённая сеть кофеен. Основана в Сиэтле (штат Вашингтон) в 1971 году. На сентябрь
-						2018 года сеть Starbucks объединяла свыше 29 тысяч торговых точек в 75 странах мира (из них 14 тысяч работают по лицензии).
-
-						Компания Starbucks стала прибыльным предприятием в Сиэтле в начале 1980-х годов, и, несмотря на экономический спад,
-						сопровождавший расширение деятельности на Средний Запад и в Британскую Колумбию в конце 1980-х, компании удалось восстановить
-						прибыльность с началом деятельности в штате Калифорния в начале 1990-х годов. Первая торговая точка Starbucks за пределами
-						Северной Америки была открыта в Токио в 1996 году; впоследствии заграничная сеть составила треть торговых предприятий
-						компании.`}
-					</Text>
+					<MyCarousel data={images} />
+					<Text style={[styles.categoriesText, {marginTop: 35}]}>{I18n.t('STORE_POINT.ABOUT')}</Text>
+					<Text style={styles.aboutText}>{storePoint.about}</Text>
 					<Text style={styles.categoriesText}>{I18n.t('STORE_POINT.LINKS')}</Text>
 					<View>
-						{links.map((item) => (
-							<View style={{ flexDirection: 'row', marginTop: 8, marginLeft: 16 }}>
+						{storePoint.links.map((item) => (
+							<View style={{ flexDirection: 'row', marginTop: 10, marginLeft: 16 }}>
 								<Image source={require('@assets/img/web.png')} style={{ width: 20, height: 20, marginRight: 20 }} />
 								<Text onPress={() => Linking.openURL(`https://www.${item}`)}>{item}</Text>
 							</View>

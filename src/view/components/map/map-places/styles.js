@@ -36,7 +36,7 @@ export default StyleSheet.create({
 		bottom: 60, 
 		backgroundColor: 'white', 
 		borderRadius: 10, 
-		padding: 10
+		padding: 16
 	},
 	infobox_image: { 
 		width: 48, 
@@ -56,7 +56,18 @@ export default StyleSheet.create({
 	},
 	infobox_title: {
 		fontFamily: 'Rubik-Medium',
-		fontSize: 14,
+		fontSize: 21,
 		color: colors.black111
+	},
+	infobox_time: {
+		fontFamily: 'Rubik-Regular',
+		fontSize: 15,
+		color: colors.black111,
+	},
+	infobox_text: {
+		fontFamily: 'Rubik-Regular',
+		fontSize: 13,
+		color: colors.gray_a6,
+		marginTop: 10
 	}
 })

@@ -25,6 +25,11 @@ export default StyleSheet.create({
     fontFamily: "Rubik-Bold",
     marginBottom: 4,
   },
+  addres: {
+    maxWidth: width / 2,
+    alignItems: "center",
+    marginTop: 8,
+  },
   subtitle: {
     color: colors.black111,
     textAlign: "center",

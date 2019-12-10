@@ -27,6 +27,7 @@ export const getStorePoint = (id) => async (dispatch, getState) => {
 		}
 		try {
 			const response = await httpPost(urls.new_poducts, JSON.stringify(body), token)
+			console.log(response, 'STOREPOINT')
 			await dispatch(setPoint(new STOREPOINT(response.body.cash_out_point)))
 			await dispatch(triggerInfoSpSet(true))
 			// await route.push('StorePoint')

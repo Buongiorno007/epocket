@@ -90,15 +90,20 @@ function MapPlaces({ lat, lng, mapPoints, profileState, storePoint, triggerInfoS
 				>
 					<View style={{ flexDirection: 'row' }}>
 						<View style={styles.infobox_image_outline}>
-							<Image style={styles.infobox_image} source={{ uri: storePoint.image }} />
+							<Image style={styles.infobox_image} source={{ uri: storePoint.image[0] }} />
 						</View>
+						<View>
 						<Text
 							style={[styles.infobox_title, { width: infoBoxWidth - 90 }]}
 							numberOfLines={1}
 							ellipsizeMode={'tail'}
 						>{`${storePoint.title}`}</Text>
+						<Text
+							style={[styles.infobox_time, { width: infoBoxWidth - 90 }]}
+						>{`${storePoint.work_time}`}</Text>
+						</View>
 					</View>
-					<Text>{`${storePoint.address}`}</Text>
+					<Text style={styles.infobox_text}>{`${storePoint.address}`}</Text>
 				</TouchableOpacity>
 			)}
 

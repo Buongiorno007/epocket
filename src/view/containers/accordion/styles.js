@@ -11,9 +11,9 @@ export default StyleSheet.create({
 		// borderBottomColor: 'rgba(112, 112, 112, 0.3)',
 	},
 	image: {
-		width: 40,
-		height: 40,
-		borderRadius: 20,
+		width:  32,
+		height: 32,
+		borderRadius: 16,
 		marginRight: 16,
 	},
 	endArrow: {
@@ -44,8 +44,10 @@ export default StyleSheet.create({
 		width: '100%',
 		flexDirection: 'row',
 		justifyContent: 'space-between',
-		paddingVertical: 16,
-		paddingHorizontal: 8,
+		paddingVertical: 22,
+		paddingHorizontal: 15,
+		// paddingVertical: 16,
+		// paddingHorizontal: 8,
 		alignItems: 'center',
 
 		borderWidth: 1,
