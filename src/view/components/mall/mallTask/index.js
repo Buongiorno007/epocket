@@ -19,8 +19,8 @@ function MallTask({ mallTask, missionState, dispatch }) {
 
   return (
     <View style={styles.container}>
-      <MapTaskHeader title={mallTask.name} />
-      <MapTaskLogo logo={mallTask.image} title={mallTask.name} time={mallTask.time} />
+      <MapTaskHeader title={mallTask.name} noinfo />
+      <MapTaskLogo logo={mallTask.image[0]} title={mallTask.name} time={mallTask.time} />
       <FlatList style={[styles.scroll, mallTask.type === 1 && styles.none ]} data={mallTask.tasks} renderItem={renderItem} keyExtractor={keyExtractor} />
       {mallTask.type === 1 && <View style={styles.timeTaskContainer}>
         <Text style={styles.timeTaskHeaderText}>{I18n.t('MALL.TASK_TIME')}</Text>

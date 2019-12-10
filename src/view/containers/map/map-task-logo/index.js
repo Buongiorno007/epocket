@@ -7,7 +7,7 @@ export default function MapTaskLogo({ logo = "", title = "", time = "", outline 
     <View style={styles.container}>
       <View style={outline ? styles.imageOutline : null}><Image source={{ uri: logo }} style={styles.image} /></View>
       <Text style={styles.text}>{title}</Text>
-      {time && <Text style={styles.timeText}>{time}</Text>}
+      {!!time && <Text style={styles.timeText}>{time}</Text>}
     </View>
   )
 }

@@ -27,9 +27,9 @@ function MallPoint({ mallPoint }) {
   }
 
   const images = [
-    mallPoint.image[0],
-    mallPoint.image[0],
-    mallPoint.image[0],
+    mallPoint.image,
+    mallPoint.image,
+    mallPoint.image,
   ]
   return (
     <View style={styles.container}>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Image } from 'react-native'
+import { View, StyleSheet, Image, Platform } from 'react-native'
 import { Marker } from 'react-native-maps'
 import { connect } from 'react-redux'
 import { getStorePoint } from '@reducers/storePoint'
@@ -17,21 +17,30 @@ function MapSpendMarker({ data, dispatch, storePoint, triggerInfoSp }) {
 		<View>
 			<Marker coordinate={data.location} style={{ zIndex: 1, width: 74, height: 74 }} onPress={getProducts}>
 				<View style={styles.container}>
-					<View style={data.id === storePoint.id && triggerInfoSp ? [styles.imageBorder, styles.imageBorderBig] : styles.imageBorder}>
-						<Image style={data.id === storePoint.id && triggerInfoSp ? [styles.img, styles.imgBig] :styles.img} source={{ uri: data.photo }} />
-					</View>
+					{Platform.OS === 'ios' ? (
+						<View style={[styles.imageBorder]}>
+							<Image style={styles.img} source={{ uri: data.photo }} />
+						</View>
+					) : (
+						<View style={data.id === storePoint.id && triggerInfoSp ? [styles.imageBorder, styles.imageBorderBig] : styles.imageBorder}>
+							<Image
+								style={data.id === storePoint.id && triggerInfoSp ? [styles.img, styles.imgBig] : styles.img}
+								source={{ uri: data.photo }}
+							/>
+						</View>
+					)}
 				</View>
 			</Marker>
 		</View>
 	)
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
 	return {
 		storePoint: state.storePoint,
 		triggerInfoSp: state.triggerInfoSp,
 	}
-  }
+}
 
 export default connect(mapStateToProps)(MapSpendMarker)
 
