@@ -28,6 +28,7 @@ export default StyleSheet.create({
   addres: {
     maxWidth: width / 2,
     alignItems: "center",
+    alignSelf: 'center',
     marginTop: 8,
   },
   subtitle: {

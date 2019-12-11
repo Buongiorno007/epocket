@@ -287,7 +287,7 @@
     "CONGRATULATION": "You won \n",
     "WAIT_SEC": "WAIT {{value}} SEC",
     "WAIT_MIN": "WAIT {{value}} MIN",
-    "PUBLISH_AND_CONTINUE": "PUBLISH AND CONTINUE",
+    "PUBLISH_AND_CONTINUE": "PUBLISH IN FEED AND CONTINUE",
     "VISIT_WEBSITE": "VISIT THE WEB-SITE AND CONTINUE",
     "CORRECT" : "Correct answer in the game",
     "ZIFI": {

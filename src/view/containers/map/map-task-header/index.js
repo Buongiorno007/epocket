@@ -1,5 +1,5 @@
 import React from "react"
-import { View, StyleSheet, Image, Text, TouchableOpacity, Platform } from "react-native"
+import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native"
 import route from "@services/route"
 import sbHeight from "@services/getSBHeight"
 import { connect } from "react-redux"

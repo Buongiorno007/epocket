@@ -3,7 +3,6 @@ import { View, ScrollView, Platform, Image, Text, TouchableOpacity } from 'react
 import { connect } from 'react-redux'
 import ClusteredMapView from '../../../../native_modules/react-native-maps-super-cluster'
 import { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
-import LinearGradient from 'react-native-linear-gradient'
 import route from '@services/route'
 import Basket from '@containers/basket' 
 import MapSpendButton from '@containers/map/map-spend-button'
@@ -27,7 +26,6 @@ function MapSpend({ lat, lng, mapPoints, wallet, profileState }) {
 	}, [])
 
 	const renderMarker = (data) => {
-		console.log(data, 'RENDERMARKER')
 		return (
 			<Marker key={data.id} coordinate={data.location}>
 				<View style={styles.markerOuter}>

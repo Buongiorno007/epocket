@@ -1,6 +1,5 @@
 import React, {useState} from "react"
 import { View, Text, ScrollView, ImageBackground, Image } from "react-native"
-import MapHeaderWhite from "@containers/map/map-header-white"
 import MapTaskHeader from "@containers/map/map-task-header"
 import { connect } from "react-redux"
 import styles from "./styles"
@@ -33,7 +32,6 @@ function MallPoint({ mallPoint }) {
   ]
   return (
     <View style={styles.container}>
-      {/* <MapHeaderWhite title={mallPoint.title} toTop/> */}
       <MapTaskHeader title={mallPoint.title} goMain/>
       <MyCarousel data={images} pagination />
       <View style={styles.addres}>
