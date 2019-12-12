@@ -34,11 +34,7 @@ function StorePoint({ storePoint, profileState, dispatch }) {
 		setVisibleModal(false)
 	}
 
-	const images = [
-		storePoint.image[0],
-		storePoint.image[0],
-		storePoint.image[0]
-	]
+	const images = [storePoint.image[0], storePoint.image[0], storePoint.image[0]]
 
 	return (
 		<View style={styles.container}>
@@ -49,7 +45,21 @@ function StorePoint({ storePoint, profileState, dispatch }) {
 					<Text style={styles.point_title}>{storePoint.title}</Text>
 					<Text style={styles.point_bold}>{storePoint.work_time}</Text>
 					<Text style={styles.point_addr}>{storePoint.address}</Text>
-					<Text style={styles.point_bold}>{`Phone number: ${storePoint.phone}`}</Text>
+
+					{storePoint.phone.length < 1 && <Text style={styles.point_bold}>{`${I18n.t('STORE_PHONE')} - - -`}</Text>}
+					{storePoint.phone.length === 1 && (
+						<Text style={styles.point_bold} onPress={() => Linking.openURL(`tel:${storePoint.phone[0]}`)}>
+							{`${I18n.t('STORE_PHONE')} ${storePoint.phone[0]}`}
+						</Text>
+					)}
+					{storePoint.phone.length > 1 && (
+						<>
+							<Text style={styles.point_bold}>{`${I18n.t('STORE_PHONES')}`}</Text>
+							{storePoint.phone.map((item) => (
+								<Text style={styles.point_bold} onPress={() => Linking.openURL(`tel:${item}`)}>{`${item}`}</Text>
+							))}
+						</>
+					)}
 				</View>
 				<View style={styles.withModal}>
 					<Text style={styles.categoriesText}>{I18n.t('STORE_POINT.GOODS')}</Text>
@@ -63,24 +73,29 @@ function StorePoint({ storePoint, profileState, dispatch }) {
 					<Text style={styles.categoriesText}>{I18n.t('STORE_POINT.EARN')}</Text>
 					<TouchableOpacity style={styles.buttonRed} onPress={() => dispatch(getMallPoint2(storePoint.sub_id))}>
 						<Image style={styles.buttonRedImg} source={require('@assets/img/epocket_icon.png')} />
-						<Text style={styles.buttonRedText}>{'3 задания доступно'}</Text>
+						<Text style={styles.buttonRedText}>{`${storePoint.about_missions.count} ${I18n.t('STORE_POINT.TASKS')}`}</Text>
 						<View style={styles.buttonRedPrice}>
-							<Text style={styles.buttonRedPriceText}>{`+ 140 ${profileState.currency}`}</Text>
+							<Text style={styles.buttonRedPriceText}>{`+ ${storePoint.about_missions.price} ${profileState.currency}`}</Text>
 						</View>
 					</TouchableOpacity>
 					<Text style={styles.categoriesText}>{I18n.t('STORE_POINT.NEWS')}</Text>
 					<MyCarousel data={images} />
-					<Text style={[styles.categoriesText, {marginTop: 35}]}>{I18n.t('STORE_POINT.ABOUT')}</Text>
+					<Text style={[styles.categoriesText, { marginTop: 35 }]}>{I18n.t('STORE_POINT.ABOUT')}</Text>
 					<Text style={styles.aboutText}>{storePoint.about}</Text>
-					<Text style={styles.categoriesText}>{I18n.t('STORE_POINT.LINKS')}</Text>
-					<View>
-						{storePoint.links.map((item) => (
-							<View style={{ flexDirection: 'row', marginTop: 10, marginLeft: 16 }}>
-								<Image source={require('@assets/img/web.png')} style={{ width: 20, height: 20, marginRight: 20 }} />
-								<Text onPress={() => Linking.openURL(`https://www.${item}`)}>{item}</Text>
+					{/* {storePoint.links.length > 0 && ( */}
+						<>
+							<Text style={styles.categoriesText}>{I18n.t('STORE_POINT.LINKS')}</Text>
+							<View>
+								{/* {storePoint.links.map((item) => ( */}
+								{['epocketcash.com','epocketcash.com','epocketcash.com'].map((item) => (
+									<View style={{ flexDirection: 'row', marginTop: 10, marginLeft: 16 }}>
+										<Image source={require('@assets/img/web.png')} style={{ width: 20, height: 20, marginRight: 20 }} />
+										<Text onPress={() => Linking.openURL(`https://www.${item}`)}>{item}</Text>
+									</View>
+								))}
 							</View>
-						))}
-					</View>
+						</>
+					{/* )} */}
 				</View>
 			</ScrollView>
 			<Modal

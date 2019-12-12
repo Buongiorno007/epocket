@@ -15,6 +15,8 @@
     "WALLET" : "Wallet",
     "PROFILE" : "Profile"
   },
+  "STORE_PHONE" : "Phone number:",
+  "STORE_PHONES" : "Phone numbers:",
   "SPEND": "Spend",
   "REFILL_SCREEN": "Top up",
   "TITLE": "EpocketCash",
@@ -506,6 +508,7 @@
     "EARN" : "Earn",
     "NEWS" : "News & promotions",
     "ABOUT" : "About",
-    "LINKS" : "Links"
+    "LINKS" : "Links",
+    "TASKS" : "tasks avaliable"
   }
 }

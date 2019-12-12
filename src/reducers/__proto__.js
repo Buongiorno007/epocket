@@ -112,10 +112,11 @@ export const STOREPOINT = function(data = {}) {
   this.sub_id = data.cash_out_id || 0  // HARDCODED
   this.image = data.image || []
   this.work_time = data.work_time || "06:00 - 21:00" // HARDCODED
-  this.phone = data.phone || [] // HARDCODED
-  this.news = data.news || [] // HARDCODED
-  this.about = data.about || "" // HARDCODED
-  this.links = data.links || [] // HARDCODED
+  this.phone = data.phone || [] 
+  this.news = data.news || [] 
+  this.about = data.about || "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." 
+  this.links = data.links || [] 
+  this.about_missions = data.about_missions || {}
   this.categories = data.categories || []
 }
 export const BASKET = function(data = {}) {
@@ -136,7 +137,7 @@ export const MALLPOINT = function(data = {}) {
   this.title = data.title || ""
   this.address = data.addres || ""
   this.id = data.id || 0
-  this.sub_id = data.cash_out_id || 0 // HARDCODED
+  this.sub_id = data.cash_out_id || null // HARDCODED
   this.image = data.image || []
   this.work_time = data.work_time || "06:00 - 21:00" // HARDCODED
   this.active_tasks = data.active_tasks || []
