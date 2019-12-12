@@ -61,7 +61,7 @@ export default StyleSheet.create({
 	touchMap: {
 		position: 'absolute',
 		top: 0,
-		bottom: 0, 
+		bottom: 0,
 		left: 0,
 		right: 0,
 		zIndex: 1,
@@ -97,7 +97,7 @@ export default StyleSheet.create({
 		color: colors.black111,
 	},
 	text_top: {
-		marginLeft: 32, 
+		marginLeft: 32,
 		marginTop: 16
 	},
 	tittle: {
@@ -109,7 +109,7 @@ export default StyleSheet.create({
 	touchMap: {
 		position: 'absolute',
 		top: 0,
-		bottom: 0, 
+		bottom: 0,
 		left: 0,
 		right: 0,
 		zIndex: 1,
@@ -143,18 +143,18 @@ export default StyleSheet.create({
 		alignItems: 'center'
 	},
 	infobox: {
-		position: 'absolute', 
+		position: 'absolute',
 		left: 16,
 		right: 16,
-		bottom: 60, 
-		backgroundColor: 'white', 
-		borderRadius: 10, 
+		bottom: 60,
+		backgroundColor: 'white',
+		borderRadius: 10,
 		padding: 16
 	},
-	infobox_image: { 
-		width: 48, 
-		height: 48, 
-		borderRadius: 24, 
+	infobox_image: {
+		width: 48,
+		height: 48,
+		borderRadius: 24,
 	},
 	infobox_image_outline: {
 		width: 56,
@@ -165,7 +165,7 @@ export default StyleSheet.create({
 		borderRadius: 28,
 		justifyContent: 'center',
 		alignItems: 'center',
-		marginRight: 16 
+		marginRight: 16
 	},
 	infobox_title: {
 		fontFamily: 'Rubik-Medium',

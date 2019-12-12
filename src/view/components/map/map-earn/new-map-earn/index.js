@@ -14,6 +14,7 @@ import { triggerInfoSet } from '@reducers/map-earn-trigger-infobox'
 import route from '@services/route'
 import sbHeight from '@services/getSBHeight'
 import I18n from '@locales/I18n'
+import TittleSmallText from '@containers/tittle-small-text'
 
 function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigger, triggerInfo, mallPoint, dispatch }) {
 	const [infoBoxWidth, setInfoBoxWidth] = useState(0)
@@ -66,6 +67,7 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 		<View style={styles.container}>
 			<ScrollView style={[styles.marginTop, trigger ? { marginTop: 0 } : null]}>
 				<Text style={[styles.tittle, { marginLeft: 16, marginBottom: 16 }, trigger && styles.displayNone]}>{I18n.t('EARN.ON_MAP')}</Text>
+				<TittleSmallText text={I18n.t('EARN.MAP')} />
 				<View style={trigger ? styles.map_view_big : styles.map_view} onStartShouldSetResponder={() => dispatch(triggerInfoSet(false))}>
 					{trigger && (
 						<TouchableOpacity style={styles.goBack} onPress={() => closeMap()}>
@@ -133,7 +135,8 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 				<View style={[styles.scroll, trigger && styles.displayNone]}>
 					{games_aval > 0 && (
 						<>
-							<Text style={styles.tittle}>{I18n.t('EARN.GAMES')}</Text>
+							{/*<Text style={styles.tittle}>{I18n.t('EARN.GAMES')}</Text>*/}
+							<TittleSmallText text={I18n.t('EARN.GAMES')} />
 							<MapEarnButton
 								img={require('@assets/img/brand_games_ico.png')}
 								text={I18n.t('EARN.BRAND_GAMES')}
@@ -145,7 +148,8 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 					)}
 					{posts_aval > 0 && (
 						<>
-							<Text style={styles.tittle}>{I18n.t('EARN.POSTS')}</Text>
+							{/*<Text style={styles.tittle}>{I18n.t('EARN.POSTS')}</Text>*/}
+							<TittleSmallText text={I18n.t('EARN.POSTS')} />
 							<MapEarnButton
 								img={require('@assets/img/post_insta_ico.png')}
 								text={I18n.t('EARN.POST_INSTA')}
@@ -160,7 +164,8 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 						</>
 					)}
 
-					<Text style={styles.tittle}>{I18n.t('EARN.REFERAL')}</Text>
+					{/*<Text style={styles.tittle}>{I18n.t('EARN.REFERAL')}</Text>*/}
+					<TittleSmallText text={I18n.t('EARN.REFERAL')} />
 					<MapEarnButton
 						img={require('@assets/img/invite-friend-ico.png')}
 						text={I18n.t('REF_LINK.ADD_FRIEND2')}

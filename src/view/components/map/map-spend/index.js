@@ -4,12 +4,13 @@ import { connect } from 'react-redux'
 import ClusteredMapView from '../../../../native_modules/react-native-maps-super-cluster'
 import { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import route from '@services/route'
-import Basket from '@containers/basket' 
+import Basket from '@containers/basket'
 import MapSpendButton from '@containers/map/map-spend-button'
 import FooterNavigation from '@containers/footer-navigator/footer-navigator'
 import { findNearest, getDistance } from 'geolib'
 import styles from './styles'
 import I18n from '@locales/I18n'
+import TittleSmallText from '@containers/tittle-small-text'
 
 function MapSpend({ lat, lng, mapPoints, wallet, profileState }) {
 	const region = {
@@ -57,11 +58,12 @@ function MapSpend({ lat, lng, mapPoints, wallet, profileState }) {
 		<View style={styles.container}>
 			<ScrollView style={styles.scrollView}>
 				<View style={styles.topBar}>
-					<Text style={[styles.text, styles.text_top]}>{`${I18n.t("CASH.TITLE")} ${wallet.balance} ${profileState.currency}`}</Text>
-					<Basket style={styles.basket} invert/> 
+					<Text style={[styles.text, styles.text_top]}>{`${I18n.t("MAP.PURCHASE")}`}</Text>
+					<Basket style={styles.basket} invert/>
 				</View>
-				<Text style={[styles.text]}>{I18n.t('MAP.PLACES')}</Text>
-				<View style={styles.map_view}>				
+				{/*<Text style={[styles.text]}>{I18n.t('MAP.PLACES')}</Text>*/}
+				<TittleSmallText text={I18n.t('MAP.AVAILABLE')} />
+				<View style={styles.map_view}>
 					<ClusteredMapView
 						style={styles.map}
 						data={mapPoints.cashouts}
@@ -96,6 +98,7 @@ function MapSpend({ lat, lng, mapPoints, wallet, profileState }) {
 							callback={() => route.push('Barcode')}
 							space
 						/>
+						<TittleSmallText text={I18n.t('MAP.ONLINE')} />
 						<MapSpendButton
 							img={require('@assets/img/bask.png')}
 							text={I18n.t('ONLINE_SHOP')}
@@ -109,7 +112,7 @@ function MapSpend({ lat, lng, mapPoints, wallet, profileState }) {
 							space
 						/>
 					</View>
-					{/* <Text style={styles.text}>{I18n.t('HOME')}</Text> */} 
+					{/* <Text style={styles.text}>{I18n.t('HOME')}</Text> */}
 				</View>
 			</ScrollView>
 			<FooterNavigation />
