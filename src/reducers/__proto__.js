@@ -111,7 +111,7 @@ export const STOREPOINT = function(data = {}) {
   this.id = data.id || 0
   this.sub_id = data.cash_out_id || 0  // HARDCODED
   this.image = data.image || []
-  this.work_time = data.work_time || "06:00 - 21:00" // HARDCODED
+  this.work_time = data.work_time || "- - -" // HARDCODED
   this.phone = data.phone || [] 
   this.news = data.news || [] 
   this.about = data.about || "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." 

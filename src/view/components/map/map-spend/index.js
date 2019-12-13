@@ -57,8 +57,8 @@ function MapSpend({ lat, lng, mapPoints, wallet, profileState }) {
 	return (
 		<View style={styles.container}>
 			<ScrollView style={styles.scrollView}>
-				<View style={[styles.topBar, {borderBottomWidth: 1, borderBottomColor: '#d0d0d0',}]}>
-					<Text style={[styles.text, styles.text_top, {marginLeft: 0, fontSize: 24}]}>{`${I18n.t("MAP.PURCHASE")}`}</Text>
+				<View style={[styles.topBar, {borderBottomWidth: 1, borderBottomColor: '#e6e6e6',}]}>
+					<Text style={[styles.text, styles.text_top, {marginLeft: 0, fontFamily: 'Rubik-Bold', fontSize: 34}]}>{`${I18n.t("MAP.PURCHASE")}`}</Text>
 					<Basket style={styles.basket} invert/>
 				</View>
 				{/*<Text style={[styles.text]}>{I18n.t('MAP.PLACES')}</Text>*/}
@@ -98,7 +98,7 @@ function MapSpend({ lat, lng, mapPoints, wallet, profileState }) {
 							callback={() => route.push('Barcode')}
 							space
 						/>
-						<TittleSmallText text={I18n.t('MAP.ONLINE')} />
+						<TittleSmallText text={I18n.t('MAP.ONLINE')} styleText={{color: '#E60050'}}/>
 						<MapSpendButton
 							img={require('@assets/img/bask.png')}
 							text={I18n.t('ONLINE_SHOP')}

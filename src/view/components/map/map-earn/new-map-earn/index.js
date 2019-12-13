@@ -65,9 +65,11 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 	return (
 		// <View style={[trigger ? {height: screenHeight} : [{height: windowHeight, paddingBottom: 61}], windowHeight !== screenHeight ? styles.marginTop: null]}>
 		<View style={styles.container}>
-			<ScrollView style={[styles.marginTop, trigger ? { marginTop: 0 } : null]}>
-				<Text style={[styles.tittle, { marginLeft: 16, marginBottom: 16, borderBottomWidth: 1, borderBottomColor: '#d0d0d0', fontSize: 24 }, trigger && styles.displayNone]}>{I18n.t('EARN.ON_MAP')}</Text>
-				<TittleSmallText text={I18n.t('EARN.MAP')} styleContainer={{marginTop: 0, marginBottom: 16, marginLeft: 16}}/>
+			<ScrollView style={[{ paddingBottom: 30 }, styles.marginTop, trigger ? { marginTop: 0 } : null]}>
+				<View style={[trigger && styles.displayNone, { marginLeft: 16, marginBottom: 16, marginTop: 16, borderBottomWidth: 1, borderBottomColor: '#e6e6e6' }]}>
+					<Text style={[styles.tittle]}>{I18n.t('EARN.ON_MAP')}</Text>
+				</View>
+				{!trigger && <TittleSmallText text={I18n.t('EARN.MAP')} styleContainer={{ marginTop: 0, marginBottom: 16, marginLeft: 16 }} />}
 				<View style={trigger ? styles.map_view_big : styles.map_view} onStartShouldSetResponder={() => dispatch(triggerInfoSet(false))}>
 					{trigger && (
 						<TouchableOpacity style={styles.goBack} onPress={() => closeMap()}>

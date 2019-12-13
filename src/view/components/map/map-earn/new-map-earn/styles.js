@@ -101,9 +101,9 @@ export default StyleSheet.create({
 		marginTop: 16
 	},
 	tittle: {
-		fontFamily: 'Rubik-Medium',
-		fontSize: 15,
-		marginTop: 16,
+		fontFamily: 'Rubik-Bold',
+		fontSize: 34,
+		// marginTop: 16,
 		color: colors.black111,
 	},
 	touchMap: {

@@ -38,9 +38,9 @@ function StorePoint({ storePoint, profileState, dispatch }) {
 
 	return (
 		<View style={styles.container}>
-			<MapHeaderWhite title={`Баланс: ${storePoint.balance} ${profileState.currency}`} basket id={storePoint.id} />
+			<MapHeaderWhite title={`${I18n.t('CASH.TITLE')} ${storePoint.balance} ${profileState.currency}`} basket id={storePoint.id} />
+			<MyCarousel data={images} pagination />
 			<ScrollView scrollEnabled={!visibleModal}>
-				<MyCarousel data={images} pagination />
 				<View style={{ alignItems: 'center', marginBottom: 44 }}>
 					<Text style={styles.point_title}>{storePoint.title}</Text>
 					<Text style={styles.point_bold}>{storePoint.work_time}</Text>
@@ -73,21 +73,28 @@ function StorePoint({ storePoint, profileState, dispatch }) {
 					<Text style={styles.categoriesText}>{I18n.t('STORE_POINT.EARN')}</Text>
 					<TouchableOpacity style={styles.buttonRed} onPress={() => dispatch(getMallPoint2(storePoint.sub_id))}>
 						<Image style={styles.buttonRedImg} source={require('@assets/img/epocket_icon.png')} />
-						<Text style={styles.buttonRedText}>{`${storePoint.about_missions.count} ${I18n.t('STORE_POINT.TASKS')}`}</Text>
+						<Text style={styles.buttonRedText}>{`${I18n.t('STORE_POINT.TASKS')}`}</Text>
 						<View style={styles.buttonRedPrice}>
 							<Text style={styles.buttonRedPriceText}>{`+ ${storePoint.about_missions.price} ${profileState.currency}`}</Text>
 						</View>
 					</TouchableOpacity>
-					<Text style={styles.categoriesText}>{I18n.t('STORE_POINT.NEWS')}</Text>
-					<MyCarousel data={images} />
-					<Text style={[styles.categoriesText, { marginTop: 35 }]}>{I18n.t('STORE_POINT.ABOUT')}</Text>
-					<Text style={styles.aboutText}>{storePoint.about}</Text>
-					{/* {storePoint.links.length > 0 && ( */}
+					{storePoint.news.length > 0 && (
+						<>
+							<Text style={styles.categoriesText}>{I18n.t('STORE_POINT.NEWS')}</Text>
+							<MyCarousel data={storePoint.news} />
+						</>
+					)}
+					{storePoint.about.length > 0 && (
+						<>
+							<Text style={[styles.categoriesText, { marginTop: 35 }]}>{I18n.t('STORE_POINT.ABOUT')}</Text>
+							<Text style={styles.aboutText}>{storePoint.about}</Text>
+						</>
+					)}
+					{storePoint.links.length > 0 && (
 						<>
 							<Text style={styles.categoriesText}>{I18n.t('STORE_POINT.LINKS')}</Text>
 							<View>
-								{/* {storePoint.links.map((item) => ( */}
-								{['epocketcash.com','epocketcash.com','epocketcash.com'].map((item) => (
+								{storePoint.links.map((item) => (
 									<View style={{ flexDirection: 'row', marginTop: 10, marginLeft: 16 }}>
 										<Image source={require('@assets/img/web.png')} style={{ width: 20, height: 20, marginRight: 20 }} />
 										<Text onPress={() => Linking.openURL(`https://www.${item}`)}>{item}</Text>
@@ -95,7 +102,7 @@ function StorePoint({ storePoint, profileState, dispatch }) {
 								))}
 							</View>
 						</>
-					{/* )} */}
+					)}
 				</View>
 			</ScrollView>
 			<Modal

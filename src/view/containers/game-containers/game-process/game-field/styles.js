@@ -25,7 +25,7 @@ export default StyleSheet.create({
 		borderRadius: 0,
 	},
 	item: {
-		borderColor: colors.black_o33,
+		borderColor: colors.transparent,
 	},
 	item_pressed: {
 		borderWidth: 4,

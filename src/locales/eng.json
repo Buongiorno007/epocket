@@ -219,7 +219,7 @@
     "PURCHASE" : "Shop",
     "PLACES" : "Places on the map",
     "AVAILABLE" : "Choose among available locations",
-    "ONLINE" : "On-Line purchases"
+    "ONLINE" : "Online purchases"
   },
   "PARTNER_SCREEN": {
     "SHOW_THIS_CODE": "To proceed payments show this code at the checkout {{currency}}",
@@ -513,6 +513,6 @@
     "NEWS" : "News & promotions",
     "ABOUT" : "About",
     "LINKS" : "Links",
-    "TASKS" : "tasks avaliable"
+    "TASKS" : "Tasks avaliable"
   }
 }

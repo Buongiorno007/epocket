@@ -5,7 +5,7 @@ import { colors } from '@constants/colors'
 export default function TittleSmallText({text = "", styleContainer = {}, styleText = {}}) {
 	return(
 		<View style={[styles.tittle_small, styleContainer]}>
-			<Image style={styles.tittle_small_img} source={require('@assets/img/e-ico.png')}  resizeMode={'contain'}/>
+			{/* <Image style={styles.tittle_small_img} source={require('@assets/img/e-ico.png')}  resizeMode={'contain'}/> */}
 			<Text style={[styles.tittle_small_text, styleText]}>{text}</Text>
 		</View>
 	)
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
 		marginRight: 8,
 	},
 	tittle_small_text: {
-		fontFamily: 'Rubik-Bold',
+		fontFamily: 'Rubik-Medium',
 		fontSize: 15,
 		color: colors.black111,
 	},
