@@ -98,14 +98,15 @@ export default StyleSheet.create({
 		color: colors.black111,
 	},
 	text_top: {
-		marginLeft: 16, 
+		// marginLeft: 16, 
 		marginTop: 16
 	},
 	topBar: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		paddingRight: 16
+		paddingRight: 16,
+		marginLeft: 16
 	},
 	markerOuter: {
 		padding: 8,

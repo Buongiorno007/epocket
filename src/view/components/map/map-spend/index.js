@@ -57,12 +57,12 @@ function MapSpend({ lat, lng, mapPoints, wallet, profileState }) {
 	return (
 		<View style={styles.container}>
 			<ScrollView style={styles.scrollView}>
-				<View style={styles.topBar}>
-					<Text style={[styles.text, styles.text_top]}>{`${I18n.t("MAP.PURCHASE")}`}</Text>
+				<View style={[styles.topBar, {borderBottomWidth: 1, borderBottomColor: '#d0d0d0',}]}>
+					<Text style={[styles.text, styles.text_top, {marginLeft: 0, fontSize: 24}]}>{`${I18n.t("MAP.PURCHASE")}`}</Text>
 					<Basket style={styles.basket} invert/>
 				</View>
 				{/*<Text style={[styles.text]}>{I18n.t('MAP.PLACES')}</Text>*/}
-				<TittleSmallText text={I18n.t('MAP.AVAILABLE')} />
+				<TittleSmallText text={I18n.t('MAP.AVAILABLE')} styleContainer={{marginTop: 16, marginBottom: 16, marginLeft: 16}} />
 				<View style={styles.map_view}>
 					<ClusteredMapView
 						style={styles.map}
