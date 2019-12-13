@@ -34,13 +34,11 @@ function StorePoint({ storePoint, profileState, dispatch }) {
 		setVisibleModal(false)
 	}
 
-	const images = [storePoint.image[0], storePoint.image[0], storePoint.image[0]]
-
 	return (
 		<View style={styles.container}>
 			<MapHeaderWhite title={`${I18n.t('CASH.TITLE')} ${storePoint.balance} ${profileState.currency}`} basket id={storePoint.id} />
-			<MyCarousel data={images} pagination />
 			<ScrollView scrollEnabled={!visibleModal}>
+				<MyCarousel data={storePoint.image} pagination />
 				<View style={{ alignItems: 'center', marginBottom: 44 }}>
 					<Text style={styles.point_title}>{storePoint.title}</Text>
 					<Text style={styles.point_bold}>{storePoint.work_time}</Text>

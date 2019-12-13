@@ -19,7 +19,9 @@ export default class MyCarousel extends React.Component {
 	render() {
 		const { slider1ActiveSlide } = this.state
 		return (
-			<View style={{ position: 'relative' }}>
+			<View
+				style={{ position: 'relative' }}
+			>
 				<Carousel
 					ref={(c) => {
 						this._carousel = c
@@ -30,6 +32,9 @@ export default class MyCarousel extends React.Component {
 					itemWidth={width - 48}
 					containerCustomStyle={styles.containerCustomStyle}
 					onSnapToItem={(index) => this.setState({ slider1ActiveSlide: index })}
+					onLayout={() => this._carousel.triggerRenderingHack()}
+					removeClippedSubviews={false}
+					
 				/>
 				{this.props.pagination && (
 					<Pagination

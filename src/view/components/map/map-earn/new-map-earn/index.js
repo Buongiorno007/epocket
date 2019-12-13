@@ -119,7 +119,7 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 						>
 							<View style={{ flexDirection: 'row' }}>
 								<View style={styles.infobox_image_outline}>
-									<Image style={styles.infobox_image} source={{ uri: mallPoint.image }} />
+									<Image style={styles.infobox_image} source={{ uri: mallPoint.image[0] }} />
 								</View>
 								<View>
 									<Text

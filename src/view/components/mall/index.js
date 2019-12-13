@@ -25,15 +25,10 @@ function MallPoint({ mallPoint }) {
     )
   }
 
-  const images = [
-    mallPoint.image,
-    mallPoint.image,
-    mallPoint.image,
-  ]
   return (
     <View style={styles.container}>
       <MapTaskHeader title={mallPoint.title} goMain/>
-      <MyCarousel data={images} pagination />
+      <MyCarousel data={mallPoint.image} pagination />
       <View style={styles.addres}>
           <Text style={styles.subtitle}>{mallPoint.address}</Text>
       </View>
