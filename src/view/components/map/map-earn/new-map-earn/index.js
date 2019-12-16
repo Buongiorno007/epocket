@@ -62,11 +62,16 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 	console.log('games_aval', games_aval)
 	let posts_aval = Number(mallTask.tasks.length)
 
+	workTime = () => {
+		let timeSplitted = mallPoint.work_time.split(',')
+		return timeSplitted
+	}
+
 	return (
 		// <View style={[trigger ? {height: screenHeight} : [{height: windowHeight, paddingBottom: 61}], windowHeight !== screenHeight ? styles.marginTop: null]}>
 		<View style={styles.container}>
 			<ScrollView style={[{ paddingBottom: 30 }, styles.marginTop, trigger ? { marginTop: 0 } : null]}>
-				<View style={[trigger && styles.displayNone, { marginLeft: 16, marginBottom: 16, marginTop: 16, borderBottomWidth: 1, borderBottomColor: '#e6e6e6' }]}>
+				<View style={[trigger && styles.displayNone, { marginLeft: 16, marginBottom: 8, paddingBottom: 8, marginTop: 16, borderBottomWidth: 1, borderBottomColor: '#e6e6e6' }]}>
 					<Text style={[styles.tittle]}>{I18n.t('EARN.ON_MAP')}</Text>
 				</View>
 				{!trigger && <TittleSmallText text={I18n.t('EARN.MAP')} styleContainer={{ marginTop: 0, marginBottom: 16, marginLeft: 16 }} />}
@@ -111,7 +116,7 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 					{triggerInfo && (
 						<TouchableOpacity
 							style={styles.infobox}
-							onPress={() => route.navigate('MallPoint')}
+							onPress={() => route.push('MallPoint')}
 							onLayout={(event) => {
 								const { width } = event.nativeEvent.layout
 								setInfoBoxWidth(width)
@@ -127,7 +132,8 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 										numberOfLines={1}
 										ellipsizeMode={'tail'}
 									>{`${mallPoint.title}`}</Text>
-									<Text style={[styles.infobox_time, { width: infoBoxWidth - 90 }]}>{`${mallPoint.work_time}`}</Text>
+									{workTime().map((workTime, ind) => <Text style={[styles.infobox_time, { width: infoBoxWidth - 90 }]} key={ind}>{workTime}</Text>)}
+									{/* <Text style={[styles.infobox_time, { width: infoBoxWidth - 90 }]}>{`${mallPoint.work_time}`}</Text> */}
 								</View>
 							</View>
 							<Text style={styles.infobox_text}>{`${mallPoint.address}`}</Text>

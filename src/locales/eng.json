@@ -485,7 +485,8 @@
     "PURCHASE": "Purchase",
     "TOTAL" : "TOTAL",
     "RECEIPT" : "Receipt",
-    "DATE": "Date"
+    "DATE": "Date",
+    "REFERAL" : "For a referal"
   },
   "SSLIDER" : {
     "NEXT" : "Next",
@@ -513,6 +514,6 @@
     "NEWS" : "News & promotions",
     "ABOUT" : "About",
     "LINKS" : "Links",
-    "TASKS" : "Tasks avaliable"
+    "TASKS" : "Avaliable tasks"
   }
 }

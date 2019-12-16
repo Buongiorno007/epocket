@@ -49,6 +49,11 @@ function MapPlaces({ lat, lng, mapPoints, profileState, storePoint, triggerInfoS
 		}
 	}
 
+	workTime = () => {
+		let timeSplitted = storePoint.work_time.split(',')
+		return timeSplitted
+	}
+
 	return (
 		<View style={styles.container} onStartShouldSetResponder={() => dispatch(triggerInfoSpSet(false))}>
 			<MapHeaderPink title={I18n.t('MAP.PLACES')} filters />
@@ -98,9 +103,10 @@ function MapPlaces({ lat, lng, mapPoints, profileState, storePoint, triggerInfoS
 							numberOfLines={1}
 							ellipsizeMode={'tail'}
 						>{`${storePoint.title}`}</Text>
-						<Text
+						{workTime().map((workTime, ind) => <Text style={[styles.infobox_time, { width: infoBoxWidth - 90 }]} key={ind}>{workTime}</Text>)}
+						{/* <Text
 							style={[styles.infobox_time, { width: infoBoxWidth - 90 }]}
-						>{`${storePoint.work_time}`}</Text>
+						>{`${storePoint.work_time}`}</Text> */}
 						</View>
 					</View>
 					<Text style={styles.infobox_text}>{`${storePoint.address}`}</Text>

@@ -33,6 +33,10 @@ function StorePoint({ storePoint, profileState, dispatch }) {
 
 		setVisibleModal(false)
 	}
+	workTime = () => {
+		let timeSplitted = storePoint.work_time.split(',')
+		return timeSplitted
+	}
 
 	return (
 		<View style={styles.container}>
@@ -41,7 +45,7 @@ function StorePoint({ storePoint, profileState, dispatch }) {
 				<MyCarousel data={storePoint.image} pagination />
 				<View style={{ alignItems: 'center', marginBottom: 44 }}>
 					<Text style={styles.point_title}>{storePoint.title}</Text>
-					<Text style={styles.point_bold}>{storePoint.work_time}</Text>
+					{workTime().map((workTime, ind) => <Text style={styles.point_bold} key={ind}>{workTime}</Text>)}
 					<Text style={styles.point_addr}>{storePoint.address}</Text>
 
 					{storePoint.phone.length < 1 && <Text style={styles.point_bold}>{`${I18n.t('STORE_PHONE')} - - -`}</Text>}

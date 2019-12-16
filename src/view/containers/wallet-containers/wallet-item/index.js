@@ -37,12 +37,61 @@ function WalletItem({ item, profileState }) {
 		})
 	) : null
 	// arr.length ? console.log(' empty', hours, minutes) : console.log('not empty', hours, minutes)
+
+	itemTitle =() => {
+		if (item.info) {
+			switch (item.name) {
+				case 'PURCHASE':
+					return I18n.t('WALLET.PURCHASE')
+					break;
+			
+				default:
+					return item.name
+					break;
+			}
+		} else {
+			switch (item.trade_point_name) {
+				case "Refill Phone":
+					return I18n.t('REFILL.PAYMENT_G')
+					break;
+				case "Reward for referal":
+					return I18n.t('WALLET.REFERAL')
+					break;
+			
+				default:
+					return I18n.t('GAME.CORRECT')
+					break;
+			}
+		}
+	}
+
+	itemDesc =() => {
+		if (item.info) {
+				return item.trade_point_name
+		} else {
+			switch (item.trade_point_name) {
+				case "Refill Phone":
+					return profileState.phone
+					break;
+				case "Reward for referal":
+					return item.referal
+					break;
+			
+				default:
+					return item.trade_point_name
+					break;
+			}
+		}
+	}
+
 	return (
 		<TouchableOpacity disabled={!item.info} style={[styles.view, arr.length && {display: 'none'}]} onPress={item.name === 'PURCHASE' ? showReceipt : additionalInformation}>
 			<View style={styles.imageOutline}><Image style={styles.circle} source={{ uri: item.info ? item.image : item.photo }} /></View>
 			<View style={styles.titles}>
-				<Text style={styles.title}>{`${item.info ? item.name === 'PURCHASE' ? I18n.t('WALLET.PURCHASE') : item.name : item.trade_point_name === "Refill Phone" ? I18n.t('REFILL.PAYMENT_G') : I18n.t('GAME.CORRECT')}`}</Text>
-				<Text style={styles.description}>{`${item.info ? item.trade_point_name : item.trade_point_name === "Refill Phone" ? profileState.phone : item.trade_point_name}`}</Text>
+				<Text style={styles.title}>{itemTitle()}</Text>
+				{/* <Text style={styles.title}>{`${item.info ? item.name === 'PURCHASE' ? I18n.t('WALLET.PURCHASE') : item.name : item.trade_point_name === "Refill Phone" ? I18n.t('REFILL.PAYMENT_G') : item.trade_point_name === "Reward for referal" ? I18n.t('WALLET.REFERAL')  : I18n.t('GAME.CORRECT')}`}</Text> */}
+				<Text style={styles.description}>{itemDesc()}</Text>
+				{/* <Text style={styles.description}>{`${item.info ? item.trade_point_name : item.trade_point_name === "Refill Phone" ? profileState.phone : item.trade_point_name}`}</Text> */}
 			</View>
 				<View style={styles.priceContainer}>
 					<Text style={[styles.text, styles.price_positive, {color: waiting}]}>

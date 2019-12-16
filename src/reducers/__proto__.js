@@ -139,7 +139,7 @@ export const MALLPOINT = function(data = {}) {
   this.id = data.id || 0
   this.sub_id = data.cash_out_id || null // HARDCODED
   this.image = data.image || []
-  this.work_time = data.work_time || "- - -" // HARDCODED
+  this.work_time = data.work_time || "" // HARDCODED
   this.active_tasks = data.active_tasks || []
   this.soon_tasks = data.soon_tasks || []
   this.time_tasks = data.time_tasks || []

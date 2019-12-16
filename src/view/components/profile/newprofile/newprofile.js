@@ -173,7 +173,7 @@ class NewProfile extends React.Component {
 								</View>
 							</TouchableOpacity>
 
-							<TouchableOpacity style={[styles.refPad, {backgroundColor: '#E6E6E6'}]} onPress={() => route.push('AddAdvert')} disabled>
+							<TouchableOpacity style={[styles.refPad]} onPress={() => route.push('AddAdvert')} >
 								<View style={styles.refPad_row}>
 									<Image style={styles.refPadImg_big} source={require('@assets/img/add-advert.png')} resizeMode={'contain'}/>
 									<Text style={styles.refPadText_red}>{`+ 50 $`}</Text>
