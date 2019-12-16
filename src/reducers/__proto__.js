@@ -114,7 +114,7 @@ export const STOREPOINT = function(data = {}) {
   this.work_time = data.work_time || "- - -" // HARDCODED
   this.phone = data.phone || [] 
   this.news = data.news || [] 
-  this.about = data.about || "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." 
+  this.about = data.about || "" 
   this.links = data.links || [] 
   this.about_missions = data.about_missions || {}
   this.categories = data.categories || []

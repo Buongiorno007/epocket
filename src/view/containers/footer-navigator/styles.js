@@ -12,15 +12,16 @@ const windowHeight = Dimensions.get('window').height
 export default StyleSheet.create({
   footer_container: {
     width: width,
-    height: 61,
+    height: isIphoneX ? 81 : 61,
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "flex-end",
+    alignItems: "flex-start",
+    // alignItems: "flex-end",
     position: "absolute",
     backgroundColor: colors.white,
     bottom: screenHeight !== windowHeight ? 48 : 0,
     zIndex: 999,
-    marginBottom: isIphoneX ? 20 : 0
+    // marginBottom: isIphoneX ? 20 : 0
   },
   footer_tab: {
     backgroundColor: colors.white,
