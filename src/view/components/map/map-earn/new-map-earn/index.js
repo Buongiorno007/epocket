@@ -28,7 +28,8 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 		if (mapPoints.outlets.length) {
 			moveToNearest()
 		}
-	}, [trigger, triggerInfo])
+	}, [trigger])
+	// }, [trigger, triggerInfo])
 
 	const renderMarker = (data) => {
 		return <MapEarnMarker key={data.id} data={data} />
