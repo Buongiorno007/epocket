@@ -3,15 +3,20 @@ import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native'
 import route from '@services/route'
 import { connect } from 'react-redux'
 import I18n from '@locales/I18n'
+import { triggerInfoSpSet } from '@reducers/map-spend-trigger-infobox'
 
-function MapHeaderPink({ title = I18n.t('MAP.PLACES'), filters = false, use, mapPoints }) {
+function MapHeaderPink({ title = I18n.t('MAP.PLACES'), filters = false, use, mapPoints, dispatch }) {
 	const goToFilters = () => {
 		mapPoints.filters.length ? route.push('Filters') : console.log('FILTERS NOT available')
 	}
 
+  goBack = () => {
+    dispatch(triggerInfoSpSet(false))
+    route.pop()
+  }
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => route.pop()}>
+      <TouchableOpacity onPress={() => goBack()}>
         <Image source={require("@assets/img/chevron.png")} style={styles.image} />
       </TouchableOpacity>
       <Text style={styles.text}>{title}</Text>

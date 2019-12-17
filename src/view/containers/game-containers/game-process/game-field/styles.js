@@ -9,6 +9,7 @@ export default StyleSheet.create({
 		flexWrap: 'wrap',
 		width: width - 32,
 		height: width - 35,
+		overflow: 'hidden',
 		borderWidth: 1,
 		borderColor: colors.blood_red,
 	},

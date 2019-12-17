@@ -51,7 +51,7 @@ function AddAdvert({profileState, token, dispatch}) {
             <Text style={styles.text}>{I18n.t('REF_LINK.ADD_WITH')}</Text>
             <TouchableOpacity 
                 style={[styles.socialLink]} 
-                onPress={() => {shareToOneSocial(refferal_link, '50', 'all', '$')}} 
+                onPress={() => {shareToOneSocial(refferal_link, '50', 'all', '$', true)}} 
                 // disabled
             >
                 <Image style={styles.socialIco} source={require('@assets/img/links.png')} resizeMode={'contain'}/>

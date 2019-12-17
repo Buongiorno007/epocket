@@ -27,7 +27,7 @@ function MallPoint({ mallPoint }) {
 
   return (
     <View style={styles.container}>
-      <MapTaskHeader title={mallPoint.title}/>
+      <MapTaskHeader title={mallPoint.title} goMain/>
       <MyCarousel data={mallPoint.image} pagination />
       <View style={styles.addres}>
           <Text style={styles.subtitle}>{mallPoint.address}</Text>

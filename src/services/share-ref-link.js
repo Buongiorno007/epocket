@@ -31,14 +31,17 @@ shareSingleThroughtLinking = (app_link, app_share_link, app_market_id) => {
 		.catch((err) => console.log(err))
 }
 
-export function shareToOneSocial(shareLink, link_reward, socialType, curr) {
-	let extendedShareLink =
+export function shareToOneSocial(shareLink, link_reward, socialType, curr, advert) {
+	let extendedShareLink = !advert ? (
 		I18n.t('REF_LINK.ADDITIONAL_SHARING_TEXT') +
 		// link_reward +
 		' ' +
 		// I18n.t('EPC', { currency: curr }).toUpperCase() +
 		'\n' +
 		shareLink
+	) : (
+		' ' + shareLink
+	)
 	const defaultOptions = {
 		title: 'EpocketCash',
 		message: extendedShareLink,

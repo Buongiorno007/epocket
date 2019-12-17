@@ -20,7 +20,7 @@ function GameField({ gameProcess, showChanges }) {
 	return (
 		<View>
 			<Text style={styles.game_description_text}>{gameProcess.descr}</Text>
-			<ImageBackground source={{ uri: gameProcess.image }} style={styles.container}>
+			<ImageBackground source={{ uri: gameProcess.image }} style={styles.container} resizeMode={'contain'}>
 				{but.map((item, index) => {
 					return (
 						<Button

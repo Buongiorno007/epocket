@@ -61,7 +61,7 @@ export const getMallPoint2 = (id) => async (dispatch, getState) => {
       console.log('getMallPoint2',urls.new_mission_list, response)
       dispatch(setPoint(new MALLPOINT(response.body)))
       dispatch(loaderState(false))
-      route.navigate("MallPoint")
+      route.push("MallPoint")
     } catch (e) {
       console.log(e, "getEarnPoint2 catch(e)")
       dispatch(loaderState(false))
