@@ -56,16 +56,16 @@ export default StyleSheet.create({
 	},
 	cardTitle: {
 		marginTop: 16,
-		fontFamily: 'Rubik-Regular',
-		color: '#404140',
-		fontSize: 14,
-		textAlign: 'center',
+		fontFamily: 'Rubik-Medium',
+		color: '#111111',
+		fontSize: 13,
+		// textAlign: 'center',
 	},
 	cardSubtitle: {
 		fontFamily: 'Rubik-Regular',
-		color: '#7C7C7C',
-		fontSize: 12,
-		textAlign: 'center',
+		color: '#A6A6A6',
+		fontSize: 11,
+		// textAlign: 'center',
 	},
 	body: {
 		// paddingBottom: 16,

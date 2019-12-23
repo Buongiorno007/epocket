@@ -1,8 +1,8 @@
 import React from 'react'
 import Carousel, { Pagination } from 'react-native-snap-carousel'
-import { Image } from 'react-native'
+import { Image, View, TouchableOpacity, Text } from 'react-native'
 import { Dimensions, StyleSheet } from 'react-native'
-import { View } from 'native-base'
+import route from '@services/route'
 const { width } = Dimensions.get('window')
 
 export default class MyCarousel extends React.Component {
@@ -16,8 +16,23 @@ export default class MyCarousel extends React.Component {
 		return <Image source={{ uri: item }} resizeMode={'cover'} style={styles.image} />
 	}
 
+	_renderItemNews(item){
+		return (
+			<TouchableOpacity
+				style={[styles.image]}
+				key={item.id}
+				onPress={() => {route.push('NewsDetails', item)}}
+			>
+				<Image style={styles.image2} source={{ uri: item.link }} resizeMode={'cover'} />
+				<Text style={styles.cardTitle}>{item.name}</Text>
+				<Text style={styles.cardSubtitle}>{item.time}</Text>
+			</TouchableOpacity>
+		)
+	}
+
 	render() {
 		const { slider1ActiveSlide } = this.state
+		const { news } = this.props
 		return (
 			<View
 				style={{ position: 'relative' }}
@@ -27,10 +42,11 @@ export default class MyCarousel extends React.Component {
 						this._carousel = c
 					}}
 					data={this.props.data}
-					renderItem={this._renderItem}
+					renderItem={news ? this._renderItemNews : this._renderItem}
 					sliderWidth={width}
 					itemWidth={width - 48}
-					containerCustomStyle={styles.containerCustomStyle}
+					containerCustomStyle={news ? styles.containerCustomStyle2 : styles.containerCustomStyle}
+					loop={true}
 					onSnapToItem={(index) => this.setState({ slider1ActiveSlide: index })}
 					onLayout={() => this._carousel.triggerRenderingHack()}
 					removeClippedSubviews={false}
@@ -59,9 +75,17 @@ const styles = StyleSheet.create({
 	containerCustomStyle: {
 		height: (width - 48) * 0.56,
 	},
+	containerCustomStyle2: {
+		height: (width - 48) * 0.66,
+	},
 	image: {
 		width: width - 48,
 		height: '100%',
+		borderRadius: 12,
+	},
+	image2: {
+		width: width - 48,
+		height: (width - 48) * 0.56,
 		borderRadius: 12,
 	},
 	paginationContainer: {
@@ -78,4 +102,14 @@ const styles = StyleSheet.create({
 		borderRadius: 5,
 		marginLeft: 10,
 	},
+	cardTitle: {
+		fontFamily: 'Rubik-Medium',
+		color: '#111111',
+		fontSize: 15,
+	},
+	cardSubtitle: {
+		fontFamily: 'Rubik-Regular',
+		color: '#A6A6A6',
+		fontSize: 13,
+	}
 })

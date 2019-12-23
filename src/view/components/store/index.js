@@ -17,7 +17,7 @@ function StorePoint({ storePoint, profileState, dispatch }) {
 	const [currentObject, setCurrentObject] = useState({})
 	console.log(currentObject, 'currentObject')
 
-	const renderItem = ({ item }) => <Accordion item={item} pressProduct={pressProduct} />
+	const renderItem = ({ item }) => <Accordion item={item} pressProduct={pressProduct}/>
 
 	const keyExtractor = (item) => `${item.cat_id}`
 
@@ -43,24 +43,30 @@ function StorePoint({ storePoint, profileState, dispatch }) {
 			<MapHeaderWhite title={`${I18n.t('CASH.TITLE')} ${storePoint.balance} ${profileState.currency}`} basket id={storePoint.id} />
 			<ScrollView scrollEnabled={!visibleModal}>
 				<MyCarousel data={storePoint.image} pagination />
-				<View style={{ alignItems: 'center', marginBottom: 44 }}>
+				<View style={{ alignItems: 'flex-start', marginHorizontal: 16, marginBottom: 32 }}>
 					<Text style={styles.point_title}>{storePoint.title}</Text>
-					{workTime().map((workTime, ind) => <Text style={styles.point_bold} key={ind}>{workTime}</Text>)}
-					<Text style={styles.point_addr}>{storePoint.address}</Text>
 
-					{storePoint.phone.length < 1 && <Text style={styles.point_bold}>{`${I18n.t('STORE_PHONE')} - - -`}</Text>}
-					{storePoint.phone.length === 1 && (
-						<Text style={styles.point_bold} onPress={() => Linking.openURL(`tel:${storePoint.phone[0]}`)}>
-							{`${I18n.t('STORE_PHONE')} ${storePoint.phone[0]}`}
-						</Text>
-					)}
-					{storePoint.phone.length > 1 && (
-						<>
-							<Text style={styles.point_bold}>{`${I18n.t('STORE_PHONES')}`}</Text>
-							{storePoint.phone.map((item) => (
-								<Text style={styles.point_bold} onPress={() => Linking.openURL(`tel:${item}`)}>{`${item}`}</Text>
+					<View style={{ flexDirection: 'row', marginTop: 16 }}>
+						<Image source={require('@assets/img/location-pin.png')} style={{ width: 21, height: 21, marginRight: 8 }} />
+						<Text style={styles.point_addr}>{storePoint.address}</Text>
+					</View>
+
+					<View style={{ flexDirection: 'row', marginTop: 16 }}>
+						<Image source={require('@assets/img/ion_time.png')} style={{ width: 21, height: 21, marginRight: 8 }} />
+						{workTime().map((workTime, ind) => (
+							<Text style={styles.point_regular} key={ind}>
+								{workTime}
+							</Text>
+						))}
+					</View>
+
+					{storePoint.phone.length && (
+						<View style={{ flexDirection: 'row', marginTop: 16 }}>
+							<Image source={require('@assets/img/el_phone.png')} style={{ width: 21, height: 21, marginRight: 8 }} />
+							{storePoint.phone.map((item, ind) => (
+								<Text style={styles.point_regular} onPress={() => Linking.openURL(`tel:${item}`)} key={ind}>{item}</Text>
 							))}
-						</>
+						</View>
 					)}
 				</View>
 				<View style={styles.withModal}>
@@ -83,7 +89,7 @@ function StorePoint({ storePoint, profileState, dispatch }) {
 					{storePoint.news.length > 0 && (
 						<>
 							<Text style={styles.categoriesText}>{I18n.t('STORE_POINT.NEWS')}</Text>
-							<MyCarousel data={storePoint.news} />
+							<MyCarousel data={storePoint.news} news/>
 						</>
 					)}
 					{storePoint.about.length > 0 && (
@@ -96,8 +102,8 @@ function StorePoint({ storePoint, profileState, dispatch }) {
 						<>
 							<Text style={styles.categoriesText}>{I18n.t('STORE_POINT.LINKS')}</Text>
 							<View>
-								{storePoint.links.map((item) => (
-									<View style={{ flexDirection: 'row', marginTop: 10, marginLeft: 16 }}>
+								{storePoint.links.map((item, ind) => (
+									<View style={{ flexDirection: 'row', marginTop: 10, marginLeft: 16 }} key={ind}>
 										<Image source={require('@assets/img/web.png')} style={{ width: 20, height: 20, marginRight: 20 }} />
 										<Text onPress={() => Linking.openURL(`https://www.${item}`)}>{item}</Text>
 									</View>

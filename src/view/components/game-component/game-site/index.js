@@ -42,7 +42,8 @@ function GameSite({ link, timing, changeTimer = () => {}, setSite, token, dispat
 			await clearTimeout(intervalId)
 			await dispatch(setGameStatus(''))
 			await setSite()
-			await route.navigate('Main')
+			await route.navigate('Gamepage')
+			// await route.navigate('Main')
 		} catch (error) {
 			console.log(error, 'game-site main ERROR')
 			dispatch(loaderState(false))

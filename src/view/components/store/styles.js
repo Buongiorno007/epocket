@@ -173,17 +173,16 @@ export default StyleSheet.create({
 		color: colors.black111,
 		marginTop: 12
 	},
-	point_bold: {
-		fontFamily: 'Rubik-Medium',
-		fontSize: 14,
+	point_regular: {
+		fontFamily: 'Rubik-Regular',
+		fontSize: 13,
 		color: colors.black111,
-		marginTop: 12
+		// marginTop: 12
 	},
 	point_addr: {
 		fontFamily: 'Rubik-Regular',
-		fontSize: 14,
+		fontSize: 13,
 		color: colors.black,
 		maxWidth: width / 2,
-		marginVertical: 12
 	}
 })

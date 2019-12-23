@@ -51,6 +51,8 @@ const StackNavigator = createStackNavigator(
 		AddFriend: require('components/profile/referals/add-friend').default,
 		InstaPost: require('components/map/map-earn/insta-post').default,
 		InstaPostPublish: require('components/map/map-earn/insta-post-publish').default,
+		NewsDetails: require('components/store/news-details').default,
+
 	},
 	{
 		initialRouteName: 'Start',
