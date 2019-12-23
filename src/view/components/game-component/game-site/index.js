@@ -7,6 +7,7 @@ import FastImage from 'react-native-fast-image'
 import { connect } from 'react-redux'
 //reducers
 import { setGameStatus } from '@reducers/game-status'
+import { getGameStart } from "@reducers/gameStart"
 import { loaderState } from '@reducers/loader'
 //services
 import { toHHMMSS } from '@services/convert-time'
@@ -42,6 +43,8 @@ function GameSite({ link, timing, changeTimer = () => {}, setSite, token, dispat
 			await clearTimeout(intervalId)
 			await dispatch(setGameStatus(''))
 			await setSite()
+			await getGameStart()
+			await dispatch(loaderState(false))
 			await route.navigate('Gamepage')
 			// await route.navigate('Main')
 		} catch (error) {
