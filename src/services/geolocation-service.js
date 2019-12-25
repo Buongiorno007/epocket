@@ -83,44 +83,28 @@ class GeolocationService extends React.Component {
 
 	sendDistancePush = (message) => {
 		console.log(message, 'sendDistancePush')
-		// firebase.notifications().onNotification(async (notification) => {
-		// 	const newNotification = new firebase.notifications.Notification()
-		// 	  .setNotificationId(new Date().getTime().toString())
-		// 	  .setTitle('EpocketCash')
-		// 	  .setBody(message)
-		// 	// {
-		// 	//   Platform.OS == 'android' &&
-		// 	// 	notification
-		// 	// 	  .android.setChannelId('####')
-		// 	// }
-		// 	await firebase.notifications().displayNotification(newNotification).catch((err) => {
-		// 	  console.log('err---****', err);
-		// 	});
-		//   });
 		try {
-			// Build a channel
-			const channel = new firebase.notifications.Android.Channel(
-				'test-channel',
-				'Test Channel',
-				firebase.notifications.Android.Importance.Max,
-			).setDescription('My apps test channel')
+			// Set up your listener
+			firebase.notifications().onNotificationOpened((notificationOpen) => {
+				// notificationOpen.action will equal 'snooze'
+			})
 
-			// Create the channel
-			firebase.notifications().android.createChannel(channel)
-
-			// Create notification
+			// Build your notification
 			const notification = new firebase.notifications.Notification()
-				.setNotificationId('notificationId')
-				.setTitle('EpocketCash')
-				.setBody(message)
+				.setTitle('Android Notification Actions')
+				.setBody('Action Body')
+				.setNotificationId('notification-action')
+				.setSound('default')
+				.android.setChannelId('notification-action')
+				.android.setPriority(firebase.notifications.Android.Priority.Max)
+			// Build an action
+			const action = new firebase.notifications.Android.Action('snooze', 'ic_launcher', 'My Test Action')
+			// This is the important line
+			action.setShowUserInterface(false)
+			// Add the action to the notification
+			notification.android.addAction(action)
 
-			notification.android
-				.setChannelId('Miscellaneous')
-				// .android.setColor(this.props.userColor.pink)
-				.android.setSmallIcon('@drawable/ic_notif')
-
-			console.log(notification, 'sendDistancePush notification')
-			
+			// Display the notification
 			firebase.notifications().displayNotification(notification)
 		} catch (error) {
 			console.log(error, 'sendDistancePush ERR')
