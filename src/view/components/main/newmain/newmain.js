@@ -14,7 +14,7 @@ import LocationDisabled from "@containers/location-disabled/location-disabled"
 import { setActiveCard } from "@reducers/set-active-card"
 import { getGameStart } from "@reducers/gameStart"
 //services
-// import GeolocationService from "@services/geolocation-service"
+import GeolocationService from "@services/geolocation-service"
 import { getPoints } from "@reducers/mapPoints"
 import { getPartners } from "@reducers/partners"
 import { getBasket } from "@reducers/basket"
@@ -95,7 +95,7 @@ class Main extends React.Component {
 
         {!this.props.isLocation && (this.props.activeTab === 1 || this.props.activeTab === 0) && <LocationDisabled />}
         {/* <TimerModal /> */}
-        {/* <GeolocationService /> */}
+        <GeolocationService />
       </View>
     )
   }

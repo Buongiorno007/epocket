@@ -17,7 +17,7 @@ function StorePoint({ storePoint, profileState, dispatch }) {
 	const [currentObject, setCurrentObject] = useState({})
 	console.log(currentObject, 'currentObject')
 
-	const renderItem = ({ item }) => <Accordion item={item} pressProduct={pressProduct}/>
+	const renderItem = ({ item }) => <Accordion item={item} pressProduct={pressProduct} />
 
 	const keyExtractor = (item) => `${item.cat_id}`
 
@@ -64,7 +64,9 @@ function StorePoint({ storePoint, profileState, dispatch }) {
 						<View style={{ flexDirection: 'row', marginTop: 16 }}>
 							<Image source={require('@assets/img/el_phone.png')} style={{ width: 21, height: 21, marginRight: 8 }} />
 							{storePoint.phone.map((item, ind) => (
-								<Text style={styles.point_regular} onPress={() => Linking.openURL(`tel:${item}`)} key={ind}>{item}</Text>
+								<Text style={styles.point_regular} onPress={() => Linking.openURL(`tel:${item}`)} key={ind}>
+									{item}
+								</Text>
 							))}
 						</View>
 					)}
@@ -78,18 +80,22 @@ function StorePoint({ storePoint, profileState, dispatch }) {
 						keyExtractor={keyExtractor}
 						scrollEnabled={!visibleModal}
 					/>
-					<Text style={styles.categoriesText}>{I18n.t('STORE_POINT.EARN')}</Text>
-					<TouchableOpacity style={styles.buttonRed} onPress={() => dispatch(getMallPoint2(storePoint.sub_id))}>
-						<Image style={styles.buttonRedImg} source={require('@assets/img/epocket_icon.png')} />
-						<Text style={styles.buttonRedText}>{`${I18n.t('STORE_POINT.TASKS')}`}</Text>
-						<View style={styles.buttonRedPrice}>
-							<Text style={styles.buttonRedPriceText}>{`+ ${storePoint.about_missions.price} ${profileState.currency}`}</Text>
-						</View>
-					</TouchableOpacity>
+					{storePoint.about_missions.count > 0 && (
+						<>
+							<Text style={styles.categoriesText}>{I18n.t('STORE_POINT.EARN')}</Text>
+							<TouchableOpacity style={styles.buttonRed} onPress={() => dispatch(getMallPoint2(storePoint.sub_id))}>
+								<Image style={styles.buttonRedImg} source={require('@assets/img/epocket_icon.png')} />
+								<Text style={styles.buttonRedText}>{`${I18n.t('STORE_POINT.TASKS')}`}</Text>
+								<View style={styles.buttonRedPrice}>
+									<Text style={styles.buttonRedPriceText}>{`+ ${storePoint.about_missions.price} ${profileState.currency}`}</Text>
+								</View>
+							</TouchableOpacity>
+						</>
+					)}
 					{storePoint.news.length > 0 && (
 						<>
 							<Text style={styles.categoriesText}>{I18n.t('STORE_POINT.NEWS')}</Text>
-							<MyCarousel data={storePoint.news} news/>
+							<MyCarousel data={storePoint.news} news />
 						</>
 					)}
 					{storePoint.about.length > 0 && (

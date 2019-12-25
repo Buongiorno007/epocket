@@ -16,7 +16,7 @@ export default class MyCarousel extends React.Component {
 		return <Image source={{ uri: item }} resizeMode={'cover'} style={styles.image} />
 	}
 
-	_renderItemNews(item){
+	_renderItemNews({item}){
 		return (
 			<TouchableOpacity
 				style={[styles.image]}
