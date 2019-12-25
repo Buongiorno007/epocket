@@ -1,6 +1,6 @@
 import React from 'react'
 import { Platform, AppState } from 'react-native'
-import { getDistance } from 'geolib'
+import { findNearest, getDistance } from 'geolib'
 import BackgroundFetch from 'react-native-background-fetch'
 import BackgroundTimer from 'react-native-background-timer'
 import { httpPost } from './http'
@@ -26,6 +26,7 @@ import { sendToTelegramm } from '../services/telegramm-notification'
 class GeolocationService extends React.Component {
 	state = {
 		sheduleRequest: null,
+		appState: AppState.currentState,
 	}
 
 	startMissionRequest = () => {
@@ -81,131 +82,173 @@ class GeolocationService extends React.Component {
 	}
 
 	sendDistancePush = (message) => {
+		console.log(message, 'sendDistancePush')
+		// firebase.notifications().onNotification(async (notification) => {
+		// 	const newNotification = new firebase.notifications.Notification()
+		// 	  .setNotificationId(new Date().getTime().toString())
+		// 	  .setTitle('EpocketCash')
+		// 	  .setBody(message)
+		// 	// {
+		// 	//   Platform.OS == 'android' &&
+		// 	// 	notification
+		// 	// 	  .android.setChannelId('####')
+		// 	// }
+		// 	await firebase.notifications().displayNotification(newNotification).catch((err) => {
+		// 	  console.log('err---****', err);
+		// 	});
+		//   });
 		try {
+			// Build a channel
+			const channel = new firebase.notifications.Android.Channel(
+				'test-channel',
+				'Test Channel',
+				firebase.notifications.Android.Importance.Max,
+			).setDescription('My apps test channel')
+
+			// Create the channel
+			firebase.notifications().android.createChannel(channel)
+
+			// Create notification
 			const notification = new firebase.notifications.Notification()
 				.setNotificationId('notificationId')
 				.setTitle('EpocketCash')
 				.setBody(message)
 
 			notification.android
-				.setChannelId('chanelId')
-				.android.setColor(this.props.userColor.pink)
+				.setChannelId('Miscellaneous')
+				// .android.setColor(this.props.userColor.pink)
 				.android.setSmallIcon('@drawable/ic_notif')
 
+			console.log(notification, 'sendDistancePush notification')
+			
 			firebase.notifications().displayNotification(notification)
 		} catch (error) {
-			sendToTelegramm('this.sendDistancePush', error)
+			console.log(error, 'sendDistancePush ERR')
+			// sendToTelegramm('this.sendDistancePush', error)
 		}
 	}
 
-	_handleAppStateChange = (nextAppState) => {
-		if (this.props.appState.match(/inactive|background/) && nextAppState === 'active') {
-			getCurrentGeolocation().then(
-				(location) => {
-					this.calculateDistance(
-						{
-							latitude: this.props.closestMall.lat,
-							longitude: this.props.closestMall.lng,
-						},
-						{
-							latitude: location.lat,
-							longitude: location.lng,
-						},
-					)
-				},
-				(error) => {},
-			)
-		}
-	}
+	// _handleAppStateChange = (nextAppState) => {
+	// 	if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
+	// 		getCurrentGeolocation().then(
+	// 			(location) => {
+	// 				console.log(location, 'GEOLOCATION-SERVICE')
+	// 				this.calculateDistance()
+	// 			},
+	// 			(error) => {},
+	// 		)
+	// 	}
+	// 	this.setState({appState: nextAppState});
+	// }
 
-	componentDidMount() {
-		AppState.addEventListener('change', this._handleAppStateChange)
-	}
+	// componentDidMount() {
+	// 	AppState.addEventListener('change', this._handleAppStateChange)
+	// }
+	// componentWillUnmount() {
+	// 	AppState.removeEventListener('change', this._handleAppStateChange)
+	// }
 	closeMission = () => {
 		this.props.showFailedNotification(true)
 		BackgroundTimer.stopBackgroundTimer()
 	}
 
-	calculateDistance = (currentLocation, nextLocation, nextProps) => {
-		if (
-			currentLocation.latitude !== 0 &&
-			currentLocation.longitude !== 0 &&
-			nextLocation.latitude !== 0 &&
-			nextLocation.longitude !== 0
-		) {
-			console.log(currentLocation, 'CURRENT LOCATION')
-			let distance =
-				getDistance(
-					{
-						latitude: currentLocation.latitude,
-						longitude: currentLocation.longitude,
-					},
-					{
-						latitude: nextLocation.latitude,
-						longitude: nextLocation.longitude,
-					},
-				) - this.props.closestMall.rad
-			if (nextProps.isLocation && this.props.isLocation) {
-				if (distance > 100) {
-					this.props.setPushStatus(true)
-				}
-				if (distance <= 100 && !nextProps.pushSendStaus) {
-					this.sendDistancePush(I18n.t('PUSH_MESSAGE.PUSH_3'))
-					this.props.setPushStatus(true)
-				}
-				if (distance <= 0 && !this.props.timer_status && nextProps.timer_status) {
-					this.props.showDashboard(true)
-					this.props.showTimer(false)
-					this.sendDistancePush(I18n.t('PUSH_MESSAGE.PUSH_4'))
-				}
-				if (distance > 0 && this.props.timer_status) {
-					this.props.showDashboard(false)
-					this.props.showTimer(true)
-					this.sendDistancePush(I18n.t('PUSH_MESSAGE.PUSH_5'))
-				}
-			}
+	calculateDistance = () => {
+		const { location, mapPoints } = this.props
+		const region = {
+			latitude: location.lat,
+			longitude: location.lng,
+			latitudeDelta: 0.006,
+			longitudeDelta: 0.006,
 		}
+		// if (currentLocation.latitude !== 0 && currentLocation.longitude !== 0 && nextLocation.latitude !== 0 && nextLocation.longitude !== 0) {
+		// console.log(currentLocation, 'CURRENT LOCATION')
+
+		let nearestMall = findNearest(region, mapPoints.outlets)
+		let distance = getDistance(region, nearestMall) - nearestMall.rad
+
+		console.log(distance, 'CURRENT LOCATION DISTANCE')
+		// let distance =
+		// 	getDistance(
+		// 		{
+		// 			latitude: currentLocation.latitude,
+		// 			longitude: currentLocation.longitude,
+		// 		},
+		// 		{
+		// 			latitude: nextLocation.latitude,
+		// 			longitude: nextLocation.longitude,
+		// 		},
+		// 	) - this.props.closestMall.rad
+		// if (nextProps.isLocation && this.props.isLocation) {
+		// if (distance > 100) {
+		// 	this.props.setPushStatus(true)
+		// }
+		// if (distance <= 100 && !nextProps.pushSendStaus) {
+		// if (distance <= 100 ) {
+		// 	this.sendDistancePush(I18n.t('PUSH_MESSAGE.PUSH_3'))
+		// 	this.props.setPushStatus(true)
+		// }
+		// if (distance <= 0 && !this.props.timer_status && nextProps.timer_status) {
+		if (distance <= 0) {
+			// this.props.showDashboard(true)
+			// this.props.showTimer(false)
+			this.sendDistancePush(I18n.t('PUSH_MESSAGE.PUSH_4'))
+		}
+		// if (distance > 0 && this.props.timer_status) {
+		if (distance > 0) {
+			// this.props.showDashboard(false)
+			// this.props.showTimer(true)
+			this.sendDistancePush(I18n.t('PUSH_MESSAGE.PUSH_5'))
+		}
+		// }
+		// }
 	}
 
-	componentWillReceiveProps = (nextProps) => {
-		if (
-			(this.props.selectedMall.lat &&
-				this.props.selectedMall.lng &&
-				nextProps.location.lat.toFixed(4) !== this.props.location.lat.toFixed(4) &&
-				nextProps.location.lng.toFixed(4) !== this.props.location.lng.toFixed(4)) ||
-			(this.props.selectedMall.lat &&
-				this.props.selectedMall.lng &&
-				!this.state.sendDistancePush &&
-				nextProps.location.lat.toFixed(4) === this.props.location.lat.toFixed(4) &&
-				nextProps.location.lng.toFixed(4) === this.props.location.lng.toFixed(4))
-		) {
-			this.calculateDistance(
-				{
-					latitude: this.props.closestMall.lat,
-					longitude: this.props.closestMall.lng,
-				},
-				{
-					latitude: nextProps.location.lat,
-					longitude: nextProps.location.lng,
-				},
-				nextProps,
-			)
-		}
-		if (nextProps.timer_status && !nextProps.sheduleRequestStart) {
-			this.props.setSheduleRequestStart(true)
-			this.sendTimerRequest()
-		}
-		if (!nextProps.timer_status && nextProps.sheduleRequestStart) {
-			this.props.setSheduleRequestStart(false)
-			BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA)
-			BackgroundTimer.stopBackgroundTimer()
-		}
-		if (!nextProps.isLocation && !this.props.isLocation) {
-			this.props.showDashboard(false)
-		}
-	}
+	// componentWillReceiveProps = (nextProps) => {
+	// 	if (
+	// 		(this.props.selectedMall.lat &&
+	// 			this.props.selectedMall.lng &&
+	// 			nextProps.location.lat.toFixed(4) !== this.props.location.lat.toFixed(4) &&
+	// 			nextProps.location.lng.toFixed(4) !== this.props.location.lng.toFixed(4)) ||
+	// 		(this.props.selectedMall.lat &&
+	// 			this.props.selectedMall.lng &&
+	// 			!this.state.sendDistancePush &&
+	// 			nextProps.location.lat.toFixed(4) === this.props.location.lat.toFixed(4) &&
+	// 			nextProps.location.lng.toFixed(4) === this.props.location.lng.toFixed(4))
+	// 	) {
+	// 		this.calculateDistance(
+	// 			{
+	// 				latitude: this.props.closestMall.lat,
+	// 				longitude: this.props.closestMall.lng,
+	// 			},
+	// 			{
+	// 				latitude: nextProps.location.lat,
+	// 				longitude: nextProps.location.lng,
+	// 			},
+	// 			nextProps,
+	// 		)
+	// 	}
+	// 	if (nextProps.timer_status && !nextProps.sheduleRequestStart) {
+	// 		this.props.setSheduleRequestStart(true)
+	// 		this.sendTimerRequest()
+	// 	}
+	// 	if (!nextProps.timer_status && nextProps.sheduleRequestStart) {
+	// 		this.props.setSheduleRequestStart(false)
+	// 		BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA)
+	// 		BackgroundTimer.stopBackgroundTimer()
+	// 	}
+	// 	if (!nextProps.isLocation && !this.props.isLocation) {
+	// 		this.props.showDashboard(false)
+	// 	}
+	// }
 
 	render() {
+		getCurrentGeolocation().then(
+			(location) => {
+				console.log(location, 'GEOLOCATION-SERVICE')
+				this.calculateDistance()
+			},
+			(error) => {},
+		)
 		return null
 	}
 }
@@ -225,6 +268,7 @@ const mapStateToProps = (state) => {
 		mainTaskId: state.mainTaskId,
 		pushSendStaus: state.pushSendStaus,
 		closestMall: state.closestMall,
+		mapPoints: state.mapPoints,
 	}
 }
 
@@ -243,7 +287,4 @@ const mapDispatchToProps = (dispatch) =>
 		dispatch,
 	)
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps,
-)(GeolocationService)
+export default connect(mapStateToProps, mapDispatchToProps)(GeolocationService)
