@@ -91,18 +91,52 @@ class GeolocationService extends React.Component {
 
 			// Build your notification
 			const notification = new firebase.notifications.Notification()
-				.setTitle('Android Notification Actions')
-				.setBody('Action Body')
+				.setTitle('Warning')
+				.setBody(message)
 				.setNotificationId('notification-action')
 				.setSound('default')
-				.android.setChannelId('notification-action')
-				.android.setPriority(firebase.notifications.Android.Priority.Max)
-			// Build an action
-			const action = new firebase.notifications.Android.Action('snooze', 'ic_launcher', 'My Test Action')
-			// This is the important line
-			action.setShowUserInterface(false)
-			// Add the action to the notification
-			notification.android.addAction(action)
+
+			if (Platform.OS === 'android') {
+				// Build a channel
+				const channel = new firebase.notifications.Android.Channel(
+					'test-channel',
+					'Test Channel',
+					firebase.notifications.Android.Importance.Max,
+				).setDescription('My apps test channel')
+
+				// Create the channel
+				firebase.notifications().android.createChannel(channel)
+
+				// Build an action
+				const action = new firebase.notifications.Android.Action('snooze', 'ic_launcher', 'To EpocketCash')
+				// This is the important line
+				action.setShowUserInterface(false)
+
+				notification.android.setChannelId('test-channel')
+				notification.android.setPriority(firebase.notifications.Android.Priority.Max)
+
+				// Add the action to the notification
+				notification.android.addAction(action)
+			} else {
+				notification.ios.setBadge(12)
+				notification.setData({})
+				const _manageNotificationPermissions = async () => {
+					const enabled = await firebase.messaging().hasPermission()
+					if (enabled) {
+						return true
+					} else {
+						try {
+							await firebase.messaging().registerForRemoteNotifications()
+							// await firebase.messaging().requestPermission();
+							const notificationToken = await messaging().getToken()
+							return true
+						} catch (error) {
+							return false
+						}
+					}
+					return false
+				}
+			}
 
 			// Display the notification
 			firebase.notifications().displayNotification(notification)
@@ -112,127 +146,62 @@ class GeolocationService extends React.Component {
 		}
 	}
 
-	// _handleAppStateChange = (nextAppState) => {
-	// 	if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
-	// 		getCurrentGeolocation().then(
-	// 			(location) => {
-	// 				console.log(location, 'GEOLOCATION-SERVICE')
-	// 				this.calculateDistance()
-	// 			},
-	// 			(error) => {},
-	// 		)
-	// 	}
-	// 	this.setState({appState: nextAppState});
-	// }
+	_handleAppStateChange = (nextAppState) => {
+		console.log(nextAppState, 'nextAppState')
+		this.setState({ appState: nextAppState })
+	}
 
-	// componentDidMount() {
-	// 	AppState.addEventListener('change', this._handleAppStateChange)
-	// }
-	// componentWillUnmount() {
-	// 	AppState.removeEventListener('change', this._handleAppStateChange)
-	// }
+	componentDidMount() {
+		AppState.addEventListener('change', this._handleAppStateChange)
+	}
+	componentWillUnmount() {
+		AppState.removeEventListener('change', this._handleAppStateChange)
+	}
+
 	closeMission = () => {
 		this.props.showFailedNotification(true)
 		BackgroundTimer.stopBackgroundTimer()
 	}
 
 	calculateDistance = () => {
-		const { location, mapPoints } = this.props
+		const { location, mapPoints, missionState } = this.props
+		console.log(location.lat, location.lng, 'UNDEFINED ?')
 		const region = {
 			latitude: location.lat,
 			longitude: location.lng,
 			latitudeDelta: 0.006,
 			longitudeDelta: 0.006,
 		}
-		// if (currentLocation.latitude !== 0 && currentLocation.longitude !== 0 && nextLocation.latitude !== 0 && nextLocation.longitude !== 0) {
-		// console.log(currentLocation, 'CURRENT LOCATION')
 
 		let nearestMall = findNearest(region, mapPoints.outlets)
 		let distance = getDistance(region, nearestMall) - nearestMall.rad
 
 		console.log(distance, 'CURRENT LOCATION DISTANCE')
-		// let distance =
-		// 	getDistance(
-		// 		{
-		// 			latitude: currentLocation.latitude,
-		// 			longitude: currentLocation.longitude,
-		// 		},
-		// 		{
-		// 			latitude: nextLocation.latitude,
-		// 			longitude: nextLocation.longitude,
-		// 		},
-		// 	) - this.props.closestMall.rad
-		// if (nextProps.isLocation && this.props.isLocation) {
-		// if (distance > 100) {
-		// 	this.props.setPushStatus(true)
-		// }
-		// if (distance <= 100 && !nextProps.pushSendStaus) {
-		// if (distance <= 100 ) {
-		// 	this.sendDistancePush(I18n.t('PUSH_MESSAGE.PUSH_3'))
-		// 	this.props.setPushStatus(true)
-		// }
-		// if (distance <= 0 && !this.props.timer_status && nextProps.timer_status) {
+
+		if (distance > 0 && distance <= 100) {
+			this.sendDistancePush(I18n.t('PUSH_MESSAGE.PUSH_3'))
+			// this.props.setPushStatus(true)
+		}
 		if (distance <= 0) {
-			// this.props.showDashboard(true)
-			// this.props.showTimer(false)
 			this.sendDistancePush(I18n.t('PUSH_MESSAGE.PUSH_4'))
 		}
-		// if (distance > 0 && this.props.timer_status) {
+		// if (distance > 0 && missionState.inRadius) {
+		// 	this.sendDistancePush(I18n.t('PUSH_MESSAGE.PUSH_5'))
+		// }
 		if (distance > 0) {
-			// this.props.showDashboard(false)
-			// this.props.showTimer(true)
 			this.sendDistancePush(I18n.t('PUSH_MESSAGE.PUSH_5'))
 		}
-		// }
-		// }
 	}
 
-	// componentWillReceiveProps = (nextProps) => {
-	// 	if (
-	// 		(this.props.selectedMall.lat &&
-	// 			this.props.selectedMall.lng &&
-	// 			nextProps.location.lat.toFixed(4) !== this.props.location.lat.toFixed(4) &&
-	// 			nextProps.location.lng.toFixed(4) !== this.props.location.lng.toFixed(4)) ||
-	// 		(this.props.selectedMall.lat &&
-	// 			this.props.selectedMall.lng &&
-	// 			!this.state.sendDistancePush &&
-	// 			nextProps.location.lat.toFixed(4) === this.props.location.lat.toFixed(4) &&
-	// 			nextProps.location.lng.toFixed(4) === this.props.location.lng.toFixed(4))
-	// 	) {
-	// 		this.calculateDistance(
-	// 			{
-	// 				latitude: this.props.closestMall.lat,
-	// 				longitude: this.props.closestMall.lng,
-	// 			},
-	// 			{
-	// 				latitude: nextProps.location.lat,
-	// 				longitude: nextProps.location.lng,
-	// 			},
-	// 			nextProps,
-	// 		)
-	// 	}
-	// 	if (nextProps.timer_status && !nextProps.sheduleRequestStart) {
-	// 		this.props.setSheduleRequestStart(true)
-	// 		this.sendTimerRequest()
-	// 	}
-	// 	if (!nextProps.timer_status && nextProps.sheduleRequestStart) {
-	// 		this.props.setSheduleRequestStart(false)
-	// 		BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA)
-	// 		BackgroundTimer.stopBackgroundTimer()
-	// 	}
-	// 	if (!nextProps.isLocation && !this.props.isLocation) {
-	// 		this.props.showDashboard(false)
-	// 	}
-	// }
+	componentDidUpdate() {
+		console.log('UPDATED---*****')
+		console.log(this.props.location, 'this.props.location---*****')
+		if (this.state.appState === 'background') {
+			this.calculateDistance()
+		}
+	}
 
 	render() {
-		getCurrentGeolocation().then(
-			(location) => {
-				console.log(location, 'GEOLOCATION-SERVICE')
-				this.calculateDistance()
-			},
-			(error) => {},
-		)
 		return null
 	}
 }
@@ -253,6 +222,7 @@ const mapStateToProps = (state) => {
 		pushSendStaus: state.pushSendStaus,
 		closestMall: state.closestMall,
 		mapPoints: state.mapPoints,
+		missionState: state.missionState,
 	}
 }
 
