@@ -6,11 +6,11 @@ const iPhoneX = Platform.OS === 'ios' && (height === 812 || width === 812 || hei
 export default StyleSheet.create({
 	grad: {
 		top: iPhoneX ? 40 : 32,
-		height: iPhoneX ? height - 100 : height - 92,
+		height: iPhoneX ? height - 100 : height,
 		width: '100%',
 		flexDirection: 'column',
 		alignItems: 'center',
-		justifyContent: 'space-around',
+		justifyContent: 'flex-start',
 	},
 	zifi_text: {
 		textAlign: 'center',
@@ -37,4 +37,18 @@ export default StyleSheet.create({
 		color: '#414141',
 		textAlign: 'center',
 	},
+	game_aval: {
+	  width,
+	  height: 55,
+	  backgroundColor: colors.transparent,
+	  paddingHorizontal: 15,
+	  flexDirection: 'row',
+	  alignItems: 'center',
+	  justifyContent: 'space-between',
+	  marginTop: 16,
+	},
+	game_aval_img: {
+	  width: 32,
+	  height: 32,
+	}
 })
