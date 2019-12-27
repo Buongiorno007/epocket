@@ -47,6 +47,10 @@
 		[[RNFirebaseMessaging instance] didRegisterUserNotificationSettings:notificationSettings];
 	}
 
+- (void)application:(UIApplication* )application didReceiveRemoteNotification:(nonnull NSDictionary* )userInfo fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler{
+		[[RNFirebaseNotifications instance] didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
+	}
+
 	- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 	{
 		return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];

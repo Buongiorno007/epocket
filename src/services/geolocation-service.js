@@ -118,24 +118,8 @@ class GeolocationService extends React.Component {
 				// Add the action to the notification
 				notification.android.addAction(action)
 			} else {
-				notification.ios.setBadge(12)
-				notification.setData({})
-				const _manageNotificationPermissions = async () => {
-					const enabled = await firebase.messaging().hasPermission()
-					if (enabled) {
-						return true
-					} else {
-						try {
-							await firebase.messaging().registerForRemoteNotifications()
-							// await firebase.messaging().requestPermission();
-							const notificationToken = await messaging().getToken()
-							return true
-						} catch (error) {
-							return false
-						}
-					}
-					return false
-				}
+				notification.ios.setBadge(1)
+				this.initNotifications()
 			}
 
 			// Display the notification
@@ -145,6 +129,41 @@ class GeolocationService extends React.Component {
 			// sendToTelegramm('this.sendDistancePush', error)
 		}
 	}
+
+
+	initNotifications = async () => {
+		try {	  
+		  const fcmToken = await firebase.messaging().getToken()
+		  if (fcmToken) {
+			console.log('FCM Token: ', fcmToken)
+			const enabled = await firebase.messaging().hasPermission()
+			if (enabled) {
+			  console.log('FCM messaging has permission:' + enabled)
+			} else {
+			  try {
+				await firebase.messaging().requestPermission()
+				console.log('FCM permission granted')
+			  } catch (error) {
+				console.log('FCM Permission Error', error)
+			  }
+			}
+	  
+			this.notificationListener = firebase.notifications().onNotification(notification => {
+			  firebase.notifications().displayNotification(notification)
+			})
+
+			this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {
+				if(notificationOpen) {
+				 notificationOpen.notification.ios.setBadge(0)
+				}
+			})
+		  } else {
+			console.log('FCM Token not available')
+		  }
+		} catch (e) {
+		  console.log('Error initializing FCM', e)
+		}
+	  }
 
 	_handleAppStateChange = (nextAppState) => {
 		console.log(nextAppState, 'nextAppState')
@@ -165,7 +184,6 @@ class GeolocationService extends React.Component {
 
 	calculateDistance = () => {
 		const { location, mapPoints, missionState } = this.props
-		console.log(location.lat, location.lng, 'UNDEFINED ?')
 		const region = {
 			latitude: location.lat,
 			longitude: location.lng,
@@ -176,8 +194,6 @@ class GeolocationService extends React.Component {
 		let nearestMall = findNearest(region, mapPoints.outlets)
 		let distance = getDistance(region, nearestMall) - nearestMall.rad
 
-		console.log(distance, 'CURRENT LOCATION DISTANCE')
-
 		if (distance > 0 && distance <= 100) {
 			this.sendDistancePush(I18n.t('PUSH_MESSAGE.PUSH_3'))
 			// this.props.setPushStatus(true)
@@ -185,17 +201,12 @@ class GeolocationService extends React.Component {
 		if (distance <= 0) {
 			this.sendDistancePush(I18n.t('PUSH_MESSAGE.PUSH_4'))
 		}
-		// if (distance > 0 && missionState.inRadius) {
-		// 	this.sendDistancePush(I18n.t('PUSH_MESSAGE.PUSH_5'))
-		// }
-		if (distance > 0) {
+		if (distance > 0 && missionState.inRadius) {
 			this.sendDistancePush(I18n.t('PUSH_MESSAGE.PUSH_5'))
 		}
 	}
 
 	componentDidUpdate() {
-		console.log('UPDATED---*****')
-		console.log(this.props.location, 'this.props.location---*****')
 		if (this.state.appState === 'background') {
 			this.calculateDistance()
 		}
