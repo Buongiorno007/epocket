@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">EpocketCash</string>
     <string name="facebook_app_id">2150067405259447</string>
+    <string name="default_notification_channel_id">YOUR_TEST_CHANNEL_ID</string>
 </resources>

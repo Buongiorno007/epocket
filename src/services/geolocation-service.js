@@ -1,6 +1,6 @@
 import React from 'react'
 import { Platform, AppState } from 'react-native'
-import { getDistance } from 'geolib'
+import { findNearest, getDistance } from 'geolib'
 import BackgroundFetch from 'react-native-background-fetch'
 import BackgroundTimer from 'react-native-background-timer'
 import { httpPost } from './http'
@@ -26,6 +26,7 @@ import { sendToTelegramm } from '../services/telegramm-notification'
 class GeolocationService extends React.Component {
 	state = {
 		sheduleRequest: null,
+		appState: AppState.currentState,
 	}
 
 	startMissionRequest = () => {
@@ -81,127 +82,133 @@ class GeolocationService extends React.Component {
 	}
 
 	sendDistancePush = (message) => {
+		console.log(message, 'sendDistancePush')
 		try {
+			// Set up your listener
+			firebase.notifications().onNotificationOpened((notificationOpen) => {
+				// notificationOpen.action will equal 'snooze'
+			})
+
+			// Build your notification
 			const notification = new firebase.notifications.Notification()
-				.setNotificationId('notificationId')
-				.setTitle('EpocketCash')
+				.setTitle('Warning')
 				.setBody(message)
+				.setNotificationId('notification-action')
+				.setSound('default')
 
-			notification.android
-				.setChannelId('chanelId')
-				.android.setColor(this.props.userColor.pink)
-				.android.setSmallIcon('@drawable/ic_notif')
+			if (Platform.OS === 'android') {
+				// Build a channel
+				const channel = new firebase.notifications.Android.Channel(
+					'test-channel',
+					'Test Channel',
+					firebase.notifications.Android.Importance.Max,
+				).setDescription('My apps test channel')
 
+				// Create the channel
+				firebase.notifications().android.createChannel(channel)
+
+				// Build an action
+				const action = new firebase.notifications.Android.Action('snooze', 'ic_launcher', 'To EpocketCash')
+				// This is the important line
+				action.setShowUserInterface(false)
+
+				notification.android.setChannelId('test-channel')
+				notification.android.setPriority(firebase.notifications.Android.Priority.Max)
+
+				// Add the action to the notification
+				notification.android.addAction(action)
+			} else {
+				notification.ios.setBadge(1)
+				this.initNotifications()
+			}
+
+			// Display the notification
 			firebase.notifications().displayNotification(notification)
 		} catch (error) {
-			sendToTelegramm('this.sendDistancePush', error)
+			console.log(error, 'sendDistancePush ERR')
+			// sendToTelegramm('this.sendDistancePush', error)
 		}
 	}
 
-	_handleAppStateChange = (nextAppState) => {
-		if (this.props.appState.match(/inactive|background/) && nextAppState === 'active') {
-			getCurrentGeolocation().then(
-				(location) => {
-					this.calculateDistance(
-						{
-							latitude: this.props.closestMall.lat,
-							longitude: this.props.closestMall.lng,
-						},
-						{
-							latitude: location.lat,
-							longitude: location.lng,
-						},
-					)
-				},
-				(error) => {},
-			)
+
+	initNotifications = async () => {
+		try {	  
+		  const fcmToken = await firebase.messaging().getToken()
+		  if (fcmToken) {
+			console.log('FCM Token: ', fcmToken)
+			const enabled = await firebase.messaging().hasPermission()
+			if (enabled) {
+			  console.log('FCM messaging has permission:' + enabled)
+			} else {
+			  try {
+				await firebase.messaging().requestPermission()
+				console.log('FCM permission granted')
+			  } catch (error) {
+				console.log('FCM Permission Error', error)
+			  }
+			}
+	  
+			this.notificationListener = firebase.notifications().onNotification(notification => {
+			  firebase.notifications().displayNotification(notification)
+			})
+
+			this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {
+				if(notificationOpen) {
+				 notificationOpen.notification.ios.setBadge(0)
+				}
+			})
+		  } else {
+			console.log('FCM Token not available')
+		  }
+		} catch (e) {
+		  console.log('Error initializing FCM', e)
 		}
+	  }
+
+	_handleAppStateChange = (nextAppState) => {
+		console.log(nextAppState, 'nextAppState')
+		this.setState({ appState: nextAppState })
 	}
 
 	componentDidMount() {
 		AppState.addEventListener('change', this._handleAppStateChange)
 	}
+	componentWillUnmount() {
+		AppState.removeEventListener('change', this._handleAppStateChange)
+	}
+
 	closeMission = () => {
 		this.props.showFailedNotification(true)
 		BackgroundTimer.stopBackgroundTimer()
 	}
 
-	calculateDistance = (currentLocation, nextLocation, nextProps) => {
-		if (
-			currentLocation.latitude !== 0 &&
-			currentLocation.longitude !== 0 &&
-			nextLocation.latitude !== 0 &&
-			nextLocation.longitude !== 0
-		) {
-			console.log(currentLocation, 'CURRENT LOCATION')
-			let distance =
-				getDistance(
-					{
-						latitude: currentLocation.latitude,
-						longitude: currentLocation.longitude,
-					},
-					{
-						latitude: nextLocation.latitude,
-						longitude: nextLocation.longitude,
-					},
-				) - this.props.closestMall.rad
-			if (nextProps.isLocation && this.props.isLocation) {
-				if (distance > 100) {
-					this.props.setPushStatus(true)
-				}
-				if (distance <= 100 && !nextProps.pushSendStaus) {
-					this.sendDistancePush(I18n.t('PUSH_MESSAGE.PUSH_3'))
-					this.props.setPushStatus(true)
-				}
-				if (distance <= 0 && !this.props.timer_status && nextProps.timer_status) {
-					this.props.showDashboard(true)
-					this.props.showTimer(false)
-					this.sendDistancePush(I18n.t('PUSH_MESSAGE.PUSH_4'))
-				}
-				if (distance > 0 && this.props.timer_status) {
-					this.props.showDashboard(false)
-					this.props.showTimer(true)
-					this.sendDistancePush(I18n.t('PUSH_MESSAGE.PUSH_5'))
-				}
-			}
+	calculateDistance = () => {
+		const { location, mapPoints, missionState } = this.props
+		const region = {
+			latitude: location.lat,
+			longitude: location.lng,
+			latitudeDelta: 0.006,
+			longitudeDelta: 0.006,
+		}
+
+		let nearestMall = findNearest(region, mapPoints.outlets)
+		let distance = getDistance(region, nearestMall) - nearestMall.rad
+
+		if (distance > 0 && distance <= 100) {
+			this.sendDistancePush(I18n.t('PUSH_MESSAGE.PUSH_3'))
+			// this.props.setPushStatus(true)
+		}
+		if (distance <= 0) {
+			this.sendDistancePush(I18n.t('PUSH_MESSAGE.PUSH_4'))
+		}
+		if (distance > 0 && missionState.inRadius) {
+			this.sendDistancePush(I18n.t('PUSH_MESSAGE.PUSH_5'))
 		}
 	}
 
-	componentWillReceiveProps = (nextProps) => {
-		if (
-			(this.props.selectedMall.lat &&
-				this.props.selectedMall.lng &&
-				nextProps.location.lat.toFixed(4) !== this.props.location.lat.toFixed(4) &&
-				nextProps.location.lng.toFixed(4) !== this.props.location.lng.toFixed(4)) ||
-			(this.props.selectedMall.lat &&
-				this.props.selectedMall.lng &&
-				!this.state.sendDistancePush &&
-				nextProps.location.lat.toFixed(4) === this.props.location.lat.toFixed(4) &&
-				nextProps.location.lng.toFixed(4) === this.props.location.lng.toFixed(4))
-		) {
-			this.calculateDistance(
-				{
-					latitude: this.props.closestMall.lat,
-					longitude: this.props.closestMall.lng,
-				},
-				{
-					latitude: nextProps.location.lat,
-					longitude: nextProps.location.lng,
-				},
-				nextProps,
-			)
-		}
-		if (nextProps.timer_status && !nextProps.sheduleRequestStart) {
-			this.props.setSheduleRequestStart(true)
-			this.sendTimerRequest()
-		}
-		if (!nextProps.timer_status && nextProps.sheduleRequestStart) {
-			this.props.setSheduleRequestStart(false)
-			BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA)
-			BackgroundTimer.stopBackgroundTimer()
-		}
-		if (!nextProps.isLocation && !this.props.isLocation) {
-			this.props.showDashboard(false)
+	componentDidUpdate() {
+		if (this.state.appState === 'background') {
+			this.calculateDistance()
 		}
 	}
 
@@ -225,6 +232,8 @@ const mapStateToProps = (state) => {
 		mainTaskId: state.mainTaskId,
 		pushSendStaus: state.pushSendStaus,
 		closestMall: state.closestMall,
+		mapPoints: state.mapPoints,
+		missionState: state.missionState,
 	}
 }
 
@@ -243,7 +252,4 @@ const mapDispatchToProps = (dispatch) =>
 		dispatch,
 	)
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps,
-)(GeolocationService)
+export default connect(mapStateToProps, mapDispatchToProps)(GeolocationService)

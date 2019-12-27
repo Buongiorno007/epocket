@@ -13,9 +13,11 @@ export default function getCurrentGeolocation() {
 				})
 			},
 			(error) => {
-				reject(null)
+				reject(
+					console.log(error, 'get-location ERR')
+				)
 			},
-			options
+			// options
 		)
 	})
 }
