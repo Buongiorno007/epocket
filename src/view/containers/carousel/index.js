@@ -16,15 +16,19 @@ export default class MyCarousel extends React.Component {
 		return <Image source={{ uri: item }} resizeMode={'cover'} style={styles.image} />
 	}
 
-	_renderItemNews({item}){
+	_renderItemNews({ item }) {
 		return (
 			<TouchableOpacity
 				style={[styles.image]}
 				key={item.id}
-				onPress={() => {route.push('NewsDetails', item)}}
+				onPress={() => {
+					route.push('NewsDetails', item)
+				}}
 			>
 				<Image style={styles.image2} source={{ uri: item.link }} resizeMode={'cover'} />
-				<Text style={styles.cardTitle}>{item.name}</Text>
+				<Text style={[styles.cardTitle, { width: width - 48 }]} numberOfLines={1} ellipsizeMode={'tail'}>
+					{item.name}
+				</Text>
 				<Text style={styles.cardSubtitle}>{item.time}</Text>
 			</TouchableOpacity>
 		)
@@ -34,9 +38,7 @@ export default class MyCarousel extends React.Component {
 		const { slider1ActiveSlide } = this.state
 		const { news } = this.props
 		return (
-			<View
-				style={{ position: 'relative' }}
-			>
+			<View style={{ position: 'relative' }}>
 				<Carousel
 					ref={(c) => {
 						this._carousel = c
@@ -50,7 +52,6 @@ export default class MyCarousel extends React.Component {
 					onSnapToItem={(index) => this.setState({ slider1ActiveSlide: index })}
 					onLayout={() => this._carousel.triggerRenderingHack()}
 					removeClippedSubviews={false}
-					
 				/>
 				{this.props.pagination && (
 					<Pagination
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
 	},
 	image2: {
 		width: width - 48,
-		height: (width - 48) * 0.56,
+		height: (width - 48) * 0.5,
 		borderRadius: 12,
 	},
 	paginationContainer: {
@@ -111,5 +112,5 @@ const styles = StyleSheet.create({
 		fontFamily: 'Rubik-Regular',
 		color: '#A6A6A6',
 		fontSize: 13,
-	}
+	},
 })
