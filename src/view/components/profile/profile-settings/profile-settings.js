@@ -135,6 +135,8 @@ class ProfileSettings extends React.Component {
 						this.props.loaderState(false)
 					})
 				}
+				this.props.setTabState(0)
+
 			},
 			(error) => {
 				CookieManager.clearAll().then((res) => {
