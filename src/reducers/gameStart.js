@@ -45,10 +45,10 @@ export const getGameStart = () => async (dispatch, getState) => {
 	} catch (error) {
 		console.log(error, 'getGameStart ERROR')
 		if (error.body.message === "game not have" ) {
-			await dispatch(saveGameStart(new GAME_START()))
+			dispatch(saveGameStart(new GAME_START()))
 		}
-		await dispatch(loaderState(false))
-		await route.navigate('Main')
+		dispatch(loaderState(false))
+		route.navigate('Main')
 	}
 }
 
