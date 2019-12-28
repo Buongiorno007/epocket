@@ -25,7 +25,7 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 		longitudeDelta: 0.006,
 	}
 	useEffect(() => {
-		if (mapPoints.outlets.length && !gameResult.game_id) {
+		if (mapPoints.outlets.length && gameResult.game_id === 0) {
 			moveToNearest()
 		}
 	}, [trigger])
@@ -84,7 +84,7 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 						</TouchableOpacity>
 					)}
 					<MissionBanner top={trigger ? sbHeight : 0} />
-					{!gameResult.game_id && <ClusteredMapView
+					{gameResult.game_id === 0 && <ClusteredMapView
 						style={{ flex: 1 }}
 						data={mapPoints.outlets}
 						initialRegion={region}
