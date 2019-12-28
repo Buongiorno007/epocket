@@ -16,7 +16,7 @@ import sbHeight from '@services/getSBHeight'
 import I18n from '@locales/I18n'
 import TittleSmallText from '@containers/tittle-small-text'
 
-function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigger, triggerInfo, mallPoint, dispatch }) {
+function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigger, triggerInfo, mallPoint, gameResult, dispatch }) {
 	const [infoBoxWidth, setInfoBoxWidth] = useState(0)
 	const region = {
 		latitude: lat,
@@ -25,7 +25,7 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 		longitudeDelta: 0.006,
 	}
 	useEffect(() => {
-		if (mapPoints.outlets.length) {
+		if (mapPoints.outlets.length && !gameResult.game_id) {
 			moveToNearest()
 		}
 	}, [trigger])
@@ -38,6 +38,7 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 	const moveToNearest = () => {
 		let nearestMall = findNearest(region, mapPoints.outlets)
 		let distance = getDistance(region, nearestMall) - nearestMall.rad
+		console.log(this.map.getMapRef(), 'new-map-earn mapRef')
 		if (distance > 0 && this.map) {
 			setTimeout(() => {
 				this.map.getMapRef().animateToRegion(
@@ -83,7 +84,7 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 						</TouchableOpacity>
 					)}
 					<MissionBanner top={trigger ? sbHeight : 0} />
-					<ClusteredMapView
+					{!gameResult.game_id && <ClusteredMapView
 						style={{ flex: 1 }}
 						data={mapPoints.outlets}
 						initialRegion={region}
@@ -111,7 +112,7 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 								/>
 							</View>
 						</Marker>
-					</ClusteredMapView>
+					</ClusteredMapView>}
 					{!trigger && <TouchableOpacity style={[styles.touchMap]} onPress={() => dispatch(triggerSet(!trigger))}></TouchableOpacity>}
 
 					{triggerInfo && (
@@ -213,6 +214,7 @@ const mapStateToProps = (state) => {
 		trigger: state.trigger,
 		triggerInfo: state.triggerInfo,
 		mallPoint: state.mallPoint,
+		gameResult: state.gameResult,
 	}
 }
 

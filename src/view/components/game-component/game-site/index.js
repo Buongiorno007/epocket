@@ -20,6 +20,8 @@ import { urls } from '@constants/urls'
 import I18n from '@locales/I18n'
 //styles
 import styles from './styles'
+import {  GAME_RESULT } from '@reducers/__proto__'
+import { saveGameResult } from '@reducers/gameResult'
 
 function GameSite({ link, timing, changeTimer = () => {}, setSite, token, dispatch }) {
 	const [timer, setTimer] = useState(timing)
@@ -42,6 +44,7 @@ function GameSite({ link, timing, changeTimer = () => {}, setSite, token, dispat
 			await httpPost(urls.game_result, JSON.stringify({ status: true, ticker: true }), token)
 			await clearTimeout(intervalId)
 			await dispatch(setGameStatus(''))
+			await dispatch(saveGameResult(new GAME_RESULT()))
 			await setSite()
 			await route.navigate('Main')
 		} catch (error) {
