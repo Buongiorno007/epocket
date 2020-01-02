@@ -10,6 +10,8 @@ import { httpPost } from "@services/http"
 import { socialPost } from "@services/post-to-social"
 import { getGameStart } from "@reducers/gameStart"
 import { getGameProcess } from '@reducers/gameProcess'
+import { saveGameResult } from '@reducers/gameResult'
+import {  GAME_RESULT } from '@reducers/__proto__'
 
 
 export const checkPostStatus = () => async (dispatch, getState) => {
@@ -54,6 +56,7 @@ export const waited = () => async (dispatch, getState) => {
   dispatch(loaderState(true))
   try {
     await httpPost(urls.game_result, JSON.stringify({ status: true, ticker: true }), token)
+    await dispatch(dispatch(saveGameResult(new GAME_RESULT())))
   } catch (error) {
     console.log(error, "waited ERROR")
   }

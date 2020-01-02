@@ -47,7 +47,7 @@
 		[[RNFirebaseMessaging instance] didRegisterUserNotificationSettings:notificationSettings];
 	}
 
-- (void)application:(UIApplication* )application didReceiveRemoteNotification:(nonnull NSDictionary* )userInfo fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler{
+	- (void)application:(UIApplication* )application didReceiveRemoteNotification:(nonnull NSDictionary* )userInfo fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler{
 		[[RNFirebaseNotifications instance] didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
 	}
 
