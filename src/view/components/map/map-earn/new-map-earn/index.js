@@ -38,7 +38,6 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 	const moveToNearest = () => {
 		let nearestMall = findNearest(region, mapPoints.outlets)
 		let distance = getDistance(region, nearestMall) - nearestMall.rad
-		console.log(this.map.getMapRef(), 'new-map-earn mapRef')
 		if (distance > 0 && this.map) {
 			setTimeout(() => {
 				this.map.getMapRef().animateToRegion(
