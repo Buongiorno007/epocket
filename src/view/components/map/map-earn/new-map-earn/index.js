@@ -28,7 +28,12 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 		if (mapPoints.outlets.length && gameResult.game_id === 0) {
 			moveToNearest()
 		}
-	}, [trigger])
+	})
+	// useEffect(() => {
+	// 	if (mapPoints.outlets.length && gameResult.game_id === 0) {
+	// 		moveToNearest()
+	// 	}
+	// }, [trigger])
 	// }, [trigger, triggerInfo])
 
 	const renderMarker = (data) => {
@@ -39,7 +44,7 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 		let nearestMall = findNearest(region, mapPoints.outlets)
 		let distance = getDistance(region, nearestMall) - nearestMall.rad
 		if (distance > 0 && this.map) {
-			setTimeout(() => {
+			// setTimeout(() => {
 				this.map.getMapRef().animateToRegion(
 					{
 						latitude: lat,
@@ -49,7 +54,7 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 					},
 					500,
 				)
-			}, 500)
+			// }, 500)
 		}
 	}
 
@@ -83,7 +88,7 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 						</TouchableOpacity>
 					)}
 					<MissionBanner top={trigger ? sbHeight : 0} />
-					{gameResult.game_id === 0 && <ClusteredMapView
+					<ClusteredMapView
 						style={{ flex: 1 }}
 						data={mapPoints.outlets}
 						initialRegion={region}
@@ -111,7 +116,7 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 								/>
 							</View>
 						</Marker>
-					</ClusteredMapView>}
+					</ClusteredMapView>
 					{!trigger && <TouchableOpacity style={[styles.touchMap]} onPress={() => dispatch(triggerSet(!trigger))}></TouchableOpacity>}
 
 					{triggerInfo && (

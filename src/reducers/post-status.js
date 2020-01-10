@@ -20,7 +20,7 @@ export const checkPostStatus = () => async (dispatch, getState) => {
     game_id: gameResult.game_id,
   })
   try {
-    await httpPost(urls.post_game, body, token).then((r) => console.log(r))
+    await httpPost(urls.post_game, body, token)
     await dispatch(getGameStart())
 		await dispatch(getGameProcess())
 		await dispatch(loaderState(false)) 
