@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Linking, Image, Platform, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, Linking, Image, Platform, TouchableOpacity, ScrollView, Keyboard, TextInput, KeyboardAvoidingView } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { Button } from 'native-base'
 //constants
@@ -20,6 +20,7 @@ import I18n from '@locales/I18n'
 import { sendToTelegramm } from '@services/telegramm-notification'
 import route from '@services/route'
 import { shareToOneSocial } from '@services/share-ref-link'
+import { colors } from '@constants/colors'
 
 class NewProfile extends React.Component {
 	constructor(props) {
@@ -35,6 +36,9 @@ class NewProfile extends React.Component {
 		refferal_link: urls.blank,
 		refferal_price: 0,
 		modalVisible: false,
+		age: '',
+		gender: 1,
+		validate: false,
 	}
 	componentDidMount() {
 		// this.props.loaderState(true)
@@ -99,9 +103,9 @@ class NewProfile extends React.Component {
 	}
 	connectInsta = () => {
 		this.refs.instagramLogin.show()
-    }
-    
-    openSupport = () => {
+	}
+
+	openSupport = () => {
 		Linking.canOpenURL('tg://')
 			.then((supported) => {
 				if (!supported) {
@@ -115,8 +119,25 @@ class NewProfile extends React.Component {
 				}
 			})
 			.catch((err) => console.log(err))
-    }
-    
+	}
+
+	// HANDLERS FOR ADDITIONAL AUTH
+
+	handleChangeAge = (age) => this.setState({ age })
+
+	handleChangeGirl = () => this.setState({ gender: 1 })
+
+	handleChangeBoy = () => this.setState({ gender: 2 })
+
+	handleFocus = () => this.setState({ validate: false })
+
+	handleSignUp = () => {
+		Keyboard.dismiss()
+		const { gender, age } = this.state
+
+		// ADD API CALL
+	}
+
 	render() {
 		return (
 			<View style={styles.main_view}>
@@ -147,7 +168,12 @@ class NewProfile extends React.Component {
 							<Text style={styles.age}>{`${this.state.user.birthDay} ${I18n.t('PROFILE_SETTINGS.AGE')}`}</Text>
 						</View>
 
-						<TouchableOpacity style={styles.bigBtn} onPress={() => {this.openSupport()}}>                           
+						<TouchableOpacity
+							style={styles.bigBtn}
+							onPress={() => {
+								this.openSupport()
+							}}
+						>
 							<FastImage
 								style={[styles.bigBtnImg]}
 								resizeMode={FastImage.resizeMode.contain}
@@ -163,50 +189,55 @@ class NewProfile extends React.Component {
 
 						<View style={styles.refContainer}>
 							<TouchableOpacity style={styles.refPad} onPress={() => route.push('AddFriend')}>
-								<View  style={styles.refPad_row}>
-									<Image style={styles.refPadImg_big} source={require('@assets/img/add-friend.png')} resizeMode={'contain'}/>
+								<View style={styles.refPad_row}>
+									<Image style={styles.refPadImg_big} source={require('@assets/img/add-friend.png')} resizeMode={'contain'} />
 									<Text style={styles.refPadText_red}>{`+ 5 ${this.props.profileState.currency}`}</Text>
 								</View>
-								<View  style={styles.refPad_row}>
+								<View style={styles.refPad_row}>
 									<Text style={styles.refPadText_bl}>{I18n.t('REF_LINK.ADD_FRIEND')}</Text>
-									<Image style={styles.refPadImg_sm} source={require('@assets/img/small_arrow_right.png')} resizeMode={'contain'}/>
+									<Image style={styles.refPadImg_sm} source={require('@assets/img/small_arrow_right.png')} resizeMode={'contain'} />
 								</View>
 							</TouchableOpacity>
 
-							<TouchableOpacity style={[styles.refPad]} onPress={() => route.push('AddAdvert')} >
+							<TouchableOpacity style={[styles.refPad]} onPress={() => route.push('AddAdvert')}>
 								<View style={styles.refPad_row}>
-									<Image style={styles.refPadImg_big} source={require('@assets/img/add-advert.png')} resizeMode={'contain'}/>
-									<Text style={styles.refPadText_red}>{`+ 50 $`}</Text>
+									<Image style={styles.refPadImg_big} source={require('@assets/img/add-advert.png')} resizeMode={'contain'} />
+									<Text style={styles.refPadText_red}>{'+ 50 $'}</Text>
 								</View>
 								<View style={styles.refPad_row}>
 									<Text style={styles.refPadText_bl}>{I18n.t('REF_LINK.ADD_ADVERT')}</Text>
-									<Image style={styles.refPadImg_sm} source={require('@assets/img/small_arrow_right.png')} resizeMode={'contain'}/>
+									<Image style={styles.refPadImg_sm} source={require('@assets/img/small_arrow_right.png')} resizeMode={'contain'} />
 								</View>
 							</TouchableOpacity>
 						</View>
 
-						{!this.props.insta_token && <TouchableOpacity style={[styles.bigBtn, styles.bigBtn_w, styles.bigBtn_bor]} onPress={() => {this.ToSettings()}}>                           
-							<FastImage
-								style={[styles.bigBtnImg]}
-								resizeMode={FastImage.resizeMode.contain}
-								source={require('@assets/img/post_insta_ico.png')}
-							/>
-							<View>
-								<Text style={[styles.bigBtnText, styles.bigBtnText_b]}>{I18n.t('PROFILE_SETTINGS.CONNECT_INSTA')}</Text>
-								<Text style={[styles.bigBtnText_sm]}>{I18n.t('PROFILE_SETTINGS.MIN_SUBS')}</Text>
-							</View>
-							<View style={styles.priceContainer}>
-								<View style={styles.price}>
-									<Text style={[styles.price_text]}>
-										{`+ 5 ${this.props.profileState.currency}`}
-									</Text>
+						{!this.props.insta_token && (
+							<TouchableOpacity
+								style={[styles.bigBtn, styles.bigBtn_w, styles.bigBtn_bor]}
+								onPress={() => {
+									this.ToSettings()
+								}}
+							>
+								<FastImage
+									style={[styles.bigBtnImg]}
+									resizeMode={FastImage.resizeMode.contain}
+									source={require('@assets/img/post_insta_ico.png')}
+								/>
+								<View>
+									<Text style={[styles.bigBtnText, styles.bigBtnText_b]}>{I18n.t('PROFILE_SETTINGS.CONNECT_INSTA')}</Text>
+									<Text style={[styles.bigBtnText_sm]}>{I18n.t('PROFILE_SETTINGS.MIN_SUBS')}</Text>
 								</View>
-							</View>
-						</TouchableOpacity>}
+								<View style={styles.priceContainer}>
+									<View style={styles.price}>
+										<Text style={[styles.price_text]}>{`+ 5 ${this.props.profileState.currency}`}</Text>
+									</View>
+								</View>
+							</TouchableOpacity>
+						)}
 
+						
 
-
-							{/* <TouchableOpacity onPress={() => this.ToEdit()} style={styles.text_container_android}>
+						{/* <TouchableOpacity onPress={() => this.ToEdit()} style={styles.text_container_android}>
 								<View style={styles.text_item}>
 									<Text style={styles.title}>{I18n.t('NAMES')}</Text>
 									<Text style={styles.name}>{this.state.user.username}</Text>
@@ -238,9 +269,52 @@ class NewProfile extends React.Component {
 						link={this.state.refferal_link}
 						price={this.state.refferal_price}
 					/> */}
-
 				</ScrollView>
-					<FooterNavigation />
+				{this.state.user.sex === 1 && (
+							<KeyboardAvoidingView behavior="padding" style={styles.KeyboardAvoidingView} keyboardVerticalOffset={20} enabled>
+								<View style={styles.wrapper}>
+									<TextInput
+										value={this.state.age}
+										onChangeText={this.handleChangeAge}
+										onFocus={this.handleFocus}
+										placeholder={I18n.t('SIGN.AGE')}
+										placeholderTextColor={colors.light_gray}
+										keyboardType={'numeric'}
+										maxLength={2}
+										style={styles.text_input}
+									/>
+								</View>
+								<View style={[styles.wrapper, styles.row]}>
+									<Button
+										rounded
+										transparent
+										disabled={this.state.gender === 1}
+										style={[styles.button, this.state.gender === 1 && styles.active_button]}
+										onPress={this.handleChangeGirl}
+									>
+										<Text style={[styles.title, this.state.gender === 1 && styles.active_title]}>{I18n.t('SIGN.GIRL')}</Text>
+									</Button>
+									<Button
+										rounded
+										transparent
+										disabled={this.state.gender === 2}
+										style={[styles.button, this.state.gender === 2 && styles.active_button]}
+										onPress={this.handleChangeBoy}
+									>
+										<Text style={[styles.title, this.state.gender === 2 && styles.active_title]}>{I18n.t('SIGN.BOY')}</Text>
+									</Button>
+								</View>
+								<Button
+									full
+									rounded
+									style={[styles.button, styles.button_big, styles.red]}
+									onPress={this.handleSignUp}
+								>
+									<Text style={[styles.title, styles.white_t ]}>{I18n.t('SIGN_UP').toUpperCase()}</Text>
+								</Button>
+							</KeyboardAvoidingView>
+						)}
+				<FooterNavigation />
 			</View>
 		)
 	}
@@ -252,7 +326,7 @@ const mapStateToProps = (state) => {
 		userColor: state.userColor,
 		token: state.token,
 		profileState: state.profileState,
-		insta_token: state.insta_token
+		insta_token: state.insta_token,
 	}
 }
 
@@ -264,7 +338,4 @@ const mapDispatchToProps = (dispatch) =>
 		dispatch,
 	)
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps,
-)(NewProfile)
+export default connect(mapStateToProps, mapDispatchToProps)(NewProfile)

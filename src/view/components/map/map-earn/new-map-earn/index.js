@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Image, Platform, ScrollView, Text, TouchableOpacity, Dimensions } from 'react-native'
+import { View, Image, Platform, ScrollView, Text, TouchableOpacity, Dimensions, Alert } from 'react-native'
 import { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import ClusteredMapView from '../../../../../native_modules/react-native-maps-super-cluster'
 import { connect } from 'react-redux'
@@ -15,6 +15,7 @@ import route from '@services/route'
 import sbHeight from '@services/getSBHeight'
 import I18n from '@locales/I18n'
 import TittleSmallText from '@containers/tittle-small-text'
+import { setTabState } from '@reducers/tabs'
 
 function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigger, triggerInfo, mallPoint, gameResult, dispatch }) {
 	const [infoBoxWidth, setInfoBoxWidth] = useState(0)
@@ -29,6 +30,28 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 			moveToNearest()
 		}
 	})
+	useEffect(() => {
+		Alert.alert(
+			'Reminder',
+			'In order to receive personised games and quests please add your age and sex',
+			[
+				{ text: 'Ask me later', onPress: () => {} },
+				{
+					text: 'Cancel',
+					onPress: () => {},
+					style: 'cancel',
+				},
+				{
+					text: 'OK',
+					onPress: () => {
+						dispatch(setTabState(3))
+					},
+				},
+			],
+			{ cancelable: false },
+		)
+	}, [])
+	
 	// useEffect(() => {
 	// 	if (mapPoints.outlets.length && gameResult.game_id === 0) {
 	// 		moveToNearest()
@@ -45,15 +68,15 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 		let distance = getDistance(region, nearestMall) - nearestMall.rad
 		if (distance > 0 && this.map) {
 			// setTimeout(() => {
-				this.map.getMapRef().animateToRegion(
-					{
-						latitude: lat,
-						longitude: lng,
-						latitudeDelta: 0.000028 * distance,
-						longitudeDelta: 0.000028 * distance,
-					},
-					500,
-				)
+			this.map.getMapRef().animateToRegion(
+				{
+					latitude: lat,
+					longitude: lng,
+					latitudeDelta: 0.000028 * distance,
+					longitudeDelta: 0.000028 * distance,
+				},
+				500,
+			)
 			// }, 500)
 		}
 	}
@@ -77,7 +100,12 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 		// <View style={[trigger ? {height: screenHeight} : [{height: windowHeight, paddingBottom: 61}], windowHeight !== screenHeight ? styles.marginTop: null]}>
 		<View style={styles.container}>
 			<ScrollView style={[{ paddingBottom: 30 }, styles.marginTop, trigger ? { marginTop: 0 } : null]}>
-				<View style={[trigger && styles.displayNone, { marginLeft: 16, marginBottom: 8, paddingBottom: 8, marginTop: 16, borderBottomWidth: 1, borderBottomColor: '#e6e6e6' }]}>
+				<View
+					style={[
+						trigger && styles.displayNone,
+						{ marginLeft: 16, marginBottom: 8, paddingBottom: 8, marginTop: 16, borderBottomWidth: 1, borderBottomColor: '#e6e6e6' },
+					]}
+				>
 					<Text style={[styles.tittle]}>{I18n.t('EARN.ON_MAP')}</Text>
 				</View>
 				{!trigger && <TittleSmallText text={I18n.t('EARN.MAP')} styleContainer={{ marginTop: 0, marginBottom: 16, marginLeft: 16 }} />}
@@ -138,7 +166,11 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 										numberOfLines={1}
 										ellipsizeMode={'tail'}
 									>{`${mallPoint.title}`}</Text>
-									{workTime().map((workTime, ind) => <Text style={[styles.infobox_time, { width: infoBoxWidth - 90 }]} key={ind}>{workTime}</Text>)}
+									{workTime().map((workTime, ind) => (
+										<Text style={[styles.infobox_time, { width: infoBoxWidth - 90 }]} key={ind}>
+											{workTime}
+										</Text>
+									))}
 									{/* <Text style={[styles.infobox_time, { width: infoBoxWidth - 90 }]}>{`${mallPoint.work_time}`}</Text> */}
 								</View>
 							</View>

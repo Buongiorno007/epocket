@@ -55,7 +55,8 @@ class SignUp extends React.Component<Props, State> {
 			prevState.age !== age ||
 			prevState.gender !== gender
 		) {
-			const accept = phone.length === mask && code && name.length >= 2 && age && gender
+			// const accept = phone.length === mask && code && name.length >= 2 && age && gender
+			const accept = phone.length === mask && code && name.length >= 2
 			this.setState({ accept })
 		}
 		if (prevProps.sign_up.code !== this.props.sign_up.code && this.props.sign_up.code) {

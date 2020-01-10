@@ -207,4 +207,51 @@ export default StyleSheet.create({
         fontSize: 17,
 		color: colors.white,
 	},
+	wrapper: {
+		width: width - 32,
+	},
+	row: {
+		justifyContent: 'space-between',
+		flexDirection: 'row',
+		marginBottom: 32,
+	},
+	button: {
+		borderWidth: 1,
+		borderColor: colors.black111,
+		height: 40,
+		width: width * 0.425,
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	active_button: {
+		borderWidth: 0,
+		backgroundColor: colors.black111,
+	},
+	text_input: {
+		width: width - 32,
+		borderBottomColor: colors.black111,
+		borderBottomWidth: 1,
+		color: colors.black111,
+		paddingVertical: 10,
+		marginBottom: 32,
+	},
+	active_title: {
+		color: colors.white,
+	},
+	button_big: {
+		height: 44,
+		width: width - 32,
+		paddingTop: 5,
+		elevation: 0
+	},
+	red: {
+		borderWidth: 0,
+		backgroundColor: colors.blood_red,
+	},
+	white_t: {
+		color: colors.white,
+	},
+	KeyboardAvoidingView: {
+		width: width - 32,
+	}
 })
