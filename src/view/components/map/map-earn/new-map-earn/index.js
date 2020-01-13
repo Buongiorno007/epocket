@@ -29,7 +29,8 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 		if (mapPoints.outlets.length && gameResult.game_id === 0) {
 			moveToNearest()
 		}
-	})
+	}, [trigger, mapPoints, games])
+
 	useEffect(() => {
 		if (!profileState.sex && !profileState.birthDay) {
 			Alert.alert(
@@ -53,13 +54,6 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 			)
 		}
 	}, [])
-
-	// useEffect(() => {
-	// 	if (mapPoints.outlets.length && gameResult.game_id === 0) {
-	// 		moveToNearest()
-	// 	}
-	// }, [trigger])
-	// }, [trigger, triggerInfo])
 
 	const renderMarker = (data) => {
 		return <MapEarnMarker key={data.id} data={data} />
