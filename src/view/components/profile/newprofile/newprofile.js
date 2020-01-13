@@ -120,24 +120,7 @@ class NewProfile extends React.Component {
 			})
 			.catch((err) => console.log(err))
 	}
-
-	// HANDLERS FOR ADDITIONAL AUTH
-
-	handleChangeAge = (age) => this.setState({ age })
-
-	handleChangeGirl = () => this.setState({ gender: 1 })
-
-	handleChangeBoy = () => this.setState({ gender: 2 })
-
-	handleFocus = () => this.setState({ validate: false })
-
-	handleSignUp = () => {
-		Keyboard.dismiss()
-		const { gender, age } = this.state
-
-		// ADD API CALL
-	}
-
+	
 	render() {
 		return (
 			<View style={styles.main_view}>
@@ -270,50 +253,6 @@ class NewProfile extends React.Component {
 						price={this.state.refferal_price}
 					/> */}
 				</ScrollView>
-				{this.state.user.sex === 1 && (
-							<KeyboardAvoidingView behavior="padding" style={styles.KeyboardAvoidingView} keyboardVerticalOffset={20} enabled>
-								<View style={styles.wrapper}>
-									<TextInput
-										value={this.state.age}
-										onChangeText={this.handleChangeAge}
-										onFocus={this.handleFocus}
-										placeholder={I18n.t('SIGN.AGE')}
-										placeholderTextColor={colors.light_gray}
-										keyboardType={'numeric'}
-										maxLength={2}
-										style={styles.text_input}
-									/>
-								</View>
-								<View style={[styles.wrapper, styles.row]}>
-									<Button
-										rounded
-										transparent
-										disabled={this.state.gender === 1}
-										style={[styles.button, this.state.gender === 1 && styles.active_button]}
-										onPress={this.handleChangeGirl}
-									>
-										<Text style={[styles.title, this.state.gender === 1 && styles.active_title]}>{I18n.t('SIGN.GIRL')}</Text>
-									</Button>
-									<Button
-										rounded
-										transparent
-										disabled={this.state.gender === 2}
-										style={[styles.button, this.state.gender === 2 && styles.active_button]}
-										onPress={this.handleChangeBoy}
-									>
-										<Text style={[styles.title, this.state.gender === 2 && styles.active_title]}>{I18n.t('SIGN.BOY')}</Text>
-									</Button>
-								</View>
-								<Button
-									full
-									rounded
-									style={[styles.button, styles.button_big, styles.red]}
-									onPress={this.handleSignUp}
-								>
-									<Text style={[styles.title, styles.white_t ]}>{I18n.t('SIGN_UP').toUpperCase()}</Text>
-								</Button>
-							</KeyboardAvoidingView>
-						)}
 				<FooterNavigation />
 			</View>
 		)

@@ -58,9 +58,9 @@ export const GAME_TICKER = function(data = {}) {
 export const AUTH = function(data = {}) {
   DEFAULT.apply(this, arguments)
   this.phone = data.phone || null
-  this.gender = data.gender || null
+  // this.gender = data.gender || null
   this.name = data.name || null
-  this.age = data.age || null
+  // this.age = data.age || null
   this.user_id = data.user_id || null
   this.back = data.back || "Start"
   this.title = data.title || ""

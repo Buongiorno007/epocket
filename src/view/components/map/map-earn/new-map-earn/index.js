@@ -31,27 +31,29 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 		}
 	})
 	useEffect(() => {
-		Alert.alert(
-			'Reminder',
-			'In order to receive personised games and quests please add your age and sex',
-			[
-				{ text: 'Ask me later', onPress: () => {} },
-				{
-					text: 'Cancel',
-					onPress: () => {},
-					style: 'cancel',
-				},
-				{
-					text: 'OK',
-					onPress: () => {
-						dispatch(setTabState(3))
+		if (!profileState.sex && !profileState.birthDay) {
+			Alert.alert(
+				`${I18n.t('MAP.REMINDER')}`,
+				`${I18n.t('MAP.REMINDER_TEXT')}`,
+				[
+					{
+						text: 'Cancel',
+						onPress: () => {},
+						style: 'cancel',
 					},
-				},
-			],
-			{ cancelable: false },
-		)
+					{
+						text: 'OK',
+						onPress: () => {
+							dispatch(setTabState(3))
+							route.navigate('ProfEdit')
+						},
+					},
+				],
+				{ cancelable: false },
+			)
+		}
 	}, [])
-	
+
 	// useEffect(() => {
 	// 	if (mapPoints.outlets.length && gameResult.game_id === 0) {
 	// 		moveToNearest()

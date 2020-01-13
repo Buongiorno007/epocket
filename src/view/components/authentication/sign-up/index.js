@@ -51,9 +51,9 @@ class SignUp extends React.Component<Props, State> {
 		if (
 			prevState.phone !== phone ||
 			prevState.code !== code ||
-			prevState.name !== name ||
-			prevState.age !== age ||
-			prevState.gender !== gender
+			prevState.name !== name 
+			// prevState.age !== age ||
+			// prevState.gender !== gender
 		) {
 			// const accept = phone.length === mask && code && name.length >= 2 && age && gender
 			const accept = phone.length === mask && code && name.length >= 2
@@ -94,13 +94,16 @@ class SignUp extends React.Component<Props, State> {
 
 	handleSignUp = () => {
 		Keyboard.dismiss()
-		const { code, phone, name, gender, age, user_id } = this.state
+		// const { code, phone, name, gender, age, user_id } = this.state
+		const { code, phone, name, user_id } = this.state
 		const { sms } = this.props
 		const number = '+' + `${code}${phone}`.replace(/\D/g, '')
 		if (sms) {
-			this.props.signUp(number, name, gender, age, user_id)
+			// this.props.signUp(number, name, gender, age, user_id)
+			this.props.signUp(number, name, user_id)
 		} else {
-			this.props.signUpConfirm(number, name, gender, age, user_id)
+			// this.props.signUpConfirm(number, name, gender, age, user_id)
+			this.props.signUpConfirm(number, name, user_id)
 		}
 	}
 
@@ -144,7 +147,7 @@ class SignUp extends React.Component<Props, State> {
 								style={styles.text_input}
 							/>
 						</View>
-						<View style={styles.wrapper}>
+						{/* <View style={styles.wrapper}>
 							<TextInput
 								value={age}
 								onChangeText={this.handleChangeAge}
@@ -179,7 +182,7 @@ class SignUp extends React.Component<Props, State> {
 									{I18n.t('SIGN.BOY')}
 								</Text>
 							</Button>
-						</View>
+						</View> */}
 						{/* <Touchable
 							color={color}
 							active={accept}

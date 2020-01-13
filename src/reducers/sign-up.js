@@ -51,17 +51,19 @@ export default (state = initialState, action) => {
 	}
 }
 
-export const signUp = (number, name, gender, age, user_id = '') => async (dispatch) => {
+// export const signUp = (number, name, gender, age, user_id = '') => async (dispatch) => {
+export const signUp = (number, name, user_id = '') => async (dispatch) => {
 	dispatch(resetSignIn())
 	dispatch(resetSignUp())
 	dispatch(loaderState(true))
 	try {
 		const body = JSON.stringify({ phone: number })
 		const response = await httpPost(urls.sign_up, body)
+		console.log(response, 'SIGN_UP RESP')
 		response.phone = number
 		response.name = name
-		response.gender = gender
-		response.age = age
+		// response.gender = gender
+		// response.age = age
 		response.user_id = user_id
 		response.back = 'SignUp'
 		response.title = I18n.t('SIGN_UP_TITLE')
@@ -69,6 +71,7 @@ export const signUp = (number, name, gender, age, user_id = '') => async (dispat
 		dispatch(loaderState(false))
 		route.navigate('ConfirmCode')
 	} catch (e) {
+		console.log(e, 'SIGN_UP RESP ERR')
 		e.code = -1
 		e.code = -1
 		e.back = 'SignUp'

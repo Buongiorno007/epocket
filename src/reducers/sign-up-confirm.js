@@ -28,7 +28,8 @@ export default (state = initialState, action) => {
   }
 }
 
-export const signUpConfirm = (phone, name, gender = -2, age = '99', user_id = "", code = "123456") => async dispatch => {
+// export const signUpConfirm = (phone, name, gender, age = '99', user_id = "", code = "123456") => async dispatch => {
+export const signUpConfirm = (phone, name, user_id = "", code = "123456") => async dispatch => {
   dispatch(reset())
   dispatch(loaderState(true))
   try {
@@ -36,22 +37,23 @@ export const signUpConfirm = (phone, name, gender = -2, age = '99', user_id = ""
       code,
       phone,
       name,
-      sex: `${gender - 1}`,
-      birth_year: age,
+      // sex: `${gender - 1}`,
+      // birth_year: age,
       user_id: user_id,
     })
     const response = await httpPost(urls.sign_up_confirm, body)
+    console.log(response, "signUpConfirm RESP")
     const user = {
       name: name,
       phone: phone,
       photo: response.body.photo,
-      sex: gender - 1,
+      // sex: gender - 1,
       currency: response.body.currency_plural,
-      birthDay: age,
+      // birthDay: age,
     }
     dispatch(saveUser(user))
     dispatch(setToken(response.body.token))
-    dispatch(setColor(gender - 1))
+    // dispatch(setColor(gender - 1))
     dispatch(setBalance(Number(response.body.balance)))
     dispatch(result())
     route.navigate("CatCode")
