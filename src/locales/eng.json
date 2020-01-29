@@ -388,7 +388,9 @@
     "ES" : "Spain",
     "GG" : "Great Britain",
     "PH" : "Philippines",
-    "US" : "USA"
+    "US" : "USA",
+    "PL" : "Poland",
+    "DE" : "Germany"
   },
   "SIGN": {
     "ENTER_PHONE_NUMBER": "Enter your mobile phone",
