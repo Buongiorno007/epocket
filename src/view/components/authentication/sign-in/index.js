@@ -25,7 +25,8 @@ class SignIn extends React.PureComponent {
   componentDidUpdate = (prevProps, prevState) => {
     const { phone, code } = this.state
     if (prevState.phone !== phone || prevState.code !== code) {
-      const accept = phone.length === 12 && code
+      // const accept = phone.length === 12 && code
+      const accept = phone.length >=2 && code
       this.setState({ accept })
     }
     if (prevProps.sign_in.code !== this.props.sign_in.code && this.props.sign_in.code) {

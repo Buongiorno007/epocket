@@ -34,7 +34,7 @@ function MapEarnButton({ img, text, callback, space = false, pub , arrow = false
 			<View style={styles.priceContainer}>
 				<View style={styles.price}>
 				{pub === 'games' && <Text style={[styles.text, styles.price_positive]}>{`+ ${Number(games.award_total).toFixed(1)} ${profileState.currency}`}</Text>}			
-				{pub === 'publications' && <Text style={[styles.text, styles.price_positive]}>{`+ ${post_price} ${profileState.currency}`}</Text>}			
+				{pub === 'publications' && <Text style={[styles.text, styles.price_positive]}>{`+ ${post_price.toFixed(2)} ${profileState.currency}`}</Text>}			
 				{pub === 'advert_friend' && <Text style={[styles.text, styles.price_positive]}>{`+ 5 ${profileState.currency}`}</Text>}			
 				{pub === 'advert_advert' && <Text style={[styles.text, styles.price_positive]}>{`+ 50$`}</Text>}			
 					{/* {pub ? (
