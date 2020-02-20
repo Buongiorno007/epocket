@@ -19,6 +19,7 @@ import { setTabState } from '@reducers/tabs'
 
 function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigger, triggerInfo, mallPoint, gameResult, dispatch }) {
 	const [infoBoxWidth, setInfoBoxWidth] = useState(0)
+	const [isMapReady, setIsMapReady] = useState(false)
 	const region = {
 		latitude: lat,
 		longitude: lng,
@@ -94,8 +95,8 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 
 	return (
 		// <View style={[trigger ? {height: screenHeight} : [{height: windowHeight, paddingBottom: 61}], windowHeight !== screenHeight ? styles.marginTop: null]}>
-		<View style={styles.container}>
-			<ScrollView style={[{ paddingBottom: 30 }, styles.marginTop, trigger ? { marginTop: 0 } : null]}>
+		<View style={styles.container} onLayout={() => setIsMapReady(true)}>
+			{isMapReady && <ScrollView style={[{ paddingBottom: 30 }, styles.marginTop, trigger ? { marginTop: 0 } : null]}>
 				<View
 					style={[
 						trigger && styles.displayNone,
@@ -229,7 +230,7 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 						arrow
 					/>
 				</View>
-			</ScrollView>
+			</ScrollView>}
 			{!trigger && <FooterNavigation />}
 		</View>
 	)

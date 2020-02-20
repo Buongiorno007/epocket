@@ -95,7 +95,7 @@ class Main extends React.Component {
 
         {!this.props.isLocation && (this.props.activeTab === 1 || this.props.activeTab === 0) && <LocationDisabled />}
         {/* <TimerModal /> */}
-        {/* <GeolocationService /> */}
+        <GeolocationService />
       </View>
     )
   }

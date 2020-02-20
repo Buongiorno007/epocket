@@ -9,7 +9,7 @@ export default class SignForm extends Component {
 	state = {
 		imgUri: '',
 		codeValue: '',
-		visible: false,
+		visible: true,
 		top: 0,
 		width: 0,
 		activeIndex: null,
@@ -89,7 +89,7 @@ export default class SignForm extends Component {
 					<View
 						style={styles.overlay}
 						onStartShouldSetResponder={() => true}
-						onResponderRelease={() => this.setState({ visible: false })}
+						onResponderRelease={() => this.setState({ visible: true })}
 					>
 						<View
 							style={[{

@@ -20,7 +20,7 @@
   "STORE_PHONES" : "Phone numbers:",
   "SPEND": "Spend",
   "REFILL_SCREEN": "Top up",
-  "TITLE": "EpocketCash",
+  "TITLE": "BlaBlaCash",
   "EXIT": "Do you want to exit?",
   "OK": "OK",
   "CANCEL": "Cancel",
@@ -266,7 +266,7 @@
     "SHOW_THIS_BARCODE": "To proceed payments show this barcode at the checkout"
   },
   "INFO_PAGE": {
-    "INFO_TITLE": "Do you want to spend your time profitably?\nVisit stores at the mall using EPocketCash App.\nWhile you’re shopping – discounts & bonuses are growing.\nHow it works?\nToday, the shopping day! Open EPocketCash App, chose your favorite mall and go shopping. While you’re at the mall, we credit your account with bonuses. You can spend earned bonuses in the stores – EPocketCash participants or enjoy coffee.\nCome up with your friends – earn more bonuses.\nPlay the quest of visiting, take a photo, make a post on your page. Get pleasure & benefit spending your time.\nDownload EPocketCash App, chose the place, where you’d like to be, and get bonuses just walking through the mall. You’ll be informed about discounts and promo actions firstly. You can exchange your time for gifts from stores – EPocketCash participants. You can earn bonuses for:\n- your time, spent at the mall;\n- visiting the stores at the mall;\n- placing a photo on your page;\n- inviting friends.\nIf you want to spend your time profitably, use our application every time you go shopping."
+    "INFO_TITLE": "Do you want to spend your time profitably?\nVisit stores at the mall using BlaBlaCash App.\nWhile you’re shopping – discounts & bonuses are growing.\nHow it works?\nToday, the shopping day! Open BlaBlaCash App, chose your favorite mall and go shopping. While you’re at the mall, we credit your account with bonuses. You can spend earned bonuses in the stores – BlaBlaCash participants or enjoy coffee.\nCome up with your friends – earn more bonuses.\nPlay the quest of visiting, take a photo, make a post on your page. Get pleasure & benefit spending your time.\nDownload BlaBlaCash App, chose the place, where you’d like to be, and get bonuses just walking through the mall. You’ll be informed about discounts and promo actions firstly. You can exchange your time for gifts from stores – BlaBlaCash participants. You can earn bonuses for:\n- your time, spent at the mall;\n- visiting the stores at the mall;\n- placing a photo on your page;\n- inviting friends.\nIf you want to spend your time profitably, use our application every time you go shopping."
   },
   "PUSH_MESSAGE": {
     "PUSH_1": "Your time is your money. You earned ___  {{currency}}",
@@ -354,7 +354,7 @@
   "NO_INST_INSTALLED": "Please install Instagram app to proceed publishing.",
   "UNABLE_TO_POST": "Unable to post",
   "PERMISSON": {
-    "STORAGE_PERMISSON_TITLE": "EPocketCash need access to your files",
+    "STORAGE_PERMISSON_TITLE": "BlaBlaCash need access to your files",
     "STORAGE_PERMISSON_MESSAGE": "Access is required to publish post in Instagram."
   },
   "REF_LINK": {
@@ -377,7 +377,7 @@
     "TELEGRAM": "Telegram",
     "MORE": "more",
     "COPY_MESSAGE": "Link copied to the clipboard, paste it in Your post",
-    "ADDITIONAL_SHARING_TEXT": "Let's earn together in EPocketCash. The link is valid for 14 days."
+    "ADDITIONAL_SHARING_TEXT": "Let's earn together in BlaBlaCash. The link is valid for 14 days."
   },
   "COUNTRY": {
     "UA": "Ukraine",
@@ -405,7 +405,7 @@
     "SEND_AGAIN": "Send again",
     "SENDED_CODE": "6-digit code was sent to your phone number",
     "CHECK_CODE": "Check code for errors",
-    "CONGRATULATION": "Congratulation!\nYou successfully registered in EPocketCash"
+    "CONGRATULATION": "Congratulation!\nYou successfully registered in BlaBlaCash"
   },
   "MONTH": {
     "January": "January",
@@ -496,7 +496,7 @@
     "NEXT" : "Next",
     "SKIP" : "Skip",
     "FIRST" : "Welcome!",
-    "FIRST_DESC" : "In EpocketCash, you get a guaranteed reward for each completed task.",
+    "FIRST_DESC" : "In BlaBlaCash, you get a guaranteed reward for each completed task.",
     "SECOND" : "Missions on the map",
     "SECOND_DESC" : "Find a suitable location on the map and go there to complete the task",
     "THIRD" : "Missions without leaving home",
@@ -506,10 +506,10 @@
   },
   "ADVERT" : {
     "HEADER1" : "Making $ 50 is easier than it sounds",
-    "TEXT1" : "Do you want even more interesting questions and earning opportunities? Tell your relatives, friends and acquaintances about this. Among them, for sure, there are those who are looking for customers for their business. Tell them the benefits of ePocketCash and give them a referral link. Using your link, they will receive a 10% discount on connection, and you will receive $ 50 in your ePocketCash account.",
+    "TEXT1" : "Do you want even more interesting questions and earning opportunities? Tell your relatives, friends and acquaintances about this. Among them, for sure, there are those who are looking for customers for their business. Tell them the benefits of BlaBlaCash and give them a referral link. Using your link, they will receive a 10% discount on connection, and you will receive $ 50 in your BlaBlaCash account.",
     "HEADER2" : "Monthly cashback",
     "TEXT2" : "Make one-time income regular. Each business account connected via your referral link will bring you 1% of the turnover. Monthly!",
-    "TEXT3" : "How does this work? For example: You told someone about ePocketCash. Your friends connected to the ePocketCash system. When connecting a business account, it was your referral link that was used. The owner of the business account has replenished his account in the system for advertising in ePocketCash. The system will credit your account with cashback in the amount of 1% of each replenishment on the next day after the replenishment.",
+    "TEXT3" : "How does this work? For example: You told someone about BlaBlaCash. Your friends connected to the BlaBlaCash system. When connecting a business account, it was your referral link that was used. The owner of the business account has replenished his account in the system for advertising in BlaBlaCash. The system will credit your account with cashback in the amount of 1% of each replenishment on the next day after the replenishment.",
     "MORE" : "Read more detailed information on the website"
   },
   "STORE_POINT" : {
