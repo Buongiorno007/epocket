@@ -105,12 +105,12 @@ function MapSpend({ lat, lng, mapPoints, wallet, profileState }) {
 							callback={() => route.push('Partnrs')}
 							space
 						/>
-						<MapSpendButton
+						{/* <MapSpendButton
 							img={require('@assets/img/phone.png')}
 							text={I18n.t('REFILL.PAYMENT_G')}
 							callback={() => route.push('Refill')}
 							space
-						/>
+						/> */}
 					</View>
 					{/* <Text style={styles.text}>{I18n.t('HOME')}</Text> */}
 				</View>

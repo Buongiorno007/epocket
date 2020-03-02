@@ -38,6 +38,40 @@
 		C96BA15EE702A2320F8B9EB0 /* libPods-EpocketCash.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D61ABB3D4EC7BD0D4B9E77D /* libPods-EpocketCash.a */; };
 		D186B0D9E0CA4FDEB28209C5 /* Rubik-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 332A185408DB465EBFE63613 /* Rubik-Italic.ttf */; };
 		D1D7BB474BAB4761B23CA444 /* Rubik-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 50FB5C25F8CC4361A2F610B8 /* Rubik-Light.ttf */; };
+		F3A92A73240015C300F1CB03 /* RNBackgroundFetch+AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 326FB54D210220B50027636E /* RNBackgroundFetch+AppDelegate.m */; };
+		F3A92A74240015C300F1CB03 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
+		F3A92A75240015C300F1CB03 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		F3A92A77240015C300F1CB03 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1587E303215A6AF500350ADF /* Social.framework */; };
+		F3A92A78240015C300F1CB03 /* libPods-EpocketCash.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D61ABB3D4EC7BD0D4B9E77D /* libPods-EpocketCash.a */; };
+		F3A92A7A240015C300F1CB03 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		F3A92A7B240015C300F1CB03 /* Rubik-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1D6C6FE612DB45F8B98D4BD1 /* Rubik-Black.ttf */; };
+		F3A92A7C240015C300F1CB03 /* Rubik-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B15CEB4AB522451A8CD8BB46 /* Rubik-BlackItalic.ttf */; };
+		F3A92A7D240015C300F1CB03 /* Rubik-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D96D77508BC148399D51CF35 /* Rubik-Bold.ttf */; };
+		F3A92A7E240015C300F1CB03 /* Rubik-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AFA52E8249C4D02BF040A96 /* Rubik-BoldItalic.ttf */; };
+		F3A92A7F240015C300F1CB03 /* Rubik-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 332A185408DB465EBFE63613 /* Rubik-Italic.ttf */; };
+		F3A92A80240015C300F1CB03 /* Rubik-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 50FB5C25F8CC4361A2F610B8 /* Rubik-Light.ttf */; };
+		F3A92A81240015C300F1CB03 /* Rubik-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 511814A1532F4C6BA4A83A76 /* Rubik-LightItalic.ttf */; };
+		F3A92A82240015C300F1CB03 /* Rubik-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2F77CBA48CBE4BE0AD3EA923 /* Rubik-Medium.ttf */; };
+		F3A92A83240015C300F1CB03 /* Rubik-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 832D9BA8AE8B4022A983881C /* Rubik-MediumItalic.ttf */; };
+		F3A92A84240015C300F1CB03 /* clock_tick.wav in Resources */ = {isa = PBXBuildFile; fileRef = A5A389172237DF5500F9C812 /* clock_tick.wav */; };
+		F3A92A85240015C300F1CB03 /* Rubik-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5EA51E44F8B74DBCB63351C2 /* Rubik-Regular.ttf */; };
+		F3A92A86240015C300F1CB03 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A0FEAF16BB0F46A2857876ED /* Entypo.ttf */; };
+		F3A92A87240015C300F1CB03 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E491EBD0C6894115A34FC58D /* EvilIcons.ttf */; };
+		F3A92A88240015C300F1CB03 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3257B2A1212470C600D80C7E /* GoogleService-Info.plist */; };
+		F3A92A89240015C300F1CB03 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32C5254B2109F3E1002525F2 /* Launch Screen.storyboard */; };
+		F3A92A8A240015C300F1CB03 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AF8297859AC940B29F59C410 /* FontAwesome.ttf */; };
+		F3A92A8B240015C300F1CB03 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 158329A621AC3DF800AB3794 /* InfoPlist.strings */; };
+		F3A92A8C240015C300F1CB03 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 097E387202BC41D1AFF466FF /* Foundation.ttf */; };
+		F3A92A8D240015C300F1CB03 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA5772EDC44846D79BA3590D /* Ionicons.ttf */; };
+		F3A92A8E240015C300F1CB03 /* quest_fail.wav in Resources */ = {isa = PBXBuildFile; fileRef = A5A389162237DF5500F9C812 /* quest_fail.wav */; };
+		F3A92A8F240015C300F1CB03 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE96AE24F2BF49D5BCC51106 /* MaterialCommunityIcons.ttf */; };
+		F3A92A90240015C300F1CB03 /* quest_complete.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A5A389182237DF5500F9C812 /* quest_complete.mp3 */; };
+		F3A92A91240015C300F1CB03 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 980D170C751B492D8F80F736 /* MaterialIcons.ttf */; };
+		F3A92A92240015C300F1CB03 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1588F5B983604D61AA4836C5 /* Octicons.ttf */; };
+		F3A92A93240015C300F1CB03 /* Roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4DE00973334F4E50B322019E /* Roboto_medium.ttf */; };
+		F3A92A94240015C300F1CB03 /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3120522DDF2C45489C57F56E /* Roboto.ttf */; };
+		F3A92A95240015C300F1CB03 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 36AA07AC67674B16849DBD34 /* SimpleLineIcons.ttf */; };
+		F3A92A96240015C300F1CB03 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C00A89E4DBAE4BB288A969E7 /* Zocial.ttf */; };
 		F631691D8B4F45E294C20079 /* Rubik-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AFA52E8249C4D02BF040A96 /* Rubik-BoldItalic.ttf */; };
 		F7CDE7A7791C48F590CB09A3 /* Rubik-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D96D77508BC148399D51CF35 /* Rubik-Bold.ttf */; };
 		F93875B93B074B6A8E129D06 /* Rubik-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2F77CBA48CBE4BE0AD3EA923 /* Rubik-Medium.ttf */; };
@@ -87,6 +121,8 @@
 		EC9E7AB56841C2E1726262F9 /* Pods-EpocketCash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EpocketCash.release.xcconfig"; path = "Target Support Files/Pods-EpocketCash/Pods-EpocketCash.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		F3A92A9D240015C300F1CB03 /* BlaBlaCash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlaBlaCash.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3A92A9E240015C400F1CB03 /* BlaBlaCash.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = BlaBlaCash.plist; path = "/Users/fpmsoft/Documents/Projects/epocket-app/ios/BlaBlaCash.plist"; sourceTree = "<absolute>"; };
 		F8178C5BB20643ED3A6E2E10 /* Pods-EpocketCash.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EpocketCash.debug.xcconfig"; path = "Target Support Files/Pods-EpocketCash/Pods-EpocketCash.debug.xcconfig"; sourceTree = "<group>"; };
 		FE96AE24F2BF49D5BCC51106 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,6 +134,15 @@
 			files = (
 				1587E304215A6AF500350ADF /* Social.framework in Frameworks */,
 				C96BA15EE702A2320F8B9EB0 /* libPods-EpocketCash.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F3A92A76240015C300F1CB03 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3A92A77240015C300F1CB03 /* Social.framework in Frameworks */,
+				F3A92A78240015C300F1CB03 /* libPods-EpocketCash.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,6 +227,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				743B0D95D877468A8A2574B4 /* Resources */,
 				AD3651EF1F1B2CEA4630E626 /* Pods */,
+				F3A92A9E240015C400F1CB03 /* BlaBlaCash.plist */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -192,6 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* EpocketCash.app */,
+				F3A92A9D240015C300F1CB03 /* BlaBlaCash.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -227,6 +274,27 @@
 			name = EpocketCash;
 			productName = "Hello World";
 			productReference = 13B07F961A680F5B00A75B9A /* EpocketCash.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F3A92A70240015C300F1CB03 /* BlaBlaCash */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F3A92A9A240015C300F1CB03 /* Build configuration list for PBXNativeTarget "BlaBlaCash" */;
+			buildPhases = (
+				F3A92A71240015C300F1CB03 /* [CP] Check Pods Manifest.lock */,
+				F3A92A72240015C300F1CB03 /* Sources */,
+				F3A92A76240015C300F1CB03 /* Frameworks */,
+				F3A92A79240015C300F1CB03 /* Resources */,
+				F3A92A97240015C300F1CB03 /* Bundle React Native code and images */,
+				F3A92A98240015C300F1CB03 /* ShellScript */,
+				F3A92A99240015C300F1CB03 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BlaBlaCash;
+			productName = "Hello World";
+			productReference = F3A92A9D240015C300F1CB03 /* BlaBlaCash.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -265,6 +333,7 @@
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* EpocketCash */,
+				F3A92A70240015C300F1CB03 /* BlaBlaCash */,
 			);
 		};
 /* End PBXProject section */
@@ -303,6 +372,42 @@
 				67D70D34036643328D880D4A /* Roboto.ttf in Resources */,
 				04759FCF1AAF4A859C4E25FF /* SimpleLineIcons.ttf in Resources */,
 				4D2A64F4C2A248D88CFC0A6A /* Zocial.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F3A92A79240015C300F1CB03 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3A92A7A240015C300F1CB03 /* Images.xcassets in Resources */,
+				F3A92A7B240015C300F1CB03 /* Rubik-Black.ttf in Resources */,
+				F3A92A7C240015C300F1CB03 /* Rubik-BlackItalic.ttf in Resources */,
+				F3A92A7D240015C300F1CB03 /* Rubik-Bold.ttf in Resources */,
+				F3A92A7E240015C300F1CB03 /* Rubik-BoldItalic.ttf in Resources */,
+				F3A92A7F240015C300F1CB03 /* Rubik-Italic.ttf in Resources */,
+				F3A92A80240015C300F1CB03 /* Rubik-Light.ttf in Resources */,
+				F3A92A81240015C300F1CB03 /* Rubik-LightItalic.ttf in Resources */,
+				F3A92A82240015C300F1CB03 /* Rubik-Medium.ttf in Resources */,
+				F3A92A83240015C300F1CB03 /* Rubik-MediumItalic.ttf in Resources */,
+				F3A92A84240015C300F1CB03 /* clock_tick.wav in Resources */,
+				F3A92A85240015C300F1CB03 /* Rubik-Regular.ttf in Resources */,
+				F3A92A86240015C300F1CB03 /* Entypo.ttf in Resources */,
+				F3A92A87240015C300F1CB03 /* EvilIcons.ttf in Resources */,
+				F3A92A88240015C300F1CB03 /* GoogleService-Info.plist in Resources */,
+				F3A92A89240015C300F1CB03 /* Launch Screen.storyboard in Resources */,
+				F3A92A8A240015C300F1CB03 /* FontAwesome.ttf in Resources */,
+				F3A92A8B240015C300F1CB03 /* InfoPlist.strings in Resources */,
+				F3A92A8C240015C300F1CB03 /* Foundation.ttf in Resources */,
+				F3A92A8D240015C300F1CB03 /* Ionicons.ttf in Resources */,
+				F3A92A8E240015C300F1CB03 /* quest_fail.wav in Resources */,
+				F3A92A8F240015C300F1CB03 /* MaterialCommunityIcons.ttf in Resources */,
+				F3A92A90240015C300F1CB03 /* quest_complete.mp3 in Resources */,
+				F3A92A91240015C300F1CB03 /* MaterialIcons.ttf in Resources */,
+				F3A92A92240015C300F1CB03 /* Octicons.ttf in Resources */,
+				F3A92A93240015C300F1CB03 /* Roboto_medium.ttf in Resources */,
+				F3A92A94240015C300F1CB03 /* Roboto.ttf in Resources */,
+				F3A92A95240015C300F1CB03 /* SimpleLineIcons.ttf in Resources */,
+				F3A92A96240015C300F1CB03 /* Zocial.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,6 +462,76 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EpocketCash/Pods-EpocketCash-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		F3A92A71240015C300F1CB03 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EpocketCash-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F3A92A97240015C300F1CB03 /* Bundle React Native code and images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle React Native code and images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+		};
+		F3A92A98240015C300F1CB03 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/Fabric/run\"\n";
+		};
+		F3A92A99240015C300F1CB03 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EpocketCash/Pods-EpocketCash-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EpocketCash/Pods-EpocketCash-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EpocketCash/Pods-EpocketCash-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		F405F55B9502977438ECA34A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -389,6 +564,16 @@
 				326FB575210220B50027636E /* RNBackgroundFetch+AppDelegate.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F3A92A72240015C300F1CB03 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3A92A73240015C300F1CB03 /* RNBackgroundFetch+AppDelegate.m in Sources */,
+				F3A92A74240015C300F1CB03 /* AppDelegate.m in Sources */,
+				F3A92A75240015C300F1CB03 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -587,6 +772,85 @@
 			};
 			name = Release;
 		};
+		F3A92A9B240015C300F1CB03 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F8178C5BB20643ED3A6E2E10 /* Pods-EpocketCash.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = EpocketCash/EpocketCash.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = 67CT3EL4VP;
+				ENABLE_BITCODE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
+					"\"$(SRCROOT)/../node_modules/react-native/React\"",
+				);
+				INFOPLIST_FILE = BlaBlaCash.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MARKETING_VERSION = 1.0;
+				NEW_SETTING = "";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cash.blabla.app;
+				PRODUCT_NAME = BlaBlaCash;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		F3A92A9C240015C300F1CB03 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EC9E7AB56841C2E1726262F9 /* Pods-EpocketCash.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = EpocketCash/EpocketCash.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 67CT3EL4VP;
+				ENABLE_BITCODE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
+					"\"$(SRCROOT)/../node_modules/react-native/React\"",
+				);
+				INFOPLIST_FILE = BlaBlaCash.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MARKETING_VERSION = 1.0;
+				NEW_SETTING = "";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cash.blabla.app;
+				PRODUCT_NAME = BlaBlaCash;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -604,6 +868,15 @@
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
 				83CBBA211A601CBA00E9B192 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F3A92A9A240015C300F1CB03 /* Build configuration list for PBXNativeTarget "BlaBlaCash" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F3A92A9B240015C300F1CB03 /* Debug */,
+				F3A92A9C240015C300F1CB03 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
