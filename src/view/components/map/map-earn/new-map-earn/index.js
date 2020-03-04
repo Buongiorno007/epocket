@@ -19,6 +19,7 @@ import { setTabState } from '@reducers/tabs'
 
 function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigger, triggerInfo, mallPoint, gameResult, dispatch }) {
 	const [infoBoxWidth, setInfoBoxWidth] = useState(0)
+	const [isMapReady, setIsMapReady] = useState(false)
 	const region = {
 		latitude: lat,
 		longitude: lng,
@@ -26,7 +27,7 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 		longitudeDelta: 0.006,
 	}
 	useEffect(() => {
-		if (mapPoints.outlets.length && gameResult.game_id === 0) {
+		if (mapPoints.outlets.length && gameResult.game_id === 0 && isMapReady) {
 			moveToNearest()
 		}
 	}, [trigger, mapPoints, games])
@@ -92,6 +93,10 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 		return timeSplitted
 	}
 
+	onMapLayout = () => {
+		setIsMapReady(true)
+	  }
+
 	return (
 		// <View style={[trigger ? {height: screenHeight} : [{height: windowHeight, paddingBottom: 61}], windowHeight !== screenHeight ? styles.marginTop: null]}>
 		<View style={styles.container}>
@@ -124,7 +129,8 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 						animateClusters={false}
 						showsCompass={false}
 						edgePadding={{ top: 50, left: 50, bottom: 50, right: 50 }}
-						currency={profileState.currency}
+						currency={profileState.currency}		
+						onLayout={this.onMapLayout}				
 					>
 						<Marker
 							coordinate={{

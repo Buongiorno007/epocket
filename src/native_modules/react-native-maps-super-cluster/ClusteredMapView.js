@@ -120,7 +120,7 @@ export default class ClusteredMapView extends PureComponent {
 		items.forEach((element) => {
 			price += element.properties.item.price
 		})
-		return price
+		return price.toFixed(2)
 	}
 
 	render() {
