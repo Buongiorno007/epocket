@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { View, Text, ScrollView, ImageBackground, Image, TouchableOpacity, Platform, Dimensions } from "react-native"
 import MapTaskHeader from "@containers/map/map-task-header"
 import { connect } from "react-redux"
@@ -7,6 +7,7 @@ import route from "@services/route"
 import I18n from '@locales/I18n'
 import { getMallTask } from "@reducers/mallTask"
 import { getInstaPost } from "@reducers/progressTask"
+import CustomAlert from '@containers/custom/custom-alert/custom-alert'
 
 const { width } = Dimensions.get('window')
 const height =
@@ -14,9 +15,19 @@ const height =
 		? Dimensions.get('screen').height
 		: Dimensions.get('window').height
 
-function InstaPost({profileState, mallTask, dispatch}) {
+function InstaPost({profileState, mallTask, insta_token, dispatch}) {
+    const [modalVisible, setModalVisible] = useState(false)
     const { tasks } = mallTask
     console.log(tasks, 'ttttaaasss')
+    console.log(insta_token, 'insta_token')
+
+    const handlePress = (item) => {
+        if (insta_token) {
+            dispatch(getInstaPost(item.mission_id, item.outlet_id))
+        } else {
+            setModalVisible(true)
+        }
+    }
 
     return(     
         <View style={{height: '100%'}}>
@@ -25,7 +36,8 @@ function InstaPost({profileState, mallTask, dispatch}) {
                 <View style={{flexDirection: 'row', flexWrap: 'wrap', alignContent: 'space-around', alignItems: 'center', justifyContent: 'space-between', paddingTop: 16}}>
                 {tasks.map((item, index) => (
                     // <TouchableOpacity style={[{marginBottom: 16, marginHorizontal: 16 }]} onPress={() => {route.push('InstaPostPublish', {item})}}>
-                    <TouchableOpacity style={[{marginBottom: 16, marginHorizontal: 10}]} onPress={() => {dispatch(getInstaPost(item.mission_id, item.outlet_id))}} key={index}>
+                    // <TouchableOpacity style={[{marginBottom: 16, marginHorizontal: 10}]} onPress={() => {dispatch(getInstaPost(item.mission_id, item.outlet_id))}} key={index}>
+                    <TouchableOpacity style={[{marginBottom: 16, marginHorizontal: 10}]} onPress={ () => handlePress(item)} key={index}>
                         <View>
                             <Image style={{width: (width - 64) / 2, height: (width - 64) / 2, borderRadius: 12 }} source={{uri : item.task_details.photo}} resizeMode={'contain'}/>
                         </View>
@@ -37,12 +49,20 @@ function InstaPost({profileState, mallTask, dispatch}) {
                 ))}
                 </View>
             </ScrollView>
+            <CustomAlert
+                title={I18n.t('NO_INSTA_MODAL.TITLE')}
+                first_btn_title={'NO_INSTA_MODAL.BTN_TEXT'}
+                visible={modalVisible}
+                first_btn_handler={() => route.navigate('ProfileSettings')}
+                decline_btn_handler={() => setModalVisible(!modalVisible)}
+            />
         </View>
     )
 }
 const mapStateToProps = state => ({
     profileState: state.profileState,
     mallTask: state.mallTask,
+    insta_token: state.insta_token,
   })
 
 export default connect(mapStateToProps)(InstaPost)

@@ -519,5 +519,9 @@
     "ABOUT" : "About",
     "LINKS" : "Links",
     "TASKS" : "Avaliable tasks"
+  },
+  "NO_INSTA_MODAL" : {
+    "TITLE" : "Your Instagram account is currently not connected to the EpocketCash app",
+    "BTN_TEXT" : "Connect?"
   }
 }
