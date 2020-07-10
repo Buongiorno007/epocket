@@ -124,7 +124,8 @@ const propTypes = {
 const defaultProps = {
 	redirectUrl: 'https://epocket.dev.splinestudio.com',
 	styles: {},
-	scopes: ['public_content'],
+	// scopes: ['user_profile'],
+	scopes: [''],
 	onLoginSuccess: (token) => {
 		Alert.alert('Alert Title', 'Token: ' + token, [{ text: 'OK' }], {
 			cancelable: false,

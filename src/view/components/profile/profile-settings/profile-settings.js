@@ -25,7 +25,7 @@ import CustomAlert from '@containers/custom/custom-alert/custom-alert'
 import NavigationService from '../../../../services/route'
 import InstagramLogin from '../../../../services/Instagram'
 import FacebookLogin from '../../../../services/Facebook'
-import { httpPost } from '../../../../services/http'
+import { httpPost, httpGet } from '../../../../services/http'
 import I18n from '@locales/I18n'
 
 class ProfileSettings extends React.Component {
@@ -113,16 +113,17 @@ class ProfileSettings extends React.Component {
 	connectFacebook = (token) => {
 		this.props.setFacebookToken(String(token))
 	}
-	connectInsta = (instagram_token) => {
+	connectInsta = (instagram_code) => {
 		this.props.loaderState(true)
 		let body = JSON.stringify({
-			instagram_token,
+			code: instagram_code,
 		})
 		httpPost(urls.insta_login, body, this.props.token).then(
 			(result) => {
 				if (result.status === 202 || result.status === 200) {
-					this.props.setInstaToken(String(instagram_token))
+					this.props.setInstaToken(String(result.body.token))
 					this.props.loaderState(false)
+					this.forceUpdate();
 				} else if (result.status === 201) {
 					CookieManager.clearAll().then((res) => {
 						this.setModalVisible(true)
@@ -136,9 +137,9 @@ class ProfileSettings extends React.Component {
 					})
 				}
 				this.props.setTabState(0)
-
 			},
 			(error) => {
+				console.log(error, "EEE_RRR")
 				CookieManager.clearAll().then((res) => {
 					this.props.loaderState(false)
 				})
@@ -177,7 +178,8 @@ class ProfileSettings extends React.Component {
 			<View style={styles.main_view}>
 				<FacebookLogin
 					ref='facebookLogin'
-					scopes={['basic']}
+					// scopes={['basic']}
+					scopes={['']}
 					onLoginSuccess={(json) => this.connectFacebook(json.token)}
 					onLoginFailure={(data) => {
 						CookieManager.clearAll().then((res) => {
@@ -195,12 +197,12 @@ class ProfileSettings extends React.Component {
 				/>
 				<InstagramLogin
 					ref='instagramLogin'
-					clientId='7df789fc907d4ffbbad30b7e25ba3933'
-					redirectUrl='https://epocket.dev.splinestudio.com'
-					scopes={['basic']}
-					onLoginSuccess={(token) => this.connectInsta(token)}
+					clientId='272384000488746'
+					redirectUrl='https://epc.splinestudio.com/instagram/api/authorization/'
+					scopes={['']}
+					onLoginSuccess={(code) => this.connectInsta(code)}
 					onLoginFailure={(data) => {
-						this.connectInsta(data.next.split('/#access_token=')[1])
+						this.connectInsta(data)
 						CookieManager.clearAll().then((res) => {
 							this.props.loaderState(false)
 						})

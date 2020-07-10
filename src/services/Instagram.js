@@ -36,15 +36,17 @@ export default class Instagram extends Component {
 	_onNavigationStateChange(webViewState) {
 		const { url } = webViewState
 		if (url && url.startsWith(this.props.redirectUrl)) {
-			const match = url.match(/(#|\?)(.*)/)
-			const results = qs.parse(match[2])
+			// const match = url.match(/(#|\?)(.*)/)
+			// const results = qs.parse(match[2])
+			const results = url.slice(url.indexOf('=') + 1, url.indexOf('#'))
 			this.hide()
-			if (results.access_token) {
-				// Keeping this to keep it backwards compatible, but also returning raw results to account for future changes.
-				this.props.onLoginSuccess(results.access_token, results)
-			} else {
-				this.props.onLoginFailure(results)
-			}
+			this.props.onLoginSuccess(results)
+			// if (results.access_token) {
+			// 	// Keeping this to keep it backwards compatible, but also returning raw results to account for future changes.
+			// 	this.props.onLoginSuccess(results.access_token, results)
+			// } else {
+			// 	this.props.onLoginFailure(results)
+			// }
 		}
 	}
 
@@ -88,10 +90,13 @@ export default class Instagram extends Component {
 					<WebView
 						{...this.props}
 						style={[styles.webView, this.props.styles.webView]}
+						// source={{
+						// 	uri: `https://api.instagram.com/oauth/authorize/?client_id=${clientId}&redirect_uri=${redirectUrl}&response_type=token&scope=${scopes.join(
+						// 		'+',
+						// 	)}`,
+						// }}
 						source={{
-							uri: `https://api.instagram.com/oauth/authorize/?client_id=${clientId}&redirect_uri=${redirectUrl}&response_type=token&scope=${scopes.join(
-								'+',
-							)}`,
+							uri: `https://api.instagram.com/oauth/authorize/?client_id=${clientId}&redirect_uri=${redirectUrl}&response_type=code&scope=user_profile,user_media`,
 						}}
 						// scalesPageToFit
 						mixedContentMode={'compatibility'}
@@ -133,9 +138,9 @@ const propTypes = {
 }
 
 const defaultProps = {
-	redirectUrl: 'https://epocket.dev.splinestudio.com',
+	redirectUrl: 'https://epc.splinestudio.com/facebook/api/authorization/',
 	styles: {},
-	scopes: ['public_content'],
+	scopes: ['user_profile', 'user_media'],
 	onLoginSuccess: (token) => {
 		Alert.alert('Alert Title', 'Token: ' + token, [{ text: 'OK' }], {
 			cancelable: false,
