@@ -59,7 +59,10 @@ export const current = () => async (dispatch) => {
 
 export const status = () => async (dispatch) => {
 	if (Platform.OS === 'ios') {
-		BackgroundGeolocationModule.on('providerchange', (location) => dispatch(setStatus(location.enabled)))
+		BackgroundGeolocationModule.on('providerchange', (location) => {
+			console.log("LLL location ==> ", location)
+			dispatch(setStatus(location.enabled))
+		})
 	} else {
 		BackgroundGeolocationModule.on('authorization', (authorization) => {
 			BackgroundGeolocationModule.checkStatus((status) => {

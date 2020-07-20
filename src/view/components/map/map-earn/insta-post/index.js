@@ -51,7 +51,7 @@ function InstaPost({profileState, mallTask, insta_token, dispatch}) {
             </ScrollView>
             <CustomAlert
                 title={I18n.t('NO_INSTA_MODAL.TITLE')}
-                first_btn_title={'NO_INSTA_MODAL.BTN_TEXT'}
+                first_btn_title={I18n.t('NO_INSTA_MODAL.BTN_TEXT')}
                 visible={modalVisible}
                 first_btn_handler={() => route.navigate('ProfileSettings')}
                 decline_btn_handler={() => setModalVisible(!modalVisible)}

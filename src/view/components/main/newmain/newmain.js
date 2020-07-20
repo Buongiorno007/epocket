@@ -59,6 +59,7 @@ class Main extends React.Component {
       console.log('App has come to the foreground!')
       // this.componentDidMount()
     this.props.activeTab !== 0 && this.props.progressTask.id === 0 && this.props.loaderState(false)
+    if (this.props.isLocation) this.componentDidMount()
     }
     this.setState({appState: nextAppState});
   }

@@ -27,6 +27,7 @@ const ios = {
 	stopOnTerminate: false,
 	startOnBoot: false,
 	stationaryRadius: 1,
+	authorization: {}
 }
 
 const defaulted = {
