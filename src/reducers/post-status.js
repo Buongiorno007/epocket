@@ -24,7 +24,8 @@ export const checkPostStatus = () => async (dispatch, getState) => {
     await dispatch(getGameStart())
 		await dispatch(getGameProcess())
 		await dispatch(loaderState(false)) 
-    await route.navigate("Gamee")
+    // await route.navigate("Gamee")
+    await route.navigate("Main")
     // await route.push('Gamepage')
   } catch (error) {
     console.log(error, "checkPostStatus ERROR")
