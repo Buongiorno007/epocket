@@ -160,8 +160,10 @@ export default StyleSheet.create({
         borderWidth: 1,
         borderColor: colors.map_gray,
         padding: 16,
-        width: (width - 40) / 2,
-        height: 144,
+        width: '100%' ,
+        // width: (width - 40) / 2,
+        height: 100,
+        // height: 144,
         justifyContent: 'space-between',
         backgroundColor: colors.white
     },

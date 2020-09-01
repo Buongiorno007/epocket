@@ -177,12 +177,12 @@ class NewProfile extends React.Component {
 									<Text style={styles.refPadText_red}>{`+ 5 ${this.props.profileState.currency}`}</Text>
 								</View>
 								<View style={styles.refPad_row}>
-									<Text style={styles.refPadText_bl}>{I18n.t('REF_LINK.ADD_FRIEND')}</Text>
+									<Text style={styles.refPadText_bl}>{I18n.t('REF_LINK.ADD_FRIEND2')}</Text>
 									<Image style={styles.refPadImg_sm} source={require('@assets/img/small_arrow_right.png')} resizeMode={'contain'} />
 								</View>
 							</TouchableOpacity>
 
-							<TouchableOpacity style={[styles.refPad]} onPress={() => route.push('AddAdvert')}>
+							{/* <TouchableOpacity style={[styles.refPad]} onPress={() => route.push('AddAdvert')}>
 								<View style={styles.refPad_row}>
 									<Image style={styles.refPadImg_big} source={require('@assets/img/add-advert.png')} resizeMode={'contain'} />
 									<Text style={styles.refPadText_red}>{'+ 50 $'}</Text>
@@ -191,7 +191,7 @@ class NewProfile extends React.Component {
 									<Text style={styles.refPadText_bl}>{I18n.t('REF_LINK.ADD_ADVERT')}</Text>
 									<Image style={styles.refPadImg_sm} source={require('@assets/img/small_arrow_right.png')} resizeMode={'contain'} />
 								</View>
-							</TouchableOpacity>
+							</TouchableOpacity> */}
 						</View>
 
 						{!this.props.insta_token && (

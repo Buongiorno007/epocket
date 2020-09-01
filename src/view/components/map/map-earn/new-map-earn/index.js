@@ -224,7 +224,7 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 						pub={'advert_friend'}
 						arrow
 					/>
-					<MapEarnButton
+					{/* <MapEarnButton
 						img={require('@assets/img/invite-advert-ico.png')}
 						text={I18n.t('REF_LINK.ADD_ADVERT2')}
 						callback={() => {
@@ -233,7 +233,7 @@ function NewMapEarn({ profileState, mapPoints, lat, lng, games, mallTask, trigge
 						space
 						pub={'advert_advert'}
 						arrow
-					/>
+					/> */}
 				</View>
 			</ScrollView>
 			{!trigger && <FooterNavigation />}
